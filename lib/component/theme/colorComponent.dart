@@ -1,10 +1,21 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:gservice5/component/theme/darkThemeProvider.dart';
 import 'package:provider/provider.dart';
 
 class ColorComponent {
   static Color mainColor = const Color(0xffFFCA0A);
+  static Map<String, Color> gray = {
+    "50": Color(0xfff9fafb),
+    "100": Color(0xfff4f5f7),
+    "200": Color(0xffe5e7eb),
+    "300": Color(0xffd2d6dc),
+    "400": Color(0xff9fa6b2),
+    "500": Color(0xff6b7280),
+    "600": Color(0xff4b5563),
+    "700": Color(0xff374151),
+    "800": Color(0xff252f3f),
+    "900": Color(0xff161e2e),
+  };
 }
 
 class ThemeColorComponent {
