@@ -20,7 +20,7 @@ class _BottomTabState extends State<BottomTab> {
   int _selectedIndex = 0;
   static final List<Map> _tabs = <Map>[
     {"icon": "assets/icons/home.svg", "label": "Главная"},
-    {"icon": "assets/icons/heart.svg", "label": "Избранное"},
+    {"icon": "assets/icons/heartOutline.svg", "label": "Избранное"},
     {"icon": "assets/icons/plus.svg", "label": "Объявление"},
     {"icon": "assets/icons/messages.svg", "label": "Сообщения"},
     {"icon": "assets/icons/user.svg", "label": "Профиль"},
@@ -64,12 +64,21 @@ class _BottomTabState extends State<BottomTab> {
                                       ? ColorComponent.mainColor
                                       : Colors.transparent,
                                   borderRadius: BorderRadius.circular(8)),
-                              child: SvgPicture.asset(value['icon'])),
+                              child: SvgPicture.asset(
+                                value['icon'],
+                                color: index == 2
+                                    ? null
+                                    : index == _selectedIndex
+                                        ? Colors.black.withOpacity(.8)
+                                        : ColorComponent.gray['500'],
+                              )),
                           Text(value['label'],
                               style: TextStyle(
                                   fontSize: 10,
                                   fontWeight: FontWeight.w500,
-                                  color: ColorComponent.gray['500']))
+                                  color: index == _selectedIndex
+                                      ? Colors.black
+                                      : ColorComponent.gray['500']))
                         ]),
                     showBadge: index == 3),
                 label: "");

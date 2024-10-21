@@ -5,6 +5,8 @@ import 'package:gservice5/component/button/button.dart';
 import 'package:gservice5/component/button/menuButton.dart';
 import 'package:gservice5/component/button/searchButton.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
+import 'package:gservice5/pages/ad/adItem.dart';
+import 'package:gservice5/pages/main/list/mainListPage.dart';
 import 'package:gservice5/pages/main/rubricMainButtons.dart';
 
 class MainPage extends StatefulWidget {
@@ -15,14 +17,19 @@ class MainPage extends StatefulWidget {
 }
 
 class _MainPageState extends State<MainPage> {
+  //show ad list page
+  void showMainListPage() {
+    Navigator.push(
+        context, MaterialPageRoute(builder: (context) => MainListPage()));
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          leading: LeadingLogo(),
-          leadingWidth: 156,
-          actions: [MenuButton(), Divider(indent: 15)],
-        ),
+            leading: LeadingLogo(),
+            leadingWidth: 156,
+            actions: [MenuButton(), Divider(indent: 15)]),
         body: SingleChildScrollView(
             child: Column(children: [
           Divider(indent: 16),
@@ -59,12 +66,15 @@ class _MainPageState extends State<MainPage> {
                 SizedBox(
                     height: 40,
                     child: Button(
-                        onPressed: () {}, title: "Показать 12 000 объявлений")),
+                        onPressed: showMainListPage,
+                        title: "Показать 12 000 объявлений")),
                 Divider(indent: 16),
-                RubricMainButtons()
+                RubricMainButtons(),
               ],
             ),
-          )
+          ),
+          Divider(indent: 12),
+          AdItem()
         ])));
   }
 }

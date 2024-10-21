@@ -28,8 +28,19 @@ class ColorComponent {
     "800": Color(0xff1e429f),
     "900": Color(0xff233876),
   };
+  static Map<String, Color> red = {
+    "50": Color(0xfffdf2f2),
+    "100": Color(0xfffde8e8),
+    "200": Color(0xfffbd5d5),
+    "300": Color(0xfff8b4b4),
+    "400": Color(0xfff98080),
+    "500": Color(0xfff05252),
+    "600": Color(0xffe02424),
+    "700": Color(0xffc81e1e),
+    "800": Color(0xff9b1c1c),
+    "900": Color(0xff771d1d),
+  };
 }
-
 
 class ThemeColorComponent {
   // ignore: non_constant_identifier_names
