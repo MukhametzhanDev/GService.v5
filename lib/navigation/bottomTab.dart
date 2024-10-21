@@ -47,6 +47,7 @@ class _BottomTabState extends State<BottomTab> {
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       bottomNavigationBar: BottomNavigationBar(
           backgroundColor: ColorTheme['white_black'],
+          elevation: 0,
           items: _tabs.map((value) {
             int index = _tabs.indexOf(value);
             return BottomNavigationBarItem(
@@ -56,29 +57,25 @@ class _BottomTabState extends State<BottomTab> {
                         crossAxisAlignment: WrapCrossAlignment.center,
                         direction: Axis.vertical,
                         children: [
-                          SvgPicture.asset(
-                            value['icon'],
-                            color: index == 2
-                                ? null
-                                : index == _selectedIndex
-                                    ? ColorComponent.mainColor
-                                    : Colors.grey[500],
-                          ),
+                          Container(
+                              padding: EdgeInsets.all(2),
+                              decoration: BoxDecoration(
+                                  color: index == _selectedIndex && index != 2
+                                      ? ColorComponent.mainColor
+                                      : Colors.transparent,
+                                  borderRadius: BorderRadius.circular(8)),
+                              child: SvgPicture.asset(value['icon'])),
                           Text(value['label'],
                               style: TextStyle(
                                   fontSize: 10,
                                   fontWeight: FontWeight.w500,
-                                  color: index == _selectedIndex
-                                      ? ColorComponent.mainColor
-                                      : ColorComponent.gray['500']))
+                                  color: ColorComponent.gray['500']))
                         ]),
                     showBadge: index == 3),
                 label: "");
           }).toList(),
           currentIndex: _selectedIndex,
           type: BottomNavigationBarType.fixed,
-          selectedItemColor: ColorComponent.gray['500'],
-          unselectedItemColor: ColorComponent.gray['500'],
           selectedLabelStyle: TextStyle(fontSize: 0),
           unselectedLabelStyle: TextStyle(fontSize: 0),
           onTap: _onItemTapped),

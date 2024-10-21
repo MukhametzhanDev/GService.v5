@@ -8,6 +8,7 @@ class Styles {
         primarySwatch: Colors.blue,
         splashColor: Colors.transparent,
         // brightness: isDarkTheme ? Brightness.dark : Brightness.light,
+        dividerTheme: DividerThemeData(color: Colors.transparent),
         dialogTheme: DialogTheme(
             surfaceTintColor: isDarkTheme ? Colors.black : Colors.white),
         dialogBackgroundColor: isDarkTheme ? Colors.black : Colors.white,
