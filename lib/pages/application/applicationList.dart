@@ -57,7 +57,8 @@ class _ApplicationListState extends State<ApplicationList> {
                     SvgPicture.asset("assets/icons/sort.svg")
                   ],
                 ),
-              ])
+              ]),
+              SizedBox(height: 12),
             ])),
         Expanded(
             child: ListView.builder(

@@ -3,6 +3,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:gservice5/component/button/button.dart';
 import 'package:gservice5/component/button/favoriteButton.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
+import 'package:gservice5/pages/ad/adItem.dart';
 import 'package:gservice5/pages/application/applicationItem.dart';
 
 class AdList extends StatefulWidget {
@@ -57,14 +58,14 @@ class _AdListState extends State<AdList> {
                     SvgPicture.asset("assets/icons/sort.svg")
                   ],
                 ),
-              ])
+              ]),
+              SizedBox(height: 12),
             ])),
         Expanded(
             child: ListView.builder(
-                padding: EdgeInsets.all(16),
                 itemCount: 10,
                 itemBuilder: (context, int index) {
-                  return ApplicationItem();
+                  return AdItem();
                 }))
       ],
     ));

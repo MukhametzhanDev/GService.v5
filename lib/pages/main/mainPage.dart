@@ -5,12 +5,15 @@ import 'package:gservice5/component/button/button.dart';
 import 'package:gservice5/component/button/menuButton.dart';
 import 'package:gservice5/component/button/searchButton.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
-import 'package:gservice5/pages/ad/adItem.dart';
+import 'package:gservice5/pages/application/applicationList.dart';
+import 'package:gservice5/pages/main/applicationListMain.dart';
+import 'package:gservice5/pages/main/companyListMain.dart';
 import 'package:gservice5/pages/main/list/mainListPage.dart';
 import 'package:gservice5/pages/main/rubricMainButtons.dart';
 
 class MainPage extends StatefulWidget {
-  const MainPage({super.key});
+  final ScrollController scrollController;
+  const MainPage({super.key, required this.scrollController});
 
   @override
   State<MainPage> createState() => _MainPageState();
@@ -31,50 +34,55 @@ class _MainPageState extends State<MainPage> {
             leadingWidth: 156,
             actions: [MenuButton(), Divider(indent: 15)]),
         body: SingleChildScrollView(
+            controller: widget.scrollController,
             child: Column(children: [
-          Divider(indent: 16),
-          BannersList(),
-          Divider(indent: 16),
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 15),
-            child: Column(
-              children: [
-                SearchButton(),
-                Divider(indent: 12),
-                SizedBox(
-                    height: 40,
-                    child: Row(children: [
-                      Expanded(
-                          child: Button(
-                        onPressed: () {},
-                        title: "Весь Казахстан",
-                        icon: "pin.svg",
-                        backgroundColor: ColorComponent.blue['100'],
-                        titleColor: ColorComponent.blue['500'],
-                      )),
-                      Divider(indent: 12),
-                      Expanded(
-                          child: Button(
-                        onPressed: () {},
-                        title: "Фильтр",
-                        icon: "filter.svg",
-                        backgroundColor:
-                            ColorComponent.mainColor.withOpacity(.1),
-                      ))
-                    ])),
-                Divider(indent: 12),
-                SizedBox(
-                    height: 40,
-                    child: Button(
-                        onPressed: showMainListPage,
-                        title: "Показать 12 000 объявлений")),
-                Divider(indent: 16),
-                RubricMainButtons(),
-              ],
-            ),
-          ),
-          Divider(indent: 12),
-          AdItem()
-        ])));
+              Divider(indent: 16),
+              BannersList(),
+              Divider(indent: 16),
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 15),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    SearchButton(),
+                    Divider(indent: 12),
+                    SizedBox(
+                        height: 40,
+                        child: Row(children: [
+                          Expanded(
+                              child: Button(
+                            onPressed: () {},
+                            title: "Весь Казахстан",
+                            icon: "pin.svg",
+                            backgroundColor: ColorComponent.blue['100'],
+                            titleColor: ColorComponent.blue['500'],
+                          )),
+                          Divider(indent: 12),
+                          Expanded(
+                              child: Button(
+                            onPressed: () {},
+                            title: "Фильтр",
+                            icon: "filter.svg",
+                            backgroundColor:
+                                ColorComponent.mainColor.withOpacity(.1),
+                          ))
+                        ])),
+                    Divider(indent: 12),
+                    SizedBox(
+                        height: 40,
+                        child: Button(
+                            onPressed: showMainListPage,
+                            title: "Показать 12 000 объявлений")),
+                    Divider(indent: 16),
+                    RubricMainButtons(),
+                  ],
+                ),
+              ),
+              Divider(indent: 20),
+              ApplicationListMain(),
+              Divider(height: 6),
+              CompanyListMain(),
+              Divider(indent: 15),
+            ])));
   }
 }

@@ -3,6 +3,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:gservice5/component/appBar/leadingLogo.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
 import 'package:gservice5/data/categoriesData.dart';
+import 'package:gservice5/pages/ad/adList.dart';
 import 'package:gservice5/pages/application/ApplicationList.dart';
 
 class MainListPage extends StatefulWidget {
@@ -57,11 +58,10 @@ class _MainListPageState extends State<MainListPage> {
                   );
                 }).toList()),
               ))),
-      body: IndexedStack(
-        children: [
-          ApplicationList()
-        ]
-      ),
+      body: IndexedStack(children: [
+        AdList(),
+        ApplicationList(),
+      ]),
     );
   }
 }

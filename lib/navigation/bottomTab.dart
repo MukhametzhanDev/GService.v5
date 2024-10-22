@@ -25,20 +25,31 @@ class _BottomTabState extends State<BottomTab> {
     {"icon": "assets/icons/messages.svg", "label": "Сообщения"},
     {"icon": "assets/icons/user.svg", "label": "Профиль"},
   ];
+  ScrollController scrollController = ScrollController();
 
-  //changed tab
+  //changed tab and scroll up
   void _onItemTapped(int index) {
+    if (_selectedIndex == 0 && index == 0) {
+      scrollController.animateTo(0,
+          duration: Duration(milliseconds: 300), curve: Curves.easeInOut);
+    }
     setState(() {
       _selectedIndex = index;
     });
   }
 
   @override
+  void dispose() {
+    scrollController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     final ColorTheme = ThemeColorComponent.ColorsTheme(context);
     return Scaffold(
-      body: IndexedStack(index: _selectedIndex, children: const [
-        MainPage(),
+      body: IndexedStack(index: _selectedIndex, children: [
+        MainPage(scrollController: scrollController),
         FavoriteMainPage(),
         CreateAdMainPage(),
         MessageMainPage(),
