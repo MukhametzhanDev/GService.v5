@@ -20,7 +20,7 @@ class _ShowStickersListState extends State<ShowStickersList> {
             padding: EdgeInsets.symmetric(horizontal: 8, vertical: 5.5),
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(6),
-                color: ColorComponent.mainColor),
+                color: ColorComponent.mainColor.withOpacity(.3)),
             child: Text("Тег",
                 style: TextStyle(
                     fontSize: 12, fontWeight: FontWeight.w600, height: 1)),

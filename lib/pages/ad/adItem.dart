@@ -56,23 +56,23 @@ class _AdItemState extends State<AdItem> {
                               fontWeight: FontWeight.w600),
                         ),
                       ),
-                      Divider(indent: 8),
-                      Container(
-                        height: 24,
-                        padding: EdgeInsets.symmetric(horizontal: 8),
-                        alignment: Alignment.center,
-                        decoration: BoxDecoration(
-                            color: ColorComponent.red["600"],
-                            borderRadius: BorderRadius.circular(6)),
-                        child: Text(
-                          "Хит продаж",
-                          style: TextStyle(
-                              height: 1,
-                              fontSize: 12,
-                              color: Colors.white,
-                              fontWeight: FontWeight.w600),
-                        ),
-                      ),
+                      // Divider(indent: 8),
+                      // Container(
+                      //   height: 24,
+                      //   padding: EdgeInsets.symmetric(horizontal: 8),
+                      //   alignment: Alignment.center,
+                      //   decoration: BoxDecoration(
+                      //       color: ColorComponent.red["600"],
+                      //       borderRadius: BorderRadius.circular(6)),
+                      //   child: Text(
+                      //     "Хит продаж",
+                      //     style: TextStyle(
+                      //         height: 1,
+                      //         fontSize: 12,
+                      //         color: Colors.white,
+                      //         fontWeight: FontWeight.w600),
+                      //   ),
+                      // ),
                       Divider(indent: 8),
                       SvgPicture.asset('assets/icons/fire.svg')
                     ],

@@ -5,6 +5,7 @@ import 'package:gservice5/component/button/button.dart';
 import 'package:gservice5/component/button/menuButton.dart';
 import 'package:gservice5/component/button/searchButton.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
+import 'package:gservice5/pages/ad/adItem.dart';
 import 'package:gservice5/pages/application/applicationList.dart';
 import 'package:gservice5/pages/main/applicationListMain.dart';
 import 'package:gservice5/pages/main/companyListMain.dart';
@@ -80,9 +81,13 @@ class _MainPageState extends State<MainPage> {
               ),
               Divider(indent: 20),
               ApplicationListMain(),
-              Divider(height: 6),
-              CompanyListMain(),
+              // Divider(height: 6),
+              // CompanyListMain(),
               Divider(indent: 15),
+              Column(
+                  children: List.generate(20, (index) => index).map((value) {
+                return AdItem();
+              }).toList())
             ])));
   }
 }

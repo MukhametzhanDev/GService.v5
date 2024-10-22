@@ -61,10 +61,9 @@ class _ShowDocumentWidgetState extends State<ShowDocumentWidget> {
                             overflow: TextOverflow.ellipsis,
                           ),
                           Divider(height: 6),
-                          Text(
-                            "123.24 MB, JPG",
-                            style: TextStyle(color: ColorComponent.gray["500"]),
-                          )
+                          Text("123.24 MB, JPG",
+                              style:
+                                  TextStyle(color: ColorComponent.gray["500"]))
                         ],
                       ),
                     ),
