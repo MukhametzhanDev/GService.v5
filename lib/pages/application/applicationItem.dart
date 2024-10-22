@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:gservice5/component/button/favoriteButton.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
+import 'package:gservice5/pages/application/viewApplicationPage.dart';
 
 class ApplicationItem extends StatelessWidget {
   const ApplicationItem({super.key});
@@ -10,10 +11,10 @@ class ApplicationItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        // Navigator.push(
-        //     context,
-        //     MaterialPageRoute(
-        //         builder: (context) => Viewapplication()));
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => ViewApplicationPage(id: 0)));
       },
       child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
         Container(height: 1, color: Color(0xfff4f4f4)),
@@ -32,7 +33,7 @@ class ApplicationItem extends StatelessWidget {
         ]),
         Divider(height: 12),
         Text("Нужен экскаватор 2-ух кубовый",
-            style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600)),
+            style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600)),
         Divider(height: 8),
         Text("Договорная",
             style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600)),
@@ -50,7 +51,7 @@ class ApplicationItem extends StatelessWidget {
           Text("г. Алматы",
               style: TextStyle(
                   fontSize: 12,
-                  fontWeight: FontWeight.w500,
+                  // fontWeight: FontWeight.3500,
                   color: ColorComponent.gray['500'])),
           Divider(indent: 12),
           Text("15 Сент 04:20",

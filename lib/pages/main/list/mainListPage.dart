@@ -59,8 +59,8 @@ class _MainListPageState extends State<MainListPage> {
                 }).toList()),
               ))),
       body: IndexedStack(children: [
-        AdList(),
         ApplicationList(),
+        AdList(),
       ]),
     );
   }

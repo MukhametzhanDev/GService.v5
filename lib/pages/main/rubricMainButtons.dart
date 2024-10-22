@@ -7,7 +7,7 @@ class RubricMainButtons extends StatelessWidget {
   List<Map> rubrics = [
     {"title": "Продажа", "icon": "basket.svg"},
     {"title": "Аренда", "icon": "rent.svg"},
-    {"title": "Запчасти", "icon": "file.svg"},
+    {"title": "Запчасти", "icon": "sparePart.svg"},
     {"title": "Заявки", "icon": "file.svg"},
     {"title": "Механик", "icon": "userSettings.svg"},
     {"title": "Водитель", "icon": "driver.svg"},

@@ -74,9 +74,7 @@ class _AdItemState extends State<AdItem> {
                         ),
                       ),
                       Divider(indent: 8),
-                      SvgPicture.asset('assets/icons/fire.svg'),
-                      Divider(indent: 8),
-                      SvgPicture.asset('assets/icons/badgeCheck.svg')
+                      SvgPicture.asset('assets/icons/fire.svg')
                     ],
                   ),
                   FavoriteButton()

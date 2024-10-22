@@ -9,6 +9,7 @@ class Button extends StatelessWidget {
   final String? icon;
   final String title;
   final EdgeInsets? padding;
+  final double? widthIcon;
   Button(
       {super.key,
       required this.onPressed,
@@ -16,6 +17,7 @@ class Button extends StatelessWidget {
       @required this.titleColor,
       @required this.icon,
       @required this.padding,
+      @required this.widthIcon,
       required this.title});
 
   @override
@@ -39,9 +41,10 @@ class Button extends StatelessWidget {
                 icon == null
                     ? Container()
                     : Padding(
-                        padding: const EdgeInsets.only(right: 4),
+                        padding: const EdgeInsets.only(right: 6),
                         child: SvgPicture.asset('assets/icons/$icon',
-                            width: 16, color: titleColor ?? Colors.black),
+                            width: widthIcon ?? 16,
+                            color: titleColor ?? Colors.black),
                       ),
                 Text(title,
                     style: TextStyle(

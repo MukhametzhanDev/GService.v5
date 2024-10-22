@@ -1,59 +1,118 @@
 import 'package:flutter/material.dart';
 import 'package:gservice5/component/image/cacheImage.dart';
 import 'package:gservice5/component/image/slider/viewImageModal.dart';
+import 'package:gservice5/component/theme/colorComponent.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
-class SliderImageWidget extends StatelessWidget {
+class SliderImageWidget extends StatefulWidget {
   final List images;
   const SliderImageWidget({super.key, required this.images});
 
   @override
+  State<SliderImageWidget> createState() => _SliderImageWidgetState();
+}
+
+class _SliderImageWidgetState extends State<SliderImageWidget> {
+  int currentIndex = 0;
+  PageController pageController = PageController();
+  ScrollController scrollController = ScrollController();
+
+  @override
+  void dispose() {
+    pageController.dispose();
+    scrollController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     double IMAGE_WIDTH = MediaQuery.of(context).size.width - 32;
-    return SizedBox(
-      width: MediaQuery.of(context).size.width,
-      height: IMAGE_WIDTH / 1.7,
-      child: PageView(
-        children: images.map((value) {
-          int index = images.indexOf(value);
-          return TextButton(
-            onPressed: () {
-              showMaterialModalBottomSheet(
-                  context: context,
-                  builder: (context) =>
-                      ViewImageModal(data: images, index: index));
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        SizedBox(
+          width: MediaQuery.of(context).size.width,
+          height: IMAGE_WIDTH / 1.7,
+          child: PageView(
+            controller: pageController,
+            onPageChanged: (value) {
+              currentIndex = value;
+              setState(() {});
             },
-            style: TextButton.styleFrom(
-                padding: EdgeInsets.zero, backgroundColor: Colors.transparent),
-            child: Stack(
-              alignment: Alignment.center,
-              children: [
-                CacheImage(
-                    url: value['url'],
-                    width: IMAGE_WIDTH,
-                    height: IMAGE_WIDTH / 1.7,
-                    borderRadius: 8),
-                Align(
-                  alignment: Alignment.bottomCenter,
-                  child: Container(
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(20),
-                        color: Color(0xff9A9A9ABF).withOpacity(.75)),
-                    margin: EdgeInsets.only(bottom: 12),
-                    constraints: BoxConstraints(minHeight: 23, minWidth: 42),
-                    padding: EdgeInsets.symmetric(horizontal: 12, vertical: 4),
-                    child: Text("${index + 1}/${images.length}",
-                        style: TextStyle(
-                            fontSize: 12,
-                            fontWeight: FontWeight.w700,
-                            color: Colors.white)),
-                  ),
-                )
-              ],
-            ),
-          );
-        }).toList(),
-      ),
+            children: widget.images.map((value) {
+              String url = value.runtimeType == String ? value : value['url'];
+              int index = widget.images.indexOf(value);
+              return TextButton(
+                onPressed: () {
+                  showMaterialModalBottomSheet(
+                      context: context,
+                      builder: (context) =>
+                          ViewImageModal(data: widget.images, index: index));
+                },
+                style: TextButton.styleFrom(
+                    padding: EdgeInsets.zero,
+                    backgroundColor: Colors.transparent),
+                child: Stack(
+                  alignment: Alignment.center,
+                  children: [
+                    CacheImage(
+                        url: url,
+                        width: IMAGE_WIDTH,
+                        height: IMAGE_WIDTH / 1.7,
+                        borderRadius: 8),
+                    // Align(
+                    //   alignment: Alignment.bottomCenter,
+                    //   child: Container(
+                    //     decoration: BoxDecoration(
+                    //         borderRadius: BorderRadius.circular(20),
+                    //         color: Color(0xff9A9A9ABF).withOpacity(.75)),
+                    //     margin: EdgeInsets.only(bottom: 12),
+                    //     constraints: BoxConstraints(minHeight: 23, minWidth: 42),
+                    //     padding: EdgeInsets.symmetric(horizontal: 12, vertical: 4),
+                    //     child: Text("${index + 1}/${images.length}",
+                    //         style: TextStyle(
+                    //             fontSize: 12,
+                    //             fontWeight: FontWeight.w700,
+                    //             color: Colors.white)),
+                    //   ),
+                    // )
+                  ],
+                ),
+              );
+            }).toList(),
+          ),
+        ),
+        Divider(indent: 8),
+        SizedBox(
+          height: 70,
+          child: SingleChildScrollView(
+            padding: EdgeInsets.symmetric(horizontal: 11),
+            scrollDirection: Axis.horizontal,
+            child: Row(
+                children: widget.images.map((value) {
+              String url = value.runtimeType == String ? value : value['url'];
+              int index = widget.images.indexOf(value);
+              return GestureDetector(
+                onTap: () {
+                  pageController.jumpToPage(index);
+                },
+                child: Container(
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(8),
+                      border: Border.all(
+                          width: 1,
+                          color: index == currentIndex
+                              ? ColorComponent.mainColor
+                              : Colors.transparent)),
+                  margin: const EdgeInsets.symmetric(horizontal: 4.0),
+                  child: CacheImage(
+                      url: url, width: 101, height: 70, borderRadius: 7),
+                ),
+              );
+            }).toList()),
+          ),
+        )
+      ],
     );
   }
 }
