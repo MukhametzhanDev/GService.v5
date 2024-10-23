@@ -20,7 +20,7 @@ class SearchButton extends StatelessWidget {
           Divider(indent: 8),
           Text(
             "Поиск по GService",
-            style: TextStyle(color: ColorComponent.gray['500']),
+            style: TextStyle(color: ColorComponent.gray['500'], fontSize: 14),
           )
         ],
       ),

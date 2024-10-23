@@ -6,11 +6,10 @@ import 'package:gservice5/component/button/menuButton.dart';
 import 'package:gservice5/component/button/searchButton.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
 import 'package:gservice5/pages/ad/adItem.dart';
-import 'package:gservice5/pages/application/applicationList.dart';
 import 'package:gservice5/pages/main/applicationListMain.dart';
-import 'package:gservice5/pages/main/companyListMain.dart';
 import 'package:gservice5/pages/main/list/mainListPage.dart';
-import 'package:gservice5/pages/main/rubricMainButtons.dart';
+import 'package:gservice5/pages/main/menu/menuMainModal.dart';
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
 class MainPage extends StatefulWidget {
   final ScrollController scrollController;
@@ -27,13 +26,18 @@ class _MainPageState extends State<MainPage> {
         context, MaterialPageRoute(builder: (context) => MainListPage()));
   }
 
+  void showMenuModal() {
+    showCupertinoModalBottomSheet(
+        context: context, builder: (context) => MenuMainModal());
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-            leading: LeadingLogo(),
-            leadingWidth: 156,
-            actions: [MenuButton(), Divider(indent: 15)]),
+        appBar: AppBar(leading: LeadingLogo(), leadingWidth: 156, actions: [
+          MenuButton(onPressed: showMenuModal),
+          Divider(indent: 15)
+        ]),
         body: SingleChildScrollView(
             controller: widget.scrollController,
             child: Column(children: [
@@ -75,7 +79,6 @@ class _MainPageState extends State<MainPage> {
                             onPressed: showMainListPage,
                             title: "Показать 12 000 объявлений")),
                     Divider(indent: 16),
-                    RubricMainButtons(),
                   ],
                 ),
               ),

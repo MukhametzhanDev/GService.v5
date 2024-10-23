@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:gservice5/component/button/favoriteButton.dart';
+import 'package:gservice5/component/modal/contact/shortContactModal.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
 import 'package:gservice5/pages/application/viewApplicationPage.dart';
 
@@ -15,6 +16,9 @@ class ApplicationItem extends StatelessWidget {
             context,
             MaterialPageRoute(
                 builder: (context) => ViewApplicationPage(id: 0)));
+      },
+      onLongPress: () {
+        onLongPressShowNumber({}, context);
       },
       child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
         Container(height: 1, color: Color(0xfff4f4f4)),

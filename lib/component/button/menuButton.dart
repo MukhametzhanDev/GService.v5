@@ -3,11 +3,13 @@ import 'package:flutter_svg/svg.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
 
 class MenuButton extends StatelessWidget {
-  const MenuButton({super.key});
+  final void Function() onPressed;
+  const MenuButton({super.key, required this.onPressed});
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
+      onTap: onPressed,
       child: Container(
         height: 40,
         width: 40,

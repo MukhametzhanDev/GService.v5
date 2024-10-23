@@ -1,12 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:gservice5/component/bar/bottomBar/contactBottomBarWidget.dart';
 import 'package:gservice5/component/button/favoriteButton.dart';
 import 'package:gservice5/component/formatted/number/numberFormatted.dart';
 import 'package:gservice5/component/formatted/price/priceFormat.dart';
 import 'package:gservice5/component/image/cacheImage.dart';
+import 'package:gservice5/component/modal/contact/shortContactModal.dart';
 import 'package:gservice5/component/stickers/showStickersList.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
 import 'package:gservice5/pages/ad/viewAdPage.dart';
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
 class AdItem extends StatefulWidget {
   const AdItem({super.key});
@@ -25,11 +29,12 @@ class _AdItemState extends State<AdItem> {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: showAdPage,
+      onLongPress: () => onLongPressShowNumber({}, context),
       child: Container(
         padding: EdgeInsets.all(16),
         decoration: BoxDecoration(
             border:
-                Border(top: BorderSide(width: 1, color: Color(0xfff4f4f4)))),
+                Border(bottom: BorderSide(width: 1, color: Color(0xfff4f4f4)))),
         // color: ColorComponent.mainColor.withOpacity(.1),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -100,7 +105,7 @@ class _AdItemState extends State<AdItem> {
                       Text(priceFormat(1999999),
                           style: TextStyle(fontSize: 20, height: 1)),
                       SizedBox(
-                        width: MediaQuery.of(context).size.width / 1.6,
+                        width: MediaQuery.of(context).size.width / 1.8,
                         child: Text(
                           "Гусеничный экскаватор JCB JS 205NLC (ГАБАРИТНЫЙ)",
                           style: TextStyle(fontWeight: FontWeight.w600),
