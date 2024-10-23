@@ -4,6 +4,7 @@ import 'package:gservice5/component/button/button.dart';
 import 'package:gservice5/component/formatted/price/priceFormat.dart';
 import 'package:gservice5/component/modal/contact/shortContactModal.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
+import 'package:gservice5/pages/application/applicationListPage.dart';
 import 'package:gservice5/pages/application/viewApplicationPage.dart';
 
 class ApplicationListMain extends StatefulWidget {
@@ -139,25 +140,29 @@ class ShowMoreApplicaiton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
+        onTap: () {
+          Navigator.push(context,
+              MaterialPageRoute(builder: (context) => ApplicationListPage()));
+        },
         child: Container(
-      margin: EdgeInsets.symmetric(horizontal: 4),
-      width: 166,
-      height: 122,
-      decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(12),
-          color: ColorComponent.mainColor.withOpacity(.1)),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          SvgPicture.asset("assets/icons/searchOutline.svg", width: 32),
-          Divider(height: 4),
-          Text(
-            "еще 12 000\nзаявок",
-            textAlign: TextAlign.center,
-          )
-        ],
-      ),
-    ));
+          margin: EdgeInsets.symmetric(horizontal: 4),
+          width: 166,
+          height: 122,
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(12),
+              color: ColorComponent.mainColor.withOpacity(.1)),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              SvgPicture.asset("assets/icons/searchOutline.svg", width: 32),
+              Divider(height: 4),
+              Text(
+                "еще 12 000\nзаявок",
+                textAlign: TextAlign.center,
+              )
+            ],
+          ),
+        ));
   }
 }

@@ -5,17 +5,18 @@ import 'package:gservice5/component/button/favoriteButton.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
 import 'package:gservice5/pages/application/applicationItem.dart';
 
-class ApplicationList extends StatefulWidget {
-  const ApplicationList({super.key});
+class ApplicationListPage extends StatefulWidget {
+  const ApplicationListPage({super.key});
 
   @override
-  State<ApplicationList> createState() => _ApplicationListState();
+  State<ApplicationListPage> createState() => _ApplicationListPageState();
 }
 
-class _ApplicationListState extends State<ApplicationList> {
+class _ApplicationListPageState extends State<ApplicationListPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(),
         body: Column(
       children: [
         Padding(

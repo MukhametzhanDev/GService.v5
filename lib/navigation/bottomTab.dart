@@ -6,7 +6,7 @@ import 'package:gservice5/component/theme/colorComponent.dart';
 import 'package:gservice5/pages/create/createAdMainPage.dart';
 import 'package:gservice5/pages/favorite/favoriteMainPage.dart';
 import 'package:gservice5/pages/main/mainPage.dart';
-import 'package:gservice5/pages/main/mainPage2.dart';
+import 'package:gservice5/pages/main/mainPage.dart';
 import 'package:gservice5/pages/message/messageMainPage.dart';
 import 'package:gservice5/pages/profile/verifyProfilePage.dart';
 
@@ -50,8 +50,7 @@ class _BottomTabState extends State<BottomTab> {
     final ColorTheme = ThemeColorComponent.ColorsTheme(context);
     return Scaffold(
       body: IndexedStack(index: _selectedIndex, children: [
-        MainPage2(),
-        // MainPage(scrollController: scrollController),
+        MainPage(scrollController: scrollController),
         FavoriteMainPage(),
         CreateAdMainPage(),
         MessageMainPage(),

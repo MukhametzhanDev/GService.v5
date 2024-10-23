@@ -1,15 +1,13 @@
+import 'package:extended_nested_scroll_view/extended_nested_scroll_view.dart';
 import 'package:flutter/material.dart';
-import 'package:gservice5/component/appBar/leadingLogo.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:gservice5/component/banner/bannersList.dart';
-import 'package:gservice5/component/button/button.dart';
-import 'package:gservice5/component/button/menuButton.dart';
 import 'package:gservice5/component/button/searchButton.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
-import 'package:gservice5/pages/ad/adItem.dart';
+import 'package:gservice5/data/categoriesData.dart';
+import 'package:gservice5/pages/main/adListMain.dart';
 import 'package:gservice5/pages/main/applicationListMain.dart';
-import 'package:gservice5/pages/main/list/mainListPage.dart';
-import 'package:gservice5/pages/main/menu/menuMainModal.dart';
-import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
+import 'package:gservice5/pages/main/drawer/mainDrawer.dart';
 
 class MainPage extends StatefulWidget {
   final ScrollController scrollController;
@@ -20,77 +18,84 @@ class MainPage extends StatefulWidget {
 }
 
 class _MainPageState extends State<MainPage> {
-  //show ad list page
-  void showMainListPage() {
-    Navigator.push(
-        context, MaterialPageRoute(builder: (context) => MainListPage()));
-  }
-
-  void showMenuModal() {
-    showCupertinoModalBottomSheet(
-        context: context, builder: (context) => MenuMainModal());
-  }
+  var scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   Widget build(BuildContext context) {
+    final List _categories = CategoriesData.categories;
     return Scaffold(
-        appBar: AppBar(leading: LeadingLogo(), leadingWidth: 156, actions: [
-          MenuButton(onPressed: showMenuModal),
-          Divider(indent: 15)
-        ]),
-        body: SingleChildScrollView(
-            controller: widget.scrollController,
-            child: Column(children: [
-              Divider(indent: 16),
-              BannersList(),
-              Divider(indent: 16),
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 15),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    SearchButton(),
-                    Divider(indent: 12),
-                    SizedBox(
-                        height: 40,
-                        child: Row(children: [
-                          Expanded(
-                              child: Button(
-                            onPressed: () {},
-                            title: "Весь Казахстан",
-                            icon: "pin.svg",
-                            backgroundColor: ColorComponent.blue['100'],
-                            titleColor: ColorComponent.blue['500'],
-                          )),
-                          Divider(indent: 12),
-                          Expanded(
-                              child: Button(
-                            onPressed: () {},
-                            title: "Фильтр",
-                            icon: "filter.svg",
-                            backgroundColor:
-                                ColorComponent.mainColor.withOpacity(.1),
-                          ))
-                        ])),
-                    Divider(indent: 12),
-                    SizedBox(
-                        height: 40,
-                        child: Button(
-                            onPressed: showMainListPage,
-                            title: "Показать 12 000 объявлений")),
-                    Divider(indent: 16),
-                  ],
+      key: scaffoldKey,
+      body: SafeArea(
+        bottom: false,
+        child: CustomScrollView(controller: widget.scrollController, slivers: [
+          SliverAppBar(
+            pinned: !true,
+            snap: true,
+            floating: true,
+            leadingWidth: 55,
+            leading: Row(
+              children: [
+                Divider(indent: 15),
+                GestureDetector(
+                  onTap: () {
+                    scaffoldKey.currentState?.openDrawer();
+                  },
+                  child: Container(
+                    height: 40,
+                    width: 40,
+                    alignment: Alignment.center,
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(8),
+                        color: ColorComponent.mainColor),
+                    child: SvgPicture.asset('assets/icons/burger.svg'),
+                  ),
                 ),
-              ),
-              Divider(indent: 20),
-              ApplicationListMain(),
-              // Divider(height: 6),
-              // CompanyListMain(),
-              Divider(indent: 15),
-              Column(
-                  children: List.generate(20, (index) => index).map((value) {
-                return AdItem();
-              }).toList())
-            ])));
+              ],
+            ),
+            title: SearchButton(),
+            bottom: PreferredSize(
+                preferredSize: Size(MediaQuery.of(context).size.width, 40),
+                child: SizedBox(
+                    height: 40,
+                    child: SingleChildScrollView(
+                      padding: const EdgeInsets.symmetric(horizontal: 12),
+                      scrollDirection: Axis.horizontal,
+                      child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: _categories.map((value) {
+                            return GestureDetector(
+                              onTap: () {},
+                              child: Container(
+                                  height: 32,
+                                  padding: EdgeInsets.symmetric(horizontal: 12),
+                                  margin: EdgeInsets.symmetric(horizontal: 4),
+                                  alignment: Alignment.center,
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(8),
+                                      color: ColorComponent.mainColor
+                                          .withOpacity(.2)),
+                                  child: Text(value['title'],
+                                      style: TextStyle(
+                                          fontSize: 12,
+                                          fontWeight: FontWeight.w600,
+                                          height: 1))),
+                            );
+                          }).toList()),
+                    ))),
+          ),
+          SliverToBoxAdapter(
+              child: Column(children: [
+            Divider(height: 10),
+            BannersList(),
+            Divider(height: 24),
+            ApplicationListMain(),
+            Divider(height: 24),
+            AdListMain()
+          ]))
+        ]),
+      ),
+      drawer: MainDrawer(),
+      drawerScrimColor: Colors.black.withOpacity(.25),
+    );
   }
 }
