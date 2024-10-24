@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:gservice5/component/theme/darkThemeProvider.dart';
 import 'package:gservice5/component/theme/styles.dart';
 import 'package:gservice5/navigation/bottomTab.dart';
+import 'package:gservice5/pages/splash/splashScreen.dart';
 import 'package:provider/provider.dart';
 
 class Index extends StatefulWidget {
@@ -26,6 +27,11 @@ class _IndexState extends State<Index> {
             theme: Styles.themeData(themeChangeProvider.darkTheme, context),
             debugShowCheckedModeBanner: false,
             home: BottomTab(),
+            initialRoute: "SplashScreen",
+            routes: {
+              "BottomTab": (context) => BottomTab(),
+              "SplashScreen": (context) => SplashScreen(),
+            },
           );
         }));
   }

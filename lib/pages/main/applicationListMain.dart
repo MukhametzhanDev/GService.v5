@@ -35,7 +35,12 @@ class _ApplicationListMainState extends State<ApplicationListMain> {
                   style: TextStyle(
                       fontSize: 18, fontWeight: FontWeight.w600, height: 1)),
               GestureDetector(
-                onTap: () {},
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => ApplicationListPage()));
+                },
                 child: Container(
                     height: 32,
                     padding: EdgeInsets.symmetric(horizontal: 12),

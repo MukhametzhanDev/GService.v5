@@ -20,6 +20,8 @@ class MainPage extends StatefulWidget {
 class _MainPageState extends State<MainPage> {
   var scaffoldKey = GlobalKey<ScaffoldState>();
 
+  void showMainSearchPage() {}
+
   @override
   Widget build(BuildContext context) {
     final List _categories = CategoriesData.categories;
@@ -52,7 +54,8 @@ class _MainPageState extends State<MainPage> {
                 ),
               ],
             ),
-            title: SearchButton(),
+            title: SearchButton(
+                title: "Поиск по GService", onPressed: showMainSearchPage),
             bottom: PreferredSize(
                 preferredSize: Size(MediaQuery.of(context).size.width, 40),
                 child: SizedBox(

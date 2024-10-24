@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
 import 'package:gservice5/pages/ad/adItem.dart';
+import 'package:gservice5/pages/ad/adListPage.dart';
 
 class AdListMain extends StatefulWidget {
   const AdListMain({super.key});
@@ -22,7 +23,10 @@ class _AdListMainState extends State<AdListMain> {
                 style: TextStyle(
                     fontSize: 18, fontWeight: FontWeight.w600, height: 1)),
             GestureDetector(
-              onTap: () {},
+              onTap: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => AdListPage()));
+              },
               child: Container(
                   height: 32,
                   padding: EdgeInsets.symmetric(horizontal: 12),
