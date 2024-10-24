@@ -32,48 +32,47 @@ class Styles {
         ),
         primaryColor: isDarkTheme ? Colors.black : Colors.white,
         inputDecorationTheme: InputDecorationTheme(
+          fillColor: Color(0xffF9FAFB),
+          filled: true,
           contentPadding:
               const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
           errorStyle: TextStyle(
-              fontSize: 13,
-              fontWeight: FontWeight.w500,
-              color: Colors.red),
+              fontSize: 13, fontWeight: FontWeight.w500, color: Colors.red),
           hintStyle: TextStyle(
-              // color: isDarkTheme
-              //     ? ColorComponent.grayShark
-              //     : ColorComponent.grayWind,
-              fontSize: 18),
+              fontWeight: FontWeight.w400,
+              fontSize: 14,
+              color: ColorComponent.gray['500']),
           disabledBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(8),
+              borderRadius: BorderRadius.circular(10),
               borderSide: BorderSide(
-                  width: 2,
+                  width: 1,
                   color: isDarkTheme
-                      ? const Color(0xff2C2C2E)
+                      ? const Color(0xffD1D5DB)
                       : const Color(0xffE5E5EA))),
           focusedBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(8),
+              borderRadius: BorderRadius.circular(10),
               borderSide: BorderSide(
-                  width: 2,
+                  width: 1,
                   color: isDarkTheme
-                      ? const Color(0xff2C2C2E)
+                      ? const Color(0xffD1D5DB)
                       : const Color(0xffE5E5EA))),
           errorBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(8),
-              // borderSide: BorderSide(width: 2, color: ColorComponent.red)
-              ),
+            borderRadius: BorderRadius.circular(10),
+            // borderSide: BorderSide(width: 2, color: ColorComponent.red)
+          ),
           enabledBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(8),
+              borderRadius: BorderRadius.circular(10),
               borderSide: BorderSide(
-                  width: 2,
+                  width: 1,
                   color: isDarkTheme
-                      ? const Color(0xff2C2C2E)
+                      ? const Color(0xffD1D5DB)
                       : const Color(0xffE5E5EA))),
           border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(8),
+              borderRadius: BorderRadius.circular(10),
               borderSide: BorderSide(
-                  width: 2,
+                  width: 1,
                   color: isDarkTheme
-                      ? const Color(0xff2C2C2E)
+                      ? const Color(0xffD1D5DB)
                       : const Color(0xffE5E5EA))),
           labelStyle: const TextStyle(color: Colors.red, fontSize: 24.0),
         ),
