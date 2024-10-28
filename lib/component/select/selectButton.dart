@@ -4,8 +4,13 @@ import 'package:gservice5/component/theme/colorComponent.dart';
 
 class SelectButton extends StatefulWidget {
   final String title;
+  final bool active;
   final void Function() onPressed;
-  const SelectButton({super.key, required this.title, required this.onPressed});
+  const SelectButton(
+      {super.key,
+      required this.title,
+      required this.active,
+      required this.onPressed});
 
   @override
   State<SelectButton> createState() => _SelectButtonState();
@@ -26,8 +31,14 @@ class _SelectButtonState extends State<SelectButton> {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text(widget.title,
-                style: TextStyle(color: ColorComponent.gray['500'])),
+            Expanded(
+              child: Text(widget.title,
+                  style: TextStyle(
+                      color: widget.active
+                          ? Colors.black
+                          : ColorComponent.gray['500'],
+                      overflow: TextOverflow.ellipsis)),
+            ),
             SvgPicture.asset('assets/icons/down.svg')
           ],
         ),

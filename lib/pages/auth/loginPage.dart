@@ -67,9 +67,7 @@ class _LoginPageState extends State<LoginPage> {
 
   void showRegistrationPage() {
     Navigator.push(
-        context,
-        MaterialPageRoute(
-            builder: (context) => RegistrationPage()));
+        context, MaterialPageRoute(builder: (context) => RegistrationPage()));
   }
 
   @override
@@ -84,7 +82,10 @@ class _LoginPageState extends State<LoginPage> {
             padding: EdgeInsets.all(15),
             child: Column(
               children: [
-                EmailTextField(textEditingController: emailEditingController),
+                EmailTextField(
+                  textEditingController: emailEditingController,
+                  onSubmitted: () {},
+                ),
                 Divider(indent: 15),
                 PhoneTextField(
                     onSubmitted: () {},

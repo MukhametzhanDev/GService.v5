@@ -8,7 +8,7 @@ Map<String, dynamic> headers = {
 };
 
 final dio = Dio(BaseOptions(
-    baseUrl: "https://gservice-v5/api",
+    baseUrl: "http://dev.gservice-co.kz/api",
     headers: headers,
     followRedirects: false,
     validateStatus: (status) {

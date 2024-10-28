@@ -5,6 +5,7 @@ import 'package:gservice5/component/button/button.dart';
 import 'package:gservice5/component/dio/dio.dart';
 import 'package:gservice5/component/functions/number/getIntNumber.dart';
 import 'package:gservice5/component/loader/modalLoaderComponent.dart';
+import 'package:gservice5/component/modal/countries.dart';
 import 'package:gservice5/component/snackBar/snackBarComponent.dart';
 import 'package:gservice5/component/textField/closeKeyboard/closeKeyboard.dart';
 import 'package:gservice5/component/textField/emailTextField.dart';
@@ -13,6 +14,7 @@ import 'package:gservice5/component/textField/phoneTextField.dart';
 import 'package:gservice5/component/textField/repeatPasswordTextField.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
 import 'package:gservice5/component/widgets/address/getAddressWidget.dart';
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
 class RegistrationPage extends StatefulWidget {
   const RegistrationPage({super.key});
@@ -28,6 +30,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
   TextEditingController passwordEditingController = TextEditingController();
   TextEditingController repeatPasswordEditingController =
       TextEditingController();
+  Map address = {};
 
   @override
   void dispose() {
@@ -88,6 +91,21 @@ class _RegistrationPageState extends State<RegistrationPage> {
     Navigator.pop(context);
   }
 
+  void showModal() {
+    showCupertinoModalBottomSheet(
+        context: context,
+        builder: (context) =>
+            Countries(onPressed: savedAddressData, data: address));
+  }
+
+  void savedAddressData(value) {
+    if (value != null) {
+      setState(() {
+        address = value;
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -103,20 +121,24 @@ class _RegistrationPageState extends State<RegistrationPage> {
                     height: 48,
                     child: AutofillGroup(
                       child: const TextField(
+                        style: TextStyle(fontSize: 14, height: 1.1),
+                        textCapitalization: TextCapitalization.sentences,
                         keyboardType: TextInputType.name,
                         autofillHints: [AutofillHints.name],
                         decoration: InputDecoration(hintText: "ФИО"),
                       ),
                     )),
                 const Divider(indent: 15),
-                EmailTextField(textEditingController: emailEditingController),
+                EmailTextField(
+                    textEditingController: emailEditingController,
+                    onSubmitted: () {}),
                 const Divider(indent: 15),
                 PhoneTextField(
                     onSubmitted: () {},
                     textEditingController: phoneEditingController,
                     autofocus: false),
                 const Divider(indent: 15),
-                GetAddressWidget(),
+                GetAddressWidget(onPressed: showModal, data: address),
                 const Divider(indent: 15),
                 PasswordTextField(
                     textEditingController: passwordEditingController,
