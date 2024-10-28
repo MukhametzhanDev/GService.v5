@@ -1,166 +1,87 @@
 import 'package:flutter/material.dart';
-import 'package:dio/dio.dart';
 import 'package:gservice5/component/button/backIconButton.dart';
-import 'package:gservice5/component/button/button.dart';
-import 'package:gservice5/component/dio/dio.dart';
-import 'package:gservice5/component/functions/number/getIntNumber.dart';
-import 'package:gservice5/component/loader/modalLoaderComponent.dart';
-import 'package:gservice5/component/modal/countries.dart';
-import 'package:gservice5/component/snackBar/snackBarComponent.dart';
 import 'package:gservice5/component/textField/closeKeyboard/closeKeyboard.dart';
-import 'package:gservice5/component/textField/emailTextField.dart';
-import 'package:gservice5/component/textField/passwordTextField.dart';
-import 'package:gservice5/component/textField/phoneTextField.dart';
-import 'package:gservice5/component/textField/repeatPasswordTextField.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
-import 'package:gservice5/component/widgets/address/getAddressWidget.dart';
-import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
+import 'package:gservice5/pages/auth/registration/registrationNonResidentWidget.dart';
+import 'package:gservice5/pages/auth/registration/registrationResidentKzWidget.dart';
 
 class RegistrationPage extends StatefulWidget {
-  const RegistrationPage({super.key});
+  final String email;
+  final String phone;
+  final bool byPhone;
+  const RegistrationPage(
+      {super.key,
+      required this.email,
+      required this.phone,
+      required this.byPhone});
 
   @override
   State<RegistrationPage> createState() => _RegistrationPageState();
 }
 
-class _RegistrationPageState extends State<RegistrationPage> {
-  TextEditingController nameEditingController = TextEditingController();
-  TextEditingController emailEditingController = TextEditingController();
-  TextEditingController phoneEditingController = TextEditingController();
-  TextEditingController passwordEditingController = TextEditingController();
-  TextEditingController repeatPasswordEditingController =
-      TextEditingController();
-  Map address = {};
+class _RegistrationPageState extends State<RegistrationPage>
+    with SingleTickerProviderStateMixin {
+  late TabController tabController;
 
   @override
-  void dispose() {
-    nameEditingController.dispose();
-    emailEditingController.dispose();
-    phoneEditingController.dispose();
-    passwordEditingController.dispose();
-    repeatPasswordEditingController.dispose();
-    super.dispose();
-  }
-
-  void verifyData() {
-    String name = nameEditingController.text.trim();
-    String phone = phoneEditingController.text.trim();
-    String email = emailEditingController.text.trim();
-    String password = passwordEditingController.text.trim();
-    String repeatPassword = passwordEditingController.text.trim();
-    final bool emailValid = RegExp(
-            r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
-        .hasMatch(email);
-    if (email.isEmpty ||
-        name.isEmpty ||
-        phone.isEmpty ||
-        email.isEmpty ||
-        password.isEmpty ||
-        repeatPassword.isEmpty) {
-      SnackBarComponent().showErrorMessage("Заполните все строки", context);
-    } else {
-      if (emailValid) {
-        if (phone.length == 18) {
-          postData();
-        } else {
-          SnackBarComponent()
-              .showErrorMessage("Неправильный номер телефона", context);
-        }
-      } else {
-        SnackBarComponent().showErrorMessage("Неправильный email", context);
-      }
-    }
-  }
-
-  Future postData() async {
-    showModalLoader(context);
-    try {
-      Response response = await dio.post("/register", queryParameters: {
-        "name": nameEditingController.text,
-        "phone": getIntComponent(phoneEditingController.text),
-        "email": emailEditingController.text,
-        "password": passwordEditingController.text
-      });
-      if (response.data['success']) {
-      } else {
-        SnackBarComponent().showResponseErrorMessage(response, context);
-      }
-    } catch (e) {
-      SnackBarComponent().showServerErrorMessage(context);
-    }
-    Navigator.pop(context);
-  }
-
-  void showModal() {
-    showCupertinoModalBottomSheet(
-        context: context,
-        builder: (context) =>
-            Countries(onPressed: savedAddressData, data: address));
-  }
-
-  void savedAddressData(value) {
-    if (value != null) {
-      setState(() {
-        address = value;
-      });
-    }
+  void initState() {
+    tabController = TabController(
+        length: 2, vsync: this, initialIndex: widget.byPhone ? 0 : 1);
+    super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () => closeKeyboard(),
-      child: Scaffold(
-        appBar: AppBar(leading: const BackIconButton()),
-        body: SingleChildScrollView(
-            padding: const EdgeInsets.all(15),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                SizedBox(
-                    height: 48,
-                    child: AutofillGroup(
-                      child: const TextField(
-                        style: TextStyle(fontSize: 14, height: 1.1),
-                        textCapitalization: TextCapitalization.sentences,
-                        keyboardType: TextInputType.name,
-                        autofillHints: [AutofillHints.name],
-                        decoration: InputDecoration(hintText: "ФИО"),
+    return DefaultTabController(
+      length: 2,
+      child: GestureDetector(
+        onTap: () => closeKeyboard(),
+        child: Scaffold(
+            appBar: AppBar(
+              title: Text("Регистрация"),
+              leading: const BackIconButton(),
+              bottom: PreferredSize(
+                  preferredSize:
+                      Size(MediaQuery.of(context).size.width - 30, 40),
+                  child: Container(
+                    height: 40,
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(8),
+                        color: Color(0xfff4f4f4)),
+                    width: MediaQuery.of(context).size.width - 30,
+                    child: TabBar(
+                      controller: tabController,
+                      indicatorSize: TabBarIndicatorSize.tab,
+                      indicatorWeight: 0.0,
+                      labelColor: Colors.black,
+                      labelStyle: TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.w500,
+                          color: Colors.black),
+                      unselectedLabelStyle: TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.w500,
+                          color: Colors.black),
+                      indicator: BoxDecoration(
+                        borderRadius: BorderRadius.circular(8),
+                        border: Border(
+                          bottom: BorderSide(
+                            color: ColorComponent.mainColor,
+                            width: 40.0,
+                          ),
+                        ),
                       ),
-                    )),
-                const Divider(indent: 15),
-                EmailTextField(
-                    textEditingController: emailEditingController,
-                    onSubmitted: () {}),
-                const Divider(indent: 15),
-                PhoneTextField(
-                    onSubmitted: () {},
-                    textEditingController: phoneEditingController,
-                    autofocus: false),
-                const Divider(indent: 15),
-                GetAddressWidget(onPressed: showModal, data: address),
-                const Divider(indent: 15),
-                PasswordTextField(
-                    textEditingController: passwordEditingController,
-                    onSubmitted: () {
-                      verifyData();
-                    }),
-                Divider(height: 8),
-                Text("Пароль должен содержать минимум 6 символов",
-                    style: TextStyle(
-                        fontSize: 12, color: ColorComponent.gray['500'])),
-                const Divider(indent: 15),
-                RepeatPasswordTextField(
-                    textEditingController: repeatPasswordEditingController,
-                    onSubmitted: () {}),
-                const Divider(height: 24),
-                Button(
-                    onPressed: () {
-                      verifyData();
-                    },
-                    title: "Продолжить")
-              ],
-            )),
+                      tabs: [
+                        Tab(text: 'Резидент Казахстана'),
+                        Tab(text: 'Нерезидент Казахстана'),
+                      ],
+                    ),
+                  )),
+            ),
+            body: TabBarView(controller: tabController, children: [
+              RegistrationResidentKzWidget(phone: widget.phone),
+              RegistrationNonResidentWidget(email: widget.email)
+            ])),
       ),
     );
   }

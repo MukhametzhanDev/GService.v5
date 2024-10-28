@@ -18,7 +18,7 @@ class PhoneTextField extends StatefulWidget {
 
 class _PhoneTextFieldState extends State<PhoneTextField> {
   MaskTextInputFormatter maskFormatter = MaskTextInputFormatter(
-      mask: '+7 (###) ###-##-##',
+      mask: '+7 (7##) ###-##-##',
       filter: {"#": RegExp(r'[0-9]')},
       type: MaskAutoCompletionType.lazy);
   final focusNode = FocusNode();

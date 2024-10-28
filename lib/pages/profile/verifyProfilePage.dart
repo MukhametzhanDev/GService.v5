@@ -29,7 +29,7 @@ class _VerifyProfilePageState extends State<VerifyProfilePage> {
 
   @override
   Widget build(BuildContext context) {
-    return verifyTokenData
+    return !verifyTokenData
         ? const ProfilePage()
         : const UserExistsPage(showBack: false);
   }

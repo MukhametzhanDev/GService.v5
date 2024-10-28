@@ -117,7 +117,7 @@ class _CitiesState extends State<Cities> with SingleTickerProviderStateMixin {
           centerTitle: false,
           leading: Container(),
           leadingWidth: 0,
-          title: Text("Выберите страны",
+          title: Text("Выберите город",
               style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600)),
           actions: [CloseIconButton(iconColor: null, padding: true)],
           bottom: PreferredSize(
@@ -126,7 +126,7 @@ class _CitiesState extends State<Cities> with SingleTickerProviderStateMixin {
                 padding:
                     const EdgeInsets.symmetric(horizontal: 15, vertical: 7),
                 child: SearchTextField(
-                    title: "Поиск страны", onChanged: (value) {}),
+                    title: "Поиск город", onChanged: (value) {}),
               )),
         ),
         body: loader
