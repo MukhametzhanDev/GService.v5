@@ -31,6 +31,6 @@ class _VerifyProfilePageState extends State<VerifyProfilePage> {
   Widget build(BuildContext context) {
     return !verifyTokenData
         ? const ProfilePage()
-        : const UserExistsPage(showBack: false);
+        : const LoginPage(showBackButton: false);
   }
 }

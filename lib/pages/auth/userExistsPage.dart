@@ -63,7 +63,8 @@ class _UserExistsPageState extends State<UserExistsPage>
       } else {
         SnackBarComponent().showResponseErrorMessage(response, context);
       }
-    } catch (e) {
+    } on DioException catch (e) {
+      print(e);
       SnackBarComponent().showServerErrorMessage(context);
     }
   }
@@ -73,18 +74,10 @@ class _UserExistsPageState extends State<UserExistsPage>
       Navigator.push(
           context,
           MaterialPageRoute(
-              builder: (context) => LoginPage(
-                  byPhone: byPhone,
-                  email: emailEditingController.text,
-                  phone: phoneEditingController.text)));
+              builder: (context) => LoginPage(showBackButton: false)));
     } else {
       Navigator.push(
-          context,
-          MaterialPageRoute(
-              builder: (context) => RegistrationPage(
-                  byPhone: byPhone,
-                  email: emailEditingController.text,
-                  phone: phoneEditingController.text)));
+          context, MaterialPageRoute(builder: (context) => RegistrationPage()));
     }
   }
 

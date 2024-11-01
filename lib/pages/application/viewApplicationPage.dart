@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:gservice5/component/appBar/fadeOnScroll.dart';
 import 'package:gservice5/component/bar/bottomBar/contactBottomBarWidget.dart';
+import 'package:gservice5/component/button/backIconButton.dart';
 import 'package:gservice5/component/button/button.dart';
 import 'package:gservice5/component/button/favoriteButton.dart';
 import 'package:gservice5/component/button/shareButton.dart';
@@ -36,7 +37,7 @@ class _ViewApplicationPageState extends State<ViewApplicationPage> {
         body: CustomScrollView(controller: scrollController, slivers: [
           SliverAppBar(
             pinned: true,
-            // leading: const BackIconButton(),
+            leading: const BackIconButton(),
             centerTitle: false,
             actions: [
               // FavoriteButtonComponent(iconColor: ColorTheme['black_white']),
@@ -52,7 +53,7 @@ class _ViewApplicationPageState extends State<ViewApplicationPage> {
                 children: [
                   Text("Нужен экскаватор 2-ух кубовый",
                       style:
-                          TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
+                          TextStyle(fontSize: 14, fontWeight: FontWeight.w400),
                       maxLines: 1),
                   Text(priceFormat(0),
                       style:

@@ -23,6 +23,7 @@ class _IndexState extends State<Index> {
         ],
         child: Consumer<DarkThemeProvider>(
             builder: (BuildContext context, value, child) {
+          // debugInvertOversizedImages = true;
           return MaterialApp(
             theme: Styles.themeData(themeChangeProvider.darkTheme, context),
             debugShowCheckedModeBanner: false,

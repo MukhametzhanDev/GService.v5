@@ -118,8 +118,8 @@ class Styles {
                 ),
           titleTextStyle: TextStyle(
               color: isDarkTheme ? Colors.white : Colors.black,
-              fontSize: 18,
-              fontWeight: FontWeight.w500),
+              fontSize: 16,
+              fontWeight: FontWeight.w600),
           backgroundColor: isDarkTheme ? const Color(0xff202022) : Colors.white,
           elevation: 0.0,
           // ColorTheme['surring_dark']

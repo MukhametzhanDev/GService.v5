@@ -1,87 +1,68 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:gservice5/component/button/backIconButton.dart';
-import 'package:gservice5/component/textField/closeKeyboard/closeKeyboard.dart';
-import 'package:gservice5/component/theme/colorComponent.dart';
-import 'package:gservice5/pages/auth/registration/registrationNonResidentWidget.dart';
-import 'package:gservice5/pages/auth/registration/registrationResidentKzWidget.dart';
+import 'package:gservice5/component/modal/countries.dart';
+import 'package:gservice5/component/select/selectButton.dart';
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
 class RegistrationPage extends StatefulWidget {
-  final String email;
-  final String phone;
-  final bool byPhone;
-  const RegistrationPage(
-      {super.key,
-      required this.email,
-      required this.phone,
-      required this.byPhone});
+  const RegistrationPage({super.key});
 
   @override
   State<RegistrationPage> createState() => _RegistrationPageState();
 }
 
-class _RegistrationPageState extends State<RegistrationPage>
-    with SingleTickerProviderStateMixin {
-  late TabController tabController;
+class _RegistrationPageState extends State<RegistrationPage> {
+  Map address = {};
 
-  @override
-  void initState() {
-    tabController = TabController(
-        length: 2, vsync: this, initialIndex: widget.byPhone ? 0 : 1);
-    super.initState();
+  void showModal() {
+    showCupertinoModalBottomSheet(
+        context: context,
+        builder: (context) =>
+            Countries(onPressed: savedAddressData, data: address));
+  }
+
+  void savedAddressData(value) {
+    if (value != null) {
+      setState(() {
+        address = value;
+      });
+    }
   }
 
   @override
   Widget build(BuildContext context) {
-    return DefaultTabController(
-      length: 2,
-      child: GestureDetector(
-        onTap: () => closeKeyboard(),
-        child: Scaffold(
-            appBar: AppBar(
-              title: Text("Регистрация"),
-              leading: const BackIconButton(),
-              bottom: PreferredSize(
-                  preferredSize:
-                      Size(MediaQuery.of(context).size.width - 30, 40),
-                  child: Container(
-                    height: 40,
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(8),
-                        color: Color(0xfff4f4f4)),
-                    width: MediaQuery.of(context).size.width - 30,
-                    child: TabBar(
-                      controller: tabController,
-                      indicatorSize: TabBarIndicatorSize.tab,
-                      indicatorWeight: 0.0,
-                      labelColor: Colors.black,
-                      labelStyle: TextStyle(
-                          fontSize: 14,
-                          fontWeight: FontWeight.w500,
-                          color: Colors.black),
-                      unselectedLabelStyle: TextStyle(
-                          fontSize: 14,
-                          fontWeight: FontWeight.w500,
-                          color: Colors.black),
-                      indicator: BoxDecoration(
-                        borderRadius: BorderRadius.circular(8),
-                        border: Border(
-                          bottom: BorderSide(
-                            color: ColorComponent.mainColor,
-                            width: 40.0,
-                          ),
-                        ),
-                      ),
-                      tabs: [
-                        Tab(text: 'Резидент Казахстана'),
-                        Tab(text: 'Нерезидент Казахстана'),
-                      ],
+    return Scaffold(
+      appBar: AppBar(title: Text("Регистрация"), leading: BackIconButton()),
+      body: SingleChildScrollView(
+        padding: EdgeInsets.all(15),
+        child: Column(
+          children: [
+            GestureDetector(
+              onTap: showModal,
+              child: Container(
+                height: 48,
+                padding: EdgeInsets.all(12),
+                decoration: BoxDecoration(
+                    color: Color(0xffF9FAFB),
+                    borderRadius: BorderRadius.circular(10),
+                    border: Border.all(width: 1, color: Color(0xffE5E5EA))),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Expanded(
+                      child: Text("Казахстан",
+                          style: TextStyle(
+                              color: Colors.black,
+                              overflow: TextOverflow.ellipsis)),
                     ),
-                  )),
-            ),
-            body: TabBarView(controller: tabController, children: [
-              RegistrationResidentKzWidget(phone: widget.phone),
-              RegistrationNonResidentWidget(email: widget.email)
-            ])),
+                    SvgPicture.asset('assets/icons/down.svg')
+                  ],
+                ),
+              ),
+            )
+          ],
+        ),
       ),
     );
   }

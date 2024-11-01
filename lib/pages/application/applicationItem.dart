@@ -6,7 +6,8 @@ import 'package:gservice5/component/theme/colorComponent.dart';
 import 'package:gservice5/pages/application/viewApplicationPage.dart';
 
 class ApplicationItem extends StatelessWidget {
-  const ApplicationItem({super.key});
+  final int index;
+  const ApplicationItem({super.key, required this.index});
 
   @override
   Widget build(BuildContext context) {
@@ -25,13 +26,14 @@ class ApplicationItem extends StatelessWidget {
         Divider(height: 16),
         Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
           Container(
-              width: 59,
+              padding: EdgeInsets.symmetric(horizontal: 6),
               alignment: Alignment.center,
               height: 24,
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(6),
                   color: ColorComponent.mainColor),
-              child: Text("Заявка",
+              child: Text(
+                  index % 2 == 0 ? "Аренда спецтехники" : "Покупка запчастей",
                   style: TextStyle(fontSize: 12, fontWeight: FontWeight.w600))),
           FavoriteButton()
         ]),

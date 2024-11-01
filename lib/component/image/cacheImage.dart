@@ -6,14 +6,14 @@ import 'package:shimmer/shimmer.dart';
 
 class CacheImage extends StatelessWidget {
   final url;
-  final width;
-  final height;
+  final double width;
+  final double height;
   final borderRadius;
   const CacheImage(
       {super.key,
       @required this.url,
-      @required this.width,
-      @required this.height,
+      required this.width,
+      required this.height,
       @required this.borderRadius});
 
   @override
@@ -34,6 +34,10 @@ class CacheImage extends StatelessWidget {
               imageUrl: urlForm,
               width: width.toDouble(),
               height: height.toDouble(),
+              // maxWidthDiskCache: width.round() * 2,
+              // maxHeightDiskCache: height.round() * 2,
+              // memCacheHeight: height,
+              // memCacheWidth: width,
               fit: BoxFit.cover,
               progressIndicatorBuilder: (context, url, downloadProgress) {
                 return Shimmer.fromColors(

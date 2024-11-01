@@ -7,6 +7,7 @@ import 'package:gservice5/component/functions/number/getIntNumber.dart';
 import 'package:gservice5/component/functions/token/changedToken.dart';
 import 'package:gservice5/component/loader/modalLoaderComponent.dart';
 import 'package:gservice5/component/modal/cities.dart';
+import 'package:gservice5/component/select/selectButton.dart';
 import 'package:gservice5/component/snackBar/snackBarComponent.dart';
 import 'package:gservice5/component/textField/closeKeyboard/closeKeyboard.dart';
 import 'package:gservice5/component/textField/passwordTextField.dart';
@@ -14,6 +15,7 @@ import 'package:gservice5/component/textField/phoneTextField.dart';
 import 'package:gservice5/component/textField/repeatPasswordTextField.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
 import 'package:gservice5/component/widgets/address/getAddressWidget.dart';
+import 'package:gservice5/pages/auth/registration/accountType/typeAccountModal.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
 class RegistrationResidentKzWidget extends StatefulWidget {
@@ -106,6 +108,11 @@ class _RegistrationResidentKzWidgetState
     }
   }
 
+  void showModalTypeUser() {
+    showCupertinoModalBottomSheet(
+        context: context, builder: (context) => TypeAccountModal());
+  }
+
   @override
   Widget build(BuildContext context) {
     super.build(context);
@@ -117,6 +124,11 @@ class _RegistrationResidentKzWidgetState
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                SelectButton(
+                    title: "Тип личного кабинета",
+                    active: false,
+                    onPressed: showModalTypeUser),
+                const Divider(indent: 15),
                 SizedBox(
                     height: 48,
                     child: AutofillGroup(

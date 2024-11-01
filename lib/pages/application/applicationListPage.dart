@@ -65,7 +65,7 @@ class _ApplicationListPageState extends State<ApplicationListPage> {
                 padding: EdgeInsets.all(16),
                 itemCount: 10,
                 itemBuilder: (context, int index) {
-                  return ApplicationItem();
+                  return ApplicationItem(index:index);
                 }))
       ],
     ));
