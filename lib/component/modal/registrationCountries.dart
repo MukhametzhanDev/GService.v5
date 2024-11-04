@@ -11,21 +11,25 @@ import 'package:gservice5/component/textField/searchTextField.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
-class Countries extends StatefulWidget {
+class RegistrationCountries extends StatefulWidget {
   final void Function(Map value) onPressed;
   final Map data;
-  const Countries({super.key, required this.onPressed, required this.data});
+  final List countriesData;
+  const RegistrationCountries(
+      {super.key,
+      required this.onPressed,
+      required this.data,
+      required this.countriesData});
 
   @override
-  State<Countries> createState() => _CountriesState();
+  State<RegistrationCountries> createState() => _RegistrationCountriesState();
 }
 
-class _CountriesState extends State<Countries>
+class _RegistrationCountriesState extends State<RegistrationCountries>
     with SingleTickerProviderStateMixin {
   ScrollController scrollController = ScrollController();
   List data = [];
   List filterData = [];
-  bool loader = true;
   bool _showScrollToTopButton = false;
   late AnimationController _animationController;
   late Animation<double> _fadeAnimation;
@@ -33,7 +37,6 @@ class _CountriesState extends State<Countries>
   @override
   void initState() {
     super.initState();
-    getData();
     scrollController.addListener(() => _scrollListener());
     _animationController = AnimationController(
       vsync: this,
@@ -44,24 +47,8 @@ class _CountriesState extends State<Countries>
       parent: _animationController,
       curve: Curves.easeInOut,
     );
-  }
-
-  Future getData() async {
-    try {
-      Response response = await dio.get("/countries");
-      print(response.data);
-      if (response.data['success']) {
-        data = response.data['data'];
-        filterData = response.data['data'];
-        loader = false;
-        setState(() {});
-      } else {
-        SnackBarComponent().showResponseErrorMessage(response, context);
-      }
-    } on DioException catch (e) {
-      print(e);
-      SnackBarComponent().showNotGoBackServerErrorMessage(context);
-    }
+    data = widget.countriesData;
+    filterData = widget.countriesData;
   }
 
   void addTitle(String value) {
@@ -107,16 +94,13 @@ class _CountriesState extends State<Countries>
   }
 
   void savedData(Map value) {
+    widget.onPressed(value);
     Navigator.pop(context);
-    showCupertinoModalBottomSheet(
-        context: context,
-        builder: (context) =>
-            Cities(onPressed: widget.onPressed, countryData: value));
   }
 
   int getIdCurrent() {
     if (widget.data.isNotEmpty) {
-      return widget.data['country']['id'];
+      return widget.data['id'];
     } else {
       return -1;
     }
@@ -142,45 +126,40 @@ class _CountriesState extends State<Countries>
                     SearchTextField(title: "Поиск страны", onChanged: addTitle),
               )),
         ),
-        body: loader
-            ? LoaderComponent()
-            : ListView.builder(
-                physics: physics,
-                controller: scrollController,
-                itemCount: filterData.length,
-                itemBuilder: (context, index) {
-                  Map item = filterData[index];
-                  bool currentItem = item['id'] == getIdCurrent();
-                  return Container(
-                    decoration: BoxDecoration(
-                        color: currentItem ? ColorComponent.gray['100'] : null,
-                        border: Border(
-                            bottom: BorderSide(
-                                width: 1, color: Color(0xfff4f5f7)))),
-                    child: ListTile(
-                      onTap: () {
-                        savedData(item);
-                      },
-                      leading: ClipRRect(
-                          borderRadius: BorderRadius.circular(2),
-                          child: SvgPicture.network(item['flag'], width: 20)),
-                      title: Text(item['title'],
-                          style: TextStyle(
-                              fontSize: 16, fontWeight: FontWeight.w500)),
-                      trailing: Container(
-                        width: 18,
-                        child: SvgPicture.asset(
-                            currentItem
-                                ? 'assets/icons/check.svg'
-                                : 'assets/icons/right.svg',
-                            color: currentItem
-                                ? ColorComponent.blue['500']
-                                : null),
-                      ),
-                    ),
-                  );
+        body: ListView.builder(
+          physics: physics,
+          controller: scrollController,
+          itemCount: filterData.length,
+          itemBuilder: (context, index) {
+            Map item = filterData[index];
+            bool currentItem = item['id'] == getIdCurrent();
+            return Container(
+              decoration: BoxDecoration(
+                  color: currentItem ? ColorComponent.gray['100'] : null,
+                  border: Border(
+                      bottom: BorderSide(width: 1, color: Color(0xfff4f5f7)))),
+              child: ListTile(
+                onTap: () {
+                  savedData(item);
                 },
+                leading: ClipRRect(
+                    borderRadius: BorderRadius.circular(2),
+                    child: SvgPicture.network(item['flag'], width: 20)),
+                title: Text(item['title'],
+                    style:
+                        TextStyle(fontSize: 16, fontWeight: FontWeight.w500)),
+                trailing: Container(
+                  width: 18,
+                  child: SvgPicture.asset(
+                      currentItem
+                          ? 'assets/icons/check.svg'
+                          : 'assets/icons/right.svg',
+                      color: currentItem ? ColorComponent.blue['500'] : null),
+                ),
               ),
+            );
+          },
+        ),
         floatingActionButton: FadeTransition(
           opacity: _fadeAnimation,
           child: FloatingActionButton(

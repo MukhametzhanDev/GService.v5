@@ -73,17 +73,17 @@ class _AdItemState extends State<AdItem> {
                 ],
               ),
               Divider(height: 8),
-              Row(children: [
+              Row(crossAxisAlignment: CrossAxisAlignment.end, children: [
                 RichText(
                     text: TextSpan(
                         style: TextStyle(
                             fontWeight: FontWeight.w600, color: Colors.black),
                         children: [
-                      TextSpan(text: "3 000 ", style: TextStyle(fontSize: 14)),
+                      TextSpan(text: "3 000 ", style: TextStyle(fontSize: 15)),
                       TextSpan(
                           text: "тг./час",
                           style: TextStyle(
-                              fontWeight: FontWeight.w400, fontSize: 13)),
+                              fontWeight: FontWeight.w400, fontSize: 14)),
                     ])),
                 Text("  |  "),
                 RichText(
@@ -91,11 +91,11 @@ class _AdItemState extends State<AdItem> {
                         style: TextStyle(
                             fontWeight: FontWeight.w500, color: Colors.black),
                         children: [
-                      TextSpan(text: "25 000 ", style: TextStyle(fontSize: 14)),
+                      TextSpan(text: "25 000 ", style: TextStyle(fontSize: 15)),
                       TextSpan(
                           text: "тг./смена",
                           style: TextStyle(
-                              fontWeight: FontWeight.w400, fontSize: 13)),
+                              fontWeight: FontWeight.w400, fontSize: 14)),
                     ])),
                 // Text(
                 //   "3 000 тг./час",

@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:gservice5/component/button/backIconButton.dart';
 import 'package:gservice5/component/button/button.dart';
@@ -9,7 +10,7 @@ import 'package:gservice5/component/snackBar/snackBarComponent.dart';
 import 'package:gservice5/component/textField/closeKeyboard/closeKeyboard.dart';
 import 'package:gservice5/component/textField/passwordTextField.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
-import 'package:gservice5/component/widgets/bottom/bottomNavigationBarComponent.dart';
+import 'package:gservice5/pages/auth/privacyPolicyWidget.dart';
 import 'package:gservice5/pages/auth/registration/registrationPage.dart';
 
 class LoginPage extends StatefulWidget {
@@ -86,8 +87,13 @@ class _LoginPageState extends State<LoginPage>
   }
 
   void showRegistrationPage() {
-    Navigator.push(
-        context, MaterialPageRoute(builder: (context) => RegistrationPage()));
+    Navigator.push(context,
+            MaterialPageRoute(builder: (context) => RegistrationPage()))
+        .then((value) {
+      if (value != null) {
+        textEditingController.text = value;
+      }
+    });
   }
 
   @override
@@ -143,9 +149,9 @@ class _LoginPageState extends State<LoginPage>
                                 fontWeight: FontWeight.w500,
                                 color: Colors.black),
                             children: [
-                          TextSpan(text: "Уже зарегистрированы? "),
+                          TextSpan(text: "У вас нет аккаунта? "),
                           TextSpan(
-                              text: "Авторизуйтесь",
+                              text: "Зарегистрируйтесь",
                               style:
                                   TextStyle(color: ColorComponent.blue['700'])),
                         ])),
@@ -154,8 +160,7 @@ class _LoginPageState extends State<LoginPage>
                 Divider(indent: 8),
                 Button(onPressed: verifyData, title: "Подтвердить"),
                 Divider(indent: 8),
-                Text(
-                    "Продолжая регистрацию вы соглашаетесь с правилами пользования и политикой конфиденциальности")
+                PrivacyPolicyWidget()
               ],
             )),
       ),
