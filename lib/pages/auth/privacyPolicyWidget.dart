@@ -15,7 +15,7 @@ class _PrivacyPolicyWidgetState extends State<PrivacyPolicyWidget> {
     return RichText(
         text: TextSpan(
             style: TextStyle(
-                fontWeight: FontWeight.w500, color: Colors.black, height: 1.6),
+                fontWeight: FontWeight.w500, color: Colors.black, height: 1.7),
             children: [
           TextSpan(text: "Продолжая регистрацию вы соглашаетесь с "),
           TextSpan(

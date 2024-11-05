@@ -3,23 +3,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:gservice5/component/button/closeIconButton.dart';
 import 'package:gservice5/component/dio/dio.dart';
-import 'package:gservice5/component/loader/loaderComponent.dart';
-import 'package:gservice5/component/modal/cities.dart';
+import 'package:gservice5/component/loader/paginationLoaderComponent.dart';
 import 'package:gservice5/component/modal/modalBottomSheetWrapper.dart';
 import 'package:gservice5/component/snackBar/snackBarComponent.dart';
 import 'package:gservice5/component/textField/searchTextField.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
-import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
 class RegistrationCountries extends StatefulWidget {
   final void Function(Map value) onPressed;
   final Map data;
-  final List countriesData;
   const RegistrationCountries(
-      {super.key,
-      required this.onPressed,
-      required this.data,
-      required this.countriesData});
+      {super.key, required this.onPressed, required this.data});
 
   @override
   State<RegistrationCountries> createState() => _RegistrationCountriesState();
@@ -29,10 +23,13 @@ class _RegistrationCountriesState extends State<RegistrationCountries>
     with SingleTickerProviderStateMixin {
   ScrollController scrollController = ScrollController();
   List data = [];
-  List filterData = [];
   bool _showScrollToTopButton = false;
   late AnimationController _animationController;
   late Animation<double> _fadeAnimation;
+  bool hasNextPage = false;
+  bool isLoadMore = false;
+  int page = 1;
+  bool loader = true;
 
   @override
   void initState() {
@@ -47,23 +44,64 @@ class _RegistrationCountriesState extends State<RegistrationCountries>
       parent: _animationController,
       curve: Curves.easeInOut,
     );
-    data = widget.countriesData;
-    filterData = widget.countriesData;
+    getData('');
+  }
+
+  Future getData(title) async {
+    print(title);
+    page = 1;
+    setState(() {});
+    try {
+      Map<String, dynamic> parameter = {"page": page, "title": title};
+      Response response =
+          await dio.get("/countries", queryParameters: parameter);
+      print(response.data);
+      if (response.data['success']) {
+        data = response.data['data'];
+        hasNextPage = page != response.data['meta']['last_page'];
+        loader = false;
+        setState(() {});
+      } else {
+        SnackBarComponent().showErrorMessage(response.data['message'], context);
+      }
+    } catch (e) {
+      SnackBarComponent().showNotGoBackServerErrorMessage(context);
+    }
+  }
+
+  Future loadMore() async {
+    if (scrollController.position.extentAfter < 200 &&
+        hasNextPage &&
+        !isLoadMore) {
+      try {
+        isLoadMore = true;
+        page += 1;
+        setState(() {});
+        Map<String, dynamic> parameter = {"page": page};
+        Response response =
+            await dio.get("/countries", queryParameters: parameter);
+        print(response.data);
+        if (response.data['success']) {
+          data.addAll(response.data['data']);
+          hasNextPage = page != response.data['meta']['last_page'];
+          isLoadMore = false;
+          setState(() {});
+        } else {
+          SnackBarComponent()
+              .showErrorMessage(response.data['message'], context);
+        }
+      } catch (e) {
+        SnackBarComponent().showNotGoBackServerErrorMessage(context);
+      }
+    }
   }
 
   void addTitle(String value) {
-    if (value.isNotEmpty) {
-      filterData = data
-          .where((element) =>
-              element['title'].toLowerCase().contains(value.toLowerCase()))
-          .toList();
-    } else {
-      filterData = data;
-    }
-    setState(() {});
+    getData(value);
   }
 
   void _scrollListener() {
+    loadMore();
     if (scrollController.offset > 0 && !_showScrollToTopButton) {
       setState(() {
         _showScrollToTopButton = true;
@@ -129,10 +167,11 @@ class _RegistrationCountriesState extends State<RegistrationCountries>
         body: ListView.builder(
           physics: physics,
           controller: scrollController,
-          itemCount: filterData.length,
+          itemCount: data.length,
           itemBuilder: (context, index) {
-            Map item = filterData[index];
+            Map item = data[index];
             bool currentItem = item['id'] == getIdCurrent();
+            if (isLoadMore) PaginationLoaderComponent();
             return Container(
               decoration: BoxDecoration(
                   color: currentItem ? ColorComponent.gray['100'] : null,

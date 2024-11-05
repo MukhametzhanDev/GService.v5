@@ -23,7 +23,7 @@ class _SelectButtonState extends State<SelectButton> {
       onTap: widget.onPressed,
       child: Container(
         height: 48,
-        padding: EdgeInsets.all(12),
+        padding: EdgeInsets.symmetric(vertical: 12, horizontal: 15),
         decoration: BoxDecoration(
             color: Color(0xffF9FAFB),
             borderRadius: BorderRadius.circular(10),

@@ -6,7 +6,7 @@ import 'package:gservice5/navigation/bottomTab.dart';
 import 'package:gservice5/component/dio/dio.dart';
 
 class ChangedToken {
-  Future saveToken(value, context) async {
+  Future saveUserToken(value, context) async {
     print(value);
     await const FlutterSecureStorage()
         .write(key: "token", value: value['user_token']);

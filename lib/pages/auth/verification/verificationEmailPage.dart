@@ -1,9 +1,14 @@
 import 'dart:async';
+import 'package:dio/dio.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:gservice5/component/button/backIconButton.dart';
 import 'package:gservice5/component/button/button.dart';
+import 'package:gservice5/component/dio/dio.dart';
+import 'package:gservice5/component/loader/loaderComponent.dart';
+import 'package:gservice5/component/loader/modalLoaderComponent.dart';
+import 'package:gservice5/component/snackBar/snackBarComponent.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
 import 'package:gservice5/component/widgets/bottom/bottomNavigationBarComponent.dart';
 import 'package:pinput/pinput.dart';
@@ -21,11 +26,31 @@ class VerificationEmailPage extends StatefulWidget {
 class _VerificationEmailPageState extends State<VerificationEmailPage>
     with CodeAutoFill {
   String otpCode = '';
+  bool loader = true;
 
   @override
   void initState() {
     super.initState();
     listenForCode();
+    sendCode();
+  }
+
+  void sendCode() async {
+    try {
+      loader = true;
+      setState(() {});
+      Response response = await dio.post("/send-mail-verify-code",
+          queryParameters: {"email": widget.email});
+      print(response.data);
+      if (response.data['success']) {
+        loader = false;
+        setState(() {});
+      } else {
+        SnackBarComponent().showResponseErrorMessage(response, context);
+      }
+    } catch (e) {
+      SnackBarComponent().showNotGoBackServerErrorMessage(context);
+    }
   }
 
   @override
@@ -55,69 +80,73 @@ class _VerificationEmailPageState extends State<VerificationEmailPage>
     return Scaffold(
       appBar:
           AppBar(leading: BackIconButton(), title: Text('Код подтверждения')),
-      body: SingleChildScrollView(
-          padding: EdgeInsets.all(16),
-          child: Column(children: [
-            SvgPicture.asset('assets/icons/verificationEmail.svg'),
-            Divider(height: 24),
-            RichText(
-                textAlign: TextAlign.center,
-                text: TextSpan(
+      body: loader
+          ? LoaderComponent()
+          : SingleChildScrollView(
+              padding: EdgeInsets.all(16),
+              child: Column(children: [
+                SvgPicture.asset('assets/icons/verificationEmail.svg'),
+                Divider(height: 24),
+                RichText(
+                    textAlign: TextAlign.center,
+                    text: TextSpan(
+                        style: TextStyle(
+                            height: 1.6,
+                            color: ColorComponent.gray['500'],
+                            fontWeight: FontWeight.w500),
+                        children: [
+                          TextSpan(
+                              text:
+                                  "Ссылка на подтверждение была отправлена вам на почту ${widget.email}\n"),
+                          TextSpan(
+                            text: "Проверить почту",
+                            style: TextStyle(color: ColorComponent.blue['500']),
+                            recognizer: TapGestureRecognizer()
+                              ..onTap = () => openEmailApp(),
+                          )
+                        ])),
+                Divider(height: 16),
+                Text(
+                    "Письмо обычно доходит до 15 минут, так же рекомендуем проверить вкладку “Спам”",
                     style: TextStyle(
                         height: 1.6,
                         color: ColorComponent.gray['500'],
                         fontWeight: FontWeight.w500),
-                    children: [
-                      TextSpan(
-                          text:
-                              "Ссылка на подтверждение была отправлена вам на почту ${widget.email}. "),
-                      TextSpan(
-                        text: "Проверить почту",
-                        style: TextStyle(color: ColorComponent.blue['500']),
-                        recognizer: TapGestureRecognizer()
-                          ..onTap = () => openEmailApp(),
-                      )
-                    ])),
-            Divider(height: 16),
-            Text(
-                "Письмо обычно доходит до 15 минут, так же рекомендуем проверить вкладку “Спам”",
-                style: TextStyle(
-                    height: 1.6,
-                    color: ColorComponent.gray['500'],
-                    fontWeight: FontWeight.w500),
-                textAlign: TextAlign.center),
-            Divider(height: 24),
-            Pinput(
-                length: 6,
-                controller: TextEditingController(text: otpCode),
-                autofocus: true,
-                defaultPinTheme: PinTheme(
-                  width: 48,
-                  height: 56,
-                  margin: EdgeInsets.only(left: 10),
-                  textStyle: TextStyle(
-                      fontSize: 16,
-                      color: Colors.black,
-                      fontWeight: FontWeight.w800),
-                  decoration: BoxDecoration(
-                      border: Border.all(color: Colors.grey, width: 1),
-                      borderRadius: BorderRadius.circular(10)),
-                ),
-                pinputAutovalidateMode: PinputAutovalidateMode.onSubmit,
-                showCursor: true,
-                onCompleted: (pin) => print(pin))
-          ])),
-      bottomNavigationBar: BottomNavigationBarComponent(
-          child: Column(children: [
-        TimerButtonComponent(onPressed: () {}),
-        SizedBox(height: 10),
-        Button(
-          onPressed: () {},
-          title: "Подтвердить регистрацию",
-          padding: EdgeInsets.only(left: 16, right: 16),
-          backgroundColor: ColorComponent.mainColor,
-        )
-      ])),
+                    textAlign: TextAlign.center),
+                Divider(height: 24),
+                Pinput(
+                    length: 6,
+                    controller: TextEditingController(text: otpCode),
+                    autofocus: true,
+                    defaultPinTheme: PinTheme(
+                      width: 48,
+                      height: 56,
+                      margin: EdgeInsets.only(left: 10),
+                      textStyle: TextStyle(
+                          fontSize: 16,
+                          color: Colors.black,
+                          fontWeight: FontWeight.w800),
+                      decoration: BoxDecoration(
+                          border: Border.all(color: Colors.grey, width: 1),
+                          borderRadius: BorderRadius.circular(10)),
+                    ),
+                    pinputAutovalidateMode: PinputAutovalidateMode.onSubmit,
+                    showCursor: true,
+                    onCompleted: (pin) => print(pin))
+              ])),
+      bottomNavigationBar: loader
+          ? null
+          : BottomNavigationBarComponent(
+              child: Column(children: [
+              TimerButtonComponent(onPressed: sendCode),
+              SizedBox(height: 10),
+              Button(
+                onPressed: () {},
+                title: "Подтвердить регистрацию",
+                padding: EdgeInsets.only(left: 16, right: 16),
+                backgroundColor: ColorComponent.mainColor,
+              )
+            ])),
     );
   }
 }
@@ -184,9 +213,7 @@ class _TimerButtonComponentState extends State<TimerButtonComponent> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
-                "Запросить код повторно${_start > 0
-                        ? " (${_start.toString().padLeft(2, '0')})"
-                        : ""}",
+                "Запросить код повторно${_start > 0 ? " (${_start.toString().padLeft(2, '0')})" : ""}",
                 style: TextStyle(
                     fontSize: 15,
                     color: Colors.black,

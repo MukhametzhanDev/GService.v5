@@ -1,6 +1,5 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:gservice5/component/button/closeIconButton.dart';
 import 'package:gservice5/component/dio/dio.dart';
 import 'package:gservice5/component/loader/loaderComponent.dart';
@@ -11,8 +10,8 @@ import 'package:gservice5/component/theme/colorComponent.dart';
 
 class Cities extends StatefulWidget {
   final void Function(Map value) onPressed;
-  final Map countryData;
-  const Cities({super.key, required this.onPressed, required this.countryData});
+  final int countryId;
+  const Cities({super.key, required this.onPressed, required this.countryId});
 
   @override
   State<Cities> createState() => _CitiesState();
@@ -45,8 +44,8 @@ class _CitiesState extends State<Cities> with SingleTickerProviderStateMixin {
 
   Future getData() async {
     try {
-      Response response = await dio.get("/cities",
-          queryParameters: {"country_id": widget.countryData['id']});
+      Response response = await dio
+          .get("/cities", queryParameters: {"country_id": widget.countryId});
       print(response.data);
       if (response.data['success']) {
         data = response.data['data'];
@@ -104,8 +103,7 @@ class _CitiesState extends State<Cities> with SingleTickerProviderStateMixin {
   }
 
   void savedData(Map value) {
-    Map data = {"country": widget.countryData, "city": value};
-    widget.onPressed(data);
+    widget.onPressed(value);
     Navigator.pop(context);
   }
 

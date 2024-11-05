@@ -1,37 +1,113 @@
 import 'dart:async';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:gservice5/component/button/backIconButton.dart';
 import 'package:gservice5/component/button/button.dart';
+import 'package:gservice5/component/dio/dio.dart';
+import 'package:gservice5/component/functions/number/getIntNumber.dart';
+import 'package:gservice5/component/loader/modalLoaderComponent.dart';
+import 'package:gservice5/component/snackBar/snackBarComponent.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
 import 'package:gservice5/component/widgets/bottom/bottomNavigationBarComponent.dart';
+import 'package:gservice5/pages/auth/registration/business/customer/registrationCustomerPage.dart';
+import 'package:gservice5/pages/auth/registration/accountExistsPage.dart';
+import 'package:gservice5/pages/auth/registration/user/registrationUserPage.dart';
 import 'package:pinput/pinput.dart';
 import 'package:sms_autofill/sms_autofill.dart';
 
 class VerificationPhonePage extends StatefulWidget {
-  const VerificationPhonePage({super.key});
+  final Map userData;
+  const VerificationPhonePage({super.key, required this.userData});
 
   @override
   State<VerificationPhonePage> createState() => _VerificationPhonePageState();
 }
 
-class _VerificationPhonePageState extends State<VerificationPhonePage> with CodeAutoFill {
+class _VerificationPhonePageState extends State<VerificationPhonePage>
+    with CodeAutoFill {
   String otpCode = '';
+  bool loader = true;
+  TextEditingController codeController = TextEditingController();
 
   @override
   void initState() {
     super.initState();
     listenForCode();
+    sendCode();
+  }
+
+  void sendCode() async {
+    try {
+      loader = true;
+      setState(() {});
+      Response response = await dio.post("/send-sms-verify-code",
+          queryParameters: {
+            "phone": getIntComponent(widget.userData['phone'])
+          });
+      print(response.data);
+      if (response.data['success']) {
+        loader = false;
+        setState(() {});
+      } else {
+        SnackBarComponent().showResponseErrorMessage(response, context);
+      }
+    } catch (e) {
+      SnackBarComponent().showNotGoBackServerErrorMessage(context);
+    }
+  }
+
+  Future verifyCode() async {
+    print(codeController.text);
+    try {
+      showModalLoader(context);
+      Response response = await dio.post("/verify-sms-code", queryParameters: {
+        "phone": getIntComponent(widget.userData['phone']),
+        "code": codeController.text
+      });
+      print(response.data);
+      Navigator.pop(context);
+      if (response.data['success']) {
+        showRegistrationPage();
+      } else {
+        SnackBarComponent().showResponseErrorMessage(response, context);
+      }
+    } catch (e) {
+      SnackBarComponent().showServerErrorMessage(context);
+    }
+  }
+
+  void showRegistrationPage() {
+    Navigator.pop(context);
+    if (widget.userData['role'] == "customer") {
+      Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) =>
+                  AccountExistsPage(data: widget.userData)));
+    } else if (widget.userData['role'] == "customer") {
+      Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) =>
+                  RegistrationCustomerPage(data: widget.userData)));
+    } else {
+      Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) =>
+                  RegistrationUserPage(data: widget.userData)));
+    }
   }
 
   @override
   void codeUpdated() {
-    setState(() {
-      otpCode = code!;
-    });
+    codeController.text = code!;
   }
 
   @override
   void dispose() {
+    codeController.dispose();
     super.dispose();
     cancel();
   }
@@ -40,10 +116,15 @@ class _VerificationPhonePageState extends State<VerificationPhonePage> with Code
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-          automaticallyImplyLeading: false, title: Text('Код подтверждения')),
+        automaticallyImplyLeading: false,
+        title: Text('Код подтверждения'),
+        leading: BackIconButton(),
+      ),
       body: SingleChildScrollView(
           padding: EdgeInsets.all(16),
           child: Column(children: [
+            SvgPicture.asset('assets/icons/sendCodePhone.svg'),
+            Divider(height: 24),
             RichText(
                 textAlign: TextAlign.center,
                 text: TextSpan(children: [
@@ -52,20 +133,17 @@ class _VerificationPhonePageState extends State<VerificationPhonePage> with Code
                           color: ColorComponent.gray['500'],
                           fontWeight: FontWeight.w500),
                       text:
-                          "Мы отправили вам код для подтверждения на почту введите его в поле ниже."),
+                          "На ваш номер телефона ${widget.userData['phone']} был выслан SMS-код для подтверждения регистрации"),
                   // TextSpan(
                   //     style: TextStyle(
                   //         color: ColorComponent.blue[''],
                   //         fontWeight: FontWeight.w500),
                   //     text: " Неверный номер?")
                 ])),
-            SizedBox(height: 16),
-            Text("Введите код ниже",
-                style: TextStyle(fontWeight: FontWeight.w500, fontSize: 16)),
-            SizedBox(height: 10),
+            Divider(height: 24),
             Pinput(
-                length: 6,
-                controller: TextEditingController(text: otpCode),
+                length: 4,
+                controller: codeController,
                 defaultPinTheme: PinTheme(
                   width: 48,
                   height: 56,
@@ -80,18 +158,19 @@ class _VerificationPhonePageState extends State<VerificationPhonePage> with Code
                 ),
                 pinputAutovalidateMode: PinputAutovalidateMode.onSubmit,
                 showCursor: true,
-                onCompleted: (pin) => print(pin))
+                onCompleted: (pin) async {
+                  await verifyCode();
+                })
           ])),
       bottomNavigationBar: BottomNavigationBarComponent(
           child: Column(children: [
-        TimerButtonComponent(onPressed: () {}),
+        TimerButtonComponent(onPressed: sendCode),
         SizedBox(height: 10),
         Button(
-          onPressed: () {},
+          onPressed: verifyCode,
           title: "Подтвердить",
           padding: EdgeInsets.only(left: 16, right: 16),
           backgroundColor: ColorComponent.mainColor,
-          titleColor: Colors.white,
         )
       ])),
     );
@@ -162,9 +241,9 @@ class _TimerButtonComponentState extends State<TimerButtonComponent> {
               Text(
                 "Запросить код повторно" +
                     (_start > 0
-                        ? " (${_start.toString().padLeft(2, '0')})"
+                        ? " (${_start.toString().padLeft(2, '')})"
                         : ""),
-                style: TextStyle(fontSize: 17, color: Colors.black),
+                style: TextStyle(color: Colors.black),
               ),
             ],
           )),

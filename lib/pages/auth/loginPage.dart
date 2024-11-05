@@ -1,5 +1,4 @@
 import 'package:dio/dio.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:gservice5/component/button/backIconButton.dart';
 import 'package:gservice5/component/button/button.dart';
@@ -11,7 +10,7 @@ import 'package:gservice5/component/textField/closeKeyboard/closeKeyboard.dart';
 import 'package:gservice5/component/textField/passwordTextField.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
 import 'package:gservice5/pages/auth/privacyPolicyWidget.dart';
-import 'package:gservice5/pages/auth/registration/registrationPage.dart';
+import 'package:gservice5/pages/auth/registration/accountType/getAccountTypePage.dart';
 
 class LoginPage extends StatefulWidget {
   final bool showBackButton;
@@ -42,7 +41,7 @@ class _LoginPageState extends State<LoginPage>
       if (isNumeric(text)) {
         if (text.length >= 10) {
           Map<String, dynamic> param = {
-            "phone": text.substring(text.length - 10)
+            "phone": "7${text.substring(text.length - 10)}"
           };
           postData(param);
         } else {
@@ -75,24 +74,24 @@ class _LoginPageState extends State<LoginPage>
         ...param,
         "password": passwordEditingController.text
       });
+      print(response.data);
       Navigator.pop(context);
       if (response.data['success']) {
-        ChangedToken().saveToken(response.data['data'], context);
+        ChangedToken().saveUserToken(response.data['data'], context);
       } else {
         SnackBarComponent().showResponseErrorMessage(response, context);
       }
-    } catch (e) {
+    } on DioException catch (e) {
+      print(e);
       SnackBarComponent().showServerErrorMessage(context);
     }
   }
 
   void showRegistrationPage() {
     Navigator.push(context,
-            MaterialPageRoute(builder: (context) => RegistrationPage()))
+            MaterialPageRoute(builder: (context) => GetAccountTypePage()))
         .then((value) {
-      if (value != null) {
-        textEditingController.text = value;
-      }
+      if (value != null) textEditingController.text = value;
     });
   }
 

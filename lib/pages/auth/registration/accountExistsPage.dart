@@ -20,14 +20,15 @@ import 'package:gservice5/pages/auth/verification/verificationPhonePage.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:shimmer/shimmer.dart';
 
-class RegistrationPage extends StatefulWidget {
-  const RegistrationPage({super.key});
+class AccountExistsPage extends StatefulWidget {
+  final Map data;
+  const AccountExistsPage({super.key, required this.data});
 
   @override
-  State<RegistrationPage> createState() => _RegistrationPageState();
+  State<AccountExistsPage> createState() => _AccountExistsPageState();
 }
 
-class _RegistrationPageState extends State<RegistrationPage> {
+class _AccountExistsPageState extends State<AccountExistsPage> {
   List countries = [];
   Map currentCountry = {};
   TextEditingController phoneEditingController = TextEditingController();
@@ -57,13 +58,11 @@ class _RegistrationPageState extends State<RegistrationPage> {
     }
   }
 
-  void showModal() {
+  void showCountriesModal() {
     showCupertinoModalBottomSheet(
         context: context,
         builder: (context) => RegistrationCountries(
-            onPressed: savedAddressData,
-            data: currentCountry,
-            countriesData: countries));
+            onPressed: savedAddressData, data: currentCountry));
   }
 
   void savedAddressData(value) {
@@ -78,6 +77,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
     String title = currentCountry['phone_authenticate']
         ? phoneEditingController.text
         : emailEditingController.text;
+    Navigator.pop(context, title);
     Navigator.pop(context, title);
   }
 
@@ -137,8 +137,14 @@ class _RegistrationPageState extends State<RegistrationPage> {
   }
 
   void showVerificationPhonePage() {
-    Navigator.push(context,
-        MaterialPageRoute(builder: (context) => VerificationPhonePage()));
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => VerificationPhonePage(userData: {
+                  "country_id": currentCountry['id'],
+                  "phone": phoneEditingController.text,
+                  ...widget.data
+                })));
   }
 
   void showVerificationEmailPage() {
@@ -177,7 +183,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                                   width: 1, color: Color(0xffE5E5EA)))),
                     )
                   : GestureDetector(
-                      onTap: showModal,
+                      onTap: showCountriesModal,
                       child: Container(
                         height: 48,
                         padding: EdgeInsets.all(12),
