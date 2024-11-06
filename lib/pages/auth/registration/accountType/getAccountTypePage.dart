@@ -9,7 +9,8 @@ import 'package:gservice5/component/snackBar/snackBarComponent.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
 import 'package:gservice5/component/widgets/bottom/bottomNavigationBarComponent.dart';
 import 'package:gservice5/pages/auth/registration/accountType/infoTypeAccountModal.dart';
-import 'package:gservice5/pages/auth/registration/accountExistsPage.dart';
+import 'package:gservice5/pages/auth/registration/business/businessExistsPage.dart';
+import 'package:gservice5/pages/auth/registration/user/userExistsPage.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
 class GetAccountTypePage extends StatefulWidget {
@@ -52,11 +53,19 @@ class _GetAccountTypePageState extends State<GetAccountTypePage> {
   // }
 
   void showRegistrationPage() {
-    Navigator.push(
-        context,
-        MaterialPageRoute(
-            builder: (context) =>
-                AccountExistsPage(data: {"role": data[currentType]['type']})));
+    if (data[currentType]['type'] == "individual") {
+      Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) =>
+                  UserExistsPage(data: {"role": data[currentType]['type']})));
+    } else {
+      Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) => BusinessExistsPage(
+                  data: {"role": data[currentType]['type']})));
+    }
   }
 
   @override

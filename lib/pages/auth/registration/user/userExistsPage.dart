@@ -6,9 +6,7 @@ import 'package:gservice5/component/button/button.dart';
 import 'package:gservice5/component/dio/dio.dart';
 import 'package:gservice5/component/functions/number/getIntNumber.dart';
 import 'package:gservice5/component/loader/modalLoaderComponent.dart';
-import 'package:gservice5/component/modal/countries.dart';
 import 'package:gservice5/component/modal/registrationCountries.dart';
-import 'package:gservice5/component/select/selectButton.dart';
 import 'package:gservice5/component/snackBar/snackBarComponent.dart';
 import 'package:gservice5/component/textField/closeKeyboard/closeKeyboard.dart';
 import 'package:gservice5/component/textField/emailTextField.dart';
@@ -20,15 +18,15 @@ import 'package:gservice5/pages/auth/verification/verificationPhonePage.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:shimmer/shimmer.dart';
 
-class AccountExistsPage extends StatefulWidget {
+class UserExistsPage extends StatefulWidget {
   final Map data;
-  const AccountExistsPage({super.key, required this.data});
+  const UserExistsPage({super.key, required this.data});
 
   @override
-  State<AccountExistsPage> createState() => _AccountExistsPageState();
+  State<UserExistsPage> createState() => _UserExistsPageState();
 }
 
-class _AccountExistsPageState extends State<AccountExistsPage> {
+class _UserExistsPageState extends State<UserExistsPage> {
   List countries = [];
   Map currentCountry = {};
   TextEditingController phoneEditingController = TextEditingController();
@@ -151,8 +149,13 @@ class _AccountExistsPageState extends State<AccountExistsPage> {
     Navigator.push(
         context,
         MaterialPageRoute(
-            builder: (context) =>
-                VerificationEmailPage(email: emailEditingController.text)));
+            builder: (context) => VerificationEmailPage(
+                    email: emailEditingController.text,
+                    userData: {
+                      "country_id": currentCountry['id'],
+                      "email": emailEditingController.text,
+                      ...widget.data
+                    })));
   }
 
   @override

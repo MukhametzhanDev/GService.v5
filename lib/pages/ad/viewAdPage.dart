@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:gservice5/component/appBar/fadeOnScroll.dart';
-import 'package:gservice5/component/bar/bottomBar/bottomNavigationWidget.dart';
 import 'package:gservice5/component/bar/bottomBar/contactBottomBarWidget.dart';
+import 'package:gservice5/component/button/backIconButton.dart';
 import 'package:gservice5/component/button/button.dart';
 import 'package:gservice5/component/button/favoriteButton.dart';
 import 'package:gservice5/component/button/shareButton.dart';
@@ -36,7 +36,7 @@ class _ViewAdPageState extends State<ViewAdPage> {
         body: CustomScrollView(controller: scrollController, slivers: [
           SliverAppBar(
             pinned: true,
-            // leading: const BackIconButton(),
+            leading: const BackIconButton(),
             centerTitle: false,
             actions: [
               // FavoriteButtonComponent(iconColor: ColorTheme['black_white']),

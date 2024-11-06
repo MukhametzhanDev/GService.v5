@@ -11,13 +11,18 @@ import 'package:gservice5/component/loader/modalLoaderComponent.dart';
 import 'package:gservice5/component/snackBar/snackBarComponent.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
 import 'package:gservice5/component/widgets/bottom/bottomNavigationBarComponent.dart';
+import 'package:gservice5/pages/auth/registration/business/contractor/registrationContractorPage.dart';
+import 'package:gservice5/pages/auth/registration/business/customer/registrationCustomerPage.dart';
+import 'package:gservice5/pages/auth/registration/user/registrationUserPage.dart';
 import 'package:pinput/pinput.dart';
 import 'package:sms_autofill/sms_autofill.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class VerificationEmailPage extends StatefulWidget {
   final String email;
-  const VerificationEmailPage({super.key, required this.email});
+  final Map<String, dynamic> userData;
+  const VerificationEmailPage(
+      {super.key, required this.email, required this.userData});
 
   @override
   State<VerificationEmailPage> createState() => _VerificationEmailPageState();
@@ -27,6 +32,7 @@ class _VerificationEmailPageState extends State<VerificationEmailPage>
     with CodeAutoFill {
   String otpCode = '';
   bool loader = true;
+  TextEditingController textEditingController = TextEditingController();
 
   @override
   void initState() {
@@ -53,6 +59,25 @@ class _VerificationEmailPageState extends State<VerificationEmailPage>
     }
   }
 
+  void verifyCode() async {
+    showModalLoader(context);
+    print('otpCode $otpCode');
+    try {
+      Response response = await dio.post("/verify-mail-code", queryParameters: {
+        "email": widget.email,
+        "code": textEditingController.text
+      });
+      Navigator.pop(context);
+      if (response.data['success']) {
+        showRegistrationPage();
+      } else {
+        SnackBarComponent().showResponseErrorMessage(response, context);
+      }
+    } catch (e) {
+      SnackBarComponent().showServerErrorMessage(context);
+    }
+  }
+
   @override
   void codeUpdated() {
     setState(() {
@@ -63,7 +88,31 @@ class _VerificationEmailPageState extends State<VerificationEmailPage>
   @override
   void dispose() {
     super.dispose();
+    textEditingController.dispose();
     cancel();
+  }
+
+  void showRegistrationPage() {
+    Navigator.pop(context);
+    if (widget.userData['role'] == "contractor") {
+      Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) =>
+                  RegistrationContractorPage(data: widget.userData)));
+    } else if (widget.userData['role'] == "customer") {
+      Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) =>
+                  RegistrationCustomerPage(data: widget.userData)));
+    } else {
+      Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) =>
+                  RegistrationUserPage(data: widget.userData)));
+    }
   }
 
   Future<void> openEmailApp() async {
@@ -115,8 +164,8 @@ class _VerificationEmailPageState extends State<VerificationEmailPage>
                     textAlign: TextAlign.center),
                 Divider(height: 24),
                 Pinput(
-                    length: 6,
-                    controller: TextEditingController(text: otpCode),
+                    length: 4,
+                    controller: textEditingController,
                     autofocus: true,
                     defaultPinTheme: PinTheme(
                       width: 48,
@@ -132,7 +181,9 @@ class _VerificationEmailPageState extends State<VerificationEmailPage>
                     ),
                     pinputAutovalidateMode: PinputAutovalidateMode.onSubmit,
                     showCursor: true,
-                    onCompleted: (pin) => print(pin))
+                    onCompleted: (pin) {
+                      verifyCode();
+                    })
               ])),
       bottomNavigationBar: loader
           ? null
@@ -141,7 +192,7 @@ class _VerificationEmailPageState extends State<VerificationEmailPage>
               TimerButtonComponent(onPressed: sendCode),
               SizedBox(height: 10),
               Button(
-                onPressed: () {},
+                onPressed: verifyCode,
                 title: "Подтвердить регистрацию",
                 padding: EdgeInsets.only(left: 16, right: 16),
                 backgroundColor: ColorComponent.mainColor,

@@ -10,8 +10,9 @@ import 'package:gservice5/component/loader/modalLoaderComponent.dart';
 import 'package:gservice5/component/snackBar/snackBarComponent.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
 import 'package:gservice5/component/widgets/bottom/bottomNavigationBarComponent.dart';
+import 'package:gservice5/pages/auth/registration/business/contractor/registrationContractorPage.dart';
 import 'package:gservice5/pages/auth/registration/business/customer/registrationCustomerPage.dart';
-import 'package:gservice5/pages/auth/registration/accountExistsPage.dart';
+import 'package:gservice5/pages/auth/registration/user/userExistsPage.dart';
 import 'package:gservice5/pages/auth/registration/user/registrationUserPage.dart';
 import 'package:pinput/pinput.dart';
 import 'package:sms_autofill/sms_autofill.dart';
@@ -79,12 +80,12 @@ class _VerificationPhonePageState extends State<VerificationPhonePage>
 
   void showRegistrationPage() {
     Navigator.pop(context);
-    if (widget.userData['role'] == "customer") {
+    if (widget.userData['role'] == "contractor") {
       Navigator.push(
           context,
           MaterialPageRoute(
               builder: (context) =>
-                  AccountExistsPage(data: widget.userData)));
+                  RegistrationContractorPage(data: widget.userData)));
     } else if (widget.userData['role'] == "customer") {
       Navigator.push(
           context,

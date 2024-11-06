@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'package:gservice5/pages/auth/loginPage.dart';
+import 'package:gservice5/pages/auth/login/loginPage.dart';
 import 'package:gservice5/pages/profile/profilePage.dart';
 
 class VerifyProfilePage extends StatefulWidget {
