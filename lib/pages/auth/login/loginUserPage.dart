@@ -74,7 +74,7 @@ class _LoginUserPageState extends State<LoginUserPage>
       print(response.data);
       Navigator.pop(context);
       if (response.data['success']) {
-        ChangedToken().saveUserToken(response.data['data'], context);
+        ChangedToken().saveIndividualToken(response.data['data'], context);
       } else {
         SnackBarComponent().showResponseErrorMessage(response, context);
       }

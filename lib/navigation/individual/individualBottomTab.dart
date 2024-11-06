@@ -10,14 +10,14 @@ import 'package:gservice5/pages/main/mainPage.dart';
 import 'package:gservice5/pages/message/messageMainPage.dart';
 import 'package:gservice5/pages/profile/verifyProfilePage.dart';
 
-class BottomTab extends StatefulWidget {
-  const BottomTab({super.key});
+class IndividualBottomTab extends StatefulWidget {
+  const IndividualBottomTab({super.key});
 
   @override
-  State<BottomTab> createState() => _BottomTabState();
+  State<IndividualBottomTab> createState() => _IndividualBottomTabState();
 }
 
-class _BottomTabState extends State<BottomTab> {
+class _IndividualBottomTabState extends State<IndividualBottomTab> {
   int _selectedIndex = 0;
   static final List<Map> _tabs = <Map>[
     {"icon": "assets/icons/home.svg", "label": "Главная"},

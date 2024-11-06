@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:gservice5/navigation/bottomTab.dart';
+import 'package:gservice5/navigation/individual/individualBottomTab.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -23,7 +23,7 @@ class _SplashScreenState extends State<SplashScreen> {
 
   void showPage() {
     Navigator.of(context).pushAndRemoveUntil(
-        MaterialPageRoute(builder: (context) => BottomTab()), (route) => false);
+        MaterialPageRoute(builder: (context) => IndividualBottomTab()), (route) => false);
   }
 
   @override

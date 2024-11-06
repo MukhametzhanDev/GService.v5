@@ -18,15 +18,15 @@ import 'package:gservice5/pages/auth/verification/verificationPhonePage.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:shimmer/shimmer.dart';
 
-class UserExistsPage extends StatefulWidget {
+class IndividualExistsPage extends StatefulWidget {
   final Map data;
-  const UserExistsPage({super.key, required this.data});
+  const IndividualExistsPage({super.key, required this.data});
 
   @override
-  State<UserExistsPage> createState() => _UserExistsPageState();
+  State<IndividualExistsPage> createState() => _IndividualExistsPageState();
 }
 
-class _UserExistsPageState extends State<UserExistsPage> {
+class _IndividualExistsPageState extends State<IndividualExistsPage> {
   List countries = [];
   Map currentCountry = {};
   TextEditingController phoneEditingController = TextEditingController();

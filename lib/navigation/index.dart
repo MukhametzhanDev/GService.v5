@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gservice5/component/theme/darkThemeProvider.dart';
 import 'package:gservice5/component/theme/styles.dart';
-import 'package:gservice5/navigation/bottomTab.dart';
+import 'package:gservice5/navigation/individual/individualBottomTab.dart';
 import 'package:gservice5/pages/splash/splashScreen.dart';
 import 'package:provider/provider.dart';
 
@@ -27,10 +27,10 @@ class _IndexState extends State<Index> {
           return MaterialApp(
             theme: Styles.themeData(themeChangeProvider.darkTheme, context),
             debugShowCheckedModeBanner: false,
-            home: BottomTab(),
+            home: IndividualBottomTab(),
             initialRoute: "SplashScreen",
             routes: {
-              "BottomTab": (context) => BottomTab(),
+              "IndividualBottomTab": (context) => IndividualBottomTab(),
               "SplashScreen": (context) => SplashScreen(),
             },
           );

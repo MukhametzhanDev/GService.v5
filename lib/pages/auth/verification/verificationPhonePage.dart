@@ -12,8 +12,8 @@ import 'package:gservice5/component/theme/colorComponent.dart';
 import 'package:gservice5/component/widgets/bottom/bottomNavigationBarComponent.dart';
 import 'package:gservice5/pages/auth/registration/business/contractor/registrationContractorPage.dart';
 import 'package:gservice5/pages/auth/registration/business/customer/registrationCustomerPage.dart';
-import 'package:gservice5/pages/auth/registration/user/userExistsPage.dart';
-import 'package:gservice5/pages/auth/registration/user/registrationUserPage.dart';
+import 'package:gservice5/pages/auth/registration/individual/individualExistsPage.dart';
+import 'package:gservice5/pages/auth/registration/individual/registrationUserPage.dart';
 import 'package:pinput/pinput.dart';
 import 'package:sms_autofill/sms_autofill.dart';
 
@@ -97,7 +97,7 @@ class _VerificationPhonePageState extends State<VerificationPhonePage>
           context,
           MaterialPageRoute(
               builder: (context) =>
-                  RegistrationUserPage(data: widget.userData)));
+                  RegistrationIndividualPage(data: widget.userData)));
     }
   }
 

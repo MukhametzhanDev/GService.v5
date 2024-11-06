@@ -15,15 +15,15 @@ import 'package:gservice5/component/textField/repeatPasswordTextField.dart';
 import 'package:gservice5/component/widgets/bottom/bottomNavigationBarComponent.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
-class RegistrationUserPage extends StatefulWidget {
+class RegistrationIndividualPage extends StatefulWidget {
   final Map data;
-  const RegistrationUserPage({super.key, required this.data});
+  const RegistrationIndividualPage({super.key, required this.data});
 
   @override
-  State<RegistrationUserPage> createState() => _RegistrationUserPageState();
+  State<RegistrationIndividualPage> createState() => _RegistrationIndividualPageState();
 }
 
-class _RegistrationUserPageState extends State<RegistrationUserPage> {
+class _RegistrationIndividualPageState extends State<RegistrationIndividualPage> {
   TextEditingController nameEditingController = TextEditingController();
   TextEditingController passwordEditingController = TextEditingController();
   TextEditingController repeatPasswordEditingController =
@@ -45,7 +45,7 @@ class _RegistrationUserPageState extends State<RegistrationUserPage> {
       print(response.data);
       Navigator.pop(context);
       if (response.data['success']) {
-        ChangedToken().saveUserToken(response.data['data'], context);
+        ChangedToken().saveIndividualToken(response.data['data'], context);
       } else {
         SnackBarComponent().showResponseErrorMessage(response, context);
       }
@@ -62,10 +62,15 @@ class _RegistrationUserPageState extends State<RegistrationUserPage> {
     if (name.isEmpty || password.isEmpty || repeatPassword.isEmpty) {
       SnackBarComponent().showErrorMessage("Заполните все строки", context);
     } else {
-      if (password == repeatPassword) {
-        postData();
+      if (password.length < 5) {
+        SnackBarComponent()
+            .showErrorMessage("Пароль должен быть больше 5 символов", context);
       } else {
-        SnackBarComponent().showErrorMessage("Пароль не совпадают", context);
+        if (password == repeatPassword) {
+          postData();
+        } else {
+          SnackBarComponent().showErrorMessage("Пароль не совпадают", context);
+        }
       }
     }
   }

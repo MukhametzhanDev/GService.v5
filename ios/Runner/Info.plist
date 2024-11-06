@@ -21,6 +21,10 @@
 	  <string>sms</string>
 	  <string>tel</string>
 	</array>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Нам нужен доступ к вашей фотобиблиотеке для загрузки изображений.</string>
+	<key>NSCameraUsageDescription</key>
+	<string>Нам нужен доступ к вашей камере для съемки фотографий.</string>
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
