@@ -7,24 +7,27 @@ import 'package:gservice5/component/button/button.dart';
 import 'package:gservice5/component/button/timerButton.dart';
 import 'package:gservice5/component/dio/dio.dart';
 import 'package:gservice5/component/functions/number/getIntNumber.dart';
+import 'package:gservice5/component/functions/token/changedToken.dart';
 import 'package:gservice5/component/loader/modalLoaderComponent.dart';
 import 'package:gservice5/component/snackBar/snackBarComponent.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
 import 'package:gservice5/component/widgets/bottom/bottomNavigationBarComponent.dart';
+import 'package:gservice5/pages/auth/password/individual/resetIndividualPasswordPage.dart';
 import 'package:gservice5/pages/auth/registration/individual/registrationUserPage.dart';
 import 'package:pinput/pinput.dart';
 import 'package:sms_autofill/sms_autofill.dart';
 
-class VerificationPhonePage extends StatefulWidget {
-  final Map userData;
-  const VerificationPhonePage({super.key, required this.userData});
+class ForgotPhonePasswordIndividualPage extends StatefulWidget {
+  final String phone;
+  const ForgotPhonePasswordIndividualPage({super.key, required this.phone});
 
   @override
-  State<VerificationPhonePage> createState() => _VerificationPhonePageState();
+  State<ForgotPhonePasswordIndividualPage> createState() =>
+      _ForgotPhonePasswordIndividualPageState();
 }
 
-class _VerificationPhonePageState extends State<VerificationPhonePage>
-    with CodeAutoFill {
+class _ForgotPhonePasswordIndividualPageState
+    extends State<ForgotPhonePasswordIndividualPage> with CodeAutoFill {
   String otpCode = '';
   bool loader = true;
   TextEditingController codeController = TextEditingController();
@@ -40,12 +43,10 @@ class _VerificationPhonePageState extends State<VerificationPhonePage>
     try {
       loader = true;
       setState(() {});
-      Response response = await dio.post("/send-sms-verify-code",
-          queryParameters: {
-            "phone": getIntComponent(widget.userData['phone'])
-          });
+      Response response = await dio
+          .post("/send-sms-verify-code", data: {"phone": widget.phone});
       print(response.data);
-      if (response.statusCode == 200) {
+      if (response.statusCode == 200 && response.data['success']) {
         loader = false;
         setState(() {});
       } else {
@@ -60,29 +61,26 @@ class _VerificationPhonePageState extends State<VerificationPhonePage>
     print(codeController.text);
     try {
       showModalLoader(context);
-      Response response = await dio.post("/verify-sms-code", queryParameters: {
-        "phone": getIntComponent(widget.userData['phone']),
-        "code": codeController.text
+      Response response = await dio.post("/verify-sms-code", data: {
+        "phone": widget.phone,
+        "code": codeController.text,
+        "for_password_reset": true
       });
       print(response.data);
       Navigator.pop(context);
-      if (response.statusCode == 200) {
-        showRegistrationPage();
+      if (response.statusCode == 200 && response.data['success']) {
+        await ChangedToken()
+            .saveIndividualToken(response.data['data'], context);
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => ResetIndividualPasswordPage()));
       } else {
         SnackBarComponent().showResponseErrorMessage(response, context);
       }
     } catch (e) {
       SnackBarComponent().showServerErrorMessage(context);
     }
-  }
-
-  void showRegistrationPage() {
-    Navigator.pop(context);
-    Navigator.push(
-        context,
-        MaterialPageRoute(
-            builder: (context) =>
-                RegistrationIndividualPage(data: widget.userData)));
   }
 
   @override
@@ -118,7 +116,7 @@ class _VerificationPhonePageState extends State<VerificationPhonePage>
                           color: ColorComponent.gray['500'],
                           fontWeight: FontWeight.w500),
                       text:
-                          "На ваш номер телефона ${widget.userData['phone']} был выслан SMS-код для подтверждения регистрации"),
+                          "На ваш номер телефона +${widget.phone} был выслан SMS-код для подтверждения регистрации"),
                 ])),
             Divider(height: 24),
             Pinput(

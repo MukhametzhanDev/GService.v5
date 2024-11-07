@@ -7,33 +7,31 @@ import 'package:gservice5/component/button/backIconButton.dart';
 import 'package:gservice5/component/button/button.dart';
 import 'package:gservice5/component/button/timerButton.dart';
 import 'package:gservice5/component/dio/dio.dart';
+import 'package:gservice5/component/functions/token/changedToken.dart';
 import 'package:gservice5/component/loader/loaderComponent.dart';
 import 'package:gservice5/component/loader/modalLoaderComponent.dart';
 import 'package:gservice5/component/snackBar/snackBarComponent.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
 import 'package:gservice5/component/widgets/bottom/bottomNavigationBarComponent.dart';
-import 'package:gservice5/pages/auth/registration/business/contractor/registrationContractorPage.dart';
-import 'package:gservice5/pages/auth/registration/business/customer/registrationCustomerPage.dart';
-import 'package:gservice5/pages/auth/registration/individual/registrationUserPage.dart';
+import 'package:gservice5/pages/auth/password/individual/resetIndividualPasswordPage.dart';
 import 'package:pinput/pinput.dart';
 import 'package:sms_autofill/sms_autofill.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-class VerificationEmailPage extends StatefulWidget {
+class ForgotEmailPasswordIndividualPage extends StatefulWidget {
   final String email;
-  final Map<String, dynamic> userData;
-  const VerificationEmailPage(
-      {super.key, required this.email, required this.userData});
+  const ForgotEmailPasswordIndividualPage({super.key, required this.email});
 
   @override
-  State<VerificationEmailPage> createState() => _VerificationEmailPageState();
+  State<ForgotEmailPasswordIndividualPage> createState() =>
+      _ForgotEmailPasswordIndividualPageState();
 }
 
-class _VerificationEmailPageState extends State<VerificationEmailPage>
-    with CodeAutoFill {
+class _ForgotEmailPasswordIndividualPageState
+    extends State<ForgotEmailPasswordIndividualPage> with CodeAutoFill {
+  TextEditingController textEditingController = TextEditingController();
   String otpCode = '';
   bool loader = true;
-  TextEditingController textEditingController = TextEditingController();
 
   @override
   void initState() {
@@ -64,13 +62,20 @@ class _VerificationEmailPageState extends State<VerificationEmailPage>
     showModalLoader(context);
     print('otpCode $otpCode');
     try {
-      Response response = await dio.post("/verify-mail-code", queryParameters: {
+      Response response = await dio.post("/verify-mail-code", data: {
         "email": widget.email,
-        "code": textEditingController.text
+        "code": textEditingController.text,
+        "for_password_reset": true
       });
       Navigator.pop(context);
+      print(response.data);
       if (response.statusCode == 200 && response.data['success']) {
-        showRegistrationPage();
+        await ChangedToken()
+            .saveIndividualToken(response.data['data'], context);
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => ResetIndividualPasswordPage()));
       } else {
         SnackBarComponent().showResponseErrorMessage(response, context);
       }
@@ -80,42 +85,18 @@ class _VerificationEmailPageState extends State<VerificationEmailPage>
   }
 
   @override
+  void dispose() {
+    textEditingController.dispose();
+    super.dispose();
+  }
+
+  void postData() {}
+
+  @override
   void codeUpdated() {
     setState(() {
       otpCode = code!;
     });
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-    textEditingController.dispose();
-    cancel();
-  }
-
-  void showRegistrationPage() {
-    Navigator.pop(context);
-    if (widget.userData['role'] == "contractor") {
-      widget.userData['email'] = widget.email;
-      Navigator.push(
-          context,
-          MaterialPageRoute(
-              builder: (context) =>
-                  RegistrationContractorPage(data: widget.userData)));
-    } else if (widget.userData['role'] == "customer") {
-      widget.userData['email'] = widget.email;
-      Navigator.push(
-          context,
-          MaterialPageRoute(
-              builder: (context) =>
-                  RegistrationCustomerPage(data: widget.userData)));
-    } else {
-      Navigator.push(
-          context,
-          MaterialPageRoute(
-              builder: (context) =>
-                  RegistrationIndividualPage(data: widget.userData)));
-    }
   }
 
   Future<void> openEmailApp() async {
@@ -149,7 +130,7 @@ class _VerificationEmailPageState extends State<VerificationEmailPage>
                         children: [
                           TextSpan(
                               text:
-                                  "Код на подтверждение была отправлена вам на почту ${widget.email}\n"),
+                                  "Ссылка на подтверждение была отправлена вам на почту ${widget.email}\n"),
                           TextSpan(
                             text: "Проверить почту",
                             style: TextStyle(color: ColorComponent.blue['500']),
@@ -195,7 +176,10 @@ class _VerificationEmailPageState extends State<VerificationEmailPage>
               TimerButton(onPressed: sendCode),
               SizedBox(height: 10),
               Button(
-                onPressed: verifyCode,
+                onPressed: () {
+                  textEditingController.clear();
+                  verifyCode();
+                },
                 title: "Подтвердить регистрацию",
                 padding: EdgeInsets.only(left: 16, right: 16),
                 backgroundColor: ColorComponent.mainColor,

@@ -32,7 +32,6 @@ class _RegistrationIndividualPageState extends State<RegistrationIndividualPage>
 
   Future postData() async {
     showModalLoader(context);
-
     try {
       Map<String, dynamic> param = {
         "name": nameEditingController.text,

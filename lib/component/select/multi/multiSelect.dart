@@ -60,6 +60,9 @@ class _MultiSelectState extends State<MultiSelect> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
+        Text(widget.title,
+            style: TextStyle(fontWeight: FontWeight.w600, fontSize: 15)),
+        Divider(height: 8),
         GestureDetector(
           onTap: showModal,
           child: Container(
@@ -73,7 +76,7 @@ class _MultiSelectState extends State<MultiSelect> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Expanded(
-                  child: Text(widget.title,
+                  child: Text("Выбрать",
                       style: TextStyle(
                           color: ColorComponent.gray['500'],
                           overflow: TextOverflow.ellipsis)),
@@ -84,7 +87,7 @@ class _MultiSelectState extends State<MultiSelect> {
           ),
         ),
         Padding(
-          padding: const EdgeInsets.only(top: 12.0, bottom: 12),
+          padding: EdgeInsets.only(top: 12.0, bottom: data.isEmpty ? 12 : 24),
           child: Wrap(
               spacing: 8,
               runSpacing: 8,
@@ -97,7 +100,8 @@ class _MultiSelectState extends State<MultiSelect> {
                     height: 26,
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(6),
-                        border: Border.all(width: 1, color: Color(0xffE5E7EB))),
+                        border: Border.all(
+                            width: 1, color: ColorComponent.mainColor)),
                     child: Row(
                       mainAxisSize: MainAxisSize.min,
                       crossAxisAlignment: CrossAxisAlignment.center,

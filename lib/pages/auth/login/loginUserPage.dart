@@ -7,6 +7,7 @@ import 'package:gservice5/component/loader/modalLoaderComponent.dart';
 import 'package:gservice5/component/snackBar/snackBarComponent.dart';
 import 'package:gservice5/component/textField/passwordTextField.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
+import 'package:gservice5/pages/auth/password/individual/forgotPasswordIndividualPage.dart';
 import 'package:gservice5/pages/auth/privacyPolicyWidget.dart';
 import 'package:gservice5/pages/auth/registration/accountType/getAccountTypePage.dart';
 
@@ -73,8 +74,7 @@ class _LoginUserPageState extends State<LoginUserPage>
       });
       print(response.data);
       Navigator.pop(context);
-             if (response.statusCode==200) {
-
+      if (response.statusCode == 200&& response.data['success']) {
         ChangedToken().saveIndividualToken(response.data['data'], context);
       } else {
         SnackBarComponent().showResponseErrorMessage(response, context);
@@ -91,6 +91,14 @@ class _LoginUserPageState extends State<LoginUserPage>
         .then((value) {
       if (value != null) textEditingController.text = value;
     });
+  }
+
+  void showForgotPasswordIndividualPage() {
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => ForgotPasswordIndividualPage(
+                title: textEditingController.text)));
   }
 
   @override
@@ -122,7 +130,7 @@ class _LoginUserPageState extends State<LoginUserPage>
             Align(
                 alignment: Alignment.centerRight,
                 child: TextButton(
-                    onPressed: () {},
+                    onPressed: showForgotPasswordIndividualPage,
                     child: Text(
                       "Забыли пароль?",
                       style: TextStyle(
@@ -147,7 +155,7 @@ class _LoginUserPageState extends State<LoginUserPage>
               ),
             ),
             Divider(indent: 8),
-            Button(onPressed: verifyData, title: "Подтвердить"),
+            Button(onPressed: verifyData, title: "Войти"),
             Divider(indent: 8),
             PrivacyPolicyWidget()
           ],

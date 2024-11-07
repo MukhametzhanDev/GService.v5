@@ -23,7 +23,7 @@ class _LoginPageState extends State<LoginPage>
             onTap: () => closeKeyboard(),
             child: Scaffold(
                 appBar: AppBar(
-                  title: Text("Вход"),
+                  title: Text("Войти в GService"),
                   leading: widget.showBackButton
                       ? const BackIconButton()
                       : Container(),

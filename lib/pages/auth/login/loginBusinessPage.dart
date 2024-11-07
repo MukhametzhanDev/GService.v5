@@ -8,6 +8,7 @@ import 'package:gservice5/component/snackBar/snackBarComponent.dart';
 import 'package:gservice5/component/textField/emailTextField.dart';
 import 'package:gservice5/component/textField/passwordTextField.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
+import 'package:gservice5/pages/auth/password/business/forgotPasswordBusinessPage.dart';
 import 'package:gservice5/pages/auth/privacyPolicyWidget.dart';
 import 'package:gservice5/pages/auth/registration/accountType/getAccountTypePage.dart';
 
@@ -20,7 +21,8 @@ class LoginBusinessPage extends StatefulWidget {
 
 class _LoginBusinessPageState extends State<LoginBusinessPage>
     with SingleTickerProviderStateMixin {
-  TextEditingController emailEditingController = TextEditingController(text: "mukhametzhan.tileubek@gmail.com");
+  TextEditingController emailEditingController =
+      TextEditingController(text: "mukhametzhan.tileubek@gmail.com");
   TextEditingController passwordEditingController = TextEditingController();
 
   @override
@@ -48,10 +50,6 @@ class _LoginBusinessPageState extends State<LoginBusinessPage>
     }
   }
 
-  bool isNumeric(String text) {
-    return RegExp(r'^\d+$').hasMatch(text);
-  }
-
   Future postData(Map<String, dynamic> param) async {
     showModalLoader(context);
     // Map<String, dynamic> param = verifyParam();
@@ -62,8 +60,7 @@ class _LoginBusinessPageState extends State<LoginBusinessPage>
       });
       print(response.data);
       Navigator.pop(context);
-             if (response.statusCode==200) {
-
+      if (response.statusCode == 200) {
         ChangedToken().saveIndividualToken(response.data['data'], context);
       } else {
         SnackBarComponent().showResponseErrorMessage(response, context);
@@ -80,6 +77,14 @@ class _LoginBusinessPageState extends State<LoginBusinessPage>
         .then((value) {
       if (value != null) emailEditingController.text = value;
     });
+  }
+
+  void showForgotPasswordIndividualPage() {
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => ForgotPasswordBusinessPage(
+                email: emailEditingController.text)));
   }
 
   @override
@@ -103,7 +108,7 @@ class _LoginBusinessPageState extends State<LoginBusinessPage>
             Align(
                 alignment: Alignment.centerRight,
                 child: TextButton(
-                    onPressed: () {},
+                    onPressed: showForgotPasswordIndividualPage,
                     child: Text(
                       "Забыли пароль?",
                       style: TextStyle(
