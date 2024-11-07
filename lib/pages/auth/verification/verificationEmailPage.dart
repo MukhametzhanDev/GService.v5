@@ -48,7 +48,8 @@ class _VerificationEmailPageState extends State<VerificationEmailPage>
       Response response = await dio.post("/send-mail-verify-code",
           queryParameters: {"email": widget.email});
       print(response.data);
-      if (response.data['success']) {
+             if (response.statusCode==200) {
+
         loader = false;
         setState(() {});
       } else {
@@ -68,7 +69,8 @@ class _VerificationEmailPageState extends State<VerificationEmailPage>
         "code": textEditingController.text
       });
       Navigator.pop(context);
-      if (response.data['success']) {
+             if (response.statusCode==200) {
+
         showRegistrationPage();
       } else {
         SnackBarComponent().showResponseErrorMessage(response, context);
@@ -95,12 +97,14 @@ class _VerificationEmailPageState extends State<VerificationEmailPage>
   void showRegistrationPage() {
     Navigator.pop(context);
     if (widget.userData['role'] == "contractor") {
+      widget.userData['email'] = widget.email;
       Navigator.push(
           context,
           MaterialPageRoute(
               builder: (context) =>
                   RegistrationContractorPage(data: widget.userData)));
     } else if (widget.userData['role'] == "customer") {
+      widget.userData['email'] = widget.email;
       Navigator.push(
           context,
           MaterialPageRoute(

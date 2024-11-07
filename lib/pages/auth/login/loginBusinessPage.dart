@@ -20,7 +20,7 @@ class LoginBusinessPage extends StatefulWidget {
 
 class _LoginBusinessPageState extends State<LoginBusinessPage>
     with SingleTickerProviderStateMixin {
-  TextEditingController emailEditingController = TextEditingController();
+  TextEditingController emailEditingController = TextEditingController(text: "mukhametzhan.tileubek@gmail.com");
   TextEditingController passwordEditingController = TextEditingController();
 
   @override
@@ -62,7 +62,8 @@ class _LoginBusinessPageState extends State<LoginBusinessPage>
       });
       print(response.data);
       Navigator.pop(context);
-      if (response.data['success']) {
+             if (response.statusCode==200) {
+
         ChangedToken().saveIndividualToken(response.data['data'], context);
       } else {
         SnackBarComponent().showResponseErrorMessage(response, context);

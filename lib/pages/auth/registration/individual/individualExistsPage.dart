@@ -43,7 +43,8 @@ class _IndividualExistsPageState extends State<IndividualExistsPage> {
     try {
       Response response = await dio.get("/countries");
       print(response.data);
-      if (response.data['success']) {
+             if (response.statusCode==200) {
+
         currentCountry = response.data['data'][0];
         countries = response.data['data'];
         setState(() {});
@@ -109,7 +110,8 @@ class _IndividualExistsPageState extends State<IndividualExistsPage> {
       Response response = await dio.get("/user-exists", queryParameters: param);
       print(response.data);
       Navigator.pop(context);
-      if (response.data['success']) {
+             if (response.statusCode==200) {
+
         if (!response.data['data']['is_exists']) {
           if (currentCountry['phone_authenticate']) {
             showVerificationPhonePage();

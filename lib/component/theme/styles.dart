@@ -129,6 +129,8 @@ class Styles {
           // ignore: deprecated_member_use
         ),
         listTileTheme: ListTileThemeData(
+            titleTextStyle:
+                TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
             textColor: isDarkTheme ? Colors.white : Colors.black),
         colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.blue)
             .copyWith(

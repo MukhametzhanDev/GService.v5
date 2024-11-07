@@ -50,7 +50,8 @@ class _CountriesState extends State<Countries>
     try {
       Response response = await dio.get("/countries");
       print(response.data);
-      if (response.data['success']) {
+             if (response.statusCode==200) {
+
         data = response.data['data'];
         filterData = response.data['data'];
         loader = false;

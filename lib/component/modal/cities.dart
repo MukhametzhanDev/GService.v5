@@ -47,7 +47,8 @@ class _CitiesState extends State<Cities> with SingleTickerProviderStateMixin {
       Response response = await dio
           .get("/cities", queryParameters: {"country_id": widget.countryId});
       print(response.data);
-      if (response.data['success']) {
+             if (response.statusCode==200) {
+
         data = response.data['data'];
         loader = false;
         setState(() {});

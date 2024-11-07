@@ -47,7 +47,8 @@ class _VerificationPhonePageState extends State<VerificationPhonePage>
             "phone": getIntComponent(widget.userData['phone'])
           });
       print(response.data);
-      if (response.data['success']) {
+             if (response.statusCode==200) {
+
         loader = false;
         setState(() {});
       } else {
@@ -68,7 +69,8 @@ class _VerificationPhonePageState extends State<VerificationPhonePage>
       });
       print(response.data);
       Navigator.pop(context);
-      if (response.data['success']) {
+             if (response.statusCode==200) {
+
         showRegistrationPage();
       } else {
         SnackBarComponent().showResponseErrorMessage(response, context);
@@ -80,25 +82,11 @@ class _VerificationPhonePageState extends State<VerificationPhonePage>
 
   void showRegistrationPage() {
     Navigator.pop(context);
-    if (widget.userData['role'] == "contractor") {
-      Navigator.push(
-          context,
-          MaterialPageRoute(
-              builder: (context) =>
-                  RegistrationContractorPage(data: widget.userData)));
-    } else if (widget.userData['role'] == "customer") {
-      Navigator.push(
-          context,
-          MaterialPageRoute(
-              builder: (context) =>
-                  RegistrationCustomerPage(data: widget.userData)));
-    } else {
-      Navigator.push(
-          context,
-          MaterialPageRoute(
-              builder: (context) =>
-                  RegistrationIndividualPage(data: widget.userData)));
-    }
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) =>
+                RegistrationIndividualPage(data: widget.userData)));
   }
 
   @override

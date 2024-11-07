@@ -34,7 +34,7 @@ class _GetAccountTypePageState extends State<GetAccountTypePage> {
   void getData() async {
     try {
       Response response = await dio.get("/personal-account-type-info");
-      if (response.data['success']) {
+      if (response.statusCode == 200) {
         data = response.data['data'];
         loader = false;
         setState(() {});

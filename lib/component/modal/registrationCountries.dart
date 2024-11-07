@@ -56,7 +56,8 @@ class _RegistrationCountriesState extends State<RegistrationCountries>
       Response response =
           await dio.get("/countries", queryParameters: parameter);
       print(response.data);
-      if (response.data['success']) {
+             if (response.statusCode==200) {
+
         data = response.data['data'];
         hasNextPage = page != response.data['meta']['last_page'];
         loader = false;
@@ -81,7 +82,8 @@ class _RegistrationCountriesState extends State<RegistrationCountries>
         Response response =
             await dio.get("/countries", queryParameters: parameter);
         print(response.data);
-        if (response.data['success']) {
+               if (response.statusCode==200) {
+
           data.addAll(response.data['data']);
           hasNextPage = page != response.data['meta']['last_page'];
           isLoadMore = false;

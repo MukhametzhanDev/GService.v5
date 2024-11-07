@@ -12,6 +12,7 @@ import 'package:gservice5/component/snackBar/snackBarComponent.dart';
 import 'package:gservice5/component/textField/closeKeyboard/closeKeyboard.dart';
 import 'package:gservice5/component/textField/passwordTextField.dart';
 import 'package:gservice5/component/textField/repeatPasswordTextField.dart';
+import 'package:gservice5/component/theme/colorComponent.dart';
 import 'package:gservice5/component/widgets/bottom/bottomNavigationBarComponent.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
@@ -27,22 +28,45 @@ class RegistrationCustomerPage extends StatefulWidget {
 class _RegistrationCustomerPageState extends State<RegistrationCustomerPage> {
   Map currentCity = {};
   TextEditingController nameEditingController = TextEditingController();
-  TextEditingController indentifierEditingController = TextEditingController();
+  TextEditingController identifierEditingController = TextEditingController();
   TextEditingController passwordEditingController = TextEditingController();
   TextEditingController repeatPasswordEditingController =
       TextEditingController();
+  String imagePath = "";
 
   @override
   void dispose() {
     nameEditingController.dispose();
-    indentifierEditingController.dispose();
+    identifierEditingController.dispose();
     passwordEditingController.dispose();
     repeatPasswordEditingController.dispose();
     super.dispose();
   }
 
-  Future postData() async {
+  Future postImage() async {
     showModalLoader(context);
+    try {
+      FormData formData = FormData.fromMap({
+        "image": await MultipartFile.fromFile(imagePath,
+            filename: imagePath.split('/').last)
+      });
+      Response response = await dio.post("/image/avatar", data: formData);
+      print(response.data);
+      Navigator.pop(context);
+             if (response.statusCode==200) {
+
+        postData(response.data['data']);
+      } else {
+        SnackBarComponent().showResponseErrorMessage(response, context);
+      }
+    } catch (e) {
+      SnackBarComponent().showServerErrorMessage(context);
+    }
+  }
+
+  Future postData(String url) async {
+    showModalLoader(context);
+    print(widget.data);
     try {
       Map<String, dynamic> param = {
         "role": "customer",
@@ -50,12 +74,15 @@ class _RegistrationCustomerPageState extends State<RegistrationCustomerPage> {
         "password": passwordEditingController.text,
         "city_id": currentCity['id'],
         "country_id": widget.data['country_id'],
-        "email": widget.data['email']
+        "email": widget.data['email'],
+        "avatar": url,
+        "identifier": identifierEditingController.text
       };
-      Response response = await dio.post("/register", data: param);
+      Response response = await dio.post("/business/register", data: param);
       print(response.data);
       Navigator.pop(context);
-      if (response.data['success']) {
+             if (response.statusCode==200) {
+
         ChangedToken().saveCustomerToken(response.data['data'], context);
       } else {
         SnackBarComponent().showResponseErrorMessage(response, context);
@@ -67,17 +94,19 @@ class _RegistrationCustomerPageState extends State<RegistrationCustomerPage> {
 
   void verifyData() {
     String name = nameEditingController.text.trim();
-    String indentifier = indentifierEditingController.text.trim();
+    String indentifier = identifierEditingController.text.trim();
     String password = passwordEditingController.text.trim();
     String repeatPassword = repeatPasswordEditingController.text.trim();
-
-    if (currentCity.isEmpty ||
+    if (imagePath.isEmpty ||
+        currentCity.isEmpty ||
         name.isEmpty ||
         indentifier.isEmpty ||
         password.isEmpty ||
         repeatPassword.isEmpty) {
       SnackBarComponent().showErrorMessage("Заполните все строки", context);
-    } else {}
+    } else {
+      postImage();
+    }
   }
 
   void showCityModal() {
@@ -103,7 +132,10 @@ class _RegistrationCustomerPageState extends State<RegistrationCustomerPage> {
         body: SingleChildScrollView(
           padding: EdgeInsets.all(15),
           child: Column(children: [
-            GetLogoWidget(),
+            GetLogoWidget(onChanged: (path) {
+              imagePath = path;
+              setState(() {});
+            }),
             Divider(height: 24),
             SelectButton(
                 title: currentCity.isNotEmpty
@@ -119,10 +151,13 @@ class _RegistrationCustomerPageState extends State<RegistrationCustomerPage> {
                 decoration: InputDecoration(hintText: "Название компании")),
             Divider(indent: 8),
             TextField(
-                controller: indentifierEditingController,
+                controller: identifierEditingController,
                 style: TextStyle(fontSize: 14),
                 keyboardType: TextInputType.number,
-                decoration: InputDecoration(hintText: "БИН")),
+                maxLength: 12,
+                decoration: InputDecoration(
+                    hintText: "БИН",
+                    helperStyle: TextStyle(color: ColorComponent.gray['500']))),
             Divider(indent: 8),
             PasswordTextField(
                 textEditingController: passwordEditingController,
@@ -135,7 +170,7 @@ class _RegistrationCustomerPageState extends State<RegistrationCustomerPage> {
         ),
         bottomNavigationBar: BottomNavigationBarComponent(
             child: Button(
-                onPressed: () {},
+                onPressed: () => verifyData(),
                 padding: EdgeInsets.symmetric(horizontal: 15),
                 title: "Подтвердить")),
       ),

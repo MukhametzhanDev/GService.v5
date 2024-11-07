@@ -73,7 +73,8 @@ class _LoginUserPageState extends State<LoginUserPage>
       });
       print(response.data);
       Navigator.pop(context);
-      if (response.data['success']) {
+             if (response.statusCode==200) {
+
         ChangedToken().saveIndividualToken(response.data['data'], context);
       } else {
         SnackBarComponent().showResponseErrorMessage(response, context);

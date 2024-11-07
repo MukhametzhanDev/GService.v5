@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:gservice5/component/functions/token/changedToken.dart';
 import 'package:gservice5/navigation/individual/individualBottomTab.dart';
+import 'package:gservice5/component/dio/dio.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -17,13 +19,18 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   void getData() async {
-    var future = await new Future.delayed(const Duration(seconds: 2), () {});
+    String? token = await ChangedToken().getToken();
+    print(token);
+    if (token != null) {
+      dio.options.headers['authorization'] = "Bearer $token";
+    }
     showPage();
   }
 
   void showPage() {
     Navigator.of(context).pushAndRemoveUntil(
-        MaterialPageRoute(builder: (context) => IndividualBottomTab()), (route) => false);
+        MaterialPageRoute(builder: (context) => IndividualBottomTab()),
+        (route) => false);
   }
 
   @override
