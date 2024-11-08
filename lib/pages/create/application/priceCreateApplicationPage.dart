@@ -1,0 +1,112 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:gservice5/component/button/button.dart';
+import 'package:gservice5/component/message/explanatoryMessage.dart';
+import 'package:gservice5/component/select/selectButton.dart';
+import 'package:gservice5/component/textField/priceTextField.dart';
+import 'package:gservice5/component/theme/colorComponent.dart';
+import 'package:gservice5/component/widgets/bottom/bottomNavigationBarComponent.dart';
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
+
+class PriceCreateApplicationPage extends StatefulWidget {
+  final void Function() nextPage;
+  const PriceCreateApplicationPage({super.key, required this.nextPage});
+
+  @override
+  State<PriceCreateApplicationPage> createState() =>
+      _PriceCreateApplicationPageState();
+}
+
+class _PriceCreateApplicationPageState
+    extends State<PriceCreateApplicationPage> {
+  List data = [
+    {'title': "Фиксированная"},
+    {'title': "Вариативная"},
+    {'title': "Договорная"},
+  ];
+  int currentIndex = 0;
+
+  void showPage() {
+    widget.nextPage();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: SingleChildScrollView(
+        padding: EdgeInsets.all(15),
+        child: Column(children: [
+          ExplanatoryMessage(
+              title:
+                  "Цену лучше указать — так удобнее для покупателей. Если цена не указана, то при расширенном поиске покупатели могут не найти ваше объявление, а в объявлении будет автоматически указана стоимость «По запросу».",
+              padding: EdgeInsets.zero,
+              type: "application-price1"),
+          Divider(height: 10),
+          Column(
+              children: data.map((value) {
+            int index = data.indexOf(value);
+            bool active = index == currentIndex;
+            return SizedBox(
+              height: 46,
+              child: ListTile(
+                onTap: () {
+                  currentIndex = index;
+                  setState(() {});
+                },
+                contentPadding: EdgeInsets.zero,
+                leading: Container(
+                  width: 20,
+                  height: 20,
+                  alignment: Alignment.center,
+                  decoration: BoxDecoration(
+                      color: active ? Color(0xff1A56DB) : null,
+                      borderRadius: BorderRadius.circular(4),
+                      border: Border.all(
+                          width: 1,
+                          color:
+                              active ? Color(0xff1A56DB) : Color(0xffD1D5DB))),
+                  child: active
+                      ? SvgPicture.asset('assets/icons/checkMini.svg',
+                          color: Colors.white)
+                      : Container(),
+                ),
+                title: Text(value['title']),
+              ),
+            );
+          }).toList()),
+          Divider(),
+          currentIndex == 0
+              ? PriceTextField(
+                  textEditingController: TextEditingController(),
+                  autofocus: false,
+                  title: "Цена",
+                  onSubmitted: () {})
+              : currentIndex == 1
+                  ? Row(children: [
+                      Expanded(
+                        child: PriceTextField(
+                            textEditingController: TextEditingController(),
+                            autofocus: false,
+                            title: "От",
+                            onSubmitted: () {}),
+                      ),
+                      Divider(indent: 12),
+                      Expanded(
+                        child: PriceTextField(
+                            textEditingController: TextEditingController(),
+                            autofocus: false,
+                            title: "До",
+                            onSubmitted: () {}),
+                      )
+                    ])
+                  : Container()
+        ]),
+      ),
+      bottomNavigationBar: BottomNavigationBarComponent(
+          child: Button(
+              onPressed: showPage,
+              padding: EdgeInsets.symmetric(horizontal: 15),
+              title: "Продолжить")),
+    );
+  }
+}

@@ -17,14 +17,14 @@ class _StepIndicatorState extends State<StepIndicator> {
   @override
   void initState() {
     super.initState();
-    lengthLine = List<int>.generate(widget.lengthLine, (i) => i );
+    lengthLine = List<int>.generate(widget.lengthLine, (i) => i);
   }
 
   Color activeColor(index) {
     return widget.activeIndex == index
         ? ColorComponent.mainColor
         : widget.activeIndex > index
-            ? ColorComponent.mainColor
+            ? ColorComponent.mainColor.withOpacity(.4)
             : Color(0xffffe5e7eb);
   }
 
@@ -32,7 +32,7 @@ class _StepIndicatorState extends State<StepIndicator> {
   Widget build(BuildContext context) {
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 15),
-      height: 4,
+      height: 5,
       child: Row(
           children: lengthLine.map((index) {
         return Expanded(

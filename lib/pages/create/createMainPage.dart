@@ -48,7 +48,7 @@ class _CreateMainPageState extends State<CreateMainPage> {
                 ),
               )),
         ),
-        body: TabBarView(children: []),
+        body: TabBarView(children: [Container(),Container()]),
         bottomNavigationBar: BottomNavigationBarComponent(
             child: Button(
                 onPressed: createSectionPage,

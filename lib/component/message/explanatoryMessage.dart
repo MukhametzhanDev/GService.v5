@@ -55,7 +55,6 @@ class _ExplanatoryMessageState extends State<ExplanatoryMessage> {
                 : Padding(
                     padding: widget.padding,
                     child: Container(
-                      margin: EdgeInsets.only(bottom: 20),
                       decoration: BoxDecoration(
                           color: ColorComponent.gray['100'],
                           borderRadius: BorderRadius.circular(12)),

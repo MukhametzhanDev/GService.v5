@@ -25,6 +25,8 @@
 	<string>Нам нужен доступ к вашей фотобиблиотеке для загрузки изображений.</string>
 	<key>NSCameraUsageDescription</key>
 	<string>Нам нужен доступ к вашей камере для съемки фотографий.</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>Этому приложению требуется доступ к местоположению, когда оно открыто</string>
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>

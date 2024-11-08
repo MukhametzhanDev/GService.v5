@@ -77,6 +77,7 @@ class _GetActivityContractorPageState extends State<GetActivityContractorPage> {
                   "По выбранному типу деятельности, вам будут поступать заявки от клиентов",
               padding: EdgeInsets.zero,
               type: "activity"),
+              Divider(),
           MultiSelect(
             title: "Вид деятельности",
             api: "/categories",

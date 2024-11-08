@@ -66,7 +66,7 @@ class _ModalBottomSheetWrapperState extends State<ModalBottomSheetWrapper> {
         context,
         _clamp
             ? const ClampingScrollPhysics()
-            : const BouncingScrollPhysics(),
+            : const ClampingScrollPhysics(),
       ),
     );
   }
