@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:gservice5/component/button/closeIconButton.dart';
+import 'package:gservice5/component/button/back/closeIconButton.dart';
 import 'package:gservice5/component/dio/dio.dart';
 import 'package:gservice5/component/loader/paginationLoaderComponent.dart';
 import 'package:gservice5/component/modal/modalBottomSheetWrapper.dart';

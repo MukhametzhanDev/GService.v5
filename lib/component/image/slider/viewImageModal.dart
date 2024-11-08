@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:gservice5/component/button/closeIconButton.dart';
+import 'package:gservice5/component/button/back/closeIconButton.dart';
 import 'package:photo_view/photo_view.dart';
 
 class ViewImageModal extends StatefulWidget {

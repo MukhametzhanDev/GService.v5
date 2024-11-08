@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:gservice5/component/appBar/fadeOnScroll.dart';
 import 'package:gservice5/component/bar/bottomBar/contactBottomBarWidget.dart';
-import 'package:gservice5/component/button/backIconButton.dart';
+import 'package:gservice5/component/button/back/backIconButton.dart';
 import 'package:gservice5/component/button/button.dart';
 import 'package:gservice5/component/button/favoriteButton.dart';
 import 'package:gservice5/component/button/shareButton.dart';

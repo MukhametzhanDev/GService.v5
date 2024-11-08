@@ -20,7 +20,8 @@ class LoginUserPage extends StatefulWidget {
 
 class _LoginUserPageState extends State<LoginUserPage>
     with SingleTickerProviderStateMixin {
-  TextEditingController textEditingController = TextEditingController();
+  TextEditingController textEditingController =
+      TextEditingController(text: "mukhametzhan.tileubek@gmail.com");
   TextEditingController passwordEditingController = TextEditingController();
 
   @override
@@ -74,7 +75,7 @@ class _LoginUserPageState extends State<LoginUserPage>
       });
       print(response.data);
       Navigator.pop(context);
-      if (response.statusCode == 200&& response.data['success']) {
+      if (response.statusCode == 200 && response.data['success']) {
         ChangedToken().saveIndividualToken(response.data['data'], context);
       } else {
         SnackBarComponent().showResponseErrorMessage(response, context);

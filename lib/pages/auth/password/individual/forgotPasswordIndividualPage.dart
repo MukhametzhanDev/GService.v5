@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:gservice5/component/button/backIconButton.dart';
+import 'package:gservice5/component/button/back/backIconButton.dart';
 import 'package:gservice5/component/button/button.dart';
 import 'package:gservice5/component/snackBar/snackBarComponent.dart';
 import 'package:gservice5/component/widgets/bottom/bottomNavigationBarComponent.dart';
@@ -21,8 +21,7 @@ class _ForgotPasswordIndividualPageState
 
   @override
   void initState() {
-    textEditingController.text = "87472652338";
-    //  widget.title;
+    textEditingController.text = widget.title;
     super.initState();
   }
 

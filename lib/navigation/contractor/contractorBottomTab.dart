@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:badges/badges.dart' as badges;
 import 'package:gservice5/component/badge/badgeBottomTab.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
-import 'package:gservice5/pages/create/createAdMainPage.dart';
+import 'package:gservice5/pages/create/createMainPage.dart';
 import 'package:gservice5/pages/favorite/favoriteMainPage.dart';
-import 'package:gservice5/pages/main/mainPage.dart';
 import 'package:gservice5/pages/main/mainPage.dart';
 import 'package:gservice5/pages/message/messageMainPage.dart';
 import 'package:gservice5/pages/profile/verifyProfilePage.dart';
@@ -52,7 +50,7 @@ class _ContractorBottomTabState extends State<ContractorBottomTab> {
       body: IndexedStack(index: _selectedIndex, children: [
         MainPage(scrollController: scrollController),
         FavoriteMainPage(),
-        CreateAdMainPage(),
+        CreateMainPage(),
         MessageMainPage(),
         VerifyProfilePage(),
       ]),
@@ -77,7 +75,9 @@ class _ContractorBottomTabState extends State<ContractorBottomTab> {
                                       : Colors.transparent,
                                   borderRadius: BorderRadius.circular(8)),
                               child: SvgPicture.asset(
-                                value['icon'],
+                                index == _selectedIndex
+                                    ? "assets/icons/plusActived.svg"
+                                    : value['icon'],
                                 color: index == 2
                                     ? null
                                     : index == _selectedIndex

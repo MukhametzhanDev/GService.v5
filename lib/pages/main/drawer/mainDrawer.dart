@@ -2,7 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:gservice5/component/appBar/leadingLogo.dart';
-import 'package:gservice5/component/button/closeIconButton.dart';
+import 'package:gservice5/component/button/back/closeIconButton.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
 import 'package:gservice5/data/categoriesData.dart';
 
