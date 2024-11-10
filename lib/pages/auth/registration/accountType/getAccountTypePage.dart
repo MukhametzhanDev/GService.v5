@@ -18,7 +18,8 @@ class GetAccountTypePage extends StatefulWidget {
   State<GetAccountTypePage> createState() => _GetAccountTypePageState();
 }
 
-class _GetAccountTypePageState extends State<GetAccountTypePage> {
+class _GetAccountTypePageState extends State<GetAccountTypePage>
+    with SingleTickerProviderStateMixin {
   List data = [];
   int currentType = 0;
   bool loader = true;
@@ -65,6 +66,8 @@ class _GetAccountTypePageState extends State<GetAccountTypePage> {
                   data: {"role": data[currentType]['type']})));
     }
   }
+
+ 
 
   @override
   Widget build(BuildContext context) {

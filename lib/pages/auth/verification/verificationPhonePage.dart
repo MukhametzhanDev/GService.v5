@@ -60,9 +60,10 @@ class _VerificationPhonePageState extends State<VerificationPhonePage>
     print(codeController.text);
     try {
       showModalLoader(context);
-      Response response = await dio.post("/verify-sms-code", queryParameters: {
-        "phone": getIntComponent(widget.userData['phone']),
-        "code": codeController.text
+      Response response = await dio.post("/verify-sms-code", data: {
+        "phone": getIntComponent(widget.userData['phone']).toString(),
+        "code": codeController.text,
+        "for_password_reset": false
       });
       print(response.data);
       Navigator.pop(context);
@@ -123,6 +124,7 @@ class _VerificationPhonePageState extends State<VerificationPhonePage>
             Divider(height: 24),
             Pinput(
                 length: 4,
+                autofocus: true,
                 controller: codeController,
                 defaultPinTheme: PinTheme(
                   width: 48,

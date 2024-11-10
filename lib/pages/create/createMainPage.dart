@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:gservice5/component/button/button.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
 import 'package:gservice5/component/widgets/bottom/bottomNavigationBarComponent.dart';
+import 'package:gservice5/pages/application/my/myApplicationListPage.dart';
 import 'package:gservice5/pages/create/createSectionPage.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 class CreateMainPage extends StatefulWidget {
   const CreateMainPage({super.key});
@@ -12,10 +14,33 @@ class CreateMainPage extends StatefulWidget {
   State<CreateMainPage> createState() => _CreateMainPageState();
 }
 
-class _CreateMainPageState extends State<CreateMainPage> {
+class _CreateMainPageState extends State<CreateMainPage>
+    with SingleTickerProviderStateMixin {
+  TabController? tabController;
+  final RefreshController adRefreshController =
+      RefreshController(initialRefresh: false);
+  final RefreshController applicationRefreshController =
+      RefreshController(initialRefresh: false);
+
+  @override
+  void initState() {
+    tabController = TabController(length: 2, vsync: this);
+    super.initState();
+  }
+
+  void updateApplication() {
+    if (tabController!.index == 0) {
+      tabController!.animateTo(1, curve: Curves.linear);
+    }
+    applicationRefreshController.requestRefresh();
+  }
+
   void createSectionPage() {
     showMaterialModalBottomSheet(
-        context: context, builder: (context) => CreateSectionPage());
+        context: context,
+        builder: (context) => CreateSectionPage()).then((value) {
+      if (value != null && value == "application") updateApplication();
+    });
   }
 
   @override
@@ -48,7 +73,10 @@ class _CreateMainPageState extends State<CreateMainPage> {
                 ),
               )),
         ),
-        body: TabBarView(children: [Container(),Container()]),
+        body: TabBarView(children: [
+          Container(),
+          MyApplicationListPage(refreshController: applicationRefreshController)
+        ]),
         bottomNavigationBar: BottomNavigationBarComponent(
             child: Button(
                 onPressed: createSectionPage,

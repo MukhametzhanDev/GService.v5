@@ -27,7 +27,11 @@ class _GetImageCreateApplicaitonPageState
     try {
       Response response = await dio.post("/application", data: CreateData.data);
       print(response.data);
+      Navigator.pop(context);
       if (response.data['success']) {
+        Navigator.pop(context, "application");
+        Navigator.pop(context, "application");
+        Navigator.pop(context, "application");
       } else {
         SnackBarComponent().showResponseErrorMessage(response, context);
       }
@@ -53,6 +57,7 @@ class _GetImageCreateApplicaitonPageState
       Navigator.pop(context);
       if (response.data['success']) {
         CreateData.data['images'] = response.data['data'];
+        postData();
       } else {
         SnackBarComponent().showResponseErrorMessage(response, context);
       }

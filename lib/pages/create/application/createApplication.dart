@@ -1,15 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:gservice5/component/functions/token/changedToken.dart';
 import 'package:gservice5/component/line/stepIndicator.dart';
+import 'package:gservice5/component/loader/loaderComponent.dart';
 import 'package:gservice5/component/textField/closeKeyboard/closeKeyboard.dart';
 import 'package:gservice5/pages/create/application/addressCreateApplicationPage.dart';
+import 'package:gservice5/pages/create/application/brandEquipmentCreateApplicationPage.dart';
 import 'package:gservice5/pages/create/application/descriptionCreateApplicationPage.dart';
 import 'package:gservice5/component/button/back/backTitleButton.dart';
 import 'package:gservice5/component/button/back/closeIconButton.dart';
 import 'package:gservice5/pages/create/application/getImageCreateApplicaitonPage.dart';
 import 'package:gservice5/pages/create/application/priceCreateApplicationPage.dart';
 import 'package:gservice5/pages/create/application/typeEquipmentCreateApplicationPage.dart';
+import 'package:gservice5/pages/create/application/contactCreateApplicationPage.dart';
 import 'package:gservice5/pages/create/data/createData.dart';
-import 'package:gservice5/pages/create/getImageWidget.dart';
 
 class CreateApplication extends StatefulWidget {
   const CreateApplication({super.key});
@@ -20,13 +23,15 @@ class CreateApplication extends StatefulWidget {
 
 class _CreateApplicationState extends State<CreateApplication> {
   int currentIndex = 0;
-  List data = [
-    {"title": "Описание заявки"},
-    {"title": "Тип спецтехники"},
-    {"title": "Цена"},
-    {"title": "Указать адрес"},
-    {"title": "Дополнительно"}
-  ];
+  List<String> titles = ["Описание заявки"];
+  List<Widget> pages = [];
+  bool loader = true;
+
+  @override
+  void initState() {
+    verifyData();
+    super.initState();
+  }
 
   void nextPage() {
     closeKeyboard();
@@ -44,19 +49,44 @@ class _CreateApplicationState extends State<CreateApplication> {
     }
   }
 
-  List<Widget> verifyPage() {
+  Future verifyData() async {
+    bool hasToken = await ChangedToken().getToken() != "";
     Map options = CreateData.data['category']['options'];
-    List<Widget> pages = [];
+    print(options);
+    pages = [DescriptionCreateApplicationPage(nextPage: nextPage)];
     if (options['has_transport_type']) {
       pages.add(TypeEquipmentCreateApplicationPage(nextPage: nextPage));
-    } else if (options['has_transport_brand']) {
-      pages.add(TypeEquipmentCreateApplicationPage(nextPage: nextPage));
-    } else if (options['has_transport_model']) {
-      pages.add(TypeEquipmentCreateApplicationPage(nextPage: nextPage));
-    } else if (options['has_profession']) {
-      pages.add(TypeEquipmentCreateApplicationPage(nextPage: nextPage));
+      titles.add("Тип техники");
     }
-    return pages;
+    if (options['has_transport_brand']) {
+      pages.add(BrandEquipmentCreateApplicationPage(nextPage: nextPage));
+      titles.add("Марка техники");
+    }
+    if (options['has_transport_model']) {
+      pages.add(TypeEquipmentCreateApplicationPage(nextPage: nextPage));
+      titles.add("Модель техники");
+    }
+    if (options['has_profession']) {
+      pages.add(TypeEquipmentCreateApplicationPage(nextPage: nextPage));
+      titles.add("Профессия");
+    }
+    pages.addAll([
+      PriceCreateApplicationPage(nextPage: nextPage),
+      AddressCreateApplicationPage(nextPage: nextPage)
+    ]);
+    titles.addAll(["Цена", "Указать адрес"]);
+    // if (!hasToken) {
+    pages.addAll([
+      ContactCreateApplicationPage(nextPage: nextPage),
+      GetImageCreateApplicaitonPage()
+    ]);
+    titles.addAll(["Контакты", "Дополнительно"]);
+    // } else {
+    //   titles.add("Дополнительно");
+    //   pages.add(GetImageCreateApplicaitonPage());
+    // }
+    loader = false;
+    setState(() {});
   }
 
   @override
@@ -64,25 +94,24 @@ class _CreateApplicationState extends State<CreateApplication> {
     return GestureDetector(
       onTap: () => closeKeyboard(),
       child: Scaffold(
-          appBar: AppBar(
-              leadingWidth: 200,
-              leading: BackTitleButton(
-                  onPressed: previousPage, title: data[currentIndex]['title']),
-              actions: [
-                CloseIconButton(iconColor: null, padding: true),
-                SizedBox(width: 4)
-              ],
-              bottom: PreferredSize(
-                  preferredSize: Size(double.infinity, 5),
-                  child:
-                      StepIndicator(lengthLine: 5, activeIndex: currentIndex))),
-          body: IndexedStack(index: currentIndex, children: [
-            DescriptionCreateApplicationPage(nextPage: nextPage),
-            ...verifyPage(),
-            PriceCreateApplicationPage(nextPage: nextPage),
-            AddressCreateApplicationPage(nextPage: nextPage),
-            GetImageCreateApplicaitonPage()
-          ])),
+          appBar: loader
+              ? null
+              : AppBar(
+                  leadingWidth: MediaQuery.of(context).size.width - 100,
+                  leading: BackTitleButton(
+                      onPressed: previousPage, title: titles[currentIndex]),
+                  actions: [
+                    CloseIconButton(iconColor: null, padding: true),
+                    SizedBox(width: 4)
+                  ],
+                  bottom: PreferredSize(
+                      preferredSize: Size(double.infinity, 5),
+                      child: StepIndicator(
+                          lengthLine: pages.length,
+                          activeIndex: currentIndex))),
+          body: loader
+              ? LoaderComponent()
+              : IndexedStack(index: currentIndex, children: pages)),
     );
   }
 }

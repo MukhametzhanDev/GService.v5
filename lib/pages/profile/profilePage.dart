@@ -2,8 +2,10 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:gservice5/component/dio/dio.dart';
+import 'package:gservice5/component/functions/token/changedToken.dart';
 import 'package:gservice5/component/image/cacheImage.dart';
 import 'package:gservice5/component/loader/loaderComponent.dart';
+import 'package:gservice5/component/loader/modalLoaderComponent.dart';
 import 'package:gservice5/component/snackBar/snackBarComponent.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
 import 'package:gservice5/component/wallet/showWalletWidget.dart';
@@ -38,6 +40,18 @@ class _ProfilePageState extends State<ProfilePage> {
       }
     } catch (e) {
       SnackBarComponent().showNotGoBackServerErrorMessage(context);
+    }
+  }
+
+  void logOut() async {
+    try {
+      showModalLoader(context);
+      Response response = await dio.post("/logout");
+      Navigator.pop(context);
+      print(response.data);
+      ChangedToken().removeIndividualToken(context);
+    } catch (e) {
+      SnackBarComponent().showServerErrorMessage(context);
     }
   }
 
@@ -115,6 +129,12 @@ class _ProfilePageState extends State<ProfilePage> {
                     leading: SvgPicture.asset('assets/icons/cogOutline.svg'),
                     title: Text("Настройки"),
                     trailing: SvgPicture.asset('assets/icons/right.svg'),
+                  ),
+                  Divider(height: 1, color: ColorComponent.gray['100']),
+                  ListTile(
+                    onTap: logOut,
+                    leading: SvgPicture.asset('assets/icons/exit.svg'),
+                    title: Text("Выход"),
                   ),
                   Divider(height: 1, color: ColorComponent.gray['100']),
                 ],
