@@ -5,8 +5,11 @@ import 'package:gservice5/pages/create/application/addressCreateApplicationPage.
 import 'package:gservice5/pages/create/application/descriptionCreateApplicationPage.dart';
 import 'package:gservice5/component/button/back/backTitleButton.dart';
 import 'package:gservice5/component/button/back/closeIconButton.dart';
+import 'package:gservice5/pages/create/application/getImageCreateApplicaitonPage.dart';
 import 'package:gservice5/pages/create/application/priceCreateApplicationPage.dart';
 import 'package:gservice5/pages/create/application/typeEquipmentCreateApplicationPage.dart';
+import 'package:gservice5/pages/create/data/createData.dart';
+import 'package:gservice5/pages/create/getImageWidget.dart';
 
 class CreateApplication extends StatefulWidget {
   const CreateApplication({super.key});
@@ -22,6 +25,7 @@ class _CreateApplicationState extends State<CreateApplication> {
     {"title": "Тип спецтехники"},
     {"title": "Цена"},
     {"title": "Указать адрес"},
+    {"title": "Дополнительно"}
   ];
 
   void nextPage() {
@@ -38,6 +42,21 @@ class _CreateApplicationState extends State<CreateApplication> {
       currentIndex -= 1;
       setState(() {});
     }
+  }
+
+  List<Widget> verifyPage() {
+    Map options = CreateData.data['category']['options'];
+    List<Widget> pages = [];
+    if (options['has_transport_type']) {
+      pages.add(TypeEquipmentCreateApplicationPage(nextPage: nextPage));
+    } else if (options['has_transport_brand']) {
+      pages.add(TypeEquipmentCreateApplicationPage(nextPage: nextPage));
+    } else if (options['has_transport_model']) {
+      pages.add(TypeEquipmentCreateApplicationPage(nextPage: nextPage));
+    } else if (options['has_profession']) {
+      pages.add(TypeEquipmentCreateApplicationPage(nextPage: nextPage));
+    }
+    return pages;
   }
 
   @override
@@ -57,13 +76,13 @@ class _CreateApplicationState extends State<CreateApplication> {
                   preferredSize: Size(double.infinity, 5),
                   child:
                       StepIndicator(lengthLine: 5, activeIndex: currentIndex))),
-          body: IndexedStack(children: [
-            // SectionCreateApplicationPage(nextPage: nextPage),
+          body: IndexedStack(index: currentIndex, children: [
             DescriptionCreateApplicationPage(nextPage: nextPage),
-            TypeEquipmentCreateApplicationPage(nextPage: nextPage),
+            ...verifyPage(),
             PriceCreateApplicationPage(nextPage: nextPage),
             AddressCreateApplicationPage(nextPage: nextPage),
-          ], index: currentIndex)),
+            GetImageCreateApplicaitonPage()
+          ])),
     );
   }
 }

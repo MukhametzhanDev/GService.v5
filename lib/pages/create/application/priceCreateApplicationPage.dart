@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:gservice5/component/button/button.dart';
+import 'package:gservice5/component/functions/number/getIntNumber.dart';
 import 'package:gservice5/component/message/explanatoryMessage.dart';
-import 'package:gservice5/component/select/selectButton.dart';
+import 'package:gservice5/component/snackBar/snackBarComponent.dart';
 import 'package:gservice5/component/textField/priceTextField.dart';
-import 'package:gservice5/component/theme/colorComponent.dart';
 import 'package:gservice5/component/widgets/bottom/bottomNavigationBarComponent.dart';
-import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
+import 'package:gservice5/pages/create/data/createData.dart';
 
 class PriceCreateApplicationPage extends StatefulWidget {
   final void Function() nextPage;
@@ -25,8 +25,63 @@ class _PriceCreateApplicationPageState
     {'title': "Договорная"},
   ];
   int currentIndex = 0;
+  TextEditingController fromPriceEditingController = TextEditingController();
+  TextEditingController toPriceEditingController = TextEditingController();
+
+  void verifyData() {
+    String fromPrice = fromPriceEditingController.text.trim();
+    String toPrice = toPriceEditingController.text.trim();
+    if (currentIndex == 0) {
+      if (fromPrice.isEmpty) {
+        SnackBarComponent().showErrorMessage("Заполните все строки", context);
+      } else {
+        showPage();
+      }
+    } else if (currentIndex == 1) {
+      if (fromPrice.isEmpty || toPrice.isEmpty) {
+        SnackBarComponent().showErrorMessage("Заполните все строки", context);
+      } else {
+        int from = getIntComponent(fromPrice);
+        int to = getIntComponent(toPrice);
+        if (from < to) {
+          showPage();
+        } else {
+          SnackBarComponent().showErrorMessage("", context);
+        }
+      }
+    } else {
+      showPage();
+    }
+  }
+
+  @override
+  void dispose() {
+    fromPriceEditingController.dispose();
+    toPriceEditingController.dispose();
+    super.dispose();
+  }
+
+  void savedData() {
+    Map createData = CreateData.data;
+    if (currentIndex == 0) {
+      createData['price'] = getIntComponent(fromPriceEditingController.text);
+      createData.remove("price_from");
+      createData.remove("price_to");
+    } else if (currentIndex == 1) {
+      createData.remove("price");
+      createData["price_from"] =
+          getIntComponent(fromPriceEditingController.text);
+      CreateData.data["price_to"] =
+          getIntComponent(toPriceEditingController.text);
+    } else {
+      createData.remove("price_from");
+      createData.remove("price_to");
+      createData.remove("price");
+    }
+  }
 
   void showPage() {
+    savedData();
     widget.nextPage();
   }
 
@@ -77,7 +132,7 @@ class _PriceCreateApplicationPageState
           Divider(),
           currentIndex == 0
               ? PriceTextField(
-                  textEditingController: TextEditingController(),
+                  textEditingController: fromPriceEditingController,
                   autofocus: false,
                   title: "Цена",
                   onSubmitted: () {})
@@ -85,7 +140,7 @@ class _PriceCreateApplicationPageState
                   ? Row(children: [
                       Expanded(
                         child: PriceTextField(
-                            textEditingController: TextEditingController(),
+                            textEditingController: fromPriceEditingController,
                             autofocus: false,
                             title: "От",
                             onSubmitted: () {}),
@@ -93,7 +148,7 @@ class _PriceCreateApplicationPageState
                       Divider(indent: 12),
                       Expanded(
                         child: PriceTextField(
-                            textEditingController: TextEditingController(),
+                            textEditingController: toPriceEditingController,
                             autofocus: false,
                             title: "До",
                             onSubmitted: () {}),
@@ -104,7 +159,7 @@ class _PriceCreateApplicationPageState
       ),
       bottomNavigationBar: BottomNavigationBarComponent(
           child: Button(
-              onPressed: showPage,
+              onPressed: verifyData,
               padding: EdgeInsets.symmetric(horizontal: 15),
               title: "Продолжить")),
     );

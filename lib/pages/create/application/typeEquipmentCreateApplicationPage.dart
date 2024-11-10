@@ -5,6 +5,7 @@ import 'package:gservice5/component/dio/dio.dart';
 import 'package:gservice5/component/loader/loaderComponent.dart';
 import 'package:gservice5/component/snackBar/snackBarComponent.dart';
 import 'package:gservice5/component/textField/searchTextField.dart';
+import 'package:gservice5/pages/create/data/createData.dart';
 
 class TypeEquipmentCreateApplicationPage extends StatefulWidget {
   final void Function() nextPage;
@@ -78,6 +79,7 @@ class _TypeEquipmentCreateApplicationPageState
   }
 
   void activedItem(Map value) {
+    CreateData.data['transport_type_id'] = value['id'];
     widget.nextPage();
   }
 
@@ -106,7 +108,6 @@ class _TypeEquipmentCreateApplicationPageState
                   if (data.length - 1 == index) {
                     return Column(children: [
                       Item(value),
-                      
                       isLoadMore ? LoaderPaginationComponent() : Container()
                     ]);
                   } else {

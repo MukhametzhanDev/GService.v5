@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:gservice5/component/button/back/backIconButton.dart';
+import 'package:gservice5/component/button/button.dart';
 import 'package:gservice5/component/map/searchMapAddressPage.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
 import 'package:gservice5/component/widgets/bottom/bottomNavigationBarComponent.dart';
@@ -35,7 +36,7 @@ class _GetMapAddressPageState extends State<GetMapAddressPage> {
     //   print('asdfasd');
     //   getCityPoint(
     //       widget.cityData?['title'] + " " + EditData.adData['address'], 15.0);
-    // } else 
+    // } else
     if (widget.cityData != null && widget.cityData?['title'] != null) {
       getCityPoint(widget.cityData?['title'], 12.0);
     }
@@ -137,7 +138,6 @@ class _GetMapAddressPageState extends State<GetMapAddressPage> {
   }
 
   void savedData() {
-    print(position['longitude'].runtimeType);
     widget.onSavedData(position);
     Navigator.pop(context);
   }
@@ -189,7 +189,8 @@ class _GetMapAddressPageState extends State<GetMapAddressPage> {
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      SvgPicture.asset('assets/icons/search.svg', width: 18),
+                      SvgPicture.asset('assets/icons/searchOutline.svg',
+                          width: 18, color: ColorComponent.gray['500']),
                       SizedBox(width: 8),
                       Text("Поиск по городу",
                           style: TextStyle(color: ColorComponent.gray['500']))
@@ -346,29 +347,30 @@ class _GetMapAddressPageState extends State<GetMapAddressPage> {
                     ],
                   ),
             SizedBox(height: 15),
-            TextButton(
-                onPressed: savedData,
-                style: TextButton.styleFrom(
-                    backgroundColor: ColorComponent.mainColor,
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(8))),
-                child: Container(
-                    alignment: Alignment.center,
-                    height: 50,
-                    child: loader
-                        ? Container(
-                            width: 20,
-                            height: 20,
-                            alignment: Alignment.center,
-                            child:
-                                CircularProgressIndicator(color: Colors.white))
-                        : Text(
-                            "Сохранить",
-                            style: TextStyle(
-                                fontSize: 16,
-                                fontWeight: FontWeight.w600,
-                                color: Colors.white),
-                          ))),
+            Button(onPressed: savedData, title: "Сохранить")
+            // TextButton(
+            //     onPressed: ,
+            //     style: TextButton.styleFrom(
+            //         backgroundColor: ColorComponent.mainColor,
+            //         shape: RoundedRectangleBorder(
+            //             borderRadius: BorderRadius.circular(8))),
+            //     child: Container(
+            //         alignment: Alignment.center,
+            //         height: 50,
+            //         child: loader
+            //             ? Container(
+            //                 width: 20,
+            //                 height: 20,
+            //                 alignment: Alignment.center,
+            //                 child:
+            //                     CircularProgressIndicator(color: Colors.white))
+            //             : Text(
+            //                 "Сохранить",
+            //                 style: TextStyle(
+            //                     fontSize: 16,
+            //                     fontWeight: FontWeight.w600,
+            //                     color: Colors.white),
+            //               ))),
           ],
         ),
       )),

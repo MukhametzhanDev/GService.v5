@@ -9,6 +9,7 @@ import 'package:gservice5/component/snackBar/snackBarComponent.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
 import 'package:gservice5/component/widgets/bottom/bottomNavigationBarComponent.dart';
 import 'package:gservice5/pages/create/application/createApplication.dart';
+import 'package:gservice5/pages/create/data/createData.dart';
 
 class SectionCreateApplicationPage extends StatefulWidget {
   const SectionCreateApplicationPage({super.key});
@@ -51,6 +52,8 @@ class _SectionCreateApplicationPageState
   }
 
   void showPage() {
+    CreateData.data['category_id'] = data[currentIndex]['id'];
+    CreateData.data['category'] = data[currentIndex];
     Navigator.push(
         context, MaterialPageRoute(builder: (context) => CreateApplication()));
   }

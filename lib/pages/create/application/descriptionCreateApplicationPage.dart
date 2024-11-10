@@ -3,6 +3,7 @@ import 'package:gservice5/component/button/button.dart';
 import 'package:gservice5/component/snackBar/snackBarComponent.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
 import 'package:gservice5/component/widgets/bottom/bottomNavigationBarComponent.dart';
+import 'package:gservice5/pages/create/data/createData.dart';
 
 class DescriptionCreateApplicationPage extends StatefulWidget {
   final void Function() nextPage;
@@ -18,14 +19,27 @@ class _DescriptionCreateApplicationPageState
   TextEditingController titleEditingController = TextEditingController();
   TextEditingController descEditingController = TextEditingController();
 
+  @override
+  void dispose() {
+    titleEditingController.dispose();
+    descEditingController.dispose();
+    super.dispose();
+  }
+
   void verifyData() {
     String title = titleEditingController.text.trim();
     String desc = descEditingController.text.trim();
     if (title.isEmpty || desc.isEmpty) {
       SnackBarComponent().showErrorMessage("Заполните все строки", context);
     } else {
-      widget.nextPage();
+      savedData();
     }
+  }
+
+  void savedData() {
+    CreateData.data['title'] = titleEditingController.text;
+    CreateData.data['description'] = descEditingController.text;
+    widget.nextPage();
   }
 
   @override
@@ -38,6 +52,7 @@ class _DescriptionCreateApplicationPageState
           Divider(height: 6),
           TextField(
               controller: titleEditingController,
+              textCapitalization: TextCapitalization.sentences,
               style: TextStyle(fontSize: 14),
               decoration: InputDecoration(hintText: "Введите заголовок")),
           Divider(),
@@ -47,6 +62,7 @@ class _DescriptionCreateApplicationPageState
               controller: descEditingController,
               style: TextStyle(fontSize: 14),
               maxLength: 1000,
+              textCapitalization: TextCapitalization.sentences,
               maxLines: 14,
               minLines: 6,
               decoration: InputDecoration(
