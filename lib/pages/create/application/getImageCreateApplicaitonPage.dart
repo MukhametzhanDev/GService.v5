@@ -29,6 +29,8 @@ class _GetImageCreateApplicaitonPageState
       print(response.data);
       Navigator.pop(context);
       if (response.data['success']) {
+        CreateData.data.clear();
+        CreateData.images.clear();
         Navigator.pop(context, "application");
         Navigator.pop(context, "application");
         Navigator.pop(context, "application");

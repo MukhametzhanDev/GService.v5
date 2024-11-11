@@ -34,8 +34,7 @@ class _GetActivityContractorPageState extends State<GetActivityContractorPage> {
       });
       print(response.data);
       Navigator.pop(context);
-             if (response.statusCode==200) {
-
+      if (response.statusCode == 200) {
         Navigator.pushAndRemoveUntil(
             context,
             MaterialPageRoute(builder: (_) => ContractorBottomTab()),
@@ -77,7 +76,7 @@ class _GetActivityContractorPageState extends State<GetActivityContractorPage> {
                   "По выбранному типу деятельности, вам будут поступать заявки от клиентов",
               padding: EdgeInsets.zero,
               type: "activity"),
-              Divider(),
+          Divider(),
           MultiSelect(
             title: "Вид деятельности",
             api: "/categories",

@@ -39,6 +39,7 @@ class _CreateMainPageState extends State<CreateMainPage>
     showMaterialModalBottomSheet(
         context: context,
         builder: (context) => CreateSectionPage()).then((value) {
+      print(value);
       if (value != null && value == "application") updateApplication();
     });
   }
@@ -59,6 +60,7 @@ class _CreateMainPageState extends State<CreateMainPage>
                     color: ColorComponent.gray['100']),
                 margin: const EdgeInsets.symmetric(horizontal: 15),
                 child: TabBar(
+                  controller: tabController,
                   indicatorSize: TabBarIndicatorSize.tab,
                   tabs: [Tab(text: "Мои объявление"), Tab(text: "Мои заявки")],
                   labelColor: Colors.black,
@@ -73,9 +75,11 @@ class _CreateMainPageState extends State<CreateMainPage>
                 ),
               )),
         ),
-        body: TabBarView(children: [
+        body: TabBarView(controller: tabController, children: [
           Container(),
-          MyApplicationListPage(refreshController: applicationRefreshController)
+          MyApplicationListPage(
+              refreshController: applicationRefreshController,
+              showAppBar: false)
         ]),
         bottomNavigationBar: BottomNavigationBarComponent(
             child: Button(

@@ -9,15 +9,17 @@ import 'package:gservice5/component/loader/modalLoaderComponent.dart';
 import 'package:gservice5/component/snackBar/snackBarComponent.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
 import 'package:gservice5/component/wallet/showWalletWidget.dart';
+import 'package:gservice5/pages/application/my/myApplicationListPage.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 
-class ProfilePage extends StatefulWidget {
-  const ProfilePage({super.key});
+class IndividualProfilePage extends StatefulWidget {
+  const IndividualProfilePage({super.key});
 
   @override
-  State<ProfilePage> createState() => _ProfilePageState();
+  State<IndividualProfilePage> createState() => _IndividualProfilePageState();
 }
 
-class _ProfilePageState extends State<ProfilePage> {
+class _IndividualProfilePageState extends State<IndividualProfilePage> {
   Map data = {};
   bool loader = true;
 
@@ -31,10 +33,12 @@ class _ProfilePageState extends State<ProfilePage> {
     try {
       Response response = await dio.get("/user");
       print(response.data);
-      if (response.data['success']) {
+      if (response.data['success'] && response.statusCode == 200) {
         data = response.data['data'];
         loader = false;
         setState(() {});
+      } else if (response.statusCode == 401) {
+        ChangedToken().removeIndividualToken(context);
       } else {
         SnackBarComponent().showResponseErrorMessage(response, context);
       }
@@ -100,8 +104,16 @@ class _ProfilePageState extends State<ProfilePage> {
                   ),
                   ShowWalletWidget(),
                   ListTile(
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => MyApplicationListPage(
+                                  showAppBar: true,
+                                  refreshController: RefreshController())));
+                    },
                     leading: SvgPicture.asset('assets/icons/fileOutline.svg'),
-                    title: Text("Мои Заявка"),
+                    title: Text("Мои заявки"),
                     trailing: SvgPicture.asset('assets/icons/right.svg'),
                   ),
                   Divider(height: 1, color: ColorComponent.gray['100']),

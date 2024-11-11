@@ -14,4 +14,26 @@ String priceFormat(cost) {
   }
 }
 
+String priceFormatted(List prices) {
+  if (prices.length == 1) {
+    return "${priceFormat(prices[0]['price'])} ₸";
+  } else if (prices.length == 2) {
+    String toPrice = priceFormat(prices[0]['price']);
+    String fromPrice = priceFormat(prices[1]['price']);
+    return "$toPrice ₸ - $fromPrice ₸";
+  } else {
+    return "Договорная";
+  }
+}
 
+String myPriceFormatted(List prices) {
+  if (prices.length == 1) {
+    return "${priceFormat(prices[0]['original_price'])} ₸";
+  } else if (prices.length == 2) {
+    String toPrice = priceFormat(prices[0]['original_price']);
+    String fromPrice = priceFormat(prices[1]['original_price']);
+    return "$toPrice ₸ - $fromPrice ₸";
+  } else {
+    return "Договорная";
+  }
+}

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:gservice5/pages/auth/login/loginPage.dart';
-import 'package:gservice5/pages/profile/profilePage.dart';
+import 'package:gservice5/pages/profile/individual/individualProfilePage.dart';
 
 class VerifyProfilePage extends StatefulWidget {
   const VerifyProfilePage({super.key});
@@ -28,7 +28,7 @@ class _VerifyProfilePageState extends State<VerifyProfilePage> {
   @override
   Widget build(BuildContext context) {
     return verifyTokenData
-        ? const ProfilePage()
+        ? const IndividualProfilePage()
         : const LoginPage(showBackButton: false);
   }
 }

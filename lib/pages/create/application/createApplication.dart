@@ -9,7 +9,9 @@ import 'package:gservice5/pages/create/application/descriptionCreateApplicationP
 import 'package:gservice5/component/button/back/backTitleButton.dart';
 import 'package:gservice5/component/button/back/closeIconButton.dart';
 import 'package:gservice5/pages/create/application/getImageCreateApplicaitonPage.dart';
+import 'package:gservice5/pages/create/application/modelEquipmentCreateApplicationPage.dart';
 import 'package:gservice5/pages/create/application/priceCreateApplicationPage.dart';
+import 'package:gservice5/pages/create/application/professionCreateApplicationPage.dart';
 import 'package:gservice5/pages/create/application/typeEquipmentCreateApplicationPage.dart';
 import 'package:gservice5/pages/create/application/contactCreateApplicationPage.dart';
 import 'package:gservice5/pages/create/data/createData.dart';
@@ -63,11 +65,11 @@ class _CreateApplicationState extends State<CreateApplication> {
       titles.add("Марка техники");
     }
     if (options['has_transport_model']) {
-      pages.add(TypeEquipmentCreateApplicationPage(nextPage: nextPage));
+      pages.add(ModelEquipmentCreateApplicationPage(nextPage: nextPage));
       titles.add("Модель техники");
     }
     if (options['has_profession']) {
-      pages.add(TypeEquipmentCreateApplicationPage(nextPage: nextPage));
+      pages.add(ProfessionCreateApplicationPage(nextPage: nextPage));
       titles.add("Профессия");
     }
     pages.addAll([

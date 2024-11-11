@@ -135,7 +135,7 @@ class _PriceCreateApplicationPageState
                   textEditingController: fromPriceEditingController,
                   autofocus: false,
                   title: "Цена",
-                  onSubmitted: () {})
+                  onSubmitted: savedData)
               : currentIndex == 1
                   ? Row(children: [
                       Expanded(
@@ -151,7 +151,7 @@ class _PriceCreateApplicationPageState
                             textEditingController: toPriceEditingController,
                             autofocus: false,
                             title: "До",
-                            onSubmitted: () {}),
+                            onSubmitted: savedData),
                       )
                     ])
                   : Container()

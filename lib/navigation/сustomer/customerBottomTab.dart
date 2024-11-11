@@ -6,6 +6,7 @@ import 'package:gservice5/pages/create/createMainPage.dart';
 import 'package:gservice5/pages/favorite/favoriteMainPage.dart';
 import 'package:gservice5/pages/main/mainPage.dart';
 import 'package:gservice5/pages/message/messageMainPage.dart';
+import 'package:gservice5/pages/profile/customer/customerProfilePage.dart';
 import 'package:gservice5/pages/profile/verifyProfilePage.dart';
 
 class CustomerBottomTab extends StatefulWidget {
@@ -52,7 +53,7 @@ class _CustomerBottomTabState extends State<CustomerBottomTab> {
         FavoriteMainPage(),
         CreateMainPage(),
         MessageMainPage(),
-        VerifyProfilePage(),
+        CustomerProfilePage(),
       ]),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       bottomNavigationBar: BottomNavigationBar(

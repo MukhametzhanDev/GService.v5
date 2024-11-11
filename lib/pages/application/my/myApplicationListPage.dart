@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:gservice5/component/button/back/backIconButton.dart';
 import 'package:gservice5/component/dio/dio.dart';
 import 'package:gservice5/component/loader/loaderComponent.dart';
 import 'package:gservice5/component/loader/paginationLoaderComponent.dart';
@@ -12,7 +13,9 @@ import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 class MyApplicationListPage extends StatefulWidget {
   final RefreshController refreshController;
-  const MyApplicationListPage({super.key, required this.refreshController});
+  final bool showAppBar;
+  const MyApplicationListPage(
+      {super.key, required this.refreshController, required this.showAppBar});
 
   @override
   State<MyApplicationListPage> createState() => _MyApplicationListPageState();
@@ -130,7 +133,7 @@ class _MyApplicationListPageState extends State<MyApplicationListPage>
         context,
         MaterialPageRoute(
             builder: (context) => ViewMyApplicationPage(id: id))).then((value) {
-      if (value == "update") updateData(id);
+      if (value == "delete") updateData(id);
     });
   }
 
@@ -151,7 +154,9 @@ class _MyApplicationListPageState extends State<MyApplicationListPage>
     super.build(context);
     return Scaffold(
         appBar: AppBar(
-          toolbarHeight: 4,
+          leading: widget.showAppBar ? BackIconButton() : null,
+          title: widget.showAppBar ? Text("Мои заявки") : null,
+          toolbarHeight: widget.showAppBar ? null : 4,
           elevation: 0,
           // bottom: PreferredSize(
           //   preferredSize: Size(MediaQuery.of(context).size.width, 50),
