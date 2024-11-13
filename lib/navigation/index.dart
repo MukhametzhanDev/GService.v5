@@ -33,7 +33,8 @@ class _IndexState extends State<Index> {
             routes: {
               "IndividualBottomTab": (context) => IndividualBottomTab(),
               "SplashScreen": (context) => SplashScreen(),
-              "GetActivityContractorPage": (context) => GetActivityContractorPage(),
+              "GetActivityContractorPage": (context) =>
+                  GetActivityContractorPage(),
             },
           );
         }));

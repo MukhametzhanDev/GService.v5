@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:gservice5/component/alert/logOutAlert.dart';
 import 'package:gservice5/component/dio/dio.dart';
 import 'package:gservice5/component/functions/token/changedToken.dart';
 import 'package:gservice5/component/image/cacheImage.dart';
@@ -10,6 +11,7 @@ import 'package:gservice5/component/snackBar/snackBarComponent.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
 import 'package:gservice5/component/wallet/showWalletWidget.dart';
 import 'package:gservice5/pages/application/my/myApplicationListPage.dart';
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 class IndividualProfilePage extends StatefulWidget {
@@ -44,18 +46,6 @@ class _IndividualProfilePageState extends State<IndividualProfilePage> {
       }
     } catch (e) {
       SnackBarComponent().showNotGoBackServerErrorMessage(context);
-    }
-  }
-
-  void logOut() async {
-    try {
-      showModalLoader(context);
-      Response response = await dio.post("/logout");
-      Navigator.pop(context);
-      print(response.data);
-      ChangedToken().removeIndividualToken(context);
-    } catch (e) {
-      SnackBarComponent().showServerErrorMessage(context);
     }
   }
 
@@ -144,7 +134,15 @@ class _IndividualProfilePageState extends State<IndividualProfilePage> {
                   ),
                   Divider(height: 1, color: ColorComponent.gray['100']),
                   ListTile(
-                    onTap: logOut,
+                    onTap: () {
+                      showCupertinoModalBottomSheet(
+                          context: context,
+                          builder: (context) =>
+                              LogOutAlert(onPressed: () async {
+                                await ChangedToken()
+                                    .removeIndividualToken(context);
+                              }));
+                    },
                     leading: SvgPicture.asset('assets/icons/exit.svg'),
                     title: Text("Выход"),
                   ),

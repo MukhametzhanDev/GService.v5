@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:gservice5/component/functions/token/changedToken.dart';
+import 'package:gservice5/component/loader/loaderComponent.dart';
 import 'package:gservice5/pages/auth/login/loginPage.dart';
+import 'package:gservice5/pages/profile/contractor/contractorProfilePage.dart';
+import 'package:gservice5/pages/profile/customer/customerProfilePage.dart';
 import 'package:gservice5/pages/profile/individual/individualProfilePage.dart';
 
 class VerifyProfilePage extends StatefulWidget {
@@ -12,23 +15,60 @@ class VerifyProfilePage extends StatefulWidget {
 
 class _VerifyProfilePageState extends State<VerifyProfilePage> {
   bool verifyTokenData = false;
+  String role = "";
+  late Future<Widget> _futureData;
 
   @override
   void initState() {
     super.initState();
-    verifyToken();
+    _futureData = verifyToken();
   }
 
-  void verifyToken() async {
-    bool token = await const FlutterSecureStorage().read(key: "token") != null;
-    verifyTokenData = token;
-    setState(() {});
+  Future<Widget> verifyToken() async {
+    bool token = await ChangedToken().getToken() != "";
+    if (token) {
+      return await verifyRole();
+    } else {
+      return LoginPage(showBackButton: false);
+    }
+  }
+
+  Future verifyRole() async {
+    String? role = await ChangedToken().getRole();
+    if (role == "contractor") {
+      return ContractorProfilePage();
+    } else if (role == "customer") {
+      return CustomerProfilePage();
+    } else {
+      return IndividualProfilePage();
+    }
   }
 
   @override
   Widget build(BuildContext context) {
-    return verifyTokenData
-        ? const IndividualProfilePage()
-        : const LoginPage(showBackButton: false);
+    return Scaffold(
+      body: FutureBuilder<Widget>(
+          future: _futureData,
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return Center(child: LoaderComponent());
+            } else if (snapshot.hasError) {
+              return Center(child: Text('Error: ${snapshot.error}'));
+            } else if (!snapshot.hasData) {
+              return Center(child: Text('No data available'));
+            } else {
+              return snapshot.data!;
+            }
+          }),
+    );
+    // verifyTokenData
+    //     ? role == "contractor"
+    //         ? ContractorProfilePage()
+    //         : role == "customer"
+    //             ? CustomerProfilePage()
+    //             : role == "individual"
+    //                 ? const IndividualProfilePage()
+    //                 : LoaderComponent()
+    //     : const LoginPage(showBackButton: false);
   }
 }

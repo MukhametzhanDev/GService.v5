@@ -3,6 +3,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:gservice5/component/button/button.dart';
 import 'package:gservice5/component/formatted/price/priceFormat.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
+import 'package:gservice5/pages/profile/wallet/replenishment/replenishmentWalletPage.dart';
 
 class ShowWalletWidget extends StatefulWidget {
   const ShowWalletWidget({super.key});
@@ -12,6 +13,11 @@ class ShowWalletWidget extends StatefulWidget {
 }
 
 class _ShowWalletWidgetState extends State<ShowWalletWidget> {
+  void showPage() {
+    Navigator.push(context,
+        MaterialPageRoute(builder: (context) => ReplenishmentWalletPage()));
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -46,7 +52,7 @@ class _ShowWalletWidgetState extends State<ShowWalletWidget> {
                 children: [
                   Expanded(
                       child:
-                          Button(onPressed: () {}, title: "Пополнить баланс")),
+                          Button(onPressed: showPage, title: "Пополнить баланс")),
                   Divider(indent: 8),
                   GestureDetector(
                     onTap: () {},

@@ -54,6 +54,10 @@ class _LoginBusinessPageState extends State<LoginBusinessPage>
     showModalLoader(context);
     // Map<String, dynamic> param = verifyParam();
     try {
+      print({
+        "email": emailEditingController.text,
+        "password": passwordEditingController.text
+      });
       Response response = await dio.post("/business/login", queryParameters: {
         "email": emailEditingController.text,
         "password": passwordEditingController.text
@@ -61,7 +65,11 @@ class _LoginBusinessPageState extends State<LoginBusinessPage>
       print(response.data);
       Navigator.pop(context);
       if (response.statusCode == 200) {
-        ChangedToken().saveIndividualToken(response.data['data'], context);
+        if (response.data['data']['user']['role'] == "customer") {
+          ChangedToken().saveCustomerToken(response.data['data'], context);
+        } else {
+          ChangedToken().saveContractorToken(response.data['data'], context);
+        }
       } else {
         SnackBarComponent().showResponseErrorMessage(response, context);
       }

@@ -76,9 +76,7 @@ class _ContractorBottomTabState extends State<ContractorBottomTab> {
                                       : Colors.transparent,
                                   borderRadius: BorderRadius.circular(8)),
                               child: SvgPicture.asset(
-                                index == _selectedIndex
-                                    ? "assets/icons/plusActived.svg"
-                                    : value['icon'],
+                                value['icon'],
                                 color: index == 2
                                     ? null
                                     : index == _selectedIndex
