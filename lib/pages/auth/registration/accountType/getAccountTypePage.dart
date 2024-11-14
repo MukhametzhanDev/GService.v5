@@ -134,6 +134,7 @@ class _GetAccountTypePageState extends State<GetAccountTypePage>
                       );
                     }).toList(),
                   ),
+                  Divider(),
                   InfoTypeAccountModal(data: data[currentType]['description'])
                 ],
               )),

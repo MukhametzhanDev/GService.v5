@@ -11,17 +11,14 @@ class MessageMainPage extends StatefulWidget {
 }
 
 class _MessageMainPageState extends State<MessageMainPage> {
-  List _tabs = ["Все", "Мои отклики", "Мои объвяления"];
+  List _tabs = ["Все", "Новые"];
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
-      length: 3,
+      length: _tabs.length,
       child: Scaffold(
         appBar: AppBar(
-            leading: Container(),
-            leadingWidth: 0,
-            title: Text("Сообщение"),
-            elevation: 1,
+            toolbarHeight: 4,
             bottom: PreferredSize(
                 preferredSize: Size(MediaQuery.of(context).size.width, 44),
                 child: TabBar(

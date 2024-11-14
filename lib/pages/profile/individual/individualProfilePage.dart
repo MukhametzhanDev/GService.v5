@@ -40,7 +40,7 @@ class _IndividualProfilePageState extends State<IndividualProfilePage> {
         loader = false;
         setState(() {});
       } else if (response.statusCode == 401) {
-        ChangedToken().removeIndividualToken(context);
+        ChangedToken().removeToken(context);
       } else {
         SnackBarComponent().showResponseErrorMessage(response, context);
       }
@@ -139,8 +139,7 @@ class _IndividualProfilePageState extends State<IndividualProfilePage> {
                           context: context,
                           builder: (context) =>
                               LogOutAlert(onPressed: () async {
-                                await ChangedToken()
-                                    .removeIndividualToken(context);
+                                await ChangedToken().removeToken(context);
                               }));
                     },
                     leading: SvgPicture.asset('assets/icons/exit.svg'),

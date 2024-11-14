@@ -64,7 +64,7 @@ class _LoginBusinessPageState extends State<LoginBusinessPage>
       });
       print(response.data);
       Navigator.pop(context);
-      if (response.statusCode == 200) {
+      if (response.statusCode == 200 && response.data['success']) {
         if (response.data['data']['user']['role'] == "customer") {
           ChangedToken().saveCustomerToken(response.data['data'], context);
         } else {

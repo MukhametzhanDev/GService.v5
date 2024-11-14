@@ -7,6 +7,7 @@ import 'package:gservice5/component/modal/contact/shortContactModal.dart';
 import 'package:gservice5/component/stickers/showStickersList.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
 import 'package:gservice5/pages/ad/viewAdPage.dart';
+import 'package:gservice5/pages/ad/viewAdPage2.dart';
 
 class AdItem extends StatefulWidget {
   const AdItem({super.key});
@@ -18,7 +19,7 @@ class AdItem extends StatefulWidget {
 class _AdItemState extends State<AdItem> {
   void showAdPage() {
     Navigator.push(
-        context, MaterialPageRoute(builder: (context) => ViewAdPage(id: 0)));
+        context, MaterialPageRoute(builder: (context) => ViewAdPage2(id: 0)));
   }
 
   @override
@@ -49,27 +50,25 @@ class _AdItemState extends State<AdItem> {
                     ),
                   ),
                   SizedBox(width: 16),
-                  Row(
-                    children: [
-                      Container(
-                        height: 24,
-                        padding: EdgeInsets.symmetric(horizontal: 8),
-                        alignment: Alignment.center,
-                        decoration: BoxDecoration(
-                            color: ColorComponent.mainColor,
-                            borderRadius: BorderRadius.circular(4)),
-                        child: Text(
-                          "Аренда",
-                          style: TextStyle(
-                              height: 1,
-                              fontSize: 12,
-                              fontWeight: FontWeight.w500),
-                        ),
-                      ),
-                      Divider(indent: 8),
-                      FavoriteButton()
-                    ],
-                  )
+                  Container(
+                    height: 24,
+                    padding: EdgeInsets.symmetric(horizontal: 8),
+                    alignment: Alignment.center,
+                    decoration: BoxDecoration(
+                        color: ColorComponent.mainColor,
+                        borderRadius: BorderRadius.circular(4)),
+                    child: Text(
+                      "Аренда",
+                      style: TextStyle(
+                          height: 1, fontSize: 12, fontWeight: FontWeight.w500),
+                    ),
+                  ),
+                  // Row(
+                  // children: [
+                  // Divider(indent: 8),
+                  // FavoriteButton()
+                  //  ],
+                  //  )
                 ],
               ),
               Divider(height: 8),
@@ -127,7 +126,7 @@ class _AdItemState extends State<AdItem> {
                         Text("JCB 3CX",
                             style: TextStyle(
                                 fontSize: 15, fontWeight: FontWeight.w500)),
-                        // Divider(height: 8),
+                        Divider(height: 8),
                         Text(
                             "На заказы от 3-х смен мы предоставляем скидку. Вся техника находится у нас в собственности, работают опытные операторы и качественно",
                             maxLines: 3,
@@ -135,14 +134,12 @@ class _AdItemState extends State<AdItem> {
                             style: TextStyle(
                                 color: ColorComponent.gray['600'],
                                 fontSize: 13)),
-                        // Divider(height: 8),
-                        Text(
-                          "Арысь",
-                          style: TextStyle(
-                              // color: ColorComponent.gray['500'],
-                              fontWeight: FontWeight.w500,
-                              fontSize: 13),
-                        )
+                        Divider(height: 8),
+                        Text("31 октября",
+                            style: TextStyle(
+                                fontSize: 12,
+                                fontWeight: FontWeight.w400,
+                                color: ColorComponent.gray["500"])),
                       ],
                     ))
                   ],
@@ -157,11 +154,18 @@ class _AdItemState extends State<AdItem> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text("31 октября",
-                      style: TextStyle(
-                          fontSize: 12,
-                          fontWeight: FontWeight.w400,
-                          color: ColorComponent.gray["500"])),
+                  Row(
+                    children: [
+                      SvgPicture.asset('assets/icons/pin.svg',
+                          color: ColorComponent.gray["500"], width: 16),
+                      const SizedBox(width: 4),
+                      Text("г. Алматы",
+                          style: TextStyle(
+                              color: ColorComponent.gray["500"],
+                              fontSize: 12,
+                              fontWeight: FontWeight.w500)),
+                    ],
+                  ),
                   Row(
                     children: [
                       SvgPicture.asset(

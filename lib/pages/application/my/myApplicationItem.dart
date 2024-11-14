@@ -36,7 +36,7 @@ class MyApplicationItem extends StatelessWidget {
                         TextStyle(fontSize: 12, fontWeight: FontWeight.w600))),
           ]),
           Divider(height: 12),
-          Text(data['title'],
+          Text(data['transport_type']['title'],
               style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600)),
           Divider(height: 8),
           Text(myPriceFormatted(data['prices']),
@@ -62,7 +62,7 @@ class MyApplicationItem extends StatelessWidget {
             Row(children: [
               SvgPicture.asset("assets/icons/eye.svg"),
               Divider(indent: 4),
-              Text("123",
+              Text(data['views'].toString(),
                   style: TextStyle(
                       fontSize: 12, color: ColorComponent.gray['500']))
             ])

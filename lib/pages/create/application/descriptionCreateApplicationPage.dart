@@ -16,20 +16,17 @@ class DescriptionCreateApplicationPage extends StatefulWidget {
 
 class _DescriptionCreateApplicationPageState
     extends State<DescriptionCreateApplicationPage> {
-  TextEditingController titleEditingController = TextEditingController();
   TextEditingController descEditingController = TextEditingController();
 
   @override
   void dispose() {
-    titleEditingController.dispose();
     descEditingController.dispose();
     super.dispose();
   }
 
   void verifyData() {
-    String title = titleEditingController.text.trim();
     String desc = descEditingController.text.trim();
-    if (title.isEmpty || desc.isEmpty) {
+    if (desc.isEmpty) {
       SnackBarComponent().showErrorMessage("Заполните все строки", context);
     } else {
       savedData();
@@ -37,7 +34,6 @@ class _DescriptionCreateApplicationPageState
   }
 
   void savedData() {
-    CreateData.data['title'] = titleEditingController.text;
     CreateData.data['description'] = descEditingController.text;
     widget.nextPage();
   }
@@ -48,16 +44,9 @@ class _DescriptionCreateApplicationPageState
       body: SingleChildScrollView(
         padding: EdgeInsets.all(15),
         child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-          Text("Заголовок", style: TextStyle(fontWeight: FontWeight.w600)),
-          Divider(height: 6),
-          TextField(
-              controller: titleEditingController,
-              textCapitalization: TextCapitalization.sentences,
-              style: TextStyle(fontSize: 14),
-              decoration: InputDecoration(hintText: "Введите заголовок")),
-          Divider(),
-          Text("Описание", style: TextStyle(fontWeight: FontWeight.w600)),
-          Divider(height: 6),
+          Text("Напишите подробности",
+              style: TextStyle(fontWeight: FontWeight.w600, fontSize: 20)),
+          Divider(height: 8),
           TextField(
               controller: descEditingController,
               style: TextStyle(fontSize: 14),
@@ -66,8 +55,12 @@ class _DescriptionCreateApplicationPageState
               maxLines: 14,
               minLines: 6,
               decoration: InputDecoration(
-                  hintText: "Введите описание",
-                  helperStyle: TextStyle(color: ColorComponent.gray['500'])))
+                  hintText: "Что нужно сделать?",
+                  helperStyle: TextStyle(color: ColorComponent.gray['500']))),
+          Text(
+            "Например: Нужен трактор для участка",
+            style: TextStyle(color: ColorComponent.gray['500']),
+          )
         ]),
       ),
       bottomNavigationBar: BottomNavigationBarComponent(

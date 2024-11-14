@@ -7,7 +7,6 @@ import 'package:gservice5/component/button/button.dart';
 import 'package:gservice5/component/button/shareButton.dart';
 import 'package:gservice5/component/dio/dio.dart';
 import 'package:gservice5/component/formatted/price/priceFormat.dart';
-import 'package:gservice5/component/image/slider/sliderImageWidget.dart';
 import 'package:gservice5/component/image/slider/smallSliderImageWidget.dart';
 import 'package:gservice5/component/loader/loaderComponent.dart';
 import 'package:gservice5/component/loader/modalLoaderComponent.dart';
@@ -16,7 +15,6 @@ import 'package:gservice5/component/snackBar/snackBarComponent.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
 import 'package:gservice5/component/widgets/bottom/bottomNavigationBarComponent.dart';
 import 'package:gservice5/component/widgets/characteristic/showCharacteristicWidget.dart';
-import 'package:gservice5/pages/application/document/showDocumentWidget.dart';
 import 'package:gservice5/pages/application/my/myApplicationItem.dart';
 
 class ViewMyApplicationPage extends StatefulWidget {
@@ -94,7 +92,7 @@ class _ViewMyApplicationPageState extends State<ViewMyApplicationPage> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(data['title'],
+                        Text(data['category']['title'],
                             style: TextStyle(
                                 fontSize: 14, fontWeight: FontWeight.w400),
                             maxLines: 1),

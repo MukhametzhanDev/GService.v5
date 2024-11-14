@@ -16,34 +16,34 @@ class SliderImageWidget extends StatefulWidget {
 class _SliderImageWidgetState extends State<SliderImageWidget> {
   int currentIndex = 0;
   PageController pageController = PageController();
-  ScrollController scrollController = ScrollController();
+  // ScrollController scrollController = ScrollController();
 
   @override
   void dispose() {
     pageController.dispose();
-    scrollController.dispose();
+    // scrollController.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    double IMAGE_WIDTH = MediaQuery.of(context).size.width - 32;
+    double IMAGE_WIDTH = MediaQuery.of(context).size.width;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         SizedBox(
           width: MediaQuery.of(context).size.width,
-          height: IMAGE_WIDTH / 1.7,
+          height: IMAGE_WIDTH / 1.2,
           child: PageView(
             controller: pageController,
             onPageChanged: (value) {
               currentIndex = value;
-              double offset = (value * 101) + (4 * value).toDouble();
-              scrollController.animateTo(
-                offset,
-                duration: Duration(milliseconds: 300),
-                curve: Curves.easeInOut,
-              );
+              // double offset = (value * 101) + (4 * value).toDouble();
+              // scrollController.animateTo(
+              //   offset,
+              //   duration: Duration(milliseconds: 300),
+              //   curve: Curves.easeInOut,
+              // );
               setState(() {});
             },
             children: widget.images.map((value) {
@@ -65,8 +65,8 @@ class _SliderImageWidgetState extends State<SliderImageWidget> {
                     CacheImage(
                         url: url,
                         width: IMAGE_WIDTH,
-                        height: IMAGE_WIDTH / 1.7,
-                        borderRadius: 8),
+                        height: IMAGE_WIDTH / 1.2,
+                        borderRadius: 0),
                     Align(
                       alignment: Alignment.bottomCenter,
                       child: Container(
@@ -91,36 +91,38 @@ class _SliderImageWidgetState extends State<SliderImageWidget> {
             }).toList(),
           ),
         ),
-        Divider(indent: 8),
-        SizedBox(
-            height: 70,
-            child: ListView.builder(
-              itemCount: widget.images.length,
-              physics: ClampingScrollPhysics(),
-              padding: EdgeInsets.symmetric(horizontal: 11),
-              scrollDirection: Axis.horizontal,
-              controller: scrollController,
-              itemBuilder: (context, index) {
-                var value = widget.images[index];
-                String url = value.runtimeType == String ? value : value['url'];
-                return GestureDetector(
-                    onTap: () {
-                      pageController.animateToPage(index, duration: Duration(milliseconds: 300), curve: Curves.linearToEaseOut);
-                    },
-                    child: Container(
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(8),
-                          border: Border.all(
-                              width: 2,
-                              color: index == currentIndex
-                                  ? ColorComponent.mainColor
-                                  : Colors.transparent)),
-                      margin: const EdgeInsets.symmetric(horizontal: 4.0),
-                      child: CacheImage(
-                          url: url, width: 101, height: 70, borderRadius: 6),
-                    ));
-              },
-            ))
+        // Divider(indent: 8),
+        // SizedBox(
+        //     height: 70,
+        //     child: ListView.builder(
+        //       itemCount: widget.images.length,
+        //       physics: ClampingScrollPhysics(),
+        //       padding: EdgeInsets.symmetric(horizontal: 11),
+        //       scrollDirection: Axis.horizontal,
+        //       controller: scrollController,
+        //       itemBuilder: (context, index) {
+        //         var value = widget.images[index];
+        //         String url = value.runtimeType == String ? value : value['url'];
+        //         return GestureDetector(
+        //             onTap: () {
+        //               pageController.animateToPage(index,
+        //                   duration: Duration(milliseconds: 300),
+        //                   curve: Curves.linearToEaseOut);
+        //             },
+        //             child: Container(
+        //               decoration: BoxDecoration(
+        //                   borderRadius: BorderRadius.circular(8),
+        //                   border: Border.all(
+        //                       width: 2,
+        //                       color: index == currentIndex
+        //                           ? ColorComponent.mainColor
+        //                           : Colors.transparent)),
+        //               margin: const EdgeInsets.symmetric(horizontal: 4.0),
+        //               child: CacheImage(
+        //                   url: url, width: 101, height: 70, borderRadius: 6),
+        //             ));
+        //       },
+        //     ))
       ],
     );
   }

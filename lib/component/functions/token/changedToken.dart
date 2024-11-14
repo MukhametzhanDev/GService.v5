@@ -51,13 +51,13 @@ class ChangedToken {
         (route) => false);
   }
 
-  Future removeIndividualToken(context) async {
+  Future removeToken(context) async {
     try {
       showModalLoader(context);
       Response response = await dio.post("/logout");
       print(response.data);
       Navigator.pop(context);
-      await const FlutterSecureStorage().delete(key: "token");
+      await const FlutterSecureStorage().deleteAll();
       dio.options.headers['authorization'] = "";
       Navigator.pushAndRemoveUntil(
           context,
@@ -66,18 +66,5 @@ class ChangedToken {
     } catch (e) {}
   }
 
-  Future removeContructorToken(context) async {
-    try {
-      showModalLoader(context);
-      Response response = await dio.post("/business/logout");
-      print(response.data);
-      Navigator.pop(context);
-      await const FlutterSecureStorage().delete(key: "token");
-      dio.options.headers['authorization'] = "";
-      Navigator.pushAndRemoveUntil(
-          context,
-          MaterialPageRoute(builder: (_) => IndividualBottomTab()),
-          (route) => false);
-    } catch (e) {}
-  }
+  
 }

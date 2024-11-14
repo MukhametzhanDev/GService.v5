@@ -28,9 +28,8 @@ class _InfoTypeAccountModalState extends State<InfoTypeAccountModal> {
         Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Divider(height: 5),
         Divider(height: 1, color: ColorComponent.gray['100']),
-        Divider(height: 10),
+        Divider(height: 22),
         Text("Как это работает?",
             style: TextStyle(fontWeight: FontWeight.w500, fontSize: 16)),
         Divider(height: 16),

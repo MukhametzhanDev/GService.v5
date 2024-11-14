@@ -64,9 +64,10 @@ class _VerificationEmailPageState extends State<VerificationEmailPage>
     showModalLoader(context);
     print('otpCode $otpCode');
     try {
-      Response response = await dio.post("/verify-mail-code", queryParameters: {
+      Response response = await dio.post("/verify-mail-code", data: {
         "email": widget.email,
-        "code": textEditingController.text
+        "code": textEditingController.text,
+        "for_password_reset": false
       });
       Navigator.pop(context);
       if (response.statusCode == 200 && response.data['success']) {

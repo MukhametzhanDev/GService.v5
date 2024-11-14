@@ -25,20 +25,18 @@ class _PriceTextFieldState extends State<PriceTextField> {
           NumberFormat.currency(decimalDigits: 0, symbol: "", locale: 'kk'));
   @override
   Widget build(BuildContext context) {
-    return AutofillGroup(
-      child: SizedBox(
-        height: 48,
-        child: TextField(
-          onSubmitted: (value) {
-            widget.onSubmitted();
-          },
-          inputFormatters: [currencyTextInputFormatter],
-          autofocus: widget.autofocus ?? false,
-          keyboardType: TextInputType.number,
-          style: TextStyle(fontSize: 14, height: 1.1),
-          controller: widget.textEditingController,
-          decoration: InputDecoration(hintText: widget.title ?? 'Введите цену'),
-        ),
+    return SizedBox(
+      height: 48,
+      child: TextField(
+        onSubmitted: (value) {
+          widget.onSubmitted();
+        },
+        inputFormatters: [currencyTextInputFormatter],
+        autofocus: widget.autofocus ?? false,
+        keyboardType: TextInputType.number,
+        style: TextStyle(fontSize: 14, height: 1.1),
+        controller: widget.textEditingController,
+        decoration: InputDecoration(hintText: widget.title ?? 'Введите цену'),
       ),
     );
   }

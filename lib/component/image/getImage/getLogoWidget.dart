@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:gservice5/component/button/button.dart';
+import 'package:gservice5/component/image/cacheImage.dart';
 import 'package:gservice5/component/loader/modalLoaderComponent.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
 import 'package:image_cropper/image_cropper.dart';
@@ -10,7 +11,8 @@ import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
 class GetLogoWidget extends StatefulWidget {
   final void Function(String path) onChanged;
-  const GetLogoWidget({super.key, required this.onChanged});
+  final String? imageUrl;
+  const GetLogoWidget({super.key, required this.onChanged, this.imageUrl});
 
   @override
   State<GetLogoWidget> createState() => _GetLogoWidgetState();
@@ -92,13 +94,22 @@ class _GetLogoWidgetState extends State<GetLogoWidget> {
                     borderRadius: BorderRadius.circular(40),
                     child: Image.asset(image!.path,
                         width: 80, height: 80, fit: BoxFit.cover))
-                : SvgPicture.asset('assets/icons/getAvatar.svg'),
+                : widget.imageUrl != null
+                    ? CacheImage(
+                        url: widget.imageUrl,
+                        width: 80,
+                        height: 80,
+                        borderRadius: 40)
+                    : SvgPicture.asset('assets/icons/getAvatar.svg'),
             Divider(indent: 12),
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text("Загрузить логотип компании",
+                  Text(
+                      widget.imageUrl != null
+                          ? "Изменить логотип компании"
+                          : "Загрузить логотип компании",
                       style: TextStyle(
                           fontWeight: FontWeight.w600,
                           color: ColorComponent.gray['500'])),
@@ -108,14 +119,15 @@ class _GetLogoWidgetState extends State<GetLogoWidget> {
                           fontSize: 12, color: ColorComponent.gray['500'])),
                   Divider(height: 8),
                   Container(
-                    padding: EdgeInsets.symmetric(vertical: 6, horizontal: 12),
-                    decoration: BoxDecoration(
-                        color: ColorComponent.mainColor,
-                        borderRadius: BorderRadius.circular(8)),
-                    child: Text("Загрузить фото",
-                        style: TextStyle(
-                            fontSize: 12, fontWeight: FontWeight.w500)),
-                  )
+                      padding:
+                          EdgeInsets.symmetric(vertical: 6, horizontal: 12),
+                      decoration: BoxDecoration(
+                          color: ColorComponent.mainColor,
+                          borderRadius: BorderRadius.circular(8)),
+                      child: Text(
+                          widget.imageUrl != null ? "Изменить" : "Загрузить",
+                          style: TextStyle(
+                              fontSize: 12, fontWeight: FontWeight.w500)))
                 ],
               ),
             )

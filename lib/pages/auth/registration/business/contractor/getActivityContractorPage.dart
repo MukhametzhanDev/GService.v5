@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:gservice5/component/button/button.dart';
 import 'package:gservice5/component/dio/dio.dart';
+import 'package:gservice5/component/functions/token/changedToken.dart';
 import 'package:gservice5/component/loader/modalLoaderComponent.dart';
 import 'package:gservice5/component/message/explanatoryMessage.dart';
 import 'package:gservice5/component/select/multi/multiSelect.dart';
@@ -25,13 +26,16 @@ class _GetActivityContractorPageState extends State<GetActivityContractorPage> {
 
   void postData() async {
     showModalLoader(context);
+    String? token = await ChangedToken().getToken();
+    print(token);
     try {
-      Response response =
-          await dio.post("/business/company-contact", queryParameters: {
-        "category_id": getIds(categories),
-        "transport_type_id": getIds(transportTypes),
-        "transport_brand_id": getIds(transportBrands)
-      });
+      Response response = await dio.post("/business/company-activity",
+          data: {
+            "category_id": getIds(categories),
+            "transport_type_id": getIds(transportTypes),
+            "transport_brand_id": getIds(transportBrands)
+          },
+          options: Options(headers: {"authorization": "Bearer $token"}));
       print(response.data);
       Navigator.pop(context);
       if (response.statusCode == 200) {
@@ -42,7 +46,8 @@ class _GetActivityContractorPageState extends State<GetActivityContractorPage> {
       } else {
         SnackBarComponent().showResponseErrorMessage(response, context);
       }
-    } catch (e) {
+    }on DioException catch (e) {
+      print(e);
       SnackBarComponent().showServerErrorMessage(context);
     }
   }

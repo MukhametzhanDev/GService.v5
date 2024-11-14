@@ -20,9 +20,14 @@ class _SplashScreenState extends State<SplashScreen> {
 
   void getData() async {
     String? token = await ChangedToken().getToken();
+    String? role = await ChangedToken().getRole();
     print(token);
+    print(role);
     if (token != null) {
       dio.options.headers['authorization'] = "Bearer $token";
+    }
+    if (role == "customer" || role == "contractor") {
+      dio.options.baseUrl = "https://dev.gservice-co.kz/api/business/";
     }
     showPage();
   }
