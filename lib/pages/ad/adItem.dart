@@ -42,11 +42,12 @@ class _AdItemState extends State<AdItem> {
                   Expanded(
                     child: Text(
                       "Гусеничные экскаватор экскаватор экскаватор",
-                      style:
-                          TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+                      style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w400,
+                          color: ColorComponent.blue['700']),
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
-                      // softWrap: false,
                     ),
                   ),
                   SizedBox(width: 16),

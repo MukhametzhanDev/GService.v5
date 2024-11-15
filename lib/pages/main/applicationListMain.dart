@@ -33,31 +33,32 @@ class _ApplicationListMainState extends State<ApplicationListMain> {
             children: [
               Text("1 234 Заявки на спецтехнику",
                   style: TextStyle(
-                      fontSize: 18, fontWeight: FontWeight.w600, height: 1)),
+                      fontSize: 16, fontWeight: FontWeight.w600, height: 1)),
               GestureDetector(
-                onTap: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => ApplicationListPage()));
-                },
-                child: Container(
-                    height: 32,
-                    padding: EdgeInsets.symmetric(horizontal: 12),
-                    alignment: Alignment.center,
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(8),
-                        color: ColorComponent.mainColor.withOpacity(.2)),
-                    child: Text("Все",
-                        style: TextStyle(
-                            fontSize: 12,
-                            fontWeight: FontWeight.w600,
-                            height: 1))),
-              )
+                  onTap: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => ApplicationListPage()));
+                  },
+                  child: SvgPicture.asset('assets/icons/right.svg')
+                  //  Container(
+                  //     height: 32,
+                  //     padding: EdgeInsets.symmetric(horizontal: 12),
+                  //     alignment: Alignment.center,
+                  //     decoration: BoxDecoration(
+                  //         borderRadius: BorderRadius.circular(8),
+                  //         color: ColorComponent.mainColor.withOpacity(.2)),
+                  //     child: Text("Все",
+                  //         style: TextStyle(
+                  //             fontSize: 12,
+                  //             fontWeight: FontWeight.w600,
+                  //             height: 1))),
+                  )
             ],
           ),
         ),
-        Divider(height: 12),
+        Divider(height: 18),
         SizedBox(
           height: 110,
           child: SingleChildScrollView(
@@ -69,12 +70,12 @@ class _ApplicationListMainState extends State<ApplicationListMain> {
                   if (index == data.length - 1) {
                     return Row(
                       children: [
-                        ApplicationItemMain(onPressed: showPage),
+                        ApplicationItemMain(onPressed: showPage, index: index),
                         ShowMoreApplicaiton()
                       ],
                     );
                   }
-                  return ApplicationItemMain(onPressed: showPage);
+                  return ApplicationItemMain(onPressed: showPage, index: index);
                 }).toList(),
               )),
         ),
@@ -85,7 +86,9 @@ class _ApplicationListMainState extends State<ApplicationListMain> {
 
 class ApplicationItemMain extends StatelessWidget {
   final void Function() onPressed;
-  const ApplicationItemMain({super.key, required this.onPressed});
+  final int index;
+  const ApplicationItemMain(
+      {super.key, required this.onPressed, required this.index});
 
   @override
   Widget build(BuildContext context) {
@@ -96,7 +99,7 @@ class ApplicationItemMain extends StatelessWidget {
         height: 110,
         margin: EdgeInsets.symmetric(horizontal: 4),
         constraints:
-            BoxConstraints(maxWidth: MediaQuery.of(context).size.width / 1.6),
+            BoxConstraints(maxWidth: MediaQuery.of(context).size.width / 1.4),
         padding: EdgeInsets.all(12),
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(8),
@@ -107,12 +110,18 @@ class ApplicationItemMain extends StatelessWidget {
           children: [
             Text(
               "Нужен экскаватор 2-ух кубовый",
-              style: TextStyle(fontWeight: FontWeight.w500),
+              style: TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.w400,
+                  color: ColorComponent.blue['700']),
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
             ),
-            Text(priceFormat(0),
-                style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600)),
+            Text(priceFormat(index % 2 == 1 ? 1500000 : 0),
+                style: TextStyle(
+                    fontSize: 14,
+                    fontWeight: FontWeight.w600,
+                    color: Colors.black)),
             Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
               Row(
                 children: [

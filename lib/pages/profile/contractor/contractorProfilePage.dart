@@ -10,7 +10,7 @@ import 'package:gservice5/component/loader/loaderComponent.dart';
 import 'package:gservice5/component/snackBar/snackBarComponent.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
 import 'package:gservice5/component/wallet/showWalletWidget.dart';
-import 'package:gservice5/pages/profile/customer/changeCustomerProfilePage.dart';
+import 'package:gservice5/pages/profile/contractor/changeContractorProfilePage.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:readmore/readmore.dart';
 
@@ -53,7 +53,7 @@ class _ContractorProfilePageState extends State<ContractorProfilePage> {
     Navigator.push(
             context,
             MaterialPageRoute(
-                builder: (context) => ChangeCustomerProfilePage(data: data)))
+                builder: (context) => ChangeContractorProfilePage(data: data)))
         .then((value) => changedDataUser(value));
   }
 
@@ -171,11 +171,9 @@ class _ContractorProfilePageState extends State<ContractorProfilePage> {
                                           width: 1,
                                           color: ColorComponent.mainColor),
                                       borderRadius: BorderRadius.circular(8)),
-                                  child: Text(
-                                    "Изменить",
-                                    style:
-                                        TextStyle(fontWeight: FontWeight.w500),
-                                  ),
+                                  child: Text("Редактировать",
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.w500)),
                                 ),
                               ),
                             ),

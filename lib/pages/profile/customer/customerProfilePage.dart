@@ -10,7 +10,9 @@ import 'package:gservice5/component/loader/loaderComponent.dart';
 import 'package:gservice5/component/snackBar/snackBarComponent.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
 import 'package:gservice5/component/wallet/showWalletWidget.dart';
+import 'package:gservice5/pages/profile/contractor/changeContractorProfilePage.dart';
 import 'package:gservice5/pages/profile/customer/changeCustomerProfilePage.dart';
+import 'package:gservice5/pages/profile/editProfilePage.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:readmore/readmore.dart';
 
@@ -53,7 +55,7 @@ class _CustomerProfilePageState extends State<CustomerProfilePage> {
     Navigator.push(
             context,
             MaterialPageRoute(
-                builder: (context) => ChangeCustomerProfilePage(data: data)))
+                builder: (context) => EditProfilePage(data: data)))
         .then((value) => changedDataUser(value));
   }
 
@@ -145,40 +147,24 @@ class _CustomerProfilePageState extends State<CustomerProfilePage> {
                           //     style: TextStyle(
                           //         fontWeight: FontWeight.w500, fontSize: 16)),
                           Divider(height: 8),
-                          ReadMoreText(
-                            data['description'] ??
-                                "Вниманию всех потенциальных клиентов и заинтересованных лиц в Республике Казахстан: ТОО ZOOMLION Central Asia является исключительным правообладателем товарного знака ZOOMLION на территории Республики",
-                            trimMode: TrimMode.Line,
-                            trimLines: 3,
-                            trimCollapsedText: 'еще',
-                            trimExpandedText: '',
-                            moreStyle: TextStyle(
-                                fontSize: 14,
-                                color: ColorComponent.gray['500'],
-                                fontWeight: FontWeight.w500),
-                          ),
-                          Divider(height: 12),
                           Row(children: [
                             Expanded(
-                              child: GestureDetector(
-                                onTap: showChangeCustomerProfilePage,
-                                child: Container(
-                                  alignment: Alignment.center,
-                                  padding: EdgeInsets.symmetric(
-                                      horizontal: 10, vertical: 6),
-                                  decoration: BoxDecoration(
-                                      border: Border.all(
-                                          width: 1,
-                                          color: ColorComponent.mainColor),
-                                      borderRadius: BorderRadius.circular(8)),
-                                  child: Text(
-                                    "Изменить",
-                                    style:
-                                        TextStyle(fontWeight: FontWeight.w500),
-                                  ),
-                                ),
-                              ),
-                            ),
+                                child: GestureDetector(
+                                    onTap: showChangeCustomerProfilePage,
+                                    child: Container(
+                                      alignment: Alignment.center,
+                                      padding: EdgeInsets.symmetric(
+                                          horizontal: 10, vertical: 6),
+                                      decoration: BoxDecoration(
+                                          border: Border.all(
+                                              width: 1,
+                                              color: ColorComponent.mainColor),
+                                          borderRadius:
+                                              BorderRadius.circular(8)),
+                                      child: Text("Редактировать",
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.w500)),
+                                    ))),
                             Divider(indent: 8),
                             Expanded(
                               child: GestureDetector(
@@ -240,8 +226,7 @@ class _CustomerProfilePageState extends State<CustomerProfilePage> {
                             context: context,
                             builder: (context) =>
                                 LogOutAlert(onPressed: () async {
-                                  await ChangedToken()
-                                      .removeToken(context);
+                                  await ChangedToken().removeToken(context);
                                 }));
                       },
                       leading: SvgPicture.asset('assets/icons/exit.svg'),

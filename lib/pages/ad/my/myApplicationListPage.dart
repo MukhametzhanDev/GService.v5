@@ -12,10 +12,7 @@ import 'package:gservice5/pages/application/my/viewMyApplicationPage.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 class MyApplicationListPage extends StatefulWidget {
-  final RefreshController refreshController;
-  final bool showAppBar;
-  const MyApplicationListPage(
-      {super.key, required this.refreshController, required this.showAppBar});
+  const MyApplicationListPage({super.key});
 
   @override
   State<MyApplicationListPage> createState() => _MyApplicationListPageState();
@@ -24,14 +21,15 @@ class MyApplicationListPage extends StatefulWidget {
 class _MyApplicationListPageState extends State<MyApplicationListPage>
     with AutomaticKeepAliveClientMixin {
   final List _tabs = [
-    {"title": "Активные", "type": "pending", "count": ""},
+    {"title": "Активные", "type": "active", "count": ""},
     {"title": "Удаленное", "type": "deleted", "count": ""},
     // {"title": "Отклоненные"},
   ];
+  RefreshController refreshController = RefreshController();
   int tabIndex = 1;
   List data = [];
   bool loader = true;
-  String currentStatusAd = "pending";
+  String currentStatusAd = "active";
   ScrollController scrollController = ScrollController();
   bool hasNextPage = false;
   bool isLoadMore = false;
@@ -39,7 +37,7 @@ class _MyApplicationListPageState extends State<MyApplicationListPage>
 
   @override
   void initState() {
-    getCount();
+    // getCount();
     getData();
     super.initState();
     scrollController.addListener(() => loadMoreAd());
@@ -48,29 +46,28 @@ class _MyApplicationListPageState extends State<MyApplicationListPage>
   @override
   void dispose() {
     super.dispose();
-    widget.refreshController.dispose();
     scrollController.dispose();
   }
 
-  Future getCount() async {
-    try {
-      String? token = await FlutterSecureStorage().read(key: "token");
-      Response response = await dio.get("/my-applications-status-count",
-          options: Options(headers: {"authorization": "Bearer $token"}));
-      print(response.data);
-      if (response.data['success']) {
-        Map data = response.data['data'];
-        for (var value in _tabs) {
-          value['count'] = data[value['type']].toString();
-        }
-        setState(() {});
-      } else {
-        SnackBarComponent().showErrorMessage(response.data['message'], context);
-      }
-    } catch (e) {
-      SnackBarComponent().showNotGoBackServerErrorMessage(context);
-    }
-  }
+  // Future getCount() async {
+  //   try {
+  //     String? token = await FlutterSecureStorage().read(key: "token");
+  //     Response response = await dio.get("/my-applications-count",
+  //         options: Options(headers: {"authorization": "Bearer $token"}));
+  //     print(response.data);
+  //     if (response.data['success']) {
+  //       Map data = response.data['data'];
+  //       for (var value in _tabs) {
+  //         value['count'] = data[value['type']].toString();
+  //       }
+  //       setState(() {});
+  //     } else {
+  //       SnackBarComponent().showErrorMessage(response.data['message'], context);
+  //     }
+  //   } catch (e) {
+  //     SnackBarComponent().showNotGoBackServerErrorMessage(context);
+  //   }
+  // }
 
   Future getData() async {
     try {
@@ -79,7 +76,7 @@ class _MyApplicationListPageState extends State<MyApplicationListPage>
       String? token = await FlutterSecureStorage().read(key: "token");
       print(token);
       Response response = await dio.get("/my-applications",
-          queryParameters: {"status": currentStatusAd},
+          // queryParameters: {"status": currentStatusAd},
           options: Options(headers: {"authorization": "Bearer $token"}));
       print(response.data);
       if (response.data['success']) {
@@ -93,7 +90,7 @@ class _MyApplicationListPageState extends State<MyApplicationListPage>
     } catch (e) {
       SnackBarComponent().showNotGoBackServerErrorMessage(context);
     }
-    widget.refreshController.refreshCompleted();
+    refreshController.refreshCompleted();
   }
 
   Future loadMoreAd() async {
@@ -154,29 +151,31 @@ class _MyApplicationListPageState extends State<MyApplicationListPage>
     super.build(context);
     return Scaffold(
         appBar: AppBar(
-          leading: widget.showAppBar ? BackIconButton() : null,
-          title: widget.showAppBar ? Text("Мои заявки") : null,
-          toolbarHeight: widget.showAppBar ? null : 4,
+          leading: BackIconButton(),
+          title: Text("Мои заявки"),
           elevation: 0,
-          bottom: PreferredSize(
-            preferredSize: Size(MediaQuery.of(context).size.width, 50),
-            child: Container(
-              height: 52,
-              decoration: BoxDecoration(
-                  border: Border(
-                      bottom: BorderSide(width: 1, color: Color(0xffE5E7EB)))),
-              padding: const EdgeInsets.only(left: 6, right: 6),
-              child: SingleChildScrollView(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
-                child: Row(
-                  children: _tabs.map((value) {
-                    return TabButton(value);
-                  }).toList(),
-                ),
-              ),
-            ),
-          ),
+          // bottom: PreferredSize(
+          //   preferredSize: Size(MediaQuery.of(context).size.width, 50),
+          //   child: Container(
+          //     height: 52,
+          //     decoration: BoxDecoration(
+          //         border: Border(
+          //             bottom: BorderSide(width: 1, color: Color(0xffE5E7EB)))),
+          //     padding: const EdgeInsets.only(
+          //       left: 6,
+          //       right: 6,
+          //     ),
+          //     child: SingleChildScrollView(
+          //       padding:
+          //           const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+          //       child: Row(
+          //         children: _tabs.map((value) {
+          //           return TabButton(value);
+          //         }).toList(),
+          //       ),
+          //     ),
+          //   ),
+          // ),
         ),
         body: loader
             ? LoaderComponent()
@@ -187,7 +186,7 @@ class _MyApplicationListPageState extends State<MyApplicationListPage>
                 },
                 enablePullDown: true,
                 enablePullUp: false,
-                controller: widget.refreshController,
+                controller: refreshController,
                 header: MaterialClassicHeader(
                     color: ColorComponent.mainColor,
                     backgroundColor: Colors.white),
@@ -214,46 +213,51 @@ class _MyApplicationListPageState extends State<MyApplicationListPage>
                 )));
   }
 
-  GestureDetector TabButton(Map value) {
+  Container TabButton(Map value) {
     bool active = value['type'] != currentStatusAd;
-    return GestureDetector(
-        onTap: () {
-          currentStatusAd = value['type'];
-          loader = true;
-          setState(() {});
-          getData();
-        },
-        child: Container(
-          height: 36,
-          decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(8),
-              color: !active ? ColorComponent.mainColor : Colors.white),
-          padding: EdgeInsets.only(left: 16, right: 8, top: 6, bottom: 6),
-          margin: EdgeInsets.only(right: 8),
-          alignment: Alignment.center,
+    return Container(
+      height: 36,
+      padding: const EdgeInsets.only(right: 8.0),
+      child: TextButton(
+          onPressed: () {
+            currentStatusAd = value['type'];
+            loader = true;
+            setState(() {});
+            getData();
+          },
+          style: TextButton.styleFrom(
+              padding: EdgeInsets.only(left: 14, right: 7),
+              backgroundColor:
+                  active ? Colors.white : ColorComponent.mainColor),
           child: Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Text(value['title'],
                   style: TextStyle(
-                      fontSize: 13,
-                      color:
-                          active ? ColorComponent.gray['700'] : Colors.black)),
-              Divider(indent: 8),
+                      fontWeight: FontWeight.w600,
+                      color: active ? Colors.black : Colors.white)),
               Container(
-                  width: 24,
-                  height: 24,
-                  alignment: Alignment.center,
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(12),
-                      color: active
-                          ? ColorComponent.mainColor.withOpacity(.2)
-                          : ColorComponent.mainColor),
-                  child: Text(value['count']))
+                height: 20,
+                // alignment: Alignment.center,
+                padding: EdgeInsets.only(top: 3, left: 3, right: 3),
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(20),
+                    color: !active ? null : ColorComponent.gray['200']),
+                margin: EdgeInsets.only(left: 10),
+                constraints: BoxConstraints(minWidth: 20, maxWidth: 40),
+                child: Text(
+                  value['count'],
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                      fontSize: 12,
+                      fontWeight: FontWeight.w600,
+                      color: !active ? Colors.white : Colors.black),
+                ),
+              ),
             ],
-          ),
-        ));
+          )),
+    );
   }
 
   @override

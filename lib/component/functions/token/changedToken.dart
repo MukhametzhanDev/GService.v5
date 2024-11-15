@@ -34,6 +34,7 @@ class ChangedToken {
     await const FlutterSecureStorage()
         .write(key: "token", value: value['user_token']);
     dio.options.headers['authorization'] = "Bearer ${value['user_token']}";
+    dio.options.baseUrl = "https://dev.gservice-co.kz/api/business/";
     Navigator.pushAndRemoveUntil(
         context,
         MaterialPageRoute(builder: (_) => CustomerBottomTab()),
@@ -45,6 +46,7 @@ class ChangedToken {
     await const FlutterSecureStorage()
         .write(key: "token", value: value['user_token']);
     dio.options.headers['authorization'] = "Bearer ${value['user_token']}";
+    dio.options.baseUrl = "https://dev.gservice-co.kz/api/business/";
     Navigator.pushAndRemoveUntil(
         context,
         MaterialPageRoute(builder: (_) => GetActivityContractorPage()),
@@ -59,12 +61,11 @@ class ChangedToken {
       Navigator.pop(context);
       await const FlutterSecureStorage().deleteAll();
       dio.options.headers['authorization'] = "";
+      dio.options.baseUrl = "https://dev.gservice-co.kz/api";
       Navigator.pushAndRemoveUntil(
           context,
           MaterialPageRoute(builder: (_) => IndividualBottomTab()),
           (route) => false);
     } catch (e) {}
   }
-
-  
 }

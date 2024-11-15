@@ -96,8 +96,7 @@ class _ViewMyApplicationPageState extends State<ViewMyApplicationPage> {
                             style: TextStyle(
                                 fontSize: 14, fontWeight: FontWeight.w400),
                             maxLines: 1),
-                        Text(
-                            "${priceFormat(data['prices'][0]['original_price'])}  ₸",
+                        Text(myPriceFormatted(data['prices']),
                             style: TextStyle(
                                 fontSize: 14, fontWeight: FontWeight.w600),
                             maxLines: 1),
@@ -115,15 +114,14 @@ class _ViewMyApplicationPageState extends State<ViewMyApplicationPage> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(data['title'],
-                                style: TextStyle(
-                                    fontSize: 20, fontWeight: FontWeight.w600)),
+                            // Text(data['title'],
+                            //     style: TextStyle(
+                            //         fontSize: 20, fontWeight: FontWeight.w600)),
                             const SizedBox(height: 8),
                             Row(
                               children: [
                                 Expanded(
-                                  child: Text(
-                                      "${priceFormat(data['prices'][0]['original_price'])} ₸",
+                                  child: Text(myPriceFormatted(data['prices']),
                                       style: TextStyle(
                                           fontSize: 20,
                                           fontWeight: FontWeight.w600)),

@@ -51,7 +51,8 @@ class _CustomerBottomTabState extends State<CustomerBottomTab> {
       body: IndexedStack(index: _selectedIndex, children: [
         MainPage(scrollController: scrollController),
         FavoriteMainPage(),
-        CreateMainPage(),
+        // CreateMainPage(),
+        Container(),
         MessageMainPage(),
         VerifyProfilePage(),
       ]),

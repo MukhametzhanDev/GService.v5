@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gservice5/component/theme/colorComponent.dart';
 
 class ShowCharacteristicWidget extends StatelessWidget {
   final String? title;
@@ -9,14 +10,20 @@ class ShowCharacteristicWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return subTitle == null
         ? Container()
-        : Padding(
-            padding: const EdgeInsets.only(bottom: 12.0),
+        : Container(
+            decoration: BoxDecoration(
+                border: Border(
+                    bottom: BorderSide(width: 1, color: Color(0xfff9fafb)))),
+            padding: EdgeInsets.symmetric(vertical: 12),
             child: Row(children: [
-              Expanded(child: Text(title ?? '')),
-              Divider(),
               Expanded(
-                  child: Text(subTitle ?? '',
-                      style: TextStyle(fontWeight: FontWeight.w500)))
+                  child: Text(
+                "$title: " ?? "",
+                style: TextStyle(color: ColorComponent.gray['500']),
+              )),
+              Expanded(
+                  child: Text(subTitle ?? "",
+                      style: TextStyle(fontWeight: FontWeight.w600)))
             ]),
           );
   }

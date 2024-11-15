@@ -25,7 +25,7 @@ class CreateApplication extends StatefulWidget {
 
 class _CreateApplicationState extends State<CreateApplication> {
   int currentIndex = 0;
-  List<String> titles = ["Описание заявки"];
+  List<String> titles = [];
   List<Widget> pages = [];
   bool loader = true;
 
@@ -52,14 +52,16 @@ class _CreateApplicationState extends State<CreateApplication> {
   }
 
   Future verifyData() async {
-    bool hasToken = await ChangedToken().getToken() != "";
+    // bool hasToken = await ChangedToken().getToken() != "";
     Map options = CreateData.data['category']['options'];
     print(options);
-    pages = [DescriptionCreateApplicationPage(nextPage: nextPage)];
+    pages = [];
     if (options['has_transport_type']) {
       pages.add(TypeEquipmentCreateApplicationPage(nextPage: nextPage));
       titles.add("Тип техники");
     }
+    pages.add(DescriptionCreateApplicationPage(nextPage: nextPage));
+    titles.add("Описание заявки");
     if (options['has_transport_brand']) {
       pages.add(BrandEquipmentCreateApplicationPage(nextPage: nextPage));
       titles.add("Марка техники");

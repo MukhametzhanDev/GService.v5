@@ -109,7 +109,7 @@ class _MainPageState extends State<MainPage> {
                                   child: Text(value['title'],
                                       style: TextStyle(
                                           fontSize: 12,
-                                          fontWeight: FontWeight.w600,
+                                          fontWeight: FontWeight.w400,
                                           height: 1))),
                             );
                           }).toList()),
@@ -119,9 +119,9 @@ class _MainPageState extends State<MainPage> {
               child: Column(children: [
             Divider(height: 10),
             BannersList(),
-            Divider(height: 24),
+            Divider(height: 28),
             ApplicationListMain(),
-            Divider(height: 24),
+            Divider(height: 28),
             AdListMain()
           ]))
         ]),

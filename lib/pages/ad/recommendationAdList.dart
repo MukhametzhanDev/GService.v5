@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gservice5/pages/ad/adItem.dart';
+import 'package:gservice5/pages/ad/smallAdItem.dart';
 
 class RecommendationAdList extends StatefulWidget {
   const RecommendationAdList({super.key});
@@ -15,15 +16,21 @@ class _RecommendationAdListState extends State<RecommendationAdList> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Padding(
-          padding: const EdgeInsets.only(left: 15, right: 15, bottom: 15),
-          child: Text("Вам могут понравится",
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600)),
-        ),
-        Column(
-          children: List.generate(10, (index) => index).map((value) {
-            return AdItem();
-          }).toList(),
-        ),
+            padding: const EdgeInsets.symmetric(horizontal: 15),
+            child: Text("Вам могут понравится",
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600))),
+        SizedBox(height: 15),
+        GridView.count(
+            shrinkWrap: true,
+            physics: NeverScrollableScrollPhysics(),
+            crossAxisCount: 2,
+            childAspectRatio: 0.98,
+            mainAxisSpacing: 12,
+            crossAxisSpacing: 8,
+            padding: EdgeInsets.symmetric(horizontal: 15),
+            children: List.generate(10, (index) => index).map((value) {
+              return SmallAdItem(index: value);
+            }).toList())
       ],
     );
   }

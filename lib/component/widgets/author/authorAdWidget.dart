@@ -87,24 +87,24 @@ class _AuthorAdWidgetState extends State<AuthorAdWidget> {
                 ],
               ),
               Divider(indent: 12),
-              Row(
-                children: [
-                  Container(
-                      height: 24,
-                      padding: EdgeInsets.symmetric(horizontal: 8),
-                      alignment: Alignment.center,
-                      decoration: BoxDecoration(
-                          color: ColorComponent.mainColor,
-                          borderRadius: BorderRadius.circular(6)),
-                      child: Text("Аренда",
-                          style: TextStyle(
-                              height: 1,
-                              fontSize: 12,
-                              fontWeight: FontWeight.w600))),
-                  Divider(indent: 8),
-                ],
-              ),
-              Divider(height: 12),
+              // Row(
+              //   children: [
+              //     Container(
+              //         height: 24,
+              //         padding: EdgeInsets.symmetric(horizontal: 8),
+              //         alignment: Alignment.center,
+              //         decoration: BoxDecoration(
+              //             color: ColorComponent.mainColor,
+              //             borderRadius: BorderRadius.circular(6)),
+              //         child: Text("Аренда",
+              //             style: TextStyle(
+              //                 height: 1,
+              //                 fontSize: 12,
+              //                 fontWeight: FontWeight.w600))),
+              //     Divider(indent: 8),
+              //   ],
+              // ),
+              // Divider(height: 12),
               RichText(
                   textAlign: TextAlign.start,
                   text: TextSpan(

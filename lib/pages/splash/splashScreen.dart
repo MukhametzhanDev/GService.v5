@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:gservice5/component/functions/token/changedToken.dart';
+import 'package:gservice5/navigation/%D1%81ustomer/customerBottomTab.dart';
+import 'package:gservice5/navigation/contractor/contractorBottomTab.dart';
 import 'package:gservice5/navigation/individual/individualBottomTab.dart';
 import 'package:gservice5/component/dio/dio.dart';
 
@@ -29,13 +31,23 @@ class _SplashScreenState extends State<SplashScreen> {
     if (role == "customer" || role == "contractor") {
       dio.options.baseUrl = "https://dev.gservice-co.kz/api/business/";
     }
-    showPage();
+    showPage(role);
   }
 
-  void showPage() {
-    Navigator.of(context).pushAndRemoveUntil(
-        MaterialPageRoute(builder: (context) => IndividualBottomTab()),
-        (route) => false);
+  void showPage(String? role) {
+    if (role == "customer") {
+      Navigator.of(context).pushAndRemoveUntil(
+          MaterialPageRoute(builder: (context) => CustomerBottomTab()),
+          (route) => false);
+    } else if (role == "contractor") {
+      Navigator.of(context).pushAndRemoveUntil(
+          MaterialPageRoute(builder: (context) => ContractorBottomTab()),
+          (route) => false);
+    } else {
+      Navigator.of(context).pushAndRemoveUntil(
+          MaterialPageRoute(builder: (context) => IndividualBottomTab()),
+          (route) => false);
+    }
   }
 
   @override

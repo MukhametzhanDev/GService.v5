@@ -19,8 +19,8 @@ class Styles {
               TextStyle(color: isDarkTheme ? Colors.white : Colors.black),
           bodyMedium:
               TextStyle(color: isDarkTheme ? Colors.white : Colors.black),
-          titleMedium:
-              TextStyle(color: isDarkTheme ? Colors.white : Colors.black),
+          titleMedium: TextStyle(
+              color: isDarkTheme ? Colors.white : Colors.black),
         ),
         textButtonTheme: TextButtonThemeData(
           style: TextButton.styleFrom(

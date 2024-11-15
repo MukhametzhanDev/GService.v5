@@ -14,19 +14,20 @@ import 'package:gservice5/component/theme/colorComponent.dart';
 import 'package:gservice5/component/widgets/bottom/bottomNavigationBarComponent.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
-class ChangeCustomerProfilePage extends StatefulWidget {
+class ChangeContractorProfilePage extends StatefulWidget {
   final Map data;
-  const ChangeCustomerProfilePage({super.key, required this.data});
+  const ChangeContractorProfilePage({super.key, required this.data});
 
   @override
-  State<ChangeCustomerProfilePage> createState() =>
-      _ChangeCustomerProfilePageState();
+  State<ChangeContractorProfilePage> createState() =>
+      _ChangeContractorProfilePageState();
 }
 
-class _ChangeCustomerProfilePageState extends State<ChangeCustomerProfilePage> {
+class _ChangeContractorProfilePageState extends State<ChangeContractorProfilePage> {
   Map currentCity = {};
   TextEditingController nameEditingController = TextEditingController();
   TextEditingController identifierEditingController = TextEditingController();
+  TextEditingController descEditingController = TextEditingController();
   String imagePath = "";
   String imageUrl = "";
   Map<String, dynamic> param = {};
@@ -36,6 +37,7 @@ class _ChangeCustomerProfilePageState extends State<ChangeCustomerProfilePage> {
     currentCity = widget.data['city'];
     nameEditingController.text = widget.data['name'];
     identifierEditingController.text = widget.data['identifier'];
+    descEditingController.text = widget.data['description'];
     super.initState();
   }
 
@@ -79,6 +81,7 @@ class _ChangeCustomerProfilePageState extends State<ChangeCustomerProfilePage> {
         "name": nameEditingController.text,
         "city_id": currentCity['id'],
         "identifier": identifierEditingController.text,
+        "description": descEditingController.text,
         "email": widget.data['email']
       });
       Response response = await dio.put("/company", data: param);
@@ -97,7 +100,11 @@ class _ChangeCustomerProfilePageState extends State<ChangeCustomerProfilePage> {
   void verifyData() {
     String name = nameEditingController.text.trim();
     String indentifier = identifierEditingController.text.trim();
-    if (currentCity.isEmpty || name.isEmpty || indentifier.isEmpty) {
+    String desc = descEditingController.text.trim();
+    if (currentCity.isEmpty ||
+        name.isEmpty ||
+        indentifier.isEmpty ||
+        desc.isEmpty) {
       SnackBarComponent().showErrorMessage("Заполните все строки", context);
     } else {
       if (indentifier.length == 12) {
@@ -161,6 +168,16 @@ class _ChangeCustomerProfilePageState extends State<ChangeCustomerProfilePage> {
                 decoration: InputDecoration(
                     hintText: "БИН",
                     helperStyle: TextStyle(color: ColorComponent.gray['500']))),
+            Divider(),
+            TextField(
+                controller: descEditingController,
+                decoration: InputDecoration(
+                    hintText: "Описание вашей компании",
+                    helperStyle: TextStyle(color: ColorComponent.gray['500'])),
+                style: TextStyle(fontSize: 14),
+                maxLength: 200,
+                maxLines: 8,
+                minLines: 4),
           ]),
         ),
         bottomNavigationBar: BottomNavigationBarComponent(

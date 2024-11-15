@@ -6,11 +6,11 @@ import 'package:gservice5/component/button/back/backIconButton.dart';
 import 'package:gservice5/component/button/button.dart';
 import 'package:gservice5/component/button/favoriteButton.dart';
 import 'package:gservice5/component/button/shareButton.dart';
-import 'package:gservice5/component/formatted/price/priceFormat.dart';
+import 'package:gservice5/component/description/showDescriptionWidget.dart';
 import 'package:gservice5/component/image/slider/sliderImageWidget.dart';
-import 'package:gservice5/component/stickers/showStickersList.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
 import 'package:gservice5/component/widgets/author/authorAdWidget.dart';
+import 'package:gservice5/component/widgets/characteristic/showCharacteristicWidget.dart';
 import 'package:gservice5/pages/ad/recommendationAdList.dart';
 
 class ViewAdPage2 extends StatefulWidget {
@@ -51,8 +51,10 @@ class _ViewAdPage2State extends State<ViewAdPage2> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text("Экскаватор погрузчик 3CX",
-                      style:
-                          TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
+                      style: TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.w500,
+                          color: ColorComponent.blue['700']),
                       maxLines: 1),
                   Divider(height: 4),
                   Row(crossAxisAlignment: CrossAxisAlignment.end, children: [
@@ -60,7 +62,7 @@ class _ViewAdPage2State extends State<ViewAdPage2> {
                         text: TextSpan(
                             style: TextStyle(
                                 fontWeight: FontWeight.w600,
-                                color: ColorComponent.blue['500']),
+                                color: Colors.black),
                             children: [
                           TextSpan(
                               text: "3 000 ", style: TextStyle(fontSize: 13)),
@@ -78,7 +80,7 @@ class _ViewAdPage2State extends State<ViewAdPage2> {
                         text: TextSpan(
                             style: TextStyle(
                                 fontWeight: FontWeight.w500,
-                                color: ColorComponent.blue['500']),
+                                color: Colors.black),
                             children: [
                           TextSpan(
                               text: "25 000 ", style: TextStyle(fontSize: 13)),
@@ -126,10 +128,12 @@ class _ViewAdPage2State extends State<ViewAdPage2> {
                                 Text("Экскаватор погрузчик ",
                                     style: TextStyle(
                                         fontSize: 18,
+                                        color: ColorComponent.blue['700'],
                                         fontWeight: FontWeight.w600)),
                                 Text("JCB 3CX",
                                     style: TextStyle(
                                         fontSize: 18,
+                                        color: ColorComponent.blue['700'],
                                         fontWeight: FontWeight.w600)),
                               ],
                             ),
@@ -152,6 +156,7 @@ class _ViewAdPage2State extends State<ViewAdPage2> {
                           ),
                         ],
                       ),
+                      Divider(height: 6),
                       Row(
                           crossAxisAlignment: CrossAxisAlignment.end,
                           children: [
@@ -159,7 +164,7 @@ class _ViewAdPage2State extends State<ViewAdPage2> {
                                 text: TextSpan(
                                     style: TextStyle(
                                         fontWeight: FontWeight.w600,
-                                        color: ColorComponent.blue['500']),
+                                        color: Colors.black),
                                     children: [
                                   TextSpan(
                                       text: "3 000 ",
@@ -179,7 +184,7 @@ class _ViewAdPage2State extends State<ViewAdPage2> {
                                 text: TextSpan(
                                     style: TextStyle(
                                         fontWeight: FontWeight.w600,
-                                        color: ColorComponent.blue['500']),
+                                        color: Colors.black),
                                     children: [
                                   TextSpan(
                                       text: "25 000 ",
@@ -211,93 +216,49 @@ class _ViewAdPage2State extends State<ViewAdPage2> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Divider(height: 12),
-                      Row(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Row(
-                            children: [
-                              SvgPicture.asset('assets/icons/pin.svg',
-                                  color: ColorComponent.gray["500"], width: 18),
-                              const SizedBox(width: 4),
-                              Text("г. Алматы",
-                                  style: TextStyle(
-                                      color: ColorComponent.gray["500"],
-                                      fontWeight: FontWeight.w500))
-                            ],
-                          ),
-                          Row(
-                            children: [
-                              SvgPicture.asset('assets/icons/eye.svg',
-                                  color: ColorComponent.gray["500"], width: 18),
-                              const SizedBox(width: 4),
-                              Text("123 просмотров",
-                                  style: TextStyle(
-                                      color: ColorComponent.gray["500"],
-                                      fontWeight: FontWeight.w500)),
-                            ],
-                          ),
-                        ],
-                      ),
+                      // Divider(height: 12),
+                      // Row(
+                      //   crossAxisAlignment: CrossAxisAlignment.center,
+                      //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      //   children: [
+                      //     Row(
+                      //       children: [
+                      //         SvgPicture.asset('assets/icons/pin.svg',
+                      //             color: ColorComponent.gray["500"], width: 18),
+                      //         const SizedBox(width: 4),
+                      //         Text("г. Алматы",
+                      //             style: TextStyle(
+                      //                 color: ColorComponent.gray["500"],
+                      //                 fontWeight: FontWeight.w500))
+                      //       ],
+                      //     ),
+                      //     Row(
+                      //       children: [
+                      //         SvgPicture.asset('assets/icons/eye.svg',
+                      //             color: ColorComponent.gray["500"], width: 18),
+                      //         const SizedBox(width: 4),
+                      //         Text("123 просмотров",
+                      //             style: TextStyle(
+                      //                 color: ColorComponent.gray["500"],
+                      //                 fontWeight: FontWeight.w500)),
+                      //       ],
+                      //     ),
+                      //   ],
+                      // ),
                       Divider(indent: 24),
                       Text("Характеристики",
                           style: TextStyle(
                               fontSize: 18, fontWeight: FontWeight.w600)),
                       Divider(height: 4),
-                      Padding(
-                        padding: EdgeInsets.symmetric(vertical: 10),
-                        child: Row(children: [
-                          Expanded(
-                              child: Text(
-                            "Модель: ",
-                            style: TextStyle(color: ColorComponent.gray['500']),
-                          )),
-                          Expanded(
-                              child: Text("МТЗ Белорус",
-                                  style:
-                                      TextStyle(fontWeight: FontWeight.w600)))
-                        ]),
-                      ),
+                      Column(
+                          children:
+                              List.generate(7, (index) => index).map((value) {
+                        return ShowCharacteristicWidget(
+                            title: "Город", subTitle: "Алматы");
+                      }).toList()),
                       Divider(height: 1, color: ColorComponent.gray['50']),
-                      Padding(
-                        padding: EdgeInsets.symmetric(vertical: 10),
-                        child: Row(children: [
-                          Expanded(
-                              child: Text(
-                            "Модель: ",
-                            style: TextStyle(color: ColorComponent.gray['500']),
-                          )),
-                          Expanded(
-                              child: Text("МТЗ Белорус",
-                                  style:
-                                      TextStyle(fontWeight: FontWeight.w600)))
-                        ]),
-                      ),
-                      Divider(height: 1, color: ColorComponent.gray['50']),
-                      Padding(
-                        padding: EdgeInsets.symmetric(vertical: 10),
-                        child: Row(children: [
-                          Expanded(
-                              child: Text(
-                            "Модель: ",
-                            style: TextStyle(color: ColorComponent.gray['500']),
-                          )),
-                          Expanded(
-                              child: Text("МТЗ Белорус",
-                                  style:
-                                      TextStyle(fontWeight: FontWeight.w600)))
-                        ]),
-                      ),
-                      Divider(height: 1, color: ColorComponent.gray['50']),
-                      const SizedBox(height: 16),
-                      Text("Описание",
-                          style: TextStyle(
-                              fontSize: 18, fontWeight: FontWeight.w600)),
-                      Divider(height: 8),
-                      const Text(
-                          "Одно из неплохих определений сельскохозяйственного робота или агро-робота: машина, которая использует аппаратное и программное обеспечение для восприятия окружающей среды, анализа полученных данных о сельскохозяйственных культурах и",
-                          style: TextStyle(height: 1.6)),
+                      const SizedBox(height: 10),
+                      ShowDescriptionWidget(),
                       Divider(indent: 16),
                       SizedBox(
                         height: 41,
@@ -309,27 +270,44 @@ class _ViewAdPage2State extends State<ViewAdPage2> {
                             title: "Пожаловаться на объявление"),
                       ),
                       Divider(indent: 16),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Row(
+                            children: [
+                              Text("ID: 132",
+                                  style: TextStyle(
+                                      color: ColorComponent.gray["500"],
+                                      fontSize: 12)),
+                              Divider(indent: 16),
+                              Text("15 Сентябрь 2024",
+                                  style: TextStyle(
+                                      color: ColorComponent.gray["500"],
+                                      fontSize: 12)),
+                            ],
+                          ),
+                          Row(
+                            children: [
+                              SvgPicture.asset('assets/icons/eye.svg',
+                                  color: ColorComponent.gray["500"]),
+                              const SizedBox(width: 4),
+                              Text("123",
+                                  style: TextStyle(
+                                      color: ColorComponent.gray["500"],
+                                      fontSize: 12)),
+                            ],
+                          ),
+                        ],
+                      ),
+                      Divider(height: 14),
+                      Divider(height: 1, color: Color(0xfff4f5f7)),
+                      Divider(height: 12),
                       AuthorAdWidget(title: "О владельце объявления"),
-                      Divider(indent: 16),
+                      Divider(indent: 16)
                     ],
                   ),
                 ),
                 RecommendationAdList(),
-                Divider(),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 15),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text("15 Сентябрь 2024, 04:20",
-                          style: TextStyle(
-                              color: ColorComponent.gray["500"], fontSize: 12)),
-                      Text("ID 132",
-                          style: TextStyle(
-                              color: ColorComponent.gray["500"], fontSize: 12)),
-                    ],
-                  ),
-                ),
               ],
             ),
           ),

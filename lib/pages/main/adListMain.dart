@@ -27,29 +27,30 @@ class _AdListMainState extends State<AdListMain> {
           children: [
             Text("12 000 Объявлений",
                 style: TextStyle(
-                    fontSize: 18, fontWeight: FontWeight.w600, height: 1)),
+                    fontSize: 16, fontWeight: FontWeight.w600, height: 1)),
             GestureDetector(
-              onTap: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => AdListPage()));
-              },
-              child: Container(
-                  height: 32,
-                  padding: EdgeInsets.symmetric(horizontal: 12),
-                  alignment: Alignment.center,
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(8),
-                      color: ColorComponent.mainColor.withOpacity(.2)),
-                  child: Text("Все",
-                      style: TextStyle(
-                          fontSize: 12,
-                          fontWeight: FontWeight.w600,
-                          height: 1))),
-            )
+                onTap: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => AdListPage()));
+                },
+                child: SvgPicture.asset('assets/icons/right.svg')
+                //  Container(
+                //     height: 32,
+                //     padding: EdgeInsets.symmetric(horizontal: 12),
+                //     alignment: Alignment.center,
+                //     decoration: BoxDecoration(
+                //         borderRadius: BorderRadius.circular(8),
+                //         color: ColorComponent.mainColor.withOpacity(.2)),
+                //     child: Text("Все",
+                //         style: TextStyle(
+                //             fontSize: 12,
+                //             fontWeight: FontWeight.w600,
+                //             height: 1))),
+                )
           ],
         ),
       ),
-      Divider(height: 8),
+      // Divider(height: 8),
       ListView.builder(
         shrinkWrap: true,
         physics: NeverScrollableScrollPhysics(),
