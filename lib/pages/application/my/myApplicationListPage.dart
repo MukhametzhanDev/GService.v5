@@ -7,15 +7,13 @@ import 'package:gservice5/component/loader/loaderComponent.dart';
 import 'package:gservice5/component/loader/paginationLoaderComponent.dart';
 import 'package:gservice5/component/snackBar/snackBarComponent.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
+import 'package:gservice5/pages/application/my/emptyMyApplicationPage.dart';
 import 'package:gservice5/pages/application/my/myApplicationItem.dart';
 import 'package:gservice5/pages/application/my/viewMyApplicationPage.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 class MyApplicationListPage extends StatefulWidget {
-  final RefreshController refreshController;
-  final bool showAppBar;
-  const MyApplicationListPage(
-      {super.key, required this.refreshController, required this.showAppBar});
+  const MyApplicationListPage({super.key});
 
   @override
   State<MyApplicationListPage> createState() => _MyApplicationListPageState();
@@ -36,6 +34,7 @@ class _MyApplicationListPageState extends State<MyApplicationListPage>
   bool hasNextPage = false;
   bool isLoadMore = false;
   int page = 1;
+  RefreshController refreshController = RefreshController();
 
   @override
   void initState() {
@@ -48,8 +47,8 @@ class _MyApplicationListPageState extends State<MyApplicationListPage>
   @override
   void dispose() {
     super.dispose();
-    widget.refreshController.dispose();
     scrollController.dispose();
+    refreshController.dispose();
   }
 
   Future getCount() async {
@@ -93,7 +92,6 @@ class _MyApplicationListPageState extends State<MyApplicationListPage>
     } catch (e) {
       SnackBarComponent().showNotGoBackServerErrorMessage(context);
     }
-    widget.refreshController.refreshCompleted();
   }
 
   Future loadMoreAd() async {
@@ -154,9 +152,8 @@ class _MyApplicationListPageState extends State<MyApplicationListPage>
     super.build(context);
     return Scaffold(
         appBar: AppBar(
-          leading: widget.showAppBar ? BackIconButton() : null,
-          title: widget.showAppBar ? Text("Мои заявки") : null,
-          toolbarHeight: widget.showAppBar ? null : 4,
+          leading: BackIconButton(),
+          title: Text("Мои заявки"),
           elevation: 0,
           bottom: PreferredSize(
             preferredSize: Size(MediaQuery.of(context).size.width, 50),
@@ -187,31 +184,31 @@ class _MyApplicationListPageState extends State<MyApplicationListPage>
                 },
                 enablePullDown: true,
                 enablePullUp: false,
-                controller: widget.refreshController,
+                controller: refreshController,
                 header: MaterialClassicHeader(
                     color: ColorComponent.mainColor,
                     backgroundColor: Colors.white),
-                child:
-                    // data.isEmpty
-                    // ? Align(alignment: Alignment.center, child: EmptyMyAdPage())
-                    // :
-                    ListView.builder(
-                  controller: scrollController,
-                  itemCount: data.length,
-                  itemBuilder: (context, index) {
-                    Map item = data[index];
-                    if (index == data.length - 1) {
-                      return Column(children: [
-                        MyApplicationItem(
-                            onPressed: showMyApplicationPage, data: item),
-                        isLoadMore ? PaginationLoaderComponent() : Container()
-                      ]);
-                    } else {
-                      return MyApplicationItem(
-                          onPressed: showMyApplicationPage, data: item);
-                    }
-                  },
-                )));
+                child: data.isEmpty
+                    ? EmptyMyApplicationPage()
+                    : ListView.builder(
+                        controller: scrollController,
+                        itemCount: data.length,
+                        itemBuilder: (context, index) {
+                          Map item = data[index];
+                          if (index == data.length - 1) {
+                            return Column(children: [
+                              MyApplicationItem(
+                                  onPressed: showMyApplicationPage, data: item),
+                              isLoadMore
+                                  ? PaginationLoaderComponent()
+                                  : Container()
+                            ]);
+                          } else {
+                            return MyApplicationItem(
+                                onPressed: showMyApplicationPage, data: item);
+                          }
+                        },
+                      )));
   }
 
   GestureDetector TabButton(Map value) {

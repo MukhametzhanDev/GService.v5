@@ -75,12 +75,9 @@ class _CreateMainPageState extends State<CreateMainPage>
                 ),
               )),
         ),
-        body: TabBarView(controller: tabController, children: [
-          Container(),
-          MyApplicationListPage(
-              refreshController: applicationRefreshController,
-              showAppBar: false)
-        ]),
+        body: TabBarView(
+            controller: tabController,
+            children: [Container(), MyApplicationListPage()]),
         bottomNavigationBar: BottomNavigationBarComponent(
             child: Button(
                 onPressed: createSectionPage,

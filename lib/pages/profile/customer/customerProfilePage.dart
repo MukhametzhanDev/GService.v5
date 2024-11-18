@@ -10,6 +10,8 @@ import 'package:gservice5/component/loader/loaderComponent.dart';
 import 'package:gservice5/component/snackBar/snackBarComponent.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
 import 'package:gservice5/component/wallet/showWalletWidget.dart';
+import 'package:gservice5/pages/ad/my/myAdListPage.dart';
+import 'package:gservice5/pages/application/my/myApplicationListPage.dart';
 import 'package:gservice5/pages/profile/contractor/changeContractorProfilePage.dart';
 import 'package:gservice5/pages/profile/customer/changeCustomerProfilePage.dart';
 import 'package:gservice5/pages/profile/editProfilePage.dart';
@@ -64,6 +66,16 @@ class _CustomerProfilePageState extends State<CustomerProfilePage> {
       data = value;
       setState(() {});
     }
+  }
+
+  void showMyApplicationPage() {
+    Navigator.push(context,
+        MaterialPageRoute(builder: (context) => MyApplicationListPage()));
+  }
+
+  void showMyAdPage() {
+    Navigator.push(
+        context, MaterialPageRoute(builder: (context) => MyAdListPage()));
   }
 
   @override
@@ -194,11 +206,13 @@ class _CustomerProfilePageState extends State<CustomerProfilePage> {
                     Divider(height: 1, color: ColorComponent.gray['100']),
                     ShowWalletWidget(),
                     ListTile(
+                        onTap: () => showMyApplicationPage(),
                         leading: SvgPicture.asset('assets/icons/file.svg'),
                         title: Text("Мои заявки"),
                         trailing: SvgPicture.asset('assets/icons/right.svg')),
                     Divider(height: 1, color: ColorComponent.gray['100']),
                     ListTile(
+                        onTap: () => showMyAdPage(),
                         leading: SvgPicture.asset(
                             'assets/icons/clipboardOutline.svg'),
                         title: Text("Мои Объявления"),

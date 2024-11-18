@@ -20,7 +20,7 @@ class ShowDescriptionWidget extends StatelessWidget {
         moreStyle: TextStyle(
             fontSize: 14,
             height: 1.8,
-            color: ColorComponent.gray['500'],
+            color: ColorComponent.blue['600'],
             fontWeight: FontWeight.w500),
       ),
     ]);

@@ -216,36 +216,7 @@ class _ViewAdPage2State extends State<ViewAdPage2> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      // Divider(height: 12),
-                      // Row(
-                      //   crossAxisAlignment: CrossAxisAlignment.center,
-                      //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      //   children: [
-                      //     Row(
-                      //       children: [
-                      //         SvgPicture.asset('assets/icons/pin.svg',
-                      //             color: ColorComponent.gray["500"], width: 18),
-                      //         const SizedBox(width: 4),
-                      //         Text("г. Алматы",
-                      //             style: TextStyle(
-                      //                 color: ColorComponent.gray["500"],
-                      //                 fontWeight: FontWeight.w500))
-                      //       ],
-                      //     ),
-                      //     Row(
-                      //       children: [
-                      //         SvgPicture.asset('assets/icons/eye.svg',
-                      //             color: ColorComponent.gray["500"], width: 18),
-                      //         const SizedBox(width: 4),
-                      //         Text("123 просмотров",
-                      //             style: TextStyle(
-                      //                 color: ColorComponent.gray["500"],
-                      //                 fontWeight: FontWeight.w500)),
-                      //       ],
-                      //     ),
-                      //   ],
-                      // ),
-                      Divider(indent: 24),
+                      // Divider(indent: 24),
                       Text("Характеристики",
                           style: TextStyle(
                               fontSize: 18, fontWeight: FontWeight.w600)),

@@ -87,7 +87,10 @@ class _SmallAdItemState extends State<SmallAdItem> {
             ),
             Divider(height: 8),
             Text(widget.index == 1 ? "SDLG 3CX" : "Экскаватор погрузчик ",
-                style: TextStyle(fontSize: 15, fontWeight: FontWeight.w500)),
+                style: TextStyle(
+                    fontSize: 15,
+                    fontWeight: FontWeight.w500,
+                    color: ColorComponent.blue['700'])),
             Divider(height: 2),
             widget.index == 1
                 ? Text(
@@ -103,7 +106,7 @@ class _SmallAdItemState extends State<SmallAdItem> {
                         text: TextSpan(
                             style: TextStyle(
                                 fontWeight: FontWeight.w600,
-                                color: ColorComponent.blue['700']),
+                                color: Colors.black),
                             children: [
                           TextSpan(
                               text: "3 000 ", style: TextStyle(fontSize: 12)),
@@ -118,7 +121,7 @@ class _SmallAdItemState extends State<SmallAdItem> {
                         text: TextSpan(
                             style: TextStyle(
                                 fontWeight: FontWeight.w500,
-                                color: ColorComponent.blue['700']),
+                                color: Colors.black),
                             children: [
                           TextSpan(
                               text: "25 000 ", style: TextStyle(fontSize: 12)),
@@ -142,7 +145,7 @@ class _SmallAdItemState extends State<SmallAdItem> {
                     style: TextStyle(
                         fontSize: 12, color: ColorComponent.gray['500'])),
                 Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     SvgPicture.asset(
                       'assets/icons/eye.svg',
@@ -150,12 +153,10 @@ class _SmallAdItemState extends State<SmallAdItem> {
                       color: ColorComponent.gray["400"],
                     ),
                     Divider(indent: 4),
-                    Text(
-                      numberFormat(120),
-                      style: TextStyle(
-                          fontSize: 12,
-                          color: ColorComponent.gray["500"]),
-                    ),
+                    Text(numberFormat(120),
+                        style: TextStyle(
+                            fontSize: 12, color: ColorComponent.gray["500"])),
+                    Divider(indent: 4),
                   ],
                 ),
               ],

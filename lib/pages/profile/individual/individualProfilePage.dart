@@ -98,9 +98,7 @@ class _IndividualProfilePageState extends State<IndividualProfilePage> {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => MyApplicationListPage(
-                                  showAppBar: true,
-                                  refreshController: RefreshController())));
+                              builder: (context) => MyApplicationListPage()));
                     },
                     leading: SvgPicture.asset('assets/icons/fileOutline.svg'),
                     title: Text("Мои заявки"),
