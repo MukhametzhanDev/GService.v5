@@ -19,8 +19,7 @@ class MyApplicationListPage extends StatefulWidget {
   State<MyApplicationListPage> createState() => _MyApplicationListPageState();
 }
 
-class _MyApplicationListPageState extends State<MyApplicationListPage>
-    with AutomaticKeepAliveClientMixin {
+class _MyApplicationListPageState extends State<MyApplicationListPage> {
   final List _tabs = [
     {"title": "Активные", "type": "pending", "count": ""},
     {"title": "Удаленное", "type": "deleted", "count": ""},
@@ -149,7 +148,6 @@ class _MyApplicationListPageState extends State<MyApplicationListPage>
 
   @override
   Widget build(BuildContext context) {
-    super.build(context);
     return Scaffold(
         appBar: AppBar(
           leading: BackIconButton(),
@@ -179,7 +177,7 @@ class _MyApplicationListPageState extends State<MyApplicationListPage>
             ? LoaderComponent()
             : SmartRefresher(
                 onRefresh: () async {
-                  // await getCount();
+                  await getCount();
                   await getData();
                 },
                 enablePullDown: true,
@@ -252,8 +250,4 @@ class _MyApplicationListPageState extends State<MyApplicationListPage>
           ),
         ));
   }
-
-  @override
-  // TODO: implement wantKeepAlive
-  bool get wantKeepAlive => true;
 }

@@ -8,19 +8,18 @@ import 'package:gservice5/component/loader/loaderComponent.dart';
 import 'package:gservice5/component/snackBar/snackBarComponent.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
 import 'package:gservice5/component/widgets/bottom/bottomNavigationBarComponent.dart';
+import 'package:gservice5/pages/create/structure/structureCreateAdPage.dart';
 import 'package:gservice5/pages/create/application/createApplication.dart';
 import 'package:gservice5/pages/create/data/createData.dart';
 
-class SectionCreateApplicationPage extends StatefulWidget {
-  const SectionCreateApplicationPage({super.key});
+class SectionCreateAdPage extends StatefulWidget {
+  const SectionCreateAdPage({super.key});
 
   @override
-  State<SectionCreateApplicationPage> createState() =>
-      _SectionCreateApplicationPageState();
+  State<SectionCreateAdPage> createState() => _SectionCreateAdPageState();
 }
 
-class _SectionCreateApplicationPageState
-    extends State<SectionCreateApplicationPage> {
+class _SectionCreateAdPageState extends State<SectionCreateAdPage> {
   int currentIndex = 0;
   List data = [];
   bool loader = true;
@@ -33,7 +32,7 @@ class _SectionCreateApplicationPageState
 
   void getData() async {
     try {
-      Response response = await dio.get("/application-categories");
+      Response response = await dio.get("/ad-categories");
       if (response.data['success']) {
         data = response.data['data'];
         loader = false;
@@ -55,7 +54,10 @@ class _SectionCreateApplicationPageState
     CreateData.data['category_id'] = data[currentIndex]['id'];
     CreateData.data['category'] = data[currentIndex];
     Navigator.push(
-        context, MaterialPageRoute(builder: (context) => CreateApplication()));
+        context,
+        MaterialPageRoute(
+            builder: (context) =>
+                StructureCreateAdPage(data: data[currentIndex])));
   }
 
   @override
@@ -64,7 +66,8 @@ class _SectionCreateApplicationPageState
       appBar: AppBar(
           leadingWidth: MediaQuery.of(context).size.width - 100,
           leading: BackTitleButton(
-              onPressed: () => Navigator.pop(context), title: "Тип заявки")),
+              onPressed: () => Navigator.pop(context),
+              title: "Тип объявлении")),
       body: loader
           ? LoaderComponent()
           : SingleChildScrollView(

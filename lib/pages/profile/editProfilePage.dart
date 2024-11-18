@@ -5,7 +5,6 @@ import 'package:gservice5/component/functions/token/changedToken.dart';
 import 'package:gservice5/pages/profile/contractor/changeContractorProfilePage.dart';
 import 'package:gservice5/pages/profile/customer/changeCustomerProfilePage.dart';
 import 'package:gservice5/pages/profile/individual/changeIndividualProfilePage.dart';
-import 'package:gservice5/pages/profile/individual/individualProfilePage.dart';
 
 class EditProfilePage extends StatefulWidget {
   final Map data;
@@ -60,6 +59,10 @@ class _EditProfilePageState extends State<EditProfilePage> {
     }
   }
 
+  void editPasswordPage() {
+    // Navigator.push(context, MaterialPageRoute(builder:(context) => ,));
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -85,6 +88,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                     border: Border(
                         top: BorderSide(width: 1, color: Color(0xffeeeeee)))),
                 child: ListTile(
+                    onTap: () => editPasswordPage(),
                     title: Text("Изменить пароль"),
                     trailing: SvgPicture.asset('assets/icons/right.svg'))),
             Container(

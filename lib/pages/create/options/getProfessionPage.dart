@@ -7,18 +7,18 @@ import 'package:gservice5/component/snackBar/snackBarComponent.dart';
 import 'package:gservice5/component/textField/searchTextField.dart';
 import 'package:gservice5/pages/create/data/createData.dart';
 
-class ProfessionCreateApplicationPage extends StatefulWidget {
+class GetProfessionPage extends StatefulWidget {
   final void Function() nextPage;
-  const ProfessionCreateApplicationPage(
+  const GetProfessionPage(
       {super.key, required this.nextPage});
 
   @override
-  State<ProfessionCreateApplicationPage> createState() =>
-      _ProfessionCreateApplicationPageState();
+  State<GetProfessionPage> createState() =>
+      _GetProfessionPageState();
 }
 
-class _ProfessionCreateApplicationPageState
-    extends State<ProfessionCreateApplicationPage> {
+class _GetProfessionPageState
+    extends State<GetProfessionPage> {
   List data = [];
   bool loader = true;
   ScrollController scrollController = ScrollController();

@@ -7,17 +7,17 @@ import 'package:gservice5/component/snackBar/snackBarComponent.dart';
 import 'package:gservice5/component/textField/searchTextField.dart';
 import 'package:gservice5/pages/create/data/createData.dart';
 
-class TypeEquipmentCreateApplicationPage extends StatefulWidget {
+class GetTypeEquipmentPage extends StatefulWidget {
   final void Function() nextPage;
-  const TypeEquipmentCreateApplicationPage({super.key, required this.nextPage});
+  const GetTypeEquipmentPage({super.key, required this.nextPage});
 
   @override
-  State<TypeEquipmentCreateApplicationPage> createState() =>
-      _TypeEquipmentCreateApplicationPageState();
+  State<GetTypeEquipmentPage> createState() =>
+      _GetTypeEquipmentPageState();
 }
 
-class _TypeEquipmentCreateApplicationPageState
-    extends State<TypeEquipmentCreateApplicationPage> {
+class _GetTypeEquipmentPageState
+    extends State<GetTypeEquipmentPage> {
   List data = [];
   bool loader = true;
   ScrollController scrollController = ScrollController();

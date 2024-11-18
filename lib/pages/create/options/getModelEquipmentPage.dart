@@ -7,18 +7,18 @@ import 'package:gservice5/component/snackBar/snackBarComponent.dart';
 import 'package:gservice5/component/textField/searchTextField.dart';
 import 'package:gservice5/pages/create/data/createData.dart';
 
-class BrandEquipmentCreateApplicationPage extends StatefulWidget {
+class GetModelEquipmentPage extends StatefulWidget {
   final void Function() nextPage;
-  const BrandEquipmentCreateApplicationPage(
+  const GetModelEquipmentPage(
       {super.key, required this.nextPage});
 
   @override
-  State<BrandEquipmentCreateApplicationPage> createState() =>
-      _BrandEquipmentCreateApplicationPageState();
+  State<GetModelEquipmentPage> createState() =>
+      _GetModelEquipmentPageState();
 }
 
-class _BrandEquipmentCreateApplicationPageState
-    extends State<BrandEquipmentCreateApplicationPage> {
+class _GetModelEquipmentPageState
+    extends State<GetModelEquipmentPage> {
   List data = [];
   bool loader = true;
   ScrollController scrollController = ScrollController();
@@ -39,7 +39,7 @@ class _BrandEquipmentCreateApplicationPageState
   Future getData() async {
     try {
       Response response =
-          await dio.get("/transport-brands", queryParameters: {"title": title});
+          await dio.get("/transport-models", queryParameters: {"title": title});
       print(response.data);
       if (response.statusCode == 200) {
         data = response.data['data'];
@@ -62,7 +62,7 @@ class _BrandEquipmentCreateApplicationPageState
         isLoadMore = true;
         page += 1;
         setState(() {});
-        Response response = await dio.get("/transport-brands",
+        Response response = await dio.get("/transport-models",
             queryParameters: {"page": page.toString(), "title": title});
         print(response.data);
         if (response.statusCode == 200) {
@@ -80,7 +80,7 @@ class _BrandEquipmentCreateApplicationPageState
   }
 
   void activedItem(Map value) {
-    CreateData.data['transport_brand_id'] = value['id'];
+    CreateData.data['transport_model_id'] = value['id'];
     widget.nextPage();
   }
 

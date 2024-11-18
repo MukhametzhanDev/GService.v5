@@ -1,18 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:gservice5/component/functions/token/changedToken.dart';
 import 'package:gservice5/component/line/stepIndicator.dart';
 import 'package:gservice5/component/loader/loaderComponent.dart';
 import 'package:gservice5/component/textField/closeKeyboard/closeKeyboard.dart';
 import 'package:gservice5/pages/create/application/addressCreateApplicationPage.dart';
-import 'package:gservice5/pages/create/application/brandEquipmentCreateApplicationPage.dart';
+import 'package:gservice5/pages/create/options/getBrandEquipmentPage.dart';
 import 'package:gservice5/pages/create/application/descriptionCreateApplicationPage.dart';
 import 'package:gservice5/component/button/back/backTitleButton.dart';
 import 'package:gservice5/component/button/back/closeIconButton.dart';
 import 'package:gservice5/pages/create/application/getImageCreateApplicaitonPage.dart';
-import 'package:gservice5/pages/create/application/modelEquipmentCreateApplicationPage.dart';
+import 'package:gservice5/pages/create/options/getModelEquipmentPage.dart';
 import 'package:gservice5/pages/create/application/priceCreateApplicationPage.dart';
-import 'package:gservice5/pages/create/application/professionCreateApplicationPage.dart';
-import 'package:gservice5/pages/create/application/typeEquipmentCreateApplicationPage.dart';
+import 'package:gservice5/pages/create/options/getProfessionPage.dart';
+import 'package:gservice5/pages/create/options/getTypeEquipmentPage.dart';
 import 'package:gservice5/pages/create/application/contactCreateApplicationPage.dart';
 import 'package:gservice5/pages/create/data/createData.dart';
 
@@ -57,21 +56,21 @@ class _CreateApplicationState extends State<CreateApplication> {
     print(options);
     pages = [];
     if (options['has_transport_type']) {
-      pages.add(TypeEquipmentCreateApplicationPage(nextPage: nextPage));
+      pages.add(GetTypeEquipmentPage(nextPage: nextPage));
       titles.add("Тип техники");
     }
     pages.add(DescriptionCreateApplicationPage(nextPage: nextPage));
     titles.add("Описание заявки");
     if (options['has_transport_brand']) {
-      pages.add(BrandEquipmentCreateApplicationPage(nextPage: nextPage));
+      pages.add(GetBrandEquipmentPage(nextPage: nextPage));
       titles.add("Марка техники");
     }
     if (options['has_transport_model']) {
-      pages.add(ModelEquipmentCreateApplicationPage(nextPage: nextPage));
+      pages.add(GetModelEquipmentPage(nextPage: nextPage));
       titles.add("Модель техники");
     }
     if (options['has_profession']) {
-      pages.add(ProfessionCreateApplicationPage(nextPage: nextPage));
+      pages.add(GetProfessionPage(nextPage: nextPage));
       titles.add("Профессия");
     }
     pages.addAll([
