@@ -138,6 +138,7 @@ class Styles {
                     ? const Color(0xff202022)
                     : const Color(0xffF1F5FB)),
         tabBarTheme: TabBarTheme(
+          dividerColor: Colors.transparent,
           indicatorColor: ColorComponent.mainColor,
           labelColor: ColorComponent.mainColor,
           unselectedLabelColor: isDarkTheme ? Colors.white : Colors.black,

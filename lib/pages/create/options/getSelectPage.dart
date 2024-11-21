@@ -1,6 +1,8 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:gservice5/component/button/back/backIconButton.dart';
+import 'package:gservice5/component/button/back/backTitleButton.dart';
 import 'package:gservice5/component/button/button.dart';
 import 'package:gservice5/component/dio/dio.dart';
 import 'package:gservice5/component/loader/loaderComponent.dart';
@@ -11,15 +13,28 @@ import 'package:gservice5/component/widgets/bottom/bottomNavigationBarComponent.
 import 'package:gservice5/pages/create/data/createData.dart';
 import 'package:gservice5/pages/create/structure/controllerPage/pageControllerIndexedStack.dart';
 
-class GetTypeEquipmentPage2 extends StatefulWidget {
-  final bool multiple;
-  const GetTypeEquipmentPage2({super.key, required this.multiple});
+class GetSelectPage extends StatefulWidget {
+  final String title;
+  final Map value;
+  final Map param;
+  final List options;
+  final PageController pageController;
+  final void Function() showOptionsPage;
+  const GetSelectPage(
+      {super.key,
+      required this.title,
+      required this.value,
+      required this.param,
+      required this.options,
+      required this.showOptionsPage,
+      required this.pageController});
 
   @override
-  State<GetTypeEquipmentPage2> createState() => _GetTypeEquipmentPage2State();
+  State<GetSelectPage> createState() => _GetSelectPageState();
 }
 
-class _GetTypeEquipmentPage2State extends State<GetTypeEquipmentPage2> {
+class _GetSelectPageState extends State<GetSelectPage>
+    with AutomaticKeepAliveClientMixin {
   List data = [];
   bool loader = true;
   ScrollController scrollController = ScrollController();
@@ -28,11 +43,11 @@ class _GetTypeEquipmentPage2State extends State<GetTypeEquipmentPage2> {
   int page = 1;
   String title = "";
   List multipleData = [];
-  PageControllerIndexedStack pageControllerIndexedStack =
-      PageControllerIndexedStack();
+  int currentId = -1;
 
   @override
   void initState() {
+    print("API ${widget.value['url']}");
     getData();
     scrollController.addListener(() {
       loadMoreAd();
@@ -41,9 +56,10 @@ class _GetTypeEquipmentPage2State extends State<GetTypeEquipmentPage2> {
   }
 
   Future getData() async {
+    print(widget.param);
     try {
-      Response response =
-          await dio.get("/transport-types", queryParameters: {"title": title});
+      Response response = await dio.get(widget.value['url'],
+          queryParameters: {"title": title, ...widget.param});
       print(response.data);
       if (response.statusCode == 200) {
         data = response.data['data'];
@@ -54,7 +70,8 @@ class _GetTypeEquipmentPage2State extends State<GetTypeEquipmentPage2> {
       } else {
         SnackBarComponent().showResponseErrorMessage(response, context);
       }
-    } catch (e) {
+    } on DioException catch (e) {
+      print(e);
       SnackBarComponent().showNotGoBackServerErrorMessage(context);
     }
   }
@@ -67,8 +84,12 @@ class _GetTypeEquipmentPage2State extends State<GetTypeEquipmentPage2> {
         isLoadMore = true;
         page += 1;
         setState(() {});
-        Response response = await dio.get("/transport-types",
-            queryParameters: {"page": page.toString(), "title": title});
+        Response response = await dio.get(widget.value['url'],
+            queryParameters: {
+              "page": page.toString(),
+              "title": title,
+              ...widget.param
+            });
         print(response.data);
         if (response.statusCode == 200) {
           data.addAll(response.data['data']);
@@ -95,8 +116,8 @@ class _GetTypeEquipmentPage2State extends State<GetTypeEquipmentPage2> {
   }
 
   void activedItem(Map value) {
-    if (widget.multiple) {
-      if (value?['active'] ?? false) {
+    if (widget.value['multiple']) {
+      if (value['active'] ?? false) {
         value['active'] = false;
         multipleData.remove(value['id']);
       } else {
@@ -104,15 +125,33 @@ class _GetTypeEquipmentPage2State extends State<GetTypeEquipmentPage2> {
         multipleData.add(value['id']);
       }
     } else {
-      CreateData.data['transport_type_id'] = value['id'];
-      pageControllerIndexedStack.nextPage();
+      CreateData.data[widget.value['name']] = value['id'];
+      currentId = value['id'];
+      nextPage();
     }
     setState(() {});
   }
 
   void savedData() {
-    CreateData.data['transport_type_ids'] = multipleData;
-    pageControllerIndexedStack.nextPage();
+    CreateData.data[widget.value['name']] = multipleData;
+    nextPage();
+  }
+
+  void nextPage() {
+    widget.showOptionsPage();
+    // widget.pageController
+    //     .nextPage(duration: Duration(milliseconds: 400), curve: Curves.linear);
+    // int nextPage = (widget.pageController.page ?? 0).toInt() + 1;
+    // widget.pageController.jumpToPage(nextPage);
+  }
+
+  void previousPage() {
+    int nextPage = (widget.pageController.page ?? 0).toInt() - 1;
+    if (nextPage > 1) {
+      Navigator.pop(context);
+    } else {
+      widget.pageController.jumpToPage(nextPage);
+    }
   }
 
   void searchList(value) {
@@ -124,8 +163,12 @@ class _GetTypeEquipmentPage2State extends State<GetTypeEquipmentPage2> {
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+          leadingWidth: MediaQuery.of(context).size.width - 100,
+          leading: BackTitleButton(
+              title: widget.title, onPressed: () => Navigator.pop(context))),
       body: Column(children: [
         Padding(
             padding: const EdgeInsets.only(right: 15, left: 15, top: 15),
@@ -150,11 +193,13 @@ class _GetTypeEquipmentPage2State extends State<GetTypeEquipmentPage2> {
                   }),
         )
       ]),
-      bottomNavigationBar: BottomNavigationBarComponent(
-          child: Button(
-              onPressed: () => savedData(),
-              padding: EdgeInsets.symmetric(horizontal: 15),
-              title: "Продолжить")),
+      bottomNavigationBar: widget.value['multiple']
+          ? BottomNavigationBarComponent(
+              child: Button(
+                  onPressed: () => savedData(),
+                  padding: EdgeInsets.symmetric(horizontal: 15),
+                  title: "Продолжить"))
+          : null,
     );
   }
 
@@ -166,9 +211,12 @@ class _GetTypeEquipmentPage2State extends State<GetTypeEquipmentPage2> {
       child: ListTile(
         onTap: () => activedItem(value),
         title: Text(value['title']),
-        trailing: widget.multiple
+        trailing: widget.value['multiple']
             ? CheckItem(active)
-            : SvgPicture.asset('assets/icons/right.svg'),
+            : value['id'] == currentId
+                ? SvgPicture.asset('assets/icons/checkMini.svg',
+                    width: 20, color: ColorComponent.blue['500'])
+                : SvgPicture.asset('assets/icons/right.svg'),
       ),
     );
   }
@@ -188,4 +236,8 @@ class _GetTypeEquipmentPage2State extends State<GetTypeEquipmentPage2> {
           : Container(),
     );
   }
+
+  @override
+  // TODO: implement wantKeepAlive
+  bool get wantKeepAlive => currentId != -1;
 }

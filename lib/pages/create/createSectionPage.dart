@@ -6,7 +6,6 @@ import 'package:gservice5/component/theme/colorComponent.dart';
 import 'package:gservice5/component/widgets/bottom/bottomNavigationBarComponent.dart';
 import 'package:gservice5/pages/create/ad/sectionCreateAdPage.dart';
 import 'package:gservice5/pages/create/application/sectionCreateApplicationPage.dart';
-import 'package:gservice5/pages/create/data/createData.dart';
 
 class CreateSectionPage extends StatefulWidget {
   const CreateSectionPage({super.key});

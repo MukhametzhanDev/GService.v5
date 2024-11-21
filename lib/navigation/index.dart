@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:gservice5/component/theme/darkThemeProvider.dart';
 import 'package:gservice5/component/theme/styles.dart';
 import 'package:gservice5/navigation/individual/individualBottomTab.dart';
-import 'package:gservice5/pages/ad/my/myAdListPage.dart';
 import 'package:gservice5/pages/auth/registration/business/contractor/getActivityContractorPage.dart';
 import 'package:gservice5/pages/splash/splashScreen.dart';
 import 'package:provider/provider.dart';

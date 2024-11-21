@@ -229,6 +229,11 @@ class _CustomerProfilePageState extends State<CustomerProfilePage> {
                         trailing: SvgPicture.asset('assets/icons/right.svg')),
                     Divider(height: 1, color: ColorComponent.gray['100']),
                     ListTile(
+                        leading: SvgPicture.asset('assets/icons/fileOutline.svg'),
+                        title: Text("Документы"),
+                        trailing: SvgPicture.asset('assets/icons/right.svg')),
+                    Divider(height: 1, color: ColorComponent.gray['100']),
+                    ListTile(
                         leading:
                             SvgPicture.asset('assets/icons/cogOutline.svg'),
                         title: Text("Настройки"),

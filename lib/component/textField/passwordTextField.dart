@@ -5,8 +5,10 @@ import 'package:gservice5/component/theme/colorComponent.dart';
 class PasswordTextField extends StatefulWidget {
   final TextEditingController textEditingController;
   final void Function() onSubmitted;
+  final String? hintText;
   const PasswordTextField(
       {super.key,
+      @required this.hintText,
       required this.textEditingController,
       required this.onSubmitted});
 
@@ -29,7 +31,7 @@ class _PasswordTextFieldState extends State<PasswordTextField> {
         obscureText: !showPassword,
         style: TextStyle(fontSize: 14, height: 1.1),
         decoration: InputDecoration(
-            hintText: "Пароль",
+            hintText: widget.hintText ?? "Пароль",
             suffixIcon: IconButton(
                 onPressed: () {
                   setState(() {

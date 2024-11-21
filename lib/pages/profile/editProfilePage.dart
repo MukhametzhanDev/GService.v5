@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:gservice5/component/button/back/backTitleButton.dart';
 import 'package:gservice5/component/functions/token/changedToken.dart';
+import 'package:gservice5/pages/profile/changePasswordPage.dart';
 import 'package:gservice5/pages/profile/contractor/changeContractorProfilePage.dart';
 import 'package:gservice5/pages/profile/customer/changeCustomerProfilePage.dart';
 import 'package:gservice5/pages/profile/individual/changeIndividualProfilePage.dart';
@@ -60,7 +61,8 @@ class _EditProfilePageState extends State<EditProfilePage> {
   }
 
   void editPasswordPage() {
-    // Navigator.push(context, MaterialPageRoute(builder:(context) => ,));
+    Navigator.push(
+        context, MaterialPageRoute(builder: (context) => ChangePasswordPage()));
   }
 
   @override

@@ -49,6 +49,8 @@
 	<string>Доступ к микрофона требуется для добавление заказа</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>Доступ к фото требуется для добавление объявление</string>
+	<key>NSDocumentsFolderUsageDescription</key>
+	<string>Для выбора файлов нам необходим доступ к вашим документам</string>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
 	<key>NSMotionUsageDescription</key>

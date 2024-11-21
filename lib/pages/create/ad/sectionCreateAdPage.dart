@@ -8,8 +8,10 @@ import 'package:gservice5/component/loader/loaderComponent.dart';
 import 'package:gservice5/component/snackBar/snackBarComponent.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
 import 'package:gservice5/component/widgets/bottom/bottomNavigationBarComponent.dart';
-import 'package:gservice5/pages/create/structure/structureCreateAdPage.dart';
-import 'package:gservice5/pages/create/application/createApplication.dart';
+import 'package:gservice5/pages/create/ad/characteristic/getCharacteristicAdPage.dart';
+import 'package:gservice5/pages/create/ad/titleCreateAdPage.dart';
+import 'package:gservice5/pages/create/data/optionTitlesData.dart';
+import 'package:gservice5/pages/create/options/getSelectPage.dart';
 import 'package:gservice5/pages/create/data/createData.dart';
 
 class SectionCreateAdPage extends StatefulWidget {
@@ -26,8 +28,21 @@ class _SectionCreateAdPageState extends State<SectionCreateAdPage> {
 
   @override
   void initState() {
+    clearData();
     getData();
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    clearData();
+    super.dispose();
+  }
+
+  void clearData() {
+    CreateData.data.clear();
+    CreateData.characteristic.clear();
+    CreateData.images.clear();
   }
 
   void getData() async {
@@ -53,11 +68,56 @@ class _SectionCreateAdPageState extends State<SectionCreateAdPage> {
   void showPage() {
     CreateData.data['category_id'] = data[currentIndex]['id'];
     CreateData.data['category'] = data[currentIndex];
-    Navigator.push(
-        context,
-        MaterialPageRoute(
-            builder: (context) =>
-                StructureCreateAdPage(data: data[currentIndex])));
+    CreateData.characteristic['characteristics'] =
+        data[currentIndex]['options']['characteristics'];
+    showOptionsPage();
+  }
+
+  int index = 0;
+  void showOptionsPage() {
+    List options = data[currentIndex]['options']['necessary_inputs'];
+    if (options.length - 1 > index) {
+      Map value = options[index];
+      Map param = getParam(index);
+      String title = OptionTitlesData.titles[value['name']];
+      Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) => GetSelectPage(
+                  title: title,
+                  param: param,
+                  value: value,
+                  options: options,
+                  pageController: PageController(),
+                  showOptionsPage: showOptionsPage))).then((value) {
+        if (index > 0) {
+          index--;
+        }
+      });
+      index++;
+    } else {
+      Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) =>
+                  TitleCreateAdPage(nextPage: showCharacteristcsPage)));
+    }
+  }
+
+  Map getParam(index) {
+    List options = data[currentIndex]['options']['necessary_inputs'];
+    if (index == 0 || index == options.length - 1) {
+      return {};
+    } else {
+      String key = options[index - 1]?['name'] ?? "";
+      Map param = {key: CreateData.data[key] ?? ""};
+      return param;
+    }
+  }
+
+  void showCharacteristcsPage() {
+    Navigator.push(context,
+        MaterialPageRoute(builder: (context) => GetCharacteristicAdPage()));
   }
 
   @override
@@ -123,11 +183,14 @@ class _SectionCreateAdPageState extends State<SectionCreateAdPage> {
                     }).toList()),
                   ]),
             ),
-      bottomNavigationBar: BottomNavigationBarComponent(
-          child: Button(
-              onPressed: showPage,
-              padding: EdgeInsets.symmetric(horizontal: 15),
-              title: "Продолжить")),
+      bottomSheet: BottomNavigationBarComponent(
+          child: Padding(
+        padding: EdgeInsets.only(bottom: MediaQuery.of(context).padding.bottom),
+        child: Button(
+            onPressed: showPage,
+            padding: EdgeInsets.symmetric(horizontal: 15),
+            title: "Продолжить"),
+      )),
     );
   }
 }

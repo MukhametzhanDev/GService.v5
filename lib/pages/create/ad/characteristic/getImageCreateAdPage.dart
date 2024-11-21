@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:gservice5/component/button/back/backIconButton.dart';
+import 'package:gservice5/component/button/back/backTitleButton.dart';
 import 'package:gservice5/component/button/button.dart';
 import 'package:gservice5/component/dio/dio.dart';
 import 'package:gservice5/component/loader/modalLoaderComponent.dart';
@@ -10,31 +10,33 @@ import 'package:gservice5/pages/create/data/createData.dart';
 import 'package:gservice5/pages/create/getImageWidget.dart';
 import 'package:image_picker/image_picker.dart';
 
-class GetImageCreateApplicaitonPage extends StatefulWidget {
-  const GetImageCreateApplicaitonPage({super.key});
+class GetImageCreateAdPage extends StatefulWidget {
+  const GetImageCreateAdPage({super.key});
 
   @override
-  State<GetImageCreateApplicaitonPage> createState() =>
-      _GetImageCreateApplicaitonPageState();
+  State<GetImageCreateAdPage> createState() => _GetImageCreateAdPageState();
 }
 
-class _GetImageCreateApplicaitonPageState
-    extends State<GetImageCreateApplicaitonPage> {
+class _GetImageCreateAdPageState extends State<GetImageCreateAdPage> {
   List imagesPath = [];
   List imagesUrl = [];
 
   Future postData() async {
     showModalLoader(context);
     try {
-      Response response = await dio.post("/application", data: CreateData.data);
+      Response response = await dio.post("/ad", data: {
+        ...CreateData.data,
+        "characteristic": CreateData.characteristic,
+        "country_id": 1
+      });
       print(response.data);
       Navigator.pop(context);
       if (response.data['success']) {
         CreateData.data.clear();
         CreateData.images.clear();
-        Navigator.pop(context, "application");
-        Navigator.pop(context, "application");
-        Navigator.pop(context, "application");
+        Navigator.pop(context, "ad");
+        Navigator.pop(context, "ad");
+        Navigator.pop(context, "ad");
       } else {
         SnackBarComponent().showResponseErrorMessage(response, context);
       }
@@ -80,6 +82,11 @@ class _GetImageCreateApplicaitonPageState
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+          leadingWidth: MediaQuery.of(context).size.width - 100,
+          leading: BackTitleButton(
+              title: "Загрузка изоброжений",
+              onPressed: () => Navigator.pop(context))),
       body: SingleChildScrollView(
         padding: EdgeInsets.symmetric(vertical: 15),
         child: Column(
@@ -98,12 +105,12 @@ class _GetImageCreateApplicaitonPageState
               onPressed: verifyData,
               padding: EdgeInsets.symmetric(horizontal: 15),
               title: "Опубликовать"),
-          Divider(height: 4),
-          Button(
-              onPressed: postData,
-              backgroundColor: Colors.white,
-              padding: EdgeInsets.symmetric(horizontal: 15),
-              title: "Пропустить"),
+          // Divider(height: 4),
+          // Button(
+          //     onPressed: postData,
+          //     backgroundColor: Colors.white,
+          //     padding: EdgeInsets.symmetric(horizontal: 15),
+          //     title: "Пропустить"),
         ],
       )),
     );
