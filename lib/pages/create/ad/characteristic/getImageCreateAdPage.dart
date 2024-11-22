@@ -11,7 +11,8 @@ import 'package:gservice5/pages/create/getImageWidget.dart';
 import 'package:image_picker/image_picker.dart';
 
 class GetImageCreateAdPage extends StatefulWidget {
-  const GetImageCreateAdPage({super.key});
+  final void Function() previousPage;
+  const GetImageCreateAdPage({super.key, required this.previousPage});
 
   @override
   State<GetImageCreateAdPage> createState() => _GetImageCreateAdPageState();
@@ -27,7 +28,8 @@ class _GetImageCreateAdPageState extends State<GetImageCreateAdPage> {
       Response response = await dio.post("/ad", data: {
         ...CreateData.data,
         "characteristic": CreateData.characteristic,
-        "country_id": 1
+        "country_id": 1,
+        "is_new": 1
       });
       print(response.data);
       Navigator.pop(context);
@@ -82,11 +84,6 @@ class _GetImageCreateAdPageState extends State<GetImageCreateAdPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-          leadingWidth: MediaQuery.of(context).size.width - 100,
-          leading: BackTitleButton(
-              title: "Загрузка изоброжений",
-              onPressed: () => Navigator.pop(context))),
       body: SingleChildScrollView(
         padding: EdgeInsets.symmetric(vertical: 15),
         child: Column(

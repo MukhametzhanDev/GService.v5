@@ -10,13 +10,15 @@ import 'package:gservice5/component/textField/closeKeyboard/closeKeyboard.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
 import 'package:gservice5/component/widgets/bottom/bottomNavigationBarComponent.dart';
 import 'package:gservice5/pages/create/ad/characteristic/dataModal.dart';
-import 'package:gservice5/pages/create/ad/characteristic/getChildCharacteristicPage.dart';
-import 'package:gservice5/pages/create/ad/characteristic/getImageCreateAdPage.dart';
 import 'package:gservice5/pages/create/ad/characteristic/multipleDataModal.dart';
 import 'package:gservice5/pages/create/data/createData.dart';
+import 'package:gservice5/pages/create/structure/controllerPage/pageControllerIndexedStack.dart';
 
 class GetCharacteristicAdPage extends StatefulWidget {
-  const GetCharacteristicAdPage({super.key});
+  final void Function(List data) nextPage;
+  final void Function() previousPage;
+  const GetCharacteristicAdPage(
+      {super.key, required this.nextPage, required this.previousPage});
 
   @override
   State<GetCharacteristicAdPage> createState() =>
@@ -24,6 +26,8 @@ class GetCharacteristicAdPage extends StatefulWidget {
 }
 
 class _GetCharacteristicAdPageState extends State<GetCharacteristicAdPage> {
+  PageControllerIndexedStack pageControllerIndexedStack =
+      PageControllerIndexedStack();
   Map characteristicParam = {};
   List data = [];
   bool loader = true;
@@ -55,20 +59,23 @@ class _GetCharacteristicAdPageState extends State<GetCharacteristicAdPage> {
     showModalLoader(context);
     try {
       Response response = await dio.get("/characteristics",
-          queryParameters: {filter_key!: CreateData.data['transport_type_id']});
+          queryParameters: {filter_key!: CreateData.data[filter_key]});
       print(response.data);
       Navigator.pop(context);
       if (response.data['success']) {
         if (response.data['data'].isNotEmpty) {
-          Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (context) =>
-                      GetChildCharacteristicPage(data: response.data['data'])));
+          widget.nextPage(response.data['data']);
+          // Navigator.push(
+          //     context,
+          //     MaterialPageRoute(
+          //         builder: (context) =>
+          //             ));
         } else {
-          Navigator.push(context,
-              MaterialPageRoute(builder: (context) => GetImageCreateAdPage()));
+          // Navigator.push(context,
+          //     MaterialPageRoute(builder: (context) => GetImageCreateAdPage()));
+          widget.nextPage([]);
         }
+        pageControllerIndexedStack.nextPage();
       } else {
         SnackBarComponent().showResponseErrorMessage(response, context);
       }
@@ -78,6 +85,7 @@ class _GetCharacteristicAdPageState extends State<GetCharacteristicAdPage> {
   }
 
   void verifyData() {
+    print('object');
     for (Map value in data) {
       bool hasKey =
           CreateData.characteristic.containsKey(value['id'].toString());
@@ -96,6 +104,9 @@ class _GetCharacteristicAdPageState extends State<GetCharacteristicAdPage> {
     if (isAvailable) {
       String? filterKey = characteristics['filter_key'];
       getStructureTransportType(filterKey);
+    } else {
+      widget.nextPage([]);
+      pageControllerIndexedStack.nextPage();
     }
   }
 
@@ -109,11 +120,7 @@ class _GetCharacteristicAdPageState extends State<GetCharacteristicAdPage> {
     return GestureDetector(
       onTap: () => closeKeyboard(),
       child: Scaffold(
-        appBar: AppBar(
-            leadingWidth: MediaQuery.of(context).size.width - 100,
-            leading: BackTitleButton(
-                title: "Характеристика",
-                onPressed: () => Navigator.pop(context))),
+      
         body: loader
             ? LoaderComponent()
             : SingleChildScrollView(
@@ -254,7 +261,7 @@ class _SelectCharacteristicState extends State<SelectCharacteristic> {
               {widget.value['id'].toString(): value['id'].toString()},
               {widget.value['title']: value['title']});
           data = value;
-          closeKeyboard();
+          setState(() {});
         },
         data: widget.value['options'],
         value: data,

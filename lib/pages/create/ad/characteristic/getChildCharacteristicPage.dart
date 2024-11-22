@@ -10,10 +10,17 @@ import 'package:gservice5/pages/create/ad/characteristic/dataModal.dart';
 import 'package:gservice5/pages/create/ad/characteristic/getImageCreateAdPage.dart';
 import 'package:gservice5/pages/create/ad/characteristic/multipleDataModal.dart';
 import 'package:gservice5/pages/create/data/createData.dart';
+import 'package:gservice5/pages/create/structure/controllerPage/pageControllerIndexedStack.dart';
 
 class GetChildCharacteristicPage extends StatefulWidget {
   final List data;
-  const GetChildCharacteristicPage({super.key, required this.data});
+  final void Function() nextPage;
+  final void Function() previousPage;
+  const GetChildCharacteristicPage(
+      {super.key,
+      required this.data,
+      required this.nextPage,
+      required this.previousPage});
 
   @override
   State<GetChildCharacteristicPage> createState() =>
@@ -24,6 +31,8 @@ class _GetChildCharacteristicPageState
     extends State<GetChildCharacteristicPage> {
   Map characteristicParam = {};
   List data = [];
+  PageControllerIndexedStack pageControllerIndexedStack =
+      PageControllerIndexedStack();
 
   @override
   void initState() {
@@ -45,8 +54,10 @@ class _GetChildCharacteristicPageState
   }
 
   void showPage() {
-    Navigator.push(context,
-        MaterialPageRoute(builder: (context) => GetImageCreateAdPage()));
+    widget.nextPage();
+    pageControllerIndexedStack.nextPage();
+    // Navigator.push(context,
+    //     MaterialPageRoute(builder: (context) => GetImageCreateAdPage()));
   }
 
   void addData(id, value) {
@@ -58,11 +69,6 @@ class _GetChildCharacteristicPageState
     return GestureDetector(
       onTap: () => closeKeyboard(),
       child: Scaffold(
-        appBar: AppBar(
-            leadingWidth: MediaQuery.of(context).size.width - 100,
-            leading: BackTitleButton(
-                title: "Характеристика",
-                onPressed: () => Navigator.pop(context))),
         body: SingleChildScrollView(
             padding: EdgeInsets.symmetric(horizontal: 15, vertical: 7.5),
             child: Column(
@@ -198,6 +204,7 @@ class _SelectCharacteristicState extends State<SelectCharacteristic> {
               {widget.value['id'].toString(): value['id'].toString()},
               {widget.value['title']: value['title']});
           data = value;
+          setState(() {});
           closeKeyboard();
         },
         data: widget.value['options'],

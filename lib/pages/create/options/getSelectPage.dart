@@ -1,7 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:gservice5/component/button/back/backIconButton.dart';
 import 'package:gservice5/component/button/back/backTitleButton.dart';
 import 'package:gservice5/component/button/button.dart';
 import 'package:gservice5/component/dio/dio.dart';
@@ -11,30 +10,28 @@ import 'package:gservice5/component/textField/searchTextField.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
 import 'package:gservice5/component/widgets/bottom/bottomNavigationBarComponent.dart';
 import 'package:gservice5/pages/create/data/createData.dart';
+import 'package:gservice5/pages/create/data/optionTitlesData.dart';
 import 'package:gservice5/pages/create/structure/controllerPage/pageControllerIndexedStack.dart';
 
 class GetSelectPage extends StatefulWidget {
-  final String title;
   final Map value;
-  final Map param;
   final List options;
   final PageController pageController;
-  final void Function() showOptionsPage;
+  final void Function() nextPage;
+  final void Function() previousPage;
   const GetSelectPage(
       {super.key,
-      required this.title,
       required this.value,
-      required this.param,
       required this.options,
-      required this.showOptionsPage,
+      required this.nextPage,
+      required this.previousPage,
       required this.pageController});
 
   @override
   State<GetSelectPage> createState() => _GetSelectPageState();
 }
 
-class _GetSelectPageState extends State<GetSelectPage>
-    with AutomaticKeepAliveClientMixin {
+class _GetSelectPageState extends State<GetSelectPage> {
   List data = [];
   bool loader = true;
   ScrollController scrollController = ScrollController();
@@ -44,6 +41,8 @@ class _GetSelectPageState extends State<GetSelectPage>
   String title = "";
   List multipleData = [];
   int currentId = -1;
+  PageControllerIndexedStack pageControllerIndexedStack =
+      PageControllerIndexedStack();
 
   @override
   void initState() {
@@ -56,16 +55,16 @@ class _GetSelectPageState extends State<GetSelectPage>
   }
 
   Future getData() async {
-    print(widget.param);
+    print(getParam());
     try {
       Response response = await dio.get(widget.value['url'],
-          queryParameters: {"title": title, ...widget.param});
+          queryParameters: {"title": title, ...getParam()});
       print(response.data);
       if (response.statusCode == 200) {
         data = response.data['data'];
         activedData(data);
         loader = false;
-        hasNextPage = page != response.data['meta']['last_page'];
+        hasNextPage = page != response.data?['meta']?['last_page'];
         setState(() {});
       } else {
         SnackBarComponent().showResponseErrorMessage(response, context);
@@ -85,11 +84,7 @@ class _GetSelectPageState extends State<GetSelectPage>
         page += 1;
         setState(() {});
         Response response = await dio.get(widget.value['url'],
-            queryParameters: {
-              "page": page.toString(),
-              "title": title,
-              ...widget.param
-            });
+            queryParameters: {"page": page.toString(), "title": title});
         print(response.data);
         if (response.statusCode == 200) {
           data.addAll(response.data['data']);
@@ -103,6 +98,17 @@ class _GetSelectPageState extends State<GetSelectPage>
       } catch (e) {
         SnackBarComponent().showNotGoBackServerErrorMessage(context);
       }
+    }
+  }
+
+  Map getParam() {
+    int index = pageControllerIndexedStack.getIndex();
+    print("INDEX $index");
+    if (index != 0 && index <= widget.options.length - 1) {
+      String paramKey = widget.options[index - 1]['name'];
+      return {paramKey: CreateData.data[paramKey]};
+    } else {
+      return {};
     }
   }
 
@@ -138,21 +144,22 @@ class _GetSelectPageState extends State<GetSelectPage>
   }
 
   void nextPage() {
-    widget.showOptionsPage();
+    pageControllerIndexedStack.nextPage();
+    widget.nextPage();
     // widget.pageController
-    //     .nextPage(duration: Duration(milliseconds: 400), curve: Curves.linear);
+    // .nextPage(duration: Duration(milliseconds: 400), curve: Curves.linear);
     // int nextPage = (widget.pageController.page ?? 0).toInt() + 1;
     // widget.pageController.jumpToPage(nextPage);
   }
 
-  void previousPage() {
-    int nextPage = (widget.pageController.page ?? 0).toInt() - 1;
-    if (nextPage > 1) {
-      Navigator.pop(context);
-    } else {
-      widget.pageController.jumpToPage(nextPage);
-    }
-  }
+  // void previousPage() {
+  //   int nextPage = (widget.pageController.page ?? 0).toInt() - 1;
+  //   if (nextPage > 1) {
+  //     Navigator.pop(context);
+  //   } else {
+  //     widget.pageController.jumpToPage(nextPage);
+  //   }
+  // }
 
   void searchList(value) {
     title = value;
@@ -163,12 +170,7 @@ class _GetSelectPageState extends State<GetSelectPage>
 
   @override
   Widget build(BuildContext context) {
-    super.build(context);
     return Scaffold(
-      appBar: AppBar(
-          leadingWidth: MediaQuery.of(context).size.width - 100,
-          leading: BackTitleButton(
-              title: widget.title, onPressed: () => Navigator.pop(context))),
       body: Column(children: [
         Padding(
             padding: const EdgeInsets.only(right: 15, left: 15, top: 15),
@@ -236,8 +238,4 @@ class _GetSelectPageState extends State<GetSelectPage>
           : Container(),
     );
   }
-
-  @override
-  // TODO: implement wantKeepAlive
-  bool get wantKeepAlive => currentId != -1;
 }

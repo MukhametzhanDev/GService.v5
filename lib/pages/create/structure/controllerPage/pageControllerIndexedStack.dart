@@ -22,7 +22,9 @@ class PageControllerIndexedStack {
   }
 
   void previousPage() {
-    pageIndexNotifier.value -= 1;
+    if (pageIndexNotifier.value > 0) {
+      pageIndexNotifier.value -= 1;
+    }
   }
 
   int getIndex() {

@@ -7,7 +7,10 @@ import 'package:gservice5/component/snackBar/snackBarComponent.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
 import 'package:gservice5/pages/ad/my/myAdEmptyPage.dart';
 import 'package:gservice5/pages/ad/my/myAdItem.dart';
+import 'package:gservice5/pages/ad/my/optionsMyAdPageModal.dart';
+import 'package:gservice5/pages/ad/my/request/myAdRequest.dart';
 import 'package:gservice5/pages/application/my/viewMyApplicationPage.dart';
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 class MyAdListPage extends StatefulWidget {
@@ -19,9 +22,9 @@ class MyAdListPage extends StatefulWidget {
 
 class _MyAdListPageState extends State<MyAdListPage> {
   final List _tabs = [
-    {"title": "Активные", "type": "pending", "count": "12"},
-    {"title": "В архвие", "type": "archived", "count": "1"},
-    {"title": "Удаленное", "type": "deleted", "count": "4"},
+    {"title": "Активные", "type": "pending", "count": ""},
+    {"title": "В архвие", "type": "archived", "count": ""},
+    {"title": "Удаленное", "type": "deleted", "count": ""},
     // {"title": "Отклоненные"},
   ];
   int tabIndex = 1;
@@ -85,6 +88,7 @@ class _MyAdListPageState extends State<MyAdListPage> {
     } catch (e) {
       SnackBarComponent().showNotGoBackServerErrorMessage(context);
     }
+    refreshController.refreshCompleted();
   }
 
   Future loadMoreAd() async {
@@ -99,7 +103,8 @@ class _MyAdListPageState extends State<MyAdListPage> {
           "page": page,
           "status": currentStatusAd
         };
-        Response response = await dio.get("/my-ads");
+        Response response =
+            await dio.get("/my-ads", queryParameters: parameter);
         print(response.data);
         if (response.data['success']) {
           data.addAll(response.data['data']);
@@ -126,14 +131,35 @@ class _MyAdListPageState extends State<MyAdListPage> {
   }
 
   void updateData(int id) {
-    // getCount();
-    for (int i = 0; i < data.length; i++) {
-      if (data[i]['id'] == id) {
-        setState(() {
-          data.removeAt(i);
-        });
-        break;
+    final index = data.indexWhere((item) => item['id'] == id);
+    setState(() {
+      data.removeAt(index);
+    });
+  }
+
+  void showOptions(Map data) async {
+    if (data['status'] == "deleted") {
+      if (await MyAdRequest().restoreAd(data['id'], context)) {
+        getCount();
+        updateData(data['id']);
       }
+    } else if (data['status'] == "archived") {
+      if (await MyAdRequest().unZipAd(data['id'], context)) {
+        getCount();
+        updateData(data['id']);
+      }
+    } else {
+      showCupertinoModalBottomSheet(
+              context: context,
+              builder: (context) =>
+                  OptionsMyAdPageModal(data: data, status: data['status']))
+          .then((value) {
+        if (value == "update") {
+          updateData(data['id']);
+        } else if (value == "edit") {
+          refreshController.requestRefresh();
+        }
+      });
     }
   }
 
@@ -191,35 +217,20 @@ class _MyAdListPageState extends State<MyAdListPage> {
                   header: MaterialClassicHeader(
                       color: ColorComponent.mainColor,
                       backgroundColor: Colors.white),
-                  child: !data.isEmpty
+                  child: data.isEmpty
                       ? MyAdEmptyPage()
                       : ListView.builder(
                           padding: EdgeInsets.only(
                               bottom: MediaQuery.of(context).padding.bottom),
                           controller: scrollController,
-                          itemCount: 10,
+                          itemCount: data.length,
                           itemBuilder: (context, index) {
+                            Map item = data[index];
                             return MyAdItem(
-                                data: {},
+                                data: item,
                                 onPressed: (id) {},
-                                showOptions: (value) {},
+                                showOptions: showOptions,
                                 showListPromotionPage: (value) {});
-                            // Map item = data[index];
-                            // if (index == data.length - 1) {
-                            //   return Column(children: [
-                            //     MyAdItem(
-                            //         data: item,
-                            //         onPressed: (id) {},
-                            //         showOptions: (value) {},
-                            //         showListPromotionPage: (value) {}),
-                            //     isLoadMore
-                            //         ? PaginationLoaderComponent()
-                            //         : Container()
-                            //   ]);
-                            // } else {
-                            //   return MyApplicationItem(
-                            //       onPressed: showMyApplicationPage, data: item);
-                            // }
                           },
                         ))),
     );
@@ -250,46 +261,4 @@ class _MyAdListPageState extends State<MyAdListPage> {
       // text: "Активные"
     );
   }
-
-  // GestureDetector TabButton(Map value) {
-  //   bool active = value['type'] != currentStatusAd;
-  //   return GestureDetector(
-  //       onTap: () {
-  //         currentStatusAd = value['type'];
-  //         loader = true;
-  //         setState(() {});
-  //         getData();
-  //       },
-  //       child: Container(
-  //         height: 36,
-  //         decoration: BoxDecoration(
-  //             borderRadius: BorderRadius.circular(8),
-  //             color: !active ? ColorComponent.mainColor : Colors.white),
-  //         padding: EdgeInsets.only(left: 16, right: 8, top: 6, bottom: 6),
-  //         margin: EdgeInsets.only(right: 8),
-  //         alignment: Alignment.center,
-  //         child: Row(
-  //           crossAxisAlignment: CrossAxisAlignment.center,
-  //           mainAxisAlignment: MainAxisAlignment.center,
-  //           children: [
-  //             Text(value['title'],
-  //                 style: TextStyle(
-  //                     fontSize: 13,
-  //                     color:
-  //                         active ? ColorComponent.gray['700'] : Colors.black)),
-  //             Divider(indent: 8),
-  //             Container(
-  //                 width: 24,
-  //                 height: 24,
-  //                 alignment: Alignment.center,
-  //                 decoration: BoxDecoration(
-  //                     borderRadius: BorderRadius.circular(12),
-  //                     color: active
-  //                         ? ColorComponent.mainColor.withOpacity(.2)
-  //                         : ColorComponent.mainColor),
-  //                 child: Text(value['count']))
-  //           ],
-  //         ),
-  //       ));
-  // }
 }

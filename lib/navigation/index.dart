@@ -3,6 +3,7 @@ import 'package:gservice5/component/theme/darkThemeProvider.dart';
 import 'package:gservice5/component/theme/styles.dart';
 import 'package:gservice5/navigation/individual/individualBottomTab.dart';
 import 'package:gservice5/pages/auth/registration/business/contractor/getActivityContractorPage.dart';
+import 'package:gservice5/pages/create/structure/controllerPage/pageControllerIndexedStack.dart';
 import 'package:gservice5/pages/splash/splashScreen.dart';
 import 'package:provider/provider.dart';
 
@@ -15,6 +16,8 @@ class Index extends StatefulWidget {
 
 class _IndexState extends State<Index> {
   DarkThemeProvider themeChangeProvider = DarkThemeProvider();
+  PageControllerIndexedStack pageControllerIndexedStack =
+      PageControllerIndexedStack();
 
   @override
   Widget build(BuildContext context) {

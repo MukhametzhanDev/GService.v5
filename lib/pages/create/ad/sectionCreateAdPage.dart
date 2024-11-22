@@ -9,10 +9,8 @@ import 'package:gservice5/component/snackBar/snackBarComponent.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
 import 'package:gservice5/component/widgets/bottom/bottomNavigationBarComponent.dart';
 import 'package:gservice5/pages/create/ad/characteristic/getCharacteristicAdPage.dart';
-import 'package:gservice5/pages/create/ad/titleCreateAdPage.dart';
-import 'package:gservice5/pages/create/data/optionTitlesData.dart';
-import 'package:gservice5/pages/create/options/getSelectPage.dart';
 import 'package:gservice5/pages/create/data/createData.dart';
+import 'package:gservice5/pages/create/structure/structureCreateAdPage.dart';
 
 class SectionCreateAdPage extends StatefulWidget {
   const SectionCreateAdPage({super.key});
@@ -70,38 +68,48 @@ class _SectionCreateAdPageState extends State<SectionCreateAdPage> {
     CreateData.data['category'] = data[currentIndex];
     CreateData.characteristic['characteristics'] =
         data[currentIndex]['options']['characteristics'];
+    data[currentIndex]['options']['necessary_inputs'].add({
+      "url": "https://dev.gservice-co.kz/api/cities",
+      "name": "city_id",
+      "multiple": false
+    });
     showOptionsPage();
   }
 
   int index = 0;
   void showOptionsPage() {
-    List options = data[currentIndex]['options']['necessary_inputs'];
-    if (options.length - 1 > index) {
-      Map value = options[index];
-      Map param = getParam(index);
-      String title = OptionTitlesData.titles[value['name']];
-      Navigator.push(
-          context,
-          MaterialPageRoute(
-              builder: (context) => GetSelectPage(
-                  title: title,
-                  param: param,
-                  value: value,
-                  options: options,
-                  pageController: PageController(),
-                  showOptionsPage: showOptionsPage))).then((value) {
-        if (index > 0) {
-          index--;
-        }
-      });
-      index++;
-    } else {
-      Navigator.push(
-          context,
-          MaterialPageRoute(
-              builder: (context) =>
-                  TitleCreateAdPage(nextPage: showCharacteristcsPage)));
-    }
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) =>
+                StructureCreateAdPage(data: data[currentIndex])));
+    // List options = data[currentIndex]['options']['necessary_inputs'];
+    // if (options.length - 1 >= index) {
+    //   Map value = options[index];
+    //   Map param = getParam(index);
+    //   String title = OptionTitlesData.titles[value['name']];
+    //   Navigator.push(
+    //       context,
+    //       MaterialPageRoute(
+    //           builder: (context) => GetSelectPage(
+    //               title: title,
+    //               param: param,
+    //               value: value,
+    //               options: options,
+    //               pageController: PageController(),
+    //               showOptionsPage: showOptionsPage))).then((value) {
+    //     if (index > 0) {
+    //       index--;
+    //     }
+    //   });
+    //   index++;
+    // } else {
+    //   Navigator.push(
+    //       context,
+    //       MaterialPageRoute(
+    //           builder: (context) =>
+    //               TitleCreateAdPage(nextPage: showCharacteristcsPage)));
+    // }
   }
 
   Map getParam(index) {
@@ -116,8 +124,8 @@ class _SectionCreateAdPageState extends State<SectionCreateAdPage> {
   }
 
   void showCharacteristcsPage() {
-    Navigator.push(context,
-        MaterialPageRoute(builder: (context) => GetCharacteristicAdPage()));
+    // Navigator.push(context,
+    //     MaterialPageRoute(builder: (context) => GetCharacteristicAdPage()));
   }
 
   @override

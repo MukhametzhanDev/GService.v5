@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:badges/badges.dart' as badges;
 import 'package:gservice5/component/theme/colorComponent.dart';
+import 'package:gservice5/pages/ad/my/myAdListPage.dart';
 import 'package:gservice5/pages/create/createMainPage.dart';
 import 'package:gservice5/pages/create/createSectionPage.dart';
 import 'package:gservice5/pages/favorite/favoriteMainPage.dart';
@@ -35,7 +36,13 @@ class _CustomerBottomTabState extends State<CustomerBottomTab>
           duration: Duration(milliseconds: 300), curve: Curves.easeInOut);
     } else if (index == 2) {
       showMaterialModalBottomSheet(
-          context: context, builder: (context) => CreateSectionPage());
+          context: context,
+          builder: (context) => CreateSectionPage()).then((value) {
+        if (value == "ad") {
+          Navigator.push(
+              context, MaterialPageRoute(builder: (context) => MyAdListPage()));
+        }
+      });
     } else {
       _selectedIndex = index;
       setState(() {});
