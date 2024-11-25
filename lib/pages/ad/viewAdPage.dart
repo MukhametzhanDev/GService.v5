@@ -6,11 +6,11 @@ import 'package:gservice5/component/button/back/backIconButton.dart';
 import 'package:gservice5/component/button/button.dart';
 import 'package:gservice5/component/button/favoriteButton.dart';
 import 'package:gservice5/component/button/shareButton.dart';
-import 'package:gservice5/component/formatted/price/priceFormat.dart';
+import 'package:gservice5/component/description/showDescriptionWidget.dart';
 import 'package:gservice5/component/image/slider/sliderImageWidget.dart';
-import 'package:gservice5/component/stickers/showStickersList.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
 import 'package:gservice5/component/widgets/author/authorAdWidget.dart';
+import 'package:gservice5/component/widgets/characteristic/showCharacteristicWidget.dart';
 import 'package:gservice5/pages/ad/recommendationAdList.dart';
 
 class ViewAdPage extends StatefulWidget {
@@ -50,14 +50,46 @@ class _ViewAdPageState extends State<ViewAdPage> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text("Гусеничный экскаватор JCB JS 205NLC (ГАБАРИТНЫЙ)",
-                      style:
-                          TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
+                  Text("Экскаватор погрузчик 3CX",
+                      style: TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.w500,
+                          color: ColorComponent.blue['700']),
                       maxLines: 1),
-                  Text(priceFormat(20000000),
-                      style:
-                          TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
-                      maxLines: 1),
+                  Divider(height: 4),
+                  Row(crossAxisAlignment: CrossAxisAlignment.end, children: [
+                    RichText(
+                        text: TextSpan(
+                            style: TextStyle(
+                                fontWeight: FontWeight.w600,
+                                color: Colors.black),
+                            children: [
+                          TextSpan(
+                              text: "3 000 ", style: TextStyle(fontSize: 13)),
+                          TextSpan(
+                              text: "тг./час",
+                              style: TextStyle(
+                                  fontWeight: FontWeight.w400, fontSize: 12)),
+                        ])),
+                    Text(
+                      "  |  ",
+                      style: TextStyle(
+                          color: ColorComponent.gray['300'], fontSize: 13),
+                    ),
+                    RichText(
+                        text: TextSpan(
+                            style: TextStyle(
+                                fontWeight: FontWeight.w500,
+                                color: Colors.black),
+                            children: [
+                          TextSpan(
+                              text: "25 000 ", style: TextStyle(fontSize: 13)),
+                          TextSpan(
+                              text: "тг./смена",
+                              style: TextStyle(
+                                  fontWeight: FontWeight.w400, fontSize: 12)),
+                        ]))
+                  ]),
                 ],
               ),
             ),
@@ -67,21 +99,46 @@ class _ViewAdPageState extends State<ViewAdPage> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Padding(
-                  padding: const EdgeInsets.all(16),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const Text(
-                          "Гусеничный экскаватор JCB JS 205NLC (ГАБАРИТНЫЙ)",
-                          style: TextStyle(
-                              fontSize: 20, fontWeight: FontWeight.w600)),
-                      const SizedBox(height: 8),
-                      Text(priceFormat(20000000),
-                          style: TextStyle(
-                              fontSize: 20, fontWeight: FontWeight.w600)),
-                      const SizedBox(height: 8),
+                      // RichText(
+                      //     textAlign: TextAlign.start,
+                      //     text: TextSpan(
+                      //         style: TextStyle(
+                      //             fontSize: 20, fontWeight: FontWeight.w600),
+                      //         children: [
+                      //           TextSpan(
+                      //               text: "JCB 3CX ",
+                      //               style: TextStyle(color: Colors.black)),
+                      //           TextSpan(
+                      //               text: "Экскаватор погрузчик",
+                      //               style: TextStyle(
+                      //                   color: ColorComponent.gray['500'])),
+                      //         ])),
                       Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
+                          Expanded(
+                            child: Row(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text("Экскаватор погрузчик ",
+                                    style: TextStyle(
+                                        fontSize: 18,
+                                        color: ColorComponent.blue['700'],
+                                        fontWeight: FontWeight.w600)),
+                                Text("JCB 3CX",
+                                    style: TextStyle(
+                                        fontSize: 18,
+                                        color: ColorComponent.blue['700'],
+                                        fontWeight: FontWeight.w600)),
+                              ],
+                            ),
+                          ),
+                          Divider(indent: 16),
                           Container(
                             height: 24,
                             padding: EdgeInsets.symmetric(horizontal: 8),
@@ -97,29 +154,53 @@ class _ViewAdPageState extends State<ViewAdPage> {
                                   fontWeight: FontWeight.w600),
                             ),
                           ),
-                          Divider(indent: 8),
-                          Container(
-                            height: 24,
-                            padding: EdgeInsets.symmetric(horizontal: 8),
-                            alignment: Alignment.center,
-                            decoration: BoxDecoration(
-                                color: ColorComponent.red["600"],
-                                borderRadius: BorderRadius.circular(6)),
-                            child: Text(
-                              "Хит продаж",
-                              style: TextStyle(
-                                  height: 1,
-                                  fontSize: 12,
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.w600),
-                            ),
-                          ),
-                          Divider(indent: 8),
-                          SvgPicture.asset('assets/icons/fire.svg')
                         ],
                       ),
-                      const SizedBox(height: 8),
-                      const ShowStickersList(),
+                      Divider(height: 6),
+                      Row(
+                          crossAxisAlignment: CrossAxisAlignment.end,
+                          children: [
+                            RichText(
+                                text: TextSpan(
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.w600,
+                                        color: Colors.black),
+                                    children: [
+                                  TextSpan(
+                                      text: "3 000 ",
+                                      style: TextStyle(fontSize: 15)),
+                                  TextSpan(
+                                      text: "тг./час",
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.w400,
+                                          fontSize: 14)),
+                                ])),
+                            Text(
+                              "  |  ",
+                              style:
+                                  TextStyle(color: ColorComponent.gray['300']),
+                            ),
+                            RichText(
+                                text: TextSpan(
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.w600,
+                                        color: Colors.black),
+                                    children: [
+                                  TextSpan(
+                                      text: "25 000 ",
+                                      style: TextStyle(fontSize: 15)),
+                                  TextSpan(
+                                      text: "тг./смена",
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.w400,
+                                          fontSize: 14)),
+                                ]))
+                          ]),
+                      const SizedBox(height: 4),
+                      // Row(
+                      //   children: [const ShowStickersList()],
+                      // ),
+                      // Divider(height: 4),
                     ],
                   ),
                 ),
@@ -135,80 +216,20 @@ class _ViewAdPageState extends State<ViewAdPage> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Divider(height: 12),
-                      Row(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Row(
-                            children: [
-                              SvgPicture.asset('assets/icons/pin.svg',
-                                  color: ColorComponent.gray["500"], width: 16),
-                              const SizedBox(width: 4),
-                              Text("г. Алматы",
-                                  style: TextStyle(
-                                      color: ColorComponent.gray["500"],
-                                      fontSize: 12,
-                                      fontWeight: FontWeight.w500))
-                            ],
-                          ),
-                          Row(
-                            children: [
-                              SvgPicture.asset('assets/icons/eye.svg',
-                                  color: ColorComponent.gray["500"], width: 16),
-                              const SizedBox(width: 4),
-                              Text("123 просмотров",
-                                  style: TextStyle(
-                                      color: ColorComponent.gray["500"],
-                                      fontSize: 12,
-                                      fontWeight: FontWeight.w500)),
-                            ],
-                          ),
-                        ],
-                      ),
-                      Divider(indent: 24),
+                      // Divider(indent: 24),
                       Text("Характеристики",
                           style: TextStyle(
                               fontSize: 18, fontWeight: FontWeight.w600)),
-                      const Padding(
-                        padding: EdgeInsets.only(bottom: 8.0, top: 8.0),
-                        child: Row(children: [
-                          Expanded(child: Text("Модель: ")),
-                          Expanded(
-                              child: Text("МТЗ Белорус",
-                                  style:
-                                      TextStyle(fontWeight: FontWeight.w600)))
-                        ]),
-                      ),
-                      const Padding(
-                        padding: EdgeInsets.only(bottom: 8.0),
-                        child: Row(children: [
-                          Expanded(child: Text("Модель: ")),
-                          Expanded(
-                              child: Text("МТЗ Белорус",
-                                  style:
-                                      TextStyle(fontWeight: FontWeight.w600)))
-                        ]),
-                      ),
-                      const Padding(
-                        padding: EdgeInsets.only(bottom: 8.0),
-                        child: Row(children: [
-                          Expanded(child: Text("Модель:")),
-                          SizedBox(width: 6),
-                          Expanded(
-                              child: Text("МТЗ Белорус",
-                                  style:
-                                      TextStyle(fontWeight: FontWeight.w600)))
-                        ]),
-                      ),
-                      const SizedBox(height: 16),
-                      Text("Описание",
-                          style: TextStyle(
-                              fontSize: 18, fontWeight: FontWeight.w600)),
-                      Divider(height: 8),
-                      const Text(
-                          "Одно из неплохих определений сельскохозяйственного робота или агро-робота: машина, которая использует аппаратное и программное обеспечение для восприятия окружающей среды, анализа полученных данных о сельскохозяйственных культурах и",
-                          style: TextStyle(height: 1.6)),
+                      Divider(height: 4),
+                      Column(
+                          children:
+                              List.generate(7, (index) => index).map((value) {
+                        return ShowCharacteristicWidget(
+                            title: "Город", subTitle: "Алматы");
+                      }).toList()),
+                      Divider(height: 1, color: ColorComponent.gray['50']),
+                      const SizedBox(height: 10),
+                      ShowDescriptionWidget(desc: ""),
                       Divider(indent: 16),
                       SizedBox(
                         height: 41,
@@ -220,27 +241,44 @@ class _ViewAdPageState extends State<ViewAdPage> {
                             title: "Пожаловаться на объявление"),
                       ),
                       Divider(indent: 16),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Row(
+                            children: [
+                              Text("ID: 132",
+                                  style: TextStyle(
+                                      color: ColorComponent.gray["500"],
+                                      fontSize: 12)),
+                              Divider(indent: 16),
+                              Text("15 Сентябрь 2024",
+                                  style: TextStyle(
+                                      color: ColorComponent.gray["500"],
+                                      fontSize: 12)),
+                            ],
+                          ),
+                          Row(
+                            children: [
+                              SvgPicture.asset('assets/icons/eye.svg',
+                                  color: ColorComponent.gray["500"]),
+                              const SizedBox(width: 4),
+                              Text("123",
+                                  style: TextStyle(
+                                      color: ColorComponent.gray["500"],
+                                      fontSize: 12)),
+                            ],
+                          ),
+                        ],
+                      ),
+                      Divider(height: 14),
+                      Divider(height: 1, color: Color(0xfff4f5f7)),
+                      Divider(height: 12),
                       AuthorAdWidget(title: "О владельце объявления"),
-                      Divider(indent: 16),
+                      Divider(indent: 16)
                     ],
                   ),
                 ),
                 RecommendationAdList(),
-                Divider(),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 15),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text("15 Сентябрь 2024, 04:20",
-                          style: TextStyle(
-                              color: ColorComponent.gray["500"], fontSize: 12)),
-                      Text("ID 132",
-                          style: TextStyle(
-                              color: ColorComponent.gray["500"], fontSize: 12)),
-                    ],
-                  ),
-                ),
               ],
             ),
           ),

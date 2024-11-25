@@ -13,7 +13,7 @@ class ShowCharacteristicWidget extends StatelessWidget {
         : Container(
             decoration: BoxDecoration(
                 border: Border(
-                    bottom: BorderSide(width: 1, color: Color(0xfff9fafb)))),
+                    bottom: BorderSide(width: 1, color: Color(0xfff4f5f7)))),
             padding: EdgeInsets.symmetric(vertical: 12),
             child: Row(children: [
               Expanded(

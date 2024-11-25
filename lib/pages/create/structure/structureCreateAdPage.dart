@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:gservice5/component/alert/closeCreateAdAlert.dart';
 import 'package:gservice5/component/button/back/backTitleButton.dart';
 import 'package:gservice5/component/textField/closeKeyboard/closeKeyboard.dart';
+import 'package:gservice5/component/theme/colorComponent.dart';
 import 'package:gservice5/pages/create/ad/characteristic/getCharacteristicAdPage.dart';
 import 'package:gservice5/pages/create/ad/characteristic/getChildCharacteristicPage.dart';
 import 'package:gservice5/pages/create/ad/characteristic/getImageCreateAdPage.dart';
@@ -11,6 +13,7 @@ import 'package:gservice5/pages/create/data/optionTitlesData.dart';
 import 'package:gservice5/pages/create/options/getSelectPage.dart';
 import 'package:gservice5/pages/create/priceCreateAdPage.dart';
 import 'package:gservice5/pages/create/structure/controllerPage/pageControllerIndexedStack.dart';
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
 class StructureCreateAdPage extends StatefulWidget {
   final Map data;
@@ -126,7 +129,22 @@ class _StructureCreateAdPageState extends State<StructureCreateAdPage> {
             builder: (context, pageIndex, child) {
               return Scaffold(
                   appBar: AppBar(
-                    leadingWidth: MediaQuery.of(context).size.width - 150,
+                    leadingWidth: MediaQuery.of(context).size.width - 100,
+                    actions: [
+                      IconButton(
+                          onPressed: () {
+                            showCupertinoModalBottomSheet(
+                                context: context,
+                                builder: (context) =>
+                                  CloseCreateAdAlert());
+                          },
+                          icon: Text(
+                            "Закрыть  ",
+                            style: TextStyle(
+                                fontWeight: FontWeight.w500,
+                                color: ColorComponent.blue['700']),
+                          ))
+                    ],
                     leading: BackTitleButton(
                         title: titles[pageIndex]! ?? "",
                         onPressed: () => previousPage()),

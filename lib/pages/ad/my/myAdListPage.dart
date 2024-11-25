@@ -9,6 +9,7 @@ import 'package:gservice5/pages/ad/my/myAdEmptyPage.dart';
 import 'package:gservice5/pages/ad/my/myAdItem.dart';
 import 'package:gservice5/pages/ad/my/optionsMyAdPageModal.dart';
 import 'package:gservice5/pages/ad/my/request/myAdRequest.dart';
+import 'package:gservice5/pages/ad/my/viewMyAdPage.dart';
 import 'package:gservice5/pages/application/my/viewMyApplicationPage.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
@@ -20,7 +21,8 @@ class MyAdListPage extends StatefulWidget {
   State<MyAdListPage> createState() => _MyAdListPageState();
 }
 
-class _MyAdListPageState extends State<MyAdListPage> {
+class _MyAdListPageState extends State<MyAdListPage>
+    with SingleTickerProviderStateMixin {
   final List _tabs = [
     {"title": "Активные", "type": "pending", "count": ""},
     {"title": "В архвие", "type": "archived", "count": ""},
@@ -36,6 +38,7 @@ class _MyAdListPageState extends State<MyAdListPage> {
   bool isLoadMore = false;
   int page = 1;
   RefreshController refreshController = RefreshController();
+  late TabController tabController;
 
   @override
   void initState() {
@@ -43,6 +46,16 @@ class _MyAdListPageState extends State<MyAdListPage> {
     getData();
     super.initState();
     scrollController.addListener(() => loadMoreAd());
+    tabController = TabController(length: 3, vsync: this);
+    tabController.addListener(() {
+      currentStatusAd = tabController.index == 0
+          ? "pending"
+          : tabController.index == 1
+              ? "archived"
+              : "deleted";
+      loader = true;
+      getData();
+    });
   }
 
   @override
@@ -53,6 +66,7 @@ class _MyAdListPageState extends State<MyAdListPage> {
   }
 
   Future getCount() async {
+    print("AKLSDAKSD");
     try {
       Response response = await dio.get("/my-ads-status-count");
       print(response.data);
@@ -130,8 +144,9 @@ class _MyAdListPageState extends State<MyAdListPage> {
     });
   }
 
-  void updateData(int id) {
+  void updateData(int id) async {
     final index = data.indexWhere((item) => item['id'] == id);
+    await getCount();
     setState(() {
       data.removeAt(index);
     });
@@ -140,12 +155,10 @@ class _MyAdListPageState extends State<MyAdListPage> {
   void showOptions(Map data) async {
     if (data['status'] == "deleted") {
       if (await MyAdRequest().restoreAd(data['id'], context)) {
-        getCount();
         updateData(data['id']);
       }
     } else if (data['status'] == "archived") {
       if (await MyAdRequest().unZipAd(data['id'], context)) {
-        getCount();
         updateData(data['id']);
       }
     } else {
@@ -180,6 +193,7 @@ class _MyAdListPageState extends State<MyAdListPage> {
                           bottom:
                               BorderSide(width: 2, color: Color(0xffe5e7eb)))),
                   child: TabBar(
+                      controller: tabController,
                       indicatorSize: TabBarIndicatorSize.tab,
                       indicatorWeight: 3,
                       tabs: _tabs.map((value) {
@@ -204,36 +218,49 @@ class _MyAdListPageState extends State<MyAdListPage> {
                 // ),
                 ),
           ),
-          body: loader
-              ? LoaderComponent()
-              : SmartRefresher(
-                  onRefresh: () async {
-                    await getCount();
-                    await getData();
-                  },
-                  enablePullDown: true,
-                  enablePullUp: false,
-                  controller: refreshController,
-                  header: MaterialClassicHeader(
-                      color: ColorComponent.mainColor,
-                      backgroundColor: Colors.white),
-                  child: data.isEmpty
-                      ? MyAdEmptyPage()
-                      : ListView.builder(
-                          padding: EdgeInsets.only(
-                              bottom: MediaQuery.of(context).padding.bottom),
-                          controller: scrollController,
-                          itemCount: data.length,
-                          itemBuilder: (context, index) {
-                            Map item = data[index];
-                            return MyAdItem(
-                                data: item,
-                                onPressed: (id) {},
-                                showOptions: showOptions,
-                                showListPromotionPage: (value) {});
-                          },
-                        ))),
+          body: TabBarView(
+              controller: tabController,
+              children: List.generate(
+                  3, (index) => loader ? LoaderComponent() : ListMyAds()))),
     );
+  }
+
+  Widget ListMyAds() {
+    return
+        // SmartRefresher(
+        //     onRefresh: () async {
+        //       await getCount();
+        //       await getData();
+        //     },
+        //     enablePullDown: true,
+        //     enablePullUp: false,
+        //     controller: refreshController,
+        //     header: MaterialClassicHeader(
+        //         color: ColorComponent.mainColor, backgroundColor: Colors.white),
+        //     child:
+
+        data.isEmpty
+            ? MyAdEmptyPage()
+            : ListView.builder(
+                padding: EdgeInsets.only(
+                    bottom: MediaQuery.of(context).padding.bottom),
+                controller: scrollController,
+                itemCount: data.length,
+                itemBuilder: (context, index) {
+                  Map item = data[index];
+                  return MyAdItem(
+                      data: item,
+                      onPressed: (id) {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => ViewMyAdPage(id: id)));
+                      },
+                      showOptions: showOptions,
+                      showListPromotionPage: (value) {});
+                },
+                // )
+              );
   }
 
   Tab TopTabButton(Map value) {

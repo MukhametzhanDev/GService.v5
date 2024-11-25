@@ -84,7 +84,7 @@ class _GetSelectPageState extends State<GetSelectPage> {
         page += 1;
         setState(() {});
         Response response = await dio.get(widget.value['url'],
-            queryParameters: {"page": page.toString(), "title": title});
+            queryParameters: {"page": page.toString(), "title": title,...getParam()});
         print(response.data);
         if (response.statusCode == 200) {
           data.addAll(response.data['data']);

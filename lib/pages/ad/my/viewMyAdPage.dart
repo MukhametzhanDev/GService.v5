@@ -1,376 +1,409 @@
-// import 'package:dio/dio.dart';
-// import 'package:flutter/material.dart';
-// import 'package:flutter/services.dart';
-// import 'package:flutter_svg/svg.dart';
-// import 'package:gservice5/component/appBar/fadeOnScroll.dart';
-// import 'package:gservice5/component/button/back/backIconButton.dart';
-// import 'package:gservice5/component/dio/dio.dart';
-// import 'package:gservice5/component/formatted/price/priceFormat.dart';
-// import 'package:gservice5/component/loader/loaderComponent.dart';
-// import 'package:gservice5/component/snackBar/snackBarComponent.dart';
-// import 'package:gservice5/component/theme/colorComponent.dart';
-// import 'package:gservice5/pages/ad/my/optionsMyAdPageModal.dart';
-// import 'package:gservice5/pages/ad/my/request/myAdRequest.dart';
-// import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
+import 'package:dio/dio.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:gservice5/component/appBar/fadeOnScroll.dart';
+import 'package:gservice5/component/button/back/backIconButton.dart';
+import 'package:gservice5/component/button/button.dart';
+import 'package:gservice5/component/button/shareButton.dart';
+import 'package:gservice5/component/description/showDescriptionWidget.dart';
+import 'package:gservice5/component/dio/dio.dart';
+import 'package:gservice5/component/image/slider/sliderImageWidget.dart';
+import 'package:gservice5/component/loader/loaderComponent.dart';
+import 'package:gservice5/component/snackBar/snackBarComponent.dart';
+import 'package:gservice5/component/statistic/analyticAdWidget.dart';
+import 'package:gservice5/component/theme/colorComponent.dart';
+import 'package:gservice5/component/widgets/bottom/bottomNavigationBarComponent.dart';
+import 'package:gservice5/component/widgets/characteristic/showCharacteristicWidget.dart';
+import 'package:gservice5/pages/ad/my/optionsMyAdPageModal.dart';
+import 'package:gservice5/pages/ad/my/request/myAdRequest.dart';
+import 'package:gservice5/pages/ad/viewCharacteristicWidget.dart';
+import 'package:gservice5/pages/application/my/myApplicationItem.dart';
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
-// class ViewMyAdPage extends StatefulWidget {
-//   final int id;
-//   const ViewMyAdPage({super.key, required this.id});
+class ViewMyAdPage extends StatefulWidget {
+  final int id;
+  const ViewMyAdPage({super.key, required this.id});
 
-//   @override
-//   State<ViewMyAdPage> createState() => _ViewMyAdPageState();
-// }
+  @override
+  State<ViewMyAdPage> createState() => _ViewMyAdPageState();
+}
 
-// class _ViewMyAdPageState extends State<ViewMyAdPage> {
-//   Map data = {};
-//   bool loader = true;
-//   final ScrollController scrollController = ScrollController();
+class _ViewMyAdPageState extends State<ViewMyAdPage> {
+  final ScrollController scrollController = ScrollController();
+  Map data = {};
+  bool loader = true;
 
-//   @override
-//   void initState() {
-//     super.initState();
-//     getData();
-//   }
+  @override
+  void initState() {
+    super.initState();
+    getData();
+  }
 
-//   @override
-//   void dispose() {
-//     scrollController.dispose();
-//     super.dispose();
-//   }
+  @override
+  void dispose() {
+    scrollController.dispose();
+    super.dispose();
+  }
 
-//   Future getData() async {
-//     try {
-//       Response response = await dio.get("/ad/${widget.id}");
-//       print(response.data['data']['status']);
-//       if (response.data['success']) {
-//         data = response.data['data'];
-//         loader = false;
-//         setState(() {});
-//       } else {
-//         SnackBarComponent().showErrorMessage(response.data['message'], context);
-//       }
-//       print(response.data);
-//     } on PlatformException catch (e) {
-//       print(e);
-//       SnackBarComponent().showNotGoBackServerErrorMessage(context);
-//     }
-//   }
+  Future getData() async {
+    try {
+      Response response = await dio.get("/ad/${widget.id}");
+      print(response.data['data']['status']);
+      if (response.data['success']) {
+        data = response.data['data'];
+        loader = false;
+        setState(() {});
+      } else {
+        SnackBarComponent().showErrorMessage(response.data['message'], context);
+      }
+      print(response.data);
+    } on DioException catch (e) {
+      print(e);
+      SnackBarComponent().showNotGoBackServerErrorMessage(context);
+    }
+  }
 
-//   Future unZipAd() async {
-//     if (await MyAdRequest().unZipAd(data['id'], context)) {
-//       Navigator.pop(context, "update");
-//     }
-//   }
+  Future unZipAd() async {
+    if (await MyAdRequest().unZipAd(data['id'], context)) {
+      Navigator.pop(context, "update");
+    }
+  }
 
-//   Future restoreAd() async {
-//     if (await MyAdRequest().restoreAd(data['id'], context)) {
-//       Navigator.pop(context, "update");
-//     }
-//   }
+  Future restoreAd() async {
+    if (await MyAdRequest().restoreAd(data['id'], context)) {
+      Navigator.pop(context, "update");
+    }
+  }
 
-//   void showPromotionAdPage() {
-//     // Navigator.push(
-//     //     context,
-//     //     MaterialPageRoute(
-//     //         builder: (context) => ListPromotionPage(
-//     //             rubricId: 6, adId: data['id'], goBack: true)));
-//   }
+  void showPromotionAdPage() {
+    // Navigator.push(
+    //     context,
+    //     MaterialPageRoute(
+    //         builder: (context) => ListPromotionPage(
+    //             rubricId: 6, adId: data['id'], goBack: true)));
+  }
 
-//   void showOptionsModal(Map data) {
-//     showCupertinoModalBottomSheet(
-//             context: context,
-//             builder: (context) =>
-//                 OptionsMyAdPageModal(data: data, status: data['status']))
-//         .then((value) {
-//       if (value != null) {
-//         Navigator.pop(context, value);
-//       }
-//     });
-//   }
+  void showOptionsModal(Map data) {
+    showCupertinoModalBottomSheet(
+            context: context,
+            builder: (context) =>
+                OptionsMyAdPageModal(data: data, status: data['status']))
+        .then((value) {
+      if (value != null) {
+        Navigator.pop(context, value);
+      }
+    });
+  }
 
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       body: loader
-//           ? LoaderComponent()
-//           : CustomScrollView(controller: scrollController, slivers: [
-//               SliverAppBar(
-//                 pinned: true,
-//                 leading: const BackIconButton(),
-//                 centerTitle: false,
-//                 actions: [],
-//                 title: FadeOnScroll(
-//                   scrollController: scrollController,
-//                   fullOpacityOffset: 180,
-//                   child: Column(
-//                     crossAxisAlignment: CrossAxisAlignment.start,
-//                     children: [
-//                       Text(data['title'],
-//                           style: TextStyle(
-//                               fontSize: 14, fontWeight: FontWeight.w500),
-//                           maxLines: 1),
-//                       Text("123123",
-//                           style: TextStyle(
-//                               fontSize: 14, fontWeight: FontWeight.w600),
-//                           maxLines: 1),
-//                     ],
-//                   ),
-//                 ),
-//               ),
-//               SliverToBoxAdapter(
-//                 child: Column(
-//                   crossAxisAlignment: CrossAxisAlignment.start,
-//                   children: [
-//                     Padding(
-//                       padding: const EdgeInsets.all(16),
-//                       child: Column(
-//                         crossAxisAlignment: CrossAxisAlignment.start,
-//                         children: [
-//                           Text(data['title'],
-//                               style: TextStyle(
-//                                   fontSize: 16, fontWeight: FontWeight.w600)),
-//                           const SizedBox(height: 8),
-//                           // PriceTextWidget(data['price'], data['current']),
-//                           const SizedBox(height: 8),
-//                           Container(
-//                               decoration: BoxDecoration(
-//                                   borderRadius: BorderRadius.vertical(
-//                                       top: Radius.circular(8))),
-//                               child: Row(
-//                                 mainAxisAlignment:
-//                                     MainAxisAlignment.spaceBetween,
-//                                 children: [
-//                                   Container(
-//                                     width:
-//                                         MediaQuery.of(context).size.width - 32,
-//                                     child: Wrap(
-//                                       runSpacing: 10,
-//                                       children: [
-//                                         Container(
-//                                             margin: EdgeInsets.only(right: 8),
-//                                             padding: EdgeInsets.symmetric(
-//                                                 horizontal: 8, vertical: 3),
-//                                             decoration: BoxDecoration(
-//                                                 color: Color(0xffDEF7EC),
-//                                                 borderRadius:
-//                                                     BorderRadius.circular(4)),
-//                                             child: Text(
-//                                               "Продажа",
-//                                               style: TextStyle(
-//                                                   fontWeight: FontWeight.w600,
-//                                                   fontSize: 12),
-//                                               maxLines: 1,
-//                                               overflow: TextOverflow.fade,
-//                                               softWrap: false,
-//                                             )),
-//                                         Container(
-//                                             margin: EdgeInsets.only(right: 8),
-//                                             padding: EdgeInsets.symmetric(
-//                                                 horizontal: 8, vertical: 3),
-//                                             decoration: BoxDecoration(
-//                                                 color: Color(0xffFDF6B2),
-//                                                 borderRadius:
-//                                                     BorderRadius.circular(4)),
-//                                             child: Text(
-//                                               data['category']['title'],
-//                                               style: TextStyle(
-//                                                   fontWeight: FontWeight.w600,
-//                                                   fontSize: 12),
-//                                               maxLines: 1,
-//                                               overflow: TextOverflow.fade,
-//                                               softWrap: false,
-//                                             )),
-//                                         // StickersWidget(),
-//                                       ],
-//                                     ),
-//                                   ),
-//                                 ],
-//                               )),
-//                         ],
-//                       ),
-//                     ),
-//                     SliderImageWidget(images: data['images']),
-//                     SizedBox(height: 8),
-//                     Padding(
-//                       padding: const EdgeInsets.symmetric(
-//                           horizontal: 15, vertical: 4),
-//                       child: Row(
-//                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-//                         children: [
-//                           Container(
-//                             constraints: BoxConstraints(
-//                                 maxWidth:
-//                                     MediaQuery.of(context).size.width / 2 - 15),
-//                             child: Row(
-//                               crossAxisAlignment: CrossAxisAlignment.start,
-//                               children: [
-//                                 Padding(
-//                                   padding: const EdgeInsets.only(top: 1),
-//                                   child: SvgPicture.asset(
-//                                       'assets/icons/pinOutline.svg',
-//                                       color: ColorComponent.gray['500'],
-//                                       width: 16),
-//                                 ),
-//                                 const SizedBox(width: 4),
-//                                 Expanded(
-//                                   child: Text(data['city']['title'],
-//                                       style: TextStyle(
-//                                           color: ColorComponent.gray['500'],
-//                                           fontSize: 12,
-//                                           fontWeight: FontWeight.w500)),
-//                                 )
-//                               ],
-//                             ),
-//                           ),
-//                           Row(
-//                             crossAxisAlignment: CrossAxisAlignment.center,
-//                             children: [
-//                               SvgPicture.asset('assets/icons/eye.svg',
-//                                   color: ColorComponent.gray['500'], width: 16),
-//                               const SizedBox(width: 4),
-//                               Text("${data['views']} просмотров",
-//                                   style: TextStyle(
-//                                       color: ColorComponent.gray['500'],
-//                                       fontSize: 12,
-//                                       fontWeight: FontWeight.w500)),
-//                             ],
-//                           ),
-//                         ],
-//                       ),
-//                     ),
-//                     Divider(
-//                         color: ColorComponent.gray['500'],
-//                         indent: 15,
-//                         endIndent: 15),
-//                     AnalyticAdWidget(data: data['statistics']),
-//                     Divider(
-//                         color: ColorComponent.gray200,
-//                         indent: 15,
-//                         endIndent: 15),
-//                     ViewCharacteristicWidget(
-//                         characteristics: data['characteristics']),
-//                     SizedBox(height: 15),
-//                     Padding(
-//                       padding: const EdgeInsets.symmetric(horizontal: 15.0),
-//                       child: ViewAddressMapWidget(data: data),
-//                     ),
-//                     SizedBox(height: 15),
-//                     Padding(
-//                       padding: const EdgeInsets.symmetric(horizontal: 15),
-//                       child: Row(
-//                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-//                         children: [
-//                           Text("ID ${data['id']}",
-//                               style: TextStyle(
-//                                   color: ColorComponent.gray500, fontSize: 12)),
-//                           Text(formattedDate(data['created_at']),
-//                               style: TextStyle(
-//                                   color: ColorComponent.gray500, fontSize: 12)),
-//                         ],
-//                       ),
-//                     ),
-//                     SizedBox(height: 15),
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+        body: loader
+            ? LoaderComponent()
+            : CustomScrollView(controller: scrollController, slivers: [
+                SliverAppBar(
+                  pinned: true,
+                  leading: const BackIconButton(),
+                  centerTitle: false,
+                  actions: [
+                    // FavoriteButton(iconColor: ColorTheme['black_white']),
+                    ShareButton(id: widget.id, hasAd: true),
+                    Divider(indent: 15)
+                  ],
+                  title: FadeOnScroll(
+                    scrollController: scrollController,
+                    fullOpacityOffset: 180,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text("Экскаватор погрузчик 3CX",
+                            style: TextStyle(
+                                fontSize: 14,
+                                fontWeight: FontWeight.w500,
+                                color: ColorComponent.blue['700']),
+                            maxLines: 1),
+                        Divider(height: 4),
+                        Row(
+                            crossAxisAlignment: CrossAxisAlignment.end,
+                            children: [
+                              RichText(
+                                  text: TextSpan(
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.w600,
+                                          color: Colors.black),
+                                      children: [
+                                    TextSpan(
+                                        text: "3 000 ",
+                                        style: TextStyle(fontSize: 13)),
+                                    TextSpan(
+                                        text: "тг./час",
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.w400,
+                                            fontSize: 12)),
+                                  ])),
+                              Text(
+                                "  |  ",
+                                style: TextStyle(
+                                    color: ColorComponent.gray['300'],
+                                    fontSize: 13),
+                              ),
+                              RichText(
+                                  text: TextSpan(
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.w500,
+                                          color: Colors.black),
+                                      children: [
+                                    TextSpan(
+                                        text: "25 000 ",
+                                        style: TextStyle(fontSize: 13)),
+                                    TextSpan(
+                                        text: "тг./смена",
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.w400,
+                                            fontSize: 12)),
+                                  ]))
+                            ]),
+                      ],
+                    ),
+                  ),
+                ),
+                SliverToBoxAdapter(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 16, vertical: 8),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            // RichText(
+                            //     textAlign: TextAlign.start,
+                            //     text: TextSpan(
+                            //         style: TextStyle(
+                            //             fontSize: 20, fontWeight: FontWeight.w600),
+                            //         children: [
+                            //           TextSpan(
+                            //               text: "JCB 3CX ",
+                            //               style: TextStyle(color: Colors.black)),
+                            //           TextSpan(
+                            //               text: "Экскаватор погрузчик",
+                            //               style: TextStyle(
+                            //                   color: ColorComponent.gray['500'])),
+                            //         ])),
 
-//                     // Padding(
-//                     //   padding: const EdgeInsets.symmetric(horizontal: 16),
-//                     //   child: Column(
-//                     //     crossAxisAlignment: CrossAxisAlignment.start,
-//                     //     children: [
-//                     //       const Padding(
-//                     //         padding: EdgeInsets.only(bottom: 8.0),
-//                     //         child: Row(children: [
-//                     //           Expanded(child: Text("Модель: ")),
-//                     //           Expanded(
-//                     //               child: Text("МТЗ Белорус",
-//                     //                   style: TextStyle(
-//                     //                       fontWeight: FontWeight.w600)))
-//                     //         ]),
-//                     //       ),
-//                     //       const Padding(
-//                     //         padding: EdgeInsets.only(bottom: 8.0),
-//                     //         child: Row(children: [
-//                     //           Expanded(child: Text("Модель: ")),
-//                     //           Expanded(
-//                     //               child: Text("МТЗ Белорус",
-//                     //                   style: TextStyle(
-//                     //                       fontWeight: FontWeight.w600)))
-//                     //         ]),
-//                     //       ),
-//                     //       const Padding(
-//                     //         padding: EdgeInsets.only(bottom: 8.0),
-//                     //         child: Row(children: [
-//                     //           Expanded(child: Text("Модель:")),
-//                     //           SizedBox(width: 6),
-//                     //           Expanded(
-//                     //               child: Text("МТЗ Белорус",
-//                     //                   style: TextStyle(
-//                     //                       fontWeight: FontWeight.w600)))
-//                     //         ]),
-//                     //       ),
-//                     //       const SizedBox(height: 16),
-//                     //       Text(data['description'],
-//                     //           style: TextStyle(height: 1.6)),
-//                     //       SizedBox(height: 15)
-//                     //     ],
-//                     //   ),
-//                     // ),
-//                   ],
-//                 ),
-//               )
-//             ]),
-//       bottomNavigationBar: loader
-//           ? null
-//           : BottomNavigationBarComponent(
-//               child: data['status'] == "archived"
-//                   ? ButtonComponent(
-//                       onPressed: unZipAd,
-//                       title: "Разархивировать",
-//                       backgroundColor: ColorComponent.green500,
-//                       titleColor: Colors.white,
-//                       margin: true)
-//                   : data['status'] == "deleted"
-//                       ? ButtonComponent(
-//                           onPressed: restoreAd,
-//                           title: "Восстановить",
-//                           backgroundColor: ColorComponent.green500,
-//                           titleColor: Colors.white,
-//                           margin: true)
-//                       : Row(
-//                           children: [
-//                             Expanded(
-//                               child: ButtonComponent(
-//                                   onPressed: showPromotionAdPage,
-//                                   title: "Продвижение",
-//                                   backgroundColor: ColorComponent.orange,
-//                                   titleColor: Colors.white,
-//                                   margin: true),
-//                             ),
-//                             GestureDetector(
-//                               onTap: () {
-//                                 showOptionsModal(data);
-//                               },
-//                               child: Container(
-//                                 height: 40,
-//                                 padding:
-//                                     const EdgeInsets.symmetric(horizontal: 8),
-//                                 child: Row(
-//                                   children: [
-//                                     Text(
-//                                       "Править",
-//                                       style: TextStyle(
-//                                           fontSize: 15,
-//                                           fontWeight: FontWeight.w500),
-//                                     ),
-//                                     const SizedBox(width: 12),
-//                                     SvgPicture.asset('assets/icons/dots.svg',
-//                                         width: 18)
-//                                   ],
-//                                 ),
-//                               ),
-//                             ),
-//                             SizedBox(width: 15)
-//                           ],
-//                         )),
-//     );
-//   }
-// }
+                            Row(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Expanded(
+                                  child: Row(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text("Экскаватор погрузчик ",
+                                          style: TextStyle(
+                                              fontSize: 18,
+                                              color: ColorComponent.blue['700'],
+                                              fontWeight: FontWeight.w600)),
+                                      Text("JCB 3CX",
+                                          style: TextStyle(
+                                              fontSize: 18,
+                                              color: ColorComponent.blue['700'],
+                                              fontWeight: FontWeight.w600)),
+                                    ],
+                                  ),
+                                ),
+                                Divider(indent: 16),
+                                Container(
+                                  height: 24,
+                                  padding: EdgeInsets.symmetric(horizontal: 8),
+                                  alignment: Alignment.center,
+                                  decoration: BoxDecoration(
+                                      color: ColorComponent.mainColor,
+                                      borderRadius: BorderRadius.circular(6)),
+                                  child: Text(
+                                    data['category']['title'],
+                                    style: TextStyle(
+                                        height: 1,
+                                        fontSize: 12,
+                                        fontWeight: FontWeight.w600),
+                                  ),
+                                ),
+                              ],
+                            ),
+                            Divider(height: 6),
+                            Row(
+                                crossAxisAlignment: CrossAxisAlignment.end,
+                                children: [
+                                  RichText(
+                                      text: TextSpan(
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.w600,
+                                              color: Colors.black),
+                                          children: [
+                                        TextSpan(
+                                            text: "3 000 ",
+                                            style: TextStyle(fontSize: 15)),
+                                        TextSpan(
+                                            text: "тг./час",
+                                            style: TextStyle(
+                                                fontWeight: FontWeight.w400,
+                                                fontSize: 14)),
+                                      ])),
+                                  Text(
+                                    "  |  ",
+                                    style: TextStyle(
+                                        color: ColorComponent.gray['300']),
+                                  ),
+                                  RichText(
+                                      text: TextSpan(
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.w600,
+                                              color: Colors.black),
+                                          children: [
+                                        TextSpan(
+                                            text: "25 000 ",
+                                            style: TextStyle(fontSize: 15)),
+                                        TextSpan(
+                                            text: "тг./смена",
+                                            style: TextStyle(
+                                                fontWeight: FontWeight.w400,
+                                                fontSize: 14)),
+                                      ]))
+                                ]),
+                            const SizedBox(height: 4),
+                            // Row(
+                            //   children: [const ShowStickersList()],
+                            // ),
+                            // Divider(height: 4),
+                          ],
+                        ),
+                      ),
+                      SliderImageWidget(images: data['images']),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 16),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            // Divider(indent: 24),
+                            Text("Статистика",
+                                style: TextStyle(
+                                    fontSize: 18, fontWeight: FontWeight.w600)),
+                            Divider(height: 10),
+                            AnalyticAdWidget(data: data['statistics']),
+                            Divider(height: 16),
+                            Divider(
+                                height: 1, color: ColorComponent.gray['100']),
+                            Divider(height: 16),
+                            Text("Характеристики",
+                                style: TextStyle(
+                                    fontSize: 18, fontWeight: FontWeight.w600)),
+                            Divider(height: 4),
+                            ShowCharacteristicWidget(
+                                title: "Город",
+                                subTitle: data['city']['title']),
+                            ShowCharacteristicWidget(
+                                title: "Тип",
+                                subTitle: data['transport_type']?['title']),
+                            ShowCharacteristicWidget(
+                                title: "Марка",
+                                subTitle: data['transport_brand']?['title']),
+                            ShowCharacteristicWidget(
+                                title: "Модель",
+                                subTitle: data['transport_model']?['title']),
+                            ShowCharacteristicWidget(
+                                title: "Профессия",
+                                subTitle: data['profession']?['title']),
+                            ShowCharacteristicWidget(
+                                title: "Категория товара",
+                                subTitle: data['spare_part_category']
+                                    ?['title']),
+                            ShowCharacteristicWidget(
+                                title: "Рубрика товара",
+                                subTitle: data['spare_part_rubric']?['title']),
+                            ShowCharacteristicWidget(
+                                title: "Производитель",
+                                subTitle: data['spare_part_brand']?['title']),
+                            ViewCharacteristicWidget(
+                                characteristics: data['characteristics']),
+                            const SizedBox(height: 10),
+                            ShowDescriptionWidget(desc: data['description']),
+                            Divider(height: 12),
+                            Divider(
+                                height: 1, color: ColorComponent.gray['100']),
+                            Divider(height: 12),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text("ID: ${data['id']}",
+                                    style: TextStyle(
+                                        color: ColorComponent.gray["500"],
+                                        fontSize: 12)),
+                                Text(formattedDate(data['created_at']),
+                                    style: TextStyle(
+                                        color: ColorComponent.gray["500"],
+                                        fontSize: 12)),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ]),
+        bottomNavigationBar: loader
+            ? null
+            : BottomNavigationBarComponent(
+                child: data['status'] == "archived"
+                    ? Button(
+                        onPressed: unZipAd,
+                        title: "Разархивировать",
+                        backgroundColor: ColorComponent.mainColor,
+                        padding: EdgeInsets.symmetric(horizontal: 15),
+                      )
+                    : data['status'] == "deleted"
+                        ? Button(
+                            onPressed: restoreAd,
+                            title: "Восстановить",
+                            backgroundColor: ColorComponent.mainColor,
+                            padding: EdgeInsets.symmetric(horizontal: 15),
+                          )
+                        : Row(
+                            children: [
+                              Expanded(
+                                child: Button(
+                                  onPressed: showPromotionAdPage,
+                                  title: "Поднять в ТОП",
+                                  backgroundColor: ColorComponent.mainColor,
+                                  padding: EdgeInsets.symmetric(horizontal: 15),
+                                ),
+                              ),
+                              GestureDetector(
+                                onTap: () {
+                                  showOptionsModal(data);
+                                },
+                                child: Container(
+                                  height: 40,
+                                  padding:
+                                      const EdgeInsets.symmetric(horizontal: 8),
+                                  child: Row(
+                                    children: [
+                                      Text(
+                                        "Править",
+                                        style: TextStyle(
+                                            fontSize: 15,
+                                            fontWeight: FontWeight.w500),
+                                      ),
+                                      const SizedBox(width: 12),
+                                      SvgPicture.asset('assets/icons/dots.svg',
+                                          width: 18)
+                                    ],
+                                  ),
+                                ),
+                              ),
+                              SizedBox(width: 15)
+                            ],
+                          )));
+  }
+}

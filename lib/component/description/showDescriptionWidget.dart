@@ -3,7 +3,8 @@ import 'package:gservice5/component/theme/colorComponent.dart';
 import 'package:readmore/readmore.dart';
 
 class ShowDescriptionWidget extends StatelessWidget {
-  const ShowDescriptionWidget({super.key});
+  final String desc;
+  const ShowDescriptionWidget({super.key, required this.desc});
 
   @override
   Widget build(BuildContext context) {
@@ -12,7 +13,7 @@ class ShowDescriptionWidget extends StatelessWidget {
           style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600)),
       Divider(height: 8),
       ReadMoreText(
-        "Вниманию всех потенциальных клиентов и заинтересованных лиц в Республике Казахстан: ТОО ZOOMLION Central Asia является исключительным правообладателем товарного знака ZOOMLION на территории Республики правообладателем товарного знака ZOOMLION на территории Республики правообладателем товарного знака ZOOMLION на территории Республики",
+        desc,
         trimMode: TrimMode.Line,
         trimLines: 5,
         trimCollapsedText: 'еще',

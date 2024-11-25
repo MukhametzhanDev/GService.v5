@@ -43,7 +43,7 @@ class MyAdRequest {
   Future restoreAd(int adId, BuildContext context) async {
     showModalLoader(context);
     try {
-      Response response = await dio.post('/restore-deleted-ad/$adId');
+      Response response = await dio.post('/restore-ad/$adId');
       Navigator.pop(context);
       if (response.data['success']) {
         return true;

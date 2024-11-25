@@ -1,7 +1,6 @@
 import 'package:currency_text_input_formatter/currency_text_input_formatter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:gservice5/component/button/back/backTitleButton.dart';
 import 'package:gservice5/component/button/button.dart';
 import 'package:gservice5/component/functions/number/getIntNumber.dart';
 import 'package:gservice5/component/message/explanatoryMessage.dart';
@@ -28,8 +27,8 @@ class PriceCreateAdPage extends StatefulWidget {
 
 class _PriceCreateAdPageState extends State<PriceCreateAdPage> {
   TextEditingController priceEditingController = TextEditingController();
-  TextEditingController priceFromEditingController = TextEditingController();
-  TextEditingController priceToEditingController = TextEditingController();
+  TextEditingController formPriceEditingController = TextEditingController();
+  TextEditingController toPriceEditingController = TextEditingController();
   bool negotiablePrice = false;
   CurrencyTextInputFormatter currencyTextInputFormatter =
       CurrencyTextInputFormatter(
@@ -39,8 +38,8 @@ class _PriceCreateAdPageState extends State<PriceCreateAdPage> {
 
   void verifyData() {
     String price = priceEditingController.text.trim();
-    String priceFrom = priceFromEditingController.text.trim();
-    String priceTo = priceToEditingController.text.trim();
+    String priceFrom = formPriceEditingController.text.trim();
+    String priceTo = toPriceEditingController.text.trim();
     if (!negotiablePrice) {
       if (widget.data['price_per_shift'] && widget.data['price_per_hour']) {
         if (priceFrom.isNotEmpty || priceTo.isNotEmpty) {
@@ -61,20 +60,31 @@ class _PriceCreateAdPageState extends State<PriceCreateAdPage> {
   }
 
   @override
+  void initState() {
+    print(widget.data);
+    super.initState();
+  }
+
+  @override
   void dispose() {
     priceEditingController.dispose();
+    formPriceEditingController.dispose();
+    toPriceEditingController.dispose();
     super.dispose();
   }
 
   void savedData() {
-    Map createData = CreateData.data;
+    CreateData.data.addAll({"price": {}});
+    Map createData = CreateData.data['price'];
     if (widget.data['price_per_shift'] && widget.data['price_per_hour']) {
       if (!negotiablePrice) {
-        createData['price_from'] = getIntComponent(priceEditingController.text);
-        createData['price_to'] = getIntComponent(priceEditingController.text);
+        createData['price_per_shift'] =
+            getIntComponent(formPriceEditingController.text);
+        createData['price_per_hour'] =
+            getIntComponent(toPriceEditingController.text);
       } else {
-        createData.remove("price_from");
-        createData.remove("price_to");
+        createData.remove("price_per_shift");
+        createData.remove("price_per_hour");
       }
     } else {
       if (!negotiablePrice) {
@@ -89,12 +99,12 @@ class _PriceCreateAdPageState extends State<PriceCreateAdPage> {
     savedData();
     widget.nextPage();
     pageControllerIndexedStack.nextPage();
+    print(CreateData.data);
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-    
       body: SingleChildScrollView(
         padding: EdgeInsets.all(15),
         child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
@@ -121,7 +131,7 @@ class _PriceCreateAdPageState extends State<PriceCreateAdPage> {
                         autofocus: true,
                         keyboardType: TextInputType.number,
                         style: TextStyle(fontSize: 14, height: 1.1),
-                        controller: priceFromEditingController,
+                        controller: formPriceEditingController,
                         decoration: InputDecoration(
                             hintText: negotiablePrice
                                 ? 'Договорная'
@@ -138,7 +148,7 @@ class _PriceCreateAdPageState extends State<PriceCreateAdPage> {
                         inputFormatters: [currencyTextInputFormatter],
                         keyboardType: TextInputType.number,
                         style: TextStyle(fontSize: 14, height: 1.1),
-                        controller: priceToEditingController,
+                        controller: toPriceEditingController,
                         decoration: InputDecoration(
                             hintText:
                                 negotiablePrice ? 'Договорная' : 'Цена за час'),

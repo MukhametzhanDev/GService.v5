@@ -23,9 +23,9 @@ class MyAdItem extends StatelessWidget {
       onTap: () {
         onPressed(data['id']);
       },
-      onLongPress: () {
-        showOptions(data);
-      },
+      // onLongPress: () {
+      //   showOptions(data);
+      // },
       child: Container(
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
           decoration: BoxDecoration(
@@ -37,13 +37,17 @@ class MyAdItem extends StatelessWidget {
             const SizedBox(height: 2),
             Row(
               children: [
-                CacheImage(
-                    url: data['images'][0],
-                    // url: data['images'][0]['url'],
-                    width: 96,
-                    height: 96,
-                    borderRadius: 8),
-                const SizedBox(width: 12),
+                data['images'].isEmpty
+                    ? Container()
+                    : Padding(
+                        padding: const EdgeInsets.only(right: 12.0),
+                        child: CacheImage(
+                            url: data['images'][0],
+                            // url: data['images'][0]['url'],
+                            width: 96,
+                            height: 96,
+                            borderRadius: 8),
+                      ),
                 SizedBox(
                     height: 96,
                     child: Column(
@@ -134,141 +138,119 @@ class MyAdItem extends StatelessWidget {
               ],
             ),
             const SizedBox(height: 16),
-            // data['status'] == "archived"
-            //     ? GestureDetector(
-            //         onTap: () {
-            //           showOptions(data);
-            //         },
-            //         child: Container(
-            //           height: 40,
-            //           alignment: Alignment.center,
-            //           decoration: BoxDecoration(
-            //               borderRadius: BorderRadius.circular(8),
-            //               color: ColorComponent.mainColor),
-            //           child: const Text(
-            //             "Разархивировать",
-            //             style: TextStyle(
-            //                 color: Colors.white,
-            //                 fontWeight: FontWeight.w700,
-            //                 fontSize: 15),
-            //           ),
-            //         ),
-            //       )
-            //     : data['status'] == "deleted"
-            //         ? GestureDetector(
-            //             onTap: () {
-            //               showOptions(data);
-            //             },
-            //             child: Container(
-            //               height: 40,
-            //               alignment: Alignment.center,
-            //               decoration: BoxDecoration(
-            //                   borderRadius: BorderRadius.circular(8),
-            //                   color: ColorComponent.mainColor),
-            //               child: const Text(
-            //                 "Восстановить",
-            //                 style: TextStyle(
-            //                     color: Colors.white,
-            //                     fontWeight: FontWeight.w700,
-            //                     fontSize: 15),
-            //               ),
-            //             ),
-            //           )
-            //         :
-            Row(children: [
-              Expanded(
-                child: SizedBox(
-                  height: 36,
-                  child: Button(
-                      onPressed: () {
-                        showListPromotionPage(data);
-                      },
-                      title: "Поднять в ТОП"),
-                ),
-              ),
-              // Expanded(
-              //   child: GestureDetector(
-              //     onTap: () {
-              //       showListPromotionPage(data);
-              //     },
-              //     child: Container(
-              //       height: 40,
-              //       alignment: Alignment.center,
-              //       decoration: BoxDecoration(
-              //           borderRadius: BorderRadius.circular(8),
-              //           color: ColorComponent.mainColor),
-              //       child: const Text("Поднять в ТОП",
-              //           style: TextStyle(
-              //               fontWeight: FontWeight.w700, fontSize: 15)),
-              //     ),
-              //   ),
-              // ),
-              const SizedBox(width: 12),
-              GestureDetector(
-                onTap: () {
-                  showOptions(data);
-                },
-                child: Container(
-                    height: 32,
-                    alignment: Alignment.center,
-                    padding: EdgeInsets.symmetric(horizontal: 8),
-                    child: Row(
-                      children: [
-                        Text("Править",
-                            style:
-                                TextStyle(color: ColorComponent.gray['700'])),
-                        Divider(indent: 12),
-                        SvgPicture.asset('assets/icons/dotsHorizontal.svg')
-                      ],
-                    )),
-              ),
-              // GestureDetector(
-              //   child: Container(
-              //     width: 32,
-              //     height: 32,
-              //     alignment: Alignment.center,
-              //     decoration: BoxDecoration(
-              //         borderRadius: BorderRadius.circular(7),
-              //         color: ColorComponent.blue['100']),
-              //     child: SvgPicture.asset('assets/icons/pen.svg'),
-              //   ),
-              // ),
-              // const SizedBox(width: 8),
-              // GestureDetector(
-              //   child: Container(
-              //     width: 32,
-              //     height: 32,
-              //     alignment: Alignment.center,
-              //     decoration: BoxDecoration(
-              //         borderRadius: BorderRadius.circular(7),
-              //         color: ColorComponent.red['100']),
-              //     child: SvgPicture.asset('assets/icons/trash.svg'),
-              //   ),
-              // )
-              // GestureDetector(
-              //   onTap: () {
-              //     showOptions(data);
-              //   },
-              //   child: Container(
-              //     height: 40,
-              //     padding: const EdgeInsets.symmetric(horizontal: 8),
-              //     child: Row(
-              //       children: [
-              //         Text(
-              //           "Править",
-              //           style: TextStyle(
-              //               color: ColorComponent.gray['500'],
-              //               fontSize: 15,
-              //               fontWeight: FontWeight.w500),
-              //         ),
-              //         const SizedBox(width: 12),
-              //         SvgPicture.asset('assets/icons/dotsHorizontal.svg',
-              //             width: 16)
-              //       ],
-              //     ),
-              //   ),
-              // )
-            ]),
+            data['status'] == "archived"
+                ? SizedBox(
+                    height: 36,
+                    child: Button(
+                        onPressed: () {
+                          showOptions(data);
+                        },
+                        title: "Разархивировать"),
+                  )
+                : data['status'] == "deleted"
+                    ? SizedBox(
+                        height: 36,
+                        child: Button(
+                            onPressed: () {
+                              showOptions(data);
+                            },
+                            title: "Восстановить"),
+                      )
+                    : Row(children: [
+                        Expanded(
+                          child: SizedBox(
+                            height: 36,
+                            child: Button(
+                                onPressed: () {
+                                  showListPromotionPage(data);
+                                },
+                                title: "Поднять в ТОП"),
+                          ),
+                        ),
+                        // Expanded(
+                        //   child: GestureDetector(
+                        //     onTap: () {
+                        //       showListPromotionPage(data);
+                        //     },
+                        //     child: Container(
+                        //       height: 40,
+                        //       alignment: Alignment.center,
+                        //       decoration: BoxDecoration(
+                        //           borderRadius: BorderRadius.circular(8),
+                        //           color: ColorComponent.mainColor),
+                        //       child: const Text("Поднять в ТОП",
+                        //           style: TextStyle(
+                        //               fontWeight: FontWeight.w700, fontSize: 15)),
+                        //     ),
+                        //   ),
+                        // ),
+                        const SizedBox(width: 12),
+                        GestureDetector(
+                          onTap: () {
+                            showOptions(data);
+                          },
+                          child: Container(
+                              height: 32,
+                              alignment: Alignment.center,
+                              padding: EdgeInsets.symmetric(horizontal: 8),
+                              child: Row(
+                                children: [
+                                  Text("Править",
+                                      style: TextStyle(
+                                          color: ColorComponent.gray['700'])),
+                                  Divider(indent: 12),
+                                  SvgPicture.asset(
+                                      'assets/icons/dotsHorizontal.svg')
+                                ],
+                              )),
+                        ),
+                        // GestureDetector(
+                        //   child: Container(
+                        //     width: 32,
+                        //     height: 32,
+                        //     alignment: Alignment.center,
+                        //     decoration: BoxDecoration(
+                        //         borderRadius: BorderRadius.circular(7),
+                        //         color: ColorComponent.blue['100']),
+                        //     child: SvgPicture.asset('assets/icons/pen.svg'),
+                        //   ),
+                        // ),
+                        // const SizedBox(width: 8),
+                        // GestureDetector(
+                        //   child: Container(
+                        //     width: 32,
+                        //     height: 32,
+                        //     alignment: Alignment.center,
+                        //     decoration: BoxDecoration(
+                        //         borderRadius: BorderRadius.circular(7),
+                        //         color: ColorComponent.red['100']),
+                        //     child: SvgPicture.asset('assets/icons/trash.svg'),
+                        //   ),
+                        // )
+                        // GestureDetector(
+                        //   onTap: () {
+                        //     showOptions(data);
+                        //   },
+                        //   child: Container(
+                        //     height: 40,
+                        //     padding: const EdgeInsets.symmetric(horizontal: 8),
+                        //     child: Row(
+                        //       children: [
+                        //         Text(
+                        //           "Править",
+                        //           style: TextStyle(
+                        //               color: ColorComponent.gray['500'],
+                        //               fontSize: 15,
+                        //               fontWeight: FontWeight.w500),
+                        //         ),
+                        //         const SizedBox(width: 12),
+                        //         SvgPicture.asset('assets/icons/dotsHorizontal.svg',
+                        //             width: 16)
+                        //       ],
+                        //     ),
+                        //   ),
+                        // )
+                      ]),
             const SizedBox(height: 14),
             Divider(height: 1, color: ColorComponent.gray['100']),
             const SizedBox(height: 12),
@@ -296,7 +278,7 @@ class MyAdItem extends StatelessWidget {
                   children: [
                     SvgPicture.asset('assets/icons/eye.svg'),
                     const SizedBox(width: 4),
-                    Text(data['views'].toString(),
+                    Text(data['statistics']['viewed'].toString(),
                         // data['city']['title'],
                         style: TextStyle(
                             color: ColorComponent.gray['500'],
@@ -309,7 +291,7 @@ class MyAdItem extends StatelessWidget {
                     SvgPicture.asset('assets/icons/phone.svg',
                         width: 16, color: ColorComponent.gray['500']),
                     const SizedBox(width: 4),
-                    Text(data['views'].toString(),
+                    Text(data['statistics']['called'].toString(),
                         // data['city']['title'],
                         style: TextStyle(
                             color: ColorComponent.gray['500'],

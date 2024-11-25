@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:gservice5/component/button/favoriteButton.dart';
 import 'package:gservice5/component/formatted/number/numberFormatted.dart';
 import 'package:gservice5/component/image/cacheImage.dart';
 import 'package:gservice5/component/modal/contact/shortContactModal.dart';
 import 'package:gservice5/component/stickers/showStickersList.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
 import 'package:gservice5/pages/ad/viewAdPage.dart';
-import 'package:gservice5/pages/ad/viewAdPage2.dart';
 
 class AdItem extends StatefulWidget {
   const AdItem({super.key});
@@ -19,7 +17,7 @@ class AdItem extends StatefulWidget {
 class _AdItemState extends State<AdItem> {
   void showAdPage() {
     Navigator.push(
-        context, MaterialPageRoute(builder: (context) => ViewAdPage2(id: 0)));
+        context, MaterialPageRoute(builder: (context) => ViewAdPage(id: 0)));
   }
 
   @override
