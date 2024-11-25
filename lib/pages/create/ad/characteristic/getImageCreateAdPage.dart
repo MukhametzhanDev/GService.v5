@@ -24,6 +24,7 @@ class _GetImageCreateAdPageState extends State<GetImageCreateAdPage> {
 
   Future postData() async {
     showModalLoader(context);
+    print(CreateData.characteristic);
     try {
       Response response = await dio.post("/ad", data: {
         ...CreateData.data,

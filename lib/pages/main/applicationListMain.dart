@@ -5,6 +5,7 @@ import 'package:gservice5/component/formatted/price/priceFormat.dart';
 import 'package:gservice5/component/modal/contact/shortContactModal.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
 import 'package:gservice5/pages/application/applicationListPage.dart';
+import 'package:gservice5/pages/application/smallApplicationItem.dart';
 import 'package:gservice5/pages/application/viewApplicationPage.dart';
 
 class ApplicationListMain extends StatefulWidget {
@@ -16,7 +17,7 @@ class ApplicationListMain extends StatefulWidget {
 
 class _ApplicationListMainState extends State<ApplicationListMain> {
   List data = [1, 2, 3];
-  void showPage() {
+  void showPage(id) {
     Navigator.push(context,
         MaterialPageRoute(builder: (context) => ViewApplicationPage(id: 0)));
   }
@@ -70,80 +71,18 @@ class _ApplicationListMainState extends State<ApplicationListMain> {
                   if (index == data.length - 1) {
                     return Row(
                       children: [
-                        ApplicationItemMain(onPressed: showPage, index: index),
+                        SmallApplicationItem(
+                            onPressed: showPage, data: {}, position: "main"),
                         ShowMoreApplicaiton()
                       ],
                     );
                   }
-                  return ApplicationItemMain(onPressed: showPage, index: index);
+                  return SmallApplicationItem(
+                      onPressed: showPage, data: {}, position: "main");
                 }).toList(),
               )),
         ),
       ],
-    );
-  }
-}
-
-class ApplicationItemMain extends StatelessWidget {
-  final void Function() onPressed;
-  final int index;
-  const ApplicationItemMain(
-      {super.key, required this.onPressed, required this.index});
-
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: onPressed,
-      onLongPress: () => onLongPressShowNumber({}, context),
-      child: Container(
-        height: 110,
-        margin: EdgeInsets.symmetric(horizontal: 4),
-        constraints:
-            BoxConstraints(maxWidth: MediaQuery.of(context).size.width / 1.4),
-        padding: EdgeInsets.all(12),
-        decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(8),
-            border: Border.all(width: 1, color: Color(0xffeeeeee))),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text(
-              "Нужен экскаватор 2-ух кубовый",
-              style: TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.w400,
-                  color: ColorComponent.blue['700']),
-              maxLines: 1,
-              overflow: TextOverflow.ellipsis,
-            ),
-            Text(priceFormat(index % 2 == 1 ? 1500000 : 0),
-                style: TextStyle(
-                    fontSize: 14,
-                    fontWeight: FontWeight.w600,
-                    color: Colors.black)),
-            Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-              Row(
-                children: [
-                  SvgPicture.asset('assets/icons/pin.svg',
-                      width: 16, color: ColorComponent.gray['500']),
-                  Divider(indent: 4),
-                  Text(
-                    "г. Алматы",
-                    style: TextStyle(
-                        fontSize: 12,
-                        color: ColorComponent.gray['500'],
-                        fontWeight: FontWeight.w500),
-                  ),
-                ],
-              ),
-              Text("15 Сент.",
-                  style: TextStyle(
-                      fontSize: 12, color: ColorComponent.gray['500'])),
-            ])
-          ],
-        ),
-      ),
     );
   }
 }

@@ -29,7 +29,7 @@ class _GetActivityContractorPageState extends State<GetActivityContractorPage> {
     String? token = await ChangedToken().getToken();
     print(token);
     try {
-      Response response = await dio.post("/business/company-activity",
+      Response response = await dio.post("/company-activity",
           data: {
             "category_id": getIds(categories),
             "transport_type_id": getIds(transportTypes),
@@ -79,9 +79,9 @@ class _GetActivityContractorPageState extends State<GetActivityContractorPage> {
           ExplanatoryMessage(
               title:
                   "По выбранному типу деятельности, вам будут поступать заявки от клиентов",
-              padding: EdgeInsets.zero,
+              padding: EdgeInsets.only(bottom: 15),
               type: "activity"),
-          Divider(),
+          // Divider(),
           MultiSelect(
             title: "Вид деятельности",
             api: "/categories",

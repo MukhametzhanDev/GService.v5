@@ -12,7 +12,12 @@ import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 class GetLogoWidget extends StatefulWidget {
   final void Function(String path) onChanged;
   final String? imageUrl;
-  const GetLogoWidget({super.key, required this.onChanged, this.imageUrl});
+  final String? role;
+  const GetLogoWidget(
+      {super.key,
+      required this.onChanged,
+      this.imageUrl,
+      @required this.role});
 
   @override
   State<GetLogoWidget> createState() => _GetLogoWidgetState();
@@ -107,9 +112,13 @@ class _GetLogoWidgetState extends State<GetLogoWidget> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                      widget.imageUrl != null
-                          ? "Изменить логотип компании"
-                          : "Загрузить логотип компании",
+                      widget.role == null
+                          ? widget.imageUrl != null
+                              ? "Изменить логотип компании"
+                              : "Загрузить логотип компании"
+                          : widget.imageUrl != null
+                              ? "Изменить фото профиля"
+                              : "Загрузить фото профиля",
                       style: TextStyle(
                           fontWeight: FontWeight.w600,
                           color: ColorComponent.gray['500'])),

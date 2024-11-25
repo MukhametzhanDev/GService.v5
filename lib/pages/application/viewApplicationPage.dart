@@ -7,12 +7,11 @@ import 'package:gservice5/component/button/button.dart';
 import 'package:gservice5/component/button/favoriteButton.dart';
 import 'package:gservice5/component/button/shareButton.dart';
 import 'package:gservice5/component/formatted/price/priceFormat.dart';
-import 'package:gservice5/component/image/slider/sliderImageWidget.dart';
-import 'package:gservice5/component/stickers/showStickersList.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
 import 'package:gservice5/component/widgets/author/authorAdWidget.dart';
 import 'package:gservice5/pages/ad/recommendationAdList.dart';
 import 'package:gservice5/pages/application/document/showDocumentWidget.dart';
+import 'package:gservice5/pages/application/recommendationApplicationList.dart';
 
 class ViewApplicationPage extends StatefulWidget {
   final int id;
@@ -52,8 +51,10 @@ class _ViewApplicationPageState extends State<ViewApplicationPage> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text("Нужен экскаватор 2-ух кубовый",
-                      style:
-                          TextStyle(fontSize: 14, fontWeight: FontWeight.w400),
+                      style: TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.w400,
+                          color: ColorComponent.blue['700']),
                       maxLines: 1),
                   Text(priceFormat(0),
                       style:
@@ -73,9 +74,11 @@ class _ViewApplicationPageState extends State<ViewApplicationPage> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const Text("Нужен экскаватор 2-ух кубовый",
+                      Text("Нужен экскаватор 2-ух кубовый",
                           style: TextStyle(
-                              fontSize: 20, fontWeight: FontWeight.w600)),
+                              fontSize: 20,
+                              fontWeight: FontWeight.w600,
+                              color: ColorComponent.blue['700'])),
                       const SizedBox(height: 8),
                       Text(priceFormat(0),
                           style: TextStyle(
@@ -196,8 +199,7 @@ class _ViewApplicationPageState extends State<ViewApplicationPage> {
                     ],
                   ),
                 ),
-                RecommendationAdList(),
-                Divider(),
+                Divider(height: 8),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 15),
                   child: Row(
@@ -212,6 +214,10 @@ class _ViewApplicationPageState extends State<ViewApplicationPage> {
                     ],
                   ),
                 ),
+                Divider(),
+                Divider(height: 1, color: ColorComponent.gray['50']),
+                Divider(),
+                RecommendationApplicationList(),
               ],
             ),
           ),

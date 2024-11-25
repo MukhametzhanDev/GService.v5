@@ -35,7 +35,8 @@ class _EditProfilePageState extends State<EditProfilePage> {
       Navigator.push(
               context,
               MaterialPageRoute(
-                  builder: (context) => ChangeIndividualProfilePage()))
+                  builder: (context) =>
+                      ChangeIndividualProfilePage(data: widget.data)))
           .then((value) => backSendData(value));
     } else if (role == "customer") {
       Navigator.push(
@@ -93,20 +94,23 @@ class _EditProfilePageState extends State<EditProfilePage> {
                     onTap: () => editPasswordPage(),
                     title: Text("Изменить пароль"),
                     trailing: SvgPicture.asset('assets/icons/right.svg'))),
-            Container(
-                decoration: BoxDecoration(
-                    border: Border(
-                        top: BorderSide(width: 1, color: Color(0xffeeeeee)))),
-                child: ListTile(
-                    title: Text("Редактировать контакты"),
-                    trailing: SvgPicture.asset('assets/icons/right.svg'))),
-            Container(
-                decoration: BoxDecoration(
-                    border: Border(
-                        top: BorderSide(width: 1, color: Color(0xffeeeeee)))),
-                child: ListTile(
-                    title: Text("Сменить данные для входа"),
-                    trailing: SvgPicture.asset('assets/icons/right.svg'))),
+            role == "individual"
+                ? Container()
+                : Container(
+                    decoration: BoxDecoration(
+                        border: Border(
+                            top: BorderSide(
+                                width: 1, color: Color(0xffeeeeee)))),
+                    child: ListTile(
+                        title: Text("Редактировать контакты"),
+                        trailing: SvgPicture.asset('assets/icons/right.svg'))),
+            // Container(
+            //     decoration: BoxDecoration(
+            //         border: Border(
+            //             top: BorderSide(width: 1, color: Color(0xffeeeeee)))),
+            //     child: ListTile(
+            //         title: Text("Сменить данные для входа"),
+            //         trailing: SvgPicture.asset('assets/icons/right.svg'))),
           ],
         ),
       ),

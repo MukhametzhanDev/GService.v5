@@ -14,7 +14,7 @@ import 'package:gservice5/component/statistic/analyticAdWidget.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
 import 'package:gservice5/component/widgets/bottom/bottomNavigationBarComponent.dart';
 import 'package:gservice5/component/widgets/characteristic/showCharacteristicWidget.dart';
-import 'package:gservice5/pages/ad/my/optionsMyAdPageModal.dart';
+import 'package:gservice5/pages/ad/my/optionsMyAdModal.dart';
 import 'package:gservice5/pages/ad/my/request/myAdRequest.dart';
 import 'package:gservice5/pages/ad/viewCharacteristicWidget.dart';
 import 'package:gservice5/pages/application/my/myApplicationItem.dart';
@@ -30,7 +30,7 @@ class ViewMyAdPage extends StatefulWidget {
 
 class _ViewMyAdPageState extends State<ViewMyAdPage> {
   final ScrollController scrollController = ScrollController();
-  Map data = {};
+  Map<String, dynamic> data = {};
   bool loader = true;
 
   @override
@@ -83,12 +83,11 @@ class _ViewMyAdPageState extends State<ViewMyAdPage> {
     //             rubricId: 6, adId: data['id'], goBack: true)));
   }
 
-  void showOptionsModal(Map data) {
+  void showOptionsModal(Map<String, dynamic> data) {
     showCupertinoModalBottomSheet(
-            context: context,
-            builder: (context) =>
-                OptionsMyAdPageModal(data: data, status: data['status']))
-        .then((value) {
+        context: context,
+        builder: (context) =>
+            OptionsMyAdModal(data: data, status: data['status'])).then((value) {
       if (value != null) {
         Navigator.pop(context, value);
       }

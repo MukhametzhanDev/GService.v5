@@ -51,6 +51,7 @@ class _ContractorBottomTabState extends State<ContractorBottomTab> {
       body: IndexedStack(index: _selectedIndex, children: [
         MainPage(scrollController: scrollController),
         FavoriteMainPage(),
+        Container(),
         // CreateMainPage(),
         MessageMainPage(),
         ContractorProfilePage(),

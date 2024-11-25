@@ -11,7 +11,6 @@ import 'package:gservice5/component/loader/modalLoaderComponent.dart';
 import 'package:gservice5/component/snackBar/snackBarComponent.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
 import 'package:gservice5/pages/create/data/createData.dart';
-import 'package:gservice5/pages/edit/editData.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
@@ -27,7 +26,7 @@ class GetImageWidget extends StatefulWidget {
 
 class _GetImageWidgetState extends State<GetImageWidget> {
   List<XFile> _images = CreateData.images;
-  List imagesUrl = EditData.adData['images'] ?? [];
+  List imagesUrl = EditData.data['images'] ?? [];
   final ImagePicker _picker = ImagePicker();
 
   Future<void> _pickImages() async {

@@ -14,7 +14,7 @@ class MyApplicationItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        onPressed(data['id']);
+        onPressed(1);
       },
       child: Container(
         decoration: BoxDecoration(

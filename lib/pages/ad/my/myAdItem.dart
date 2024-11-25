@@ -6,9 +6,9 @@ import 'package:gservice5/component/theme/colorComponent.dart';
 import 'package:intl/intl.dart';
 
 class MyAdItem extends StatelessWidget {
-  final Map data;
+  final Map<String, dynamic> data;
   final void Function(int id) onPressed;
-  final void Function(Map data) showOptions;
+  final void Function(Map<String, dynamic> data) showOptions;
   final void Function(Map data) showListPromotionPage;
   const MyAdItem(
       {super.key,

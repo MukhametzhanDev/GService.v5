@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gservice5/component/button/back/backIconButton.dart';
+import 'package:gservice5/component/button/back/backTitleButton.dart';
 import 'package:gservice5/component/button/button.dart';
 import 'package:gservice5/component/snackBar/snackBarComponent.dart';
 import 'package:gservice5/component/textField/passwordTextField.dart';
@@ -39,10 +40,10 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-          automaticallyImplyLeading: false,
           centerTitle: false,
-          leading: BackIconButton(),
-          title: Text("Смена пароля")),
+          leadingWidth: MediaQuery.of(context).size.width - 100,
+          leading: BackTitleButton(
+              title: "Смена пароля", onPressed: () => Navigator.pop(context))),
       body: SingleChildScrollView(
           padding: EdgeInsets.all(16),
           child:

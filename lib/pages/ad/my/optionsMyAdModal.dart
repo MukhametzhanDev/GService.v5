@@ -2,28 +2,28 @@ import 'package:flutter/material.dart';
 import 'package:gservice5/component/button/back/closeIconButton.dart';
 import 'package:gservice5/component/button/button.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
+import 'package:gservice5/pages/ad/my/edit/structureEditAdPage.dart';
 import 'package:gservice5/pages/ad/my/request/myAdRequest.dart';
 
-class OptionsMyAdPageModal extends StatefulWidget {
-  final Map data;
+class OptionsMyAdModal extends StatefulWidget {
+  final Map<String, dynamic> data;
   final String status;
-  const OptionsMyAdPageModal(
-      {super.key, required this.data, required this.status});
+  const OptionsMyAdModal({super.key, required this.data, required this.status});
 
   @override
-  State<OptionsMyAdPageModal> createState() => _OptionsMyAdPageModalState();
+  State<OptionsMyAdModal> createState() => _OptionsMyAdModalState();
 }
 
-class _OptionsMyAdPageModalState extends State<OptionsMyAdPageModal> {
+class _OptionsMyAdModalState extends State<OptionsMyAdModal> {
   void showUpdateAd() {
     //show update ad page
-    // Navigator.push(
-    //     context,
-    //     MaterialPageRoute(
-    //         builder: (context) =>
-    //             UpdateAdCharacteristicPage(data: widget.data))).then((value) {
-    //   Navigator.pop(context, value);
-    // });
+    Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => StructureEditAdPage(data: widget.data)))
+        .then((value) {
+      Navigator.pop(context, value);
+    });
   }
 
   Future removedAd() async {

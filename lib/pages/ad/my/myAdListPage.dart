@@ -7,7 +7,7 @@ import 'package:gservice5/component/snackBar/snackBarComponent.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
 import 'package:gservice5/pages/ad/my/myAdEmptyPage.dart';
 import 'package:gservice5/pages/ad/my/myAdItem.dart';
-import 'package:gservice5/pages/ad/my/optionsMyAdPageModal.dart';
+import 'package:gservice5/pages/ad/my/optionsMyAdModal.dart';
 import 'package:gservice5/pages/ad/my/request/myAdRequest.dart';
 import 'package:gservice5/pages/ad/my/viewMyAdPage.dart';
 import 'package:gservice5/pages/application/my/viewMyApplicationPage.dart';
@@ -46,16 +46,17 @@ class _MyAdListPageState extends State<MyAdListPage>
     getData();
     super.initState();
     scrollController.addListener(() => loadMoreAd());
-    tabController = TabController(length: 3, vsync: this);
-    tabController.addListener(() {
-      currentStatusAd = tabController.index == 0
-          ? "pending"
-          : tabController.index == 1
-              ? "archived"
-              : "deleted";
-      loader = true;
-      getData();
-    });
+    tabController = TabController(length: 3, vsync: this)
+      ..addListener(() {
+        currentStatusAd = tabController.index == 0
+            ? "pending"
+            : tabController.index == 1
+                ? "archived"
+                : "deleted";
+        loader = true;
+        setState(() {});
+        getData();
+      });
   }
 
   @override
@@ -66,10 +67,8 @@ class _MyAdListPageState extends State<MyAdListPage>
   }
 
   Future getCount() async {
-    print("AKLSDAKSD");
     try {
       Response response = await dio.get("/my-ads-status-count");
-      print(response.data);
       if (response.data['success']) {
         Map data = response.data['data'];
         for (var value in _tabs) {
@@ -85,12 +84,12 @@ class _MyAdListPageState extends State<MyAdListPage>
   }
 
   Future getData() async {
+    print('adsf');
     try {
       page = 1;
       setState(() {});
       Response response = await dio
           .get("/my-ads", queryParameters: {"status": currentStatusAd});
-      print(response.data);
       if (response.data['success']) {
         data = response.data['data'];
         hasNextPage = page != response.data['meta']['last_page'];
@@ -119,7 +118,6 @@ class _MyAdListPageState extends State<MyAdListPage>
         };
         Response response =
             await dio.get("/my-ads", queryParameters: parameter);
-        print(response.data);
         if (response.data['success']) {
           data.addAll(response.data['data']);
           hasNextPage = page != response.data['meta']['last_page'];
@@ -152,7 +150,7 @@ class _MyAdListPageState extends State<MyAdListPage>
     });
   }
 
-  void showOptions(Map data) async {
+  void showOptions(Map<String, dynamic> data) async {
     if (data['status'] == "deleted") {
       if (await MyAdRequest().restoreAd(data['id'], context)) {
         updateData(data['id']);
@@ -165,7 +163,7 @@ class _MyAdListPageState extends State<MyAdListPage>
       showCupertinoModalBottomSheet(
               context: context,
               builder: (context) =>
-                  OptionsMyAdPageModal(data: data, status: data['status']))
+                  OptionsMyAdModal(data: data, status: data['status']))
           .then((value) {
         if (value == "update") {
           updateData(data['id']);
@@ -247,7 +245,7 @@ class _MyAdListPageState extends State<MyAdListPage>
                 controller: scrollController,
                 itemCount: data.length,
                 itemBuilder: (context, index) {
-                  Map item = data[index];
+                  Map<String, dynamic> item = data[index];
                   return MyAdItem(
                       data: item,
                       onPressed: (id) {

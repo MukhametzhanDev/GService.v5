@@ -1,13 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:gservice5/component/button/back/backIconButton.dart';
-import 'package:gservice5/component/button/back/backTitleButton.dart';
 import 'package:gservice5/component/button/button.dart';
 import 'package:gservice5/component/snackBar/snackBarComponent.dart';
 import 'package:gservice5/component/textField/closeKeyboard/closeKeyboard.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
 import 'package:gservice5/component/widgets/bottom/bottomNavigationBarComponent.dart';
 import 'package:gservice5/pages/create/ad/characteristic/dataModal.dart';
-import 'package:gservice5/pages/create/ad/characteristic/getImageCreateAdPage.dart';
 import 'package:gservice5/pages/create/ad/characteristic/multipleDataModal.dart';
 import 'package:gservice5/pages/create/data/createData.dart';
 import 'package:gservice5/pages/create/structure/controllerPage/pageControllerIndexedStack.dart';
@@ -62,6 +59,8 @@ class _GetChildCharacteristicPageState
 
   void addData(id, value) {
     CreateData.characteristic.addAll(id);
+    setState(() {});
+    print(id);
   }
 
   @override

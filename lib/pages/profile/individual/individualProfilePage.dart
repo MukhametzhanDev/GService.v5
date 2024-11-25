@@ -6,13 +6,12 @@ import 'package:gservice5/component/dio/dio.dart';
 import 'package:gservice5/component/functions/token/changedToken.dart';
 import 'package:gservice5/component/image/cacheImage.dart';
 import 'package:gservice5/component/loader/loaderComponent.dart';
-import 'package:gservice5/component/loader/modalLoaderComponent.dart';
 import 'package:gservice5/component/snackBar/snackBarComponent.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
 import 'package:gservice5/component/wallet/showWalletWidget.dart';
 import 'package:gservice5/pages/application/my/myApplicationListPage.dart';
+import 'package:gservice5/pages/profile/editProfilePage.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
-import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 class IndividualProfilePage extends StatefulWidget {
   const IndividualProfilePage({super.key});
@@ -49,6 +48,21 @@ class _IndividualProfilePageState extends State<IndividualProfilePage> {
     }
   }
 
+  void showChangeIndividualProfilePage() {
+    Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => EditProfilePage(data: data)))
+        .then((value) => changedDataUser(value));
+  }
+
+  void changedDataUser(Map? value) {
+    if (value != null) {
+      data = value;
+      setState(() {});
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -61,35 +75,39 @@ class _IndividualProfilePageState extends State<IndividualProfilePage> {
           : SingleChildScrollView(
               child: Column(
                 children: [
-                  Container(
-                    padding: EdgeInsets.only(left: 15, right: 15, bottom: 15),
-                    decoration: BoxDecoration(
-                        border: Border(
-                            bottom: BorderSide(
-                                width: 1, color: Color(0xffeeeeee)))),
-                    child: Row(
-                      children: [
-                        CacheImage(
-                            url: data['avatar'],
-                            width: 48,
-                            height: 48,
-                            borderRadius: 24),
-                        Divider(indent: 12),
-                        Expanded(
-                            child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(data['name'],
-                                style: TextStyle(
-                                    fontSize: 16, fontWeight: FontWeight.w600)),
-                            Text("ID: ${data['id']}",
-                                style: TextStyle(
-                                    color: ColorComponent.gray['500']))
-                          ],
-                        )),
-                        SvgPicture.asset('assets/icons/right.svg',
-                            color: Colors.black)
-                      ],
+                  GestureDetector(
+                    onTap: () => showChangeIndividualProfilePage(),
+                    child: Container(
+                      padding: EdgeInsets.only(left: 15, right: 15, bottom: 15),
+                      decoration: BoxDecoration(
+                          border: Border(
+                              bottom: BorderSide(
+                                  width: 1, color: Color(0xffeeeeee)))),
+                      child: Row(
+                        children: [
+                          CacheImage(
+                              url: data['avatar'],
+                              width: 48,
+                              height: 48,
+                              borderRadius: 24),
+                          Divider(indent: 12),
+                          Expanded(
+                              child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(data['name'],
+                                  style: TextStyle(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.w600)),
+                              Text("ID: ${data['id']}",
+                                  style: TextStyle(
+                                      color: ColorComponent.gray['500']))
+                            ],
+                          )),
+                          SvgPicture.asset('assets/icons/right.svg',
+                              color: Colors.black)
+                        ],
+                      ),
                     ),
                   ),
                   ShowWalletWidget(),

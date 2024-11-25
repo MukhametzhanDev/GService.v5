@@ -3,6 +3,7 @@ import 'package:gservice5/component/button/back/closeIconButton.dart';
 import 'package:gservice5/component/button/button.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
 import 'package:gservice5/component/widgets/bottom/bottomNavigationBarComponent.dart';
+import 'package:gservice5/pages/create/data/createData.dart';
 
 class CloseCreateAdAlert extends StatelessWidget {
   const CloseCreateAdAlert({super.key});
@@ -30,6 +31,9 @@ class CloseCreateAdAlert extends StatelessWidget {
               Expanded(
                   child: Button(
                       onPressed: () {
+                        CreateData.data.clear();
+                        CreateData.characteristic.clear();
+                        CreateData.images.clear();
                         Navigator.pop(context);
                         Navigator.pop(context);
                       },

@@ -12,11 +12,8 @@ import 'package:gservice5/component/theme/colorComponent.dart';
 import 'package:gservice5/component/wallet/showWalletWidget.dart';
 import 'package:gservice5/pages/ad/my/myAdListPage.dart';
 import 'package:gservice5/pages/application/my/myApplicationListPage.dart';
-import 'package:gservice5/pages/profile/contractor/changeContractorProfilePage.dart';
-import 'package:gservice5/pages/profile/customer/changeCustomerProfilePage.dart';
 import 'package:gservice5/pages/profile/editProfilePage.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
-import 'package:readmore/readmore.dart';
 
 class CustomerProfilePage extends StatefulWidget {
   const CustomerProfilePage({super.key});
