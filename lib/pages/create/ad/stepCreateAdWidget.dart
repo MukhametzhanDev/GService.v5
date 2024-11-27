@@ -24,7 +24,8 @@ class _StepCreateAdWidgetState extends State<StepCreateAdWidget> {
     int childCharacteristicCount =
         widget.options['characteristics']['is_available'] ? 1 : 0;
     int optionsLength = widget.options['necessary_inputs'].length;
-    int allLength = childCharacteristicCount + optionsLength + 3;
+    int priceLength = widget.options['prices'] == null ? 0 : 1;
+    int allLength = childCharacteristicCount + optionsLength + 2 + priceLength;
     lengthLine = List<int>.generate(allLength, (i) => i + 1);
     setState(() {});
   }
@@ -33,7 +34,7 @@ class _StepCreateAdWidgetState extends State<StepCreateAdWidget> {
     return widget.activeIndex + 1 == index
         ? ColorComponent.mainColor
         : widget.activeIndex + 1 > index
-            ? ColorComponent.mainColor.withOpacity(.4)
+            ? ColorComponent.mainColor.withOpacity(.5)
             : ColorComponent.gray['200'];
   }
 

@@ -10,10 +10,6 @@ class StructureEditAdPage extends StatefulWidget {
 }
 
 class _StructureEditAdPageState extends State<StructureEditAdPage> {
-
-  
-
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -21,9 +17,7 @@ class _StructureEditAdPageState extends State<StructureEditAdPage> {
       body: SingleChildScrollView(
         padding: EdgeInsets.symmetric(horizontal: 15, vertical: 7.5),
         child: Column(
-          children: [
-
-          ],
+          children: [],
         ),
       ),
     );

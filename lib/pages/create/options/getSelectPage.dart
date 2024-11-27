@@ -84,7 +84,11 @@ class _GetSelectPageState extends State<GetSelectPage> {
         page += 1;
         setState(() {});
         Response response = await dio.get(widget.value['url'],
-            queryParameters: {"page": page.toString(), "title": title,...getParam()});
+            queryParameters: {
+              "page": page.toString(),
+              "title": title,
+              ...getParam()
+            });
         print(response.data);
         if (response.statusCode == 200) {
           data.addAll(response.data['data']);
@@ -171,7 +175,13 @@ class _GetSelectPageState extends State<GetSelectPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(children: [
+      body: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+        // Divider(),
+        // Padding(
+        //   padding: const EdgeInsets.symmetric(horizontal: 15),
+        //   child: Text(widget.value['title']['title_ru'],
+        //       style: TextStyle(fontWeight: FontWeight.w600, fontSize: 18)),
+        // ),
         Padding(
             padding: const EdgeInsets.only(right: 15, left: 15, top: 15),
             child: SearchTextField(title: "Поиск", onChanged: searchList)),

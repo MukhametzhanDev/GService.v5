@@ -2,12 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:gservice5/component/badge/badgeBottomTab.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
-import 'package:gservice5/pages/create/createMainPage.dart';
+import 'package:gservice5/pages/ad/my/myAdListPage.dart';
+import 'package:gservice5/pages/create/createSectionPage.dart';
 import 'package:gservice5/pages/favorite/favoriteMainPage.dart';
 import 'package:gservice5/pages/main/mainPage.dart';
 import 'package:gservice5/pages/message/messageMainPage.dart';
 import 'package:gservice5/pages/profile/contractor/contractorProfilePage.dart';
-import 'package:gservice5/pages/profile/verifyProfilePage.dart';
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
 class ContractorBottomTab extends StatefulWidget {
   const ContractorBottomTab({super.key});
@@ -32,10 +33,19 @@ class _ContractorBottomTabState extends State<ContractorBottomTab> {
     if (_selectedIndex == 0 && index == 0) {
       scrollController.animateTo(0,
           duration: Duration(milliseconds: 300), curve: Curves.easeInOut);
-    }
-    setState(() {
+    } else if (index == 2) {
+      showMaterialModalBottomSheet(
+          context: context,
+          builder: (context) => CreateSectionPage()).then((value) {
+        if (value == "ad") {
+          Navigator.push(
+              context, MaterialPageRoute(builder: (context) => MyAdListPage()));
+        }
+      });
+    } else {
       _selectedIndex = index;
-    });
+      setState(() {});
+    }
   }
 
   @override

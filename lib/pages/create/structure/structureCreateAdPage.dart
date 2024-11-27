@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:gservice5/component/alert/closeCreateAdAlert.dart';
+import 'package:gservice5/component/button/back/backIconButton.dart';
 import 'package:gservice5/component/button/back/backTitleButton.dart';
+import 'package:gservice5/component/loader/loaderComponent.dart';
 import 'package:gservice5/component/textField/closeKeyboard/closeKeyboard.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
 import 'package:gservice5/pages/create/ad/characteristic/getCharacteristicAdPage.dart';
@@ -15,6 +17,13 @@ import 'package:gservice5/pages/create/priceCreateAdPage.dart';
 import 'package:gservice5/pages/create/structure/controllerPage/pageControllerIndexedStack.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
+//selects
+//description
+//characteristic
+//child characteristic
+//price
+//image
+
 class StructureCreateAdPage extends StatefulWidget {
   final Map data;
   const StructureCreateAdPage({super.key, required this.data});
@@ -25,35 +34,38 @@ class StructureCreateAdPage extends StatefulWidget {
 
 class _StructureCreateAdPageState extends State<StructureCreateAdPage> {
   PageController pageController = PageController();
+  List<Map> data = [];
   List<Widget> pages = [];
-  bool loader = true;
   double startX = 0;
   double endX = 0;
-  List titles = [];
-
   PageControllerIndexedStack pageControllerIndexedStack =
       PageControllerIndexedStack();
+  Map cityData = {
+    "url": "https://dev.gservice-co.kz/api/cities",
+    "name": "city_id",
+    "multiple": false
+  };
 
   @override
   void initState() {
     super.initState();
-    widget.data['options']['necessary_inputs'].add({
-      "url": "https://dev.gservice-co.kz/api/cities",
-      "name": "city_id",
-      "multiple": false
-    });
+    data = [...widget.data['options']['necessary_inputs'], cityData];
     formattedPages();
     savedCategoryId();
   }
 
+  @override
+  void dispose() {
+    pageController.dispose();
+    super.dispose();
+  }
+
   void formattedPages() {
-    List options = widget.data['options']['necessary_inputs'];
     int index = pageControllerIndexedStack.getIndex();
-    if (index == options.length - 1) {
-      titles.add("Описание");
+    if (index == data.length - 1) {
       pages.add(TitleCreateAdPage(
           nextPage: addCharacteristicPage, previousPage: previousPage));
-    } else if (index < options.length) {
+    } else if (index < data.length) {
       addPage();
     }
 
@@ -61,20 +73,21 @@ class _StructureCreateAdPageState extends State<StructureCreateAdPage> {
   }
 
   void addCharacteristicPage() {
-    titles.add("Характеристики");
     pages.add(GetCharacteristicAdPage(
         nextPage: addChildCharacteristicPage, previousPage: previousPage));
   }
 
   void addGetPricePage() {
-    titles.add("Цена");
-    Map prices = widget.data['options']['prices'];
-    pages.add(PriceCreateAdPage(
-        nextPage: addGetImagePage, previousPage: previousPage, data: prices));
+    List prices = widget.data['options']['prices'] ?? [];
+    if (prices.isEmpty) {
+      addGetImagePage();
+    } else {
+      pages.add(PriceCreateAdPage(
+          nextPage: addGetImagePage, previousPage: previousPage, data: prices));
+    }
   }
 
   void addGetImagePage() {
-    titles.add("Загрузка изоброжений");
     pages.add(GetImageCreateAdPage(previousPage: previousPage));
   }
 
@@ -82,22 +95,18 @@ class _StructureCreateAdPageState extends State<StructureCreateAdPage> {
     if (data.isEmpty) {
       addGetPricePage();
     } else {
-      titles.add("Дополнительные характеристики");
       pages.add(GetChildCharacteristicPage(
           data: data, nextPage: addGetPricePage, previousPage: previousPage));
     }
   }
 
   void addPage() {
-    List options = widget.data['options']['necessary_inputs'];
     int index = pageControllerIndexedStack.getIndex();
-    String title = OptionTitlesData.titles[options[index]['name']];
-    titles.add(title);
     pages.add(GetSelectPage(
-        value: options[index],
+        value: data[index],
         nextPage: formattedPages,
         previousPage: previousPage,
-        options: widget.data['options']['necessary_inputs'],
+        options: data,
         pageController: pageController));
   }
 
@@ -111,6 +120,8 @@ class _StructureCreateAdPageState extends State<StructureCreateAdPage> {
       setState(() {});
     }
   }
+
+  
 
   void savedCategoryId() {
     CreateData.data['category_id'] = widget.data['id'];
@@ -127,27 +138,24 @@ class _StructureCreateAdPageState extends State<StructureCreateAdPage> {
         child: ValueListenableBuilder<int>(
             valueListenable: pageControllerIndexedStack.pageIndexNotifier,
             builder: (context, pageIndex, child) {
+              bool showTitle = data.length - 1 > pageIndex;
               return Scaffold(
                   appBar: AppBar(
-                    leadingWidth: MediaQuery.of(context).size.width - 100,
+                    // leadingWidth: MediaQuery.of(context).size.width - 100,
                     actions: [
                       IconButton(
                           onPressed: () {
                             showCupertinoModalBottomSheet(
                                 context: context,
-                                builder: (context) =>
-                                  CloseCreateAdAlert());
+                                builder: (context) => CloseCreateAdAlert());
                           },
-                          icon: Text(
-                            "Закрыть  ",
-                            style: TextStyle(
-                                fontWeight: FontWeight.w500,
-                                color: ColorComponent.blue['700']),
-                          ))
+                          icon: Text("Закрыть  ",
+                              style: TextStyle(
+                                  fontWeight: FontWeight.w500,
+                                  color: ColorComponent.blue['700'])))
                     ],
                     leading: BackTitleButton(
-                        title: titles[pageIndex]! ?? "",
-                        onPressed: () => previousPage()),
+                        title: "", onPressed: () => previousPage()),
                     bottom: PreferredSize(
                         preferredSize:
                             Size(MediaQuery.of(context).size.width, 10),
@@ -171,7 +179,24 @@ class _StructureCreateAdPageState extends State<StructureCreateAdPage> {
                           previousPage();
                         }
                       },
-                      child: IndexedStack(children: pages, index: pageIndex)));
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          showTitle
+                              ? Padding(
+                                  padding: const EdgeInsets.only(
+                                      top: 12, right: 15, left: 15),
+                                  child: Text(
+                                      data[pageIndex]['title']?['title_ru'] ?? "Выберите город",
+                                      style: TextStyle(
+                                          fontSize: 20,
+                                          fontWeight: FontWeight.w600)))
+                              : Container(),
+                          Expanded(
+                              child: IndexedStack(
+                                  children: pages, index: pageIndex)),
+                        ],
+                      )));
             }));
   }
 }

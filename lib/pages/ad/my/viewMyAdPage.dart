@@ -392,10 +392,12 @@ class _ViewMyAdPageState extends State<ViewMyAdPage> {
                                         "Править",
                                         style: TextStyle(
                                             fontSize: 15,
-                                            fontWeight: FontWeight.w500),
+                                            fontWeight: FontWeight.w500,
+                                            color: ColorComponent.gray['500']),
                                       ),
                                       const SizedBox(width: 12),
-                                      SvgPicture.asset('assets/icons/dots.svg',
+                                      SvgPicture.asset(
+                                          'assets/icons/dotsHorizontal.svg',
                                           width: 18)
                                     ],
                                   ),

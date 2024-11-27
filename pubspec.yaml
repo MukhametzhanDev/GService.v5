@@ -65,6 +65,7 @@ dependencies:
   screenshot: ^3.0.0
   loading_more_list: ^7.1.0
   file_picker: ^8.1.4
+  sticky_headers: ^0.3.0+2
 
 dev_dependencies:
   flutter_test:

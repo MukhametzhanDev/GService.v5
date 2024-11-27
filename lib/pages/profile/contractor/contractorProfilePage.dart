@@ -10,7 +10,9 @@ import 'package:gservice5/component/loader/loaderComponent.dart';
 import 'package:gservice5/component/snackBar/snackBarComponent.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
 import 'package:gservice5/component/wallet/showWalletWidget.dart';
+import 'package:gservice5/pages/ad/my/myAdListPage.dart';
 import 'package:gservice5/pages/profile/contractor/changeContractorProfilePage.dart';
+import 'package:gservice5/pages/profile/profileListTilesWidget.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:readmore/readmore.dart';
 
@@ -205,46 +207,7 @@ class _ContractorProfilePageState extends State<ContractorProfilePage> {
                     ),
                     Divider(height: 1, color: ColorComponent.gray['100']),
                     ShowWalletWidget(),
-                    ListTile(
-                        leading: SvgPicture.asset('assets/icons/file.svg'),
-                        title: Text("Мои заявки"),
-                        trailing: SvgPicture.asset('assets/icons/right.svg')),
-                    Divider(height: 1, color: ColorComponent.gray['100']),
-                    ListTile(
-                        leading: SvgPicture.asset(
-                            'assets/icons/clipboardOutline.svg'),
-                        title: Text("Мои Объявления"),
-                        trailing: SvgPicture.asset('assets/icons/right.svg')),
-                    Divider(height: 1, color: ColorComponent.gray['100']),
-                    ListTile(
-                        leading: SvgPicture.asset('assets/icons/logistic.svg'),
-                        title: Text("Логистика"),
-                        trailing: SvgPicture.asset('assets/icons/right.svg')),
-                    Divider(height: 1, color: ColorComponent.gray['100']),
-                    ListTile(
-                        leading: SvgPicture.asset('assets/icons/bullhorn.svg'),
-                        title: Text("Новости"),
-                        trailing: SvgPicture.asset('assets/icons/right.svg')),
-                    Divider(height: 1, color: ColorComponent.gray['100']),
-                    ListTile(
-                        leading:
-                            SvgPicture.asset('assets/icons/cogOutline.svg'),
-                        title: Text("Настройки"),
-                        trailing: SvgPicture.asset('assets/icons/right.svg')),
-                    Divider(height: 1, color: ColorComponent.gray['100']),
-                    ListTile(
-                      onTap: () {
-                        showCupertinoModalBottomSheet(
-                            context: context,
-                            builder: (context) =>
-                                LogOutAlert(onPressed: () async {
-                                  await ChangedToken().removeToken(context);
-                                }));
-                      },
-                      leading: SvgPicture.asset('assets/icons/exit.svg'),
-                      title: Text("Выход"),
-                    ),
-                    Divider(height: 1, color: ColorComponent.gray['100']),
+                    ProfileListTilesWidget()
                   ],
                 ),
               ),

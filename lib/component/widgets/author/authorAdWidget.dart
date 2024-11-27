@@ -18,9 +18,13 @@ class _AuthorAdWidgetState extends State<AuthorAdWidget> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(widget.title,
-            style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600)),
-        Divider(indent: 16),
+        widget.title.isEmpty
+            ? Container()
+            : Padding(
+                padding: const EdgeInsets.only(bottom: 16),
+                child: Text(widget.title,
+                    style:
+                        TextStyle(fontSize: 18, fontWeight: FontWeight.w600))),
         Container(
           padding: EdgeInsets.all(12),
           decoration: BoxDecoration(
@@ -110,9 +114,9 @@ class _AuthorAdWidgetState extends State<AuthorAdWidget> {
                   text: TextSpan(
                       style: TextStyle(color: Colors.black),
                       children: [
-                        TextSpan(text: "Сегодня: "),
+                        TextSpan(text: "Город: "),
                         TextSpan(
-                            text: "с 9:00 - до 18:00",
+                            text: "Алматы",
                             style: TextStyle(fontWeight: FontWeight.w600))
                       ])),
               Divider(height: 12),

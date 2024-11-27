@@ -47,13 +47,17 @@ class _TitleCreateAdPageState extends State<TitleCreateAdPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-    
       body: SingleChildScrollView(
-        padding: EdgeInsets.all(15),
+        padding: EdgeInsets.symmetric(horizontal: 15, vertical: 10),
         child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-          Text("Напишите подробности",
-              style: TextStyle(fontWeight: FontWeight.w600, fontSize: 20)),
-          Divider(height: 8),
+          // Text("Напишите подробности",
+          //     style: TextStyle(fontWeight: FontWeight.w600, fontSize: 2
+          // 0)),
+          Padding(
+              padding: const EdgeInsets.only(bottom: 12),
+              child: Text("Напишите подробности",
+                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600))),
+          // Divider(height: 8),
           TextField(
               controller: descEditingController,
               style: TextStyle(fontSize: 14),

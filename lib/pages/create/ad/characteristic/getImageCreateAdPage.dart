@@ -24,13 +24,14 @@ class _GetImageCreateAdPageState extends State<GetImageCreateAdPage> {
 
   Future postData() async {
     showModalLoader(context);
-    print(CreateData.characteristic);
+    CreateData.characteristic
+        .removeWhere((key, value) => value is Map<String, dynamic>);
     try {
       Response response = await dio.post("/ad", data: {
         ...CreateData.data,
         "characteristic": CreateData.characteristic,
         "country_id": 1,
-        "is_new": 1
+        "is_new": true
       });
       print(response.data);
       Navigator.pop(context);
@@ -43,7 +44,8 @@ class _GetImageCreateAdPageState extends State<GetImageCreateAdPage> {
       } else {
         SnackBarComponent().showResponseErrorMessage(response, context);
       }
-    } catch (e) {
+    } on DioException catch (e) {
+      print(e.error);
       SnackBarComponent().showServerErrorMessage(context);
     }
   }
@@ -88,7 +90,13 @@ class _GetImageCreateAdPageState extends State<GetImageCreateAdPage> {
       body: SingleChildScrollView(
         padding: EdgeInsets.symmetric(vertical: 15),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            Padding(
+                padding: const EdgeInsets.only(bottom: 15, left: 15),
+                child: Text("Загрузите изображение",
+                    style:
+                        TextStyle(fontSize: 20, fontWeight: FontWeight.w600))),
             GetImageWidget(onImagesSelected: (value) {
               imagesPath = value;
               setState(() {});

@@ -69,50 +69,63 @@ class _GetChildCharacteristicPageState
       onTap: () => closeKeyboard(),
       child: Scaffold(
         body: SingleChildScrollView(
-            padding: EdgeInsets.symmetric(horizontal: 15, vertical: 7.5),
+            padding: EdgeInsets.symmetric(horizontal: 15, vertical: 10),
             child: Column(
-                children: data.map((value) {
-              if (value['field_type'] == "input" &&
-                  value['input_type'] != "checkbox") {
-                List childData = value['child_characteristics'];
-                return Column(
-                  children: [
-                    TextFieldCharacteristic(value: value, addData: addData),
-                    ChildCharacteristics(data: childData, addData: addData)
-                  ],
-                );
-              } else if (value['field_type'] == "select") {
-                List childData = value['child_characteristics'];
-                bool multiple = value['tag_attribute']?["multiple"] ?? false;
-                if (multiple) {
-                  return Column(
-                    children: [
-                      MultipleSelectCharacteristic(
-                          value: value, addData: addData),
-                      ChildCharacteristics(data: childData, addData: addData)
-                    ],
-                  );
-                } else {
-                  return Column(
-                    children: [
-                      SelectCharacteristic(value: value, addData: addData),
-                      ChildCharacteristics(data: childData, addData: addData)
-                    ],
-                  );
-                }
-              } else if (value['field_type'] == "input" &&
-                  value['input_type'] == "checkbox") {
-                List childData = value['child_characteristics'];
-                return Column(
-                  children: [
-                    CheckBoxCharacteristic(value: value, addData: addData),
-                    ChildCharacteristics(data: childData, addData: addData)
-                  ],
-                );
-              } else {
-                return Container();
-              }
-            }).toList())),
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Padding(
+                    padding: const EdgeInsets.only(bottom: 15),
+                    child: Text("Доп. характеристики",
+                        style: TextStyle(
+                            fontSize: 20, fontWeight: FontWeight.w600))),
+                Column(
+                    children: data.map((value) {
+                  if (value['field_type'] == "input" &&
+                      value['input_type'] != "checkbox") {
+                    List childData = value['child_characteristics'];
+                    return Column(
+                      children: [
+                        TextFieldCharacteristic(value: value, addData: addData),
+                        ChildCharacteristics(data: childData, addData: addData)
+                      ],
+                    );
+                  } else if (value['field_type'] == "select") {
+                    List childData = value['child_characteristics'];
+                    bool multiple =
+                        value['tag_attribute']?["multiple"] ?? false;
+                    if (multiple) {
+                      return Column(
+                        children: [
+                          MultipleSelectCharacteristic(
+                              value: value, addData: addData),
+                          ChildCharacteristics(
+                              data: childData, addData: addData)
+                        ],
+                      );
+                    } else {
+                      return Column(
+                        children: [
+                          SelectCharacteristic(value: value, addData: addData),
+                          ChildCharacteristics(
+                              data: childData, addData: addData)
+                        ],
+                      );
+                    }
+                  } else if (value['field_type'] == "input" &&
+                      value['input_type'] == "checkbox") {
+                    List childData = value['child_characteristics'];
+                    return Column(
+                      children: [
+                        CheckBoxCharacteristic(value: value, addData: addData),
+                        ChildCharacteristics(data: childData, addData: addData)
+                      ],
+                    );
+                  } else {
+                    return Container();
+                  }
+                }).toList()),
+              ],
+            )),
         bottomNavigationBar: BottomNavigationBarComponent(
             child: Button(
                 onPressed: verifyData,
