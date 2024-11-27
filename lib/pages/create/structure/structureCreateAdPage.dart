@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gservice5/component/alert/closeCreateAdAlert.dart';
-import 'package:gservice5/component/button/back/backIconButton.dart';
 import 'package:gservice5/component/button/back/backTitleButton.dart';
-import 'package:gservice5/component/loader/loaderComponent.dart';
 import 'package:gservice5/component/textField/closeKeyboard/closeKeyboard.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
 import 'package:gservice5/pages/create/ad/characteristic/getCharacteristicAdPage.dart';
@@ -11,7 +9,6 @@ import 'package:gservice5/pages/create/ad/characteristic/getImageCreateAdPage.da
 import 'package:gservice5/pages/create/ad/stepCreateAdWidget.dart';
 import 'package:gservice5/pages/create/ad/titleCreateAdPage.dart';
 import 'package:gservice5/pages/create/data/createData.dart';
-import 'package:gservice5/pages/create/data/optionTitlesData.dart';
 import 'package:gservice5/pages/create/options/getSelectPage.dart';
 import 'package:gservice5/pages/create/priceCreateAdPage.dart';
 import 'package:gservice5/pages/create/structure/controllerPage/pageControllerIndexedStack.dart';
@@ -57,6 +54,7 @@ class _StructureCreateAdPageState extends State<StructureCreateAdPage> {
   @override
   void dispose() {
     pageController.dispose();
+    pageControllerIndexedStack.dispose();
     super.dispose();
   }
 
@@ -120,8 +118,6 @@ class _StructureCreateAdPageState extends State<StructureCreateAdPage> {
       setState(() {});
     }
   }
-
-  
 
   void savedCategoryId() {
     CreateData.data['category_id'] = widget.data['id'];
@@ -187,7 +183,8 @@ class _StructureCreateAdPageState extends State<StructureCreateAdPage> {
                                   padding: const EdgeInsets.only(
                                       top: 12, right: 15, left: 15),
                                   child: Text(
-                                      data[pageIndex]['title']?['title_ru'] ?? "Выберите город",
+                                      data[pageIndex]['title']?['title_ru'] ??
+                                          "Выберите город",
                                       style: TextStyle(
                                           fontSize: 20,
                                           fontWeight: FontWeight.w600)))

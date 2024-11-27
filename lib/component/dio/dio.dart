@@ -5,6 +5,7 @@ String token = '';
 
 Map<String, dynamic> headers = {
   "Accept": "application/json",
+  "Content-Type": "application/json"
   // "Api-Language": ""
 };
 

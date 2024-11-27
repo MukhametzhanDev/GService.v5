@@ -19,11 +19,11 @@ class ShowCharacteristicWidget extends StatelessWidget {
               Expanded(
                   child: Text(
                 "$title: " ?? "",
-                style: TextStyle(color: ColorComponent.gray['500']),
+                style: TextStyle(color: ColorComponent.gray['600']),
               )),
               Expanded(
                   child: Text(subTitle ?? "",
-                      style: TextStyle(fontWeight: FontWeight.w600)))
+                      style: TextStyle(fontWeight: FontWeight.w500)))
             ]),
           );
   }

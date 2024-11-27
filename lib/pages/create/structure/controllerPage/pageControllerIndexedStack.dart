@@ -32,6 +32,6 @@ class PageControllerIndexedStack {
   }
 
   void dispose() {
-    pageIndexNotifier.dispose();
+    pageIndexNotifier.value = 0;
   }
 }

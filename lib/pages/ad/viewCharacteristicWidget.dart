@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gservice5/component/theme/colorComponent.dart';
 
 class ViewCharacteristicWidget extends StatelessWidget {
   final List characteristics;
@@ -6,16 +7,19 @@ class ViewCharacteristicWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 7),
-      child: Column(
-          children: characteristics.map((value) {
-        return Padding(
-          padding: const EdgeInsets.only(bottom: 12),
+    return Column(
+      children: characteristics.map((value) {
+        return Container(
+          decoration: BoxDecoration(
+              border: Border(
+                  bottom: BorderSide(width: 1, color: Color(0xfff4f5f7)))),
+          padding: const EdgeInsets.symmetric(vertical: 12),
           child: Row(crossAxisAlignment: CrossAxisAlignment.start, children: [
             Expanded(
-                child: Text(value['characteristic']['title'] + ": ",
-                    style: TextStyle(fontSize: 15))),
+                child: Text(
+              value['characteristic']['title'] + ": ",
+              style: TextStyle(color: ColorComponent.gray['600']),
+            )),
             SizedBox(width: 8),
             Expanded(
                 child: value['values'].runtimeType == List
@@ -23,7 +27,7 @@ class ViewCharacteristicWidget extends StatelessWidget {
                     : InfoCharacteristic(value['values']))
           ]),
         );
-      }).toList()),
+      }).toList(),
     );
   }
 
@@ -35,7 +39,7 @@ class ViewCharacteristicWidget extends StatelessWidget {
       String showComma =
           data.length == 1 || index == data.length - 1 ? "" : ", ";
       return Text(title + showComma,
-          style: TextStyle(fontSize: 15, fontWeight: FontWeight.w600));
+          style: TextStyle(fontSize: 15, fontWeight: FontWeight.w500));
     }).toList());
   }
 
@@ -50,6 +54,6 @@ class ViewCharacteristicWidget extends StatelessWidget {
     }
 
     return Text(title,
-        style: TextStyle(fontSize: 15, fontWeight: FontWeight.w600));
+        style: TextStyle(fontSize: 15, fontWeight: FontWeight.w500));
   }
 }

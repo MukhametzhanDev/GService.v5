@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:gservice5/component/button/back/backTitleButton.dart';
@@ -23,26 +25,29 @@ class _GetImageCreateAdPageState extends State<GetImageCreateAdPage> {
   List imagesUrl = [];
 
   Future postData() async {
-    showModalLoader(context);
+    // showModalLoader(context);
     CreateData.characteristic
         .removeWhere((key, value) => value is Map<String, dynamic>);
+    print(jsonEncode(CreateData.characteristic));
+    Map param = {
+      ...CreateData.data,
+      "characteristic": CreateData.characteristic,
+      "country_id": 1
+    };
     try {
-      Response response = await dio.post("/ad", data: {
-        ...CreateData.data,
-        "characteristic": CreateData.characteristic,
-        "country_id": 1,
-        "is_new": true
-      });
+      Response response = await dio.post("/ad", data: param);
       print(response.data);
-      Navigator.pop(context);
-      if (response.data['success']) {
+      if (response.data['success'] && response.statusCode == 200) {
         CreateData.data.clear();
         CreateData.images.clear();
+        CreateData.characteristic.clear();
+        Navigator.pop(context);
         Navigator.pop(context, "ad");
         Navigator.pop(context, "ad");
         Navigator.pop(context, "ad");
       } else {
         SnackBarComponent().showResponseErrorMessage(response, context);
+        Navigator.pop(context);
       }
     } on DioException catch (e) {
       print(e.error);

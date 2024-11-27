@@ -51,6 +51,7 @@ class _GetChildCharacteristicPageState
   }
 
   void showPage() {
+    // print(CreateData.characteristic);
     widget.nextPage();
     pageControllerIndexedStack.nextPage();
     // Navigator.push(context,

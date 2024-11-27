@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:gservice5/component/button/back/backIconButton.dart';
+import 'package:gservice5/component/button/back/backTitleButton.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
 
 class AboutCompanyPage extends StatefulWidget {
@@ -15,9 +16,12 @@ class _AboutCompanyPageState extends State<AboutCompanyPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-          leading: BackIconButton(),
-          centerTitle: false,
-          title: Text("О GService")),
+          leadingWidth: 200,
+          leading: BackTitleButton(
+            title: "О GService",
+            onPressed: () => Navigator.pop(context),
+          ),
+          centerTitle: false),
       body: SingleChildScrollView(
           child: Column(children: [
         Padding(
