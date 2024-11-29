@@ -12,104 +12,44 @@ class AnalyticAdWidget extends StatelessWidget {
     return Column(
       children: [
         SizedBox(height: 4),
-        Row(
-          children: [
-            SvgPicture.asset('assets/icons/eye.svg',
-                width: 22, color: ColorComponent.mainColor),
-            SizedBox(width: 8),
-            Text(
-              NumberFormat.currency(locale: 'kk', symbol: '')
-                  .format(data['viewed'])
-                  .toString()
-                  .split(',')[0],
-              style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700),
-            ),
-            SizedBox(width: 8),
-            Text("Просмотр", style: TextStyle(fontSize: 16))
-          ],
-        ),
-        SizedBox(height: 12),
-        Row(
-          children: [
-            SvgPicture.asset('assets/icons/message.svg',
-                width: 22, color: ColorComponent.mainColor),
-            SizedBox(width: 8),
-            Text(
-              NumberFormat.currency(locale: 'kk', symbol: '')
-                  .format(data['wrote'])
-                  .toString()
-                  .split(',')[0],
-              style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700),
-            ),
-            SizedBox(width: 8),
-            Text(
-              "Написали",
-              style: TextStyle(fontSize: 16),
-            )
-          ],
-        ),
-        SizedBox(height: 12),
-        Row(
-          children: [
-            SvgPicture.asset('assets/icons/phone.svg',
-                width: 22, color: ColorComponent.mainColor),
-            SizedBox(width: 8),
-            Text(
-              NumberFormat.currency(locale: 'kk', symbol: '')
-                  .format(data['called'])
-                  .toString()
-                  .split(',')[0],
-              style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700),
-            ),
-            SizedBox(width: 8),
-            Text(
-              "Позвонили",
-              style: TextStyle(fontSize: 16),
-            )
-          ],
-        ),
-        SizedBox(height: 12),
-        Row(
-          children: [
-            SvgPicture.asset('assets/icons/heartOutline.svg',
-                width: 22, color: ColorComponent.mainColor),
-            SizedBox(width: 8),
-            Text(
-              NumberFormat.currency(locale: 'kk', symbol: '')
-                  .format(data['favorites'])
-                  .toString()
-                  .split(',')[0],
-              style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700),
-            ),
-            SizedBox(width: 8),
-            Text(
-              "В избранные",
-              style: TextStyle(fontSize: 16),
-            )
-          ],
-        ),
-        SizedBox(height: 12),
-        Row(
-          children: [
-            SvgPicture.asset('assets/icons/share.svg',
-                width: 22, color: ColorComponent.mainColor),
-            SizedBox(width: 8),
-            Text(
-              NumberFormat.currency(locale: 'kk', symbol: '')
-                  .format(data['shared'])
-                  .toString()
-                  .split(',')[0],
-              style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700),
-            ),
-            SizedBox(width: 8),
-            Text(
-              "Поделились",
-              style: TextStyle(fontSize: 16),
-            )
-          ],
-        ),
-        SizedBox(height: 6),
+        StatisticWidget("eye.svg", data['viewed'], "Просмотры объявления"),
+        SizedBox(height: 16),
+        StatisticWidget(
+            "message.svg", data['wrote'], "Сообщения от покупателей"),
+        SizedBox(height: 16),
+        StatisticWidget("phone.svg", data['called'], "Просмотр контактов"),
+        SizedBox(height: 16),
+        StatisticWidget("heartOutline.svg", data['favorites'], "В избранные"),
+        SizedBox(height: 16),
+        StatisticWidget("share.svg", data['shared'], "Поделились объявлениями"),
       ],
     );
   }
+}
+
+Widget StatisticWidget(String icon, int count, String title) {
+  return Row(
+    children: [
+      Container(
+        width: 24,
+        height: 24,
+        padding: EdgeInsets.all(2),
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(4),
+            color: ColorComponent.mainColor.withOpacity(.15)),
+        child: SvgPicture.asset('assets/icons/$icon',
+            width: 22, color: Colors.black),
+      ),
+      SizedBox(width: 8),
+      Text(
+        NumberFormat.currency(locale: 'kk', symbol: '')
+            .format(count)
+            .toString()
+            .split(',')[0],
+        style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700),
+      ),
+      SizedBox(width: 8),
+      Text(title, style: TextStyle(fontSize: 16))
+    ],
+  );
 }

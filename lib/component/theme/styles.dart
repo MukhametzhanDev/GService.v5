@@ -19,8 +19,8 @@ class Styles {
               TextStyle(color: isDarkTheme ? Colors.white : Colors.black),
           bodyMedium:
               TextStyle(color: isDarkTheme ? Colors.white : Colors.black),
-          titleMedium: TextStyle(
-              color: isDarkTheme ? Colors.white : Colors.black),
+          titleMedium:
+              TextStyle(color: isDarkTheme ? Colors.white : Colors.black),
         ),
         textButtonTheme: TextButtonThemeData(
           style: TextButton.styleFrom(
@@ -140,8 +140,9 @@ class Styles {
         tabBarTheme: TabBarTheme(
           dividerColor: Colors.transparent,
           indicatorColor: ColorComponent.mainColor,
-          labelColor: ColorComponent.mainColor,
-          unselectedLabelColor: isDarkTheme ? Colors.white : Colors.black,
+          labelColor: Colors.black,
+          unselectedLabelColor:
+              isDarkTheme ? Colors.white : ColorComponent.gray['500'],
           labelStyle: TextStyle(
               fontSize: 15,
               fontWeight: FontWeight.w500,

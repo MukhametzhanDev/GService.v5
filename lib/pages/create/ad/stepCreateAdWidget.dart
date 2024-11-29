@@ -24,7 +24,7 @@ class _StepCreateAdWidgetState extends State<StepCreateAdWidget> {
     int childCharacteristicCount =
         widget.options['characteristics']['is_available'] ? 1 : 0;
     int optionsLength = widget.options['necessary_inputs'].length;
-    int priceLength = widget.options['prices'] == null ? 0 : 1;
+    int priceLength = widget.options['prices'].isEmpty ? 0 : 1;
     int allLength = childCharacteristicCount + optionsLength + 2 + priceLength;
     lengthLine = List<int>.generate(allLength, (i) => i + 1);
     setState(() {});

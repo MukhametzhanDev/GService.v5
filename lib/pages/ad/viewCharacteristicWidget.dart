@@ -22,7 +22,7 @@ class ViewCharacteristicWidget extends StatelessWidget {
             )),
             SizedBox(width: 8),
             Expanded(
-                child: value['values'].runtimeType == List
+                child: value['values'] is List
                     ? InfoListCharacteristic(value['values'])
                     : InfoCharacteristic(value['values']))
           ]),
@@ -45,12 +45,10 @@ class ViewCharacteristicWidget extends StatelessWidget {
 
   Widget InfoCharacteristic(Map data) {
     String title = "";
-    if (data['title'] != null) {
-      title = data['title'].toString();
-    } else if (data['value'] == 1) {
-      title = "Да";
+    if (data['value'] is bool) {
+      title = data['value'] ? "Да" : "Нет";
     } else {
-      title = data['value'].toString();
+      title = data['title'].toString();
     }
 
     return Text(title,

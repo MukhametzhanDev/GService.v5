@@ -197,24 +197,7 @@ class _MyAdListPageState extends State<MyAdListPage>
                       tabs: _tabs.map((value) {
                         return TopTabButton(value);
                       }).toList()),
-                )
-                // Container(
-                //   height: 52,
-                //   decoration: BoxDecoration(
-                //       border: Border(
-                //           bottom: BorderSide(width: 1, color: Color(0xffE5E7EB)))),
-                //   padding: const EdgeInsets.only(left: 6, right: 6),
-                //   child: SingleChildScrollView(
-                //     padding:
-                //         const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
-                //     child: Row(
-                //       children: _tabs.map((value) {
-                //         return TabButton(value);
-                //       }).toList(),
-                //     ),
-                //   ),
-                // ),
-                ),
+                )),
           ),
           body: TabBarView(
               controller: tabController,
@@ -263,27 +246,22 @@ class _MyAdListPageState extends State<MyAdListPage>
 
   Tab TopTabButton(Map value) {
     return Tab(
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Text(value['title'], style: TextStyle(color: Colors.black)),
-          Divider(indent: 8),
-          Container(
-              height: 24,
-              constraints: BoxConstraints(minWidth: 24),
-              padding: EdgeInsets.symmetric(horizontal: 4),
-              alignment: Alignment.center,
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(12),
-                  color: ColorComponent.mainColor.withOpacity(.2)),
-              child: Text(
-                value['count'],
-                style: TextStyle(color: Colors.black, fontSize: 12),
-              ))
-        ],
-      ),
-      // text: "Активные"
-    );
+        child: Row(children: [
+      Text(value['title']),
+      Container(
+        width: 20,
+        height: 20,
+        margin: EdgeInsets.only(left: 10),
+        alignment: Alignment.center,
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(20),
+            color: ColorComponent.mainColor.withOpacity(.1)),
+        child: Text(
+          value['count'],
+          style: TextStyle(
+              fontSize: 12, fontWeight: FontWeight.w500, color: Colors.black),
+        ),
+      )
+    ]));
   }
 }

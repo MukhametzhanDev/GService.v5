@@ -6,6 +6,7 @@ import 'package:gservice5/component/theme/colorComponent.dart';
 import 'package:gservice5/pages/ad/my/myAdListPage.dart';
 import 'package:gservice5/pages/application/my/myApplicationListPage.dart';
 import 'package:gservice5/pages/profile/aboutCompany/aboutCompanyPage.dart';
+import 'package:gservice5/pages/profile/currency/editCurrencyPage.dart';
 import 'package:gservice5/pages/profile/news/newsMainPage.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
@@ -42,6 +43,11 @@ class _ProfileListTilesWidgetState extends State<ProfileListTilesWidget> {
   void showNewsPage() {
     Navigator.push(
         context, MaterialPageRoute(builder: (context) => NewsMainPage()));
+  }
+
+  void showEditCurrencyPage() {
+    Navigator.push(
+        context, MaterialPageRoute(builder: (context) => EditCurrencyPage()));
   }
 
   void showAboutCompanyPage() {
@@ -83,6 +89,14 @@ class _ProfileListTilesWidgetState extends State<ProfileListTilesWidget> {
             : ListTile(
                 leading: SvgPicture.asset('assets/icons/fileOutline.svg'),
                 title: Text("Документы"),
+                trailing: SvgPicture.asset('assets/icons/right.svg')),
+        Divider(height: 1, color: ColorComponent.gray['100']),
+        role == "individual"
+            ? Container()
+            : ListTile(
+                onTap: showEditCurrencyPage,
+                leading: SvgPicture.asset('assets/icons/dollarOutline.svg'),
+                title: Text("Моя валюта"),
                 trailing: SvgPicture.asset('assets/icons/right.svg')),
         Divider(height: 1, color: ColorComponent.gray['100']),
         ListTile(

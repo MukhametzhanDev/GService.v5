@@ -2,7 +2,6 @@ import 'dart:convert';
 
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:gservice5/component/button/back/backTitleButton.dart';
 import 'package:gservice5/component/button/button.dart';
 import 'package:gservice5/component/dio/dio.dart';
 import 'package:gservice5/component/loader/modalLoaderComponent.dart';
@@ -24,18 +23,20 @@ class _GetImageCreateAdPageState extends State<GetImageCreateAdPage> {
   List imagesPath = [];
   List imagesUrl = [];
 
-  Future postData() async {
-    // showModalLoader(context);
+  Future postData(List images) async {
+    showModalLoader(context);
     CreateData.characteristic
         .removeWhere((key, value) => value is Map<String, dynamic>);
-    print(jsonEncode(CreateData.characteristic));
-    Map param = {
+    CreateData.data.removeWhere((key, value) => value is Map<String, dynamic>);
+    print(CreateData.data);
+    FormData formData = FormData.fromMap({
+      "images": images,
       ...CreateData.data,
       "characteristic": CreateData.characteristic,
       "country_id": 1
-    };
+    }, ListFormat.multiCompatible);
     try {
-      Response response = await dio.post("/ad", data: param);
+      Response response = await dio.post("/ad", data: formData);
       print(response.data);
       if (response.data['success'] && response.statusCode == 200) {
         CreateData.data.clear();
@@ -46,11 +47,11 @@ class _GetImageCreateAdPageState extends State<GetImageCreateAdPage> {
         Navigator.pop(context, "ad");
         Navigator.pop(context, "ad");
       } else {
-        SnackBarComponent().showResponseErrorMessage(response, context);
         Navigator.pop(context);
+        SnackBarComponent().showResponseErrorMessage(response, context);
       }
     } on DioException catch (e) {
-      print(e.error);
+      print(e.stackTrace);
       SnackBarComponent().showServerErrorMessage(context);
     }
   }
@@ -67,12 +68,12 @@ class _GetImageCreateAdPageState extends State<GetImageCreateAdPage> {
             }.toList()
         ]
       });
-      Response response = await dio.post("/image/application", data: formData);
+      Response response = await dio.post("/image/store", data: formData);
       print(response.data);
       Navigator.pop(context);
       if (response.data['success']) {
         CreateData.data['images'] = response.data['data'];
-        postData();
+        await postData(response.data['data']);
       } else {
         SnackBarComponent().showResponseErrorMessage(response, context);
       }

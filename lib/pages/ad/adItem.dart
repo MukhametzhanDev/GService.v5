@@ -56,11 +56,11 @@ class _AdItemState extends State<AdItem> {
                     decoration: BoxDecoration(
                         color: ColorComponent.mainColor,
                         borderRadius: BorderRadius.circular(4)),
-                    child: Text(
-                      "Аренда",
-                      style: TextStyle(
-                          height: 1, fontSize: 12, fontWeight: FontWeight.w500),
-                    ),
+                    child: Text("Аренда",
+                        style: TextStyle(
+                            height: 1,
+                            fontSize: 12,
+                            fontWeight: FontWeight.w500)),
                   ),
                   // Row(
                   // children: [
@@ -95,15 +95,6 @@ class _AdItemState extends State<AdItem> {
                           style: TextStyle(
                               fontWeight: FontWeight.w400, fontSize: 14)),
                     ])),
-                // Text(
-                //   "3 000 тг./час",
-                //   style: TextStyle(fontWeight: FontWeight.w600),
-                // ),
-                // Divider(indent: 10),
-                // Text(
-                //   "20 000 тг./смена",
-                //   style: TextStyle(fontWeight: FontWeight.w600),
-                // ),
               ]),
               Divider(height: 12),
               SizedBox(

@@ -46,8 +46,8 @@ class ApplicationItem extends StatelessWidget {
           Divider(height: 12),
           Text("Нужен экскаватор 2-ух кубовый",
               style: TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.w600,
+                  fontSize: 16,
+                  fontWeight: FontWeight.w400,
                   color: ColorComponent.blue['700'])),
           Divider(height: 8),
           Text("Договорная",

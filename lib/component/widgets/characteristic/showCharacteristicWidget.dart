@@ -3,7 +3,7 @@ import 'package:gservice5/component/theme/colorComponent.dart';
 
 class ShowCharacteristicWidget extends StatelessWidget {
   final String? title;
-  final String? subTitle;
+  final subTitle;
   const ShowCharacteristicWidget({super.key, this.title, this.subTitle});
 
   @override
@@ -22,9 +22,22 @@ class ShowCharacteristicWidget extends StatelessWidget {
                 style: TextStyle(color: ColorComponent.gray['600']),
               )),
               Expanded(
-                  child: Text(subTitle ?? "",
-                      style: TextStyle(fontWeight: FontWeight.w500)))
+                  child: subTitle.runtimeType == List
+                      ? InfoListCharacteristic(subTitle)
+                      : Text(subTitle['title'] ?? "",
+                          style: TextStyle(fontWeight: FontWeight.w500)))
             ]),
           );
   }
+}
+
+Widget InfoListCharacteristic(List data) {
+  return Wrap(
+      children: data.map((element) {
+    String title = element['title'] ?? element['value'];
+    int index = data.indexOf(element);
+    String showComma = data.length == 1 || index == data.length - 1 ? "" : ", ";
+    return Text(title + showComma,
+        style: TextStyle(fontSize: 15, fontWeight: FontWeight.w500));
+  }).toList());
 }

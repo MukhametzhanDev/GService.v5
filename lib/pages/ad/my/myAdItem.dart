@@ -3,6 +3,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:gservice5/component/button/button.dart';
 import 'package:gservice5/component/image/cacheImage.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
+import 'package:gservice5/component/widgets/price/priceTextWidget.dart';
 import 'package:intl/intl.dart';
 
 class MyAdItem extends StatelessWidget {
@@ -68,7 +69,7 @@ class MyAdItem extends StatelessWidget {
                         ),
                         // Divider(height: 8),
                         Text(
-                          "Трактор МТЗ Беларус-742.7",
+                          data['title'],
                           // data['title'],
                           style: TextStyle(
                               color: ColorComponent.blue['500'],
@@ -78,41 +79,7 @@ class MyAdItem extends StatelessWidget {
                           overflow: TextOverflow.ellipsis,
                         ),
                         // const SizedBox(height: 8),
-                        Row(
-                            crossAxisAlignment: CrossAxisAlignment.end,
-                            children: [
-                              RichText(
-                                  text: TextSpan(
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.w600,
-                                          color: Colors.black),
-                                      children: [
-                                    TextSpan(
-                                        text: "3 000 ",
-                                        style: TextStyle(fontSize: 15)),
-                                    TextSpan(
-                                        text: "тг./час",
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.w400,
-                                            fontSize: 14)),
-                                  ])),
-                              Text("  |  "),
-                              RichText(
-                                  text: TextSpan(
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.w500,
-                                          color: Colors.black),
-                                      children: [
-                                    TextSpan(
-                                        text: "25 000 ",
-                                        style: TextStyle(fontSize: 15)),
-                                    TextSpan(
-                                        text: "тг./смена",
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.w400,
-                                            fontSize: 14)),
-                                  ])),
-                            ]),
+                        PriceTextWidget(prices: data['prices']),
                       ],
                     )),
               ],

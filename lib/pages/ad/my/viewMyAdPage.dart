@@ -48,7 +48,7 @@ class _ViewMyAdPageState extends State<ViewMyAdPage> {
   Future getData() async {
     try {
       Response response = await dio.get("/ad/${widget.id}");
-      print(response.data['data']['status']);
+      print(response.data['data']);
       if (response.data['success']) {
         data = response.data['data'];
         loader = false;
@@ -300,29 +300,27 @@ class _ViewMyAdPageState extends State<ViewMyAdPage> {
                             Divider(height: 4),
                             ShowCharacteristicWidget(
                                 title: "Город",
-                                subTitle: data['city']['title']),
+                                subTitle: data['city']),
                             ShowCharacteristicWidget(
-                                title: "Тип",
-                                subTitle: data['transport_type']?['title']),
+                                title: "Тип", subTitle: data['transport_type']),
                             ShowCharacteristicWidget(
                                 title: "Марка",
-                                subTitle: data['transport_brand']?['title']),
+                                subTitle: data['transport_brand']),
                             ShowCharacteristicWidget(
                                 title: "Модель",
-                                subTitle: data['transport_model']?['title']),
+                                subTitle: data['transport_model']),
                             ShowCharacteristicWidget(
                                 title: "Профессия",
-                                subTitle: data['profession']?['title']),
+                                subTitle: data['profession']),
                             ShowCharacteristicWidget(
                                 title: "Категория товара",
-                                subTitle: data['spare_part_category']
-                                    ?['title']),
+                                subTitle: data['spare_part_category']),
                             ShowCharacteristicWidget(
                                 title: "Рубрика товара",
-                                subTitle: data['spare_part_rubric']?['title']),
+                                subTitle: data['spare_part_rubric']),
                             ShowCharacteristicWidget(
                                 title: "Производитель",
-                                subTitle: data['spare_part_brand']?['title']),
+                                subTitle: data['spare_part_brand']),
                             ViewCharacteristicWidget(
                                 characteristics: data['characteristics']),
                             const SizedBox(height: 10),

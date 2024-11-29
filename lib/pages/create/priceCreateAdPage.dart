@@ -9,6 +9,7 @@ import 'package:gservice5/component/theme/colorComponent.dart';
 import 'package:gservice5/component/widgets/bottom/bottomNavigationBarComponent.dart';
 import 'package:gservice5/pages/create/data/createData.dart';
 import 'package:gservice5/pages/create/structure/controllerPage/pageControllerIndexedStack.dart';
+import 'package:gservice5/pages/profile/currency/currencyButton.dart';
 import 'package:intl/intl.dart';
 
 class PriceCreateAdPage extends StatefulWidget {
@@ -36,36 +37,6 @@ class _PriceCreateAdPageState extends State<PriceCreateAdPage> {
   PageControllerIndexedStack pageControllerIndexedStack =
       PageControllerIndexedStack();
 
-  // void verifyData() {
-  //   String price = priceEditingController.text.trim();
-  //   String priceFrom = perShiftEditingController.text.trim();
-  //   String priceTo = perHourEditingController.text.trim();
-
-  //   if (!negotiablePrice) {
-  //     // if (widget.data['price_per_shift'] && widget.data['price_per_hour']) {
-  //     //   if (priceFrom.isNotEmpty || priceTo.isNotEmpty) {
-  //     //     showPage();
-  //     //   } else {
-  //     //     SnackBarComponent().showErrorMessage("Заполните все строки", context);
-  //     //   }
-  //     // } else {
-  //     //   if (price.isEmpty) {
-  //     //     SnackBarComponent().showErrorMessage("Заполните все строки", context);
-  //     //   } else {
-  //     //     showPage();
-  //     //   }
-  //     // }
-  //   } else {
-  //     showPage();
-  //   }
-  // }
-
-  @override
-  void initState() {
-    print(widget.data);
-    super.initState();
-  }
-
   @override
   void dispose() {
     priceEditingController.dispose();
@@ -75,7 +46,6 @@ class _PriceCreateAdPageState extends State<PriceCreateAdPage> {
   }
 
   void savedData() {
-    print(perShiftEditingController.text);
     Map createData = {};
     if (!negotiablePrice) {
       if (perShiftEditingController.text.isNotEmpty) {
@@ -92,19 +62,12 @@ class _PriceCreateAdPageState extends State<PriceCreateAdPage> {
 
       CreateData.data.addAll({"price": createData});
     }
-    // } else {
-    //   if (!negotiablePrice) {
-    //     createData['price'] = getIntComponent(priceEditingController.text);
-    //   } else {
-    //     createData.remove("price");
-    //   }
   }
 
   void showPage() {
     savedData();
     widget.nextPage();
     pageControllerIndexedStack.nextPage();
-    print(CreateData.data);
   }
 
   @override
@@ -131,18 +94,25 @@ class _PriceCreateAdPageState extends State<PriceCreateAdPage> {
               value == 'price'
                   ? Padding(
                       padding: const EdgeInsets.only(bottom: 12),
-                      child: TextField(
-                        onSubmitted: (value) {},
-                        enabled: !negotiablePrice,
-                        inputFormatters: [currencyTextInputFormatter],
-                        autofocus: true,
-                        keyboardType: TextInputType.number,
-                        style: TextStyle(fontSize: 14, height: 1.1),
-                        controller: priceEditingController,
-                        decoration: InputDecoration(
-                            hintText: negotiablePrice
-                                ? 'Договорная'
-                                : 'Введите цену'),
+                      child: Row(
+                        children: [
+                          Expanded(
+                            child: TextField(
+                              onSubmitted: (value) {},
+                              enabled: !negotiablePrice,
+                              inputFormatters: [currencyTextInputFormatter],
+                              autofocus: true,
+                              keyboardType: TextInputType.number,
+                              style: TextStyle(fontSize: 14, height: 1.1),
+                              controller: priceEditingController,
+                              decoration: InputDecoration(
+                                  hintText: negotiablePrice
+                                      ? 'Договорная'
+                                      : 'Введите цену'),
+                            ),
+                          ),
+                          CurrencyButton()
+                        ],
                       ),
                     )
                   : Container(),
@@ -180,111 +150,38 @@ class _PriceCreateAdPageState extends State<PriceCreateAdPage> {
                       ),
                     )
                   : Container(),
-              value == 'price_per_hour'
-                  ? Padding(
-                      padding: const EdgeInsets.only(bottom: 12),
-                      child: TextField(
-                        onSubmitted: (value) {},
-                        enabled: !negotiablePrice,
-                        inputFormatters: [currencyTextInputFormatter],
-                        keyboardType: TextInputType.number,
-                        style: TextStyle(fontSize: 14, height: 1.1),
-                        controller: perHourEditingController,
-                        decoration: InputDecoration(
-                            hintText:
-                                negotiablePrice ? 'Договорная' : 'Цена за час'),
-                      ),
-                    )
-                  : Container(),
               value == 'negotiable'
-                  ? Padding(
-                      padding: const EdgeInsets.only(bottom: 10),
-                      child: ListTile(
-                        onTap: () {
-                          negotiablePrice = !negotiablePrice;
-                          setState(() {});
-                          closeKeyboard();
-                        },
-                        contentPadding: EdgeInsets.zero,
-                        leading: Container(
-                          width: 20,
-                          height: 20,
-                          alignment: Alignment.center,
-                          decoration: BoxDecoration(
-                              color: negotiablePrice ? Color(0xff1A56DB) : null,
-                              borderRadius: BorderRadius.circular(4),
-                              border: Border.all(
-                                  width: 1,
-                                  color: negotiablePrice
-                                      ? Color(0xff1A56DB)
-                                      : Color(0xffD1D5DB))),
-                          child: negotiablePrice
-                              ? SvgPicture.asset('assets/icons/checkMini.svg',
-                                  color: Colors.white)
-                              : Container(),
-                        ),
-                        title: Text("Договорная"),
+                  ? ListTile(
+                      onTap: () {
+                        negotiablePrice = !negotiablePrice;
+                        setState(() {});
+                        closeKeyboard();
+                      },
+                      contentPadding: EdgeInsets.zero,
+                      leading: Container(
+                        width: 20,
+                        height: 20,
+                        alignment: Alignment.center,
+                        decoration: BoxDecoration(
+                            color: negotiablePrice ? Color(0xff1A56DB) : null,
+                            borderRadius: BorderRadius.circular(4),
+                            border: Border.all(
+                                width: 1,
+                                color: negotiablePrice
+                                    ? Color(0xff1A56DB)
+                                    : Color(0xffD1D5DB))),
+                        child: negotiablePrice
+                            ? SvgPicture.asset('assets/icons/checkMini.svg',
+                                color: Colors.white)
+                            : Container(),
                       ),
+                      title: Text("Договорная"),
                     )
                   : Container(),
             ]);
           }).toList()),
           Text("Если поле цены не заполнено, цена будет указано как договорная",
               style: TextStyle(color: ColorComponent.gray['500']))
-          // SizedBox(
-          //   height: 48,
-          //   child: widget.data['price_per_shift'] &&
-          //           widget.data['price_per_hour']
-          //       ? Row(children: [
-          //           Expanded(
-          //             child: TextField(
-          //               onSubmitted: (value) {
-          //                 verifyData();
-          //               },
-          //               enabled: !negotiablePrice,
-          //               inputFormatters: [currencyTextInputFormatter],
-          //               autofocus: true,
-          //               keyboardType: TextInputType.number,
-          //               style: TextStyle(fontSize: 14, height: 1.1),
-          //               controller: perShiftEditingController,
-          //               decoration: InputDecoration(
-          //                   hintText: negotiablePrice
-          //                       ? 'Договорная'
-          //                       : 'Цена за смену'),
-          //             ),
-          //           ),
-          //           Divider(indent: 12),
-          //           Expanded(
-          //             child: TextField(
-          //               onSubmitted: (value) {
-          //                 verifyData();
-          //               },
-          //               enabled: !negotiablePrice,
-          //               inputFormatters: [currencyTextInputFormatter],
-          //               keyboardType: TextInputType.number,
-          //               style: TextStyle(fontSize: 14, height: 1.1),
-          //               controller: perHourEditingController,
-          //               decoration: InputDecoration(
-          //                   hintText:
-          //                       negotiablePrice ? 'Договорная' : 'Цена за час'),
-          //             ),
-          //           ),
-          //         ])
-          //       : TextField(
-          //           onSubmitted: (value) {
-          //             verifyData();
-          //           },
-          //           enabled: !negotiablePrice,
-          //           inputFormatters: [currencyTextInputFormatter],
-          //           autofocus: true,
-          //           keyboardType: TextInputType.number,
-          //           style: TextStyle(fontSize: 14, height: 1.1),
-          //           controller: priceEditingController,
-          //           decoration: InputDecoration(
-          //               hintText:
-          //                   negotiablePrice ? 'Договорная' : 'Введите цену'),
-          //         ),
-          // ),
         ]),
       ),
       bottomNavigationBar: BottomNavigationBarComponent(
