@@ -7,6 +7,7 @@ import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
 class DataModal extends StatefulWidget {
   String title;
+  String placeholderTitle;
   final data;
   final value;
   final addData;
@@ -15,7 +16,8 @@ class DataModal extends StatefulWidget {
       @required this.addData,
       @required this.data,
       @required this.value,
-      required this.title});
+      required this.title,
+      required this.placeholderTitle});
 
   @override
   State<DataModal> createState() => _DataModalState();
@@ -23,11 +25,14 @@ class DataModal extends StatefulWidget {
 
 class _DataModalState extends State<DataModal> {
   void showModal() {
-    print(widget.value);
     showCupertinoModalBottomSheet(
         context: context,
         builder: (context) => ListModalComponent(
-            addData: widget.addData, data: widget.data, value: widget.value));
+              addData: widget.addData,
+              data: widget.data,
+              value: widget.value,
+              placeholderTitle: widget.placeholderTitle,
+            ));
   }
 
   @override
@@ -41,6 +46,7 @@ class _DataModalState extends State<DataModal> {
 }
 
 class ListModalComponent extends StatefulWidget {
+  String placeholderTitle;
   final data;
   final addData;
   final value;
@@ -48,7 +54,8 @@ class ListModalComponent extends StatefulWidget {
       {super.key,
       @required this.addData,
       @required this.data,
-      @required this.value});
+      @required this.value,
+      required this.placeholderTitle});
 
   @override
   State<ListModalComponent> createState() => _ListModalComponentState();
@@ -94,7 +101,6 @@ class _ListModalComponentState extends State<ListModalComponent> {
   }
 
   void addItem(value) {
-    print(value);
     widget.addData(value);
     enterItem = value;
     setState(() {});
@@ -107,22 +113,17 @@ class _ListModalComponentState extends State<ListModalComponent> {
         appBar: AppBar(
           leadingWidth: 100,
           leading: Container(),
-          title: Text("Выберите"),
-          actions: [CloseIconButton(iconColor: null, padding: true)],
+          title: Text(widget.placeholderTitle),
+          actions: [CloseIconButton(padding: true, iconColor: null)],
         ),
         body: data.isEmpty
             ? Text("Ничего не найдено")
-            // EmptyPage(
-            //     icon: 'assets/icons/searchNot.svg',
-            //     title: LocaleKeys.nothing_found.tr(),
-            //     subTitle: LocaleKeys
-            //         .Unfortunately_your_search_returned_no_results.tr(),
-            //     button: false)
             : Column(children: [
                 Padding(
                   padding:
                       const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
-                  child: SearchTextField(title: "Поиск", onChanged: addTitle),
+                  child: SearchTextField(
+                      onChanged: (value) => addTitle(value), title: "Поиск"),
                 ),
                 Expanded(
                     child: filterData.isEmpty
@@ -134,19 +135,12 @@ class _ListModalComponentState extends State<ListModalComponent> {
                             itemCount: filterData.length,
                             itemBuilder: (context, index) {
                               var item = filterData[index];
-                              return Container(
-                                decoration: BoxDecoration(
-                                    border: Border(
-                                        bottom: BorderSide(
-                                            width: 1,
-                                            color: Color(0xfff4f5f7)))),
-                                child: ListTile(
-                                  onTap: () => addItem(item),
-                                  title: Text(capitalized(item['title'] ?? ""),
-                                      style: const TextStyle(
-                                          fontSize: 16,
-                                          fontWeight: FontWeight.w500)),
-                                ),
+                              return ListTile(
+                                onTap: () => addItem(item),
+                                title: Text(capitalized(item['title'] ?? ""),
+                                    style: const TextStyle(
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.w500)),
                               );
                             },
                           ))

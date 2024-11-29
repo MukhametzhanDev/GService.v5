@@ -36,7 +36,8 @@ class _CurrencyButtonState extends State<CurrencyButton> {
         if (response.data['success']) {
           data = response.data['data'];
           currentData = response.data['data'][0];
-          CreateData.data['currency_id'] = response.data['data'][0]['id'];
+          CreateData.data['currency_id'] =
+              response.data['data'][0]['currency']['id'];
           loader = false;
           setState(() {});
         } else {
@@ -56,7 +57,7 @@ class _CurrencyButtonState extends State<CurrencyButton> {
       },
     ).then((value) {
       currentData = value;
-      CreateData.data['currency_id'] = value['id'];
+      CreateData.data['currency_id'] = value['currency']['id'];
       setState(() {});
     });
   }

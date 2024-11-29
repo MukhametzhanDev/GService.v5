@@ -14,6 +14,7 @@ import 'package:gservice5/component/statistic/analyticAdWidget.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
 import 'package:gservice5/component/widgets/bottom/bottomNavigationBarComponent.dart';
 import 'package:gservice5/component/widgets/characteristic/showCharacteristicWidget.dart';
+import 'package:gservice5/component/widgets/price/priceTextWidget.dart';
 import 'package:gservice5/pages/ad/my/optionsMyAdModal.dart';
 import 'package:gservice5/pages/ad/my/request/myAdRequest.dart';
 import 'package:gservice5/pages/ad/viewCharacteristicWidget.dart';
@@ -115,53 +116,14 @@ class _ViewMyAdPageState extends State<ViewMyAdPage> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text("Экскаватор погрузчик 3CX",
+                        Text(data['title'],
                             style: TextStyle(
                                 fontSize: 14,
                                 fontWeight: FontWeight.w500,
                                 color: ColorComponent.blue['700']),
                             maxLines: 1),
                         Divider(height: 4),
-                        Row(
-                            crossAxisAlignment: CrossAxisAlignment.end,
-                            children: [
-                              RichText(
-                                  text: TextSpan(
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.w600,
-                                          color: Colors.black),
-                                      children: [
-                                    TextSpan(
-                                        text: "3 000 ",
-                                        style: TextStyle(fontSize: 13)),
-                                    TextSpan(
-                                        text: "тг./час",
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.w400,
-                                            fontSize: 12)),
-                                  ])),
-                              Text(
-                                "  |  ",
-                                style: TextStyle(
-                                    color: ColorComponent.gray['300'],
-                                    fontSize: 13),
-                              ),
-                              RichText(
-                                  text: TextSpan(
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.w500,
-                                          color: Colors.black),
-                                      children: [
-                                    TextSpan(
-                                        text: "25 000 ",
-                                        style: TextStyle(fontSize: 13)),
-                                    TextSpan(
-                                        text: "тг./смена",
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.w400,
-                                            fontSize: 12)),
-                                  ]))
-                            ]),
+                        PriceTextWidget(prices: data['prices'], fontSize: 13)
                       ],
                     ),
                   ),
@@ -195,22 +157,11 @@ class _ViewMyAdPageState extends State<ViewMyAdPage> {
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
                                 Expanded(
-                                  child: Row(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text("Экскаватор погрузчик ",
-                                          style: TextStyle(
-                                              fontSize: 18,
-                                              color: ColorComponent.blue['700'],
-                                              fontWeight: FontWeight.w600)),
-                                      Text("JCB 3CX",
-                                          style: TextStyle(
-                                              fontSize: 18,
-                                              color: ColorComponent.blue['700'],
-                                              fontWeight: FontWeight.w600)),
-                                    ],
-                                  ),
+                                  child: Text(data['title'],
+                                      style: TextStyle(
+                                          fontSize: 18,
+                                          color: ColorComponent.blue['700'],
+                                          fontWeight: FontWeight.w600)),
                                 ),
                                 Divider(indent: 16),
                                 Container(
@@ -231,45 +182,8 @@ class _ViewMyAdPageState extends State<ViewMyAdPage> {
                               ],
                             ),
                             Divider(height: 6),
-                            Row(
-                                crossAxisAlignment: CrossAxisAlignment.end,
-                                children: [
-                                  RichText(
-                                      text: TextSpan(
-                                          style: TextStyle(
-                                              fontWeight: FontWeight.w600,
-                                              color: Colors.black),
-                                          children: [
-                                        TextSpan(
-                                            text: "3 000 ",
-                                            style: TextStyle(fontSize: 15)),
-                                        TextSpan(
-                                            text: "тг./час",
-                                            style: TextStyle(
-                                                fontWeight: FontWeight.w400,
-                                                fontSize: 14)),
-                                      ])),
-                                  Text(
-                                    "  |  ",
-                                    style: TextStyle(
-                                        color: ColorComponent.gray['300']),
-                                  ),
-                                  RichText(
-                                      text: TextSpan(
-                                          style: TextStyle(
-                                              fontWeight: FontWeight.w600,
-                                              color: Colors.black),
-                                          children: [
-                                        TextSpan(
-                                            text: "25 000 ",
-                                            style: TextStyle(fontSize: 15)),
-                                        TextSpan(
-                                            text: "тг./смена",
-                                            style: TextStyle(
-                                                fontWeight: FontWeight.w400,
-                                                fontSize: 14)),
-                                      ]))
-                                ]),
+                            PriceTextWidget(
+                                prices: data['prices'], fontSize: 16),
                             const SizedBox(height: 4),
                             // Row(
                             //   children: [const ShowStickersList()],
@@ -299,8 +213,7 @@ class _ViewMyAdPageState extends State<ViewMyAdPage> {
                                     fontSize: 18, fontWeight: FontWeight.w600)),
                             Divider(height: 4),
                             ShowCharacteristicWidget(
-                                title: "Город",
-                                subTitle: data['city']),
+                                title: "Город", subTitle: data['city']),
                             ShowCharacteristicWidget(
                                 title: "Тип", subTitle: data['transport_type']),
                             ShowCharacteristicWidget(

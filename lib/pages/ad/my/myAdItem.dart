@@ -49,39 +49,41 @@ class MyAdItem extends StatelessWidget {
                             height: 96,
                             borderRadius: 8),
                       ),
-                SizedBox(
-                    height: 96,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        Container(
-                          decoration: BoxDecoration(
-                              color: ColorComponent.mainColor.withOpacity(.2),
-                              borderRadius: BorderRadius.circular(4)),
-                          child: Text(
-                            data['category']['title'],
-                            style: const TextStyle(
-                                fontSize: 12, fontWeight: FontWeight.w600),
+                Expanded(
+                  child: SizedBox(
+                      height: 96,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          Container(
+                            decoration: BoxDecoration(
+                                color: ColorComponent.mainColor.withOpacity(.2),
+                                borderRadius: BorderRadius.circular(4)),
+                            child: Text(
+                              data['category']['title'],
+                              style: const TextStyle(
+                                  fontSize: 12, fontWeight: FontWeight.w600),
+                            ),
+                            padding: const EdgeInsets.symmetric(
+                                vertical: 2.5, horizontal: 7),
                           ),
-                          padding: const EdgeInsets.symmetric(
-                              vertical: 2.5, horizontal: 7),
-                        ),
-                        // Divider(height: 8),
-                        Text(
-                          data['title'],
-                          // data['title'],
-                          style: TextStyle(
-                              color: ColorComponent.blue['500'],
-                              fontSize: 15,
-                              fontWeight: FontWeight.w500),
-                          maxLines: 2,
-                          overflow: TextOverflow.ellipsis,
-                        ),
-                        // const SizedBox(height: 8),
-                        PriceTextWidget(prices: data['prices']),
-                      ],
-                    )),
+                          // Divider(height: 8),
+                          Text(
+                            data['title'],
+                            // data['title'],
+                            style: TextStyle(
+                                color: ColorComponent.blue['500'],
+                                fontSize: 15,
+                                fontWeight: FontWeight.w500),
+                            maxLines:1,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                          // const SizedBox(height: 8),
+                          PriceTextWidget(prices: data['prices']),
+                        ],
+                      )),
+                ),
               ],
             ),
             const SizedBox(height: 16),

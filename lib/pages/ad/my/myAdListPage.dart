@@ -233,9 +233,14 @@ class _MyAdListPageState extends State<MyAdListPage>
                       data: item,
                       onPressed: (id) {
                         Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => ViewMyAdPage(id: id)));
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => ViewMyAdPage(id: id)))
+                            .then((value) {
+                          if (value == "update") {
+                            updateData(id);
+                          }
+                        });
                       },
                       showOptions: showOptions,
                       showListPromotionPage: (value) {});

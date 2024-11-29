@@ -51,7 +51,6 @@ class _MultipleDataModalState extends State<MultipleDataModal> {
               data: widget.data,
               placeholderTitle: widget.placeholderTitle,
             )).then((value) {
-      print("VA $value");
       if (value != null) {
         enterItems = value;
         setState(() {});
