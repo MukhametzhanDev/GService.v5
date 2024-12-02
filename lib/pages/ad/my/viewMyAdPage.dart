@@ -17,7 +17,7 @@ import 'package:gservice5/component/widgets/characteristic/showCharacteristicWid
 import 'package:gservice5/component/widgets/price/priceTextWidget.dart';
 import 'package:gservice5/pages/ad/my/optionsMyAdModal.dart';
 import 'package:gservice5/pages/ad/my/request/myAdRequest.dart';
-import 'package:gservice5/pages/ad/viewCharacteristicWidget.dart';
+import 'package:gservice5/pages/ad/widget/viewCharacteristicWidget.dart';
 import 'package:gservice5/pages/application/my/myApplicationItem.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 

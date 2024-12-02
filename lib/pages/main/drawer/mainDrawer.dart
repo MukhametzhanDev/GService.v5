@@ -1,10 +1,11 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:gservice5/component/appBar/leadingLogo.dart';
-import 'package:gservice5/component/button/back/closeIconButton.dart';
+import 'package:gservice5/component/categories/request/getCategories.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
-import 'package:gservice5/data/categoriesData.dart';
+import 'package:gservice5/component/categories/data/categoriesData.dart';
+import 'package:gservice5/pages/ad/list/adListPage.dart';
+import 'package:gservice5/pages/main/drawer/drawerOptions.dart';
 
 class MainDrawer extends StatefulWidget {
   const MainDrawer({super.key});
@@ -15,6 +16,29 @@ class MainDrawer extends StatefulWidget {
 
 class _MainDrawerState extends State<MainDrawer> {
   List categories = CategoriesData.categories;
+  List options = DrawerOptions.options;
+
+  @override
+  void initState() {
+    getData();
+    super.initState();
+  }
+
+  Future getData() async {
+    if (categories.isEmpty) {
+      categories = await GetCategories().getData(context);
+    } else {
+      categories = CategoriesData.categories;
+    }
+    setState(() {});
+  }
+
+  void showPage(Map value) {
+    Navigator.pop(context);
+    Navigator.push(context,
+        MaterialPageRoute(builder: (context) => AdListPage(category: value)));
+  }
+
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -48,19 +72,34 @@ class _MainDrawerState extends State<MainDrawer> {
                 Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: categories.map((value) {
-                      return Container(
-                        height: 36,
-                        margin: EdgeInsets.only(bottom: 6),
+                      return GestureDetector(
+                          onTap: () => showPage(value),
+                          child: SizedBox(
+                              height: 48,
+                              child: Row(children: [
+                                SvgPicture.network(value['icon'], width: 24),
+                                Divider(indent: 8),
+                                Text(
+                                  value['title'],
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.w500,
+                                      fontSize: 15),
+                                ),
+                              ])));
+                    }).toList()),
+                Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: options.map((value) {
+                      return SizedBox(
+                        height: 48,
                         child: Row(
                           children: [
                             SvgPicture.asset("assets/icons/${value['icon']}",
                                 width: 24),
                             Divider(indent: 8),
-                            Text(
-                              value['full_title'],
-                              style: TextStyle(
-                                  fontWeight: FontWeight.w500, fontSize: 15),
-                            ),
+                            Text(value['title'],
+                                style: TextStyle(
+                                    fontWeight: FontWeight.w500, fontSize: 15)),
                           ],
                         ),
                       );

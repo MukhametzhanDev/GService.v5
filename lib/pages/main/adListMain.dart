@@ -6,8 +6,8 @@ import 'package:gservice5/component/formatted/price/priceFormat.dart';
 import 'package:gservice5/component/image/cacheImage.dart';
 import 'package:gservice5/component/stickers/showStickersList.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
-import 'package:gservice5/pages/ad/adItem.dart';
-import 'package:gservice5/pages/ad/adListPage.dart';
+import 'package:gservice5/pages/ad/item/adItem.dart';
+import 'package:gservice5/pages/ad/list/adListPage.dart';
 
 class AdListMain extends StatefulWidget {
   const AdListMain({super.key});
@@ -29,11 +29,7 @@ class _AdListMainState extends State<AdListMain> {
                 style: TextStyle(
                     fontSize: 16, fontWeight: FontWeight.w600, height: 1)),
             GestureDetector(
-                onTap: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => AdListPage()));
-                },
-                child: SvgPicture.asset('assets/icons/right.svg')
+                onTap: () {}, child: SvgPicture.asset('assets/icons/right.svg')
                 //  Container(
                 //     height: 32,
                 //     padding: EdgeInsets.symmetric(horizontal: 12),
@@ -51,27 +47,27 @@ class _AdListMainState extends State<AdListMain> {
         ),
       ),
       // Divider(height: 8),
-      ListView.builder(
-        shrinkWrap: true,
-        physics: NeverScrollableScrollPhysics(),
-        itemCount: 20,
-        itemBuilder: (context, index) {
-          // if (index == 3) {
-          //   return Column(
-          //     children: [
-          //       AdItem(),
-          //       CacheImage(
-          //           url:
-          //               "https://images.unsplash.com/photo-1721332153370-56d7cc352d63?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDF8MHxmZWF0dXJlZC1waG90b3MtZmVlZHwxfHx8ZW58MHx8fHx8",
-          //           width: MediaQuery.of(context).size.width,
-          //           height: 196,
-          //           borderRadius: 0)
-          //     ],
-          //   );
-          // }
-          return AdItem();
-        },
-      ),
+      // ListView.builder(
+      //   shrinkWrap: true,
+      //   physics: NeverScrollableScrollPhysics(),
+      //   itemCount: 20,
+      //   itemBuilder: (context, index) {
+      // if (index == 3) {
+      //   return Column(
+      //     children: [
+      //       AdItem(),
+      //       CacheImage(
+      //           url:
+      //               "https://images.unsplash.com/photo-1721332153370-56d7cc352d63?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDF8MHxmZWF0dXJlZC1waG90b3MtZmVlZHwxfHx8ZW58MHx8fHx8",
+      //           width: MediaQuery.of(context).size.width,
+      //           height: 196,
+      //           borderRadius: 0)
+      //     ],
+      //   );
+      // }
+      // return AdItem();
+      // },
+      // ),
     ]);
   }
 }

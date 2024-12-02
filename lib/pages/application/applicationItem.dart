@@ -41,7 +41,7 @@ class ApplicationItem extends StatelessWidget {
                     index % 2 == 0 ? "Аренда спецтехники" : "Покупка запчастей",
                     style:
                         TextStyle(fontSize: 12, fontWeight: FontWeight.w600))),
-            FavoriteButton()
+            // FavoriteButton()
           ]),
           Divider(height: 12),
           Text("Нужен экскаватор 2-ух кубовый",

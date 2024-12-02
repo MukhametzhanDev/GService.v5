@@ -1,30 +1,40 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:gservice5/component/button/favoriteButton.dart';
 import 'package:gservice5/component/formatted/number/numberFormatted.dart';
 import 'package:gservice5/component/image/cacheImage.dart';
 import 'package:gservice5/component/modal/contact/shortContactModal.dart';
 import 'package:gservice5/component/stickers/showStickersList.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
+import 'package:gservice5/component/widgets/price/priceTextWidget.dart';
 import 'package:gservice5/pages/ad/viewAdPage.dart';
+import 'package:intl/intl.dart';
 
 class AdItem extends StatefulWidget {
-  const AdItem({super.key});
+  final Map data;
+  final bool showCategory;
+  const AdItem({super.key, required this.data, required this.showCategory});
 
   @override
   State<AdItem> createState() => _AdItemState();
 }
 
 class _AdItemState extends State<AdItem> {
-  void showAdPage() {
-    Navigator.push(
-        context, MaterialPageRoute(builder: (context) => ViewAdPage(id: 0)));
+  void showAdPage(int id) {
+    Navigator.push(context,
+            MaterialPageRoute(builder: (context) => ViewAdPage(id: id)))
+        .then((value) {
+          print(value);
+        });
   }
 
   @override
   Widget build(BuildContext context) {
     double IMAGE_HEIGHT = 120.0;
     return GestureDetector(
-        onTap: showAdPage,
+        onTap: () {
+          showAdPage(widget.data['id']);
+        },
         onLongPress: () => onLongPressShowNumber({}, context),
         child: Container(
           decoration: BoxDecoration(
@@ -39,7 +49,7 @@ class _AdItemState extends State<AdItem> {
                 children: [
                   Expanded(
                     child: Text(
-                      "Гусеничные экскаватор экскаватор экскаватор",
+                      widget.data['title'],
                       style: TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.w400,
@@ -49,19 +59,23 @@ class _AdItemState extends State<AdItem> {
                     ),
                   ),
                   SizedBox(width: 16),
-                  Container(
-                    height: 24,
-                    padding: EdgeInsets.symmetric(horizontal: 8),
-                    alignment: Alignment.center,
-                    decoration: BoxDecoration(
-                        color: ColorComponent.mainColor,
-                        borderRadius: BorderRadius.circular(4)),
-                    child: Text("Аренда",
-                        style: TextStyle(
-                            height: 1,
-                            fontSize: 12,
-                            fontWeight: FontWeight.w500)),
-                  ),
+                  widget.showCategory
+                      ? Container(
+                          height: 24,
+                          padding: EdgeInsets.symmetric(horizontal: 8),
+                          alignment: Alignment.center,
+                          decoration: BoxDecoration(
+                              color: ColorComponent.mainColor,
+                              borderRadius: BorderRadius.circular(4)),
+                          child: Text(widget.data['category']['title'],
+                              style: TextStyle(
+                                  height: 1,
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.w500)))
+                      : FavoriteButton(
+                          id: widget.data['id'],
+                          type: "ad",
+                          active: widget.data['is_favorite']),
                   // Row(
                   // children: [
                   // Divider(indent: 8),
@@ -71,39 +85,14 @@ class _AdItemState extends State<AdItem> {
                 ],
               ),
               Divider(height: 8),
-              Row(crossAxisAlignment: CrossAxisAlignment.end, children: [
-                RichText(
-                    text: TextSpan(
-                        style: TextStyle(
-                            fontWeight: FontWeight.w600, color: Colors.black),
-                        children: [
-                      TextSpan(text: "3 000 ", style: TextStyle(fontSize: 15)),
-                      TextSpan(
-                          text: "тг./час",
-                          style: TextStyle(
-                              fontWeight: FontWeight.w400, fontSize: 14)),
-                    ])),
-                Text("  |  "),
-                RichText(
-                    text: TextSpan(
-                        style: TextStyle(
-                            fontWeight: FontWeight.w500, color: Colors.black),
-                        children: [
-                      TextSpan(text: "25 000 ", style: TextStyle(fontSize: 15)),
-                      TextSpan(
-                          text: "тг./смена",
-                          style: TextStyle(
-                              fontWeight: FontWeight.w400, fontSize: 14)),
-                    ])),
-              ]),
+              PriceTextWidget(prices: widget.data['prices'], fontSize: 15),
               Divider(height: 12),
               SizedBox(
                 height: IMAGE_HEIGHT,
                 child: Row(
                   children: [
                     CacheImage(
-                        url:
-                            "https://images.unsplash.com/photo-1546081476-e3246476f65c?q=80&w=2970&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+                        url: widget.data['images'][0],
                         width: MediaQuery.of(context).size.width / 2.2,
                         height: IMAGE_HEIGHT,
                         borderRadius: 8),
@@ -111,12 +100,13 @@ class _AdItemState extends State<AdItem> {
                     Expanded(
                         child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
-                        Text("JCB 3CX",
+                        Text(widget.data['sub_title'],
                             style: TextStyle(
-                                fontSize: 15, fontWeight: FontWeight.w500)),
-                        Divider(height: 8),
+                                fontSize: 15,
+                                fontWeight: FontWeight.w500,
+                                height: 1.3)),
+                        Divider(height: 10),
                         Text(
                             "На заказы от 3-х смен мы предоставляем скидку. Вся техника находится у нас в собственности, работают опытные операторы и качественно",
                             maxLines: 3,
@@ -124,19 +114,13 @@ class _AdItemState extends State<AdItem> {
                             style: TextStyle(
                                 color: ColorComponent.gray['600'],
                                 fontSize: 13)),
-                        Divider(height: 8),
-                        Text("31 октября",
-                            style: TextStyle(
-                                fontSize: 12,
-                                fontWeight: FontWeight.w400,
-                                color: ColorComponent.gray["500"])),
                       ],
                     ))
                   ],
                 ),
               ),
-              Divider(height: 10),
-              ShowStickersList(),
+              Divider(height: 6),
+              // ShowStickersList(),
               Divider(height: 10),
               Divider(height: 1, color: ColorComponent.gray['100']),
               Divider(height: 10),
@@ -149,11 +133,17 @@ class _AdItemState extends State<AdItem> {
                       SvgPicture.asset('assets/icons/pin.svg',
                           color: ColorComponent.gray["500"], width: 16),
                       const SizedBox(width: 4),
-                      Text("г. Алматы",
+                      Text(widget.data['city']['title'],
                           style: TextStyle(
                               color: ColorComponent.gray["500"],
                               fontSize: 12,
                               fontWeight: FontWeight.w500)),
+                      Divider(indent: 15),
+                      Text(formattedDate(widget.data['created_at']),
+                          style: TextStyle(
+                              fontSize: 12,
+                              fontWeight: FontWeight.w400,
+                              color: ColorComponent.gray["500"])),
                     ],
                   ),
                   Row(
@@ -165,7 +155,7 @@ class _AdItemState extends State<AdItem> {
                       ),
                       Divider(indent: 4),
                       Text(
-                        numberFormat(1200),
+                        numberFormat(widget.data['statistics']['viewed']),
                         style: TextStyle(
                             fontSize: 12,
                             fontWeight: FontWeight.w400,
@@ -179,4 +169,10 @@ class _AdItemState extends State<AdItem> {
           ),
         ));
   }
+}
+
+String formattedDate(isoDate) {
+  DateTime dateTime = DateTime.parse(isoDate);
+  String formattedDate = DateFormat('dd MMMM').format(dateTime);
+  return formattedDate;
 }

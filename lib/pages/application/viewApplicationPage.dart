@@ -9,7 +9,7 @@ import 'package:gservice5/component/button/shareButton.dart';
 import 'package:gservice5/component/formatted/price/priceFormat.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
 import 'package:gservice5/component/widgets/author/authorAdWidget.dart';
-import 'package:gservice5/pages/ad/recommendationAdList.dart';
+import 'package:gservice5/pages/ad/list/recommendationAdList.dart';
 import 'package:gservice5/pages/application/document/showDocumentWidget.dart';
 import 'package:gservice5/pages/application/recommendationApplicationList.dart';
 
@@ -41,7 +41,8 @@ class _ViewApplicationPageState extends State<ViewApplicationPage> {
             actions: [
               // FavoriteButtonComponent(iconColor: ColorTheme['black_white']),
               ShareButton(id: widget.id, hasAd: true),
-              Divider(indent: 10), FavoriteButton(),
+              Divider(indent: 10),
+              //  FavoriteButton(),
               Divider(indent: 15)
             ],
             title: FadeOnScroll(

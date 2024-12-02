@@ -68,7 +68,7 @@ class _ProfileListTilesWidgetState extends State<ProfileListTilesWidget> {
         ListTile(
             onTap: () => showMyAdPage(),
             leading: SvgPicture.asset('assets/icons/clipboardOutline.svg'),
-            title: Text("Мои Объявления"),
+            title: Text("Мои объявления"),
             trailing: SvgPicture.asset('assets/icons/right.svg')),
         Divider(height: 1, color: ColorComponent.gray['100']),
         ListTile(
