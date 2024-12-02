@@ -31,13 +31,12 @@ class _EditAdCharacteristicsState extends State<EditAdCharacteristics> {
   }
 
   Future getData() async {
-    print(widget.param);
     try {
       Response response =
           await dio.get("/characteristics", queryParameters: widget.param);
       if (response.data['success']) {
         data = response.data['data'];
-        formattedData(data);
+        await formattedData(data);
         loader = false;
         setState(() {});
       } else {
@@ -48,7 +47,7 @@ class _EditAdCharacteristicsState extends State<EditAdCharacteristics> {
     }
   }
 
-  void formattedData(List data) {
+  Future formattedData(List data) async {
     for (var elementData in data) {
       for (var elementValue in widget.value) {
         if (elementData['id'] == elementValue['characteristic']['id']) {

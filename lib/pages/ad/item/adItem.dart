@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:gservice5/component/button/favoriteButton.dart';
@@ -7,8 +9,10 @@ import 'package:gservice5/component/modal/contact/shortContactModal.dart';
 import 'package:gservice5/component/stickers/showStickersList.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
 import 'package:gservice5/component/widgets/price/priceTextWidget.dart';
+import 'package:gservice5/pages/ad/package/showPackageIcons.dart';
 import 'package:gservice5/pages/ad/viewAdPage.dart';
 import 'package:intl/intl.dart';
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
 class AdItem extends StatefulWidget {
   final Map data;
@@ -24,8 +28,8 @@ class _AdItemState extends State<AdItem> {
     Navigator.push(context,
             MaterialPageRoute(builder: (context) => ViewAdPage(id: id)))
         .then((value) {
-          print(value);
-        });
+      print(value);
+    });
   }
 
   @override
@@ -35,21 +39,22 @@ class _AdItemState extends State<AdItem> {
         onTap: () {
           showAdPage(widget.data['id']);
         },
-        onLongPress: () => onLongPressShowNumber({}, context),
+        onLongPress: () => onLongPressShowNumber(widget.data, context),
         child: Container(
           decoration: BoxDecoration(
               color: Colors.white,
               border: Border(
                   bottom: BorderSide(width: 6, color: Color(0xfff4f5f7)))),
-          padding: EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+          padding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              SizedBox(height: 4),
               Row(
                 children: [
                   Expanded(
                     child: Text(
-                      widget.data['title'],
+                      widget.data['title'] ?? "",
                       style: TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.w400,
@@ -91,11 +96,52 @@ class _AdItemState extends State<AdItem> {
                 height: IMAGE_HEIGHT,
                 child: Row(
                   children: [
-                    CacheImage(
-                        url: widget.data['images'][0],
-                        width: MediaQuery.of(context).size.width / 2.2,
-                        height: IMAGE_HEIGHT,
-                        borderRadius: 8),
+                    SizedBox(
+                      width: MediaQuery.of(context).size.width / 2.2,
+                      height: IMAGE_HEIGHT,
+                      child: Stack(
+                        children: [
+                          CacheImage(
+                              url: widget.data['images'][0],
+                              width: MediaQuery.of(context).size.width / 2.2,
+                              height: IMAGE_HEIGHT,
+                              borderRadius: 8),
+                          Positioned(
+                            top: 8,
+                            left: 8,
+                            child: ClipRRect(
+                              child: BackdropFilter(
+                                filter:
+                                    ImageFilter.blur(sigmaX: 4.0, sigmaY: 4.0),
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                      color: Colors.white.withOpacity(.7),
+                                      borderRadius: BorderRadius.circular(4)),
+                                  padding: EdgeInsets.symmetric(
+                                      vertical: 3, horizontal: 8),
+                                  child: Row(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                    children: [
+                                      SvgPicture.asset(
+                                          'assets/icons/badgeCheck.svg',
+                                          width: 16),
+                                      Divider(indent: 4),
+                                      Text("От диллера",
+                                          style: TextStyle(
+                                              fontSize: 12,
+                                              fontWeight: FontWeight.w600,
+                                              color:
+                                                  ColorComponent.blue['500']))
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
                     Divider(indent: 12),
                     Expanded(
                         child: Column(
@@ -131,27 +177,24 @@ class _AdItemState extends State<AdItem> {
                   Row(
                     children: [
                       SvgPicture.asset('assets/icons/pin.svg',
-                          color: ColorComponent.gray["500"], width: 16),
+                          color: ColorComponent.gray["400"], width: 16),
                       const SizedBox(width: 4),
                       Text(widget.data['city']['title'],
                           style: TextStyle(
                               color: ColorComponent.gray["500"],
                               fontSize: 12,
-                              fontWeight: FontWeight.w500)),
+                              fontWeight: FontWeight.w400)),
                       Divider(indent: 15),
                       Text(formattedDate(widget.data['created_at']),
                           style: TextStyle(
                               fontSize: 12,
                               fontWeight: FontWeight.w400,
                               color: ColorComponent.gray["500"])),
-                    ],
-                  ),
-                  Row(
-                    children: [
+                      Divider(indent: 15),
                       SvgPicture.asset(
                         'assets/icons/eye.svg',
                         width: 16,
-                        color: ColorComponent.gray["500"],
+                        color: ColorComponent.gray["400"],
                       ),
                       Divider(indent: 4),
                       Text(
@@ -163,6 +206,7 @@ class _AdItemState extends State<AdItem> {
                       ),
                     ],
                   ),
+                  ShowPackageIcons()
                 ],
               ),
             ],

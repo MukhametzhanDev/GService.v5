@@ -91,6 +91,10 @@ class Styles {
         canvasColor: isDarkTheme ? const Color(0xff202022) : Colors.grey[50],
         scaffoldBackgroundColor:
             isDarkTheme ? const Color(0xff202022) : Colors.white,
+        checkboxTheme: CheckboxThemeData(
+            shape:
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
+            checkColor: WidgetStatePropertyAll(ColorComponent.blue['500'])),
         buttonTheme: Theme.of(context).buttonTheme.copyWith(
             colorScheme: isDarkTheme
                 ? const ColorScheme.dark()

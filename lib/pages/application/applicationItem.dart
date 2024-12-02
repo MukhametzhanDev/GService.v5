@@ -6,8 +6,10 @@ import 'package:gservice5/component/theme/colorComponent.dart';
 import 'package:gservice5/pages/application/viewApplicationPage.dart';
 
 class ApplicationItem extends StatelessWidget {
-  final int index;
-  const ApplicationItem({super.key, required this.index});
+  final Map data;
+  final bool showCategory;
+  const ApplicationItem(
+      {super.key, required this.data, required this.showCategory});
 
   @override
   Widget build(BuildContext context) {
@@ -37,8 +39,7 @@ class ApplicationItem extends StatelessWidget {
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(6),
                     color: ColorComponent.mainColor),
-                child: Text(
-                    index % 2 == 0 ? "Аренда спецтехники" : "Покупка запчастей",
+                child: Text("Покупка запчастей",
                     style:
                         TextStyle(fontSize: 12, fontWeight: FontWeight.w600))),
             // FavoriteButton()

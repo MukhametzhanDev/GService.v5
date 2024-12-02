@@ -62,13 +62,13 @@ class _ApplicationListPageState extends State<ApplicationListPage> {
                   ]),
                   SizedBox(height: 12),
                 ])),
-            Expanded(
-                child: ListView.builder(
-                    padding: EdgeInsets.symmetric(vertical: 16),
-                    itemCount: 10,
-                    itemBuilder: (context, int index) {
-                      return ApplicationItem(index: index);
-                    }))
+            // Expanded(
+            //     child: ListView.builder(
+            //         padding: EdgeInsets.symmetric(vertical: 16),
+            //         itemCount: 10,
+            //         itemBuilder: (context, int index) {
+            //           return ApplicationItem(index: index);
+            //         }))
           ],
         ));
   }

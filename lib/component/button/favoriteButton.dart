@@ -23,7 +23,7 @@ class _FavoriteButtonState extends State<FavoriteButton> {
   void verifyToken() async {
     bool havedToken = await ChangedToken().getToken() != null;
     if (havedToken) {
-      postData();
+       postData();
       widget.active = !widget.active;
       setState(() {});
     } else {
@@ -33,7 +33,7 @@ class _FavoriteButtonState extends State<FavoriteButton> {
     }
   }
 
-  void postData() async {
+  Future postData() async {
     try {
       if (widget.active) {
         Response response = await dio.post("/remove-favorite",
@@ -41,18 +41,14 @@ class _FavoriteButtonState extends State<FavoriteButton> {
               "favoritable_id": widget.id,
               "favoritable_type": widget.type
             });
-        widget.active = !widget.active;
         print(response.data);
       } else {
         Response response = await dio.post("/favorite", queryParameters: {
           "favoritable_id": widget.id,
           "favoritable_type": widget.type
         });
-        widget.active = !widget.active;
-        // counterClick("favorite", widget.data['class_name'], widget.data['id']);
         print(response.data);
       }
-      // setState(() {});
     } catch (e) {
       print(e);
     }
