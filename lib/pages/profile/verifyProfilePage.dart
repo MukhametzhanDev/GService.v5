@@ -25,7 +25,7 @@ class _VerifyProfilePageState extends State<VerifyProfilePage> {
   }
 
   Future<Widget> verifyToken() async {
-    bool token = await ChangedToken().getToken() != "";
+    bool token = await ChangedToken().getToken() != null;
     if (token) {
       return await verifyRole();
     } else {

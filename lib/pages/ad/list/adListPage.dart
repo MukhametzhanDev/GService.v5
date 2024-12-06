@@ -122,7 +122,10 @@ class _AdListPageState extends State<AdListPage> {
               onPressed: () => Navigator.pop(context)),
           bottom: PreferredSize(
               preferredSize: Size(double.infinity, 44),
-              child: SortAdWidget(onChangedCity: onChangedCity)),
+              child: Padding(
+                  padding:
+                      const EdgeInsets.only(left: 15, right: 15, bottom: 8),
+                  child: SortAdWidget(onChangedCity: onChangedCity))),
         ),
         body: loader
             ? LoaderComponent()

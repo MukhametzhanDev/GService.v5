@@ -7,7 +7,7 @@ import 'package:gservice5/component/loader/loaderComponent.dart';
 import 'package:gservice5/component/snackBar/snackBarComponent.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
 import 'package:gservice5/component/widgets/bottom/bottomNavigationBarComponent.dart';
-import 'package:gservice5/pages/auth/registration/accountType/infoTypeAccountModal.dart';
+import 'package:gservice5/pages/auth/accountType/infoTypeAccountModal.dart';
 import 'package:gservice5/pages/auth/registration/business/businessExistsPage.dart';
 import 'package:gservice5/pages/auth/registration/individual/individualExistsPage.dart';
 
@@ -45,12 +45,6 @@ class _GetAccountTypePageState extends State<GetAccountTypePage>
     }
   }
 
-  // void showInfoTypeAccount(Map data) {
-  //   showCupertinoModalBottomSheet(
-  //       context: context,
-  //       builder: (context) => InfoTypeAccountModal(data: data));
-  // }
-
   void showRegistrationPage() {
     if (data[currentType]['type'] == "individual") {
       Navigator.push(
@@ -66,8 +60,6 @@ class _GetAccountTypePageState extends State<GetAccountTypePage>
                   data: {"role": data[currentType]['type']})));
     }
   }
-
- 
 
   @override
   Widget build(BuildContext context) {

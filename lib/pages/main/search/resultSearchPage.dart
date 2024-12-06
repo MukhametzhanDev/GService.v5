@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:gservice5/component/transition/fadeTransition.dart';
-import 'package:gservice5/pages/main/search/mainSearchPage.dart';
-import 'package:gservice5/pages/main/search/searchEmptyPage.dart';
+import 'package:gservice5/component/categories/data/categoriesData.dart';
+import 'package:gservice5/component/theme/colorComponent.dart';
+import 'package:gservice5/pages/ad/item/smallAdItem.dart';
+import 'package:gservice5/pages/ad/widget/sortAdWidget.dart';
 
 class ResultSearchPage extends StatefulWidget {
   final String title;
@@ -13,80 +14,120 @@ class ResultSearchPage extends StatefulWidget {
 }
 
 class _ResultSearchPageState extends State<ResultSearchPage> {
-  List _tabs = ["Все", "Продажи", "Аренда", "Заказы"];
-  String title = "";
-
-  @override
-  void initState() {
-    title = widget.title;
-    super.initState();
-  }
-
-  void showMainSearchPage() {
-    // showType: back, result
-    Navigator.push(
-            context,
-            FadeTransitionClass().showFadeTransition(
-                MainSearchPage(showType: "back", title: title)))
-        .then((value) {
-      if (value != null) addTitle(value);
-    });
-  }
-
-  void addTitle(String value) {
-    print(value);
-    title = value;
-    setState(() {});
-  }
+  List categories = CategoriesData.categories;
 
   @override
   Widget build(BuildContext context) {
-    return DefaultTabController(
-        length: _tabs.length,
-        child: Scaffold(
-          body: SafeArea(
-              child: Column(children: [
-            TextButton(
-              onPressed: showMainSearchPage,
-              style: TextButton.styleFrom(
-                  padding: const EdgeInsets.symmetric(vertical: 3)),
-              child: Row(
-                children: [
-                  Container(
-                    width: 20,
-                    margin: const EdgeInsets.only(left: 16),
-                    child: TextButton(
-                        onPressed: () => Navigator.pop(context),
-                        style: TextButton.styleFrom(
-                            backgroundColor: Colors.transparent),
-                        child: SvgPicture.asset('assets/icons/left.svg',
-                            color: Colors.black)),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(left: 8, right: 5),
-                    child:
-                        SvgPicture.asset("assets/icons/search.svg", width: 18),
-                  ),
-                  Expanded(
-                      child: Text(title,
-                          style: const TextStyle(fontSize: 16),
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis))
-                ],
-              ),
-            ),
-            TabBar(
-                indicatorSize: TabBarIndicatorSize.tab,
-                tabs: _tabs.map((value) {
-                  return Tab(text: value);
-                }).toList()),
-            Expanded(
-              child: TabBarView(
-                  children: _tabs.map((value) {
-                return const SearchEmptyPage();
-              }).toList()),
-            ),
-          ])),
-        ));
+    return Scaffold(
+      appBar: AppBar(
+        automaticallyImplyLeading: false,
+        shape: Border(bottom: BorderSide(color: Color(0xfff4f5f7), width: 1)),
+        leadingWidth: 0,
+        title: GestureDetector(
+          onTap: () => Navigator.pop(context),
+          child: Row(
+            children: [
+              Container(
+                  width: 30,
+                  alignment: Alignment.center,
+                  child: SvgPicture.asset('assets/icons/left.svg', width: 26)),
+              Divider(indent: 4),
+              SvgPicture.asset("assets/icons/searchOutline.svg",
+                  color: ColorComponent.gray['500']),
+              Divider(indent: 6),
+              Text(widget.title,
+                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400))
+            ],
+          ),
+        ),
+        bottom: PreferredSize(
+            preferredSize: Size(MediaQuery.of(context).size.width, 90),
+            child: Column(
+              children: [
+                SingleChildScrollView(
+                  padding: EdgeInsets.symmetric(horizontal: 12),
+                  scrollDirection: Axis.horizontal,
+                  child: Row(
+                      children: categories.map((value) {
+                    return Container(
+                      height: 36,
+                      decoration: BoxDecoration(
+                          color: ColorComponent.mainColor.withOpacity(.15),
+                          borderRadius: BorderRadius.circular(8)),
+                      alignment: Alignment.center,
+                      margin: EdgeInsets.symmetric(horizontal: 4),
+                      padding: EdgeInsets.only(left: 16, right: 12),
+                      child: Row(
+                        children: [
+                          Text(value['title'],
+                              style: TextStyle(fontWeight: FontWeight.w500)),
+                          Container(
+                            margin: EdgeInsets.only(left: 6),
+                            padding: EdgeInsets.symmetric(horizontal: 4),
+                            decoration: BoxDecoration(
+                                color: ColorComponent.red['500'],
+                                borderRadius: BorderRadius.circular(20)),
+                            child: Text('124',
+                                style: TextStyle(
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.w600,
+                                    color: Colors.white)),
+                          )
+                        ],
+                      ),
+                    );
+                  }).toList()),
+                ),
+                Divider(height: 2),
+                Padding(
+                  padding:
+                      const EdgeInsets.symmetric(vertical: 8, horizontal: 15),
+                  child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        SortAdWidget(onChangedCity: (value) {}),
+                        Row(children: [
+                          GestureDetector(
+                            child: Container(
+                              width: 36,
+                              height: 36,
+                              alignment: Alignment.center,
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(8),
+                                  color: ColorComponent.mainColor),
+                              child: SvgPicture.asset("assets/icons/sort.svg",
+                                  width: 20, color: Colors.black),
+                            ),
+                          ),
+                          Divider(indent: 12),
+                          GestureDetector(
+                            child: Container(
+                              width: 36,
+                              height: 36,
+                              alignment: Alignment.center,
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(8),
+                                  color: ColorComponent.mainColor),
+                              child: SvgPicture.asset("assets/icons/filter.svg",
+                                  width: 20),
+                            ),
+                          )
+                        ])
+                      ]),
+                )
+              ],
+            )),
+      ),
+      body: SingleChildScrollView(
+        padding: EdgeInsets.symmetric(horizontal: 15, vertical: 15),
+        child: Wrap(
+          spacing: 12,
+          children: List.generate(20, (index) => index).map((value) {
+            return SmallAdItem(index: value);
+          }).toList(),
+        ),
+      ),
+    );
   }
 }

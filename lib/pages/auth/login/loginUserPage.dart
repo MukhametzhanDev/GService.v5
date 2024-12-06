@@ -9,7 +9,7 @@ import 'package:gservice5/component/textField/passwordTextField.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
 import 'package:gservice5/pages/auth/password/individual/forgotPasswordIndividualPage.dart';
 import 'package:gservice5/pages/auth/privacyPolicyWidget.dart';
-import 'package:gservice5/pages/auth/registration/accountType/getAccountTypePage.dart';
+import 'package:gservice5/pages/auth/accountType/getAccountTypePage.dart';
 
 class LoginUserPage extends StatefulWidget {
   const LoginUserPage({super.key});
@@ -66,13 +66,15 @@ class _LoginUserPageState extends State<LoginUserPage>
   }
 
   Future postData(Map<String, dynamic> param) async {
+    print(param);
     showModalLoader(context);
     // Map<String, dynamic> param = verifyParam();
     try {
-      Response response = await dio.post("/login", queryParameters: {
-        ...param,
-        "password": passwordEditingController.text
-      });
+      Response response = await dio.post("https://dev.gservice-co.kz/api/login",
+          queryParameters: {
+            ...param,
+            "password": passwordEditingController.text
+          });
       print(response.data);
       Navigator.pop(context);
       if (response.statusCode == 200 && response.data['success']) {

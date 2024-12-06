@@ -68,7 +68,7 @@ class _HistorySearchWidgetState extends State<HistorySearchWidget> {
             children: [
               Container(
                 height: 45,
-                decoration: BoxDecoration(color: ColorComponent.gray['300']),
+                decoration: BoxDecoration(color: ColorComponent.gray['100']),
                 padding: const EdgeInsets.symmetric(
                   vertical: 12,
                   horizontal: 16,
@@ -96,31 +96,32 @@ class _HistorySearchWidgetState extends State<HistorySearchWidget> {
               Column(
                 children: historyFilter.map((value) {
                   return Container(
-                      // decoration: BoxDecoration(
-                      //     border: Border(
-                      //         bottom: BorderSide(
-                      //             width: 1, color: ColorComponent.gray200))),
+                      decoration: BoxDecoration(
+                          border: Border(
+                              bottom: BorderSide(
+                                  width: 1, color: Color(0xfff4f5f7)))),
                       child: ListTile(
-                    onTap: () {
-                      widget.getResult(value);
-                    },
-                    contentPadding: const EdgeInsets.only(
-                        top: 0, bottom: 0, left: 16, right: 8),
-                    leading:
-                        SvgPicture.asset('assets/icons/search.svg', width: 18),
-                    title: Text(value,
-                        style: const TextStyle(
-                            fontSize: 16, fontWeight: FontWeight.w400)),
-                    trailing: Container(
-                      width: 40,
-                      child: TextButton(
-                          onPressed: () {
-                            CacheSearchTitleData.removeTitle(value);
-                            _loadHistoryData();
-                          },
-                          child: SvgPicture.asset('assets/icons/close.svg')),
-                    ),
-                  ));
+                        onTap: () {
+                          widget.getResult(value);
+                        },
+                        contentPadding: const EdgeInsets.only(
+                            top: 0, bottom: 0, left: 16, right: 8),
+                        leading: SvgPicture.asset('assets/icons/history.svg',
+                            width: 18),
+                        title: Text(value,
+                            style: const TextStyle(
+                                fontSize: 14, fontWeight: FontWeight.w400)),
+                        trailing: Container(
+                          width: 40,
+                          child: TextButton(
+                              onPressed: () {
+                                CacheSearchTitleData.removeTitle(value);
+                                _loadHistoryData();
+                              },
+                              child:
+                                  SvgPicture.asset('assets/icons/close.svg')),
+                        ),
+                      ));
                 }).toList(),
               ),
               // SizedBox(height: MediaQuery.of(context).padding.bottom)

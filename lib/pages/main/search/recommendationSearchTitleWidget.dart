@@ -18,6 +18,7 @@ class _RecommendationSearchTitleWidgetState
   @override
   void initState() {
     widget.titleController.addListener(() {
+      print('object');
       getData();
     });
     super.initState();
@@ -34,12 +35,7 @@ class _RecommendationSearchTitleWidgetState
               Container(
                 height: 45,
                 alignment: Alignment.centerLeft,
-                decoration: BoxDecoration(
-                  color: ColorComponent.gray['300'],
-                  // border: Border(
-                  //     bottom: BorderSide(
-                  //         width: 1, color: ColorComponent.gray200))
-                ),
+                decoration: BoxDecoration(color: ColorComponent.gray['100']),
                 padding: EdgeInsets.symmetric(
                   vertical: 12,
                   horizontal: 16,
@@ -51,24 +47,27 @@ class _RecommendationSearchTitleWidgetState
               ),
               Column(
                 children:
-                    List.generate(10, (index) => index.toString()).map((value) {
+                    List.generate(20, (index) => index.toString()).map((value) {
                   return Container(
                       decoration: BoxDecoration(
-                          // border: Border(
-                          //     bottom: BorderSide(
-                          //         width: 1, color: ColorComponent.gray200))
-                          ),
+                          border: Border(
+                              top: BorderSide(
+                                  width: 1, color: Color(0xffe5e7eb)))),
                       child: ListTile(
                           onTap: () {
                             widget.getResult("SDLG");
                           },
                           contentPadding: EdgeInsets.only(
                               top: 0, bottom: 0, left: 16, right: 8),
-                          leading: SvgPicture.asset('assets/icons/search.svg',
+                          leading: SvgPicture.asset(
+                              'assets/icons/searchOutline.svg',
+                              color: ColorComponent.gray['500'],
                               width: 18),
-                          title: Text("SDLG",
-                              style: TextStyle(
-                                  fontSize: 16, fontWeight: FontWeight.w400))));
+                          title: Text(
+                            "SDLG",
+                            style: TextStyle(
+                                fontSize: 14, fontWeight: FontWeight.w400),
+                          )));
                 }).toList(),
               )
             ],

@@ -1,11 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:gservice5/component/appBar/leadingLogo.dart';
+import 'package:gservice5/component/button/button.dart';
 import 'package:gservice5/component/categories/request/getCategories.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
 import 'package:gservice5/component/categories/data/categoriesData.dart';
+import 'package:gservice5/component/widgets/bottom/bottomNavigationBarComponent.dart';
 import 'package:gservice5/pages/ad/list/adListPage.dart';
+import 'package:gservice5/pages/auth/accountType/changed/changedAccountTypePage.dart';
+import 'package:gservice5/pages/auth/accountType/changed/changedAccountWidget.dart';
 import 'package:gservice5/pages/main/drawer/drawerOptions.dart';
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
 class MainDrawer extends StatefulWidget {
   const MainDrawer({super.key});
@@ -15,7 +20,7 @@ class MainDrawer extends StatefulWidget {
 }
 
 class _MainDrawerState extends State<MainDrawer> {
-  List categories = CategoriesData.categories;
+  List categories = [];
   List options = DrawerOptions.options;
 
   @override
@@ -25,11 +30,7 @@ class _MainDrawerState extends State<MainDrawer> {
   }
 
   Future getData() async {
-    if (categories.isEmpty) {
-      categories = await GetCategories().getData(context);
-    } else {
-      categories = CategoriesData.categories;
-    }
+    categories = await GetCategories().getData(context);
     setState(() {});
   }
 
@@ -37,6 +38,12 @@ class _MainDrawerState extends State<MainDrawer> {
     Navigator.pop(context);
     Navigator.push(context,
         MaterialPageRoute(builder: (context) => AdListPage(category: value)));
+  }
+
+  void showChangeTypeModal() {
+    Navigator.pop(context);
+    showCupertinoModalBottomSheet(
+        context: context, builder: (context) => ChangedAccountType());
   }
 
   @override
@@ -107,6 +114,8 @@ class _MainDrawerState extends State<MainDrawer> {
               ],
             ),
           ),
+          bottomNavigationBar:
+              BottomNavigationBarComponent(child: ChangedAccountWidget()),
         ));
   }
 }

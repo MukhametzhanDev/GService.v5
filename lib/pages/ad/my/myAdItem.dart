@@ -4,6 +4,7 @@ import 'package:gservice5/component/button/button.dart';
 import 'package:gservice5/component/image/cacheImage.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
 import 'package:gservice5/component/widgets/price/priceTextWidget.dart';
+import 'package:gservice5/pages/ad/my/statistic/statisticAdPage.dart';
 import 'package:intl/intl.dart';
 
 class MyAdItem extends StatelessWidget {
@@ -11,12 +12,14 @@ class MyAdItem extends StatelessWidget {
   final void Function(int id) onPressed;
   final void Function(Map<String, dynamic> data) showOptions;
   final void Function(Map data) showListPromotionPage;
+  final String role;
   const MyAdItem(
       {super.key,
       required this.data,
       required this.onPressed,
       required this.showOptions,
-      required this.showListPromotionPage});
+      required this.showListPromotionPage,
+      required this.role});
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +32,7 @@ class MyAdItem extends StatelessWidget {
       // },
       child: Container(
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
-          decoration: BoxDecoration(
+          decoration: const BoxDecoration(
               color: Colors.white,
               border: Border(
                   bottom: BorderSide(width: 6, color: Color(0xfff4f5f7)))),
@@ -76,7 +79,7 @@ class MyAdItem extends StatelessWidget {
                                 color: ColorComponent.blue['500'],
                                 fontSize: 15,
                                 fontWeight: FontWeight.w500),
-                            maxLines:1,
+                            maxLines: 1,
                             overflow: TextOverflow.ellipsis,
                           ),
                           // const SizedBox(height: 8),
@@ -87,26 +90,47 @@ class MyAdItem extends StatelessWidget {
               ],
             ),
             const SizedBox(height: 16),
-            Row(
-              children: [
-                Container(
-                  padding: EdgeInsets.symmetric(horizontal: 8, vertical: 2),
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(6),
-                      color: ColorComponent.blue['500']),
-                  child: Text("PREMIUM",
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.w600,
-                          fontSize: 12)),
-                ),
-                Divider(indent: 12),
-                Text("Активен с 12 Октября",
-                    style: TextStyle(
-                        color: ColorComponent.gray['500'], fontSize: 13))
-              ],
-            ),
-            const SizedBox(height: 16),
+            role == "individual"
+                ? Container()
+                : Container(
+                    margin: const EdgeInsets.only(bottom: 16),
+                    height: 36,
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        border: Border.all(
+                            width: 1, color: ColorComponent.mainColor)),
+                    child: Button(
+                        onPressed: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      StatisticAdPage(id: data['id'])));
+                        },
+                        title: "Статистика",
+                        icon: "charTmixeDoutline.svg",
+                        backgroundColor: Colors.white),
+                  ),
+            // Row(
+            //   children: [
+            //     Container(
+            //       padding: EdgeInsets.symmetric(horizontal: 8, vertical: 2),
+            //       decoration: BoxDecoration(
+            //           borderRadius: BorderRadius.circular(6),
+            //           color: ColorComponent.blue['500']),
+            //       child: Text("PREMIUM",
+            //           style: TextStyle(
+            //               color: Colors.white,
+            //               fontWeight: FontWeight.w600,
+            //               fontSize: 12)),
+            //     ),
+            //     Divider(indent: 12),
+            //     Text("Активен с 12 Октября",
+            //         style: TextStyle(
+            //             color: ColorComponent.gray['500'], fontSize: 13))
+            //   ],
+            // ),
+            // const SizedBox(height: 16),
             data['status'] == "archived"
                 ? SizedBox(
                     height: 36,
@@ -161,13 +185,13 @@ class MyAdItem extends StatelessWidget {
                           child: Container(
                               height: 32,
                               alignment: Alignment.center,
-                              padding: EdgeInsets.symmetric(horizontal: 8),
+                              padding: const EdgeInsets.symmetric(horizontal: 8),
                               child: Row(
                                 children: [
                                   Text("Править",
                                       style: TextStyle(
                                           color: ColorComponent.gray['700'])),
-                                  Divider(indent: 12),
+                                  const Divider(indent: 12),
                                   SvgPicture.asset(
                                       'assets/icons/dotsHorizontal.svg')
                                 ],

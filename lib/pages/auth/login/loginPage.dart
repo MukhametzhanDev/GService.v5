@@ -51,7 +51,9 @@ class _LoginPageState extends State<LoginPage>
                         ),
                       )),
                 ),
-                body: TabBarView(
-                    children: [LoginUserPage(), LoginBusinessPage()]))));
+                body: TabBarView(children: [
+                  LoginUserPage(),
+                  LoginBusinessPage(showBackButton: false)
+                ]))));
   }
 }

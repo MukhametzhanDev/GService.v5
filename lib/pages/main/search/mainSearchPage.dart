@@ -43,16 +43,11 @@ class _MainSearchPageState extends State<MainSearchPage> {
   }
 
   void showPage() {
-    if (widget.showType == "result") {
-      Navigator.pop(context);
-      Navigator.push(context, MaterialPageRoute(
-        builder: (context) {
-          return ResultSearchPage(title: textEditingController.text);
-        },
-      ));
-    } else {
-      Navigator.pop(context, textEditingController.text);
-    }
+    Navigator.push(context, MaterialPageRoute(
+      builder: (context) {
+        return ResultSearchPage(title: textEditingController.text);
+      },
+    ));
   }
 
   @override
@@ -79,7 +74,8 @@ class _MainSearchPageState extends State<MainSearchPage> {
                       ),
                       Padding(
                         padding: const EdgeInsets.only(left: 8, right: 5),
-                        child: SvgPicture.asset("assets/icons/search.svg",
+                        child: SvgPicture.asset(
+                            "assets/icons/searchOutline.svg",
                             width: 18),
                       ),
                       Expanded(

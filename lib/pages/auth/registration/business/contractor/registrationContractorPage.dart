@@ -56,8 +56,7 @@ class _RegistrationContractorPageState
       Response response = await dio.post("/image/avatar", data: formData);
       print(response.data);
       Navigator.pop(context);
-             if (response.statusCode==200) {
-
+      if (response.statusCode == 200) {
         postData(response.data['data']);
       } else {
         SnackBarComponent().showResponseErrorMessage(response, context);
@@ -84,9 +83,9 @@ class _RegistrationContractorPageState
       };
       Response response = await dio.post("/business/register", data: param);
       Navigator.pop(context);
-             if (response.statusCode==200) {
-
-        ChangedToken().saveContractorToken(response.data['data'], context);
+      if (response.statusCode == 200) {
+        ChangedToken()
+            .saveContractorToken(response.data['data'], "register", context);
       } else {
         SnackBarComponent().showResponseErrorMessage(response, context);
       }
@@ -102,7 +101,8 @@ class _RegistrationContractorPageState
     String desc = descEditingController.text.trim();
     String repeatPassword = repeatPasswordEditingController.text.trim();
     if (imagePath.isEmpty) {
-      SnackBarComponent().showErrorMessage("Загрузите логотип компании", context);
+      SnackBarComponent()
+          .showErrorMessage("Загрузите логотип компании", context);
     } else {
       if (currentCity.isEmpty ||
           name.isEmpty ||

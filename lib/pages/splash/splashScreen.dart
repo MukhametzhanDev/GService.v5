@@ -31,10 +31,10 @@ class _SplashScreenState extends State<SplashScreen> {
     if (role == "customer" || role == "contractor") {
       dio.options.baseUrl = "https://dev.gservice-co.kz/api/business/";
     }
-    showPage(role);
+    await showPage(role);
   }
 
-  void showPage(String? role) {
+  Future showPage(String? role) async {
     if (role == "customer") {
       Navigator.of(context).pushAndRemoveUntil(
           MaterialPageRoute(builder: (context) => CustomerBottomTab()),

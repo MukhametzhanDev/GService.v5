@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:gservice5/component/button/back/backTitleButton.dart';
 import 'package:gservice5/component/button/button.dart';
 import 'package:gservice5/component/dio/dio.dart';
 import 'package:gservice5/component/functions/token/changedToken.dart';
@@ -10,10 +11,11 @@ import 'package:gservice5/component/textField/passwordTextField.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
 import 'package:gservice5/pages/auth/password/business/forgotPasswordBusinessPage.dart';
 import 'package:gservice5/pages/auth/privacyPolicyWidget.dart';
-import 'package:gservice5/pages/auth/registration/accountType/getAccountTypePage.dart';
+import 'package:gservice5/pages/auth/accountType/getAccountTypePage.dart';
 
 class LoginBusinessPage extends StatefulWidget {
-  const LoginBusinessPage({super.key});
+  final bool showBackButton;
+  const LoginBusinessPage({super.key, required this.showBackButton});
 
   @override
   State<LoginBusinessPage> createState() => _LoginBusinessPageState();
@@ -68,7 +70,8 @@ class _LoginBusinessPageState extends State<LoginBusinessPage>
         if (response.data['data']['user']['role'] == "customer") {
           ChangedToken().saveCustomerToken(response.data['data'], context);
         } else {
-          ChangedToken().saveContractorToken(response.data['data'], context);
+          ChangedToken()
+              .saveContractorToken(response.data['data'], "login", context);
         }
       } else {
         SnackBarComponent().showResponseErrorMessage(response, context);
@@ -97,54 +100,63 @@ class _LoginBusinessPageState extends State<LoginBusinessPage>
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-        padding: EdgeInsets.all(15),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Divider(height: 10),
-            SizedBox(
-                height: 48,
-                child: EmailTextField(
-                    textEditingController: emailEditingController,
-                    autofocus: false,
-                    onSubmitted: () {})),
-            Divider(indent: 15),
-            PasswordTextField(
-                textEditingController: passwordEditingController,
-                onSubmitted: verifyData),
-            Align(
-                alignment: Alignment.centerRight,
-                child: TextButton(
-                    onPressed: showForgotPasswordIndividualPage,
-                    child: Text(
-                      "Забыли пароль?",
-                      style: TextStyle(
-                          fontSize: 13,
-                          fontWeight: FontWeight.w500,
-                          color: ColorComponent.blue['700']),
-                    ))),
-            SizedBox(
-              height: 30,
-              child: TextButton(
-                onPressed: showRegistrationPage,
-                child: RichText(
-                    text: TextSpan(
+    return Scaffold(
+      appBar: widget.showBackButton
+          ? AppBar(
+              leadingWidth: 100,
+              leading: BackTitleButton(
+                  title: "Войти", onPressed: () => Navigator.pop(context)))
+          : null,
+      body: SingleChildScrollView(
+          padding: EdgeInsets.all(15),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Divider(height: 10),
+              SizedBox(
+                  height: 48,
+                  child: EmailTextField(
+                      textEditingController: emailEditingController,
+                      autofocus: false,
+                      onSubmitted: () {})),
+              Divider(indent: 15),
+              PasswordTextField(
+                  textEditingController: passwordEditingController,
+                  onSubmitted: verifyData),
+              Align(
+                  alignment: Alignment.centerRight,
+                  child: TextButton(
+                      onPressed: showForgotPasswordIndividualPage,
+                      child: Text(
+                        "Забыли пароль?",
                         style: TextStyle(
-                            fontWeight: FontWeight.w500, color: Colors.black),
-                        children: [
-                      TextSpan(text: "У вас нет аккаунта? "),
-                      TextSpan(
-                          text: "Зарегистрируйтесь",
-                          style: TextStyle(color: ColorComponent.blue['700'])),
-                    ])),
+                            fontSize: 13,
+                            fontWeight: FontWeight.w500,
+                            color: ColorComponent.blue['700']),
+                      ))),
+              SizedBox(
+                height: 30,
+                child: TextButton(
+                  onPressed: showRegistrationPage,
+                  child: RichText(
+                      text: TextSpan(
+                          style: TextStyle(
+                              fontWeight: FontWeight.w500, color: Colors.black),
+                          children: [
+                        TextSpan(text: "У вас нет аккаунта? "),
+                        TextSpan(
+                            text: "Зарегистрируйтесь",
+                            style:
+                                TextStyle(color: ColorComponent.blue['700'])),
+                      ])),
+                ),
               ),
-            ),
-            Divider(indent: 8),
-            Button(onPressed: verifyData, title: "Подтвердить"),
-            Divider(indent: 8),
-            PrivacyPolicyWidget()
-          ],
-        ));
+              Divider(indent: 8),
+              Button(onPressed: verifyData, title: "Подтвердить"),
+              Divider(indent: 8),
+              PrivacyPolicyWidget()
+            ],
+          )),
+    );
   }
 }

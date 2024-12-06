@@ -7,6 +7,7 @@ import 'package:gservice5/component/categories/data/categoriesData.dart';
 import 'package:gservice5/pages/main/applicationListMain.dart';
 import 'package:gservice5/component/categories/categoriesListWidget.dart';
 import 'package:gservice5/pages/main/drawer/mainDrawer.dart';
+import 'package:gservice5/pages/main/search/mainSearchPage.dart';
 
 class MainPage extends StatefulWidget {
   final ScrollController scrollController;
@@ -19,7 +20,12 @@ class MainPage extends StatefulWidget {
 class _MainPageState extends State<MainPage> {
   var scaffoldKey = GlobalKey<ScaffoldState>();
 
-  void showMainSearchPage() {}
+  void showMainSearchPage() {
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => MainSearchPage(showType: "back", title: "")));
+  }
 
   @override
   Widget build(BuildContext context) {

@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:gservice5/component/button/back/backIconButton.dart';
 import 'package:gservice5/component/dio/dio.dart';
+import 'package:gservice5/component/functions/token/changedToken.dart';
 import 'package:gservice5/component/loader/loaderComponent.dart';
 import 'package:gservice5/component/snackBar/snackBarComponent.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
@@ -39,6 +40,7 @@ class _MyAdListPageState extends State<MyAdListPage>
   int page = 1;
   RefreshController refreshController = RefreshController();
   late TabController tabController;
+  String role = "";
 
   @override
   void initState() {
@@ -84,7 +86,7 @@ class _MyAdListPageState extends State<MyAdListPage>
   }
 
   Future getData() async {
-    print('adsf');
+    role = await ChangedToken().getRole();
     try {
       page = 1;
       setState(() {});
@@ -206,6 +208,16 @@ class _MyAdListPageState extends State<MyAdListPage>
     );
   }
 
+  void showPage(int id) {
+    Navigator.push(context,
+            MaterialPageRoute(builder: (context) => ViewMyAdPage(id: id)))
+        .then((value) {
+      if (value == "update") {
+        updateData(id);
+      }
+    });
+  }
+
   Widget ListMyAds() {
     return
         // SmartRefresher(
@@ -231,17 +243,8 @@ class _MyAdListPageState extends State<MyAdListPage>
                   Map<String, dynamic> item = data[index];
                   return MyAdItem(
                       data: item,
-                      onPressed: (id) {
-                        Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => ViewMyAdPage(id: id)))
-                            .then((value) {
-                          if (value == "update") {
-                            updateData(id);
-                          }
-                        });
-                      },
+                      onPressed: showPage,
+                      role: role,
                       showOptions: showOptions,
                       showListPromotionPage: (value) {});
                 },

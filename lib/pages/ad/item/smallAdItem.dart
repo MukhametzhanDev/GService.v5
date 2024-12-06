@@ -22,7 +22,7 @@ class _SmallAdItemState extends State<SmallAdItem> {
       onLongPress: () => onLongPressShowNumber({}, context),
       child: Container(
         width: ITEM_WIDTH - 24,
-        height: ITEM_WIDTH - 24,
+        height: ITEM_WIDTH - 2,
         decoration: BoxDecoration(color: Colors.white),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -57,31 +57,28 @@ class _SmallAdItemState extends State<SmallAdItem> {
                               fontWeight: FontWeight.w500)),
                     ),
                   ),
-                  widget.index % 3 == 1
-                      ? Container()
-                      : Positioned(
-                          bottom: 10,
-                          right: 0,
-                          child: Container(
-                            height: 20,
-                            padding: EdgeInsets.symmetric(horizontal: 8),
-                            alignment: Alignment.center,
-                            decoration: BoxDecoration(
-                                color: widget.index == 1
-                                    ? Colors.green
-                                    : ColorComponent.blue['500'],
-                                borderRadius: BorderRadius.only(
-                                    topLeft: Radius.circular(4),
-                                    bottomLeft: Radius.circular(4))),
-                            child: Text(
-                                widget.index == 1 ? "MEDIUM" : "PREMIUM",
-                                style: TextStyle(
-                                    height: 1,
-                                    color: Colors.white,
-                                    fontSize: 11,
-                                    fontWeight: FontWeight.w600)),
-                          ),
+                  Positioned(
+                      bottom: 0,
+                      child: Container(
+                        padding:
+                            EdgeInsets.symmetric(horizontal: 6, vertical: 4),
+                        decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.only(
+                                topRight: Radius.circular(8))),
+                        child: Row(
+                          children: [
+                            SvgPicture.asset('assets/icons/fire.svg',
+                                width: 16),
+                            Divider(indent: 2),
+                            SvgPicture.asset('assets/icons/star.svg',
+                                width: 16, color: ColorComponent.mainColor),
+                            Divider(indent: 2),
+                            SvgPicture.asset('assets/icons/badgeCheck.svg',
+                                width: 16),
+                          ],
                         ),
+                      ))
                 ],
               ),
             ),

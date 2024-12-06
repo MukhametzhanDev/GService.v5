@@ -25,6 +25,8 @@ class _FavoriteMainPageState extends State<FavoriteMainPage> {
 
   Future getToken() async {
     token = await ChangedToken().getToken() != null;
+    print("TOKEN $token");
+    setState(() {});
   }
 
   @override
