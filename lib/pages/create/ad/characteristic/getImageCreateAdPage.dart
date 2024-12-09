@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:gservice5/component/button/button.dart';
@@ -7,6 +5,7 @@ import 'package:gservice5/component/dio/dio.dart';
 import 'package:gservice5/component/loader/modalLoaderComponent.dart';
 import 'package:gservice5/component/snackBar/snackBarComponent.dart';
 import 'package:gservice5/component/widgets/bottom/bottomNavigationBarComponent.dart';
+import 'package:gservice5/pages/ad/package/listPackagePage.dart';
 import 'package:gservice5/pages/create/data/createData.dart';
 import 'package:gservice5/pages/create/getImageWidget.dart';
 import 'package:image_picker/image_picker.dart';
@@ -45,7 +44,13 @@ class _GetImageCreateAdPageState extends State<GetImageCreateAdPage> {
         Navigator.pop(context);
         Navigator.pop(context, "ad");
         Navigator.pop(context, "ad");
-        Navigator.pop(context, "ad");
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => ListPackagePage(
+                    rubricId: 0,
+                    adId: response.data['data']['id'],
+                    goBack: false)));
       } else {
         Navigator.pop(context);
         SnackBarComponent().showResponseErrorMessage(response, context);

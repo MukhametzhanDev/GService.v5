@@ -1,9 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:gservice5/component/theme/darkThemeProvider.dart';
 import 'package:gservice5/component/theme/styles.dart';
+import 'package:gservice5/component/wallet/transaction/transactionHistoryPage.dart';
 import 'package:gservice5/navigation/individual/individualBottomTab.dart';
+import 'package:gservice5/pages/ad/list/adListPage.dart';
+import 'package:gservice5/pages/ad/my/myAdListPage.dart';
+import 'package:gservice5/pages/auth/accountType/getAccountTypePage.dart';
+import 'package:gservice5/pages/auth/password/individual/resetIndividualPasswordPage.dart';
 import 'package:gservice5/pages/auth/registration/business/contractor/getActivityContractorPage.dart';
+import 'package:gservice5/pages/create/ad/sectionCreateAdPage.dart';
+import 'package:gservice5/pages/create/application/createApplication.dart';
 import 'package:gservice5/pages/create/structure/controllerPage/pageControllerIndexedStack.dart';
+import 'package:gservice5/pages/profile/wallet/replenishment/replenishmentWalletPage.dart';
 import 'package:gservice5/pages/splash/splashScreen.dart';
 import 'package:provider/provider.dart';
 
@@ -16,8 +24,6 @@ class Index extends StatefulWidget {
 
 class _IndexState extends State<Index> {
   DarkThemeProvider themeChangeProvider = DarkThemeProvider();
-  PageControllerIndexedStack pageControllerIndexedStack =
-      PageControllerIndexedStack();
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +42,13 @@ class _IndexState extends State<Index> {
             routes: {
               "IndividualBottomTab": (context) => IndividualBottomTab(),
               "SplashScreen": (context) => SplashScreen(),
-              // "MyAdListPage": (context) => MyAdListPage(),
+              "ReplenishmentWalletPage": (context) => ReplenishmentWalletPage(),
+              "TransactionHistoryPage": (context) => TransactionHistoryPage(),
+              "MyAdListPage": (context) => MyAdListPage(),
+              "SectionCreateAdPage": (context) => SectionCreateAdPage(),
+              "GetAccountTypePage": (context) => GetAccountTypePage(),
+              "ResetIndividualPasswordPage": (context) => ResetIndividualPasswordPage(),
+              "CreateApplication": (context) => CreateApplication(),
               "GetActivityContractorPage": (context) =>
                   GetActivityContractorPage(),
             },

@@ -6,6 +6,7 @@ import 'package:gservice5/component/loader/paginationLoaderComponent.dart';
 import 'package:gservice5/component/snackBar/snackBarComponent.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
 import 'package:gservice5/pages/ad/item/adItem.dart';
+import 'package:gservice5/pages/favorite/ad/emptyFavoriteListPage.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 class ListFavoriteAdPage extends StatefulWidget {
@@ -90,48 +91,46 @@ class _ListFavoriteAdPageState extends State<ListFavoriteAdPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          toolbarHeight: 0,
-          // bottom: PreferredSize(
-          //     preferredSize: Size(double.infinity, 48), child: Row(children: [])),
-        ),
+        appBar: AppBar(toolbarHeight: 0),
         body: loader
             ? LoaderComponent()
-            : Column(
-                children: [
-                  Expanded(
-                      child: SmartRefresher(
-                    onRefresh: () async {
-                      await getData();
-                    },
-                    enablePullDown: true,
-                    enablePullUp: false,
-                    controller: refreshController,
-                    header: MaterialClassicHeader(
-                        color: ColorComponent.mainColor,
-                        backgroundColor: Colors.white),
-                    child: ListView.builder(
-                        itemCount: data.length,
-                        controller: scrollController,
-                        itemBuilder: (context, int index) {
-                          Map value = data[index];
-                          if (data.length - 1 == index) {
-                            return Column(children: [
-                              AdItem(
-                                  data: value['favoritable'],
-                                  showCategory: false),
-                              hasNextPage
-                                  ? PaginationLoaderComponent()
-                                  : Container()
-                            ]);
-                          } else {
-                            return AdItem(
-                                data: value['favoritable'],
-                                showCategory: false);
-                          }
-                        }),
-                  ))
-                ],
-              ));
+            : data.isEmpty
+                ? EmptyFavoriteListPage()
+                : Column(
+                    children: [
+                      Expanded(
+                          child: SmartRefresher(
+                        onRefresh: () async {
+                          await getData();
+                        },
+                        enablePullDown: true,
+                        enablePullUp: false,
+                        controller: refreshController,
+                        header: MaterialClassicHeader(
+                            color: ColorComponent.mainColor,
+                            backgroundColor: Colors.white),
+                        child: ListView.builder(
+                            itemCount: data.length,
+                            controller: scrollController,
+                            itemBuilder: (context, int index) {
+                              Map value = data[index];
+                              if (data.length - 1 == index) {
+                                return Column(children: [
+                                  AdItem(
+                                      data: value['favoritable'],
+                                      showCategory: false),
+                                  hasNextPage
+                                      ? PaginationLoaderComponent()
+                                      : Container()
+                                ]);
+                              } else {
+                                return AdItem(
+                                    data: value['favoritable'],
+                                    showCategory: false);
+                              }
+                            }),
+                      ))
+                    ],
+                  ));
   }
 }

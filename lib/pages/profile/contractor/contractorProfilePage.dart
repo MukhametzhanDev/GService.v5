@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:gservice5/component/alert/logOutAlert.dart';
 import 'package:gservice5/component/dio/dio.dart';
 import 'package:gservice5/component/formatted/number/numberFormatted.dart';
 import 'package:gservice5/component/functions/token/changedToken.dart';
@@ -10,10 +9,8 @@ import 'package:gservice5/component/loader/loaderComponent.dart';
 import 'package:gservice5/component/snackBar/snackBarComponent.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
 import 'package:gservice5/component/wallet/showWalletWidget.dart';
-import 'package:gservice5/pages/ad/my/myAdListPage.dart';
 import 'package:gservice5/pages/profile/contractor/changeContractorProfilePage.dart';
 import 'package:gservice5/pages/profile/profileListTilesWidget.dart';
-import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:readmore/readmore.dart';
 
 class ContractorProfilePage extends StatefulWidget {

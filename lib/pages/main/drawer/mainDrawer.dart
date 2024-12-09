@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:gservice5/component/appBar/leadingLogo.dart';
-import 'package:gservice5/component/button/button.dart';
 import 'package:gservice5/component/categories/request/getCategories.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
-import 'package:gservice5/component/categories/data/categoriesData.dart';
 import 'package:gservice5/component/widgets/bottom/bottomNavigationBarComponent.dart';
 import 'package:gservice5/pages/ad/list/adListPage.dart';
 import 'package:gservice5/pages/auth/accountType/changed/changedAccountTypePage.dart';

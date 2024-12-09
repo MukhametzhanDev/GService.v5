@@ -80,9 +80,8 @@ class _FavoriteMainPageState extends State<FavoriteMainPage> {
               ),
               body: TabBarView(children: [
                 ListFavoriteAdPage(),
-                ListPackagePage(rubricId: 1, adId: 103, goBack: false),
                 ListFavoriteApplicationPage(),
-                // Container()
+                Container()
               ]),
             ),
           );

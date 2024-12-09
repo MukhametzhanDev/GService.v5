@@ -44,8 +44,7 @@ class MyAdEmptyPage extends StatelessWidget {
       bottomNavigationBar: BottomNavigationBarComponent(
           child: Button(
         onPressed: () {
-          Navigator.push(context,
-              MaterialPageRoute(builder: (context) => SectionCreateAdPage()));
+          Navigator.pushNamed(context, "SectionCreateAdPage");
         },
         title: "Создать объявление",
         padding: EdgeInsets.symmetric(horizontal: 15),

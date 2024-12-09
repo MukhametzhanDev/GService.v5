@@ -38,8 +38,7 @@ class _ProfileListTilesWidgetState extends State<ProfileListTilesWidget> {
   }
 
   void showMyAdPage() {
-    Navigator.push(
-        context, MaterialPageRoute(builder: (context) => MyAdListPage()));
+    Navigator.pushNamed(context, "MyAdListPage");
   }
 
   void showNewsPage() {
@@ -84,14 +83,13 @@ class _ProfileListTilesWidgetState extends State<ProfileListTilesWidget> {
               title: Text("Мои объявления"),
               trailing: SvgPicture.asset('assets/icons/right.svg')),
         ),
-        Container(
-          decoration: BoxDecoration(
-              border: Border.all(width: 1, color: Color(0xfff4f5f7))),
-          child: ListTile(
-              leading: SvgPicture.asset('assets/icons/logistic.svg'),
-              title: Text("Логистика"),
-              trailing: SvgPicture.asset('assets/icons/right.svg')),
-        ),
+        // Container(
+        //     decoration: BoxDecoration(
+        //         border: Border.all(width: 1, color: Color(0xfff4f5f7))),
+        //     child: ListTile(
+        //         leading: SvgPicture.asset('assets/icons/logistic.svg'),
+        //         title: Text("Логистика"),
+        //         trailing: SvgPicture.asset('assets/icons/right.svg'))),
         role == "individual"
             ? Container()
             : Container(

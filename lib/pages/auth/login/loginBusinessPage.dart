@@ -83,6 +83,7 @@ class _LoginBusinessPageState extends State<LoginBusinessPage>
   }
 
   void showRegistrationPage() {
+    // Navigator.pushNamed(context, "GetAccountTypePage")
     Navigator.push(context,
             MaterialPageRoute(builder: (context) => GetAccountTypePage()))
         .then((value) {

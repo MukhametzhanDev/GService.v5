@@ -3,8 +3,6 @@ import 'package:flutter_svg/svg.dart';
 import 'package:gservice5/component/button/button.dart';
 import 'package:gservice5/component/formatted/price/priceFormat.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
-import 'package:gservice5/component/wallet/transaction/transactionHistoryPage.dart';
-import 'package:gservice5/pages/profile/wallet/replenishment/replenishmentWalletPage.dart';
 
 class ShowWalletWidget extends StatefulWidget {
   const ShowWalletWidget({super.key});
@@ -15,13 +13,11 @@ class ShowWalletWidget extends StatefulWidget {
 
 class _ShowWalletWidgetState extends State<ShowWalletWidget> {
   void showPage() {
-    Navigator.push(context,
-        MaterialPageRoute(builder: (context) => ReplenishmentWalletPage()));
+    Navigator.pushNamed(context, "ReplenishmentWalletPage");
   }
 
   void showTransactionHistoryPage() {
-    Navigator.push(context,
-        MaterialPageRoute(builder: (context) => TransactionHistoryPage()));
+    Navigator.pushNamed(context, "TransactionHistoryPage");
   }
 
   @override

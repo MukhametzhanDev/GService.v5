@@ -39,8 +39,7 @@ class _IndividualBottomTabState extends State<IndividualBottomTab>
           context: context,
           builder: (context) => CreateSectionPage()).then((value) {
         if (value == "ad") {
-          Navigator.push(
-              context, MaterialPageRoute(builder: (context) => MyAdListPage()));
+          Navigator.pushNamed(context, "MyAdListPage");
         }
       });
     } else {

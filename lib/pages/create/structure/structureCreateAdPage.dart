@@ -128,7 +128,6 @@ class _StructureCreateAdPageState extends State<StructureCreateAdPage> {
     return WillPopScope(
         onWillPop: () async {
           previousPage();
-          print("User swiped back!");
           return true;
         },
         child: ValueListenableBuilder<int>(

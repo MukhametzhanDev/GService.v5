@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:gservice5/component/button/button.dart';
+import 'package:gservice5/component/date/formattedDate.dart';
 import 'package:gservice5/component/image/cacheImage.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
 import 'package:gservice5/component/widgets/price/priceTextWidget.dart';
@@ -185,7 +186,8 @@ class MyAdItem extends StatelessWidget {
                           child: Container(
                               height: 32,
                               alignment: Alignment.center,
-                              padding: const EdgeInsets.symmetric(horizontal: 8),
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 8),
                               child: Row(
                                 children: [
                                   Text("Править",
@@ -261,7 +263,7 @@ class MyAdItem extends StatelessWidget {
                             fontWeight: FontWeight.w500)),
                   ],
                 ),
-                Text(formattedDate(data['created_at']),
+                Text(formattedDate(data['created_at'], "dd MMMM HH:mm"),
                     // data['city']['title'],
                     style: TextStyle(
                         color: ColorComponent.gray['500'],
@@ -297,10 +299,4 @@ class MyAdItem extends StatelessWidget {
           ])),
     );
   }
-}
-
-String formattedDate(isoDate) {
-  DateTime dateTime = DateTime.parse(isoDate);
-  String formattedDate = DateFormat('dd MMMM HH:mm ').format(dateTime);
-  return formattedDate;
 }

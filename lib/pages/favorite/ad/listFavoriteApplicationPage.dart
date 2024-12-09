@@ -6,6 +6,7 @@ import 'package:gservice5/component/loader/paginationLoaderComponent.dart';
 import 'package:gservice5/component/snackBar/snackBarComponent.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
 import 'package:gservice5/pages/application/applicationItem.dart';
+import 'package:gservice5/pages/favorite/ad/emptyFavoriteListPage.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 class ListFavoriteApplicationPage extends StatefulWidget {
@@ -99,41 +100,43 @@ class _ListFavoriteApplicationPageState
         ),
         body: loader
             ? LoaderComponent()
-            : Column(
-                children: [
-                  Expanded(
-                      child: SmartRefresher(
-                    onRefresh: () async {
-                      await getData();
-                    },
-                    enablePullDown: true,
-                    enablePullUp: false,
-                    controller: refreshController,
-                    header: MaterialClassicHeader(
-                        color: ColorComponent.mainColor,
-                        backgroundColor: Colors.white),
-                    child: ListView.builder(
-                        itemCount: data.length,
-                        controller: scrollController,
-                        itemBuilder: (context, int index) {
-                          Map value = data[index];
-                          if (data.length - 1 == index) {
-                            return Column(children: [
-                              ApplicationItem(
-                                  data: value['favoritable'],
-                                  showCategory: false),
-                              hasNextPage
-                                  ? PaginationLoaderComponent()
-                                  : Container()
-                            ]);
-                          } else {
-                            return ApplicationItem(
-                                data: value['favoritable'],
-                                showCategory: false);
-                          }
-                        }),
-                  ))
-                ],
-              ));
+            : data.isEmpty
+                ? EmptyFavoriteListPage()
+                : Column(
+                    children: [
+                      Expanded(
+                          child: SmartRefresher(
+                        onRefresh: () async {
+                          await getData();
+                        },
+                        enablePullDown: true,
+                        enablePullUp: false,
+                        controller: refreshController,
+                        header: MaterialClassicHeader(
+                            color: ColorComponent.mainColor,
+                            backgroundColor: Colors.white),
+                        child: ListView.builder(
+                            itemCount: data.length,
+                            controller: scrollController,
+                            itemBuilder: (context, int index) {
+                              Map value = data[index];
+                              if (data.length - 1 == index) {
+                                return Column(children: [
+                                  ApplicationItem(
+                                      data: value['favoritable'],
+                                      showCategory: false),
+                                  hasNextPage
+                                      ? PaginationLoaderComponent()
+                                      : Container()
+                                ]);
+                              } else {
+                                return ApplicationItem(
+                                    data: value['favoritable'],
+                                    showCategory: false);
+                              }
+                            }),
+                      ))
+                    ],
+                  ));
   }
 }

@@ -5,6 +5,7 @@ import 'package:gservice5/component/button/back/backIconButton.dart';
 import 'package:gservice5/component/button/back/backTitleButton.dart';
 import 'package:gservice5/component/button/button.dart';
 import 'package:gservice5/component/button/shareButton.dart';
+import 'package:gservice5/component/date/formattedDate.dart';
 import 'package:gservice5/component/dio/dio.dart';
 import 'package:gservice5/component/image/cacheImage.dart';
 import 'package:gservice5/component/loader/loaderComponent.dart';
@@ -12,6 +13,7 @@ import 'package:gservice5/component/snackBar/snackBarComponent.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
 import 'package:gservice5/component/widgets/author/authorAdWidget.dart';
 import 'package:gservice5/pages/profile/news/allNewsPage.dart';
+import 'package:gservice5/pages/profile/news/myNewsPage.dart';
 
 class ViewNewsPage extends StatefulWidget {
   final int id;
@@ -85,7 +87,9 @@ class _ViewNewsPageState extends State<ViewNewsPage> {
                           TextStyle(fontSize: 20, fontWeight: FontWeight.w600)),
                   Divider(indent: 12),
                   Row(children: [
-                    Text(formattedDateNews(data["created_at"]),
+                    Text(
+                        formattedDate(
+                            data["created_at"], "dd MMMM yyyy, HH:mm"),
                         style: TextStyle(
                             fontSize: 12, color: ColorComponent.gray['500'])),
                     Divider(indent: 16),

@@ -16,12 +16,12 @@ class _AboutCompanyPageState extends State<AboutCompanyPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-          leadingWidth: 200,
-          leading: BackTitleButton(
-            title: "О GService",
-            onPressed: () => Navigator.pop(context),
-          ),
-          centerTitle: false),
+        leadingWidth: 200,
+        leading: BackTitleButton(
+          title: "О GService",
+          onPressed: () => Navigator.pop(context),
+        ),
+      ),
       body: SingleChildScrollView(
           child: Column(children: [
         Padding(

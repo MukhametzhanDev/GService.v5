@@ -13,7 +13,7 @@ class BackTitleButton extends StatelessWidget {
         constraints: BoxConstraints(),
         style: ButtonStyle(tapTargetSize: MaterialTapTargetSize.padded),
         onPressed: () {
-          onPressed ?? Navigator.pop(context);
+          onPressed == null ? Navigator.pop(context) : onPressed();
         },
         icon: Row(
           children: [

@@ -58,7 +58,8 @@ class _ListPackagePageState extends State<ListPackagePage> {
   void showSuccessfullyPage() {
     CreateData.data.clear();
     CreateData.images.clear();
-    Navigator.pop(context);
+    Navigator.pop(context, "ad");
+    Navigator.pop(context, "ad");
     // Navigator.push(
     //     context,
     //     MaterialPageRoute(

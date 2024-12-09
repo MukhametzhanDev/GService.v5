@@ -1,18 +1,15 @@
 import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:gservice5/component/button/favoriteButton.dart';
 import 'package:gservice5/component/formatted/number/numberFormatted.dart';
 import 'package:gservice5/component/image/cacheImage.dart';
 import 'package:gservice5/component/modal/contact/shortContactModal.dart';
-import 'package:gservice5/component/stickers/showStickersList.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
 import 'package:gservice5/component/widgets/price/priceTextWidget.dart';
 import 'package:gservice5/pages/ad/package/showPackageIcons.dart';
 import 'package:gservice5/pages/ad/viewAdPage.dart';
 import 'package:intl/intl.dart';
-import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
 class AdItem extends StatefulWidget {
   final Map data;
@@ -151,7 +148,9 @@ class _AdItemState extends State<AdItem> {
                             style: TextStyle(
                                 fontSize: 15,
                                 fontWeight: FontWeight.w500,
-                                height: 1.3)),
+                                height: 1.3),
+                            maxLines: 2,
+                            overflow: TextOverflow.ellipsis),
                         Divider(height: 10),
                         Text(
                             "На заказы от 3-х смен мы предоставляем скидку. Вся техника находится у нас в собственности, работают опытные операторы и качественно",
@@ -159,7 +158,7 @@ class _AdItemState extends State<AdItem> {
                             overflow: TextOverflow.ellipsis,
                             style: TextStyle(
                                 color: ColorComponent.gray['600'],
-                                fontSize: 13)),
+                                fontSize: 13))
                       ],
                     ))
                   ],

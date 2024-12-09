@@ -11,6 +11,7 @@ import 'package:gservice5/pages/ad/my/myAdItem.dart';
 import 'package:gservice5/pages/ad/my/optionsMyAdModal.dart';
 import 'package:gservice5/pages/ad/my/request/myAdRequest.dart';
 import 'package:gservice5/pages/ad/my/viewMyAdPage.dart';
+import 'package:gservice5/pages/ad/package/listPackagePage.dart';
 import 'package:gservice5/pages/application/my/viewMyApplicationPage.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
@@ -218,6 +219,14 @@ class _MyAdListPageState extends State<MyAdListPage>
     });
   }
 
+  void showListPromotionPage(Map value) {
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) =>
+                ListPackagePage(rubricId: 0, adId: value['id'], goBack: true)));
+  }
+
   Widget ListMyAds() {
     return
         // SmartRefresher(
@@ -246,7 +255,7 @@ class _MyAdListPageState extends State<MyAdListPage>
                       onPressed: showPage,
                       role: role,
                       showOptions: showOptions,
-                      showListPromotionPage: (value) {});
+                      showListPromotionPage: showListPromotionPage);
                 },
                 // )
               );

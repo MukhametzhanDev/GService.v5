@@ -23,7 +23,7 @@ class MyApplicationListPage extends StatefulWidget {
 class _MyApplicationListPageState extends State<MyApplicationListPage> {
   final List _tabs = [
     {"title": "Активные", "type": "pending", "count": ""},
-    {"title": "Удаленное", "type": "deleted", "count": ""},
+    {"title": "Удаленное", "type": "canceled", "count": ""},
     // {"title": "Отклоненные"},
   ];
   int tabIndex = 1;
