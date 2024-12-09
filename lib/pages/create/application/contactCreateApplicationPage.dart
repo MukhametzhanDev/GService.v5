@@ -37,9 +37,11 @@ class _ContactCreateApplicationPageState
   }
 
   void savedData() {
-    CreateData.data['name'] = nameEditingController.text;
-    CreateData.data['phone'] = getIntComponent(phoneEditingController.text).toString();
-    CreateData.data['can_lease'] = false;
+    CreateData.data.addAll({
+      "name": nameEditingController.text,
+      "phone": getIntComponent(phoneEditingController.text).toString(),
+      "can_lease": false
+    });
     widget.nextPage();
   }
 
@@ -54,7 +56,7 @@ class _ContactCreateApplicationPageState
                   autofillHints: const [AutofillHints.name],
                   controller: nameEditingController,
                   keyboardType: TextInputType.name,
-            textCapitalization: TextCapitalization.sentences,
+                  textCapitalization: TextCapitalization.sentences,
                   style: TextStyle(fontSize: 14),
                   decoration: InputDecoration(hintText: "Имя"))),
           Divider(),

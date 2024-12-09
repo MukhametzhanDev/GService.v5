@@ -25,6 +25,7 @@ class _ChangedAccountTypeState extends State<ChangedAccountType>
   List data = [];
   int currentType = 0;
   bool loader = true;
+  String role = "";
 
   @override
   void initState() {
@@ -36,17 +37,20 @@ class _ChangedAccountTypeState extends State<ChangedAccountType>
     try {
       Response response = await dio.get("/personal-account-type-info");
       if (response.statusCode == 200 && response.data['success']) {
+        await getRole();
         List dataRes = response.data['data'];
         for (Map value in dataRes) {
           value['active'] = await getToken("token_${value['type']}");
         }
+        print(dataRes);
         data = dataRes;
         loader = false;
         setState(() {});
       } else {
         SnackBarComponent().showResponseErrorMessage(response, context);
       }
-    } catch (e) {
+    } on DioException catch (e) {
+      print(e);
       SnackBarComponent().showNotGoBackServerErrorMessage(context);
     }
   }
@@ -93,6 +97,11 @@ class _ChangedAccountTypeState extends State<ChangedAccountType>
     return active;
   }
 
+  Future getRole() async {
+    role = await ChangedToken().getRole() ?? "";
+    setState(() {});
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -111,6 +120,7 @@ class _ChangedAccountTypeState extends State<ChangedAccountType>
                     children: data.map((value) {
                       int index = data.indexOf(value);
                       bool active = value['active'];
+                      if (role == value['type']) return Container();
                       return GestureDetector(
                         onTap: () {
                           currentType = index;

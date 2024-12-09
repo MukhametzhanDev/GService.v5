@@ -25,8 +25,12 @@ class _GetImageCreateApplicaitonPageState
 
   Future postData() async {
     showModalLoader(context);
+    CreateData.data.removeWhere((key, value) => value is Map<String, dynamic>);
+    FormData formData =
+        FormData.fromMap(CreateData.data, ListFormat.multiCompatible);
+    print(formData.fields);
     try {
-      Response response = await dio.post("/application", data: CreateData.data);
+      Response response = await dio.post("/application", data: formData);
       print(response.data);
       Navigator.pop(context);
       if (response.data['success']) {
@@ -38,7 +42,8 @@ class _GetImageCreateApplicaitonPageState
       } else {
         SnackBarComponent().showResponseErrorMessage(response, context);
       }
-    } catch (e) {
+    } on DioException catch (e) {
+      print(e);
       SnackBarComponent().showServerErrorMessage(context);
     }
   }
@@ -73,7 +78,8 @@ class _GetImageCreateApplicaitonPageState
     if (imagesPath.isEmpty) {
       SnackBarComponent().showErrorMessage("Загрузите изображения", context);
     } else {
-      postImage();
+      // postImage();
+      postData();
     }
   }
 

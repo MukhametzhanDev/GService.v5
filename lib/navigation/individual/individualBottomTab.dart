@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:badges/badges.dart' as badges;
 import 'package:gservice5/component/theme/colorComponent.dart';
+import 'package:gservice5/pages/ad/my/myAdListPage.dart';
 import 'package:gservice5/pages/create/createMainPage.dart';
 import 'package:gservice5/pages/create/createSectionPage.dart';
 import 'package:gservice5/pages/favorite/favoriteMainPage.dart';
@@ -33,13 +34,19 @@ class _IndividualBottomTabState extends State<IndividualBottomTab>
     if (_selectedIndex == 0 && index == 0) {
       scrollController.animateTo(0,
           duration: Duration(milliseconds: 300), curve: Curves.easeInOut);
-    } else if (_selectedIndex == 2 && index == 2) {
+    } else if (index == 2) {
       showMaterialModalBottomSheet(
-          context: context, builder: (context) => CreateSectionPage());
-    }
-    setState(() {
+          context: context,
+          builder: (context) => CreateSectionPage()).then((value) {
+        if (value == "ad") {
+          Navigator.push(
+              context, MaterialPageRoute(builder: (context) => MyAdListPage()));
+        }
+      });
+    } else {
       _selectedIndex = index;
-    });
+      setState(() {});
+    }
   }
 
   @override
@@ -55,7 +62,7 @@ class _IndividualBottomTabState extends State<IndividualBottomTab>
       body: IndexedStack(index: _selectedIndex, children: [
         MainPage(scrollController: scrollController),
         FavoriteMainPage(),
-        CreateMainPage(),
+        Container(),
         MessageMainPage(),
         VerifyProfilePage(),
       ]),

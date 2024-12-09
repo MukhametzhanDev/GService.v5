@@ -1,20 +1,40 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:gservice5/component/formatted/price/priceFormat.dart';
+import 'package:gservice5/component/button/button.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
+import 'package:gservice5/pages/application/my/removeApplicationModal.dart';
 import 'package:intl/intl.dart';
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
-class MyApplicationItem extends StatelessWidget {
+class MyApplicationItem extends StatefulWidget {
   final Map data;
   final void Function(int id) onPressed;
+  final void Function(int id) removeItem;
   const MyApplicationItem(
-      {super.key, required this.data, required this.onPressed});
+      {super.key,
+      required this.data,
+      required this.onPressed,
+      required this.removeItem});
+
+  @override
+  State<MyApplicationItem> createState() => _MyApplicationItemState();
+}
+
+class _MyApplicationItemState extends State<MyApplicationItem> {
+  void showRemoveModal() {
+    showCupertinoModalBottomSheet(
+            context: context,
+            builder: (context) => RemoveApplicationModal(id: widget.data['id']))
+        .then((value) {
+      widget.removeItem(widget.data['id']);
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        onPressed(1);
+        widget.onPressed(widget.data['id']);
       },
       child: Container(
         decoration: BoxDecoration(
@@ -31,38 +51,52 @@ class MyApplicationItem extends StatelessWidget {
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(6),
                     color: ColorComponent.mainColor),
-                child: Text(data['category']['title'],
+                child: Text(widget.data['category']['title'],
                     style:
                         TextStyle(fontSize: 12, fontWeight: FontWeight.w600))),
           ]),
           Divider(height: 12),
-          Text(data['transport_type']['title'],
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600)),
+          Text(widget.data['transport_type']['title'],
+              style: TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.w600,
+                  color: ColorComponent.blue['500'])),
           Divider(height: 8),
-          Text(myPriceFormatted(data['prices']),
-              style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600)),
-          Divider(height: 12),
-          Text(data['description'],
+          // Text(myPriceFormatted(data['prices']),
+          // style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600)),
+          // Divider(height: 12),
+          Text(widget.data['description'],
               maxLines: 2, overflow: TextOverflow.ellipsis),
+          Divider(height: 12),
+          SizedBox(
+            height: 40,
+            child: Button(
+                onPressed: showRemoveModal,
+                backgroundColor: ColorComponent.red['100'],
+                titleColor: ColorComponent.red['700'],
+                title: "Удалить"),
+          ),
+          Divider(height: 12),
+          Divider(height: 1, color: ColorComponent.gray['100']),
           Divider(height: 12),
           Row(children: [
             SvgPicture.asset("assets/icons/pin.svg",
                 width: 16, color: ColorComponent.gray['500']),
             Divider(indent: 4),
-            Text(data['city']['title'],
+            Text(widget.data['city']['title'],
                 style: TextStyle(
                     fontSize: 12,
                     // fontWeight: FontWeight.3500,
                     color: ColorComponent.gray['500'])),
             Divider(indent: 12),
-            Text(formattedDate(data['created_at']),
+            Text(formattedDate(widget.data['created_at']),
                 style:
                     TextStyle(fontSize: 12, color: ColorComponent.gray['500'])),
             Expanded(child: Container()),
             Row(children: [
               SvgPicture.asset("assets/icons/eye.svg"),
               Divider(indent: 4),
-              Text(data['views'].toString(),
+              Text(widget.data['views'].toString(),
                   style: TextStyle(
                       fontSize: 12, color: ColorComponent.gray['500']))
             ])

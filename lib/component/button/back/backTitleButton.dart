@@ -3,9 +3,8 @@ import 'package:flutter_svg/svg.dart';
 
 class BackTitleButton extends StatelessWidget {
   final String title;
-  final void Function() onPressed;
-  const BackTitleButton(
-      {super.key, required this.title, required this.onPressed});
+  final onPressed;
+  const BackTitleButton({super.key, required this.title, this.onPressed});
 
   @override
   Widget build(BuildContext context) {
@@ -13,7 +12,9 @@ class BackTitleButton extends StatelessWidget {
         padding: EdgeInsets.zero,
         constraints: BoxConstraints(),
         style: ButtonStyle(tapTargetSize: MaterialTapTargetSize.padded),
-        onPressed: onPressed,
+        onPressed: () {
+          onPressed ?? Navigator.pop(context);
+        },
         icon: Row(
           children: [
             Divider(indent: 10),

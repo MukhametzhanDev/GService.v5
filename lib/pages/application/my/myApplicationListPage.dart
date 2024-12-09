@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:gservice5/component/button/back/backIconButton.dart';
 import 'package:gservice5/component/dio/dio.dart';
+import 'package:gservice5/component/functions/token/changedToken.dart';
 import 'package:gservice5/component/loader/loaderComponent.dart';
 import 'package:gservice5/component/loader/paginationLoaderComponent.dart';
 import 'package:gservice5/component/snackBar/snackBarComponent.dart';
@@ -52,7 +53,7 @@ class _MyApplicationListPageState extends State<MyApplicationListPage> {
 
   Future getCount() async {
     try {
-      String? token = await FlutterSecureStorage().read(key: "token");
+      String? token = await ChangedToken().getToken();
       Response response = await dio.get("/my-applications-status-count",
           options: Options(headers: {"authorization": "Bearer $token"}));
       print(response.data);
@@ -68,13 +69,14 @@ class _MyApplicationListPageState extends State<MyApplicationListPage> {
     } catch (e) {
       SnackBarComponent().showNotGoBackServerErrorMessage(context);
     }
+    refreshController.refreshCompleted();
   }
 
   Future getData() async {
     try {
       page = 1;
       setState(() {});
-      String? token = await FlutterSecureStorage().read(key: "token");
+      String? token = await ChangedToken().getToken();
       print(token);
       Response response = await dio.get("/my-applications",
           queryParameters: {"status": currentStatusAd},
@@ -101,7 +103,7 @@ class _MyApplicationListPageState extends State<MyApplicationListPage> {
         isLoadMore = true;
         page += 1;
         setState(() {});
-        String? token = await FlutterSecureStorage().read(key: "token");
+        String? token = await ChangedToken().getToken();
         Map<String, dynamic> parameter = {
           "page": page,
           "status": currentStatusAd
@@ -135,15 +137,9 @@ class _MyApplicationListPageState extends State<MyApplicationListPage> {
   }
 
   void updateData(int id) {
-    // getCount();
-    for (int i = 0; i < data.length; i++) {
-      if (data[i]['id'] == id) {
-        setState(() {
-          data.removeAt(i);
-        });
-        break;
-      }
-    }
+    data.removeWhere((item) => item['id'] == id);
+    getCount();
+    setState(() {});
   }
 
   @override
@@ -159,7 +155,7 @@ class _MyApplicationListPageState extends State<MyApplicationListPage> {
               height: 52,
               decoration: BoxDecoration(
                   border: Border(
-                      bottom: BorderSide(width: 1, color: Color(0xffE5E7EB)))),
+                      bottom: BorderSide(width: 2, color: Color(0xfff4f5f7)))),
               padding: const EdgeInsets.only(left: 6, right: 6),
               child: SingleChildScrollView(
                 padding:
@@ -196,14 +192,18 @@ class _MyApplicationListPageState extends State<MyApplicationListPage> {
                           if (index == data.length - 1) {
                             return Column(children: [
                               MyApplicationItem(
-                                  onPressed: showMyApplicationPage, data: item),
+                                  onPressed: showMyApplicationPage,
+                                  data: item,
+                                  removeItem: updateData),
                               isLoadMore
                                   ? PaginationLoaderComponent()
                                   : Container()
                             ]);
                           } else {
                             return MyApplicationItem(
-                                onPressed: showMyApplicationPage, data: item);
+                                onPressed: showMyApplicationPage,
+                                data: item,
+                                removeItem: updateData);
                           }
                         },
                       )));
@@ -245,7 +245,10 @@ class _MyApplicationListPageState extends State<MyApplicationListPage> {
                       color: active
                           ? ColorComponent.mainColor.withOpacity(.2)
                           : ColorComponent.mainColor),
-                  child: Text(value['count']))
+                  child: Text(
+                    value['count'],
+                    style: TextStyle(fontWeight: FontWeight.w500),
+                  ))
             ],
           ),
         ));

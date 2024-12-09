@@ -30,6 +30,7 @@ class _CurrencyButtonState extends State<CurrencyButton> {
 
   Future getData() async {
     role = await ChangedToken().getRole();
+    setState(() {});
     if (role != "individual") {
       try {
         Response response = await dio.get("/company-currency");

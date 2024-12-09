@@ -22,8 +22,7 @@ class _CustomerBottomTabState extends State<CustomerBottomTab>
     with SingleTickerProviderStateMixin {
   int _selectedIndex = 0;
   static final List<Map> _tabs = <Map>[
-    {"icon": "assets/icons/home.svg", "label": "Главная"},
-    {"icon": "assets/icons/heartOutline.svg", "label": "Избранное"},
+    {"icon": "assets/icons/fileOutline.svg", "label": "Мои заявки"},
     {"icon": "assets/icons/plus.svg", "label": "Объявление"},
     {"icon": "assets/icons/messages.svg", "label": "Сообщения"},
     {"icon": "assets/icons/user.svg", "label": "Профиль"},
@@ -61,7 +60,6 @@ class _CustomerBottomTabState extends State<CustomerBottomTab>
     return Scaffold(
       body: IndexedStack(index: _selectedIndex, children: [
         MainPage(scrollController: scrollController),
-        FavoriteMainPage(),
         Container(),
         MessageMainPage(),
         VerifyProfilePage(),
@@ -80,7 +78,7 @@ class _CustomerBottomTabState extends State<CustomerBottomTab>
                       badgeColor: Colors.transparent,
                       padding: EdgeInsets.all(6),
                     ),
-                    showBadge: index == 3,
+                    showBadge: index == 2,
                     badgeContent: Container(
                       height: 18,
                       width: 18,
@@ -102,20 +100,20 @@ class _CustomerBottomTabState extends State<CustomerBottomTab>
                           Container(
                               padding: EdgeInsets.all(2),
                               decoration: BoxDecoration(
-                                  color: index == _selectedIndex && index != 2
+                                  color: index == _selectedIndex && index != 1
                                       ? ColorComponent.mainColor
                                       : Colors.transparent,
                                   borderRadius: BorderRadius.circular(8)),
                               child: SvgPicture.asset(
                                 value['icon'],
-                                width: index == 2 ? 32 : null,
-                                color: index == 2
+                                width: index == 1 ? 32 : null,
+                                color: index == 1
                                     ? null
                                     : index == _selectedIndex
                                         ? Colors.black.withOpacity(.8)
                                         : ColorComponent.gray['500'],
                               )),
-                          index == 2
+                          index == 1
                               ? Container()
                               : Text(value['label'],
                                   style: TextStyle(
