@@ -1,9 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:gservice5/component/button/back/backIconButton.dart';
 import 'package:gservice5/component/button/back/backTitleButton.dart';
-import 'package:gservice5/component/button/button.dart';
 import 'package:gservice5/component/button/shareButton.dart';
 import 'package:gservice5/component/date/formattedDate.dart';
 import 'package:gservice5/component/dio/dio.dart';
@@ -12,8 +10,6 @@ import 'package:gservice5/component/loader/loaderComponent.dart';
 import 'package:gservice5/component/snackBar/snackBarComponent.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
 import 'package:gservice5/component/widgets/author/authorAdWidget.dart';
-import 'package:gservice5/pages/profile/news/allNewsPage.dart';
-import 'package:gservice5/pages/profile/news/myNewsPage.dart';
 
 class ViewNewsPage extends StatefulWidget {
   final int id;
@@ -216,7 +212,7 @@ class _ViewNewsPageState extends State<ViewNewsPage> {
                   Divider(height: 8),
                   Divider(color: ColorComponent.gray['100']),
                   Divider(height: 8),
-                  AuthorAdWidget(title: "Автор"),
+                  AuthorAdWidget(title: "Автор", data: data['author']),
                   Divider(height: 12),
                 ],
               ),

@@ -5,12 +5,14 @@ import 'package:gservice5/component/wallet/transaction/transactionHistoryPage.da
 import 'package:gservice5/navigation/individual/individualBottomTab.dart';
 import 'package:gservice5/pages/ad/list/adListPage.dart';
 import 'package:gservice5/pages/ad/my/myAdListPage.dart';
+import 'package:gservice5/pages/application/applicationListPage.dart';
 import 'package:gservice5/pages/auth/accountType/getAccountTypePage.dart';
 import 'package:gservice5/pages/auth/password/individual/resetIndividualPasswordPage.dart';
 import 'package:gservice5/pages/auth/registration/business/contractor/getActivityContractorPage.dart';
 import 'package:gservice5/pages/create/ad/sectionCreateAdPage.dart';
 import 'package:gservice5/pages/create/application/createApplication.dart';
 import 'package:gservice5/pages/create/structure/controllerPage/pageControllerIndexedStack.dart';
+import 'package:gservice5/pages/profile/news/allNewsPage.dart';
 import 'package:gservice5/pages/profile/wallet/replenishment/replenishmentWalletPage.dart';
 import 'package:gservice5/pages/splash/splashScreen.dart';
 import 'package:provider/provider.dart';
@@ -49,6 +51,8 @@ class _IndexState extends State<Index> {
               "GetAccountTypePage": (context) => GetAccountTypePage(),
               "ResetIndividualPasswordPage": (context) => ResetIndividualPasswordPage(),
               "CreateApplication": (context) => CreateApplication(),
+              "ApplicationListPage": (context) => ApplicationListPage(),
+              "AllNewsPage": (context) => AllNewsPage(),
               "GetActivityContractorPage": (context) =>
                   GetActivityContractorPage(),
             },

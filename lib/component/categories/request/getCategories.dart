@@ -5,9 +5,8 @@ import 'package:gservice5/component/snackBar/snackBarComponent.dart';
 
 class GetCategories {
   Future<List> getData(context) async {
-    print("asdfasdf");
     try {
-      Response response = await dio.get("/categories");
+      Response response = await dio.get("/ad-categories");
       if (response.data['success']) {
         CategoriesData.categories.addAll(response.data['data']);
         return response.data['data'];

@@ -29,77 +29,82 @@ class _SliderImageWidgetState extends State<SliderImageWidget> {
   @override
   Widget build(BuildContext context) {
     double IMAGE_WIDTH = MediaQuery.of(context).size.width;
-    return SizedBox(
-      height: IMAGE_WIDTH / 1.13,
-      child: Stack(
-        children: [
-          SizedBox(
-            width: MediaQuery.of(context).size.width,
-            height: IMAGE_WIDTH / 1.2,
-            child: PageView(
-              controller: pageController,
-              onPageChanged: (value) {
-                currentIndex = value;
-                // double offset = (value * 101) + (4 * value).toDouble();
-                // scrollController.animateTo(
-                //   offset,
-                //   duration: Duration(milliseconds: 300),
-                //   curve: Curves.easeInOut,
-                // );
-                setState(() {});
-              },
-              children: widget.images.map((value) {
-                String url = value.runtimeType == String ? value : value['url'];
-                int index = widget.images.indexOf(value);
-                return TextButton(
-                  onPressed: () {
-                    showMaterialModalBottomSheet(
-                        context: context,
-                        builder: (context) =>
-                            ViewImageModal(data: widget.images, index: index));
-                  },
-                  style: TextButton.styleFrom(
-                      padding: EdgeInsets.zero,
-                      backgroundColor: Colors.transparent),
-                  child: Stack(
-                    alignment: Alignment.center,
-                    children: [
-                      CacheImage(
-                          url: url,
-                          width: IMAGE_WIDTH,
-                          height: IMAGE_WIDTH / 1.2,
-                          borderRadius: 0),
-                      Align(
-                        alignment: Alignment.bottomCenter,
-                        child: Container(
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(20),
-                              color: Color(0xff9A9A9ABF).withOpacity(.75)),
-                          margin: EdgeInsets.only(bottom: 12),
-                          constraints:
-                              BoxConstraints(minHeight: 23, minWidth: 42),
-                          padding:
-                              EdgeInsets.symmetric(horizontal: 12, vertical: 4),
-                          child: Text("${index + 1}/${widget.images.length}",
-                              style: TextStyle(
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.w700,
-                                  color: Colors.white)),
+    return widget.images.isEmpty
+        ? Container()
+        : SizedBox(
+            height: IMAGE_WIDTH / 1.13,
+            child: Stack(
+              children: [
+                SizedBox(
+                  width: MediaQuery.of(context).size.width,
+                  height: IMAGE_WIDTH / 1.2,
+                  child: PageView(
+                    controller: pageController,
+                    onPageChanged: (value) {
+                      currentIndex = value;
+                      // double offset = (value * 101) + (4 * value).toDouble();
+                      // scrollController.animateTo(
+                      //   offset,
+                      //   duration: Duration(milliseconds: 300),
+                      //   curve: Curves.easeInOut,
+                      // );
+                      setState(() {});
+                    },
+                    children: widget.images.map((value) {
+                      String url =
+                          value.runtimeType == String ? value : value['url'];
+                      int index = widget.images.indexOf(value);
+                      return TextButton(
+                        onPressed: () {
+                          showMaterialModalBottomSheet(
+                              context: context,
+                              builder: (context) => ViewImageModal(
+                                  data: widget.images, index: index));
+                        },
+                        style: TextButton.styleFrom(
+                            padding: EdgeInsets.zero,
+                            backgroundColor: Colors.transparent),
+                        child: Stack(
+                          alignment: Alignment.center,
+                          children: [
+                            CacheImage(
+                                url: url,
+                                width: IMAGE_WIDTH,
+                                height: IMAGE_WIDTH / 1.2,
+                                borderRadius: 0),
+                            Align(
+                              alignment: Alignment.bottomCenter,
+                              child: Container(
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(20),
+                                    color:
+                                        Color(0xff9A9A9ABF).withOpacity(.75)),
+                                margin: EdgeInsets.only(bottom: 12),
+                                constraints:
+                                    BoxConstraints(minHeight: 23, minWidth: 42),
+                                padding: EdgeInsets.symmetric(
+                                    horizontal: 12, vertical: 4),
+                                child: Text(
+                                    "${index + 1}/${widget.images.length}",
+                                    style: TextStyle(
+                                        fontSize: 12,
+                                        fontWeight: FontWeight.w700,
+                                        color: Colors.white)),
+                              ),
+                            )
+                          ],
                         ),
-                      )
-                    ],
+                      );
+                    }).toList(),
                   ),
-                );
-              }).toList(),
+                ),
+                Positioned(
+                    bottom: 0,
+                    right: 15,
+                    child: SvgPicture.asset('assets/icons/logo.svg', width: 46))
+              ],
             ),
-          ),
-          Positioned(
-              bottom: 0,
-              right: 15,
-              child: SvgPicture.asset('assets/icons/logo.svg', width: 46))
-        ],
-      ),
-    );
+          );
     // Divider(indent: 8),
     // SizedBox(
     //     height: 70,

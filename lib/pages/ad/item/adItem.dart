@@ -9,6 +9,7 @@ import 'package:gservice5/component/theme/colorComponent.dart';
 import 'package:gservice5/component/widgets/price/priceTextWidget.dart';
 import 'package:gservice5/pages/ad/package/showPackageIcons.dart';
 import 'package:gservice5/pages/ad/viewAdPage.dart';
+import 'package:gservice5/pages/favorite/ad/data/favoriteAdData.dart';
 import 'package:intl/intl.dart';
 
 class AdItem extends StatefulWidget {
@@ -24,9 +25,14 @@ class _AdItemState extends State<AdItem> {
   void showAdPage(int id) {
     Navigator.push(context,
             MaterialPageRoute(builder: (context) => ViewAdPage(id: id)))
-        .then((value) {
-      print(value);
-    });
+        .then(verifyFavoriteAd);
+  }
+
+  void verifyFavoriteAd(value) {
+    bool active = FavoriteAdData.adFavorite.containsKey(widget.data['id']);
+    print("ACTIVE ${active}");
+    widget.data['is_favorite'] = active;
+    setState(() {});
   }
 
   @override

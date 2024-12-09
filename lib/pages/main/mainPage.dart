@@ -70,7 +70,7 @@ class _MainPageState extends State<MainPage> {
             Divider(height: 10),
             BannersList(),
             Divider(height: 28),
-            ApplicationListMain(),
+            // ApplicationListMain(),
             Divider(height: 28),
             // AdListMain()
           ]))

@@ -5,6 +5,7 @@ import 'package:gservice5/component/dio/dio.dart';
 import 'package:gservice5/component/functions/token/changedToken.dart';
 import 'package:gservice5/component/snackBar/snackBarComponent.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
+import 'package:gservice5/pages/favorite/ad/data/favoriteAdData.dart';
 
 class FavoriteButton extends StatefulWidget {
   final int id;
@@ -23,7 +24,7 @@ class _FavoriteButtonState extends State<FavoriteButton> {
   void verifyToken() async {
     bool havedToken = await ChangedToken().getToken() != null;
     if (havedToken) {
-       postData();
+      postData();
       widget.active = !widget.active;
       setState(() {});
     } else {
@@ -41,17 +42,29 @@ class _FavoriteButtonState extends State<FavoriteButton> {
               "favoritable_id": widget.id,
               "favoritable_type": widget.type
             });
+        changedData(widget.active, widget.id);
+
         print(response.data);
       } else {
         Response response = await dio.post("/favorite", queryParameters: {
           "favoritable_id": widget.id,
           "favoritable_type": widget.type
         });
-        print(response.data);
+        changedData(widget.active, widget.id);
       }
     } catch (e) {
       print(e);
     }
+  }
+
+  void changedData(bool active, int id) {
+    setState(() {
+      if (widget.active) {
+        FavoriteAdData.adFavorite.remove(widget.id);
+      } else {
+        FavoriteAdData.adFavorite.addAll({widget.id: ""});
+      }
+    });
   }
 
   @override

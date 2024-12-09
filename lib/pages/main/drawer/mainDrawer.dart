@@ -44,6 +44,11 @@ class _MainDrawerState extends State<MainDrawer> {
         context: context, builder: (context) => ChangedAccountType());
   }
 
+  void showDrawerPage(Map value) {
+    Navigator.push(
+        context, MaterialPageRoute(builder: (context) => value['page']));
+  }
+
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -95,17 +100,21 @@ class _MainDrawerState extends State<MainDrawer> {
                 Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: options.map((value) {
-                      return SizedBox(
-                        height: 48,
-                        child: Row(
-                          children: [
-                            SvgPicture.asset("assets/icons/${value['icon']}",
-                                width: 24),
-                            Divider(indent: 8),
-                            Text(value['title'],
-                                style: TextStyle(
-                                    fontWeight: FontWeight.w500, fontSize: 15)),
-                          ],
+                      return GestureDetector(
+                        onTap: () => showDrawerPage(value),
+                        child: SizedBox(
+                          height: 48,
+                          child: Row(
+                            children: [
+                              SvgPicture.asset("assets/icons/${value['icon']}",
+                                  width: 24),
+                              Divider(indent: 8),
+                              Text(value['title'],
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.w500,
+                                      fontSize: 15)),
+                            ],
+                          ),
                         ),
                       );
                     }).toList())

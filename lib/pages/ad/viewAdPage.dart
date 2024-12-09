@@ -246,7 +246,8 @@ class _ViewAdPageState extends State<ViewAdPage> {
                             Divider(height: 14),
                             Divider(height: 1, color: Color(0xfff4f5f7)),
                             Divider(height: 12),
-                            AuthorAdWidget(title: "О владельце объявления"),
+                            AuthorAdWidget(
+                                title: "О владельце объявления", data: {}),
                             Divider(indent: 16)
                           ],
                         ),

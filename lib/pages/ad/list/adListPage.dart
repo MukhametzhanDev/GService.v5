@@ -121,8 +121,12 @@ class _AdListPageState extends State<AdListPage> {
               title: widget.category['title'],
               onPressed: () => Navigator.pop(context)),
           bottom: PreferredSize(
-              preferredSize: Size(double.infinity, 44),
-              child: Padding(
+              preferredSize: Size(double.infinity, 46),
+              child: Container(
+                  decoration: BoxDecoration(
+                      border: Border(
+                          bottom:
+                              BorderSide(width: 2, color: Color(0xfff4f5f7)))),
                   padding:
                       const EdgeInsets.only(left: 15, right: 15, bottom: 8),
                   child: SortAdWidget(onChangedCity: onChangedCity))),

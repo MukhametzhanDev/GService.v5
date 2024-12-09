@@ -7,6 +7,8 @@ import 'package:gservice5/component/snackBar/snackBarComponent.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
 import 'package:gservice5/component/categories/data/categoriesData.dart';
 import 'package:gservice5/pages/ad/list/adListPage.dart';
+import 'package:gservice5/pages/application/applicationListPage.dart';
+import 'package:gservice5/pages/main/applicationListMain.dart';
 import 'package:shimmer/shimmer.dart';
 
 class CategoriesListWidget extends StatefulWidget {
@@ -32,9 +34,13 @@ class _CategoriesListWidgetState extends State<CategoriesListWidget> {
     setState(() {});
   }
 
-  void showPage(Map value) {
+  void showAdPage(Map value) {
     Navigator.push(context,
         MaterialPageRoute(builder: (context) => AdListPage(category: value)));
+  }
+
+  void showApplicationPage() {
+    Navigator.pushNamed(context, "ApplicationListPage");
   }
 
   @override
@@ -95,6 +101,25 @@ class _CategoriesListWidgetState extends State<CategoriesListWidget> {
                                           height: 1)),
                                 ],
                               )),
+                          GestureDetector(
+                            onTap: () {
+                              showApplicationPage();
+                            },
+                            child: Container(
+                                height: 32,
+                                padding: EdgeInsets.symmetric(horizontal: 12),
+                                margin: EdgeInsets.symmetric(horizontal: 4),
+                                alignment: Alignment.center,
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(8),
+                                    color: ColorComponent.mainColor
+                                        .withOpacity(.2)),
+                                child: Text("Заявки",
+                                    style: TextStyle(
+                                        fontSize: 12,
+                                        fontWeight: FontWeight.w400,
+                                        height: 1))),
+                          ),
                           CategoryButton(value)
                         ],
                       );
@@ -107,7 +132,7 @@ class _CategoriesListWidgetState extends State<CategoriesListWidget> {
   Widget CategoryButton(value) {
     return GestureDetector(
       onTap: () {
-        showPage(value);
+        showAdPage(value);
       },
       child: Container(
           height: 32,

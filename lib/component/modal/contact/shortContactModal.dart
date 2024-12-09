@@ -7,7 +7,7 @@ import 'package:gservice5/component/widgets/price/priceTextWidget.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
 void onLongPressShowNumber(Map data, BuildContext context) {
-  HapticFeedback.mediumImpact();
+  HapticFeedback.mediumImpact().catchError((e) {});
   showCupertinoModalBottomSheet(
     context: context,
     barrierColor: Colors.black.withOpacity(.3),

@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:gservice5/component/button/back/backTitleButton.dart';
 import 'package:gservice5/component/date/formattedDate.dart';
 import 'package:gservice5/component/dio/dio.dart';
 import 'package:gservice5/component/image/cacheImage.dart';
@@ -12,7 +13,8 @@ import 'package:gservice5/pages/profile/news/viewNewsPage.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 class AllNewsPage extends StatefulWidget {
-  const AllNewsPage({super.key});
+  final bool? showBackButton;
+  const AllNewsPage({super.key, this.showBackButton});
 
   @override
   State<AllNewsPage> createState() => _AllNewsPageState();
@@ -89,90 +91,100 @@ class _AllNewsPageState extends State<AllNewsPage> {
 
   @override
   Widget build(BuildContext context) {
-    return loader
-        ? LoaderComponent()
-        : SmartRefresher(
-            onRefresh: () async {
-              await getData();
-            },
-            enablePullDown: true,
-            enablePullUp: false,
-            controller: refreshController,
-            header: MaterialClassicHeader(
-                color: ColorComponent.mainColor, backgroundColor: Colors.white),
-            child: data.isEmpty
-                ? EmptyNewsPage()
-                : ListView.builder(
-                    padding: EdgeInsets.all(16),
-                    controller: scrollController,
-                    itemCount: data.length,
-                    itemBuilder: (context, index) {
-                      return GestureDetector(
-                        onTap: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) =>
-                                      ViewNewsPage(id: data[index]['id'])));
-                        },
-                        child: Container(
-                          color: Colors.white,
-                          child: Column(
-                            children: [
-                              Row(
-                                children: [
-                                  CacheImage(
-                                      url: data[index]["poster"],
-                                      width: 120,
-                                      height: 94,
-                                      borderRadius: 12),
-                                  Divider(indent: 12),
-                                  Expanded(
-                                    child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Text(data[index]["title"],
-                                              maxLines: 2,
-                                              style: TextStyle(
-                                                  fontSize: 16,
-                                                  fontWeight: FontWeight.w600)),
-                                          Divider(height: 12),
-                                          Row(
-                                            children: [
-                                              Text(
-                                                  formattedDate(
-                                                      data[index]["created_at"],
-                                                      "dd MMMM yyyy, HH:mm"),
-                                                  style: TextStyle(
-                                                      fontSize: 12,
-                                                      color: ColorComponent
-                                                          .gray['500'])),
-                                              Divider(indent: 24),
-                                              SvgPicture.asset(
-                                                  "assets/icons/eye.svg"),
-                                              Divider(indent: 4),
-                                              Text(
-                                                  data[index]["views"]
-                                                      .toString(),
-                                                  style: TextStyle(
-                                                      fontSize: 12,
-                                                      color: ColorComponent
-                                                          .gray['500'])),
-                                            ],
-                                          ),
-                                        ]),
-                                  )
-                                ],
-                              ),
-                              Divider(height: 16),
-                              Divider(
-                                  height: 1, color: ColorComponent.gray['100'])
-                            ],
+    return Scaffold(
+      appBar: widget.showBackButton!
+          ? AppBar(
+              leading: BackTitleButton(title: "Новости"), leadingWidth: 200)
+          : null,
+      body: loader
+          ? LoaderComponent()
+          : SmartRefresher(
+              onRefresh: () async {
+                await getData();
+              },
+              enablePullDown: true,
+              enablePullUp: false,
+              controller: refreshController,
+              header: MaterialClassicHeader(
+                  color: ColorComponent.mainColor,
+                  backgroundColor: Colors.white),
+              child: data.isEmpty
+                  ? EmptyNewsPage()
+                  : ListView.builder(
+                      padding: EdgeInsets.all(16),
+                      controller: scrollController,
+                      itemCount: data.length,
+                      itemBuilder: (context, index) {
+                        return GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        ViewNewsPage(id: data[index]['id'])));
+                          },
+                          child: Container(
+                            color: Colors.white,
+                            child: Column(
+                              children: [
+                                Row(
+                                  children: [
+                                    CacheImage(
+                                        url: data[index]["poster"],
+                                        width: 120,
+                                        height: 94,
+                                        borderRadius: 12),
+                                    Divider(indent: 12),
+                                    Expanded(
+                                      child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Text(data[index]["title"],
+                                                maxLines: 2,
+                                                style: TextStyle(
+                                                    fontSize: 16,
+                                                    fontWeight:
+                                                        FontWeight.w600)),
+                                            Divider(height: 12),
+                                            Row(
+                                              children: [
+                                                Text(
+                                                    formattedDate(
+                                                        data[index]
+                                                            ["created_at"],
+                                                        "dd MMMM yyyy, HH:mm"),
+                                                    style: TextStyle(
+                                                        fontSize: 12,
+                                                        color: ColorComponent
+                                                            .gray['500'])),
+                                                Divider(indent: 24),
+                                                SvgPicture.asset(
+                                                    "assets/icons/eye.svg"),
+                                                Divider(indent: 4),
+                                                Text(
+                                                    data[index]["views"]
+                                                        .toString(),
+                                                    style: TextStyle(
+                                                        fontSize: 12,
+                                                        color: ColorComponent
+                                                            .gray['500'])),
+                                              ],
+                                            ),
+                                          ]),
+                                    )
+                                  ],
+                                ),
+                                Divider(height: 16),
+                                Divider(
+                                    height: 1,
+                                    color: ColorComponent.gray['100'])
+                              ],
+                            ),
                           ),
-                        ),
-                      );
-                    }),
-          );
+                        );
+                      }),
+            ),
+    );
   }
 }

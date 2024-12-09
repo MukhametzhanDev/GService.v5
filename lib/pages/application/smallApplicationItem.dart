@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:gservice5/component/button/favoriteButton.dart';
+import 'package:gservice5/component/date/formattedDate.dart';
 import 'package:gservice5/component/formatted/price/priceFormat.dart';
 import 'package:gservice5/component/modal/contact/shortContactModal.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
@@ -41,40 +43,56 @@ class _SmallApplicationItemState extends State<SmallApplicationItem> {
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
+            // Text(
+            //   "Нужен экскаватор 2-ух кубовый",
+            //   style: TextStyle(
+            //       fontSize: 16,
+            //       fontWeight: FontWeight.w400,
+            //       color: ColorComponent.blue['700']),
+            //   maxLines: 1,
+            //   overflow: TextOverflow.ellipsis,
+            // ),
             Row(
               children: [
                 Expanded(
-                  child: Text(
-                    "Нужен экскаватор 2-ух кубовый",
-                    style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w400,
-                        color: ColorComponent.blue['700']),
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                ),
-                Container(
-                  height: 20,
-                  margin: EdgeInsets.only(left: 8),
-                  padding: EdgeInsets.symmetric(horizontal: 8),
-                  alignment: Alignment.center,
-                  decoration: BoxDecoration(
-                      color: ColorComponent.mainColor,
-                      borderRadius: BorderRadius.circular(4)),
-                  child: Text("Аренда",
+                  child: Text("Нужен экскаватор 2-ух кубовый",
                       style: TextStyle(
-                          height: 1,
-                          fontSize: 11,
-                          fontWeight: FontWeight.w500)),
+                          fontSize: 16,
+                          fontWeight: FontWeight.w400,
+                          color: ColorComponent.blue['700'])),
                 ),
+                Divider(indent: 12),
+                FavoriteButton(
+                    id: widget.data['id'],
+                    active: widget.data['is_favorite'],
+                    type: "application")
               ],
             ),
-            Text(priceFormat(1500000),
-                style: TextStyle(
-                    fontSize: 14,
-                    fontWeight: FontWeight.w600,
-                    color: Colors.black)),
+            Row(
+              children: [
+                Expanded(
+                  child: Text(priceFormat(widget.data['price']),
+                      style: TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.w600,
+                          color: Colors.black)),
+                ),
+                // Container(
+                //   height: 20,
+                //   margin: EdgeInsets.only(left: 8),
+                //   padding: EdgeInsets.symmetric(horizontal: 8),
+                //   alignment: Alignment.center,
+                //   decoration: BoxDecoration(
+                //       color: ColorComponent.mainColor,
+                //       borderRadius: BorderRadius.circular(4)),
+                //   child: Text("Аренда",
+                //       style: TextStyle(
+                //           height: 1,
+                //           fontSize: 11,
+                //           fontWeight: FontWeight.w500)),
+                // ),
+              ],
+            ),
             Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
               Row(
                 children: [
@@ -82,7 +100,7 @@ class _SmallApplicationItemState extends State<SmallApplicationItem> {
                       width: 16, color: ColorComponent.gray['500']),
                   Divider(indent: 4),
                   Text(
-                    "г. Алматы",
+                    widget.data['city']['title'],
                     style: TextStyle(
                         fontSize: 12,
                         color: ColorComponent.gray['500'],
@@ -90,7 +108,8 @@ class _SmallApplicationItemState extends State<SmallApplicationItem> {
                   ),
                 ],
               ),
-              Text("15 Сент.",
+              Text(formattedDate(widget.data['created_at'], "dd MMM"),
+                  // "15 Сент.",
                   style: TextStyle(
                       fontSize: 12, color: ColorComponent.gray['500'])),
             ])
