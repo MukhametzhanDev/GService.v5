@@ -10,6 +10,7 @@ import 'package:gservice5/component/theme/colorComponent.dart';
 import 'package:gservice5/component/widgets/bottom/bottomNavigationBarComponent.dart';
 import 'package:gservice5/pages/create/ad/characteristic/getCharacteristicAdPage.dart';
 import 'package:gservice5/pages/create/data/createData.dart';
+import 'package:gservice5/pages/create/structure/controllerPage/pageControllerIndexedStack.dart';
 import 'package:gservice5/pages/create/structure/structureCreateAdPage.dart';
 
 class SectionCreateAdPage extends StatefulWidget {
@@ -26,7 +27,6 @@ class _SectionCreateAdPageState extends State<SectionCreateAdPage> {
 
   @override
   void initState() {
-    clearData();
     getData();
     super.initState();
   }
@@ -83,33 +83,7 @@ class _SectionCreateAdPageState extends State<SectionCreateAdPage> {
         MaterialPageRoute(
             builder: (context) =>
                 StructureCreateAdPage(data: data[currentIndex])));
-    // List options = data[currentIndex]['options']['necessary_inputs'];
-    // if (options.length - 1 >= index) {
-    //   Map value = options[index];
-    //   Map param = getParam(index);
-    //   String title = OptionTitlesData.titles[value['name']];
-    //   Navigator.push(
-    //       context,
-    //       MaterialPageRoute(
-    //           builder: (context) => GetSelectPage(
-    //               title: title,
-    //               param: param,
-    //               value: value,
-    //               options: options,
-    //               pageController: PageController(),
-    //               showOptionsPage: showOptionsPage))).then((value) {
-    //     if (index > 0) {
-    //       index--;
-    //     }
-    //   });
-    //   index++;
-    // } else {
-    //   Navigator.push(
-    //       context,
-    //       MaterialPageRoute(
-    //           builder: (context) =>
-    //               TitleCreateAdPage(nextPage: showCharacteristcsPage)));
-    // }
+    // Navigator.pop(context);
   }
 
   Map getParam(index) {

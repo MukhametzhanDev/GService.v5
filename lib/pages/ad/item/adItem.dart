@@ -30,7 +30,9 @@ class _AdItemState extends State<AdItem> {
 
   void verifyFavoriteAd(value) {
     bool active = FavoriteAdData.adFavorite.containsKey(widget.data['id']);
-    print("ACTIVE ${active}");
+    print(FavoriteAdData.adFavorite);
+    print("ACTIE ${active}");
+    print("ACTIE ${widget.data['id']}");
     widget.data['is_favorite'] = active;
     setState(() {});
   }

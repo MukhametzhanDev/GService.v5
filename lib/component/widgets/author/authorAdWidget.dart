@@ -68,7 +68,7 @@ class _AuthorAdWidgetState extends State<AuthorAdWidget> {
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                Text("БИН: 1234 1234 1234",
+                                Text("ID: 1234",
                                     style: TextStyle(
                                         color: ColorComponent.gray['500'])),
                                 Container(

@@ -5,22 +5,39 @@ import 'package:gservice5/component/date/formattedDate.dart';
 import 'package:gservice5/component/formatted/price/priceFormat.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
 import 'package:gservice5/pages/application/viewApplicationPage.dart';
+import 'package:gservice5/pages/favorite/application/data/favoriteApplicationData.dart';
 
-class ApplicationItem extends StatelessWidget {
+class ApplicationItem extends StatefulWidget {
   final Map data;
   final bool showCategory;
   const ApplicationItem(
       {super.key, required this.data, required this.showCategory});
 
   @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-        Navigator.push(
+  State<ApplicationItem> createState() => _ApplicationItemState();
+}
+
+class _ApplicationItemState extends State<ApplicationItem> {
+  void showPage() {
+    Navigator.push(
             context,
             MaterialPageRoute(
-                builder: (context) => ViewApplicationPage(id: data['id'])));
-      },
+                builder: (context) =>
+                    ViewApplicationPage(id: widget.data['id'])))
+        .then(verifyFavoriteApplication);
+  }
+
+  void verifyFavoriteApplication(value) {
+    bool active = FavoriteApplicationData.applicationFavorite
+        .containsKey(widget.data['id']);
+    widget.data['is_favorite'] = active;
+    setState(() {});
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: showPage,
       // onLongPress: () {
       //   onLongPressShowNumber(data, context);
       // },
@@ -43,13 +60,13 @@ class ApplicationItem extends StatelessWidget {
               ),
               Divider(indent: 12),
               FavoriteButton(
-                  id: data['id'],
-                  active: data['is_favorite'],
+                  id: widget.data['id'],
+                  active: widget.data['is_favorite'],
                   type: "application")
             ],
           ),
           Divider(height: 8),
-          Text(priceFormat(data['price']),
+          Text(priceFormat(widget.data['price']),
               style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600)),
           // Row(
           //   children: [
@@ -71,7 +88,7 @@ class ApplicationItem extends StatelessWidget {
           // ),
           Divider(height: 12),
           Text(
-            data['description'],
+            widget.data['description'],
             maxLines: 2,
             overflow: TextOverflow.ellipsis,
           ),
@@ -80,13 +97,13 @@ class ApplicationItem extends StatelessWidget {
             SvgPicture.asset("assets/icons/pin.svg",
                 width: 16, color: ColorComponent.gray['500']),
             Divider(indent: 4),
-            Text(data['city']['title'],
+            Text(widget.data['city']['title'],
                 style: TextStyle(
                     fontSize: 12,
                     // fontWeight: FontWeight.3500,
                     color: ColorComponent.gray['500'])),
             Divider(indent: 12),
-            Text(formattedDate(data['created_at'], "dd MMM HH:MM"),
+            Text(formattedDate(widget.data['created_at'], "dd MMM HH:MM"),
                 // "15 Сент 04:20",
                 style:
                     TextStyle(fontSize: 12, color: ColorComponent.gray['500'])),
@@ -94,7 +111,7 @@ class ApplicationItem extends StatelessWidget {
             Row(children: [
               SvgPicture.asset("assets/icons/eye.svg"),
               Divider(indent: 4),
-              Text(data['statistics']['viewed'].toString(),
+              Text(widget.data['statistics']['viewed'].toString(),
                   style: TextStyle(
                       fontSize: 12, color: ColorComponent.gray['500']))
             ])

@@ -65,7 +65,6 @@ class _IndividualBottomTabState extends State<IndividualBottomTab>
         MessageMainPage(),
         VerifyProfilePage(),
       ]),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       bottomNavigationBar: BottomNavigationBar(
           backgroundColor: ColorTheme['white_black'],
           elevation: 0,

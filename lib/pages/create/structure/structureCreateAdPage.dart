@@ -42,6 +42,7 @@ class _StructureCreateAdPageState extends State<StructureCreateAdPage> {
     "name": "city_id",
     "multiple": false
   };
+  int? twoStepsBack;
 
   @override
   void initState() {
@@ -55,10 +56,18 @@ class _StructureCreateAdPageState extends State<StructureCreateAdPage> {
   void dispose() {
     pageController.dispose();
     pageControllerIndexedStack.dispose();
+    clearData();
     super.dispose();
   }
 
+  void clearData() {
+    CreateData.data.clear();
+    CreateData.characteristic.clear();
+    CreateData.images.clear();
+  }
+
   void formattedPages() {
+    closeKeyboard();
     int index = pageControllerIndexedStack.getIndex();
     if (index == data.length - 1) {
       pages.add(TitleCreateAdPage(
@@ -71,12 +80,14 @@ class _StructureCreateAdPageState extends State<StructureCreateAdPage> {
   }
 
   void addCharacteristicPage() {
+    closeKeyboard();
     pages.add(GetCharacteristicAdPage(
         nextPage: addChildCharacteristicPage, previousPage: previousPage));
   }
 
   void addGetPricePage() {
     List prices = widget.data['options']['prices'] ?? [];
+    closeKeyboard();
     if (prices.isEmpty) {
       addGetImagePage();
     } else {
@@ -86,10 +97,12 @@ class _StructureCreateAdPageState extends State<StructureCreateAdPage> {
   }
 
   void addGetImagePage() {
+    closeKeyboard();
     pages.add(GetImageCreateAdPage(previousPage: previousPage));
   }
 
   void addChildCharacteristicPage(List data) {
+    closeKeyboard();
     if (data.isEmpty) {
       addGetPricePage();
     } else {
@@ -100,23 +113,44 @@ class _StructureCreateAdPageState extends State<StructureCreateAdPage> {
 
   void addPage() {
     int index = pageControllerIndexedStack.getIndex();
+    closeKeyboard();
     pages.add(GetSelectPage(
         value: data[index],
         nextPage: formattedPages,
         previousPage: previousPage,
+        hasNextRemovedPage: hasNextRemovedPage,
         options: data,
         pageController: pageController));
   }
 
+  void hasNextRemovedPage() {
+    int index = pageControllerIndexedStack.getIndex();
+    twoStepsBack = index ;
+    addPage();
+    addPage();
+    print("TWOSTEPRS--> ${twoStepsBack}");
+  }
+
   void previousPage() {
+    closeKeyboard();
     int index = pageControllerIndexedStack.getIndex();
     if (index == 0) {
       Navigator.pop(context);
     } else {
-      pages.removeLast();
-      pageControllerIndexedStack.previousPage();
+      if (twoStepsBack == index) {
+        removedPage();
+        removedPage();
+        twoStepsBack = null;
+      } else {
+        removedPage();
+      }
       setState(() {});
     }
+  }
+
+  void removedPage() {
+    pages.removeLast();
+    pageControllerIndexedStack.previousPage();
   }
 
   void savedCategoryId() {

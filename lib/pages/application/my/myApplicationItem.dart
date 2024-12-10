@@ -1,6 +1,10 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:gservice5/component/button/button.dart';
+import 'package:gservice5/component/dio/dio.dart';
+import 'package:gservice5/component/loader/modalLoaderComponent.dart';
+import 'package:gservice5/component/snackBar/snackBarComponent.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
 import 'package:gservice5/pages/application/my/removeApplicationModal.dart';
 import 'package:intl/intl.dart';
@@ -10,11 +14,13 @@ class MyApplicationItem extends StatefulWidget {
   final Map data;
   final void Function(int id) onPressed;
   final void Function(int id) removeItem;
+  final void Function(int id) restoreItem;
   const MyApplicationItem(
       {super.key,
       required this.data,
       required this.onPressed,
-      required this.removeItem});
+      required this.removeItem,
+      required this.restoreItem});
 
   @override
   State<MyApplicationItem> createState() => _MyApplicationItemState();
@@ -26,8 +32,29 @@ class _MyApplicationItemState extends State<MyApplicationItem> {
             context: context,
             builder: (context) => RemoveApplicationModal(id: widget.data['id']))
         .then((value) {
-      widget.removeItem(widget.data['id']);
+      if (value == "update") {
+        widget.removeItem(widget.data['id']);
+      }
     });
+  }
+
+  Future restoreAd() async {
+    showModalLoader(context);
+    print(widget.data['id']);
+    try {
+      Response response =
+          await dio.post("/restore-application/${widget.data['id']}");
+      print(response.data);
+      Navigator.pop(context);
+      if (response.data['success']) {
+        widget.restoreItem(widget.data['id']);
+      } else {
+        SnackBarComponent().showResponseErrorMessage(response, context);
+      }
+    } on DioException catch (e) {
+      print(e);
+      SnackBarComponent().showServerErrorMessage(context);
+    }
   }
 
   @override
@@ -70,11 +97,17 @@ class _MyApplicationItemState extends State<MyApplicationItem> {
           Divider(height: 12),
           SizedBox(
             height: 40,
-            child: Button(
-                onPressed: showRemoveModal,
-                backgroundColor: ColorComponent.red['100'],
-                titleColor: ColorComponent.red['700'],
-                title: "Удалить"),
+            child: widget.data['status'] == "canceled"
+                ? Button(
+                    onPressed: restoreAd,
+                    backgroundColor: ColorComponent.blue['100'],
+                    titleColor: ColorComponent.blue['700'],
+                    title: "Восстановить")
+                : Button(
+                    onPressed: showRemoveModal,
+                    backgroundColor: ColorComponent.red['100'],
+                    titleColor: ColorComponent.red['700'],
+                    title: "Удалить"),
           ),
           Divider(height: 12),
           Divider(height: 1, color: ColorComponent.gray['100']),

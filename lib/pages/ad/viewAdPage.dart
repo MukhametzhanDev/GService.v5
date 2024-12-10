@@ -18,6 +18,7 @@ import 'package:gservice5/component/widgets/characteristic/showCharacteristicWid
 import 'package:gservice5/component/widgets/price/priceTextWidget.dart';
 import 'package:gservice5/pages/ad/list/recommendationAdList.dart';
 import 'package:gservice5/pages/ad/widget/viewCharacteristicWidget.dart';
+import 'package:gservice5/pages/favorite/ad/data/favoriteAdData.dart';
 import 'package:intl/intl.dart';
 
 class ViewAdPage extends StatefulWidget {
@@ -45,12 +46,19 @@ class _ViewAdPageState extends State<ViewAdPage> {
       if (response.data['success']) {
         data = response.data['data'];
         loader = false;
+        addAdFavorite();
         setState(() {});
       } else {
         SnackBarComponent().showResponseErrorMessage(response, context);
       }
     } catch (e) {
       SnackBarComponent().showNotGoBackServerErrorMessage(context);
+    }
+  }
+
+  void addAdFavorite() {
+    if (data['is_favorite']) {
+      FavoriteAdData.adFavorite.addAll({data['id']: ""});
     }
   }
 
@@ -246,8 +254,8 @@ class _ViewAdPageState extends State<ViewAdPage> {
                             Divider(height: 14),
                             Divider(height: 1, color: Color(0xfff4f5f7)),
                             Divider(height: 12),
-                            AuthorAdWidget(
-                                title: "О владельце объявления", data: {}),
+                            // AuthorAdWidget(
+                            //     title: "О владельце объявления", data: {}),
                             Divider(indent: 16)
                           ],
                         ),

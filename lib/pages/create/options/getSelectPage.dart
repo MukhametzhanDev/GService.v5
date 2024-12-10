@@ -1,7 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:gservice5/component/button/back/backTitleButton.dart';
 import 'package:gservice5/component/button/button.dart';
 import 'package:gservice5/component/dio/dio.dart';
 import 'package:gservice5/component/loader/loaderComponent.dart';
@@ -10,7 +9,6 @@ import 'package:gservice5/component/textField/searchTextField.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
 import 'package:gservice5/component/widgets/bottom/bottomNavigationBarComponent.dart';
 import 'package:gservice5/pages/create/data/createData.dart';
-import 'package:gservice5/pages/create/data/optionTitlesData.dart';
 import 'package:gservice5/pages/create/structure/controllerPage/pageControllerIndexedStack.dart';
 
 class GetSelectPage extends StatefulWidget {
@@ -19,12 +17,14 @@ class GetSelectPage extends StatefulWidget {
   final PageController pageController;
   final void Function() nextPage;
   final void Function() previousPage;
+  final void Function() hasNextRemovedPage;
   const GetSelectPage(
       {super.key,
       required this.value,
       required this.options,
       required this.nextPage,
       required this.previousPage,
+      required this.hasNextRemovedPage,
       required this.pageController});
 
   @override
@@ -46,7 +46,6 @@ class _GetSelectPageState extends State<GetSelectPage> {
 
   @override
   void initState() {
-    print("API ${widget.value['url']}");
     getData();
     scrollController.addListener(() {
       loadMoreAd();
@@ -55,12 +54,11 @@ class _GetSelectPageState extends State<GetSelectPage> {
   }
 
   Future getData() async {
-    print(getParam());
     try {
       Response response = await dio.get(widget.value['url'],
           queryParameters: {"title": title, ...getParam()});
       print(response.data);
-      if (response.statusCode == 200) {
+      if (response.statusCode == 200 && response.data['success']) {
         data = response.data['data'];
         activedData(data);
         loader = false;
@@ -138,8 +136,25 @@ class _GetSelectPageState extends State<GetSelectPage> {
       CreateData.data[widget.value['name']] = value['id'];
       currentId = value['id'];
       nextPage();
+      verifyNextPage(value);
     }
     setState(() {});
+  }
+
+  void verifyNextPage(value) {
+    bool hasKey = value.containsKey("has_spare_part_categories");
+    if (hasKey) {
+      if (value['has_spare_part_categories']) {
+        nextPage();
+      } else {
+        widget.value['hasBackTwoPage'] = true;
+        CreateData.data[widget.value['name']] = value['id'];
+        pageControllerIndexedStack.nextPage();
+        widget.hasNextRemovedPage();
+      }
+    } else {
+      nextPage();
+    }
   }
 
   void savedData() {
@@ -150,20 +165,7 @@ class _GetSelectPageState extends State<GetSelectPage> {
   void nextPage() {
     pageControllerIndexedStack.nextPage();
     widget.nextPage();
-    // widget.pageController
-    // .nextPage(duration: Duration(milliseconds: 400), curve: Curves.linear);
-    // int nextPage = (widget.pageController.page ?? 0).toInt() + 1;
-    // widget.pageController.jumpToPage(nextPage);
   }
-
-  // void previousPage() {
-  //   int nextPage = (widget.pageController.page ?? 0).toInt() - 1;
-  //   if (nextPage > 1) {
-  //     Navigator.pop(context);
-  //   } else {
-  //     widget.pageController.jumpToPage(nextPage);
-  //   }
-  // }
 
   void searchList(value) {
     title = value;

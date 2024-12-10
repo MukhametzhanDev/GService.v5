@@ -5,7 +5,6 @@ import 'package:gservice5/component/button/button.dart';
 import 'package:gservice5/component/functions/number/getIntNumber.dart';
 import 'package:gservice5/component/message/explanatoryMessage.dart';
 import 'package:gservice5/component/snackBar/snackBarComponent.dart';
-import 'package:gservice5/component/textField/priceTextField.dart';
 import 'package:gservice5/component/widgets/bottom/bottomNavigationBarComponent.dart';
 import 'package:gservice5/pages/create/data/createData.dart';
 import 'package:intl/intl.dart';
@@ -70,7 +69,7 @@ class _PriceCreateApplicationPageState
               title:
                   "Цену лучше указать — так удобнее для покупателей. Если цена не указана, то при расширенном поиске покупатели могут не найти ваше объявление, а в объявлении будет автоматически указана стоимость «По запросу».",
               padding: EdgeInsets.only(bottom: 15),
-              type: "application-price1"),
+              type: "application-price"),
           Text("Укажите цену",
               style: TextStyle(fontWeight: FontWeight.w600, fontSize: 20)),
           Divider(),
@@ -82,7 +81,6 @@ class _PriceCreateApplicationPageState
               },
               enabled: !negotiablePrice,
               inputFormatters: [currencyTextInputFormatter],
-              autofocus: true,
               keyboardType: TextInputType.number,
               style: TextStyle(fontSize: 14, height: 1.1),
               controller: priceEditingController,

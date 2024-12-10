@@ -1,6 +1,5 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:gservice5/component/button/back/backIconButton.dart';
 import 'package:gservice5/component/dio/dio.dart';
 import 'package:gservice5/component/functions/token/changedToken.dart';
@@ -132,7 +131,9 @@ class _MyApplicationListPageState extends State<MyApplicationListPage> {
         context,
         MaterialPageRoute(
             builder: (context) => ViewMyApplicationPage(id: id))).then((value) {
-      if (value == "delete") updateData(id);
+      if (value == "delete") {
+        updateData(id);
+      }
     });
   }
 
@@ -194,7 +195,8 @@ class _MyApplicationListPageState extends State<MyApplicationListPage> {
                               MyApplicationItem(
                                   onPressed: showMyApplicationPage,
                                   data: item,
-                                  removeItem: updateData),
+                                  removeItem: updateData,
+                                  restoreItem: updateData),
                               isLoadMore
                                   ? PaginationLoaderComponent()
                                   : Container()
@@ -203,7 +205,8 @@ class _MyApplicationListPageState extends State<MyApplicationListPage> {
                             return MyApplicationItem(
                                 onPressed: showMyApplicationPage,
                                 data: item,
-                                removeItem: updateData);
+                                removeItem: updateData,
+                                restoreItem: updateData);
                           }
                         },
                       )));

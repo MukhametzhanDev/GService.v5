@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:gservice5/component/button/button.dart';
 import 'package:gservice5/component/snackBar/snackBarComponent.dart';
+import 'package:gservice5/component/textField/closeKeyboard/closeKeyboard.dart';
 import 'package:gservice5/component/textField/searchTextField.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
 import 'package:gservice5/component/widgets/bottom/bottomNavigationBarComponent.dart';
@@ -37,10 +38,10 @@ class _MultipleDataModalState extends State<MultipleDataModal> {
   void addButtonTitles(List value) {
     enterItems = value;
     setState(() {});
-    print("enterItems ${enterItems}");
   }
 
   void showModal() {
+    closeKeyboard();
     showCupertinoModalBottomSheet(
         context: context,
         builder: (context) => Modal(

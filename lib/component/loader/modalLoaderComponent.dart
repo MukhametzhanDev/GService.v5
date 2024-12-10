@@ -16,8 +16,9 @@ class ModalLoaderComponent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: const CircularProgressIndicator(color: Colors.white)
-    );
+        child: GestureDetector(
+            onTap: () => Navigator.pop(context),
+            child: const CircularProgressIndicator(color: Colors.white)));
   }
 }
 

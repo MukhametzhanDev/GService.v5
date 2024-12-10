@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gservice5/component/button/back/closeIconButton.dart';
+import 'package:gservice5/component/textField/closeKeyboard/closeKeyboard.dart';
 import 'package:gservice5/component/textField/searchTextField.dart';
 import 'package:gservice5/pages/create/ad/characteristic/getCharacteristicAdPage.dart';
 import 'package:gservice5/pages/create/ad/characteristic/modalButtonComponent.dart';
@@ -23,7 +24,7 @@ class DataModal extends StatefulWidget {
 
 class _DataModalState extends State<DataModal> {
   void showModal() {
-    print(widget.value);
+    closeKeyboard();
     showCupertinoModalBottomSheet(
         context: context,
         builder: (context) => ListModalComponent(

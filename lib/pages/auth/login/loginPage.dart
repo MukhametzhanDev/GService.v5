@@ -39,10 +39,11 @@ class _LoginPageState extends State<LoginPage>
                         child: TabBar(
                           indicatorSize: TabBarIndicatorSize.tab,
                           labelColor: Colors.black,
+                          indicatorPadding: EdgeInsets.all(3),
                           tabs: [Tab(text: "Физ лицо"), Tab(text: "Юр лицо")],
                           indicator: BoxDecoration(
                             color: ColorComponent.mainColor,
-                            borderRadius: BorderRadius.circular(8),
+                            borderRadius: BorderRadius.circular(6),
                             border: Border(
                               bottom: BorderSide(
                                   color: ColorComponent.mainColor, width: 6.0),

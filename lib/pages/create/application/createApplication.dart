@@ -57,10 +57,10 @@ class _CreateApplicationState extends State<CreateApplication> {
     pages = [];
     if (options['has_transport_type']) {
       pages.add(GetTypeEquipmentPage(nextPage: nextPage));
-      titles.add("Тип техники");
+      titles.add("Какой тип техники вы хотите купить?");
     }
     pages.add(DescriptionCreateApplicationPage(nextPage: nextPage));
-    titles.add("Описание заявки");
+    titles.add("Напишите подробности");
     if (options['has_transport_brand']) {
       pages.add(GetBrandEquipmentPage(nextPage: nextPage));
       titles.add("Марка техники");
@@ -77,7 +77,7 @@ class _CreateApplicationState extends State<CreateApplication> {
       PriceCreateApplicationPage(nextPage: nextPage),
       AddressCreateApplicationPage(nextPage: nextPage)
     ]);
-    titles.addAll(["Цена", "Указать адрес"]);
+    titles.addAll(["Данные и цена", "Указать адрес"]);
     // if (!hasToken) {
     pages.addAll([
       ContactCreateApplicationPage(nextPage: nextPage),
@@ -97,24 +97,28 @@ class _CreateApplicationState extends State<CreateApplication> {
     return GestureDetector(
       onTap: () => closeKeyboard(),
       child: Scaffold(
-          appBar: loader
-              ? null
-              : AppBar(
-                  leadingWidth: MediaQuery.of(context).size.width - 100,
-                  leading: BackTitleButton(
-                      onPressed: previousPage, title: titles[currentIndex]),
-                  actions: [
-                    CloseIconButton(iconColor: null, padding: true),
-                    SizedBox(width: 4)
-                  ],
-                  bottom: PreferredSize(
-                      preferredSize: Size(double.infinity, 5),
-                      child: StepIndicator(
-                          lengthLine: pages.length,
-                          activeIndex: currentIndex))),
-          body: loader
-              ? LoaderComponent()
-              : IndexedStack(index: currentIndex, children: pages)),
+          body: SafeArea(
+        child: Column(
+          children: [
+            loader
+                ? Container()
+                : Row(
+                    children: [
+                      Expanded(
+                          child: BackTitleButton(
+                              onPressed: previousPage,
+                              title: titles[currentIndex])),
+                      CloseIconButton(iconColor: null, padding: true),
+                    ],
+                  ),
+            Expanded(
+              child: loader
+                  ? LoaderComponent()
+                  : IndexedStack(index: currentIndex, children: pages),
+            ),
+          ],
+        ),
+      )),
     );
   }
 }

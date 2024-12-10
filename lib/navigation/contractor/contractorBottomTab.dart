@@ -65,7 +65,6 @@ class _ContractorBottomTabState extends State<ContractorBottomTab> {
         MessageMainPage(),
         ContractorProfilePage(),
       ]),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       bottomNavigationBar: BottomNavigationBar(
           backgroundColor: ColorTheme['white_black'],
           elevation: 0,

@@ -63,7 +63,6 @@ class _CustomerBottomTabState extends State<CustomerBottomTab>
         MessageMainPage(),
         VerifyProfilePage(),
       ]),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       bottomNavigationBar: BottomNavigationBar(
           backgroundColor: ColorTheme['white_black'],
           elevation: 0,

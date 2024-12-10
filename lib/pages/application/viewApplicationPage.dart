@@ -5,10 +5,12 @@ import 'package:gservice5/component/appBar/fadeOnScroll.dart';
 import 'package:gservice5/component/bar/bottomBar/contactBottomBarWidget.dart';
 import 'package:gservice5/component/button/back/backIconButton.dart';
 import 'package:gservice5/component/button/button.dart';
+import 'package:gservice5/component/button/favoriteButton.dart';
 import 'package:gservice5/component/button/shareButton.dart';
 import 'package:gservice5/component/date/formattedDate.dart';
 import 'package:gservice5/component/dio/dio.dart';
 import 'package:gservice5/component/formatted/price/priceFormat.dart';
+import 'package:gservice5/component/image/cacheImage.dart';
 import 'package:gservice5/component/image/slider/sliderImageWidget.dart';
 import 'package:gservice5/component/loader/loaderComponent.dart';
 import 'package:gservice5/component/snackBar/snackBarComponent.dart';
@@ -16,6 +18,7 @@ import 'package:gservice5/component/theme/colorComponent.dart';
 import 'package:gservice5/component/widgets/author/authorAdWidget.dart';
 import 'package:gservice5/component/widgets/characteristic/showCharacteristicWidget.dart';
 import 'package:gservice5/pages/application/document/showDocumentWidget.dart';
+import 'package:gservice5/pages/application/document/sliderApplicationSmallImageWidget.dart';
 import 'package:gservice5/pages/application/recommendationApplicationList.dart';
 
 class ViewApplicationPage extends StatefulWidget {
@@ -29,6 +32,7 @@ class ViewApplicationPage extends StatefulWidget {
 class _ViewApplicationPageState extends State<ViewApplicationPage> {
   final ScrollController scrollController = ScrollController();
   Map data = {};
+  List images = [];
 
   @override
   void initState() {
@@ -40,6 +44,7 @@ class _ViewApplicationPageState extends State<ViewApplicationPage> {
     try {
       Response response = await dio.get("/application/${widget.id}");
       if (response.data['success']) {
+        images = response.data['data']['images'];
         data = response.data['data'];
         setState(() {});
       } else {
@@ -70,7 +75,10 @@ class _ViewApplicationPageState extends State<ViewApplicationPage> {
                     // FavoriteButtonComponent(iconColor: ColorTheme['black_white']),
                     ShareButton(id: widget.id, hasAd: true),
                     Divider(indent: 10),
-                    //  FavoriteButton(),
+                    FavoriteButton(
+                        id: widget.id,
+                        active: data['is_favorite'],
+                        type: "application"),
                     Divider(indent: 15)
                   ],
                   title: FadeOnScroll(
@@ -97,7 +105,6 @@ class _ViewApplicationPageState extends State<ViewApplicationPage> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Divider(),
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 16),
                         child: Column(
@@ -109,46 +116,24 @@ class _ViewApplicationPageState extends State<ViewApplicationPage> {
                                     fontWeight: FontWeight.w600,
                                     color: ColorComponent.blue['700'])),
                             const SizedBox(height: 8),
-                            Row(
-                              children: [
-                                Expanded(
-                                    child: Text(priceFormat(data['cost']),
-                                        style: TextStyle(
-                                            fontSize: 20,
-                                            fontWeight: FontWeight.w600))),
-                                Container(
-                                  height: 24,
-                                  padding: EdgeInsets.symmetric(
-                                      horizontal: 8, vertical: 5),
-                                  decoration: BoxDecoration(
-                                      color: ColorComponent.mainColor,
-                                      borderRadius: BorderRadius.circular(6)),
-                                  child: Text(
-                                    data['category']['title'],
-                                    style: TextStyle(
-                                        height: 1,
-                                        fontSize: 12,
-                                        fontWeight: FontWeight.w600),
-                                  ),
-                                ),
-                              ],
-                            ),
+                            Text(priceFormat(data['cost']),
+                                style: TextStyle(
+                                    fontSize: 20, fontWeight: FontWeight.w600)),
                             const SizedBox(height: 8),
                           ],
                         ),
                       ),
-                      SliderImageWidget(images: data['images']),
+                      // SliderImageWidget(images: data['images']),
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 16),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Divider(indent: 12),
-                            Text("Характеристики",
-                                style: TextStyle(
-                                    fontSize: 18, fontWeight: FontWeight.w600)),
+                            // Divider(indent: 12),
                             ShowCharacteristicWidget(
                                 title: "Город", subTitle: data['city']),
+                            ShowCharacteristicWidget(
+                                title: "Раздел", subTitle: data['category']),
                             ShowCharacteristicWidget(
                                 title: "Тип", subTitle: data['transport_type']),
                             ShowCharacteristicWidget(
@@ -169,44 +154,54 @@ class _ViewApplicationPageState extends State<ViewApplicationPage> {
                             ShowCharacteristicWidget(
                                 title: "Производитель",
                                 subTitle: data['spare_part_brand']),
+                            ShowCharacteristicWidget(
+                                title: "Опубликовано",
+                                subTitle: {
+                                  "title": formattedDate(
+                                      data['created_at'], "dd MMMM yyyy")
+                                }),
                             const SizedBox(height: 16),
                             Text("Описание",
                                 style: TextStyle(
                                     fontSize: 18, fontWeight: FontWeight.w600)),
-                            Divider(height: 8),
+                            Divider(height: 12),
                             Text(data['description'],
                                 style: TextStyle(height: 1.6)),
-                            Divider(indent: 16),
+                            Divider(indent: 12),
+                            Divider(height: 1, color: Color(0xfff4f5f7)),
+                            Divider(indent: 12),
+                          ],
+                        ),
+                      ),
+                      SliderApplicationSmallImageWidget(images: images),
+                      Divider(indent: 12),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 16),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
                             // ShowDocumentWidget(),
                             // Divider(indent: 16),
                             SizedBox(
                               height: 41,
                               child: Button(
-                                  onPressed: () {},
+                                  onPressed: () {
+                                    print(images.length);
+                                  },
                                   backgroundColor:
                                       ColorComponent.mainColor.withOpacity(.1),
                                   icon: "alert.svg",
                                   title: "Пожаловаться на заявки"),
                             ),
                             Divider(indent: 16),
+
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                Row(
-                                  children: [
-                                    Text("ID: ${data['id']}",
-                                        style: TextStyle(
-                                            color: ColorComponent.gray["500"],
-                                            fontSize: 12)),
-                                    Divider(indent: 16),
-                                    Text(
-                                        formattedDate(
-                                            data['created_at'], "dd MMMM yyyy"),
-                                        style: TextStyle(
-                                            color: ColorComponent.gray["500"],
-                                            fontSize: 12)),
-                                  ],
-                                ),
+                                Text("ID: ${data['id']}",
+                                    style: TextStyle(
+                                        color: ColorComponent.gray["500"],
+                                        fontSize: 12)),
                                 Row(
                                   children: [
                                     SvgPicture.asset('assets/icons/eye.svg',
@@ -223,9 +218,9 @@ class _ViewApplicationPageState extends State<ViewApplicationPage> {
                             ),
                             Divider(indent: 16),
                             AuthorAdWidget(
-                                title: "О владельце заявок",
-                                data: data['author']),
-                            Divider(indent: 16),
+                                title: "Заказчик", data: data['author']),
+                            Divider(height: 1, color: Color(0xfff4f5f7)),
+                            Divider(height: 12),
                           ],
                         ),
                       ),

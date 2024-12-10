@@ -111,7 +111,7 @@ class _LoginUserPageState extends State<LoginUserPage>
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Divider(height: 10),
+            Divider(height: 15),
             SizedBox(
               height: 48,
               child: TextField(

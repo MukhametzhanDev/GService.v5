@@ -27,7 +27,7 @@ class _GetImageCreateAdPageState extends State<GetImageCreateAdPage> {
     CreateData.characteristic
         .removeWhere((key, value) => value is Map<String, dynamic>);
     CreateData.data.removeWhere((key, value) => value is Map<String, dynamic>);
-    print(CreateData.data);
+    print(CreateData.characteristic);
     FormData formData = FormData.fromMap({
       "images": images,
       ...CreateData.data,

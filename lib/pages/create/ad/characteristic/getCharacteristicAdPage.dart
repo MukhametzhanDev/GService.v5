@@ -1,6 +1,5 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:gservice5/component/button/back/backTitleButton.dart';
 import 'package:gservice5/component/button/button.dart';
 import 'package:gservice5/component/dio/dio.dart';
 import 'package:gservice5/component/loader/loaderComponent.dart';
@@ -85,16 +84,26 @@ class _GetCharacteristicAdPageState extends State<GetCharacteristicAdPage> {
   }
 
   void verifyData() {
-    print('object');
     for (Map value in data) {
+      print(value);
       bool hasKey =
           CreateData.characteristic.containsKey(value['id'].toString());
-      if (value['is_required'] && !hasKey) {
+      if (hasKey) {
+        String title =
+            CreateData.characteristic["${value['id']}"].toString().trim();
+        if (value['is_required'] && title.isEmpty) {
+          SnackBarComponent().showErrorMessage(
+              "Заполните строку '${value['title']}'", context);
+          return;
+        }
+      } else {
         SnackBarComponent()
             .showErrorMessage("Заполните строку '${value['title']}'", context);
         return;
       }
     }
+    print(CreateData.characteristic);
+
     showPage();
   }
 
@@ -115,6 +124,15 @@ class _GetCharacteristicAdPageState extends State<GetCharacteristicAdPage> {
     setState(() {});
   }
 
+  String getTitle() {
+    if (CreateData.data['category_id'] == 6 ||
+        CreateData.data['category_id'] == 5) {
+      return "Общие данные";
+    } else {
+      return "Характеристика";
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -127,7 +145,7 @@ class _GetCharacteristicAdPageState extends State<GetCharacteristicAdPage> {
               children: [
                 Padding(
                     padding: const EdgeInsets.only(bottom: 15),
-                    child: Text("Характеристика",
+                    child: Text(getTitle(),
                         style: TextStyle(
                             fontSize: 20, fontWeight: FontWeight.w600))),
                 loader
@@ -337,6 +355,7 @@ class _CheckBoxCharacteristicState extends State<CheckBoxCharacteristic> {
         padding: const EdgeInsets.only(bottom: 14),
         child: TextButton(
             onPressed: () {
+              closeKeyboard();
               active = !active;
               setState(() {});
               widget.addData({widget.value['id'].toString(): active},

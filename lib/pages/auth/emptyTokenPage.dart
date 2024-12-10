@@ -44,7 +44,7 @@ class _EmptyTokenPageState extends State<EmptyTokenPage> {
                         builder: (context) => LoginPage(showBackButton: true)));
               },
               padding: EdgeInsets.symmetric(horizontal: 15),
-              title: "Авторизация")),
+              title: "авторизоваться")),
     );
   }
 }
