@@ -86,7 +86,7 @@ class _ResultSearchPageState extends State<ResultSearchPage> {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        SortAdWidget(onChangedCity: (value) {}),
+                        SortAdWidget(onChanged: (value) {}),
                         Row(children: [
                           GestureDetector(
                             child: Container(

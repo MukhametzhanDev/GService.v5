@@ -11,7 +11,9 @@ import 'package:intl/intl.dart';
 
 class PriceCreateApplicationPage extends StatefulWidget {
   final void Function() nextPage;
-  const PriceCreateApplicationPage({super.key, required this.nextPage});
+  final bool canLease;
+  const PriceCreateApplicationPage(
+      {super.key, required this.nextPage, required this.canLease});
 
   @override
   State<PriceCreateApplicationPage> createState() =>
@@ -22,6 +24,7 @@ class _PriceCreateApplicationPageState
     extends State<PriceCreateApplicationPage> {
   TextEditingController priceEditingController = TextEditingController();
   bool negotiablePrice = false;
+  bool canLease = false;
   CurrencyTextInputFormatter currencyTextInputFormatter =
       CurrencyTextInputFormatter(
           NumberFormat.currency(decimalDigits: 0, symbol: "", locale: 'kk'));
@@ -47,6 +50,7 @@ class _PriceCreateApplicationPageState
 
   void savedData() {
     Map createData = CreateData.data;
+    createData['can_lease'] = canLease;
     if (!negotiablePrice) {
       createData['price'] = getIntComponent(priceEditingController.text);
     } else {
@@ -112,6 +116,29 @@ class _PriceCreateApplicationPageState
                   : Container(),
             ),
             title: Text("Договорная"),
+          ),
+          ListTile(
+            onTap: () {
+              canLease = !canLease;
+              setState(() {});
+            },
+            contentPadding: EdgeInsets.zero,
+            leading: Container(
+              width: 20,
+              height: 20,
+              alignment: Alignment.center,
+              decoration: BoxDecoration(
+                  color: canLease ? Color(0xff1A56DB) : null,
+                  borderRadius: BorderRadius.circular(4),
+                  border: Border.all(
+                      width: 1,
+                      color: canLease ? Color(0xff1A56DB) : Color(0xffD1D5DB))),
+              child: canLease
+                  ? SvgPicture.asset('assets/icons/checkMini.svg',
+                      color: Colors.white)
+                  : Container(),
+            ),
+            title: Text("Лизинг"),
           ),
         ]),
       ),

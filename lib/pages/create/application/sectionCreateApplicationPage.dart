@@ -31,6 +31,12 @@ class _SectionCreateApplicationPageState
     super.initState();
   }
 
+  @override
+  void dispose() {
+    CreateData.data.clear();
+    super.dispose();
+  }
+
   void getData() async {
     try {
       Response response = await dio.get("/application-categories");

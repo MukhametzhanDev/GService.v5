@@ -118,18 +118,18 @@ class _StructureCreateAdPageState extends State<StructureCreateAdPage> {
         value: data[index],
         nextPage: formattedPages,
         previousPage: previousPage,
-        hasNextRemovedPage: hasNextRemovedPage,
+        // hasNextRemovedPage: hasNextRemovedPage,
         options: data,
         pageController: pageController));
   }
 
-  void hasNextRemovedPage() {
-    int index = pageControllerIndexedStack.getIndex();
-    twoStepsBack = index ;
-    addPage();
-    addPage();
-    print("TWOSTEPRS--> ${twoStepsBack}");
-  }
+  // void hasNextRemovedPage() {
+  //   int index = pageControllerIndexedStack.getIndex();
+  //   twoStepsBack = index ;
+  //   addPage();
+  //   addPage();
+  //   print("TWOSTEPRS--> ${twoStepsBack}");
+  // }
 
   void previousPage() {
     closeKeyboard();
@@ -137,13 +137,13 @@ class _StructureCreateAdPageState extends State<StructureCreateAdPage> {
     if (index == 0) {
       Navigator.pop(context);
     } else {
-      if (twoStepsBack == index) {
+      // if (twoStepsBack == index) {
+      //   removedPage();
+      //   removedPage();
+      //   twoStepsBack = null;
+      // } else {
+      // }
         removedPage();
-        removedPage();
-        twoStepsBack = null;
-      } else {
-        removedPage();
-      }
       setState(() {});
     }
   }

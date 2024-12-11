@@ -1,9 +1,13 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:gservice5/component/button/button.dart';
+import 'package:gservice5/component/dio/dio.dart';
 import 'package:gservice5/component/functions/number/getIntNumber.dart';
+import 'package:gservice5/component/functions/token/changedToken.dart';
 import 'package:gservice5/component/snackBar/snackBarComponent.dart';
 import 'package:gservice5/component/widgets/bottom/bottomNavigationBarComponent.dart';
 import 'package:gservice5/pages/create/data/createData.dart';
+import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 
 class ContactCreateApplicationPage extends StatefulWidget {
   final void Function() nextPage;
@@ -18,6 +22,33 @@ class _ContactCreateApplicationPageState
     extends State<ContactCreateApplicationPage> {
   TextEditingController nameEditingController = TextEditingController();
   TextEditingController phoneEditingController = TextEditingController();
+  MaskTextInputFormatter maskFormatter = MaskTextInputFormatter(
+      mask: '+7 (###) ###-##-##',
+      filter: {"#": RegExp(r'[0-9]')},
+      type: MaskAutoCompletionType.lazy);
+
+  @override
+  void initState() {
+    getData();
+    super.initState();
+  }
+
+  void getData() async {
+    bool token = await ChangedToken().getToken() != null;
+    if (token) {
+      try {
+        Response response = await dio.get("/user");
+        if (response.data['success'] && response.statusCode == 200) {
+          nameEditingController.text = response.data['data']['name'];
+          phoneEditingController.text =
+              maskFormatter.maskText(response.data['data']['phone']);
+          setState(() {});
+        }
+      } catch (e) {
+        SnackBarComponent().showNotGoBackServerErrorMessage(context);
+      }
+    }
+  }
 
   @override
   void dispose() {
@@ -58,15 +89,15 @@ class _ContactCreateApplicationPageState
                   keyboardType: TextInputType.name,
                   textCapitalization: TextCapitalization.sentences,
                   style: TextStyle(fontSize: 14),
-                  decoration: InputDecoration(hintText: "Имя"))),
-          Divider(),
+                  decoration: InputDecoration(labelText: "Имя"))),
+          Divider(height: 24),
           AutofillGroup(
             child: TextField(
                 controller: phoneEditingController,
                 autofillHints: const [AutofillHints.telephoneNumber],
                 keyboardType: TextInputType.number,
                 style: TextStyle(fontSize: 14),
-                decoration: InputDecoration(hintText: "Номер телефона")),
+                decoration: InputDecoration(labelText: "Номер телефона")),
           )
         ]),
       ),

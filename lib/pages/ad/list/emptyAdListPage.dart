@@ -1,18 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:gservice5/component/button/button.dart';
+import 'package:gservice5/component/theme/colorComponent.dart';
 import 'package:gservice5/component/widgets/bottom/bottomNavigationBarComponent.dart';
-import 'package:gservice5/pages/auth/login/loginPage.dart';
+import 'package:gservice5/pages/create/application/sectionCreateApplicationPage.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
-class EmptyTokenPage extends StatefulWidget {
-  const EmptyTokenPage({super.key});
+class EmptyAdListPage extends StatefulWidget {
+  const EmptyAdListPage({super.key});
 
   @override
-  State<EmptyTokenPage> createState() => _EmptyTokenPageState();
+  State<EmptyAdListPage> createState() => _EmptyAdListPageState();
 }
 
-class _EmptyTokenPageState extends State<EmptyTokenPage> {
+class _EmptyAdListPageState extends State<EmptyAdListPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -20,7 +21,8 @@ class _EmptyTokenPageState extends State<EmptyTokenPage> {
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          SvgPicture.asset("assets/icons/user.svg", width: 120),
+          SvgPicture.asset("assets/icons/clipboardOutline.svg",
+              width: 120, color: ColorComponent.gray['500']),
           Divider(indent: 12),
           Text("Войдите или создайте учетную запись",
               style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600)),
@@ -38,13 +40,12 @@ class _EmptyTokenPageState extends State<EmptyTokenPage> {
       bottomNavigationBar: BottomNavigationBarComponent(
           child: Button(
               onPressed: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => LoginPage(showBackButton: true)));
+                showMaterialModalBottomSheet(
+                    context: context,
+                    builder: (context) => SectionCreateApplicationPage());
               },
               padding: EdgeInsets.symmetric(horizontal: 15),
-              title: "Aвторизоваться")),
+              title: "Оставить заявку")),
     );
   }
 }

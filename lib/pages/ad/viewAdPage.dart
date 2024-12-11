@@ -265,7 +265,9 @@ class _ViewAdPageState extends State<ViewAdPage> {
                   ),
                 ),
               ]),
-        bottomNavigationBar: loader ? null : ContactBottomBarWidget());
+        bottomNavigationBar: loader
+            ? null
+            : ContactBottomBarWidget(id: data['id'], hasAd: true));
   }
 }
 

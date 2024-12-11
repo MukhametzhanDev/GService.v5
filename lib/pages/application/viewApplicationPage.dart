@@ -229,6 +229,8 @@ class _ViewApplicationPageState extends State<ViewApplicationPage> {
                   ),
                 ),
               ]),
-        bottomNavigationBar: data.isEmpty ? null : ContactBottomBarWidget());
+        bottomNavigationBar: data.isEmpty
+            ? null
+            : ContactBottomBarWidget(hasAd: false, id: data['id']));
   }
 }

@@ -11,3 +11,9 @@ class EditData {
   static Map<String, dynamic> characteristic = {};
   static List<XFile> images = [];
 }
+
+class FilterData {
+  static Map<String, dynamic> data = {};
+  static Map<String, dynamic> characteristic = {};
+  static List<XFile> images = [];
+}

@@ -17,14 +17,14 @@ class GetSelectPage extends StatefulWidget {
   final PageController pageController;
   final void Function() nextPage;
   final void Function() previousPage;
-  final void Function() hasNextRemovedPage;
+  // final void Function() hasNextRemovedPage;
   const GetSelectPage(
       {super.key,
       required this.value,
       required this.options,
       required this.nextPage,
       required this.previousPage,
-      required this.hasNextRemovedPage,
+      // required this.hasNextRemovedPage,
       required this.pageController});
 
   @override
@@ -136,30 +136,34 @@ class _GetSelectPageState extends State<GetSelectPage> {
       CreateData.data[widget.value['name']] = value['id'];
       currentId = value['id'];
       nextPage();
-      verifyNextPage(value);
+      // verifyNextPage(value);
     }
     setState(() {});
   }
 
-  void verifyNextPage(value) {
-    bool hasKey = value.containsKey("has_spare_part_categories");
-    if (hasKey) {
-      if (value['has_spare_part_categories']) {
-        nextPage();
-      } else {
-        widget.value['hasBackTwoPage'] = true;
-        CreateData.data[widget.value['name']] = value['id'];
-        pageControllerIndexedStack.nextPage();
-        widget.hasNextRemovedPage();
-      }
-    } else {
-      nextPage();
-    }
-  }
+  // void verifyNextPage(value) {
+  // bool hasKey = value.containsKey("has_spare_part_categories");
+  // if (hasKey) {
+  //   if (value['has_spare_part_categories']) {
+  //     nextPage();
+  //   } else {
+  //     widget.value['hasBackTwoPage'] = true;
+  //     CreateData.data[widget.value['name']] = value['id'];
+  //     pageControllerIndexedStack.nextPage();
+  //     // widget.hasNextRemovedPage();
+  //   }
+  // } else {
+  // }
+  //   nextPage();
+  // }
 
   void savedData() {
-    CreateData.data[widget.value['name']] = multipleData;
-    nextPage();
+    if (data.isEmpty) {
+      nextPage();
+    } else {
+      CreateData.data[widget.value['name']] = multipleData;
+      nextPage();
+    }
   }
 
   void nextPage() {
@@ -178,42 +182,65 @@ class _GetSelectPageState extends State<GetSelectPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-        // Divider(),
-        // Padding(
-        //   padding: const EdgeInsets.symmetric(horizontal: 15),
-        //   child: Text(widget.value['title']['title_ru'],
-        //       style: TextStyle(fontWeight: FontWeight.w600, fontSize: 18)),
-        // ),
-        Padding(
-            padding: const EdgeInsets.only(right: 15, left: 15, top: 15),
-            child: SearchTextField(title: "Поиск", onChanged: searchList)),
+        data.isEmpty
+            ? Container()
+            : Padding(
+                padding: const EdgeInsets.only(right: 15, left: 15, top: 15),
+                child: SearchTextField(title: "Поиск", onChanged: searchList)),
         Expanded(
           child: loader
               ? LoaderComponent()
-              : ListView.builder(
-                  padding: EdgeInsets.symmetric(vertical: 15),
-                  itemCount: data.length,
-                  controller: scrollController,
-                  itemBuilder: (context, index) {
-                    Map value = data[index];
-                    if (data.length - 1 == index) {
-                      return Column(children: [
-                        Item(value),
-                        isLoadMore ? LoaderPaginationComponent() : Container()
-                      ]);
-                    } else {
-                      return Item(value);
-                    }
-                  }),
+              : data.isEmpty
+                  ? Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 15),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text("Здесь пусто",
+                              style: TextStyle(
+                                  fontSize: 16, fontWeight: FontWeight.w600)),
+                          Divider(indent: 12),
+                          Text(
+                            "Сызге керек данный бызде жок болса бызге жаза аласыз, быз немедленно косып беремыз",
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                                color: Colors.black, fontSize: 15, height: 1.5),
+                          ),
+                        ],
+                      ))
+                  : ListView.builder(
+                      padding: EdgeInsets.symmetric(vertical: 15),
+                      itemCount: data.length,
+                      controller: scrollController,
+                      itemBuilder: (context, index) {
+                        Map value = data[index];
+                        if (data.length - 1 == index) {
+                          return Column(children: [
+                            Item(value),
+                            isLoadMore
+                                ? LoaderPaginationComponent()
+                                : Container()
+                          ]);
+                        } else {
+                          return Item(value);
+                        }
+                      }),
         )
       ]),
-      bottomNavigationBar: widget.value['multiple']
+      bottomNavigationBar: data.isEmpty
           ? BottomNavigationBarComponent(
               child: Button(
                   onPressed: () => savedData(),
                   padding: EdgeInsets.symmetric(horizontal: 15),
-                  title: "Продолжить"))
-          : null,
+                  title: "Пропустить"))
+          : widget.value['multiple']
+              ? BottomNavigationBarComponent(
+                  child: Button(
+                      onPressed: () => savedData(),
+                      padding: EdgeInsets.symmetric(horizontal: 15),
+                      title: "Продолжить"))
+              : null,
     );
   }
 

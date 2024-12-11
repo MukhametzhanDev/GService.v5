@@ -34,6 +34,17 @@ class _CreateApplicationState extends State<CreateApplication> {
     super.initState();
   }
 
+  @override
+  void dispose() {
+    clearData();
+    super.dispose();
+  }
+
+  void clearData() {
+    CreateData.data.clear();
+    CreateData.images.clear();
+  }
+
   void nextPage() {
     closeKeyboard();
     currentIndex += 1;
@@ -53,6 +64,7 @@ class _CreateApplicationState extends State<CreateApplication> {
   Future verifyData() async {
     // bool hasToken = await ChangedToken().getToken() != "";
     Map options = CreateData.data['category']['options'];
+    bool canLease = CreateData.data['category']['can_lease'];
     print(options);
     pages = [];
     if (options['has_transport_type']) {
@@ -74,7 +86,7 @@ class _CreateApplicationState extends State<CreateApplication> {
       titles.add("Профессия");
     }
     pages.addAll([
-      PriceCreateApplicationPage(nextPage: nextPage),
+      PriceCreateApplicationPage(nextPage: nextPage,canLease:canLease),
       AddressCreateApplicationPage(nextPage: nextPage)
     ]);
     titles.addAll(["Данные и цена", "Указать адрес"]);

@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:gservice5/component/counter/counterClickStatistic.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
 
 class ShareButton extends StatefulWidget {
@@ -14,13 +15,19 @@ class ShareButton extends StatefulWidget {
 }
 
 class _ShareButtonState extends State<ShareButton> {
-  void shareData() async {
+  void shared() async {
+    print(widget.hasAd);
+    if (widget.hasAd) {
+    } else {
+      await getCountClickApplication(widget.id, "share");
+    }
     // await GetCountClick().postData(widget.id, widget.hasAd, "share");
   }
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
+      onTap: shared,
       child: Container(
         height: 32,
         width: 32,

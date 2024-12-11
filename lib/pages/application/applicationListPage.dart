@@ -87,11 +87,12 @@ class _ApplicationListPageState extends State<ApplicationListPage> {
     }
   }
 
-  void onChangedCity(value) {
+  void onChanged(value) {
+    print(value);
     if (value.isEmpty) {
-      param.remove("city_id");
+      value = {};
     } else {
-      param.addAll({"city_id": value['id']});
+      param.addAll(value);
     }
     getData();
   }
@@ -126,7 +127,7 @@ class _ApplicationListPageState extends State<ApplicationListPage> {
                               BorderSide(width: 2, color: Color(0xfff4f5f7)))),
                   padding:
                       const EdgeInsets.only(left: 15, right: 15, bottom: 8),
-                  child: SortAdWidget(onChangedCity: onChangedCity))),
+                  child: SortAdWidget(onChanged: onChanged))),
         ),
         body: loader
             ? LoaderComponent()

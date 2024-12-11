@@ -1,14 +1,17 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:gservice5/component/button/back/backTitleButton.dart';
 import 'package:gservice5/component/dio/dio.dart';
 import 'package:gservice5/component/loader/loaderComponent.dart';
 import 'package:gservice5/component/loader/paginationLoaderComponent.dart';
 import 'package:gservice5/component/snackBar/snackBarComponent.dart';
-import 'package:gservice5/component/theme/colorComponent.dart';
+import 'package:gservice5/pages/ad/filter/filterAdListPage.dart';
+import 'package:gservice5/pages/ad/filter/filterButton.dart';
 import 'package:gservice5/pages/ad/item/adItem.dart';
+import 'package:gservice5/pages/ad/list/emptyAdListPage.dart';
 import 'package:gservice5/pages/ad/widget/sortAdWidget.dart';
+import 'package:gservice5/pages/create/data/createData.dart';
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
 class AdListPage extends StatefulWidget {
   final Map category;
@@ -30,7 +33,6 @@ class _AdListPageState extends State<AdListPage> {
 
   @override
   void initState() {
-    param = {"category_id": widget.category['id']};
     getData();
     scrollController.addListener(() {
       loadMoreAd();
@@ -41,6 +43,7 @@ class _AdListPageState extends State<AdListPage> {
   @override
   void dispose() {
     scrollController.dispose();
+    FilterData.data.clear();
     super.dispose();
   }
 
@@ -49,7 +52,9 @@ class _AdListPageState extends State<AdListPage> {
       page = 1;
       loader = true;
       setState(() {});
-      Response response = await dio.get("/ad", queryParameters: param);
+      print(param);
+      Response response = await dio.get("/ad",
+          queryParameters: {...param, "category_id": widget.category['id']});
       print(response.data);
       if (response.statusCode == 200) {
         data = response.data['data'];
@@ -59,7 +64,8 @@ class _AdListPageState extends State<AdListPage> {
       } else {
         SnackBarComponent().showResponseErrorMessage(response, context);
       }
-    } catch (e) {
+    } on DioException catch (e) {
+      print(e);
       SnackBarComponent().showNotGoBackServerErrorMessage(context);
     }
   }
@@ -72,8 +78,11 @@ class _AdListPageState extends State<AdListPage> {
         isLoadMore = true;
         page += 1;
         setState(() {});
-        Response response = await dio
-            .get("/ad", queryParameters: {"page": page.toString(), ...param});
+        Response response = await dio.get("/ad", queryParameters: {
+          "page": page.toString(),
+          ...param,
+          "category_id": widget.category['id']
+        });
         print(response.data);
         if (response.statusCode == 200) {
           data.addAll(response.data['data']);
@@ -89,70 +98,83 @@ class _AdListPageState extends State<AdListPage> {
     }
   }
 
-  void onChangedCity(value) {
+  void onChanged(value) {
     if (value.isEmpty) {
-      param.remove("city_id");
+      value = {};
     } else {
-      param.addAll({"city_id": value['id']});
+      param = value;
     }
     getData();
+  }
+
+  void showFilterPage() {
+    showMaterialModalBottomSheet(
+            context: context,
+            enableDrag: false,
+            builder: (context) => FilterAdListPage(
+                data: widget.category['options']['necessary_inputs']))
+        .then(filteredAds);
+  }
+
+  void filteredAds(value) {
+    if (value != null) {
+      param = FilterData.data;
+      getData();
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          leadingWidth: MediaQuery.of(context).size.width - 100,
-          actions: [
-            GestureDetector(
-              child: Container(
-                width: 36,
-                height: 36,
-                alignment: Alignment.center,
-                margin: EdgeInsets.only(right: 15),
+      appBar: AppBar(
+        leadingWidth: MediaQuery.of(context).size.width - 100,
+        actions: [
+          FilterButton(showFilterPage: showFilterPage)
+          // GestureDetector(
+          //   onTap: () => showFilterPage(),
+          //   child: Container(
+          //     width: 36,
+          //     height: 36,
+          //     alignment: Alignment.center,
+          //     margin: EdgeInsets.only(right: 15),
+          //     decoration: BoxDecoration(
+          //         borderRadius: BorderRadius.circular(8),
+          //         color: ColorComponent.mainColor),
+          //     child: SvgPicture.asset("assets/icons/filter.svg", width: 20),
+          //   ),
+          // )
+        ],
+        leading: BackTitleButton(
+            title: widget.category['title'],
+            onPressed: () => Navigator.pop(context)),
+        bottom: PreferredSize(
+            preferredSize: Size(double.infinity, 46),
+            child: Container(
                 decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(8),
-                    color: ColorComponent.mainColor),
-                child: SvgPicture.asset("assets/icons/filter.svg", width: 20),
-              ),
-            )
-          ],
-          leading: BackTitleButton(
-              title: widget.category['title'],
-              onPressed: () => Navigator.pop(context)),
-          bottom: PreferredSize(
-              preferredSize: Size(double.infinity, 46),
-              child: Container(
-                  decoration: BoxDecoration(
-                      border: Border(
-                          bottom:
-                              BorderSide(width: 2, color: Color(0xfff4f5f7)))),
-                  padding:
-                      const EdgeInsets.only(left: 15, right: 15, bottom: 8),
-                  child: SortAdWidget(onChangedCity: onChangedCity))),
-        ),
-        body: loader
-            ? LoaderComponent()
-            : Column(
-                children: [
-                  Expanded(
-                      child: ListView.builder(
-                          itemCount: data.length,
-                          controller: scrollController,
-                          itemBuilder: (context, int index) {
-                            Map value = data[index];
-                            if (data.length - 1 == index) {
-                              return Column(children: [
-                                AdItem(data: value, showCategory: false),
-                                hasNextPage
-                                    ? PaginationLoaderComponent()
-                                    : Container()
-                              ]);
-                            } else {
-                              return AdItem(data: value, showCategory: false);
-                            }
-                          }))
-                ],
-              ));
+                    border: Border(
+                        bottom:
+                            BorderSide(width: 2, color: Color(0xfff4f5f7)))),
+                padding: const EdgeInsets.only(left: 15, right: 15, bottom: 8),
+                child: SortAdWidget(onChanged: onChanged))),
+      ),
+      body: loader
+          ? LoaderComponent()
+          : data.isEmpty
+              ? EmptyAdListPage()
+              : ListView.builder(
+                  itemCount: data.length,
+                  controller: scrollController,
+                  itemBuilder: (context, int index) {
+                    Map value = data[index];
+                    if (data.length - 1 == index) {
+                      return Column(children: [
+                        AdItem(data: value, showCategory: false),
+                        hasNextPage ? PaginationLoaderComponent() : Container()
+                      ]);
+                    } else {
+                      return AdItem(data: value, showCategory: false);
+                    }
+                  }),
+    );
   }
 }
