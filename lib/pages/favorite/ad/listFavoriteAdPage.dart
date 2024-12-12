@@ -94,22 +94,22 @@ class _ListFavoriteAdPageState extends State<ListFavoriteAdPage> {
         appBar: AppBar(toolbarHeight: 0),
         body: loader
             ? LoaderComponent()
-            : data.isEmpty
-                ? EmptyFavoriteListPage()
-                : Column(
-                    children: [
-                      Expanded(
-                          child: SmartRefresher(
-                        onRefresh: () async {
-                          await getData();
-                        },
-                        enablePullDown: true,
-                        enablePullUp: false,
-                        controller: refreshController,
-                        header: MaterialClassicHeader(
-                            color: ColorComponent.mainColor,
-                            backgroundColor: Colors.white),
-                        child: ListView.builder(
+            : Column(
+                children: [
+                  Expanded(
+                      child: SmartRefresher(
+                    onRefresh: () async {
+                      await getData();
+                    },
+                    enablePullDown: true,
+                    enablePullUp: false,
+                    controller: refreshController,
+                    header: MaterialClassicHeader(
+                        color: ColorComponent.mainColor,
+                        backgroundColor: Colors.white),
+                    child: data.isEmpty
+                        ? EmptyFavoriteListPage()
+                        : ListView.builder(
                             itemCount: data.length,
                             controller: scrollController,
                             itemBuilder: (context, int index) {
@@ -129,8 +129,8 @@ class _ListFavoriteAdPageState extends State<ListFavoriteAdPage> {
                                     showCategory: false);
                               }
                             }),
-                      ))
-                    ],
-                  ));
+                  ))
+                ],
+              ));
   }
 }

@@ -21,7 +21,6 @@ class FilterAdListPage extends StatefulWidget {
 
 class _FilterAdListPageState extends State<FilterAdListPage> {
   Map getParam(Map value) {
-    print(value);
     int index = widget.data.indexOf(value);
     if (index <= 0 || index == widget.data.length - 1) {
       return {};

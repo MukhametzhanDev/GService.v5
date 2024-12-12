@@ -67,7 +67,7 @@ class _VerificationPhonePageState extends State<VerificationPhonePage>
       });
       print(response.data);
       Navigator.pop(context);
-      if (response.statusCode == 200) {
+      if (response.statusCode == 200 && response.data['success']) {
         showRegistrationPage();
       } else {
         SnackBarComponent().showResponseErrorMessage(response, context);

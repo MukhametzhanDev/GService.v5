@@ -19,7 +19,7 @@ import 'package:gservice5/component/widgets/author/authorAdWidget.dart';
 import 'package:gservice5/component/widgets/characteristic/showCharacteristicWidget.dart';
 import 'package:gservice5/pages/application/document/showDocumentWidget.dart';
 import 'package:gservice5/pages/application/document/sliderApplicationSmallImageWidget.dart';
-import 'package:gservice5/pages/application/recommendationApplicationList.dart';
+import 'package:gservice5/pages/application/list/recommendationApplicationList.dart';
 
 class ViewApplicationPage extends StatefulWidget {
   final int id;
@@ -87,7 +87,7 @@ class _ViewApplicationPageState extends State<ViewApplicationPage> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text("Нужен экскаватор 2-ух кубовый",
+                        Text(data['title'],
                             style: TextStyle(
                                 fontSize: 14,
                                 fontWeight: FontWeight.w400,
@@ -110,7 +110,7 @@ class _ViewApplicationPageState extends State<ViewApplicationPage> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text("Нужен экскаватор 2-ух кубовый",
+                            Text(data['title'],
                                 style: TextStyle(
                                     fontSize: 20,
                                     fontWeight: FontWeight.w600,
@@ -169,7 +169,6 @@ class _ViewApplicationPageState extends State<ViewApplicationPage> {
                                 style: TextStyle(height: 1.6)),
                             Divider(indent: 12),
                             Divider(height: 1, color: Color(0xfff4f5f7)),
-                            Divider(indent: 12),
                           ],
                         ),
                       ),
@@ -194,7 +193,6 @@ class _ViewApplicationPageState extends State<ViewApplicationPage> {
                                   title: "Пожаловаться на заявки"),
                             ),
                             Divider(indent: 16),
-
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [

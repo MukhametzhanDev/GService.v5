@@ -52,7 +52,7 @@ class _ApplicationItemState extends State<ApplicationItem> {
           Row(
             children: [
               Expanded(
-                child: Text("Нужен экскаватор 2-ух кубовый",
+                child: Text(widget.data['title'],
                     style: TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.w400,
@@ -88,7 +88,7 @@ class _ApplicationItemState extends State<ApplicationItem> {
           //                 fontSize: 12, fontWeight: FontWeight.w600))),
           //   ],
           // ),
-          Divider(height: 12),
+          Divider(height: 10),
           Text(
             widget.data['description'],
             maxLines: 2,

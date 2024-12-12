@@ -53,8 +53,7 @@ class _RegistrationCustomerPageState extends State<RegistrationCustomerPage> {
       Response response = await dio.post("/image/avatar", data: formData);
       print(response.data);
       Navigator.pop(context);
-             if (response.statusCode==200) {
-
+      if (response.statusCode == 200) {
         postData(response.data['data']);
       } else {
         SnackBarComponent().showResponseErrorMessage(response, context);
@@ -81,8 +80,7 @@ class _RegistrationCustomerPageState extends State<RegistrationCustomerPage> {
       Response response = await dio.post("/business/register", data: param);
       print(response.data);
       Navigator.pop(context);
-             if (response.statusCode==200) {
-
+      if (response.statusCode == 200) {
         ChangedToken().saveCustomerToken(response.data['data'], context);
       } else {
         SnackBarComponent().showResponseErrorMessage(response, context);

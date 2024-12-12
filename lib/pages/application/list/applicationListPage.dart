@@ -6,8 +6,10 @@ import 'package:gservice5/component/loader/loaderComponent.dart';
 import 'package:gservice5/component/loader/paginationLoaderComponent.dart';
 import 'package:gservice5/component/snackBar/snackBarComponent.dart';
 import 'package:gservice5/pages/ad/filter/filterButton.dart';
-import 'package:gservice5/pages/application/applicationItem.dart';
+import 'package:gservice5/pages/application/item/applicationItem.dart';
 import 'package:gservice5/pages/application/filter/filterApplicationListPage.dart';
+import 'package:gservice5/pages/application/filter/filterApplicationWidget.dart';
+import 'package:gservice5/pages/application/list/emptyApplicationListPage.dart';
 import 'package:gservice5/pages/create/data/createData.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
@@ -43,11 +45,17 @@ class _ApplicationListPageState extends State<ApplicationListPage> {
     super.dispose();
   }
 
+  void showLoader() {
+    if (!loader) {
+      loader = true;
+      setState(() {});
+    }
+  }
+
   Future getData() async {
     try {
       page = 1;
-      loader = true;
-      setState(() {});
+      showLoader();
       Response response = await dio.get("/application", queryParameters: param);
       if (response.statusCode == 200) {
         data = response.data['data'];
@@ -114,46 +122,28 @@ class _ApplicationListPageState extends State<ApplicationListPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          leadingWidth: MediaQuery.of(context).size.width - 100,
-          actions: [FilterButton(showFilterPage: showFilterPage)],
-          leading: BackTitleButton(
-              title: "Заявки", onPressed: () => Navigator.pop(context)),
-          // bottom: PreferredSize(
-          //     preferredSize: Size(double.infinity, 46),
-          //     child: Container(
-          //         decoration: BoxDecoration(
-          //             border: Border(
-          //                 bottom:
-          //                     BorderSide(width: 2, color: Color(0xfff4f5f7)))),
-          //         padding:
-          //             const EdgeInsets.only(left: 15, right: 15, bottom: 8),
-          //         child: SortAdWidget(onChanged: onChanged))),
-        ),
+        appBar:
+            FilterApplicationWidget(appBar: AppBar(), onChanged: filteredAds),
         body: loader
             ? LoaderComponent()
-            : Column(
-                children: [
-                  Expanded(
-                      child: ListView.builder(
-                          itemCount: data.length,
-                          controller: scrollController,
-                          itemBuilder: (context, int index) {
-                            Map value = data[index];
-                            if (data.length - 1 == index) {
-                              return Column(children: [
-                                ApplicationItem(
-                                    data: value, showCategory: false),
-                                hasNextPage
-                                    ? PaginationLoaderComponent()
-                                    : Container()
-                              ]);
-                            } else {
-                              return ApplicationItem(
-                                  data: value, showCategory: false);
-                            }
-                          }))
-                ],
-              ));
+            : data.isEmpty
+                ? EmptyApplicationListPage()
+                : ListView.builder(
+                    itemCount: data.length,
+                    controller: scrollController,
+                    itemBuilder: (context, int index) {
+                      Map value = data[index];
+                      if (data.length - 1 == index) {
+                        return Column(children: [
+                          ApplicationItem(data: value, showCategory: false),
+                          hasNextPage
+                              ? PaginationLoaderComponent()
+                              : Container()
+                        ]);
+                      } else {
+                        return ApplicationItem(
+                            data: value, showCategory: false);
+                      }
+                    }));
   }
 }

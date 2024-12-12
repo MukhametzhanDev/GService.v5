@@ -5,7 +5,7 @@ import 'package:gservice5/component/loader/loaderComponent.dart';
 import 'package:gservice5/component/loader/paginationLoaderComponent.dart';
 import 'package:gservice5/component/snackBar/snackBarComponent.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
-import 'package:gservice5/pages/application/applicationItem.dart';
+import 'package:gservice5/pages/application/item/applicationItem.dart';
 import 'package:gservice5/pages/favorite/ad/emptyFavoriteListPage.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 

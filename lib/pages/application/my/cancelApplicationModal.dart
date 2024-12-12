@@ -63,10 +63,12 @@ class _CancelApplicationModalState extends State<CancelApplicationModal> {
 
   void verifyData() async {
     String desc = descEditingController.text.trim();
-    if (currentIndex == null && desc.isEmpty) {
-      SnackBarComponent().showErrorMessage(
-          "Выберите один из предложенных вариантов или поделитесь своим мнением",
-          context);
+    if (currentIndex == null) {
+      SnackBarComponent()
+          .showErrorMessage("Выберите один из предложенных вариантов", context);
+    } else if (data[currentIndex!]['with_description'] && desc.isEmpty) {
+      SnackBarComponent()
+          .showErrorMessage("Поделитесь своим мнением", context);
     } else {
       Map<String, dynamic> param = {};
       if (currentIndex != null) {
@@ -133,19 +135,23 @@ class _CancelApplicationModalState extends State<CancelApplicationModal> {
                           ),
                         );
                       }).toList()),
-                      Padding(
-                        padding: const EdgeInsets.all(15.0),
-                        child: TextField(
-                            controller: descEditingController,
-                            style: TextStyle(fontSize: 14),
-                            textCapitalization: TextCapitalization.sentences,
-                            maxLines: 10,
-                            minLines: 6,
-                            decoration: InputDecoration(
-                                hintText: "Что-то другое?",
-                                helperStyle: TextStyle(
-                                    color: ColorComponent.gray['500']))),
-                      ),
+                      currentIndex != null &&
+                              data[currentIndex!]['with_description']
+                          ? Padding(
+                              padding: const EdgeInsets.all(15.0),
+                              child: TextField(
+                                  controller: descEditingController,
+                                  style: TextStyle(fontSize: 14),
+                                  textCapitalization:
+                                      TextCapitalization.sentences,
+                                  maxLines: 10,
+                                  minLines: 6,
+                                  decoration: InputDecoration(
+                                      hintText: "Что-то другое?",
+                                      helperStyle: TextStyle(
+                                          color: ColorComponent.gray['500']))),
+                            )
+                          : Container(),
                       Divider(height: 16),
                       Button(
                           onPressed: verifyData,

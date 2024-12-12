@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:gservice5/component/functions/token/changedToken.dart';
-import 'package:gservice5/component/theme/colorComponent.dart';
-import 'package:gservice5/pages/ad/package/listPackagePage.dart';
 import 'package:gservice5/pages/auth/emptyTokenPage.dart';
 import 'package:gservice5/pages/favorite/ad/listFavoriteAdPage.dart';
 import 'package:gservice5/pages/favorite/ad/listFavoriteApplicationPage.dart';
@@ -14,7 +12,10 @@ class FavoriteMainPage extends StatefulWidget {
 }
 
 class _FavoriteMainPageState extends State<FavoriteMainPage> {
-  List _tabs = ["Объявлении", "Заявки", "Поиски"];
+  List _tabs = [
+    "Объявлении", "Заявки",
+    // "Поиски"
+  ];
   bool token = false;
 
   @override
@@ -34,7 +35,7 @@ class _FavoriteMainPageState extends State<FavoriteMainPage> {
     return !token
         ? EmptyTokenPage()
         : DefaultTabController(
-            length: 3,
+            length: 2,
             child: Scaffold(
               appBar: AppBar(
                 toolbarHeight: 2,
@@ -81,7 +82,7 @@ class _FavoriteMainPageState extends State<FavoriteMainPage> {
               body: TabBarView(children: [
                 ListFavoriteAdPage(),
                 ListFavoriteApplicationPage(),
-                Container()
+                // Container()
               ]),
             ),
           );

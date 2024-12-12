@@ -4,31 +4,29 @@ import 'package:gservice5/component/button/back/backTitleButton.dart';
 import 'package:gservice5/component/formatted/price/priceFormat.dart';
 import 'package:gservice5/component/modal/cities.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
-import 'package:gservice5/pages/ad/filter/filterAdListPage.dart';
 import 'package:gservice5/pages/ad/filter/filterButton.dart';
 import 'package:gservice5/pages/ad/filter/priceFilterModal.dart';
+import 'package:gservice5/pages/application/filter/filterApplicationListPage.dart';
 import 'package:gservice5/pages/create/data/createData.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
-class FilterAdWidget extends StatefulWidget implements PreferredSizeWidget {
-  final Map category;
+class FilterApplicationWidget extends StatefulWidget
+    implements PreferredSizeWidget {
   final AppBar appBar;
   final void Function(String value) onChanged;
-  const FilterAdWidget(
-      {super.key,
-      required this.category,
-      required this.appBar,
-      required this.onChanged});
+  const FilterApplicationWidget(
+      {super.key, required this.appBar, required this.onChanged});
 
   @override
-  State<FilterAdWidget> createState() => _FilterAdWidgetState();
+  State<FilterApplicationWidget> createState() =>
+      _FilterApplicationWidgetState();
 
   @override
   Size get preferredSize =>
       new Size.fromHeight(appBar.preferredSize.height + 46);
 }
 
-class _FilterAdWidgetState extends State<FilterAdWidget> {
+class _FilterApplicationWidgetState extends State<FilterApplicationWidget> {
   Map city = {};
   Map price = {};
 
@@ -128,11 +126,9 @@ class _FilterAdWidgetState extends State<FilterAdWidget> {
 
   void showFilterPage() {
     showCupertinoModalBottomSheet(
-            context: context,
-            enableDrag: false,
-            builder: (context) => FilterAdListPage(
-                data: widget.category['options']['necessary_inputs']))
-        .then(filteredAds);
+        context: context,
+        enableDrag: false,
+        builder: (context) => FilterApplicationListPage()).then(filteredAds);
   }
 
   void filteredAds(value) {
@@ -162,7 +158,7 @@ class _FilterAdWidgetState extends State<FilterAdWidget> {
         // )
       ],
       leading: BackTitleButton(
-          title: widget.category['title'],
+          title: "Заявки",
           onPressed: () => Navigator.pop(context)),
       bottom: PreferredSize(
           preferredSize: Size(double.infinity, 46),

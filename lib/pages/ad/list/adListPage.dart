@@ -43,11 +43,17 @@ class _AdListPageState extends State<AdListPage> {
     super.dispose();
   }
 
+  void showLoader() {
+    if (!loader) {
+      loader = true;
+      setState(() {});
+    }
+  }
+
   Future getData() async {
     try {
       page = 1;
-      loader = true;
-      setState(() {});
+      showLoader();
       print(param);
       Response response = await dio.get("/ad",
           queryParameters: {...param, "category_id": widget.category['id']});
@@ -92,15 +98,6 @@ class _AdListPageState extends State<AdListPage> {
         SnackBarComponent().showNotGoBackServerErrorMessage(context);
       }
     }
-  }
-
-  void onChanged(value) {
-    if (value.isEmpty) {
-      value = {};
-    } else {
-      param = value;
-    }
-    getData();
   }
 
   void filteredAds(value) {

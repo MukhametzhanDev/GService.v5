@@ -42,7 +42,7 @@ class _FilterSelectModalState extends State<FilterSelectModal> {
   }
 
   void addData() {
-    if (widget.value['id'] != null) {
+    if (widget.value.containsKey("id")) {
       FilterData.data.addAll({widget.option['name']: widget.value['id']});
       setState(() {});
     }
@@ -58,6 +58,7 @@ class _FilterSelectModalState extends State<FilterSelectModal> {
             option: widget.option,
             data: widget.value)).then((value) {
       if (value != null) {
+        print(value);
         currentData = value;
         setState(() {
           FilterData.data[widget.option['name']] = value['id'];

@@ -228,19 +228,21 @@ class _GetSelectPageState extends State<GetSelectPage> {
                       }),
         )
       ]),
-      bottomNavigationBar: data.isEmpty
-          ? BottomNavigationBarComponent(
-              child: Button(
-                  onPressed: () => savedData(),
-                  padding: EdgeInsets.symmetric(horizontal: 15),
-                  title: "Пропустить"))
-          : widget.value['multiple']
+      bottomNavigationBar: loader
+          ? null
+          : data.isEmpty
               ? BottomNavigationBarComponent(
                   child: Button(
                       onPressed: () => savedData(),
                       padding: EdgeInsets.symmetric(horizontal: 15),
-                      title: "Продолжить"))
-              : null,
+                      title: "Пропустить"))
+              : widget.value['multiple']
+                  ? BottomNavigationBarComponent(
+                      child: Button(
+                          onPressed: () => savedData(),
+                          padding: EdgeInsets.symmetric(horizontal: 15),
+                          title: "Продолжить"))
+                  : null,
     );
   }
 

@@ -2,7 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:gservice5/component/dio/dio.dart';
 import 'package:gservice5/component/snackBar/snackBarComponent.dart';
-import 'package:gservice5/pages/application/smallApplicationItem.dart';
+import 'package:gservice5/pages/application/item/smallApplicationItem.dart';
 import 'package:shimmer/shimmer.dart';
 
 class RecommendationApplicationList extends StatefulWidget {
@@ -74,7 +74,7 @@ class _RecommendationApplicationListState
                     }).toList())
                   : ListView.builder(
                       shrinkWrap: true,
-                      itemCount: 10,
+                      itemCount: data.length,
                       physics: NeverScrollableScrollPhysics(),
                       padding: EdgeInsets.symmetric(horizontal: 12),
                       itemBuilder: (context, index) {

@@ -4,8 +4,8 @@ import 'package:gservice5/component/button/button.dart';
 import 'package:gservice5/component/formatted/price/priceFormat.dart';
 import 'package:gservice5/component/modal/contact/shortContactModal.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
-import 'package:gservice5/pages/application/applicationListPage.dart';
-import 'package:gservice5/pages/application/smallApplicationItem.dart';
+import 'package:gservice5/pages/application/list/applicationListPage.dart';
+import 'package:gservice5/pages/application/item/smallApplicationItem.dart';
 import 'package:gservice5/pages/application/viewApplicationPage.dart';
 
 class ApplicationListMain extends StatefulWidget {

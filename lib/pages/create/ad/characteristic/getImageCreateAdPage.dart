@@ -27,7 +27,7 @@ class _GetImageCreateAdPageState extends State<GetImageCreateAdPage> {
     CreateData.characteristic
         .removeWhere((key, value) => value is Map<String, dynamic>);
     CreateData.data.removeWhere((key, value) => value is Map<String, dynamic>);
-    print(CreateData.characteristic);
+    print(CreateData.data);
     FormData formData = FormData.fromMap({
       "images": images,
       ...CreateData.data,
@@ -56,7 +56,7 @@ class _GetImageCreateAdPageState extends State<GetImageCreateAdPage> {
         SnackBarComponent().showResponseErrorMessage(response, context);
       }
     } on DioException catch (e) {
-      print(e.stackTrace);
+      print(e.response);
       SnackBarComponent().showServerErrorMessage(context);
     }
   }

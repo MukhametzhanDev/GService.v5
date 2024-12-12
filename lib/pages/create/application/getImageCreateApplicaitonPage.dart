@@ -26,6 +26,7 @@ class _GetImageCreateApplicaitonPageState
   Future postData() async {
     showModalLoader(context);
     CreateData.data.removeWhere((key, value) => value is Map<String, dynamic>);
+    print(CreateData.data);
     try {
       Response response = await dio.post("/application", data: CreateData.data);
       print(response.data);
@@ -40,7 +41,7 @@ class _GetImageCreateApplicaitonPageState
         SnackBarComponent().showResponseErrorMessage(response, context);
       }
     } on DioException catch (e) {
-      print(e);
+      print(e.response);
       SnackBarComponent().showServerErrorMessage(context);
     }
   }

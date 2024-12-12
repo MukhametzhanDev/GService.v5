@@ -94,7 +94,7 @@ class _ViewMyApplicationPageState extends State<ViewMyApplicationPage> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text("Нужен экскаватор 2-ух кубовый",
+                        Text(data['title'],
                             style: TextStyle(
                                 fontSize: 14,
                                 fontWeight: FontWeight.w400,
@@ -117,7 +117,7 @@ class _ViewMyApplicationPageState extends State<ViewMyApplicationPage> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text("Нужен экскаватор 2-ух кубовый",
+                            Text(data['title'],
                                 style: TextStyle(
                                     fontSize: 20,
                                     fontWeight: FontWeight.w600,
@@ -176,7 +176,6 @@ class _ViewMyApplicationPageState extends State<ViewMyApplicationPage> {
                                 style: TextStyle(height: 1.6)),
                             Divider(indent: 12),
                             Divider(height: 1, color: Color(0xfff4f5f7)),
-                            Divider(indent: 12),
                           ],
                         ),
                       ),
@@ -212,7 +211,6 @@ class _ViewMyApplicationPageState extends State<ViewMyApplicationPage> {
                               ],
                             ),
                             Divider(indent: 16),
-                            Divider(height: 1, color: Color(0xfff4f5f7)),
                           ],
                         ),
                       ),

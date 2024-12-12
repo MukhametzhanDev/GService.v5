@@ -55,7 +55,7 @@ class _SmallApplicationItemState extends State<SmallApplicationItem> {
             Row(
               children: [
                 Expanded(
-                  child: Text("Нужен экскаватор 2-ух кубовый",
+                  child: Text(widget.data['title'],
                       style: TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.w400,
@@ -71,7 +71,7 @@ class _SmallApplicationItemState extends State<SmallApplicationItem> {
             Row(
               children: [
                 Expanded(
-                  child: Text(priceFormat(widget.data['price']),
+                  child: Text("${priceFormat(widget.data['price']['price'])} ₸",
                       style: TextStyle(
                           fontSize: 14,
                           fontWeight: FontWeight.w600,
