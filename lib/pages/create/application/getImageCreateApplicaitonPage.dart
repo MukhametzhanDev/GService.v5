@@ -26,11 +26,8 @@ class _GetImageCreateApplicaitonPageState
   Future postData() async {
     showModalLoader(context);
     CreateData.data.removeWhere((key, value) => value is Map<String, dynamic>);
-    FormData formData =
-        FormData.fromMap(CreateData.data, ListFormat.multiCompatible);
-    print(formData.fields);
     try {
-      Response response = await dio.post("/application", data: formData);
+      Response response = await dio.post("/application", data: CreateData.data);
       print(response.data);
       Navigator.pop(context);
       if (response.data['success']) {

@@ -70,8 +70,7 @@ class _ContactCreateApplicationPageState
   void savedData() {
     CreateData.data.addAll({
       "name": nameEditingController.text,
-      "phone": getIntComponent(phoneEditingController.text).toString(),
-      "can_lease": false
+      "phone": getIntComponent(phoneEditingController.text).toString()
     });
     widget.nextPage();
   }

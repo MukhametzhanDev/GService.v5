@@ -1,14 +1,7 @@
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:gservice5/component/categories/request/getCategories.dart';
-import 'package:gservice5/component/dio/dio.dart';
-import 'package:gservice5/component/snackBar/snackBarComponent.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
-import 'package:gservice5/component/categories/data/categoriesData.dart';
 import 'package:gservice5/pages/ad/list/adListPage.dart';
-import 'package:gservice5/pages/application/applicationListPage.dart';
-import 'package:gservice5/pages/main/applicationListMain.dart';
 import 'package:shimmer/shimmer.dart';
 
 class CategoriesListWidget extends StatefulWidget {
@@ -75,32 +68,6 @@ class _CategoriesListWidgetState extends State<CategoriesListWidget> {
                     if (index == 0) {
                       return Row(
                         children: [
-                          Container(
-                              height: 30,
-                              // constraints: BoxConstraints(maxWidth: 150,minWidth: 40),
-                              padding: EdgeInsets.symmetric(horizontal: 12),
-                              margin: EdgeInsets.symmetric(horizontal: 4),
-                              alignment: Alignment.center,
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(8),
-                                  border: Border.all(
-                                      width: 1,
-                                      color: ColorComponent.mainColor)),
-                              child: Row(
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  SvgPicture.asset('assets/icons/pin.svg',
-                                      color: Colors.black, width: 16),
-                                  Divider(indent: 4),
-                                  Text("Все города",
-                                      maxLines: 1,
-                                      overflow: TextOverflow.ellipsis,
-                                      style: TextStyle(
-                                          fontSize: 12,
-                                          fontWeight: FontWeight.w600,
-                                          height: 1)),
-                                ],
-                              )),
                           GestureDetector(
                             onTap: () {
                               showApplicationPage();

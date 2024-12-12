@@ -24,13 +24,14 @@ class _EmptyAdListPageState extends State<EmptyAdListPage> {
           SvgPicture.asset("assets/icons/clipboardOutline.svg",
               width: 120, color: ColorComponent.gray['500']),
           Divider(indent: 12),
-          Text("Войдите или создайте учетную запись",
+          Text("К сожалению, по вашему\nзапросу ничего не найдено",
+          textAlign: TextAlign.center,
               style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600)),
           Divider(indent: 12),
           Padding(
               padding: const EdgeInsets.symmetric(horizontal: 15),
               child: Text(
-                "Для выполнения этой функции, просим вас пройти регистрацию",
+                "Вы можете бесплатно разместить заявку, и исполнители свяжутся с вами!",
                 textAlign: TextAlign.center,
                 style:
                     TextStyle(color: Colors.black, fontSize: 15, height: 1.5),
@@ -45,7 +46,7 @@ class _EmptyAdListPageState extends State<EmptyAdListPage> {
                     builder: (context) => SectionCreateApplicationPage());
               },
               padding: EdgeInsets.symmetric(horizontal: 15),
-              title: "Оставить заявку")),
+              title: "Разместить заявку")),
     );
   }
 }

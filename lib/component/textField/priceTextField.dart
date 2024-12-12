@@ -6,6 +6,7 @@ class PriceTextField extends StatefulWidget {
   final String? title;
   final TextEditingController textEditingController;
   final bool? autofocus;
+  final void Function(String value)? onChanged;
   final void Function() onSubmitted;
 
   const PriceTextField(
@@ -13,7 +14,8 @@ class PriceTextField extends StatefulWidget {
       required this.textEditingController,
       @required this.autofocus,
       @required this.title,
-      required this.onSubmitted});
+      required this.onSubmitted,
+      @required this.onChanged});
 
   @override
   State<PriceTextField> createState() => _PriceTextFieldState();
@@ -28,6 +30,7 @@ class _PriceTextFieldState extends State<PriceTextField> {
     return SizedBox(
       height: 48,
       child: TextField(
+        onChanged: widget.onChanged,
         onSubmitted: (value) {
           widget.onSubmitted();
         },

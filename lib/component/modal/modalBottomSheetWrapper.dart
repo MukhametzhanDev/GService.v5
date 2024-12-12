@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 
 ///
 class ModalBottomSheetWrapper extends StatefulWidget {
-
   /// `scrollPhysics` are the recommended `ScrollPhysics` to be used for any
   /// scroll view inside.
-  final Widget Function(BuildContext context, ScrollPhysics scrollPhysics) builder;
+  final Widget Function(BuildContext context, ScrollPhysics scrollPhysics)
+      builder;
 
   const ModalBottomSheetWrapper({
     super.key,
@@ -13,7 +13,8 @@ class ModalBottomSheetWrapper extends StatefulWidget {
   });
 
   @override
-  State<ModalBottomSheetWrapper> createState() => _ModalBottomSheetWrapperState();
+  State<ModalBottomSheetWrapper> createState() =>
+      _ModalBottomSheetWrapperState();
 }
 
 class _ModalBottomSheetWrapperState extends State<ModalBottomSheetWrapper> {
@@ -32,7 +33,8 @@ class _ModalBottomSheetWrapperState extends State<ModalBottomSheetWrapper> {
         bool clamp = false;
 
         // TODO: (04/03/24) handle inverted
-        final atTopEdge = notification.metrics.pixels == notification.metrics.minScrollExtent;
+        final atTopEdge =
+            notification.metrics.pixels == notification.metrics.minScrollExtent;
 
         // if scrolling starts, exactly clamp when we start to drag at the top
         if (notification is ScrollStartNotification) {
@@ -64,9 +66,7 @@ class _ModalBottomSheetWrapperState extends State<ModalBottomSheetWrapper> {
       },
       child: widget.builder(
         context,
-        _clamp
-            ? const ClampingScrollPhysics()
-            : const ClampingScrollPhysics(),
+        _clamp ? const ClampingScrollPhysics() : const BouncingScrollPhysics(),
       ),
     );
   }

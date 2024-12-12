@@ -3,7 +3,6 @@ import 'package:flutter_svg/svg.dart';
 import 'package:gservice5/component/categories/data/categoriesData.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
 import 'package:gservice5/pages/ad/item/smallAdItem.dart';
-import 'package:gservice5/pages/ad/widget/sortAdWidget.dart';
 
 class ResultSearchPage extends StatefulWidget {
   final String title;
@@ -86,7 +85,7 @@ class _ResultSearchPageState extends State<ResultSearchPage> {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        SortAdWidget(onChanged: (value) {}),
+                        // SortAdWidget(onChanged: (value) {}),
                         Row(children: [
                           GestureDetector(
                             child: Container(

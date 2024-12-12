@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:gservice5/component/button/button.dart';
+import 'package:gservice5/component/date/formattedDate.dart';
 import 'package:gservice5/component/dio/dio.dart';
 import 'package:gservice5/component/loader/modalLoaderComponent.dart';
 import 'package:gservice5/component/snackBar/snackBarComponent.dart';
@@ -30,7 +31,7 @@ class _MyApplicationItemState extends State<MyApplicationItem> {
   void showRemoveModal() {
     showCupertinoModalBottomSheet(
             context: context,
-            builder: (context) => RemoveApplicationModal(id: widget.data['id']))
+            builder: (context) => CancelApplicationModal(id: widget.data['id']))
         .then((value) {
       if (value == "update") {
         widget.removeItem(widget.data['id']);
@@ -69,19 +70,6 @@ class _MyApplicationItemState extends State<MyApplicationItem> {
                 Border(bottom: BorderSide(width: 1, color: Color(0xfff4f4f4)))),
         padding: const EdgeInsets.symmetric(horizontal: 15),
         child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-          Divider(height: 16),
-          Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-            Container(
-                padding: EdgeInsets.symmetric(horizontal: 6),
-                alignment: Alignment.center,
-                height: 24,
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(6),
-                    color: ColorComponent.mainColor),
-                child: Text(widget.data['category']['title'],
-                    style:
-                        TextStyle(fontSize: 12, fontWeight: FontWeight.w600))),
-          ]),
           Divider(height: 12),
           Text(widget.data['transport_type']['title'],
               style: TextStyle(
@@ -110,8 +98,6 @@ class _MyApplicationItemState extends State<MyApplicationItem> {
                     title: "Удалить"),
           ),
           Divider(height: 12),
-          Divider(height: 1, color: ColorComponent.gray['100']),
-          Divider(height: 12),
           Row(children: [
             SvgPicture.asset("assets/icons/pin.svg",
                 width: 16, color: ColorComponent.gray['500']),
@@ -122,14 +108,14 @@ class _MyApplicationItemState extends State<MyApplicationItem> {
                     // fontWeight: FontWeight.3500,
                     color: ColorComponent.gray['500'])),
             Divider(indent: 12),
-            Text(formattedDate(widget.data['created_at']),
+            Text(formattedDate(widget.data['created_at'], "dd MMMM yyyy"),
                 style:
                     TextStyle(fontSize: 12, color: ColorComponent.gray['500'])),
             Expanded(child: Container()),
             Row(children: [
               SvgPicture.asset("assets/icons/eye.svg"),
               Divider(indent: 4),
-              Text(widget.data['views'].toString(),
+              Text(widget.data['statistics']['viewed'].toString(),
                   style: TextStyle(
                       fontSize: 12, color: ColorComponent.gray['500']))
             ])
@@ -139,10 +125,4 @@ class _MyApplicationItemState extends State<MyApplicationItem> {
       ),
     );
   }
-}
-
-String formattedDate(isoDate) {
-  DateTime dateTime = DateTime.parse(isoDate);
-  String formattedDate = DateFormat('dd MMMM yyyy').format(dateTime);
-  return formattedDate;
 }

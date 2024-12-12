@@ -1,15 +1,15 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:gservice5/component/button/back/backTitleButton.dart';
 import 'package:gservice5/component/dio/dio.dart';
 import 'package:gservice5/component/loader/loaderComponent.dart';
 import 'package:gservice5/component/loader/paginationLoaderComponent.dart';
 import 'package:gservice5/component/snackBar/snackBarComponent.dart';
-import 'package:gservice5/component/theme/colorComponent.dart';
-import 'package:gservice5/pages/ad/item/adItem.dart';
-import 'package:gservice5/pages/ad/widget/sortAdWidget.dart';
+import 'package:gservice5/pages/ad/filter/filterButton.dart';
 import 'package:gservice5/pages/application/applicationItem.dart';
+import 'package:gservice5/pages/application/filter/filterApplicationListPage.dart';
+import 'package:gservice5/pages/create/data/createData.dart';
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
 class ApplicationListPage extends StatefulWidget {
   const ApplicationListPage({super.key});
@@ -97,37 +97,38 @@ class _ApplicationListPageState extends State<ApplicationListPage> {
     getData();
   }
 
+  void showFilterPage() {
+    showMaterialModalBottomSheet(
+        context: context,
+        enableDrag: false,
+        builder: (context) => FilterApplicationListPage()).then(filteredAds);
+  }
+
+  void filteredAds(value) {
+    if (value != null) {
+      param = FilterData.data;
+      getData();
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
           leadingWidth: MediaQuery.of(context).size.width - 100,
-          actions: [
-            GestureDetector(
-              child: Container(
-                width: 36,
-                height: 36,
-                alignment: Alignment.center,
-                margin: EdgeInsets.only(right: 15),
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(8),
-                    color: ColorComponent.mainColor),
-                child: SvgPicture.asset("assets/icons/filter.svg", width: 20),
-              ),
-            )
-          ],
+          actions: [FilterButton(showFilterPage: showFilterPage)],
           leading: BackTitleButton(
               title: "Заявки", onPressed: () => Navigator.pop(context)),
-          bottom: PreferredSize(
-              preferredSize: Size(double.infinity, 46),
-              child: Container(
-                  decoration: BoxDecoration(
-                      border: Border(
-                          bottom:
-                              BorderSide(width: 2, color: Color(0xfff4f5f7)))),
-                  padding:
-                      const EdgeInsets.only(left: 15, right: 15, bottom: 8),
-                  child: SortAdWidget(onChanged: onChanged))),
+          // bottom: PreferredSize(
+          //     preferredSize: Size(double.infinity, 46),
+          //     child: Container(
+          //         decoration: BoxDecoration(
+          //             border: Border(
+          //                 bottom:
+          //                     BorderSide(width: 2, color: Color(0xfff4f5f7)))),
+          //         padding:
+          //             const EdgeInsets.only(left: 15, right: 15, bottom: 8),
+          //         child: SortAdWidget(onChanged: onChanged))),
         ),
         body: loader
             ? LoaderComponent()

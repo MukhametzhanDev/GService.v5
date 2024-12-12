@@ -37,8 +37,15 @@ class _FilterSelectModalState extends State<FilterSelectModal> {
   @override
   void initState() {
     currentData = widget.value;
-    FilterData.data.addAll({widget.option['name']: widget.value['id']});
+    addData();
     super.initState();
+  }
+
+  void addData() {
+    if (widget.value['id'] != null) {
+      FilterData.data.addAll({widget.option['name']: widget.value['id']});
+      setState(() {});
+    }
   }
 
   void showModal() {
@@ -146,19 +153,19 @@ class _SelectModalState extends State<SelectModal> {
       page = 1;
       Map param = widget.param(widget.option);
       setState(() {});
-      print("PARAM____> ${param}");
       Response response = await dio.get(widget.api,
           queryParameters: {"title": title, "page": page, ...param});
       print(response.data);
       if (response.statusCode == 200) {
         data = response.data['data'];
         loader = false;
-        hasNextPage = page != response.data['meta']['last_page'];
+        hasNextPage = page != (response.data['meta']?['last_page'] ?? 1);
         setState(() {});
       } else {
         SnackBarComponent().showResponseErrorMessage(response, context);
       }
-    } catch (e) {
+    } on DioException catch (e) {
+      print(e);
       SnackBarComponent().showNotGoBackServerErrorMessage(context);
     }
   }

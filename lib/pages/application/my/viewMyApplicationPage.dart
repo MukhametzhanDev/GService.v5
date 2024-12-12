@@ -5,17 +5,16 @@ import 'package:gservice5/component/appBar/fadeOnScroll.dart';
 import 'package:gservice5/component/button/back/backIconButton.dart';
 import 'package:gservice5/component/button/button.dart';
 import 'package:gservice5/component/button/shareButton.dart';
+import 'package:gservice5/component/date/formattedDate.dart';
 import 'package:gservice5/component/dio/dio.dart';
 import 'package:gservice5/component/formatted/price/priceFormat.dart';
-import 'package:gservice5/component/image/slider/smallSliderImageWidget.dart';
 import 'package:gservice5/component/loader/loaderComponent.dart';
 import 'package:gservice5/component/loader/modalLoaderComponent.dart';
-import 'package:gservice5/component/map/viewAddressMapWidget.dart';
 import 'package:gservice5/component/snackBar/snackBarComponent.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
 import 'package:gservice5/component/widgets/bottom/bottomNavigationBarComponent.dart';
 import 'package:gservice5/component/widgets/characteristic/showCharacteristicWidget.dart';
-import 'package:gservice5/pages/application/my/myApplicationItem.dart';
+import 'package:gservice5/pages/application/document/sliderApplicationSmallImageWidget.dart';
 
 class ViewMyApplicationPage extends StatefulWidget {
   final int id;
@@ -29,6 +28,7 @@ class _ViewMyApplicationPageState extends State<ViewMyApplicationPage> {
   final ScrollController scrollController = ScrollController();
   Map data = {};
   bool loader = true;
+  List images = [];
 
   @override
   void initState() {
@@ -40,6 +40,7 @@ class _ViewMyApplicationPageState extends State<ViewMyApplicationPage> {
     try {
       Response response = await dio.get("/application/${widget.id}");
       if (response.data['success']) {
+        images = response.data['data']['images'];
         data = response.data['data'];
         loader = false;
         setState(() {});
@@ -83,6 +84,7 @@ class _ViewMyApplicationPageState extends State<ViewMyApplicationPage> {
                   leading: const BackIconButton(),
                   centerTitle: false,
                   actions: [
+                    // FavoriteButtonComponent(iconColor: ColorTheme['black_white']),
                     ShareButton(id: widget.id, hasAd: true),
                     Divider(indent: 15)
                   ],
@@ -92,11 +94,13 @@ class _ViewMyApplicationPageState extends State<ViewMyApplicationPage> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(data['category']['title'],
+                        Text("Нужен экскаватор 2-ух кубовый",
                             style: TextStyle(
-                                fontSize: 14, fontWeight: FontWeight.w400),
+                                fontSize: 14,
+                                fontWeight: FontWeight.w400,
+                                color: ColorComponent.blue['700']),
                             maxLines: 1),
-                        Text(myPriceFormatted(data['prices']),
+                        Text(priceFormat(0),
                             style: TextStyle(
                                 fontSize: 14, fontWeight: FontWeight.w600),
                             maxLines: 1),
@@ -108,145 +112,107 @@ class _ViewMyApplicationPageState extends State<ViewMyApplicationPage> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Divider(),
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 16),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            // Text(data['title'],
-                            //     style: TextStyle(
-                            //         fontSize: 20, fontWeight: FontWeight.w600)),
+                            Text("Нужен экскаватор 2-ух кубовый",
+                                style: TextStyle(
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.w600,
+                                    color: ColorComponent.blue['700'])),
                             const SizedBox(height: 8),
-                            Row(
-                              children: [
-                                Expanded(
-                                  child: Text(myPriceFormatted(data['prices']),
-                                      style: TextStyle(
-                                          fontSize: 20,
-                                          fontWeight: FontWeight.w600)),
-                                ),
-                                Container(
-                                  height: 24,
-                                  padding: EdgeInsets.symmetric(
-                                      horizontal: 8, vertical: 5),
-                                  decoration: BoxDecoration(
-                                      color: ColorComponent.mainColor,
-                                      borderRadius: BorderRadius.circular(6)),
-                                  child: Text(data['category']['title'],
-                                      style: TextStyle(
-                                          height: 1,
-                                          fontSize: 12,
-                                          fontWeight: FontWeight.w600)),
-                                ),
-                              ],
-                            ),
-                            Divider(height: 12),
-                            Row(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                Text("15 Сентябрь 2024, 04:20",
-                                    style: TextStyle(
-                                        color: ColorComponent.gray["500"],
-                                        fontSize: 12)),
-                                Divider(indent: 16),
-                                SvgPicture.asset('assets/icons/eye.svg',
-                                    color: ColorComponent.gray["500"],
-                                    width: 16),
-                                const SizedBox(width: 4),
-                                Text("${data['views']} просмотров",
-                                    style: TextStyle(
-                                        color: ColorComponent.gray["500"],
-                                        fontSize: 12)),
-                              ],
-                            ),
+                            Text(priceFormat(data['cost']),
+                                style: TextStyle(
+                                    fontSize: 20, fontWeight: FontWeight.w600)),
+                            const SizedBox(height: 8),
                           ],
                         ),
                       ),
+                      // SliderImageWidget(images: data['images']),
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 16),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Divider(height: 12),
-                            Divider(
-                                height: 1, color: ColorComponent.gray['50']),
-                            Divider(height: 8),
-                            Text("Характеристики",
-                                style: TextStyle(
-                                    fontSize: 18, fontWeight: FontWeight.w600)),
-                            Divider(height: 12),
+                            // Divider(indent: 12),
                             ShowCharacteristicWidget(
-                                title: "Раздел",
-                                subTitle: data['category']['title']),
+                                title: "Город", subTitle: data['city']),
                             ShowCharacteristicWidget(
-                                title: "Тип техники",
-                                subTitle: data['transport_type']['title']),
+                                title: "Раздел", subTitle: data['category']),
                             ShowCharacteristicWidget(
-                                title: "Марка техники",
-                                subTitle: data['transport_brand']?['title']),
+                                title: "Тип", subTitle: data['transport_type']),
                             ShowCharacteristicWidget(
-                                title: "Модель техники",
-                                subTitle: data['transport_model']?['title']),
+                                title: "Марка",
+                                subTitle: data['transport_brand']),
+                            ShowCharacteristicWidget(
+                                title: "Модель",
+                                subTitle: data['transport_model']),
                             ShowCharacteristicWidget(
                                 title: "Профессия",
-                                subTitle: data['profession']?['title']),
+                                subTitle: data['profession']),
                             ShowCharacteristicWidget(
-                                title: "Город",
-                                subTitle: data['city']['title']),
+                                title: "Категория товара",
+                                subTitle: data['spare_part_category']),
                             ShowCharacteristicWidget(
-                                title: "Дата",
-                                subTitle: formattedDate(data['created_at'])),
-                          ],
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 16),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Divider(height: 6),
-                            Divider(
-                                height: 1, color: ColorComponent.gray['50']),
-                            Divider(height: 8),
+                                title: "Рубрика товара",
+                                subTitle: data['spare_part_rubric']),
+                            ShowCharacteristicWidget(
+                                title: "Производитель",
+                                subTitle: data['spare_part_brand']),
+                            ShowCharacteristicWidget(
+                                title: "Опубликовано",
+                                subTitle: {
+                                  "title": formattedDate(
+                                      data['created_at'], "dd MMMM yyyy")
+                                }),
+                            const SizedBox(height: 16),
                             Text("Описание",
                                 style: TextStyle(
                                     fontSize: 18, fontWeight: FontWeight.w600)),
                             Divider(height: 12),
                             Text(data['description'],
                                 style: TextStyle(height: 1.6)),
+                            Divider(indent: 12),
+                            Divider(height: 1, color: Color(0xfff4f5f7)),
+                            Divider(indent: 12),
                           ],
                         ),
                       ),
-                      SmallSliderImageWidget(images: data['images']),
+                      SliderApplicationSmallImageWidget(images: images),
+                      Divider(indent: 12),
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 16),
                         child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Divider(height: 12),
-                            Divider(
-                                height: 1, color: ColorComponent.gray['50']),
-                            Divider(height: 12),
-                            ViewAddressMapWidget(data: data)
-                          ],
-                        ),
-                      ),
-                      Divider(),
-                      Divider(height: 1, color: ColorComponent.gray['50']),
-                      Divider(),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 15),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text("15 Сентябрь 2024, 04:20",
-                                style: TextStyle(
-                                    color: ColorComponent.gray["500"],
-                                    fontSize: 12)),
-                            Text("ID 132",
-                                style: TextStyle(
-                                    color: ColorComponent.gray["500"],
-                                    fontSize: 12)),
+                            // ShowDocumentWidget(),
+                            // Divider(indent: 16),
+
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text("ID: ${data['id']}",
+                                    style: TextStyle(
+                                        color: ColorComponent.gray["500"],
+                                        fontSize: 12)),
+                                Row(
+                                  children: [
+                                    SvgPicture.asset('assets/icons/eye.svg',
+                                        color: ColorComponent.gray["500"]),
+                                    const SizedBox(width: 4),
+                                    Text(
+                                        data['statistics']['viewed'].toString(),
+                                        style: TextStyle(
+                                            color: ColorComponent.gray["500"],
+                                            fontSize: 12)),
+                                  ],
+                                ),
+                              ],
+                            ),
+                            Divider(indent: 16),
+                            Divider(height: 1, color: Color(0xfff4f5f7)),
                           ],
                         ),
                       ),

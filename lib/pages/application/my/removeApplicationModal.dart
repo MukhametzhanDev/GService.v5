@@ -9,17 +9,16 @@ import 'package:gservice5/component/modal/modalBottomSheetWrapper.dart';
 import 'package:gservice5/component/snackBar/snackBarComponent.dart';
 import 'package:gservice5/component/textField/closeKeyboard/closeKeyboard.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
-import 'package:gservice5/component/widgets/bottom/bottomNavigationBarComponent.dart';
 
-class RemoveApplicationModal extends StatefulWidget {
+class CancelApplicationModal extends StatefulWidget {
   final int id;
-  const RemoveApplicationModal({super.key, required this.id});
+  const CancelApplicationModal({super.key, required this.id});
 
   @override
-  State<RemoveApplicationModal> createState() => _RemoveApplicationModalState();
+  State<CancelApplicationModal> createState() => _CancelApplicationModalState();
 }
 
-class _RemoveApplicationModalState extends State<RemoveApplicationModal> {
+class _CancelApplicationModalState extends State<CancelApplicationModal> {
   List data = [];
   bool loader = true;
   int? currentIndex;

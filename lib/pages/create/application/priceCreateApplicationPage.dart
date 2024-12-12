@@ -49,13 +49,14 @@ class _PriceCreateApplicationPageState
   }
 
   void savedData() {
-    Map createData = CreateData.data;
-    createData['can_lease'] = canLease;
     if (!negotiablePrice) {
-      createData['price'] = getIntComponent(priceEditingController.text);
+      CreateData.data['price'] = {
+        "price": getIntComponent(priceEditingController.text)
+      };
     } else {
-      createData.remove("price");
+      CreateData.data.remove("price");
     }
+    CreateData.data.addAll({"can_lease": canLease});
   }
 
   void showPage() {

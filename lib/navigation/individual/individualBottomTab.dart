@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:badges/badges.dart' as badges;
 import 'package:gservice5/component/theme/colorComponent.dart';
-import 'package:gservice5/pages/ad/my/myAdListPage.dart';
-import 'package:gservice5/pages/create/createMainPage.dart';
 import 'package:gservice5/pages/create/createSectionPage.dart';
 import 'package:gservice5/pages/favorite/favoriteMainPage.dart';
 import 'package:gservice5/pages/main/mainPage.dart';
@@ -40,6 +38,8 @@ class _IndividualBottomTabState extends State<IndividualBottomTab>
           builder: (context) => CreateSectionPage()).then((value) {
         if (value == "ad") {
           Navigator.pushNamed(context, "MyAdListPage");
+        } else if (value == "application") {
+          Navigator.pushNamed(context, "MyApplicationListPage");
         }
       });
     } else {

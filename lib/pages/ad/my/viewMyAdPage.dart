@@ -5,6 +5,7 @@ import 'package:gservice5/component/appBar/fadeOnScroll.dart';
 import 'package:gservice5/component/button/back/backIconButton.dart';
 import 'package:gservice5/component/button/button.dart';
 import 'package:gservice5/component/button/shareButton.dart';
+import 'package:gservice5/component/date/formattedDate.dart';
 import 'package:gservice5/component/description/showDescriptionWidget.dart';
 import 'package:gservice5/component/dio/dio.dart';
 import 'package:gservice5/component/image/slider/sliderImageWidget.dart';
@@ -249,7 +250,9 @@ class _ViewMyAdPageState extends State<ViewMyAdPage> {
                                     style: TextStyle(
                                         color: ColorComponent.gray["500"],
                                         fontSize: 12)),
-                                Text(formattedDate(data['created_at']),
+                                Text(
+                                    formattedDate(
+                                        data['created_at'], "dd MMMM yyyy"),
                                     style: TextStyle(
                                         color: ColorComponent.gray["500"],
                                         fontSize: 12)),

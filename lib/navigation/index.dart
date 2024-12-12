@@ -6,6 +6,7 @@ import 'package:gservice5/navigation/individual/individualBottomTab.dart';
 import 'package:gservice5/pages/ad/list/adListPage.dart';
 import 'package:gservice5/pages/ad/my/myAdListPage.dart';
 import 'package:gservice5/pages/application/applicationListPage.dart';
+import 'package:gservice5/pages/application/my/myApplicationListPage.dart';
 import 'package:gservice5/pages/auth/accountType/getAccountTypePage.dart';
 import 'package:gservice5/pages/auth/password/individual/resetIndividualPasswordPage.dart';
 import 'package:gservice5/pages/auth/registration/business/contractor/getActivityContractorPage.dart';
@@ -47,6 +48,7 @@ class _IndexState extends State<Index> {
               "ReplenishmentWalletPage": (context) => ReplenishmentWalletPage(),
               "TransactionHistoryPage": (context) => TransactionHistoryPage(),
               "MyAdListPage": (context) => MyAdListPage(),
+              "MyApplicationListPage": (context) => MyApplicationListPage(),
               "SectionCreateAdPage": (context) => SectionCreateAdPage(),
               "GetAccountTypePage": (context) => GetAccountTypePage(),
               "ResetIndividualPasswordPage": (context) => ResetIndividualPasswordPage(),
