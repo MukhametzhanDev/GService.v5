@@ -52,7 +52,7 @@ class _ApplicationItemState extends State<ApplicationItem> {
           Row(
             children: [
               Expanded(
-                child: Text(widget.data['title'],
+                child: Text(widget.data['title'].toString(),
                     style: TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.w400,
@@ -66,9 +66,7 @@ class _ApplicationItemState extends State<ApplicationItem> {
             ],
           ),
           Divider(height: 8),
-          Text(
-              myPriceFormatted(
-                  widget.data['price'] == null ? [] : [widget.data['price']]),
+          Text(priceFormat(widget.data['price']),
               style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600)),
           // Row(
           //   children: [

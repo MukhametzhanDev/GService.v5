@@ -13,7 +13,7 @@ import 'package:gservice5/component/loader/modalLoaderComponent.dart';
 import 'package:gservice5/component/snackBar/snackBarComponent.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
 import 'package:gservice5/component/widgets/bottom/bottomNavigationBarComponent.dart';
-import 'package:gservice5/pages/auth/password/individual/resetIndividualPasswordPage.dart';
+import 'package:gservice5/pages/auth/password/business/resetBusinessPasswordPage.dart';
 import 'package:pinput/pinput.dart';
 import 'package:sms_autofill/sms_autofill.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -44,7 +44,7 @@ class _ForgotEmailPasswordBusinessPageState
     try {
       loader = true;
       setState(() {});
-      Response response = await dio.post("/send-mail-verify-code",
+      Response response = await dio.post("/business/send-mail-verify-code",
           queryParameters: {"email": widget.email});
       print(response.data);
       if (response.statusCode == 200 && response.data['success']) {
@@ -62,7 +62,7 @@ class _ForgotEmailPasswordBusinessPageState
     showModalLoader(context);
     print('otpCode $otpCode');
     try {
-      Response response = await dio.post("/verify-mail-code", data: {
+      Response response = await dio.post("/business/verify-mail-code", data: {
         "email": widget.email,
         "code": textEditingController.text,
         "for_password_reset": true
@@ -70,13 +70,19 @@ class _ForgotEmailPasswordBusinessPageState
       Navigator.pop(context);
       print(response.data);
       if (response.statusCode == 200 && response.data['success']) {
-        await ChangedToken()
-            .saveIndividualToken(response.data['data'], context);
-        Navigator.pushNamed(context, "ResetIndividualPasswordPage");
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) =>
+                    ResetBusinessPasswordPage(data: response.data['data'])));
+        // await ChangedToken()
+        //     .saveIndividualToken(response.data['data'], context);
+        // Navigator.pushNamed(context, "ResetIndividualPasswordPage");
       } else {
         SnackBarComponent().showResponseErrorMessage(response, context);
       }
-    } catch (e) {
+    } on DioException catch (e) {
+      print(e.response);
       SnackBarComponent().showServerErrorMessage(context);
     }
   }

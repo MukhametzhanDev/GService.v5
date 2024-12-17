@@ -3,6 +3,7 @@ import 'package:gservice5/component/button/back/backIconButton.dart';
 import 'package:gservice5/component/button/button.dart';
 import 'package:gservice5/component/snackBar/snackBarComponent.dart';
 import 'package:gservice5/component/widgets/bottom/bottomNavigationBarComponent.dart';
+import 'package:gservice5/pages/auth/password/business/forgotEmailPasswordBusinessPage.dart';
 import 'package:gservice5/pages/auth/password/individual/forgotEmailPasswordIndividualPage.dart';
 
 class ForgotPasswordBusinessPage extends StatefulWidget {
@@ -50,7 +51,7 @@ class _ForgotPasswordBusinessPageState
     Navigator.push(
         context,
         MaterialPageRoute(
-            builder: (context) => ForgotEmailPasswordIndividualPage(
+            builder: (context) => ForgotEmailPasswordBusinessPage(
                 email: textEditingController.text)));
   }
 

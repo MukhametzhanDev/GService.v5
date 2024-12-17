@@ -30,7 +30,7 @@ class _AboutCompanyPageState extends State<AboutCompanyPage> {
               child: Column(children: [
             SvgPicture.asset("assets/icons/logo.svg", width: 60),
             Divider(height: 12),
-            Text("G Service",
+            Text("GService",
                 style: TextStyle(fontSize: 17, fontWeight: FontWeight.w700)),
             Text("мир спецтехники", style: TextStyle(fontSize: 12)),
             Divider(height: 24),
@@ -54,12 +54,13 @@ class _AboutCompanyPageState extends State<AboutCompanyPage> {
             trailing: SvgPicture.asset('assets/icons/right.svg')),
         Divider(height: 1, color: ColorComponent.gray['200']),
         ListTile(
-            leading: SvgPicture.asset('assets/icons/callCenter.svg'),
+            leading: SvgPicture.asset('assets/icons/headsetOutline.svg'),
             title: Text("Служба поддержки"),
             trailing: SvgPicture.asset('assets/icons/right.svg')),
         Divider(height: 1, color: ColorComponent.gray['200']),
         ListTile(
-            leading: SvgPicture.asset('assets/icons/phoneOutline.svg'),
+            leading: SvgPicture.asset('assets/icons/phone.svg',
+                color: ColorComponent.mainColor),
             title: Text("Контакты"),
             trailing: SvgPicture.asset('assets/icons/right.svg')),
         Divider(height: 1, color: ColorComponent.gray['200']),

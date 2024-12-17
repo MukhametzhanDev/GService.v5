@@ -56,6 +56,8 @@ class _SmallApplicationItemState extends State<SmallApplicationItem> {
               children: [
                 Expanded(
                   child: Text(widget.data['title'],
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
                       style: TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.w400,
@@ -71,7 +73,8 @@ class _SmallApplicationItemState extends State<SmallApplicationItem> {
             Row(
               children: [
                 Expanded(
-                  child: Text("${priceFormat(widget.data['price']['price'])} ₸",
+                  child: Text(
+                      "${priceFormat(widget.data['price']?['price'])} ₸",
                       style: TextStyle(
                           fontSize: 14,
                           fontWeight: FontWeight.w600,

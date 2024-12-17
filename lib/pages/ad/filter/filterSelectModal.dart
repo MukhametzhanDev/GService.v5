@@ -153,6 +153,7 @@ class _SelectModalState extends State<SelectModal> {
     try {
       page = 1;
       Map param = widget.param(widget.option);
+      print("widget.param ${param}");
       setState(() {});
       Response response = await dio.get(widget.api,
           queryParameters: {"title": title, "page": page, ...param});

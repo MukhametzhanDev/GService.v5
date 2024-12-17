@@ -28,11 +28,76 @@ class _AdItemState extends State<AdItem> {
         .then(verifyFavoriteAd);
   }
 
+  String getTitle(value) {
+    if (value['values']['title'].runtimeType == String) {
+      if (value['values']['title'].length > 3) {
+        return value['values']['title'];
+      } else {
+        return "${value['characteristic']['title']}: ${value['values']['title'].toString().toLowerCase()}";
+      }
+    } else if (value['values']['title'].runtimeType == int) {
+      return value['values']['title'].toString();
+    } else {
+      return "";
+    }
+  }
+
+  Widget getCharacteristic(List data) {
+    return Wrap(
+      children: [
+        Wrap(
+            children: data.map((value) {
+          int index = data.indexOf(value);
+          bool last = index == data.length - 1;
+          String title = getTitle(value);
+          if (title.length > 3) {
+            return RichText(
+              text: TextSpan(
+                  style: TextStyle(fontSize: 13, height: 1.4),
+                  children: [
+                    TextSpan(
+                        text: title,
+                        style: TextStyle(color: ColorComponent.gray['700'])),
+                    TextSpan(
+                        text: last ? "." : " / ",
+                        style: TextStyle(
+                            color: last
+                                ? Colors.black
+                                : ColorComponent.gray['300']))
+                  ]),
+            );
+          } else {
+            return Container();
+          }
+        }).toList()),
+        Text(
+            "Прицеп 105 кубов в отличном состоянии тент крыша новая хадовка отличная все делал месяц назад.",
+            style: TextStyle(
+                fontSize: 13, height: 1.4, color: ColorComponent.gray['700']),
+            maxLines: 2,
+            overflow: TextOverflow.ellipsis)
+      ],
+    );
+    // RichText(
+    //     maxLines: 3,
+    //     overflow: TextOverflow.ellipsis,
+    //     text: TextSpan(
+    //         style: TextStyle(
+    //             color: ColorComponent.gray['500'], fontSize: 13, height: 1.4),
+    //         children: data.map((value) {
+    //           int index = data.indexOf(value);
+    //           String slash = data.length - 1 == index ? "." : ", ";
+    //           String title =
+    //               value['characteristic']['title'].toString().split("/")[0];
+    //           return TextSpan(
+    //               text:
+    //                   "${value['values']['title']}$slash ");
+    //         }).toList()));
+    // // return "";
+  }
+
   void verifyFavoriteAd(value) {
     bool active = FavoriteAdData.adFavorite.containsKey(widget.data['id']);
-    print(FavoriteAdData.adFavorite);
-    print("ACTIE ${active}");
-    print("ACTIE ${widget.data['id']}");
     widget.data['is_favorite'] = active;
     setState(() {});
   }
@@ -151,6 +216,7 @@ class _AdItemState extends State<AdItem> {
                     Expanded(
                         child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
                         Text(widget.data['sub_title'],
                             style: TextStyle(
@@ -159,14 +225,15 @@ class _AdItemState extends State<AdItem> {
                                 height: 1.3),
                             maxLines: 2,
                             overflow: TextOverflow.ellipsis),
-                        Divider(height: 10),
-                        Text(
-                            "На заказы от 3-х смен мы предоставляем скидку. Вся техника находится у нас в собственности, работают опытные операторы и качественно",
-                            maxLines: 3,
-                            overflow: TextOverflow.ellipsis,
-                            style: TextStyle(
-                                color: ColorComponent.gray['600'],
-                                fontSize: 13))
+                        // Divider(height: 10),
+                        getCharacteristic(widget.data['characteristics']),
+                        // Text(
+                        //     "На заказы от 3-х смен мы предоставляем скидку. Вся техника находится у нас в собственности, работают опытные операторы и качественно",
+                        //     maxLines: 3,
+                        //     overflow: TextOverflow.ellipsis,
+                        //     style: TextStyle(
+                        //         color: ColorComponent.gray['600'],
+                        //         fontSize: 13))
                       ],
                     ))
                   ],

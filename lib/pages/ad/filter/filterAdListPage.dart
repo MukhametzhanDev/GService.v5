@@ -21,6 +21,7 @@ class FilterAdListPage extends StatefulWidget {
 
 class _FilterAdListPageState extends State<FilterAdListPage> {
   Map getParam(Map value) {
+    print(FilterData.data);
     int index = widget.data.indexOf(value);
     if (index <= 0 || index == widget.data.length - 1) {
       return {};
@@ -64,7 +65,7 @@ class _FilterAdListPageState extends State<FilterAdListPage> {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Padding(
+            SingleChildScrollView(
                 padding: EdgeInsets.only(
                     top: 10,
                     left: 15,
