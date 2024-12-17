@@ -33,6 +33,28 @@ class _InfoTypeAccountModalState extends State<InfoTypeAccountModal> {
         Text("Как это работает?",
             style: TextStyle(fontWeight: FontWeight.w500, fontSize: 16)),
         Divider(height: 16),
+        // Stepper(
+        //     controlsBuilder: (context, controller) => Container(),
+        //     margin: EdgeInsets.zero,
+        //     stepIconBuilder: (stepIndex, stepState) {
+        //       return Container(
+        //           width: 30,
+        //           height: 30,
+        //           alignment: Alignment.center,
+        //           child: Text(
+        //             stepIndex.toString(),
+        //             style: TextStyle(fontSize: 12, fontWeight: FontWeight.w500),
+        //           ));
+        //     },
+        //     connectorColor: WidgetStatePropertyAll(ColorComponent.mainColor),
+        //     physics: ClampingScrollPhysics(),
+        //     stepIconMargin: EdgeInsets.zero,
+        //     currentStep: 2,
+        //     steps: [
+        //       Step(title: Text("adfasdfasdf"), content: Container()),
+        //       Step(title: Text("adfasdfasdf"), content: Container()),
+        //       Step(title: Text("adfasdfasdf"), content: Container())
+        //     ]),
         HtmlWidget(widget.data),
         Divider(height: 16),
         Text("Остались вопросы по типу кабинета?",

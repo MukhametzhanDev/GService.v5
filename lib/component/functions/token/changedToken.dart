@@ -111,7 +111,8 @@ class ChangedToken {
       dio.options.baseUrl = "https://dev.gservice-co.kz/api";
       Navigator.pushAndRemoveUntil(
           context,
-          MaterialPageRoute(builder: (_) => const IndividualBottomTab()),
+          MaterialPageRoute(
+              builder: (_) => const IndividualBottomTab()),
           (route) => false);
     } catch (e) {}
   }

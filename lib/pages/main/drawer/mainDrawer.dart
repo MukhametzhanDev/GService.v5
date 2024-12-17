@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:gservice5/component/appBar/leadingLogo.dart';
-import 'package:gservice5/component/categories/request/getCategories.dart';
+import 'package:gservice5/component/categories/data/categoriesData.dart';
+import 'package:gservice5/component/request/getCategories.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
 import 'package:gservice5/component/widgets/bottom/bottomNavigationBarComponent.dart';
 import 'package:gservice5/pages/ad/list/adListPage.dart';
@@ -18,7 +19,7 @@ class MainDrawer extends StatefulWidget {
 }
 
 class _MainDrawerState extends State<MainDrawer> {
-  List categories = [];
+  List categories = CategoriesData.categories;
   List options = DrawerOptions.options;
 
   @override
@@ -28,7 +29,9 @@ class _MainDrawerState extends State<MainDrawer> {
   }
 
   Future getData() async {
-    categories = await GetCategories().getData(context);
+    if (categories.isEmpty) {
+      categories = await GetCategories().getData(context);
+    }
     setState(() {});
   }
 
@@ -84,7 +87,8 @@ class _MainDrawerState extends State<MainDrawer> {
                     children: categories.map((value) {
                       return GestureDetector(
                           onTap: () => showPage(value),
-                          child: SizedBox(
+                          child: Container(
+                              color: Colors.white,
                               height: 48,
                               child: Row(children: [
                                 SvgPicture.network(value['icon'], width: 24),

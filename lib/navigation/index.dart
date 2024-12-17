@@ -51,7 +51,8 @@ class _IndexState extends State<Index> {
               "MyApplicationListPage": (context) => MyApplicationListPage(),
               "SectionCreateAdPage": (context) => SectionCreateAdPage(),
               "GetAccountTypePage": (context) => GetAccountTypePage(),
-              "ResetIndividualPasswordPage": (context) => ResetIndividualPasswordPage(),
+              "ResetIndividualPasswordPage": (context) =>
+                  ResetIndividualPasswordPage(),
               "CreateApplication": (context) => CreateApplication(),
               "ApplicationListPage": (context) => ApplicationListPage(),
               "AllNewsPage": (context) => AllNewsPage(),

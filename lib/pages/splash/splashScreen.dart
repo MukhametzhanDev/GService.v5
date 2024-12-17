@@ -1,6 +1,10 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:gservice5/component/categories/data/mainPageData.dart';
 import 'package:gservice5/component/functions/token/changedToken.dart';
+import 'package:gservice5/component/request/getMainPageData.dart';
+import 'package:gservice5/component/snackBar/snackBarComponent.dart';
 import 'package:gservice5/navigation/%D1%81ustomer/customerBottomTab.dart';
 import 'package:gservice5/navigation/contractor/contractorBottomTab.dart';
 import 'package:gservice5/navigation/individual/individualBottomTab.dart';
@@ -31,7 +35,13 @@ class _SplashScreenState extends State<SplashScreen> {
     if (role == "customer" || role == "contractor") {
       dio.options.baseUrl = "https://dev.gservice-co.kz/api/business/";
     }
-    await showPage(role);
+    await getMainData(role);
+  }
+
+  Future getMainData(String? role) async {
+    await GetMainPageData().getData(context);
+    setState(() {});
+    showPage(role);
   }
 
   Future showPage(String? role) async {

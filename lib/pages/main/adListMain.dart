@@ -1,73 +1,125 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:gservice5/component/button/favoriteButton.dart';
-import 'package:gservice5/component/formatted/number/numberFormatted.dart';
-import 'package:gservice5/component/formatted/price/priceFormat.dart';
-import 'package:gservice5/component/image/cacheImage.dart';
-import 'package:gservice5/component/stickers/showStickersList.dart';
-import 'package:gservice5/component/theme/colorComponent.dart';
+import 'package:gservice5/component/dio/dio.dart';
+import 'package:gservice5/component/loader/paginationLoaderComponent.dart';
+import 'package:gservice5/component/snackBar/snackBarComponent.dart';
 import 'package:gservice5/pages/ad/item/adItem.dart';
-import 'package:gservice5/pages/ad/list/adListPage.dart';
+import 'package:gservice5/pages/ad/list/adListLoader.dart';
+import 'package:shimmer/shimmer.dart';
 
 class AdListMain extends StatefulWidget {
-  const AdListMain({super.key});
+  final ScrollController scrollController;
+  const AdListMain({super.key, required this.scrollController});
 
   @override
   State<AdListMain> createState() => _AdListMainState();
 }
 
 class _AdListMainState extends State<AdListMain> {
+  List data = [];
+  bool loader = true;
+  bool hasNextPage = false;
+  bool isLoadMore = false;
+  int page = 1;
+
+  @override
+  void initState() {
+    getData();
+    widget.scrollController.addListener(() {
+      loadMoreAd();
+    });
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    widget.scrollController.dispose();
+    super.dispose();
+  }
+
+  void showLoader() {
+    if (!loader) {
+      loader = true;
+      setState(() {});
+    }
+  }
+
+  Future getData() async {
+    try {
+      page = 1;
+      showLoader();
+      Response response = await dio.get("/ad");
+      print(response.data);
+      if (response.statusCode == 200) {
+        data = response.data['data'];
+        loader = false;
+        hasNextPage = page != response.data['meta']['last_page'];
+        setState(() {});
+      } else {
+        SnackBarComponent().showResponseErrorMessage(response, context);
+      }
+    } on DioException catch (e) {
+      print(e);
+      SnackBarComponent().showNotGoBackServerErrorMessage(context);
+    }
+  }
+
+  void loadMoreAd() async {
+    if (widget.scrollController.position.extentAfter < 100 &&
+        hasNextPage &&
+        !isLoadMore) {
+      try {
+        isLoadMore = true;
+        page += 1;
+        setState(() {});
+        Response response =
+            await dio.get("/ad", queryParameters: {"page": page.toString()});
+        print(response.data);
+        if (response.statusCode == 200) {
+          data.addAll(response.data['data']);
+          hasNextPage = page != response.data['meta']['last_page'];
+          isLoadMore = false;
+          setState(() {});
+        } else {
+          SnackBarComponent().showResponseErrorMessage(response, context);
+        }
+      } catch (e) {
+        SnackBarComponent().showNotGoBackServerErrorMessage(context);
+      }
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Column(children: [
-      Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 15),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text("12 000 Объявлений",
-                style: TextStyle(
-                    fontSize: 16, fontWeight: FontWeight.w600, height: 1)),
-            GestureDetector(
-                onTap: () {}, child: SvgPicture.asset('assets/icons/right.svg')
-                //  Container(
-                //     height: 32,
-                //     padding: EdgeInsets.symmetric(horizontal: 12),
-                //     alignment: Alignment.center,
-                //     decoration: BoxDecoration(
-                //         borderRadius: BorderRadius.circular(8),
-                //         color: ColorComponent.mainColor.withOpacity(.2)),
-                //     child: Text("Все",
-                //         style: TextStyle(
-                //             fontSize: 12,
-                //             fontWeight: FontWeight.w600,
-                //             height: 1))),
-                )
-          ],
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Padding(
+          padding: const EdgeInsets.only(left: 15, right: 15, bottom: 10),
+          child: Text("Объявление",
+              style: TextStyle(
+                  fontSize: 16, fontWeight: FontWeight.w600, height: 1)),
         ),
-      ),
-      // Divider(height: 8),
-      // ListView.builder(
-      //   shrinkWrap: true,
-      //   physics: NeverScrollableScrollPhysics(),
-      //   itemCount: 20,
-      //   itemBuilder: (context, index) {
-      // if (index == 3) {
-      //   return Column(
-      //     children: [
-      //       AdItem(),
-      //       CacheImage(
-      //           url:
-      //               "https://images.unsplash.com/photo-1721332153370-56d7cc352d63?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDF8MHxmZWF0dXJlZC1waG90b3MtZmVlZHwxfHx8ZW58MHx8fHx8",
-      //           width: MediaQuery.of(context).size.width,
-      //           height: 196,
-      //           borderRadius: 0)
-      //     ],
-      //   );
-      // }
-      // return AdItem();
-      // },
-      // ),
-    ]);
+        loader
+            ? AdListLoader()
+            : ListView.builder(
+                shrinkWrap: true,
+                physics: NeverScrollableScrollPhysics(),
+                controller: widget.scrollController,
+                itemCount: data.length,
+                itemBuilder: (context, int index) {
+                  Map value = data[index];
+                  if (data.length - 1 == index) {
+                    return Column(children: [
+                      AdItem(data: value, showCategory: false),
+                      hasNextPage ? PaginationLoaderComponent() : Container()
+                    ]);
+                  } else {
+                    return AdItem(data: value, showCategory: true);
+                  }
+                }),
+      ],
+    );
   }
 }

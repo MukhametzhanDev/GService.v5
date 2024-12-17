@@ -58,7 +58,8 @@ class _CustomerBottomTabState extends State<CustomerBottomTab>
     final ColorTheme = ThemeColorComponent.ColorsTheme(context);
     return Scaffold(
       body: IndexedStack(index: _selectedIndex, children: [
-        MainPage(scrollController: scrollController),
+        Container(),
+        // MainPage(scrollController: scrollController),
         Container(),
         MessageMainPage(),
         VerifyProfilePage(),

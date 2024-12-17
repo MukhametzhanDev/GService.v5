@@ -57,7 +57,7 @@ class _ApplicationListPageState extends State<ApplicationListPage> {
       page = 1;
       showLoader();
       Response response = await dio.get("/application", queryParameters: param);
-      if (response.statusCode == 200) {
+      if (response.statusCode == 200 && response.data['success']) {
         data = response.data['data'];
         loader = false;
         hasNextPage = page != response.data['meta']['last_page'];
@@ -81,7 +81,7 @@ class _ApplicationListPageState extends State<ApplicationListPage> {
         Response response = await dio.get("/application",
             queryParameters: {"page": page.toString(), ...param});
         print(response.data);
-        if (response.statusCode == 200) {
+        if (response.statusCode == 200 && response.data['success']) {
           data.addAll(response.data['data']);
           hasNextPage = page != response.data['meta']['last_page'];
           isLoadMore = false;

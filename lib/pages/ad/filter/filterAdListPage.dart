@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:gservice5/component/button/back/backTitleButton.dart';
 import 'package:gservice5/component/button/back/closeTitleButton.dart';
 import 'package:gservice5/component/button/button.dart';
-import 'package:gservice5/component/formatted/price/priceFormat.dart';
 import 'package:gservice5/component/functions/number/getIntNumber.dart';
 import 'package:gservice5/component/textField/closeKeyboard/closeKeyboard.dart';
 import 'package:gservice5/component/textField/priceTextField.dart';
@@ -62,73 +60,66 @@ class _FilterAdListPageState extends State<FilterAdListPage> {
       ),
       body: GestureDetector(
         onTap: () => closeKeyboard(),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            SingleChildScrollView(
-                padding: EdgeInsets.only(
-                    top: 10,
-                    left: 15,
-                    right: 15,
-                    bottom: MediaQuery.of(context).viewInsets.bottom +
-                        MediaQuery.of(context).padding.bottom),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Column(
-                      children: widget.data.map((value) {
-                        return FilterSelectModal(
-                            title: value['title']['title_ru'],
-                            option: value,
-                            api: value['url'],
-                            param: getParam,
-                            value: FilterData.data["${value['name']}_value"] ??
-                                {});
-                      }).toList(),
-                    ),
-                    FilterSelectModal(
-                        title: "Город",
-                        option: {"name": "city_id"},
-                        api: "/cities",
+        child: SingleChildScrollView(
+            padding: EdgeInsets.only(
+                top: 10,
+                left: 15,
+                right: 15,
+                bottom: MediaQuery.of(context).padding.bottom),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Column(
+                  children: widget.data.map((value) {
+                    return FilterSelectModal(
+                        title: value['title']['title_ru'],
+                        option: value,
+                        api: value['url'],
                         param: getParam,
-                        value: FilterData.data["city_id_value"] ?? {}),
-                    Text("Цена"),
-                    Divider(height: 6),
-                    Row(children: [
-                      Expanded(
-                          child: PriceTextField(
-                              textEditingController: getPrice("price_from"),
-                              autofocus: false,
-                              onChanged: (value) {
-                                if (value.isEmpty) {
-                                  FilterData.data.remove("price_from");
-                                } else {
-                                  FilterData.data['price_from'] =
-                                      getIntComponent(value);
-                                }
-                              },
-                              title: "От",
-                              onSubmitted: () {})),
-                      Divider(indent: 12),
-                      Expanded(
-                          child: PriceTextField(
-                              textEditingController: getPrice("price_to"),
-                              autofocus: false,
-                              onChanged: (value) {
-                                if (value.isEmpty) {
-                                  FilterData.data.remove("price_to");
-                                } else {
-                                  FilterData.data['price_to'] =
-                                      getIntComponent(value);
-                                }
-                              },
-                              title: "До",
-                              onSubmitted: () {}))
-                    ]),
-                  ],
-                )),
-          ],
-        ),
+                        value: FilterData.data["${value['name']}_value"] ?? {});
+                  }).toList(),
+                ),
+                FilterSelectModal(
+                    title: "Город",
+                    option: {"name": "city_id"},
+                    api: "/cities",
+                    param: getParam,
+                    value: FilterData.data["city_id_value"] ?? {}),
+                Text("Цена"),
+                Divider(height: 6),
+                Row(children: [
+                  Expanded(
+                      child: PriceTextField(
+                          textEditingController: getPrice("price_from"),
+                          autofocus: false,
+                          onChanged: (value) {
+                            if (value.isEmpty) {
+                              FilterData.data.remove("price_from");
+                            } else {
+                              FilterData.data['price_from'] =
+                                  getIntComponent(value);
+                            }
+                          },
+                          title: "От",
+                          onSubmitted: () {})),
+                  Divider(indent: 12),
+                  Expanded(
+                      child: PriceTextField(
+                          textEditingController: getPrice("price_to"),
+                          autofocus: false,
+                          onChanged: (value) {
+                            if (value.isEmpty) {
+                              FilterData.data.remove("price_to");
+                            } else {
+                              FilterData.data['price_to'] =
+                                  getIntComponent(value);
+                            }
+                          },
+                          title: "До",
+                          onSubmitted: () {}))
+                ]),
+              ],
+            )),
       ),
       bottomNavigationBar: BottomNavigationBarComponent(
           child: Button(

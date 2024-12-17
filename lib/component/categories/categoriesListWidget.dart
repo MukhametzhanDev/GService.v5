@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:gservice5/component/categories/request/getCategories.dart';
+import 'package:gservice5/component/categories/data/categoriesData.dart';
+import 'package:gservice5/component/request/getCategories.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
 import 'package:gservice5/pages/ad/list/adListPage.dart';
 import 'package:shimmer/shimmer.dart';
@@ -12,7 +13,7 @@ class CategoriesListWidget extends StatefulWidget {
 }
 
 class _CategoriesListWidgetState extends State<CategoriesListWidget> {
-  List data = [];
+  List data = CategoriesData.categories;
   bool loader = true;
 
   @override
@@ -22,7 +23,9 @@ class _CategoriesListWidgetState extends State<CategoriesListWidget> {
   }
 
   Future getData() async {
-    data = await GetCategories().getData(context);
+    if (data.isEmpty) {
+      data = await GetCategories().getData(context);
+    }
     loader = false;
     setState(() {});
   }

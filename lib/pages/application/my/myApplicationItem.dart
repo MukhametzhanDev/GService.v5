@@ -71,7 +71,7 @@ class _MyApplicationItemState extends State<MyApplicationItem> {
         padding: const EdgeInsets.symmetric(horizontal: 15),
         child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
           Divider(height: 12),
-          Text(widget.data['transport_type']['title'],
+          Text(widget.data['title'],
               style: TextStyle(
                   fontSize: 18,
                   fontWeight: FontWeight.w600,

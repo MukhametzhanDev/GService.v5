@@ -6,6 +6,7 @@ import 'package:gservice5/component/loader/paginationLoaderComponent.dart';
 import 'package:gservice5/component/snackBar/snackBarComponent.dart';
 import 'package:gservice5/pages/ad/filter/filterAdWidget.dart';
 import 'package:gservice5/pages/ad/item/adItem.dart';
+import 'package:gservice5/pages/ad/list/adListLoader.dart';
 import 'package:gservice5/pages/ad/list/emptyAdListPage.dart';
 import 'package:gservice5/pages/create/data/createData.dart';
 
@@ -144,7 +145,7 @@ class _AdListPageState extends State<AdListPage> {
       //           child: SortAdWidget(onChanged: onChanged))),
       // ),
       body: loader
-          ? LoaderComponent()
+          ? AdListLoader()
           : data.isEmpty
               ? EmptyAdListPage()
               : ListView.builder(

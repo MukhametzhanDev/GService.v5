@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:gservice5/component/banner/bannersList.dart';
 import 'package:gservice5/component/button/searchButton.dart';
+import 'package:gservice5/component/categories/data/mainPageData.dart';
+import 'package:gservice5/component/request/getMainPageData.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
 import 'package:gservice5/component/categories/data/categoriesData.dart';
+import 'package:gservice5/pages/main/adListMain.dart';
 import 'package:gservice5/pages/main/applicationListMain.dart';
 import 'package:gservice5/component/categories/categoriesListWidget.dart';
 import 'package:gservice5/pages/main/drawer/mainDrawer.dart';
@@ -19,6 +23,20 @@ class MainPage extends StatefulWidget {
 
 class _MainPageState extends State<MainPage> {
   var scaffoldKey = GlobalKey<ScaffoldState>();
+  Map data = MainPageData.data;
+
+  @override
+  void initState() {
+    getData();
+    super.initState();
+  }
+
+  Future getData() async {
+    if (data.isEmpty) {
+      await GetMainPageData().getData(context);
+      setState(() {});
+    }
+  }
 
   void showMainSearchPage() {
     Navigator.push(
@@ -29,9 +47,19 @@ class _MainPageState extends State<MainPage> {
 
   @override
   Widget build(BuildContext context) {
-    final List _categories = CategoriesData.categories;
     return Scaffold(
       key: scaffoldKey,
+      appBar: AppBar(
+        toolbarHeight: 0,
+        shape: RoundedRectangleBorder(
+            side: BorderSide(width: 0, color: Colors.white)),
+        backgroundColor: Colors.white,
+        systemOverlayStyle: SystemUiOverlayStyle(
+          statusBarColor: Colors.white,
+          statusBarIconBrightness: Brightness.light,
+          statusBarBrightness: Brightness.light,
+        ),
+      ),
       body: SafeArea(
         bottom: false,
         child: CustomScrollView(controller: widget.scrollController, slivers: [
@@ -69,10 +97,10 @@ class _MainPageState extends State<MainPage> {
               child: Column(children: [
             Divider(height: 10),
             BannersList(),
-            Divider(height: 28),
-            // ApplicationListMain(),
-            Divider(height: 28),
-            // AdListMain()
+            Divider(height: 20),
+            ApplicationListMain(data: data['applications']),
+            Divider(height: 24),
+            AdListMain(scrollController: widget.scrollController)
           ]))
         ]),
       ),

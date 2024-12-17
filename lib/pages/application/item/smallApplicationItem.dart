@@ -63,11 +63,12 @@ class _SmallApplicationItemState extends State<SmallApplicationItem> {
                           fontWeight: FontWeight.w400,
                           color: ColorComponent.blue['700'])),
                 ),
-                Divider(indent: 12),
-                FavoriteButton(
-                    id: widget.data['id'],
-                    active: widget.data['is_favorite'],
-                    type: "application")
+                widget.position == "main"
+                    ? Container()
+                    : FavoriteButton(
+                        id: widget.data['id'],
+                        active: widget.data['is_favorite'],
+                        type: "application")
               ],
             ),
             Row(
