@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:gservice5/component/dio/dio.dart';
+import 'package:gservice5/component/image/cacheImage.dart';
 import 'package:gservice5/component/loader/loaderComponent.dart';
 import 'package:gservice5/component/loader/paginationLoaderComponent.dart';
 import 'package:gservice5/component/snackBar/snackBarComponent.dart';
@@ -156,6 +157,11 @@ class _AdListPageState extends State<AdListPage> {
                     if (data.length - 1 == index) {
                       return Column(children: [
                         AdItem(data: value, showCategory: false),
+                        // Container(
+                        //   width: MediaQuery.of(context).size.width,
+                        //   height: 200,
+                        //   color: Colors.red,
+                        // ),
                         hasNextPage ? PaginationLoaderComponent() : Container()
                       ]);
                     } else {

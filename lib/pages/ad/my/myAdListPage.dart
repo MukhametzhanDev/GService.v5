@@ -223,8 +223,10 @@ class _MyAdListPageState extends State<MyAdListPage>
     Navigator.push(
         context,
         MaterialPageRoute(
-            builder: (context) =>
-                ListPackagePage(rubricId: 0, adId: value['id'], goBack: true)));
+            builder: (context) => ListPackagePage(
+                categoryId: value['category']['id'],
+                adId: value['id'],
+                goBack: true)));
   }
 
   Widget ListMyAds() {

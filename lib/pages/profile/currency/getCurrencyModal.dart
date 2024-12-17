@@ -5,6 +5,7 @@ import 'package:gservice5/component/message/explanatoryMessage.dart';
 import 'package:gservice5/component/modal/modalBottomSheetWrapper.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
 import 'package:gservice5/component/widgets/bottom/bottomNavigationBarComponent.dart';
+import 'package:gservice5/pages/profile/currency/currencyMainPage.dart';
 import 'package:gservice5/pages/profile/currency/editCurrencyPage.dart';
 
 class GetCurrencyModal extends StatefulWidget {
@@ -30,7 +31,7 @@ class _GetCurrencyModalState extends State<GetCurrencyModal> {
 
   void showEditCurrencyPage() {
     Navigator.push(context,
-            MaterialPageRoute(builder: (context) => EditCurrencyPage()))
+            MaterialPageRoute(builder: (context) => CurrencyMainPage()))
         .then((value) {
       data = value;
       setState(() {});

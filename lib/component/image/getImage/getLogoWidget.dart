@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:gservice5/component/button/button.dart';
+import 'package:gservice5/component/denied/galleryDeniedModal.dart';
 import 'package:gservice5/component/image/cacheImage.dart';
 import 'package:gservice5/component/loader/modalLoaderComponent.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
@@ -14,10 +15,7 @@ class GetLogoWidget extends StatefulWidget {
   final String? imageUrl;
   final String? role;
   const GetLogoWidget(
-      {super.key,
-      required this.onChanged,
-      this.imageUrl,
-      @required this.role});
+      {super.key, required this.onChanged, this.imageUrl, @required this.role});
 
   @override
   State<GetLogoWidget> createState() => _GetLogoWidgetState();
@@ -41,10 +39,10 @@ class _GetLogoWidgetState extends State<GetLogoWidget> {
     } on PlatformException catch (e) {
       print(e);
       if (e.code == "photo_access_denied") {
-        // showCupertinoModalBottomSheet(
-        //   context: context,
-        //   builder: (context) => GalleryDeniedModal(),
-        // );
+        showCupertinoModalBottomSheet(
+          context: context,
+          builder: (context) => GalleryDeniedModal(),
+        );
       }
     }
   }

@@ -10,11 +10,8 @@ import 'package:gservice5/component/request/verifyContact.dart';
 import 'package:gservice5/component/snackBar/snackBarComponent.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
 import 'package:gservice5/component/widgets/bottom/bottomNavigationBarComponent.dart';
-import 'package:gservice5/pages/create/ad/characteristic/getCharacteristicAdPage.dart';
 import 'package:gservice5/pages/create/data/createData.dart';
-import 'package:gservice5/pages/create/structure/controllerPage/pageControllerIndexedStack.dart';
 import 'package:gservice5/pages/create/structure/structureCreateAdPage.dart';
-import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
 class SectionCreateAdPage extends StatefulWidget {
   const SectionCreateAdPage({super.key});
@@ -104,11 +101,12 @@ class _SectionCreateAdPageState extends State<SectionCreateAdPage> {
     List data = await GetContact().getData(context);
     print(data);
     Navigator.pop(context);
-    if (data.isEmpty) {
-      // showCupertinoModalBottomSheet(context: context, builder:(context) => Get);
-    } else {
       showOptionsPage();
-    }
+    // if (data.isEmpty) {
+    //   // showCupertinoModalBottomSheet(context: context, builder:(context) => Get);
+    // } else {
+    //   showOptionsPage();
+    // }
   }
 
   @override

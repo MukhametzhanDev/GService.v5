@@ -14,12 +14,12 @@ import 'package:gservice5/pages/ad/package/previewItemWidget.dart';
 import 'package:gservice5/pages/create/data/createData.dart';
 
 class ListPackagePage extends StatefulWidget {
-  final int rubricId;
+  final int categoryId;
   final int adId;
   final bool goBack;
   const ListPackagePage(
       {super.key,
-      required this.rubricId,
+      required this.categoryId,
       required this.adId,
       required this.goBack});
 
@@ -28,7 +28,8 @@ class ListPackagePage extends StatefulWidget {
 }
 
 class _ListPackagePageState extends State<ListPackagePage> {
-  List packages = [{}];
+  List packages = [];
+  List promotions = [];
   Map? currentPackage;
   List stickers = [];
   int totalPrice = 0;
@@ -40,19 +41,21 @@ class _ListPackagePageState extends State<ListPackagePage> {
   }
 
   void getPackagesData() async {
-    // try {
-    //   Response response = await dio
-    //       .get("/packages", queryParameters: {"rubric_id": widget.rubricId});
-    //   print(response.data);
-    //   if (response.data['success']) {
-    //     packages = response.data['data'];
-    //     setState(() {});
-    //   } else {
-    //     SnackBarComponent().showErrorMessage(context, response.data['message']);
-    //   }
-    // } catch (e) {
-    //   SnackBarComponent().showNotGoBackServerErrorMessage(context);
-    // }
+    try {
+      Response response = await dio.get("/ad-promotions",
+          queryParameters: {"category_id": widget.categoryId});
+      print(response.data);
+      if (response.data['success']) {
+        packages = response.data['data']['ad_packages'];
+        promotions = response.data['data']['ad_promotions'];
+        stickers = response.data['data']['stickers'];
+        setState(() {});
+      } else {
+        SnackBarComponent().showErrorMessage(response.data['message'], context);
+      }
+    } catch (e) {
+      SnackBarComponent().showNotGoBackServerErrorMessage(context);
+    }
   }
 
   void showSuccessfullyPage() {
@@ -78,15 +81,22 @@ class _ListPackagePageState extends State<ListPackagePage> {
     setState(() {});
   }
 
+  int stickerCount = 0;
   void onChangedStickers(Map value) {
-    bool active = stickers.any((eleement) => eleement['id'] == value['id']);
     int price = value['price'];
-    if (active) {
-      stickers.remove(value);
+    if (value['active'] ?? false) {
       totalPrice -= price;
+      stickerCount -= 1;
+      value['active'] = false;
     } else {
-      stickers.add(value);
-      totalPrice += price;
+      if (stickerCount < 3) {
+        totalPrice += price;
+        stickerCount += 1;
+        value['active'] = true;
+      } else {
+        SnackBarComponent().showErrorMessage(
+            "Вы можете прикрепить не более 3 стикеров", context);
+      }
     }
     setState(() {});
     print(stickers);
@@ -123,7 +133,6 @@ class _ListPackagePageState extends State<ListPackagePage> {
                             onChangedPackage: onChangedPackage,
                             active: value['id'] == currentPackage?['id']);
                       }).toList()),
-                      SizedBox(height: 24),
                       // AddStickersWidget(
                       //     rubricId: widget.rubricId,
                       //     onChangedStickers: onChangedStickers),
@@ -151,82 +160,76 @@ class _ListPackagePageState extends State<ListPackagePage> {
                                       fontSize: 16,
                                       fontWeight: FontWeight.w700)),
                               Column(
-                                  children: [1, 2, 3].map((value) {
-                                return Container(
-                                  margin: EdgeInsets.only(top: 12),
-                                  padding: EdgeInsets.symmetric(
-                                      horizontal: 12, vertical: 8),
-                                  decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(10),
-                                      border: Border.all(
-                                          width: 1, color: Color(0xffeeeeee))),
-                                  child: Row(
-                                    children: [
-                                      CheckBoxWidget(active: true),
-                                      Divider(indent: 16),
-                                      Expanded(
-                                        child: Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            Text(
-                                              "24 часа , 1 поднятие",
-                                              style: TextStyle(fontSize: 16),
-                                            ),
-                                            Divider(height: 6),
-                                            Text(
-                                              "${priceFormat(500)} ₸",
-                                              style: TextStyle(
-                                                  fontWeight: FontWeight.w600),
-                                            )
-                                          ],
+                                  children: promotions.map((value) {
+                                return GestureDetector(
+                                  onTap: () => onChangedStickers(value),
+                                  child: Container(
+                                    margin: EdgeInsets.only(top: 12),
+                                    padding: EdgeInsets.symmetric(
+                                        horizontal: 12, vertical: 8),
+                                    decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(10),
+                                        border: Border.all(
+                                            width: 1,
+                                            color: Color(0xffeeeeee))),
+                                    child: Row(
+                                      children: [
+                                        CheckBoxWidget(active: true),
+                                        Divider(indent: 16),
+                                        Expanded(
+                                          child: Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              Text(
+                                                value['title'] ?? "",
+                                                style: TextStyle(fontSize: 16),
+                                              ),
+                                              Divider(height: 6),
+                                              Text(
+                                                "${priceFormat(value['price'])} ₸",
+                                                style: TextStyle(
+                                                    fontWeight:
+                                                        FontWeight.w600),
+                                              )
+                                            ],
+                                          ),
                                         ),
-                                      ),
-                                      SvgPicture.asset('assets/icons/fire.svg')
-                                    ],
+                                        SvgPicture.network(value['icon'])
+                                      ],
+                                    ),
                                   ),
                                 );
                               }).toList())
                             ],
                           )),
                       Divider(height: 24),
-                      Text("Стикеры",
+                      Text("Стикеры по 100 ₸",
                           style: TextStyle(
                               fontSize: 16, fontWeight: FontWeight.w700)),
                       Divider(height: 12),
                       Wrap(
                           alignment: WrapAlignment.start,
-                          children:
-                              List.generate(10, (index) => index).map((value) {
-                            bool active = value % 3 == 0;
-                            return Container(
-                              margin: EdgeInsets.only(right: 10, bottom: 10),
-                              padding: EdgeInsets.symmetric(
-                                  horizontal: 10, vertical: 6),
-                              decoration: BoxDecoration(
-                                  color: active
-                                      ? ColorComponent.mainColor
-                                      : Colors.white,
-                                  border: Border.all(
-                                      width: 1,
+                          children: stickers.map((value) {
+                            bool active = value['active'] ?? false;
+                            return GestureDetector(
+                              onTap: () => onChangedStickers(value),
+                              child: Container(
+                                  margin:
+                                      EdgeInsets.only(right: 10, bottom: 10),
+                                  padding: EdgeInsets.symmetric(
+                                      horizontal: 10, vertical: 6),
+                                  decoration: BoxDecoration(
                                       color: active
                                           ? ColorComponent.mainColor
-                                          : Color(0xffeeeeee)),
-                                  borderRadius: BorderRadius.circular(6)),
-                              child: RichText(
-                                  textAlign: TextAlign.start,
-                                  text: TextSpan(
-                                      style: TextStyle(color: Colors.black),
-                                      children: [
-                                        TextSpan(
-                                            text: active
-                                                ? "Доставка по КЗ  "
-                                                : "Cрочно  "),
-                                        TextSpan(
-                                            text: "100 ₸",
-                                            style: TextStyle(
-                                                fontWeight: FontWeight.w600))
-                                      ])),
+                                          : Colors.white,
+                                      border: Border.all(
+                                          width: 1,
+                                          color: active
+                                              ? ColorComponent.mainColor
+                                              : Color(0xffeeeeee)),
+                                      borderRadius: BorderRadius.circular(6)),
+                                  child: Text(value['title'].toString())),
                             );
                           }).toList()),
                       Divider(height: 24),

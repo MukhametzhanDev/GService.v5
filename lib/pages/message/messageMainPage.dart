@@ -10,7 +10,37 @@ class MessageMainPage extends StatefulWidget {
   State<MessageMainPage> createState() => _MessageMainPageState();
 }
 
-class _MessageMainPageState extends State<MessageMainPage> {
+class _MessageMainPageState extends State<MessageMainPage>
+    with WidgetsBindingObserver {
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addObserver(this);
+    // getData();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    WidgetsBinding.instance.removeObserver(this);
+    // refreshController.dispose();
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    super.didChangeAppLifecycleState(state);
+    if (state == AppLifecycleState.resumed) checkNotificationPermission();
+  }
+
+  Future<void> checkNotificationPermission() async {
+    // NotificationSettings settings =
+    //     await FirebaseMessaging.instance.getNotificationSettings();
+
+    // notificationPermission =
+    //     settings.authorizationStatus == AuthorizationStatus.authorized;
+    // setState(() {});
+  }
+
   List _tabs = ["Все", "Новые"];
   @override
   Widget build(BuildContext context) {

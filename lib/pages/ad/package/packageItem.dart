@@ -14,9 +14,23 @@ class PackageItem extends StatelessWidget {
       required this.onChangedPackage,
       required this.active});
 
+  int getDiscount() {
+    if (data['old_price'] == 0 || data['old_price'] == null) {
+      return 0;
+    } else {
+      double discount = data['price'] * 100 / data['old_price'];
+      discount = 100 - discount;
+      return discount.round();
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
+    String title =
+        data['title'].toString().replaceAll(RegExp(r"\bX\d+\b"), "").trim();
+    List promotions = data['promotions'];
     return Container(
+      margin: EdgeInsets.only(bottom: 14),
       decoration: BoxDecoration(
           color: Colors.white,
           boxShadow: [
@@ -36,19 +50,19 @@ class PackageItem extends StatelessWidget {
             child:
                 Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
               Row(children: [
-                Text("Продвижение",
+                Text(title,
                     // data['title'],
                     style:
                         TextStyle(fontSize: 16, fontWeight: FontWeight.w700)),
                 Container(
-                  width: 28,
                   margin: EdgeInsets.only(left: 8),
                   height: 28,
+                  padding: EdgeInsets.symmetric(horizontal: 4),
                   alignment: Alignment.center,
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(14),
                       color: ColorComponent.blue['500']),
-                  child: Text("x5",
+                  child: Text(data['title'].toString().split(" ").last,
                       style: TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.w700,
@@ -58,11 +72,14 @@ class PackageItem extends StatelessWidget {
               SizedBox(height: 8),
               Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  children: List.generate(5, (index) => index)
+                  children: promotions
                       .map((detail) => Padding(
                           padding: EdgeInsets.only(bottom: 10),
                           child: Row(children: [
-                            SvgPicture.asset("assets/icons/fire.svg"),
+                            SvgPicture.network(
+                              detail['icon'],
+                              width: 20,
+                            ),
                             SizedBox(width: 8),
                             Text("28 дней на GService.kz",
                                 style: TextStyle(
@@ -71,16 +88,18 @@ class PackageItem extends StatelessWidget {
                       .toList()),
               SizedBox(height: 16),
               Row(children: [
-                Text("${priceFormat(5000)} ₸",
+                Text("${priceFormat(data['price'])} ₸",
                     style:
                         TextStyle(fontSize: 20, fontWeight: FontWeight.w600)),
                 SizedBox(width: 12),
-                Text("${priceFormat(6000)} ₸",
-                    style: TextStyle(
-                        fontSize: 17,
-                        color: ColorComponent.gray['500'],
-                        decorationColor: ColorComponent.gray['500'],
-                        decoration: TextDecoration.lineThrough))
+                data['old_price'] == 0 || data['old_price'] == null
+                    ? Container()
+                    : Text("${priceFormat(data['old_price'])} ₸",
+                        style: TextStyle(
+                            fontSize: 17,
+                            color: ColorComponent.gray['500'],
+                            decorationColor: ColorComponent.gray['500'],
+                            decoration: TextDecoration.lineThrough))
               ]),
               SizedBox(height: 16),
               Container(
@@ -103,7 +122,7 @@ class PackageItem extends StatelessWidget {
                         active ? ColorComponent.gray['500'] : Colors.black),
               )
             ])),
-        data['discount'] == 0
+        data['old_price'] == 0 || data['old_price'] == null
             ? Container()
             : Positioned(
                 right: 0,
@@ -119,7 +138,7 @@ class PackageItem extends StatelessWidget {
                   ),
                 ),
               ),
-        data['discount'] == 0
+        data['old_price'] == 0 || data['old_price'] == null
             ? Container()
             : Positioned(
                 right: 0,
@@ -127,7 +146,7 @@ class PackageItem extends StatelessWidget {
                 child: Transform.rotate(
                   angle: 0.785,
                   child: Text(
-                    "-30%",
+                    "${getDiscount()}%",
                     style: TextStyle(
                         fontSize: 12,
                         fontWeight: FontWeight.bold,

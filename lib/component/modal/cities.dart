@@ -47,8 +47,8 @@ class _CitiesState extends State<Cities> with SingleTickerProviderStateMixin {
       Response response = await dio
           .get("/cities", queryParameters: {"country_id": widget.countryId});
       print(response.data);
-             if (response.statusCode==200) {
-
+      if (response.statusCode == 200) {
+        filterData = response.data['data'];
         data = response.data['data'];
         loader = false;
         setState(() {});
@@ -125,7 +125,7 @@ class _CitiesState extends State<Cities> with SingleTickerProviderStateMixin {
                 padding:
                     const EdgeInsets.symmetric(horizontal: 15, vertical: 7),
                 child: SearchTextField(
-                    title: "Поиск город", onChanged: (value) {}),
+                    title: "Поиск город", onChanged: addTitle),
               )),
         ),
         body: loader
@@ -133,9 +133,9 @@ class _CitiesState extends State<Cities> with SingleTickerProviderStateMixin {
             : ListView.builder(
                 physics: physics,
                 controller: scrollController,
-                itemCount: data.length,
+                itemCount: filterData.length,
                 itemBuilder: (context, index) {
-                  Map item = data[index];
+                  Map item = filterData[index];
                   return Container(
                     decoration: BoxDecoration(
                         border: Border(

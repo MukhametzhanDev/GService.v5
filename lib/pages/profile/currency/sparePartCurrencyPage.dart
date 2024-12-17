@@ -28,7 +28,8 @@ class _SparePartCurrencyPageState extends State<SparePartCurrencyPage> {
 
   Future getData() async {
     try {
-      Response response = await dio.get("/company-currency");
+      Response response = await dio
+          .get("/company-currency", queryParameters: {"category_id": 4});
       print(response.data);
       if (response.statusCode == 200) {
         data = response.data['data'];

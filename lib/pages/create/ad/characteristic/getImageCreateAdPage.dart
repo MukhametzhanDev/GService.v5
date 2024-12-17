@@ -48,7 +48,7 @@ class _GetImageCreateAdPageState extends State<GetImageCreateAdPage> {
             context,
             MaterialPageRoute(
                 builder: (context) => ListPackagePage(
-                    rubricId: 0,
+                    categoryId: 0,
                     adId: response.data['data']['id'],
                     goBack: false)));
       } else {

@@ -21,6 +21,7 @@ class _CurrencyButtonState extends State<CurrencyButton> {
   bool loader = true;
   Map currentData = {};
   String role = "";
+  int categoryId = CreateData.data['category_id'];
 
   @override
   void initState() {
@@ -30,10 +31,13 @@ class _CurrencyButtonState extends State<CurrencyButton> {
 
   Future getData() async {
     role = await ChangedToken().getRole();
+    print(" `categoryId` $categoryId");
     setState(() {});
-    if (role != "individual") {
+    if (role != "individual" && (categoryId == 1 || categoryId == 4)) {
       try {
-        Response response = await dio.get("/company-currency");
+        Response response = await dio.get("/company-currency",
+            queryParameters: {"category_id": categoryId});
+        print(response.data);
         if (response.data['success']) {
           data = response.data['data'];
           currentData = response.data['data'][0];
@@ -44,7 +48,8 @@ class _CurrencyButtonState extends State<CurrencyButton> {
         } else {
           SnackBarComponent().showResponseErrorMessage(response, context);
         }
-      } catch (e) {
+      } on DioException catch (e) {
+        print(e.response);
         SnackBarComponent().showNotGoBackServerErrorMessage(context);
       }
     }
@@ -65,7 +70,7 @@ class _CurrencyButtonState extends State<CurrencyButton> {
 
   @override
   Widget build(BuildContext context) {
-    if (role == "individual") {
+    if (role == "individual" && categoryId == 1 && categoryId == 4) {
       return Container();
     } else {
       return GestureDetector(

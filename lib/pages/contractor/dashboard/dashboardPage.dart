@@ -26,148 +26,148 @@ class _DashboardPageState extends State<DashboardPage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              ContainerWidget(
-                Column(
-                  children: [
-                    Row(
-                      children: [
-                        CacheImage(
-                            url:
-                                "https://images.unsplash.com/photo-1733077151496-5e2701fc64eb?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxmZWF0dXJlZC1waG90b3MtZmVlZHw3fHx8ZW58MHx8fHx8",
-                            width: 50,
-                            height: 50,
-                            borderRadius: 25),
-                        Divider(indent: 12),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text("OYAL ENERJİ JENERATÖR",
-                                style: TextStyle(fontWeight: FontWeight.w600)),
-                            Divider(height: 4),
-                            Text("ID: 1234567890",
-                                style: TextStyle(
-                                    color: ColorComponent.gray['500']))
-                          ],
-                        )
-                      ],
-                    ),
-                    Divider(indent: 8),
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Expanded(
-                          child: Column(
-                            children: [
-                              Row(
-                                children: [
-                                  SvgPicture.asset('assets/icons/users.svg'),
-                                  Divider(indent: 8),
-                                  RichText(
-                                      textAlign: TextAlign.start,
-                                      text: TextSpan(
-                                          style: TextStyle(color: Colors.black),
-                                          children: [
-                                            TextSpan(
-                                                text: "8",
-                                                style: TextStyle(
-                                                    fontWeight:
-                                                        FontWeight.w700)),
-                                            TextSpan(
-                                                text: "  Подписчики компании")
-                                          ])),
-                                ],
-                              ),
-                              Divider(height: 12),
-                              Row(
-                                children: [
-                                  SvgPicture.asset('assets/icons/eye.svg',
-                                      width: 24,
-                                      color: ColorComponent.mainColor),
-                                  Divider(indent: 8),
-                                  RichText(
-                                      textAlign: TextAlign.start,
-                                      text: TextSpan(
-                                          style: TextStyle(color: Colors.black),
-                                          children: [
-                                            TextSpan(
-                                                text: "8",
-                                                style: TextStyle(
-                                                    fontWeight:
-                                                        FontWeight.w700)),
-                                            TextSpan(
-                                                text: "  Просмотры страницы")
-                                          ])),
-                                ],
-                              )
-                            ],
-                          ),
-                        ),
-                        Container(
-                          padding: EdgeInsets.all(4),
-                          decoration: BoxDecoration(
-                              color: ColorComponent.mainColor,
-                              borderRadius: BorderRadius.circular(4)),
-                          child: Row(
-                            children: [
-                              SvgPicture.asset('assets/icons/star.svg'),
-                              Divider(indent: 2),
-                              Text("4.92",
-                                  style: TextStyle(
-                                      fontSize: 12,
-                                      fontWeight: FontWeight.w600))
-                            ],
-                          ),
-                        ),
-                      ],
-                    )
-                  ],
-                ),
-              ),
-              Divider(height: 12),
-              ContainerWidget(Row(
-                children: [
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text("Ваш тариф",
-                            style: TextStyle(
-                                color: ColorComponent.gray['500'],
-                                fontWeight: FontWeight.w500)),
-                        Divider(height: 6),
-                        Text("Стартовый",
-                            style: TextStyle(
-                                fontSize: 16, fontWeight: FontWeight.w600)),
-                        Divider(height: 6),
-                        RichText(
-                            textAlign: TextAlign.start,
-                            text: TextSpan(
-                                style: TextStyle(color: Colors.black),
-                                children: [
-                                  TextSpan(
-                                      text: "25",
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.w700)),
-                                  TextSpan(text: " из 50 объявлении")
-                                ])),
-                        Divider(height: 6),
-                        Text("Активен с 12 Октября 2024 ",
-                            style: TextStyle(
-                                fontSize: 12,
-                                color: ColorComponent.gray['500']))
-                      ],
-                    ),
-                  ),
-                  Container(
-                    width: 32,
-                    height: 32,
-                    decoration: BoxDecoration(
-                        color: ColorComponent.mainColor.withOpacity(.2),
-                        borderRadius: BorderRadius.circular(4)),
-                    child: SvgPicture.asset('assets/icons/starOutline.svg'),
-                  )
-                ],
-              )),
+              // ContainerWidget(
+              //   Column(
+              //     children: [
+              //       Row(
+              //         children: [
+              //           CacheImage(
+              //               url:
+              //                   "https://images.unsplash.com/photo-1733077151496-5e2701fc64eb?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxmZWF0dXJlZC1waG90b3MtZmVlZHw3fHx8ZW58MHx8fHx8",
+              //               width: 50,
+              //               height: 50,
+              //               borderRadius: 25),
+              //           Divider(indent: 12),
+              //           Column(
+              //             crossAxisAlignment: CrossAxisAlignment.start,
+              //             children: [
+              //               Text("OYAL ENERJİ JENERATÖR",
+              //                   style: TextStyle(fontWeight: FontWeight.w600)),
+              //               Divider(height: 4),
+              //               Text("ID: 1234567890",
+              //                   style: TextStyle(
+              //                       color: ColorComponent.gray['500']))
+              //             ],
+              //           )
+              //         ],
+              //       ),
+              //       Divider(indent: 8),
+              //       Row(
+              //         crossAxisAlignment: CrossAxisAlignment.start,
+              //         children: [
+              //           Expanded(
+              //             child: Column(
+              //               children: [
+              //                 Row(
+              //                   children: [
+              //                     SvgPicture.asset('assets/icons/users.svg'),
+              //                     Divider(indent: 8),
+              //                     RichText(
+              //                         textAlign: TextAlign.start,
+              //                         text: TextSpan(
+              //                             style: TextStyle(color: Colors.black),
+              //                             children: [
+              //                               TextSpan(
+              //                                   text: "8",
+              //                                   style: TextStyle(
+              //                                       fontWeight:
+              //                                           FontWeight.w700)),
+              //                               TextSpan(
+              //                                   text: "  Подписчики компании")
+              //                             ])),
+              //                   ],
+              //                 ),
+              //                 Divider(height: 12),
+              //                 Row(
+              //                   children: [
+              //                     SvgPicture.asset('assets/icons/eye.svg',
+              //                         width: 24,
+              //                         color: ColorComponent.mainColor),
+              //                     Divider(indent: 8),
+              //                     RichText(
+              //                         textAlign: TextAlign.start,
+              //                         text: TextSpan(
+              //                             style: TextStyle(color: Colors.black),
+              //                             children: [
+              //                               TextSpan(
+              //                                   text: "8",
+              //                                   style: TextStyle(
+              //                                       fontWeight:
+              //                                           FontWeight.w700)),
+              //                               TextSpan(
+              //                                   text: "  Просмотры страницы")
+              //                             ])),
+              //                   ],
+              //                 )
+              //               ],
+              //             ),
+              //           ),
+              //           Container(
+              //             padding: EdgeInsets.all(4),
+              //             decoration: BoxDecoration(
+              //                 color: ColorComponent.mainColor,
+              //                 borderRadius: BorderRadius.circular(4)),
+              //             child: Row(
+              //               children: [
+              //                 SvgPicture.asset('assets/icons/star.svg'),
+              //                 Divider(indent: 2),
+              //                 Text("4.92",
+              //                     style: TextStyle(
+              //                         fontSize: 12,
+              //                         fontWeight: FontWeight.w600))
+              //               ],
+              //             ),
+              //           ),
+              //         ],
+              //       )
+              //     ],
+              //   ),
+              // ),
+              // Divider(height: 12),
+              // ContainerWidget(Row(
+              //   children: [
+              //     Expanded(
+              //       child: Column(
+              //         crossAxisAlignment: CrossAxisAlignment.start,
+              //         children: [
+              //           Text("Ваш тариф",
+              //               style: TextStyle(
+              //                   color: ColorComponent.gray['500'],
+              //                   fontWeight: FontWeight.w500)),
+              //           Divider(height: 6),
+              //           Text("Стартовый",
+              //               style: TextStyle(
+              //                   fontSize: 16, fontWeight: FontWeight.w600)),
+              //           Divider(height: 6),
+              //           RichText(
+              //               textAlign: TextAlign.start,
+              //               text: TextSpan(
+              //                   style: TextStyle(color: Colors.black),
+              //                   children: [
+              //                     TextSpan(
+              //                         text: "25",
+              //                         style: TextStyle(
+              //                             fontWeight: FontWeight.w700)),
+              //                     TextSpan(text: " из 50 объявлении")
+              //                   ])),
+              //           Divider(height: 6),
+              //           Text("Активен с 12 Октября 2024 ",
+              //               style: TextStyle(
+              //                   fontSize: 12,
+              //                   color: ColorComponent.gray['500']))
+              //         ],
+              //       ),
+              //     ),
+              //     Container(
+              //       width: 32,
+              //       height: 32,
+              //       decoration: BoxDecoration(
+              //           color: ColorComponent.mainColor.withOpacity(.2),
+              //           borderRadius: BorderRadius.circular(4)),
+              //       child: SvgPicture.asset('assets/icons/starOutline.svg'),
+              //     )
+              //   ],
+              // )),
               Divider(height: 16),
               Row(
                 children: [
