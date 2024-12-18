@@ -23,7 +23,7 @@ class _AdListLoaderState extends State<AdListLoader> {
                 border: Border(
                     bottom: BorderSide(width: 6, color: Color(0xfff4f5f7)))),
             child: Shimmer.fromColors(
-                baseColor: Color(0xffD1D5DB),
+                baseColor: Color(0xffe5e7eb),
                 highlightColor: Color(0xfff4f5f7),
                 period: Duration(seconds: 1),
                 child: Padding(

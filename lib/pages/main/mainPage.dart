@@ -100,7 +100,7 @@ class _MainPageState extends State<MainPage> {
             Divider(height: 20),
             ApplicationListMain(data: data['applications']),
             Divider(height: 24),
-            AdListMain(scrollController: widget.scrollController)
+            AdListMain(scrollController: widget.scrollController, param: {})
           ]))
         ]),
       ),

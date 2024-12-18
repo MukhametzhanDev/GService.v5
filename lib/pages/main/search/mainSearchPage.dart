@@ -25,21 +25,21 @@ class _MainSearchPageState extends State<MainSearchPage> {
     super.initState();
   }
 
-  @override
-  void dispose() {
-    textEditingController.dispose();
-    super.dispose();
-  }
+  // @override
+  // void dispose() {
+  //   textEditingController.dispose();
+  //   super.dispose();
+  // }
 
   void getResult(String value) {
     CacheSearchTitleData.incrementHistoryData(value);
+    showPage();
   }
 
   void addTitleHistory(value) {
     textEditingController.text = value;
     setState(() {});
     getResult(value);
-    showPage();
   }
 
   void showPage() {

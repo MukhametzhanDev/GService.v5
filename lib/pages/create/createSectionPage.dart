@@ -2,12 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:gservice5/component/button/button.dart';
 import 'package:gservice5/component/button/back/closeIconButton.dart';
 import 'package:gservice5/component/functions/token/changedToken.dart';
+import 'package:gservice5/component/loader/modalLoaderComponent.dart';
 import 'package:gservice5/component/modal/modalBottomSheetWrapper.dart';
+import 'package:gservice5/component/request/verifyContact.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
 import 'package:gservice5/component/widgets/bottom/bottomNavigationBarComponent.dart';
 import 'package:gservice5/pages/auth/emptyTokenPage.dart';
 import 'package:gservice5/pages/create/ad/sectionCreateAdPage.dart';
 import 'package:gservice5/pages/create/application/sectionCreateApplicationPage.dart';
+import 'package:gservice5/pages/profile/contacts/addContactsPage.dart';
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
 class CreateSectionPage extends StatefulWidget {
   const CreateSectionPage({super.key});
@@ -56,6 +60,20 @@ class _CreateSectionPageState extends State<CreateSectionPage> {
   void activedItem(int index) {
     currentIndex = index;
     setState(() {});
+  }
+
+  Future verifyContacts() async {
+    showModalLoader(context);
+    List data = await GetContact().getData(context);
+    print(data);
+    Navigator.pop(context);
+
+    if (data.isEmpty) {
+      showCupertinoModalBottomSheet(
+          context: context, builder: (context) => AddContactsPage());
+    } else {
+      showPage();
+    }
   }
 
   void showPage() {
@@ -134,11 +152,10 @@ class _CreateSectionPageState extends State<CreateSectionPage> {
             ? null
             : BottomNavigationBarComponent(
                 child: Button(
-                    onPressed: showPage,
+                    onPressed: verifyContacts,
                     padding: EdgeInsets.symmetric(horizontal: 15),
                     title: "Продолжить")),
       );
     });
   }
 }
- 

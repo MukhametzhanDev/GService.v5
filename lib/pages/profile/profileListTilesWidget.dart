@@ -42,6 +42,10 @@ class _ProfileListTilesWidgetState extends State<ProfileListTilesWidget> {
     Navigator.pushNamed(context, "MyAdListPage");
   }
 
+  void showContactsPage() {
+    Navigator.pushNamed(context, "AddContactsPage");
+  }
+
   void showNewsPage() {
     Navigator.push(
         context, MaterialPageRoute(builder: (context) => NewsMainPage()));
@@ -82,6 +86,16 @@ class _ProfileListTilesWidgetState extends State<ProfileListTilesWidget> {
               onTap: () => showMyAdPage(),
               leading: SvgPicture.asset('assets/icons/clipboardOutline.svg'),
               title: Text("Мои объявления"),
+              trailing: SvgPicture.asset('assets/icons/right.svg')),
+        ),
+        Container(
+          decoration: BoxDecoration(
+              border: Border.all(width: 1, color: Color(0xfff4f5f7))),
+          child: ListTile(
+              onTap: () => showContactsPage(),
+              leading: SvgPicture.asset('assets/icons/phone.svg',
+                  color: ColorComponent.mainColor),
+              title: Text("Контакты"),
               trailing: SvgPicture.asset('assets/icons/right.svg')),
         ),
         // Container(

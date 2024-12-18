@@ -70,12 +70,9 @@ class _ListPackagePageState extends State<ListPackagePage> {
   }
 
   void onChangedPackage(Map value) {
-    int price = value['price'];
     if (value['id'] == currentPackage?['id']) {
-      totalPrice -= price;
       currentPackage = null;
     } else {
-      totalPrice += price;
       currentPackage = value;
     }
     setState(() {});
@@ -137,72 +134,69 @@ class _ListPackagePageState extends State<ListPackagePage> {
                       //     rubricId: widget.rubricId,
                       //     onChangedStickers: onChangedStickers),
 
-                      Container(
-                          decoration: BoxDecoration(
-                              color: Colors.white,
-                              boxShadow: [
-                                BoxShadow(
-                                    color: Colors.black.withOpacity(.1),
-                                    blurRadius: 5,
-                                    offset: Offset(0, 1))
-                              ],
-                              borderRadius: BorderRadius.circular(12),
-                              border: Border.all(
-                                  color: Color(0xffeeeeee),
-                                  //  hexToColor(data['color']),
-                                  width: 1)),
-                          padding: EdgeInsets.all(16),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text("Стандарт 24 часа",
-                                  style: TextStyle(
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.w700)),
-                              Column(
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          currentPackage != null
+                              ? Container()
+                              : Column(
                                   children: promotions.map((value) {
-                                return GestureDetector(
-                                  onTap: () => onChangedStickers(value),
-                                  child: Container(
-                                    margin: EdgeInsets.only(top: 12),
-                                    padding: EdgeInsets.symmetric(
-                                        horizontal: 12, vertical: 8),
-                                    decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(10),
-                                        border: Border.all(
-                                            width: 1,
-                                            color: Color(0xffeeeeee))),
-                                    child: Row(
-                                      children: [
-                                        CheckBoxWidget(active: true),
-                                        Divider(indent: 16),
-                                        Expanded(
-                                          child: Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              Text(
-                                                value['title'] ?? "",
-                                                style: TextStyle(fontSize: 16),
-                                              ),
-                                              Divider(height: 6),
-                                              Text(
-                                                "${priceFormat(value['price'])} ₸",
-                                                style: TextStyle(
-                                                    fontWeight:
-                                                        FontWeight.w600),
-                                              )
-                                            ],
+                                  bool active = value['active'] ?? false;
+                                  return GestureDetector(
+                                    onTap: () => onChangedStickers(value),
+                                    child: Container(
+                                      margin: EdgeInsets.only(top: 12),
+                                      padding: EdgeInsets.symmetric(
+                                          horizontal: 14, vertical: 14),
+                                      decoration: BoxDecoration(
+                                          color: Colors.white,
+                                          boxShadow: [
+                                            BoxShadow(
+                                                color: Colors.black
+                                                    .withOpacity(.1),
+                                                blurRadius: 5,
+                                                offset: Offset(0, 1))
+                                          ],
+                                          borderRadius:
+                                              BorderRadius.circular(12),
+                                          border: Border.all(
+                                              color: Color(0xffeeeeee),
+                                              width: 1)),
+                                      child: Row(
+                                        children: [
+                                          CheckBoxWidget(active: true),
+                                          Divider(indent: 16),
+                                          Expanded(
+                                            child: Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                Text(
+                                                  "${value['value']} ${promotionTitle[value['id']]}",
+                                                  style:
+                                                      TextStyle(fontSize: 16),
+                                                ),
+                                                Divider(height: 6),
+                                                Text(
+                                                  "${priceFormat(value['price'])} ₸",
+                                                  style: TextStyle(
+                                                      fontWeight:
+                                                          FontWeight.w600),
+                                                )
+                                              ],
+                                            ),
                                           ),
-                                        ),
-                                        SvgPicture.network(value['icon'])
-                                      ],
+                                          SvgPicture.network(
+                                            value['icon'],
+                                            width: 20,
+                                          )
+                                        ],
+                                      ),
                                     ),
-                                  ),
-                                );
-                              }).toList())
-                            ],
-                          )),
+                                  );
+                                }).toList())
+                        ],
+                      ),
                       Divider(height: 24),
                       Text("Стикеры по 100 ₸",
                           style: TextStyle(
@@ -244,7 +238,8 @@ class _ListPackagePageState extends State<ListPackagePage> {
                       SizedBox(height: 12),
                       Button(
                           onPressed: validateData,
-                          title: "Подать за $totalPrice ₸"),
+                          title:
+                              "Подать за ${totalPrice + (currentPackage?['price'] ?? 0)} ₸"),
                       SizedBox(height: 12),
                       Button(
                           onPressed: showSuccessfullyPage,
@@ -259,3 +254,10 @@ class _ListPackagePageState extends State<ListPackagePage> {
         ));
   }
 }
+
+Map promotionTitle = {
+  1: "дней на GService.kz",
+  2: "раз поднятие в поиске",
+  3: "раз в блоке «Топ»",
+  4: "раз в блоке «Премиум»"
+};

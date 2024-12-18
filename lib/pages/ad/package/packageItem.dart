@@ -3,6 +3,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:gservice5/component/button/button.dart';
 import 'package:gservice5/component/formatted/price/priceFormat.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
+import 'package:gservice5/pages/ad/package/listPackagePage.dart';
 
 class PackageItem extends StatelessWidget {
   final Map data;
@@ -13,6 +14,7 @@ class PackageItem extends StatelessWidget {
       required this.data,
       required this.onChangedPackage,
       required this.active});
+
 
   int getDiscount() {
     if (data['old_price'] == 0 || data['old_price'] == null) {
@@ -70,6 +72,8 @@ class PackageItem extends StatelessWidget {
                 ),
               ]),
               SizedBox(height: 8),
+              Text(data['description']),
+              SizedBox(height: 12),
               Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: promotions
@@ -81,7 +85,8 @@ class PackageItem extends StatelessWidget {
                               width: 20,
                             ),
                             SizedBox(width: 8),
-                            Text("28 дней на GService.kz",
+                            Text(
+                                "${detail['value']} ${promotionTitle[detail['id']]}",
                                 style: TextStyle(
                                     fontSize: 14, fontWeight: FontWeight.w400))
                           ])))

@@ -1,16 +1,19 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:gservice5/component/dio/dio.dart';
 import 'package:gservice5/component/loader/paginationLoaderComponent.dart';
 import 'package:gservice5/component/snackBar/snackBarComponent.dart';
 import 'package:gservice5/pages/ad/item/adItem.dart';
 import 'package:gservice5/pages/ad/list/adListLoader.dart';
-import 'package:shimmer/shimmer.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 class AdListMain extends StatefulWidget {
   final ScrollController scrollController;
-  const AdListMain({super.key, required this.scrollController});
+  final Map<String, dynamic> param;
+  const AdListMain(
+      {super.key,
+      required this.scrollController,
+      required this.param});
 
   @override
   State<AdListMain> createState() => _AdListMainState();
@@ -49,7 +52,7 @@ class _AdListMainState extends State<AdListMain> {
     try {
       page = 1;
       showLoader();
-      Response response = await dio.get("/ad");
+      Response response = await dio.get("/ad", queryParameters: widget.param);
       print(response.data);
       if (response.statusCode == 200) {
         data = response.data['data'];
@@ -73,8 +76,8 @@ class _AdListMainState extends State<AdListMain> {
         isLoadMore = true;
         page += 1;
         setState(() {});
-        Response response =
-            await dio.get("/ad", queryParameters: {"page": page.toString()});
+        Response response = await dio.get("/ad",
+            queryParameters: {"page": page.toString(), ...widget.param});
         print(response.data);
         if (response.statusCode == 200) {
           data.addAll(response.data['data']);
@@ -95,12 +98,14 @@ class _AdListMainState extends State<AdListMain> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Padding(
-          padding: const EdgeInsets.only(left: 15, right: 15, bottom: 10),
-          child: Text("Объявление",
-              style: TextStyle(
-                  fontSize: 16, fontWeight: FontWeight.w600, height: 1)),
-        ),
+        widget.param.isNotEmpty
+            ? Container()
+            : Padding(
+                padding: const EdgeInsets.only(left: 15, right: 15, bottom: 10),
+                child: Text("Спецтехники по Казахстану",
+                    style: TextStyle(
+                        fontSize: 16, fontWeight: FontWeight.w600, height: 1)),
+              ),
         loader
             ? AdListLoader()
             : ListView.builder(

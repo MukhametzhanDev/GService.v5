@@ -13,6 +13,7 @@ import 'package:gservice5/pages/auth/registration/business/contractor/getActivit
 import 'package:gservice5/pages/create/ad/sectionCreateAdPage.dart';
 import 'package:gservice5/pages/create/application/createApplication.dart';
 import 'package:gservice5/pages/create/structure/controllerPage/pageControllerIndexedStack.dart';
+import 'package:gservice5/pages/profile/contacts/addContactsPage.dart';
 import 'package:gservice5/pages/profile/news/allNewsPage.dart';
 import 'package:gservice5/pages/profile/wallet/replenishment/replenishmentWalletPage.dart';
 import 'package:gservice5/pages/splash/splashScreen.dart';
@@ -58,6 +59,7 @@ class _IndexState extends State<Index> {
               "AllNewsPage": (context) => AllNewsPage(),
               "GetActivityContractorPage": (context) =>
                   GetActivityContractorPage(),
+              "AddContactsPage": (context) => AddContactsPage(),
             },
           );
         }));

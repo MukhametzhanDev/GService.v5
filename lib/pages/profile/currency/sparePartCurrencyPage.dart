@@ -50,13 +50,12 @@ class _SparePartCurrencyPageState extends State<SparePartCurrencyPage> {
       List<Map<String, dynamic>> currencyData = data.map((item) {
         return {
           "currency_id": item['currency']['id'],
-          "value": item['in_tenge'],
-          "category_id": "4"
+          "value": item['in_tenge']
         };
       }).toList();
       print(currencyData);
-      Response response = await dio
-          .post("/company-currency", data: {"company_currency": currencyData});
+      Response response = await dio.post("/company-currency",
+          data: {"company_currency": currencyData, "category_id": "4"});
       print(response.data);
       if (response.statusCode == 200 && response.data['success']) {
         Navigator.pop(context);

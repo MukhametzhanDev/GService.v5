@@ -51,7 +51,8 @@ class _GetCurrencyModalState extends State<GetCurrencyModal> {
               child: Column(
             children: [
               ExplanatoryMessage(
-                  title: "title",
+                  title:
+                      "Конвертер валют создан для удобного расчета цен при покупках за границей. Курсы произвольные и не являются официальными. Все цены в объявлениях отображаются в тенге.",
                   padding: EdgeInsets.only(bottom: 15, left: 15, right: 15),
                   type: "get_currency"),
               Column(

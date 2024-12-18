@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:gservice5/component/counter/counterClickStatistic.dart';
 import 'package:gservice5/component/dio/dio.dart';
 import 'package:gservice5/component/functions/token/changedToken.dart';
 import 'package:gservice5/component/snackBar/snackBarComponent.dart';
@@ -50,6 +51,7 @@ class _FavoriteButtonState extends State<FavoriteButton> {
           "favoritable_id": widget.id,
           "favoritable_type": widget.type
         });
+        await getCountClickApplication(widget.id, "favorite");
       }
     } catch (e) {
       print(e);

@@ -5,8 +5,6 @@ import 'package:gservice5/component/button/back/backTitleButton.dart';
 import 'package:gservice5/component/button/button.dart';
 import 'package:gservice5/component/dio/dio.dart';
 import 'package:gservice5/component/loader/loaderComponent.dart';
-import 'package:gservice5/component/loader/modalLoaderComponent.dart';
-import 'package:gservice5/component/request/verifyContact.dart';
 import 'package:gservice5/component/snackBar/snackBarComponent.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
 import 'package:gservice5/component/widgets/bottom/bottomNavigationBarComponent.dart';
@@ -73,7 +71,7 @@ class _SectionCreateAdPageState extends State<SectionCreateAdPage> {
       "name": "city_id",
       "multiple": false
     });
-    verifyContacts();
+    showOptionsPage();
   }
 
   void showOptionsPage() {
@@ -94,19 +92,6 @@ class _SectionCreateAdPageState extends State<SectionCreateAdPage> {
       Map param = {key: CreateData.data[key] ?? ""};
       return param;
     }
-  }
-
-  Future verifyContacts() async {
-    showModalLoader(context);
-    List data = await GetContact().getData(context);
-    print(data);
-    Navigator.pop(context);
-      showOptionsPage();
-    // if (data.isEmpty) {
-    //   // showCupertinoModalBottomSheet(context: context, builder:(context) => Get);
-    // } else {
-    //   showOptionsPage();
-    // }
   }
 
   @override
