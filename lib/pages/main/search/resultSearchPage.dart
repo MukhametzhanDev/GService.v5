@@ -36,25 +36,20 @@ class _ResultSearchPageState extends State<ResultSearchPage> {
   }
 
   Future getDataCountAd() async {
-    if (count.isNotEmpty) {
-      try {
-        Response response = await dio
-            .get("/search-count", queryParameters: {"title": widget.title});
-        if (response.statusCode == 200 && response.data['success']) {
-          count = formattedData(response.data['data']);
-          loader = false;
-          setState(() {});
-          getResultAd();
-        } else {
-          SnackBarComponent().showResponseErrorMessage(response, context);
-        }
-      } catch (e) {
-        SnackBarComponent().showNotGoBackServerErrorMessage(context);
+    print("TITLE --> ${widget.title}");
+    try {
+      Response response = await dio
+          .get("/search-count", queryParameters: {"title": widget.title});
+      if (response.statusCode == 200 && response.data['success']) {
+        count = formattedData(response.data['data']);
+        loader = false;
+        setState(() {});
+        getResultAd();
+      } else {
+        SnackBarComponent().showResponseErrorMessage(response, context);
       }
-    } else {
-      loader = false;
-      loaderAd = false;
-      setState(() {});
+    } catch (e) {
+      SnackBarComponent().showNotGoBackServerErrorMessage(context);
     }
   }
 
@@ -67,22 +62,28 @@ class _ResultSearchPageState extends State<ResultSearchPage> {
   }
 
   Future getResultAd() async {
-    showLoader();
-    try {
-      Response response = await dio.get("/search", queryParameters: {
-        "title": widget.title,
-        "category_id": count[currentIndex]['id'],
-        "per_page": 15
-      });
-      if (response.statusCode == 200 && response.data['success']) {
-        data = response.data['data'];
-        loaderAd = false;
-        setState(() {});
-      } else {
-        SnackBarComponent().showResponseErrorMessage(response, context);
+    if (count.isNotEmpty) {
+      showLoader();
+      try {
+        Response response = await dio.get("/search", queryParameters: {
+          "title": widget.title,
+          "category_id": count[currentIndex]['id'],
+          "per_page": 15
+        });
+        if (response.statusCode == 200 && response.data['success']) {
+          data = response.data['data'];
+          loaderAd = false;
+          setState(() {});
+        } else {
+          SnackBarComponent().showResponseErrorMessage(response, context);
+        }
+      } catch (e) {
+        SnackBarComponent().showNotGoBackServerErrorMessage(context);
       }
-    } catch (e) {
-      SnackBarComponent().showNotGoBackServerErrorMessage(context);
+    } else {
+      loader = false;
+      loaderAd = false;
+      setState(() {});
     }
   }
 

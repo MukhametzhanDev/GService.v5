@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:gservice5/component/button/back/closeIconButton.dart';
+import 'package:gservice5/component/theme/colorComponent.dart';
 import 'package:photo_view/photo_view.dart';
 
 class ViewImageModal extends StatefulWidget {
@@ -58,6 +60,13 @@ class _ViewImageModalState extends State<ViewImageModal> {
                   minScale: PhotoViewComputedScale.contained,
                   maxScale: PhotoViewComputedScale.covered * 2,
                   backgroundDecoration: BoxDecoration(color: Colors.black),
+                  errorBuilder: (context, error, stackTrace) {
+                    return Container(
+                      alignment: Alignment.center,
+                      child: SvgPicture.asset('assets/icons/warningAlarm.svg',
+                          color: Colors.white, height: 50, width: 50),
+                    );
+                  },
                   imageProvider: NetworkImage(
                       widget.data[index].runtimeType == String
                           ? widget.data[index]

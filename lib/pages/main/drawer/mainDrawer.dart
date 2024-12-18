@@ -125,8 +125,8 @@ class _MainDrawerState extends State<MainDrawer> {
               ],
             ),
           ),
-          bottomNavigationBar:
-              BottomNavigationBarComponent(child: ChangedAccountWidget()),
+          // bottomNavigationBar:
+          //     BottomNavigationBarComponent(child: ChangedAccountWidget()),
         ));
   }
 }

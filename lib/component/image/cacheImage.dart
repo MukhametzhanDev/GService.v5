@@ -2,6 +2,8 @@
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:gservice5/component/theme/colorComponent.dart';
 import 'package:shimmer/shimmer.dart';
 
 class CacheImage extends StatelessWidget {
@@ -54,17 +56,16 @@ class CacheImage extends StatelessWidget {
                 );
               },
               errorWidget: (context, url, error) {
-                return Container();
-                // Container(
-                //   alignment: Alignment.center,
-                //   // color: ThemeColor['surring_dark'],
-                //   child: SvgPicture.asset(
-                //     'assets/icons/miniLogo.svg',
-                //     color: ColorComponent.gray200,
-                //     height: height / 5,
-                //     width: height / 5,
-                //   ),
-                // );
+                return Container(
+                  alignment: Alignment.center,
+                  color: ColorComponent.gray['100'],
+                  child: SvgPicture.asset(
+                    'assets/icons/warningAlarm.svg',
+                    color: ColorComponent.gray['500'],
+                    height: height / 4,
+                    width: height / 4,
+                  ),
+                );
               }),
     );
   }
