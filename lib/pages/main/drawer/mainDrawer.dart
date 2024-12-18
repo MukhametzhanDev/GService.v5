@@ -4,10 +4,8 @@ import 'package:gservice5/component/appBar/leadingLogo.dart';
 import 'package:gservice5/component/categories/data/categoriesData.dart';
 import 'package:gservice5/component/request/getCategories.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
-import 'package:gservice5/component/widgets/bottom/bottomNavigationBarComponent.dart';
 import 'package:gservice5/pages/ad/list/adListPage.dart';
 import 'package:gservice5/pages/auth/accountType/changed/changedAccountTypePage.dart';
-import 'package:gservice5/pages/auth/accountType/changed/changedAccountWidget.dart';
 import 'package:gservice5/pages/main/drawer/drawerOptions.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
@@ -106,7 +104,8 @@ class _MainDrawerState extends State<MainDrawer> {
                     children: options.map((value) {
                       return GestureDetector(
                         onTap: () => showDrawerPage(value),
-                        child: SizedBox(
+                        child: Container(
+                          color: Colors.white,
                           height: 48,
                           child: Row(
                             children: [

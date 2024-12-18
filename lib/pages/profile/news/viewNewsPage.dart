@@ -62,6 +62,7 @@ class _ViewNewsPageState extends State<ViewNewsPage> {
 
   @override
   Widget build(BuildContext context) {
+    List tags = data['news_tags'];
     return Scaffold(
       appBar: AppBar(
           automaticallyImplyLeading: false,
@@ -73,7 +74,7 @@ class _ViewNewsPageState extends State<ViewNewsPage> {
       body: loader
           ? LoaderComponent()
           : SingleChildScrollView(
-              padding: EdgeInsets.all(16),
+              padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -81,7 +82,7 @@ class _ViewNewsPageState extends State<ViewNewsPage> {
                       maxLines: 3,
                       style:
                           TextStyle(fontSize: 20, fontWeight: FontWeight.w600)),
-                  Divider(indent: 12),
+                  Divider(height: 12),
                   Row(children: [
                     Text(
                         formattedDate(
@@ -209,10 +210,24 @@ class _ViewNewsPageState extends State<ViewNewsPage> {
                   //     padding: EdgeInsets.zero,
                   //     widthIcon: null,
                   //     title: "Отправить"),
+                  Divider(height: 16),
+                  Wrap(
+                      spacing: 8,
+                      runSpacing: 8,
+                      children: tags.map((value) {
+                        return Container(
+                            padding: EdgeInsets.symmetric(
+                                horizontal: 6, vertical: 2),
+                            decoration: BoxDecoration(
+                                color: ColorComponent.mainColor.withOpacity(.2),
+                                borderRadius: BorderRadius.circular(4)),
+                            child: Text(value['title'],
+                                style: TextStyle(fontSize: 12)));
+                      }).toList()),
                   Divider(height: 8),
                   Divider(color: ColorComponent.gray['100']),
                   Divider(height: 8),
-                  AuthorAdWidget(title: "Автор", data: data['author']),
+                  // AuthorAdWidget(title: "Автор", data: data['author']),
                   Divider(height: 12),
                 ],
               ),
