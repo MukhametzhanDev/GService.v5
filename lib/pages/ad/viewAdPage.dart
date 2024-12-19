@@ -77,7 +77,7 @@ class _ViewAdPageState extends State<ViewAdPage> {
       statusCode: statusCode,
       child: Scaffold(
           body: loader
-              ? LoaderComponent()
+              ? const LoaderComponent()
               : CustomScrollView(controller: scrollController, slivers: [
                   SliverAppBar(
                     pinned: true,
@@ -86,13 +86,13 @@ class _ViewAdPageState extends State<ViewAdPage> {
                     actions: [
                       // FavoriteButtonComponent(iconColor: ColorTheme['black_white']),
                       ShareButton(id: widget.id, hasAd: true),
-                      Divider(indent: 10),
+                      const Divider(indent: 10),
                       FavoriteButton(
                         id: data['id'],
                         type: "ad",
                         active: data['is_favorite'],
                       ),
-                      Divider(indent: 15)
+                      const Divider(indent: 15)
                     ],
                     title: FadeOnScroll(
                       scrollController: scrollController,
@@ -106,7 +106,7 @@ class _ViewAdPageState extends State<ViewAdPage> {
                                   fontWeight: FontWeight.w500,
                                   color: ColorComponent.blue['700']),
                               maxLines: 1),
-                          Divider(height: 4),
+                          const Divider(height: 4),
                           PriceTextWidget(prices: data['price'], fontSize: 14)
                         ],
                       ),
@@ -146,18 +146,18 @@ class _ViewAdPageState extends State<ViewAdPage> {
                                             color: ColorComponent.blue['700'],
                                             fontWeight: FontWeight.w600)),
                                   ),
-                                  Divider(indent: 16),
+                                  const Divider(indent: 16),
                                   Container(
                                     height: 24,
                                     padding:
-                                        EdgeInsets.symmetric(horizontal: 8),
+                                        const EdgeInsets.symmetric(horizontal: 8),
                                     alignment: Alignment.center,
                                     decoration: BoxDecoration(
                                         color: ColorComponent.mainColor,
                                         borderRadius: BorderRadius.circular(6)),
                                     child: Text(
                                       data['category']['title'],
-                                      style: TextStyle(
+                                      style: const TextStyle(
                                           height: 1,
                                           fontSize: 12,
                                           fontWeight: FontWeight.w600),
@@ -165,7 +165,7 @@ class _ViewAdPageState extends State<ViewAdPage> {
                                   ),
                                 ],
                               ),
-                              Divider(height: 6),
+                              const Divider(height: 6),
                               PriceTextWidget(
                                   prices: data['prices'], fontSize: 16),
                               const SizedBox(height: 4),
@@ -183,11 +183,11 @@ class _ViewAdPageState extends State<ViewAdPage> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               // Divider(indent: 24),
-                              Text("Характеристики",
+                              const Text("Характеристики",
                                   style: TextStyle(
                                       fontSize: 18,
                                       fontWeight: FontWeight.w600)),
-                              Divider(height: 4),
+                              const Divider(height: 4),
                               ShowCharacteristicWidget(
                                   title: "Город", subTitle: data['city']),
                               ShowCharacteristicWidget(
@@ -218,7 +218,7 @@ class _ViewAdPageState extends State<ViewAdPage> {
                                   height: 1, color: ColorComponent.gray['50']),
                               const SizedBox(height: 10),
                               ShowDescriptionWidget(desc: data['description']),
-                              Divider(indent: 16),
+                              const Divider(indent: 16),
                               SizedBox(
                                 height: 41,
                                 child: Button(
@@ -228,7 +228,7 @@ class _ViewAdPageState extends State<ViewAdPage> {
                                     icon: "alert.svg",
                                     title: "Пожаловаться на объявление"),
                               ),
-                              Divider(indent: 16),
+                              const Divider(indent: 16),
                               Row(
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
@@ -239,7 +239,7 @@ class _ViewAdPageState extends State<ViewAdPage> {
                                           style: TextStyle(
                                               color: ColorComponent.gray["500"],
                                               fontSize: 12)),
-                                      Divider(indent: 16),
+                                      const Divider(indent: 16),
                                       Text(formattedDate(data['created_at']),
                                           style: TextStyle(
                                               color: ColorComponent.gray["500"],
@@ -261,16 +261,16 @@ class _ViewAdPageState extends State<ViewAdPage> {
                                   ),
                                 ],
                               ),
-                              Divider(height: 14),
-                              Divider(height: 1, color: Color(0xfff4f5f7)),
-                              Divider(height: 12),
+                              const Divider(height: 14),
+                              const Divider(height: 1, color: Color(0xfff4f5f7)),
+                              const Divider(height: 12),
                               // AuthorAdWidget(
                               //     title: "О владельце объявления", data: {}),
-                              Divider(indent: 16)
+                              const Divider(indent: 16)
                             ],
                           ),
                         ),
-                        RecommendationAdList(),
+                        const RecommendationAdList(),
                       ],
                     ),
                   ),

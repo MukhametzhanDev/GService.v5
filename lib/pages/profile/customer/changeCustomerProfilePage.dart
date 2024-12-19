@@ -128,10 +128,10 @@ class _ChangeCustomerProfilePageState extends State<ChangeCustomerProfilePage> {
       child: Scaffold(
         appBar: AppBar(
             centerTitle: false,
-            leading: BackIconButton(),
-            title: Text("Изменить данные компании")),
+            leading: const BackIconButton(),
+            title: const Text("Изменить данные компании")),
         body: SingleChildScrollView(
-          padding: EdgeInsets.all(15),
+          padding: const EdgeInsets.all(15),
           child: Column(children: [
             GetLogoWidget(
                 imageUrl: widget.data['avatar'],
@@ -139,23 +139,23 @@ class _ChangeCustomerProfilePageState extends State<ChangeCustomerProfilePage> {
                   imagePath = path;
                   setState(() {});
                 }),
-            Divider(height: 24),
+            const Divider(height: 24),
             SelectButton(
                 title: currentCity.isNotEmpty
                     ? currentCity['title']
                     : "Выберите город",
                 active: currentCity.isNotEmpty,
                 onPressed: showCityModal),
-            Divider(indent: 8),
+            const Divider(indent: 8),
             TextField(
                 controller: nameEditingController,
-                style: TextStyle(fontSize: 14),
+                style: const TextStyle(fontSize: 14),
                 keyboardType: TextInputType.text,
-                decoration: InputDecoration(hintText: "Название компании")),
-            Divider(indent: 8),
+                decoration: const InputDecoration(hintText: "Название компании")),
+            const Divider(indent: 8),
             TextField(
                 controller: identifierEditingController,
-                style: TextStyle(fontSize: 14),
+                style: const TextStyle(fontSize: 14),
                 keyboardType: TextInputType.number,
                 maxLength: 12,
                 decoration: InputDecoration(
@@ -166,7 +166,7 @@ class _ChangeCustomerProfilePageState extends State<ChangeCustomerProfilePage> {
         bottomNavigationBar: BottomNavigationBarComponent(
             child: Button(
                 onPressed: () => verifyData(),
-                padding: EdgeInsets.symmetric(horizontal: 15),
+                padding: const EdgeInsets.symmetric(horizontal: 15),
                 title: "Изменить")),
       ),
     );

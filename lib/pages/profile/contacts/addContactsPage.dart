@@ -152,11 +152,11 @@ class _AddContactsPageState extends State<AddContactsPage> {
     return GestureDetector(
       onTap: () => closeKeyboard(),
       child: Scaffold(
-        appBar: AppBar(title: Text("Контакты"), leading: BackIconButton()),
+        appBar: AppBar(title: const Text("Контакты"), leading: const BackIconButton()),
         body: loader
-            ? LoaderComponent()
+            ? const LoaderComponent()
             : SingleChildScrollView(
-                padding: EdgeInsets.all(15),
+                padding: const EdgeInsets.all(15),
                 child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -165,11 +165,11 @@ class _AddContactsPageState extends State<AddContactsPage> {
                           style: TextStyle(
                               fontWeight: FontWeight.w500,
                               color: ColorComponent.gray['500'])),
-                      SizedBox(height: 16),
-                      Text("Телефонные номера",
+                      const SizedBox(height: 16),
+                      const Text("Телефонные номера",
                           style: TextStyle(
                               fontWeight: FontWeight.w600, fontSize: 16)),
-                      SizedBox(height: 12),
+                      const SizedBox(height: 12),
                       Column(
                           children: phoneNumber.map((value) {
                         int index = phoneNumber.indexOf(value);
@@ -179,7 +179,7 @@ class _AddContactsPageState extends State<AddContactsPage> {
                             children: [
                               Expanded(
                                 child: TextFormField(
-                                  autofillHints: [
+                                  autofillHints: const [
                                     AutofillHints.telephoneNumber
                                   ],
                                   keyboardType: TextInputType.number,
@@ -194,10 +194,10 @@ class _AddContactsPageState extends State<AddContactsPage> {
                                     }
                                   },
                                   initialValue: value['value'],
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                       fontSize: 14, color: Colors.black),
                                   decoration: InputDecoration(
-                                      contentPadding: EdgeInsets.symmetric(
+                                      contentPadding: const EdgeInsets.symmetric(
                                           horizontal: 0, vertical: 0),
                                       counterStyle: TextStyle(
                                           fontSize: 12,
@@ -206,7 +206,7 @@ class _AddContactsPageState extends State<AddContactsPage> {
                                       helperStyle: TextStyle(
                                           fontSize: 14,
                                           color: ColorComponent.gray['500']),
-                                      prefixIconConstraints: BoxConstraints(
+                                      prefixIconConstraints: const BoxConstraints(
                                           minHeight: 42, maxHeight: 50),
                                       prefixIcon: Container(
                                         height: 54,
@@ -217,10 +217,10 @@ class _AddContactsPageState extends State<AddContactsPage> {
                                               showCountryCodes(value);
                                             },
                                             style: TextButton.styleFrom(
-                                                side: BorderSide(
+                                                side: const BorderSide(
                                                     width: 1,
                                                     color: Color(0xffe5e7eb)),
-                                                shape: RoundedRectangleBorder(
+                                                shape: const RoundedRectangleBorder(
                                                     borderRadius:
                                                         BorderRadius.only(
                                                             topLeft: Radius
@@ -234,7 +234,7 @@ class _AddContactsPageState extends State<AddContactsPage> {
                                                   color: ColorComponent
                                                       .gray['100'],
                                                   borderRadius:
-                                                      BorderRadius.only(
+                                                      const BorderRadius.only(
                                                           topLeft:
                                                               Radius.circular(
                                                                   8),
@@ -252,14 +252,14 @@ class _AddContactsPageState extends State<AddContactsPage> {
                                                         value['country']
                                                             ['flag'],
                                                         width: 18),
-                                                    SizedBox(width: 4),
+                                                    const SizedBox(width: 4),
                                                     Text(
                                                         " +${value['country']['phone_code']}",
-                                                        style: TextStyle(
+                                                        style: const TextStyle(
                                                             fontWeight:
                                                                 FontWeight
                                                                     .w500)),
-                                                    SizedBox(width: 8),
+                                                    const SizedBox(width: 8),
                                                     SvgPicture.asset(
                                                         'assets/icons/down.svg')
                                                   ]),
@@ -298,7 +298,7 @@ class _AddContactsPageState extends State<AddContactsPage> {
                               child: Row(
                                 children: [
                                   SvgPicture.asset('assets/icons/plusBlue.svg'),
-                                  SizedBox(width: 12),
+                                  const SizedBox(width: 12),
                                   Text("Добавить номер телефона",
                                       style: TextStyle(
                                           fontSize: 14,
@@ -306,14 +306,14 @@ class _AddContactsPageState extends State<AddContactsPage> {
                                           color: ColorComponent.blue['500']))
                                 ],
                               )),
-                      SizedBox(height: 16),
+                      const SizedBox(height: 16),
                     ]),
               ),
         bottomNavigationBar: BottomNavigationBarComponent(
             child: Button(
           onPressed: verifyData,
           title: "Сохранить",
-          padding: EdgeInsets.symmetric(horizontal: 16),
+          padding: const EdgeInsets.symmetric(horizontal: 16),
         )),
       ),
     );

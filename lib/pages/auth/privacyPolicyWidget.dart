@@ -14,13 +14,13 @@ class _PrivacyPolicyWidgetState extends State<PrivacyPolicyWidget> {
   Widget build(BuildContext context) {
     return RichText(
         text: TextSpan(
-            style: TextStyle(
+            style: const TextStyle(
                 fontWeight: FontWeight.w500,
                 color: Colors.black,
                 height: 1.4,
                 fontSize: 13),
             children: [
-          TextSpan(text: "Продолжая регистрацию вы соглашаетесь с "),
+          const TextSpan(text: "Продолжая регистрацию вы соглашаетесь с "),
           TextSpan(
             text: "правилами пользования",
             style: TextStyle(
@@ -31,7 +31,7 @@ class _PrivacyPolicyWidgetState extends State<PrivacyPolicyWidget> {
                 print('object');
               },
           ),
-          TextSpan(text: " и "),
+          const TextSpan(text: " и "),
           TextSpan(
             text: "политикой конфиденциальности",
             style: TextStyle(

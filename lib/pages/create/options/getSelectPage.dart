@@ -189,10 +189,10 @@ class _GetSelectPageState extends State<GetSelectPage> {
                 child: SearchTextField(title: "Поиск", onChanged: searchList)),
         Expanded(
           child: loader
-              ? LoaderComponent()
+              ? const LoaderComponent()
               : data.isEmpty
-                  ? Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 15),
+                  ? const Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 15),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -210,7 +210,7 @@ class _GetSelectPageState extends State<GetSelectPage> {
                         ],
                       ))
                   : ListView.builder(
-                      padding: EdgeInsets.symmetric(vertical: 15),
+                      padding: const EdgeInsets.symmetric(vertical: 15),
                       itemCount: data.length,
                       controller: scrollController,
                       itemBuilder: (context, index) {
@@ -219,7 +219,7 @@ class _GetSelectPageState extends State<GetSelectPage> {
                           return Column(children: [
                             Item(value),
                             isLoadMore
-                                ? LoaderPaginationComponent()
+                                ? const LoaderPaginationComponent()
                                 : Container()
                           ]);
                         } else {
@@ -234,13 +234,13 @@ class _GetSelectPageState extends State<GetSelectPage> {
               ? BottomNavigationBarComponent(
                   child: Button(
                       onPressed: () => savedData(),
-                      padding: EdgeInsets.symmetric(horizontal: 15),
+                      padding: const EdgeInsets.symmetric(horizontal: 15),
                       title: "Пропустить"))
               : widget.value['multiple']
                   ? BottomNavigationBarComponent(
                       child: Button(
                           onPressed: () => savedData(),
-                          padding: EdgeInsets.symmetric(horizontal: 15),
+                          padding: const EdgeInsets.symmetric(horizontal: 15),
                           title: "Продолжить"))
                   : null,
     );
@@ -249,7 +249,7 @@ class _GetSelectPageState extends State<GetSelectPage> {
   Widget Item(Map value) {
     bool active = value['active'] ?? false;
     return Container(
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
           border: Border(top: BorderSide(width: 1, color: Color(0xffF5f5f5)))),
       child: ListTile(
         onTap: () => activedItem(value),
@@ -272,7 +272,7 @@ class _GetSelectPageState extends State<GetSelectPage> {
       decoration: BoxDecoration(
           color: active ? ColorComponent.blue['500'] : Colors.white,
           border: Border.all(
-              width: 1, color: active ? Color(0xff3f83f8) : Color(0xff9fa6b2)),
+              width: 1, color: active ? const Color(0xff3f83f8) : const Color(0xff9fa6b2)),
           borderRadius: BorderRadius.circular(4)),
       child: active
           ? SvgPicture.asset('assets/icons/check.svg', color: Colors.white)

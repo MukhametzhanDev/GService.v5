@@ -41,11 +41,11 @@ class _CountryCodeListModalState extends State<CountryCodeListModal> {
     return ModalBottomSheetWrapper(builder: (context, physics) {
       return Scaffold(
         appBar: AppBar(
-          title: Text("Выберите код страны"),
+          title: const Text("Выберите код страны"),
           leading: Container(),
           leadingWidth: 0,
           elevation: 0,
-          actions: [CloseIconButton(iconColor: null, padding: true)],
+          actions: const [CloseIconButton(iconColor: null, padding: true)],
           bottom: PreferredSize(
               preferredSize: Size(MediaQuery.of(context).size.width, 56),
               child: Padding(
@@ -61,7 +61,7 @@ class _CountryCodeListModalState extends State<CountryCodeListModal> {
           itemBuilder: (context, index) {
             Map value = filterData[index];
             return Container(
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                   color: Colors.white,
                   border: Border(
                       top: BorderSide(width: 1, color: Color(0xffe5e7eb)))),
@@ -73,11 +73,11 @@ class _CountryCodeListModalState extends State<CountryCodeListModal> {
                 leading: SvgPicture.network(value['flag'], width: 24),
                 title: Text(
                   value['title'],
-                  style: TextStyle(fontSize: 15),
+                  style: const TextStyle(fontSize: 15),
                 ),
                 trailing: Text(
                   "+${value['phone_code']}",
-                  style: TextStyle(fontSize: 15, fontWeight: FontWeight.w500),
+                  style: const TextStyle(fontSize: 15, fontWeight: FontWeight.w500),
                 ),
               ),
             );

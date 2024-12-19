@@ -87,15 +87,15 @@ class _ResetBusinessPasswordPageState extends State<ResetBusinessPasswordPage> {
     return GestureDetector(
       onTap: () => closeKeyboard(),
       child: Scaffold(
-        appBar: AppBar(leading: BackIconButton(), title: const Text('')),
+        appBar: AppBar(leading: const BackIconButton(), title: const Text('')),
         body: SingleChildScrollView(
-          padding: EdgeInsets.all(15),
+          padding: const EdgeInsets.all(15),
           child: Column(
             children: [
               PasswordTextField(
                   textEditingController: passwordEditingController,
                   onSubmitted: () {}),
-              Divider(indent: 8),
+              const Divider(indent: 8),
               RepeatPasswordTextField(
                   textEditingController: repeatPasswordEditingController,
                   onSubmitted: postData)
@@ -105,7 +105,7 @@ class _ResetBusinessPasswordPageState extends State<ResetBusinessPasswordPage> {
         bottomNavigationBar: BottomNavigationBarComponent(
             child: Button(
                 onPressed: verifyData,
-                padding: EdgeInsets.symmetric(horizontal: 15),
+                padding: const EdgeInsets.symmetric(horizontal: 15),
                 title: "Подтвердить")),
       ),
     );

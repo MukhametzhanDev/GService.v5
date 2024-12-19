@@ -45,23 +45,23 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
           leading: BackTitleButton(
               title: "Смена пароля", onPressed: () => Navigator.pop(context))),
       body: SingleChildScrollView(
-          padding: EdgeInsets.all(16),
+          padding: const EdgeInsets.all(16),
           child:
               Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
             PasswordTextField(
                 textEditingController: oldPasswordController,
                 onSubmitted: () {},
                 hintText: "Старый пароль"),
-            Divider(height: 20),
+            const Divider(height: 20),
             PasswordTextField(
                 textEditingController: newPasswordController,
                 onSubmitted: () {},
                 hintText: "Придумайте пароль"),
-            Divider(height: 8),
+            const Divider(height: 8),
             Text("Пароль должен содержать минимум 8 символов",
                 style:
                     TextStyle(fontSize: 12, color: ColorComponent.gray['500'])),
-            Divider(height: 20),
+            const Divider(height: 20),
             PasswordTextField(
                 textEditingController: repeatPasswordController,
                 onSubmitted: () {},
@@ -73,7 +73,7 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
               backgroundColor: ColorComponent.mainColor,
               titleColor: Colors.black,
               icon: null,
-              padding: EdgeInsets.only(bottom: 8, top: 8, right: 16, left: 16),
+              padding: const EdgeInsets.only(bottom: 8, top: 8, right: 16, left: 16),
               widthIcon: null,
               title: "Сохранить")),
     );

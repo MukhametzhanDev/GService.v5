@@ -27,14 +27,14 @@ class _MenuMainModalState extends State<MenuMainModal> {
   @override
   Widget build(BuildContext context) {
     return ClipRRect(
-      borderRadius: BorderRadius.vertical(top: Radius.circular(12)),
+      borderRadius: const BorderRadius.vertical(top: Radius.circular(12)),
       child: SizedBox(
         height: 461 + MediaQuery.of(context).padding.bottom,
         child: Scaffold(
           appBar: AppBar(
             leading: Container(),
-            title: Text("Меню"),
-            actions: [CloseIconButton(iconColor: null, padding: true)],
+            title: const Text("Меню"),
+            actions: const [CloseIconButton(iconColor: null, padding: true)],
           ),
           body: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 7),
@@ -55,9 +55,9 @@ class _MenuMainModalState extends State<MenuMainModal> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             SvgPicture.asset('assets/icons/${value['icon']}'),
-                            Divider(height: 8),
+                            const Divider(height: 8),
                             Text(value['title'],
-                                style: TextStyle(
+                                style: const TextStyle(
                                     fontSize: 12, fontWeight: FontWeight.w500))
                           ],
                         ),

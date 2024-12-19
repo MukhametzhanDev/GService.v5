@@ -38,11 +38,11 @@ class _TitleCreateAdPageState extends State<TitleCreateAdPage> {
   }
 
   Future getData() async {
-    int category_id = CreateData.data['category_id'];
-    print("CATEGORYID $category_id");
+    int categoryId = CreateData.data['category_id'];
+    print("CATEGORYID $categoryId");
     try {
       Response response = await dio.get("/description-tags",
-          queryParameters: {"category_id": category_id});
+          queryParameters: {"category_id": categoryId});
       if (response.data['success']) {
         tags = response.data['data'];
         loader = false;
@@ -86,15 +86,15 @@ class _TitleCreateAdPageState extends State<TitleCreateAdPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SingleChildScrollView(
-        padding: EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+        padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
         child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-          Padding(
-              padding: const EdgeInsets.only(bottom: 12),
+          const Padding(
+              padding: EdgeInsets.only(bottom: 12),
               child: Text("Напишите подробности",
                   style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600))),
           TextField(
               controller: descEditingController,
-              style: TextStyle(fontSize: 14),
+              style: const TextStyle(fontSize: 14),
               maxLength: 1000,
               textCapitalization: TextCapitalization.sentences,
               maxLines: 14,
@@ -104,7 +104,7 @@ class _TitleCreateAdPageState extends State<TitleCreateAdPage> {
                   helperStyle: TextStyle(color: ColorComponent.gray['500']))),
           Text("Например: Нужен трактор для участка",
               style: TextStyle(color: ColorComponent.gray['500'])),
-          Divider(height: 24),
+          const Divider(height: 24),
           loader
               ? Container()
               : Wrap(
@@ -114,16 +114,16 @@ class _TitleCreateAdPageState extends State<TitleCreateAdPage> {
                       changeTag(value);
                     },
                     child: Container(
-                        padding: EdgeInsets.only(
+                        padding: const EdgeInsets.only(
                             left: 12, right: 12, bottom: 8, top: 8),
-                        margin: EdgeInsets.only(bottom: 12, right: 12),
+                        margin: const EdgeInsets.only(bottom: 12, right: 12),
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(8),
                             color: value['active'] ?? false
                                 ? ColorComponent.mainColor
                                 : ColorComponent.gray['100']),
                         child: Text(value['title'],
-                            style: TextStyle(
+                            style: const TextStyle(
                                 fontWeight: FontWeight.w500,
                                 color: Colors.black))),
                   );
@@ -133,7 +133,7 @@ class _TitleCreateAdPageState extends State<TitleCreateAdPage> {
       bottomNavigationBar: BottomNavigationBarComponent(
           child: Button(
               onPressed: verifyData,
-              padding: EdgeInsets.symmetric(horizontal: 15),
+              padding: const EdgeInsets.symmetric(horizontal: 15),
               title: "Продолжить")),
     );
   }

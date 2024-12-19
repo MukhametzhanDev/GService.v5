@@ -35,7 +35,7 @@ class _ProfileListTilesWidgetState extends State<ProfileListTilesWidget> {
 
   void showMyApplicationPage() {
     Navigator.push(context,
-        MaterialPageRoute(builder: (context) => MyApplicationListPage()));
+        MaterialPageRoute(builder: (context) => const MyApplicationListPage()));
   }
 
   void showMyAdPage() {
@@ -48,22 +48,22 @@ class _ProfileListTilesWidgetState extends State<ProfileListTilesWidget> {
 
   void showNewsPage() {
     Navigator.push(
-        context, MaterialPageRoute(builder: (context) => NewsMainPage()));
+        context, MaterialPageRoute(builder: (context) => const NewsMainPage()));
   }
 
   void showEditCurrencyPage() {
     Navigator.push(
-        context, MaterialPageRoute(builder: (context) => CurrencyMainPage()));
+        context, MaterialPageRoute(builder: (context) => const CurrencyMainPage()));
   }
 
   void showEmployeesPage() {
     Navigator.push(
-        context, MaterialPageRoute(builder: (context) => EmployeeListPage()));
+        context, MaterialPageRoute(builder: (context) => const EmployeeListPage()));
   }
 
   void showAboutCompanyPage() {
     Navigator.push(
-        context, MaterialPageRoute(builder: (context) => AboutCompanyPage()));
+        context, MaterialPageRoute(builder: (context) => const AboutCompanyPage()));
   }
 
   @override
@@ -72,30 +72,30 @@ class _ProfileListTilesWidgetState extends State<ProfileListTilesWidget> {
       children: [
         Container(
           decoration: BoxDecoration(
-              border: Border.all(width: 1, color: Color(0xfff4f5f7))),
+              border: Border.all(width: 1, color: const Color(0xfff4f5f7))),
           child: ListTile(
               onTap: () => showMyApplicationPage(),
               leading: SvgPicture.asset('assets/icons/file.svg'),
-              title: Text("Мои заявки"),
+              title: const Text("Мои заявки"),
               trailing: SvgPicture.asset('assets/icons/right.svg')),
         ),
         Container(
           decoration: BoxDecoration(
-              border: Border.all(width: 1, color: Color(0xfff4f5f7))),
+              border: Border.all(width: 1, color: const Color(0xfff4f5f7))),
           child: ListTile(
               onTap: () => showMyAdPage(),
               leading: SvgPicture.asset('assets/icons/clipboardOutline.svg'),
-              title: Text("Мои объявления"),
+              title: const Text("Мои объявления"),
               trailing: SvgPicture.asset('assets/icons/right.svg')),
         ),
         Container(
           decoration: BoxDecoration(
-              border: Border.all(width: 1, color: Color(0xfff4f5f7))),
+              border: Border.all(width: 1, color: const Color(0xfff4f5f7))),
           child: ListTile(
               onTap: () => showContactsPage(),
               leading: SvgPicture.asset('assets/icons/phone.svg',
                   color: ColorComponent.mainColor),
-              title: Text("Контакты"),
+              title: const Text("Контакты"),
               trailing: SvgPicture.asset('assets/icons/right.svg')),
         ),
         // Container(
@@ -109,56 +109,56 @@ class _ProfileListTilesWidgetState extends State<ProfileListTilesWidget> {
             ? Container()
             : Container(
                 decoration: BoxDecoration(
-                    border: Border.all(width: 1, color: Color(0xfff4f5f7))),
+                    border: Border.all(width: 1, color: const Color(0xfff4f5f7))),
                 child: ListTile(
                     onTap: showNewsPage,
                     leading: SvgPicture.asset('assets/icons/bullhorn.svg'),
-                    title: Text("Новости"),
+                    title: const Text("Новости"),
                     trailing: SvgPicture.asset('assets/icons/right.svg')),
               ),
         role == "individual"
             ? Container()
             : Container(
                 decoration: BoxDecoration(
-                    border: Border.all(width: 1, color: Color(0xfff4f5f7))),
+                    border: Border.all(width: 1, color: const Color(0xfff4f5f7))),
                 child: ListTile(
                     leading: SvgPicture.asset('assets/icons/fileOutline.svg'),
-                    title: Text("Документы"),
+                    title: const Text("Документы"),
                     trailing: SvgPicture.asset('assets/icons/right.svg')),
               ),
         role == "individual"
             ? Container()
             : Container(
                 decoration: BoxDecoration(
-                    border: Border.all(width: 1, color: Color(0xfff4f5f7))),
+                    border: Border.all(width: 1, color: const Color(0xfff4f5f7))),
                 child: ListTile(
                     onTap: showEditCurrencyPage,
                     leading: SvgPicture.asset('assets/icons/dollarOutline.svg'),
-                    title: Text("Моя валюта"),
+                    title: const Text("Моя валюта"),
                     trailing: SvgPicture.asset('assets/icons/right.svg')),
               ),
         role == "individual"
             ? Container()
             : Container(
                 decoration: BoxDecoration(
-                    border: Border.all(width: 1, color: Color(0xfff4f5f7))),
+                    border: Border.all(width: 1, color: const Color(0xfff4f5f7))),
                 child: ListTile(
                     onTap: showEmployeesPage,
                     leading: SvgPicture.asset('assets/icons/users.svg'),
-                    title: Text("Сотрудники"),
+                    title: const Text("Сотрудники"),
                     trailing: SvgPicture.asset('assets/icons/right.svg')),
               ),
         Container(
           decoration: BoxDecoration(
-              border: Border.all(width: 1, color: Color(0xfff4f5f7))),
+              border: Border.all(width: 1, color: const Color(0xfff4f5f7))),
           child: ListTile(
               leading: SvgPicture.asset('assets/icons/cogOutline.svg'),
-              title: Text("Настройки"),
+              title: const Text("Настройки"),
               trailing: SvgPicture.asset('assets/icons/right.svg')),
         ),
         Container(
           decoration: BoxDecoration(
-              border: Border.all(width: 1, color: Color(0xfff4f5f7))),
+              border: Border.all(width: 1, color: const Color(0xfff4f5f7))),
           child: ListTile(
               onTap: showAboutCompanyPage,
               leading: SvgPicture.asset(
@@ -166,12 +166,12 @@ class _ProfileListTilesWidgetState extends State<ProfileListTilesWidget> {
                 color: ColorComponent.mainColor,
                 width: 20,
               ),
-              title: Text("О GService"),
+              title: const Text("О GService"),
               trailing: SvgPicture.asset('assets/icons/right.svg')),
         ),
         Container(
           decoration: BoxDecoration(
-              border: Border.all(width: 1, color: Color(0xfff4f5f7))),
+              border: Border.all(width: 1, color: const Color(0xfff4f5f7))),
           child: ListTile(
             onTap: () {
               showCupertinoModalBottomSheet(
@@ -181,7 +181,7 @@ class _ProfileListTilesWidgetState extends State<ProfileListTilesWidget> {
                       }));
             },
             leading: SvgPicture.asset('assets/icons/exit.svg'),
-            title: Text("Выход"),
+            title: const Text("Выход"),
           ),
         ),
         Divider(height: 1, color: ColorComponent.gray['100']),

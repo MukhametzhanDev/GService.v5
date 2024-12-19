@@ -8,7 +8,7 @@ class Styles {
         primarySwatch: Colors.blue,
         splashColor: Colors.transparent,
         // brightness: isDarkTheme ? Brightness.dark : Brightness.light,
-        dividerTheme: DividerThemeData(color: Colors.transparent),
+        dividerTheme: const DividerThemeData(color: Colors.transparent),
         dialogTheme: DialogTheme(
             surfaceTintColor: isDarkTheme ? Colors.black : Colors.white),
         dialogBackgroundColor: isDarkTheme ? Colors.black : Colors.white,
@@ -32,11 +32,11 @@ class Styles {
         ),
         primaryColor: isDarkTheme ? Colors.black : Colors.white,
         inputDecorationTheme: InputDecorationTheme(
-          fillColor: Color(0xffF9FAFB),
+          fillColor: const Color(0xffF9FAFB),
           filled: true,
           contentPadding:
               const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
-          errorStyle: TextStyle(
+          errorStyle: const TextStyle(
               fontSize: 13, fontWeight: FontWeight.w500, color: Colors.red),
           hintStyle: TextStyle(
               fontWeight: FontWeight.w400,
@@ -110,12 +110,12 @@ class Styles {
           centerTitle: true,
           surfaceTintColor: isDarkTheme ? Colors.black : Colors.white,
           systemOverlayStyle: isDarkTheme
-              ? SystemUiOverlayStyle(
+              ? const SystemUiOverlayStyle(
                   statusBarColor: Color(0xff202022),
                   statusBarIconBrightness: Brightness.light,
                   statusBarBrightness: Brightness.dark,
                 )
-              : SystemUiOverlayStyle(
+              : const SystemUiOverlayStyle(
                   statusBarColor: Colors.white,
                   statusBarIconBrightness: Brightness.dark,
                   statusBarBrightness: Brightness.light,
@@ -134,11 +134,11 @@ class Styles {
         ),
         listTileTheme: ListTileThemeData(
             titleTextStyle:
-                TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+                const TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
             textColor: isDarkTheme ? Colors.white : Colors.black),
         colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.blue)
             .copyWith(
-                background: isDarkTheme
+                surface: isDarkTheme
                     ? const Color(0xff202022)
                     : const Color(0xffF1F5FB)),
         tabBarTheme: TabBarTheme(

@@ -113,11 +113,11 @@ class _ListPackagePageState extends State<ListPackagePage> {
         child: Scaffold(
           appBar: AppBar(
               automaticallyImplyLeading: false,
-              leading: widget.goBack ? BackIconButton() : Container(),
+              leading: widget.goBack ? const BackIconButton() : Container(),
               leadingWidth: widget.goBack ? null : 0,
-              title: Text("Продвижение")),
+              title: const Text("Продвижение")),
           body: packages.isEmpty
-              ? LoaderComponent()
+              ? const LoaderComponent()
               : SingleChildScrollView(
                   padding: const EdgeInsets.all(16.0),
                   child: Column(
@@ -145,8 +145,8 @@ class _ListPackagePageState extends State<ListPackagePage> {
                                   return GestureDetector(
                                     onTap: () => onChangedStickers(value),
                                     child: Container(
-                                      margin: EdgeInsets.only(top: 12),
-                                      padding: EdgeInsets.symmetric(
+                                      margin: const EdgeInsets.only(top: 12),
+                                      padding: const EdgeInsets.symmetric(
                                           horizontal: 14, vertical: 14),
                                       decoration: BoxDecoration(
                                           color: Colors.white,
@@ -155,17 +155,17 @@ class _ListPackagePageState extends State<ListPackagePage> {
                                                 color: Colors.black
                                                     .withOpacity(.1),
                                                 blurRadius: 5,
-                                                offset: Offset(0, 1))
+                                                offset: const Offset(0, 1))
                                           ],
                                           borderRadius:
                                               BorderRadius.circular(12),
                                           border: Border.all(
-                                              color: Color(0xffeeeeee),
+                                              color: const Color(0xffeeeeee),
                                               width: 1)),
                                       child: Row(
                                         children: [
-                                          CheckBoxWidget(active: true),
-                                          Divider(indent: 16),
+                                          const CheckBoxWidget(active: true),
+                                          const Divider(indent: 16),
                                           Expanded(
                                             child: Column(
                                               crossAxisAlignment:
@@ -174,12 +174,12 @@ class _ListPackagePageState extends State<ListPackagePage> {
                                                 Text(
                                                   "${value['value']} ${promotionTitle[value['id']]}",
                                                   style:
-                                                      TextStyle(fontSize: 16),
+                                                      const TextStyle(fontSize: 16),
                                                 ),
-                                                Divider(height: 6),
+                                                const Divider(height: 6),
                                                 Text(
                                                   "${priceFormat(value['price'])} ₸",
-                                                  style: TextStyle(
+                                                  style: const TextStyle(
                                                       fontWeight:
                                                           FontWeight.w600),
                                                 )
@@ -197,11 +197,11 @@ class _ListPackagePageState extends State<ListPackagePage> {
                                 }).toList())
                         ],
                       ),
-                      Divider(height: 24),
-                      Text("Стикеры по 100 ₸",
+                      const Divider(height: 24),
+                      const Text("Стикеры по 100 ₸",
                           style: TextStyle(
                               fontSize: 16, fontWeight: FontWeight.w700)),
-                      Divider(height: 12),
+                      const Divider(height: 12),
                       Wrap(
                           alignment: WrapAlignment.start,
                           children: stickers.map((value) {
@@ -210,8 +210,8 @@ class _ListPackagePageState extends State<ListPackagePage> {
                               onTap: () => onChangedStickers(value),
                               child: Container(
                                   margin:
-                                      EdgeInsets.only(right: 10, bottom: 10),
-                                  padding: EdgeInsets.symmetric(
+                                      const EdgeInsets.only(right: 10, bottom: 10),
+                                  padding: const EdgeInsets.symmetric(
                                       horizontal: 10, vertical: 6),
                                   decoration: BoxDecoration(
                                       color: active
@@ -221,26 +221,26 @@ class _ListPackagePageState extends State<ListPackagePage> {
                                           width: 1,
                                           color: active
                                               ? ColorComponent.mainColor
-                                              : Color(0xffeeeeee)),
+                                              : const Color(0xffeeeeee)),
                                       borderRadius: BorderRadius.circular(6)),
                                   child: Text(value['title'].toString())),
                             );
                           }).toList()),
-                      Divider(height: 24),
-                      Text("Предпоказ",
+                      const Divider(height: 24),
+                      const Text("Предпоказ",
                           style: TextStyle(
                               fontSize: 16, fontWeight: FontWeight.w700)),
-                      Divider(height: 12),
+                      const Divider(height: 12),
                       PreviewItemWidget(
                           adId: widget.adId,
                           package: currentPackage,
                           stickers: stickers),
-                      SizedBox(height: 12),
+                      const SizedBox(height: 12),
                       Button(
                           onPressed: validateData,
                           title:
                               "Подать за ${totalPrice + (currentPackage?['price'] ?? 0)} ₸"),
-                      SizedBox(height: 12),
+                      const SizedBox(height: 12),
                       Button(
                           onPressed: showSuccessfullyPage,
                           title: "Подать без рекламы",

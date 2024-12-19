@@ -25,13 +25,13 @@ class GetImageWidget extends StatefulWidget {
 }
 
 class _GetImageWidgetState extends State<GetImageWidget> {
-  List<XFile> _images = CreateData.images;
+  final List<XFile> _images = CreateData.images;
   List imagesUrl = EditData.data['images'] ?? [];
   final ImagePicker _picker = ImagePicker();
 
   Future<void> _pickImages() async {
     showModalLoader(context);
-    final List<XFile>? pickedFiles = await _picker.pickMultiImage();
+    final List<XFile> pickedFiles = await _picker.pickMultiImage();
     if (pickedFiles != null && pickedFiles.isNotEmpty) {
       setState(() {
         _images.addAll(pickedFiles.map((file) => XFile(file.path)).toList());
@@ -89,30 +89,30 @@ class _GetImageWidgetState extends State<GetImageWidget> {
         child: Scaffold(
             backgroundColor: Colors.white,
             appBar: AppBar(
-              title: Text("Загрузка фотографии"),
+              title: const Text("Загрузка фотографии"),
               leadingWidth: 0,
               leading: Container(),
               elevation: 0,
               centerTitle: true,
-              actions: [CloseIconButton(iconColor: null, padding: true)],
+              actions: const [CloseIconButton(iconColor: null, padding: true)],
             ),
             body: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 15.0),
               child: Column(children: [
-                SizedBox(height: 6),
+                const SizedBox(height: 6),
                 Button(
                     onPressed: () {
                       _pickImages();
                     },
                     title: "Выбрать с галереи"),
-                SizedBox(height: 16),
+                const SizedBox(height: 16),
                 Button(
                     onPressed: () {
                       _pickImage(ImageSource.camera);
                     },
                     title: "Сделать снимок",
                     backgroundColor: ColorComponent.mainColor),
-                SizedBox(height: 8),
+                const SizedBox(height: 8),
                 TextButton(
                     onPressed: () => Navigator.pop(context),
                     style: TextButton.styleFrom(
@@ -120,7 +120,7 @@ class _GetImageWidgetState extends State<GetImageWidget> {
                     child: Container(
                       height: 43,
                       alignment: Alignment.center,
-                      child: Text("Отмена",
+                      child: const Text("Отмена",
                           style: TextStyle(
                               fontSize: 16, fontWeight: FontWeight.w500)),
                     ))
@@ -134,12 +134,12 @@ class _GetImageWidgetState extends State<GetImageWidget> {
         child: Scaffold(
             backgroundColor: Colors.white,
             appBar: AppBar(
-              title: Text("Редактировать"),
+              title: const Text("Редактировать"),
               leadingWidth: 0,
               leading: Container(),
               elevation: 0,
               centerTitle: true,
-              actions: [CloseIconButton(iconColor: null, padding: true)],
+              actions: const [CloseIconButton(iconColor: null, padding: true)],
             ),
             body: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 15.0),
@@ -151,7 +151,7 @@ class _GetImageWidgetState extends State<GetImageWidget> {
                     },
                     title: "Обрезать",
                     backgroundColor: ColorComponent.mainColor),
-                SizedBox(height: 16),
+                const SizedBox(height: 16),
                 Button(
                     onPressed: () {
                       Navigator.pop(context);
@@ -159,7 +159,7 @@ class _GetImageWidgetState extends State<GetImageWidget> {
                     },
                     title: "Удалить",
                     backgroundColor: ColorComponent.mainColor),
-                SizedBox(height: 8),
+                const SizedBox(height: 8),
                 TextButton(
                     onPressed: () => Navigator.pop(context),
                     style: TextButton.styleFrom(
@@ -167,7 +167,7 @@ class _GetImageWidgetState extends State<GetImageWidget> {
                     child: Container(
                       height: 43,
                       alignment: Alignment.center,
-                      child: Text("Отмена",
+                      child: const Text("Отмена",
                           style: TextStyle(
                               fontSize: 16, fontWeight: FontWeight.w500)),
                     ))
@@ -181,15 +181,15 @@ class _GetImageWidgetState extends State<GetImageWidget> {
         child: Scaffold(
             backgroundColor: Colors.white,
             appBar: AppBar(
-              title: Text("Редактировать"),
+              title: const Text("Редактировать"),
               leadingWidth: 0,
               leading: Container(),
               elevation: 0,
               centerTitle: true,
-              actions: [CloseIconButton(iconColor: null, padding: true)],
+              actions: const [CloseIconButton(iconColor: null, padding: true)],
             ),
             body: Column(children: [
-              SizedBox(height: 16),
+              const SizedBox(height: 16),
               Button(
                   titleColor: Colors.white,
                   onPressed: () {
@@ -198,7 +198,7 @@ class _GetImageWidgetState extends State<GetImageWidget> {
                   },
                   title: "Удалить",
                   backgroundColor: ColorComponent.mainColor),
-              SizedBox(height: 8),
+              const SizedBox(height: 8),
               TextButton(
                   onPressed: () => Navigator.pop(context),
                   style:
@@ -206,7 +206,7 @@ class _GetImageWidgetState extends State<GetImageWidget> {
                   child: Container(
                     height: 43,
                     alignment: Alignment.center,
-                    child: Text("Отмена",
+                    child: const Text("Отмена",
                         style: TextStyle(
                             fontSize: 16, fontWeight: FontWeight.w500)),
                   ))
@@ -226,7 +226,7 @@ class _GetImageWidgetState extends State<GetImageWidget> {
       } else {
         SnackBarComponent().showErrorMessage(response.data['message'], context);
       }
-    } on DioException catch (e) {
+    } on DioException {
       SnackBarComponent().showServerErrorMessage(context);
     }
   }
@@ -252,10 +252,10 @@ class _GetImageWidgetState extends State<GetImageWidget> {
       padding: const EdgeInsets.symmetric(horizontal: 15),
       child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
         DottedBorder(
-            radius: Radius.circular(12),
+            radius: const Radius.circular(12),
             strokeWidth: 2,
-            color: Color(0xffE5E7EB),
-            dashPattern: [5],
+            color: const Color(0xffE5E7EB),
+            dashPattern: const [5],
             borderType: BorderType.RRect,
             child: Container(
                 color: Colors.white,
@@ -270,23 +270,23 @@ class _GetImageWidgetState extends State<GetImageWidget> {
                     style: TextButton.styleFrom(
                         backgroundColor: Colors.transparent),
                     child: Column(children: [
-                      SizedBox(height: 32),
+                      const SizedBox(height: 32),
                       SvgPicture.asset("assets/icons/getImage.svg"),
-                      SizedBox(height: 7),
+                      const SizedBox(height: 7),
                       Text("Нажмите чтобы загрузить \nизображения",
                           textAlign: TextAlign.center,
                           style: TextStyle(
                               fontWeight: FontWeight.w600,
                               fontSize: 14,
                               color: ColorComponent.gray['500'])),
-                      SizedBox(height: 7),
+                      const SizedBox(height: 7),
                       Text("SVG, PNG, JPG или JPEG (MAX. 800x400px)",
                           textAlign: TextAlign.center,
                           style: TextStyle(
                               fontWeight: FontWeight.w400,
                               fontSize: 12,
                               color: ColorComponent.gray['500'])),
-                      SizedBox(height: 16),
+                      const SizedBox(height: 16),
                       Container(
                           width: 127,
                           height: 34,
@@ -301,8 +301,8 @@ class _GetImageWidgetState extends State<GetImageWidget> {
                                     color: Colors.white,
                                     width: 16,
                                     height: 16),
-                                SizedBox(width: 8),
-                                Text('Найти файлы',
+                                const SizedBox(width: 8),
+                                const Text('Найти файлы',
                                     style: TextStyle(
                                         color: Colors.white,
                                         fontSize: 12,
@@ -312,7 +312,7 @@ class _GetImageWidgetState extends State<GetImageWidget> {
         SizedBox(height: _images.isNotEmpty ? 12 : 16),
         if (_images.isNotEmpty) ...[
           Container(
-              margin: EdgeInsets.only(bottom: 16),
+              margin: const EdgeInsets.only(bottom: 16),
               // height: 108,
               child: ReorderableWrap(
                   scrollDirection: Axis.vertical,
@@ -347,7 +347,7 @@ class _GetImageWidgetState extends State<GetImageWidget> {
                           top: 4,
                           right: 4,
                           child: Container(
-                              decoration: BoxDecoration(
+                              decoration: const BoxDecoration(
                                 color: Colors.white,
                                 shape: BoxShape.circle,
                               ),
@@ -359,12 +359,12 @@ class _GetImageWidgetState extends State<GetImageWidget> {
                             left: 12,
                             right: 12,
                             child: Container(
-                                padding: EdgeInsets.only(left: 6, right: 6),
+                                padding: const EdgeInsets.only(left: 6, right: 6),
                                 alignment: Alignment.center,
                                 decoration: BoxDecoration(
                                     color: ColorComponent.mainColor,
                                     borderRadius: BorderRadius.circular(4)),
-                                child: Text('Обложка',
+                                child: const Text('Обложка',
                                     style: TextStyle(
                                         fontSize: 12,
                                         fontWeight: FontWeight.w600))))
@@ -372,14 +372,14 @@ class _GetImageWidgetState extends State<GetImageWidget> {
                   })))
         ],
         imagesUrl.isEmpty
-            ? SizedBox(height: 16)
+            ? const SizedBox(height: 16)
             : Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text("Загруженное фото",
+                  const Text("Загруженное фото",
                       style:
                           TextStyle(fontSize: 16, fontWeight: FontWeight.w600)),
-                  SizedBox(height: 8),
+                  const SizedBox(height: 8),
                   SizedBox(
                     height: 108,
                     child: SingleChildScrollView(
@@ -407,7 +407,7 @@ class _GetImageWidgetState extends State<GetImageWidget> {
                                     top: 4,
                                     right: 4,
                                     child: Container(
-                                        decoration: BoxDecoration(
+                                        decoration: const BoxDecoration(
                                           color: Colors.white,
                                           shape: BoxShape.circle,
                                         ),
@@ -420,7 +420,7 @@ class _GetImageWidgetState extends State<GetImageWidget> {
                       }).toList()),
                     ),
                   ),
-                  SizedBox(height: 26),
+                  const SizedBox(height: 26),
                 ],
               )
       ]),

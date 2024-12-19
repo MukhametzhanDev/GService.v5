@@ -42,13 +42,13 @@ class _ApplicationItemState extends State<ApplicationItem> {
       //   onLongPressShowNumber(data, context);
       // },
       child: Container(
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
             color: Colors.white,
             border:
                 Border(bottom: BorderSide(width: 6, color: Color(0xfff4f5f7)))),
-        padding: EdgeInsets.symmetric(horizontal: 15),
+        padding: const EdgeInsets.symmetric(horizontal: 15),
         child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-          Divider(height: 12),
+          const Divider(height: 12),
           Row(
             children: [
               Expanded(
@@ -58,16 +58,16 @@ class _ApplicationItemState extends State<ApplicationItem> {
                         fontWeight: FontWeight.w400,
                         color: ColorComponent.blue['700'])),
               ),
-              Divider(indent: 12),
+              const Divider(indent: 12),
               FavoriteButton(
                   id: widget.data['id'],
                   active: widget.data['is_favorite'],
                   type: "application")
             ],
           ),
-          Divider(height: 8),
+          const Divider(height: 8),
           Text(priceFormat(widget.data['price']?['price']),
-              style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600)),
+              style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w600)),
           // Row(
           //   children: [
           //     Expanded(
@@ -86,23 +86,23 @@ class _ApplicationItemState extends State<ApplicationItem> {
           //                 fontSize: 12, fontWeight: FontWeight.w600))),
           //   ],
           // ),
-          Divider(height: 10),
+          const Divider(height: 10),
           Text(
             widget.data['description'],
             maxLines: 2,
             overflow: TextOverflow.ellipsis,
           ),
-          Divider(height: 12),
+          const Divider(height: 12),
           Row(children: [
             SvgPicture.asset("assets/icons/pin.svg",
                 width: 16, color: ColorComponent.gray['500']),
-            Divider(indent: 4),
+            const Divider(indent: 4),
             Text(widget.data['city']['title'],
                 style: TextStyle(
                     fontSize: 12,
                     // fontWeight: FontWeight.3500,
                     color: ColorComponent.gray['500'])),
-            Divider(indent: 12),
+            const Divider(indent: 12),
             Text(formattedDate(widget.data['created_at'], "dd MMM HH:MM"),
                 // "15 Сент 04:20",
                 style:
@@ -110,13 +110,13 @@ class _ApplicationItemState extends State<ApplicationItem> {
             Expanded(child: Container()),
             Row(children: [
               SvgPicture.asset("assets/icons/eye.svg"),
-              Divider(indent: 4),
+              const Divider(indent: 4),
               Text(widget.data['statistics']['viewed'].toString(),
                   style: TextStyle(
                       fontSize: 12, color: ColorComponent.gray['500']))
             ])
           ]),
-          Divider(height: 16),
+          const Divider(height: 16),
         ]),
       ),
     );

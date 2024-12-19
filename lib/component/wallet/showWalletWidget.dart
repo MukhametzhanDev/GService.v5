@@ -24,30 +24,30 @@ class _ShowWalletWidgetState extends State<ShowWalletWidget> {
   Widget build(BuildContext context) {
     return Container(
       height: 164,
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
           border:
               Border(bottom: BorderSide(width: 1, color: Color(0xffeeeeee)))),
-      padding: EdgeInsets.all(16),
+      padding: const EdgeInsets.all(16),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text("Баланс",
+          const Text("Баланс",
               style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600)),
-          Divider(height: 4),
+          const Divider(height: 4),
           Text(priceFormat(1000000),
-              style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600)),
-          Divider(height: 4),
+              style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w600)),
+          const Divider(height: 4),
           Container(
-            padding: EdgeInsets.symmetric(horizontal: 4),
+            padding: const EdgeInsets.symmetric(horizontal: 4),
             decoration: BoxDecoration(
                 color: ColorComponent.mainColor.withOpacity(.2),
                 borderRadius: BorderRadius.circular(112)),
             child: Text(
               "${priceFormat(100000)} Б",
-              style: TextStyle(fontSize: 12, fontWeight: FontWeight.w600),
+              style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w600),
             ),
           ),
-          Divider(height: 12),
+          const Divider(height: 12),
           SizedBox(
               height: 42,
               child: Row(
@@ -55,11 +55,11 @@ class _ShowWalletWidgetState extends State<ShowWalletWidget> {
                   Expanded(
                       child: Button(
                           onPressed: showPage, title: "Пополнить баланс")),
-                  Divider(indent: 8),
+                  const Divider(indent: 8),
                   GestureDetector(
                     onTap: showTransactionHistoryPage,
                     child: Container(
-                      padding: EdgeInsets.symmetric(horizontal: 8),
+                      padding: const EdgeInsets.symmetric(horizontal: 8),
                       child: Row(
                         children: [
                           Text("История",
@@ -67,7 +67,7 @@ class _ShowWalletWidgetState extends State<ShowWalletWidget> {
                                 color: ColorComponent.gray['500'],
                                 fontWeight: FontWeight.w500,
                               )),
-                          Divider(indent: 8),
+                          const Divider(indent: 8),
                           SvgPicture.asset('assets/icons/arrowRight.svg')
                         ],
                       ),

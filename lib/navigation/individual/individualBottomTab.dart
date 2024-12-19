@@ -31,11 +31,11 @@ class _IndividualBottomTabState extends State<IndividualBottomTab>
   void _onItemTapped(int index) {
     if (_selectedIndex == 0 && index == 0) {
       scrollController.animateTo(0,
-          duration: Duration(milliseconds: 300), curve: Curves.easeInOut);
+          duration: const Duration(milliseconds: 300), curve: Curves.easeInOut);
     } else if (index == 2) {
       showMaterialModalBottomSheet(
           context: context,
-          builder: (context) => CreateSectionPage()).then((value) {
+          builder: (context) => const CreateSectionPage()).then((value) {
         if (value == "ad") {
           Navigator.pushNamed(context, "MyAdListPage");
         } else if (value == "application") {
@@ -60,10 +60,10 @@ class _IndividualBottomTabState extends State<IndividualBottomTab>
     return Scaffold(
       body: IndexedStack(index: _selectedIndex, children: [
         MainPage(scrollController: scrollController),
-        FavoriteMainPage(),
+        const FavoriteMainPage(),
         Container(),
-        MessageMainPage(),
-        VerifyProfilePage(),
+        const MessageMainPage(),
+        const VerifyProfilePage(),
       ]),
       bottomNavigationBar: BottomNavigationBar(
           backgroundColor: ColorTheme['white_black'],
@@ -98,7 +98,7 @@ class _IndividualBottomTabState extends State<IndividualBottomTab>
                         direction: Axis.vertical,
                         children: [
                           Container(
-                              padding: EdgeInsets.all(2),
+                              padding: const EdgeInsets.all(2),
                               decoration: BoxDecoration(
                                   color: index == _selectedIndex && index != 2
                                       ? ColorComponent.mainColor
@@ -127,8 +127,8 @@ class _IndividualBottomTabState extends State<IndividualBottomTab>
           }).toList(),
           currentIndex: _selectedIndex,
           type: BottomNavigationBarType.fixed,
-          selectedLabelStyle: TextStyle(fontSize: 0),
-          unselectedLabelStyle: TextStyle(fontSize: 0),
+          selectedLabelStyle: const TextStyle(fontSize: 0),
+          unselectedLabelStyle: const TextStyle(fontSize: 0),
           onTap: _onItemTapped),
     );
   }

@@ -18,12 +18,12 @@ class _SearchTextFieldState extends State<SearchTextField> {
     return SizedBox(
       height: 48,
       child: TextField(
-        style: TextStyle(fontSize: 14, height: 1.1),
+        style: const TextStyle(fontSize: 14, height: 1.1),
         onChanged: widget.onChanged,
         textCapitalization: TextCapitalization.sentences,
         decoration: InputDecoration(
             hintText: widget.title,
-            prefixIconConstraints: BoxConstraints(minWidth: 42),
+            prefixIconConstraints: const BoxConstraints(minWidth: 42),
             prefixIcon: SvgPicture.asset(
               'assets/icons/searchOutline.svg',
               color: ColorComponent.gray['500'],

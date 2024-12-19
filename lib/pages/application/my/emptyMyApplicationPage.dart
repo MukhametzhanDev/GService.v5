@@ -28,12 +28,12 @@ class _EmptyMyApplicationPageState extends State<EmptyMyApplicationPage> {
             width: 120,
             color: ColorComponent.gray['500'],
           ),
-          Divider(indent: 12),
-          Text("Здесь будет ваши заявки",
+          const Divider(indent: 12),
+          const Text("Здесь будет ваши заявки",
               style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600)),
-          Divider(indent: 12),
-          Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 15),
+          const Divider(indent: 12),
+          const Padding(
+              padding: EdgeInsets.symmetric(horizontal: 15),
               child: Text(
                 "Оставляйте заявки, чтобы быстро и удобно найти подходящую спецтехнику.",
                 textAlign: TextAlign.center,
@@ -47,9 +47,9 @@ class _EmptyMyApplicationPageState extends State<EmptyMyApplicationPage> {
               onPressed: () {
                 showCupertinoModalBottomSheet(
                     context: context,
-                    builder: (context) => SectionCreateApplicationPage());
+                    builder: (context) => const SectionCreateApplicationPage());
               },
-              padding: EdgeInsets.symmetric(horizontal: 15),
+              padding: const EdgeInsets.symmetric(horizontal: 15),
               title: "Создать")),
     );
   }

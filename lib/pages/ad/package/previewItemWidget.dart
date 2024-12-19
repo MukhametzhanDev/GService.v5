@@ -57,7 +57,7 @@ class _PreviewItemWidgetState extends State<PreviewItemWidget> {
   @override
   Widget build(BuildContext context) {
     print("widget.stickers ${widget.stickers}");
-    double IMAGE_HEIGHT = 120.0;
+    double imageHeight = 120.0;
     Color color = widget.package != null
         ? Color(int.parse(widget.package!['color'])).withOpacity(.1)
         : Colors.white;
@@ -69,16 +69,16 @@ class _PreviewItemWidgetState extends State<PreviewItemWidget> {
               print(promotions);
             },
             child: Container(
-              padding: EdgeInsets.symmetric(vertical: 6, horizontal: 12),
+              padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 12),
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(12),
                   color: color,
-                  border: Border.all(width: 1, color: Color(0xffeeeeee))),
+                  border: Border.all(width: 1, color: const Color(0xffeeeeee))),
               // padding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  SizedBox(height: 4),
+                  const SizedBox(height: 4),
                   Row(
                     children: [
                       Expanded(
@@ -92,16 +92,16 @@ class _PreviewItemWidgetState extends State<PreviewItemWidget> {
                           overflow: TextOverflow.ellipsis,
                         ),
                       ),
-                      SizedBox(width: 16),
+                      const SizedBox(width: 16),
                       Container(
                           height: 24,
-                          padding: EdgeInsets.symmetric(horizontal: 8),
+                          padding: const EdgeInsets.symmetric(horizontal: 8),
                           alignment: Alignment.center,
                           decoration: BoxDecoration(
                               color: ColorComponent.mainColor,
                               borderRadius: BorderRadius.circular(4)),
                           child: Text(data['category']['title'],
-                              style: TextStyle(
+                              style: const TextStyle(
                                   height: 1,
                                   fontSize: 12,
                                   fontWeight: FontWeight.w500)))
@@ -113,23 +113,23 @@ class _PreviewItemWidgetState extends State<PreviewItemWidget> {
                       //  )
                     ],
                   ),
-                  Divider(height: 8),
+                  const Divider(height: 8),
                   PriceTextWidget(prices: data['prices'], fontSize: 15),
-                  Divider(height: 12),
+                  const Divider(height: 12),
                   SizedBox(
-                    height: IMAGE_HEIGHT,
+                    height: imageHeight,
                     child: Row(
                       children: [
                         SizedBox(
                           width: MediaQuery.of(context).size.width / 2.2,
-                          height: IMAGE_HEIGHT,
+                          height: imageHeight,
                           child: Stack(
                             children: [
                               CacheImage(
                                   url: data['images'][0],
                                   width:
                                       MediaQuery.of(context).size.width / 2.2,
-                                  height: IMAGE_HEIGHT,
+                                  height: imageHeight,
                                   borderRadius: 8),
                               Positioned(
                                 top: 8,
@@ -143,7 +143,7 @@ class _PreviewItemWidgetState extends State<PreviewItemWidget> {
                                           color: Colors.white.withOpacity(.7),
                                           borderRadius:
                                               BorderRadius.circular(4)),
-                                      padding: EdgeInsets.symmetric(
+                                      padding: const EdgeInsets.symmetric(
                                           vertical: 3, horizontal: 8),
                                       child: Row(
                                         crossAxisAlignment:
@@ -152,7 +152,7 @@ class _PreviewItemWidgetState extends State<PreviewItemWidget> {
                                           SvgPicture.asset(
                                               'assets/icons/badgeCheck.svg',
                                               width: 16),
-                                          Divider(indent: 4),
+                                          const Divider(indent: 4),
                                           Text("От диллера",
                                               style: TextStyle(
                                                   fontSize: 12,
@@ -168,17 +168,17 @@ class _PreviewItemWidgetState extends State<PreviewItemWidget> {
                             ],
                           ),
                         ),
-                        Divider(indent: 12),
+                        const Divider(indent: 12),
                         Expanded(
                             child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(data['sub_title'],
-                                style: TextStyle(
+                                style: const TextStyle(
                                     fontSize: 15,
                                     fontWeight: FontWeight.w500,
                                     height: 1.3)),
-                            Divider(height: 10),
+                            const Divider(height: 10),
                             Text(
                                 "На заказы от 3-х смен мы предоставляем скидку. Вся техника находится у нас в собственности, работают опытные операторы и качественно",
                                 maxLines: 3,
@@ -191,11 +191,11 @@ class _PreviewItemWidgetState extends State<PreviewItemWidget> {
                       ],
                     ),
                   ),
-                  Divider(height: 10),
+                  const Divider(height: 10),
                   ShowStickersList(data: widget.stickers),
-                  Divider(height: 10),
+                  const Divider(height: 10),
                   Divider(height: 1, color: ColorComponent.gray['100']),
-                  Divider(height: 10),
+                  const Divider(height: 10),
                   SizedBox(
                     height: 24,
                     child: Row(
@@ -212,19 +212,19 @@ class _PreviewItemWidgetState extends State<PreviewItemWidget> {
                                     color: ColorComponent.gray["500"],
                                     fontSize: 12,
                                     fontWeight: FontWeight.w400)),
-                            Divider(indent: 15),
+                            const Divider(indent: 15),
                             Text(formattedDate(data['created_at']),
                                 style: TextStyle(
                                     fontSize: 12,
                                     fontWeight: FontWeight.w400,
                                     color: ColorComponent.gray["500"])),
-                            Divider(indent: 15),
+                            const Divider(indent: 15),
                             SvgPicture.asset(
                               'assets/icons/eye.svg',
                               width: 16,
                               color: ColorComponent.gray["400"],
                             ),
-                            Divider(indent: 4),
+                            const Divider(indent: 4),
                             Text(
                               numberFormat(data['statistics']['viewed']),
                               style: TextStyle(

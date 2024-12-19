@@ -30,7 +30,7 @@ class PriceTextWidget extends StatelessWidget {
         RichText(
             text: TextSpan(
                 style:
-                    TextStyle(fontWeight: FontWeight.w600, color: Colors.black),
+                    const TextStyle(fontWeight: FontWeight.w600, color: Colors.black),
                 children: [
               TextSpan(
                   text: "${priceFormat(prices![1]['price'])} ₸",
@@ -42,11 +42,11 @@ class PriceTextWidget extends StatelessWidget {
                       color: ColorComponent.gray['600'],
                       fontSize: (fontSize ?? 15) - 1)),
             ])),
-        Text("  |  "),
+        const Text("  |  "),
         RichText(
             text: TextSpan(
                 style:
-                    TextStyle(fontWeight: FontWeight.w500, color: Colors.black),
+                    const TextStyle(fontWeight: FontWeight.w500, color: Colors.black),
                 children: [
               TextSpan(
                   text: "${priceFormat(prices![0]['price'])} ₸",
@@ -60,7 +60,7 @@ class PriceTextWidget extends StatelessWidget {
             ])),
       ]);
     } else {
-      return Text("");
+      return const Text("");
     }
   }
 }

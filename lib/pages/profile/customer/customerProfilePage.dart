@@ -74,13 +74,13 @@ class _CustomerProfilePageState extends State<CustomerProfilePage> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(data['name']),
-                    Divider(indent: 4),
+                    const Divider(indent: 4),
                     SvgPicture.asset('assets/icons/badgeСheck.svg')
                   ],
                 ),
               ),
         body: loader
-            ? LoaderComponent()
+            ? const LoaderComponent()
             : SingleChildScrollView(
                 child: Column(
                   children: [
@@ -95,7 +95,7 @@ class _CustomerProfilePageState extends State<CustomerProfilePage> {
                               Container(
                                 decoration: BoxDecoration(
                                     border: Border.all(
-                                        width: 1, color: Color(0xffE5E7EB)),
+                                        width: 1, color: const Color(0xffE5E7EB)),
                                     borderRadius: BorderRadius.circular(41)),
                                 child: CacheImage(
                                     url: data['avatar'],
@@ -103,7 +103,7 @@ class _CustomerProfilePageState extends State<CustomerProfilePage> {
                                     height: 80,
                                     borderRadius: 40),
                               ),
-                              Divider(indent: 16),
+                              const Divider(indent: 16),
                               Expanded(
                                   child: Row(
                                 mainAxisAlignment:
@@ -112,7 +112,7 @@ class _CustomerProfilePageState extends State<CustomerProfilePage> {
                                   Column(
                                     children: [
                                       Text(numberFormat(150),
-                                          style: TextStyle(
+                                          style: const TextStyle(
                                               fontWeight: FontWeight.w500,
                                               fontSize: 17)),
                                       Text(
@@ -124,7 +124,7 @@ class _CustomerProfilePageState extends State<CustomerProfilePage> {
                                   ),
                                   Column(
                                     children: [
-                                      Text("Стратовый",
+                                      const Text("Стратовый",
                                           style: TextStyle(
                                               fontWeight: FontWeight.w500,
                                               fontSize: 17)),
@@ -142,14 +142,14 @@ class _CustomerProfilePageState extends State<CustomerProfilePage> {
                           // Text(data['name'],
                           //     style: TextStyle(
                           //         fontWeight: FontWeight.w500, fontSize: 16)),
-                          Divider(height: 8),
+                          const Divider(height: 8),
                           Row(children: [
                             Expanded(
                                 child: GestureDetector(
                                     onTap: showChangeCustomerProfilePage,
                                     child: Container(
                                       alignment: Alignment.center,
-                                      padding: EdgeInsets.symmetric(
+                                      padding: const EdgeInsets.symmetric(
                                           horizontal: 10, vertical: 6),
                                       decoration: BoxDecoration(
                                           border: Border.all(
@@ -157,24 +157,24 @@ class _CustomerProfilePageState extends State<CustomerProfilePage> {
                                               color: ColorComponent.mainColor),
                                           borderRadius:
                                               BorderRadius.circular(8)),
-                                      child: Text("Редактировать",
+                                      child: const Text("Редактировать",
                                           style: TextStyle(
                                               fontWeight: FontWeight.w500)),
                                     ))),
-                            Divider(indent: 8),
+                            const Divider(indent: 8),
                             Expanded(
                               child: GestureDetector(
                                 onTap: () {},
                                 child: Container(
                                   alignment: Alignment.center,
-                                  padding: EdgeInsets.symmetric(
+                                  padding: const EdgeInsets.symmetric(
                                       horizontal: 10, vertical: 6),
                                   decoration: BoxDecoration(
                                       border: Border.all(
                                           width: 1,
                                           color: ColorComponent.mainColor),
                                       borderRadius: BorderRadius.circular(8)),
-                                  child: Text(
+                                  child: const Text(
                                     "Поделиться",
                                     style:
                                         TextStyle(fontWeight: FontWeight.w500),
@@ -183,13 +183,13 @@ class _CustomerProfilePageState extends State<CustomerProfilePage> {
                               ),
                             ),
                           ]),
-                          Divider(height: 10),
+                          const Divider(height: 10),
                         ],
                       ),
                     ),
                     Divider(height: 1, color: ColorComponent.gray['100']),
-                    ShowWalletWidget(),
-                    ProfileListTilesWidget()
+                    const ShowWalletWidget(),
+                    const ProfileListTilesWidget()
                   ],
                 ),
               ),

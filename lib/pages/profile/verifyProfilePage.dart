@@ -29,18 +29,18 @@ class _VerifyProfilePageState extends State<VerifyProfilePage> {
     if (token) {
       return await verifyRole();
     } else {
-      return LoginPage(showBackButton: false);
+      return const LoginPage(showBackButton: false);
     }
   }
 
   Future verifyRole() async {
     String? role = await ChangedToken().getRole();
     if (role == "contractor") {
-      return ContractorProfilePage();
+      return const ContractorProfilePage();
     } else if (role == "customer") {
-      return CustomerProfilePage();
+      return const CustomerProfilePage();
     } else {
-      return IndividualProfilePage();
+      return const IndividualProfilePage();
     }
   }
 
@@ -51,11 +51,11 @@ class _VerifyProfilePageState extends State<VerifyProfilePage> {
           future: _futureData,
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
-              return Center(child: LoaderComponent());
+              return const Center(child: LoaderComponent());
             } else if (snapshot.hasError) {
               return Center(child: Text('Error: ${snapshot.error}'));
             } else if (!snapshot.hasData) {
-              return Center(child: Text('No data available'));
+              return const Center(child: Text('No data available'));
             } else {
               return snapshot.data!;
             }

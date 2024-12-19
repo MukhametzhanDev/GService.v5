@@ -27,7 +27,7 @@ class _RepeatPasswordTextFieldState extends State<RepeatPasswordTextField> {
           widget.onSubmitted();
         },
         obscureText: !showPassword,
-        style: TextStyle(fontSize: 14, height: 1.1),
+        style: const TextStyle(fontSize: 14, height: 1.1),
         decoration: InputDecoration(
             hintText: "Повторите пароль",
             suffixIcon: IconButton(

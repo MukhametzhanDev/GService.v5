@@ -74,13 +74,13 @@ class _PriceCreateAdPageState extends State<PriceCreateAdPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SingleChildScrollView(
-        padding: EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+        padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
         child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-          Padding(
-              padding: const EdgeInsets.only(bottom: 15),
+          const Padding(
+              padding: EdgeInsets.only(bottom: 15),
               child: Text("Цена",
                   style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600))),
-          ExplanatoryMessage(
+          const ExplanatoryMessage(
               title:
                   "Цену лучше указать — так удобнее для покупателей. Если цена не указана, то при расширенном поиске покупатели могут не найти ваше объявление, а в объявлении будет автоматически указана стоимость «По запросу».",
               padding: EdgeInsets.only(bottom: 15),
@@ -103,7 +103,7 @@ class _PriceCreateAdPageState extends State<PriceCreateAdPage> {
                               inputFormatters: [currencyTextInputFormatter],
                               autofocus: true,
                               keyboardType: TextInputType.number,
-                              style: TextStyle(fontSize: 14, height: 1.1),
+                              style: const TextStyle(fontSize: 14, height: 1.1),
                               controller: priceEditingController,
                               decoration: InputDecoration(
                                   hintText: negotiablePrice
@@ -111,7 +111,7 @@ class _PriceCreateAdPageState extends State<PriceCreateAdPage> {
                                       : 'Введите цену'),
                             ),
                           ),
-                          CurrencyButton()
+                          const CurrencyButton()
                         ],
                       ),
                     )
@@ -125,7 +125,7 @@ class _PriceCreateAdPageState extends State<PriceCreateAdPage> {
                         inputFormatters: [currencyTextInputFormatter],
                         autofocus: true,
                         keyboardType: TextInputType.number,
-                        style: TextStyle(fontSize: 14, height: 1.1),
+                        style: const TextStyle(fontSize: 14, height: 1.1),
                         controller: perShiftEditingController,
                         decoration: InputDecoration(
                             hintText: negotiablePrice
@@ -142,7 +142,7 @@ class _PriceCreateAdPageState extends State<PriceCreateAdPage> {
                         enabled: !negotiablePrice,
                         inputFormatters: [currencyTextInputFormatter],
                         keyboardType: TextInputType.number,
-                        style: TextStyle(fontSize: 14, height: 1.1),
+                        style: const TextStyle(fontSize: 14, height: 1.1),
                         controller: perHourEditingController,
                         decoration: InputDecoration(
                             hintText:
@@ -163,19 +163,19 @@ class _PriceCreateAdPageState extends State<PriceCreateAdPage> {
                         height: 20,
                         alignment: Alignment.center,
                         decoration: BoxDecoration(
-                            color: negotiablePrice ? Color(0xff1A56DB) : null,
+                            color: negotiablePrice ? const Color(0xff1A56DB) : null,
                             borderRadius: BorderRadius.circular(4),
                             border: Border.all(
                                 width: 1,
                                 color: negotiablePrice
-                                    ? Color(0xff1A56DB)
-                                    : Color(0xffD1D5DB))),
+                                    ? const Color(0xff1A56DB)
+                                    : const Color(0xffD1D5DB))),
                         child: negotiablePrice
                             ? SvgPicture.asset('assets/icons/checkMini.svg',
                                 color: Colors.white)
                             : Container(),
                       ),
-                      title: Text("Договорная"),
+                      title: const Text("Договорная"),
                     )
                   : Container(),
             ]);
@@ -187,7 +187,7 @@ class _PriceCreateAdPageState extends State<PriceCreateAdPage> {
       bottomNavigationBar: BottomNavigationBarComponent(
           child: Button(
               onPressed: showPage,
-              padding: EdgeInsets.symmetric(horizontal: 15),
+              padding: const EdgeInsets.symmetric(horizontal: 15),
               title: "Продолжить")),
     );
   }

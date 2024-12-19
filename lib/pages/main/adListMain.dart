@@ -100,17 +100,17 @@ class _AdListMainState extends State<AdListMain> {
       children: [
         widget.param.isNotEmpty
             ? Container()
-            : Padding(
-                padding: const EdgeInsets.only(left: 15, right: 15, bottom: 10),
+            : const Padding(
+                padding: EdgeInsets.only(left: 15, right: 15, bottom: 10),
                 child: Text("Спецтехники по Казахстану",
                     style: TextStyle(
                         fontSize: 16, fontWeight: FontWeight.w600, height: 1)),
               ),
         loader
-            ? AdListLoader()
+            ? const AdListLoader()
             : ListView.builder(
                 shrinkWrap: true,
-                physics: NeverScrollableScrollPhysics(),
+                physics: const NeverScrollableScrollPhysics(),
                 controller: widget.scrollController,
                 itemCount: data.length,
                 itemBuilder: (context, int index) {
@@ -118,7 +118,7 @@ class _AdListMainState extends State<AdListMain> {
                   if (data.length - 1 == index) {
                     return Column(children: [
                       AdItem(data: value, showCategory: false),
-                      hasNextPage ? PaginationLoaderComponent() : Container()
+                      hasNextPage ? const PaginationLoaderComponent() : Container()
                     ]);
                   } else {
                     return AdItem(data: value, showCategory: true);

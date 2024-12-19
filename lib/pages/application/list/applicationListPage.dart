@@ -109,7 +109,7 @@ class _ApplicationListPageState extends State<ApplicationListPage> {
     showMaterialModalBottomSheet(
         context: context,
         enableDrag: false,
-        builder: (context) => FilterApplicationListPage()).then(filteredAds);
+        builder: (context) => const FilterApplicationListPage()).then(filteredAds);
   }
 
   void filteredAds(value) {
@@ -125,9 +125,9 @@ class _ApplicationListPageState extends State<ApplicationListPage> {
         appBar:
             FilterApplicationWidget(appBar: AppBar(), onChanged: filteredAds),
         body: loader
-            ? LoaderComponent()
+            ? const LoaderComponent()
             : data.isEmpty
-                ? EmptyApplicationListPage()
+                ? const EmptyApplicationListPage()
                 : ListView.builder(
                     itemCount: data.length,
                     controller: scrollController,
@@ -137,7 +137,7 @@ class _ApplicationListPageState extends State<ApplicationListPage> {
                         return Column(children: [
                           ApplicationItem(data: value, showCategory: false),
                           hasNextPage
-                              ? PaginationLoaderComponent()
+                              ? const PaginationLoaderComponent()
                               : Container()
                         ]);
                       } else {

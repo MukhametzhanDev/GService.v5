@@ -45,7 +45,7 @@ class ListModalComponent extends StatefulWidget {
   final data;
   final addData;
   final value;
-  ListModalComponent(
+  const ListModalComponent(
       {super.key,
       @required this.addData,
       @required this.data,
@@ -108,11 +108,11 @@ class _ListModalComponentState extends State<ListModalComponent> {
         appBar: AppBar(
           leadingWidth: 100,
           leading: Container(),
-          title: Text("Выберите"),
-          actions: [CloseIconButton(iconColor: null, padding: true)],
+          title: const Text("Выберите"),
+          actions: const [CloseIconButton(iconColor: null, padding: true)],
         ),
         body: data.isEmpty
-            ? Text("Ничего не найдено")
+            ? const Text("Ничего не найдено")
             // EmptyPage(
             //     icon: 'assets/icons/searchNot.svg',
             //     title: LocaleKeys.nothing_found.tr(),
@@ -127,7 +127,7 @@ class _ListModalComponentState extends State<ListModalComponent> {
                 ),
                 Expanded(
                     child: filterData.isEmpty
-                        ? Text("Ничего не найдено")
+                        ? const Text("Ничего не найдено")
                         : ListView.builder(
                             physics: const ClampingScrollPhysics(),
                             padding: EdgeInsets.only(
@@ -136,7 +136,7 @@ class _ListModalComponentState extends State<ListModalComponent> {
                             itemBuilder: (context, index) {
                               var item = filterData[index];
                               return Container(
-                                decoration: BoxDecoration(
+                                decoration: const BoxDecoration(
                                     border: Border(
                                         bottom: BorderSide(
                                             width: 1,

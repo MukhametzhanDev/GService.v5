@@ -80,15 +80,15 @@ class _ResultListPageState extends State<ResultListPage> {
       children: [
         widget.param.isNotEmpty
             ? Container()
-            : Padding(
-                padding: const EdgeInsets.only(left: 15, right: 15, bottom: 10),
+            : const Padding(
+                padding: EdgeInsets.only(left: 15, right: 15, bottom: 10),
                 child: Text("Спецтехники по Казахстану",
                     style: TextStyle(
                         fontSize: 16, fontWeight: FontWeight.w600, height: 1)),
               ),
         ListView.builder(
             shrinkWrap: true,
-            physics: NeverScrollableScrollPhysics(),
+            physics: const NeverScrollableScrollPhysics(),
             controller: scrollController,
             itemCount: data.length,
             itemBuilder: (context, int index) {
@@ -96,7 +96,7 @@ class _ResultListPageState extends State<ResultListPage> {
               if (data.length - 1 == index) {
                 return Column(children: [
                   getItem(value),
-                  hasNextPage ? PaginationLoaderComponent() : Container()
+                  hasNextPage ? const PaginationLoaderComponent() : Container()
                 ]);
               } else {
                 return getItem(value);

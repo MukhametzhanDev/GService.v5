@@ -145,38 +145,38 @@ class _BusinessExistsPageState extends State<BusinessExistsPage> {
       onTap: () => closeKeyboard(),
       child: Scaffold(
         appBar: AppBar(
-            title: Text("Регистрация компании"), leading: BackIconButton()),
+            title: const Text("Регистрация компании"), leading: const BackIconButton()),
         body: SingleChildScrollView(
-          padding: EdgeInsets.all(15),
+          padding: const EdgeInsets.all(15),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text("Страна",
+              const Text("Страна",
                   style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600)),
-              Divider(height: 8),
+              const Divider(height: 8),
               countries.isEmpty
                   ? Shimmer.fromColors(
-                      baseColor: Color(0xffD1D5DB),
-                      highlightColor: Color(0xfff4f5f7),
+                      baseColor: const Color(0xffD1D5DB),
+                      highlightColor: const Color(0xfff4f5f7),
                       child: Container(
                           height: 48,
-                          padding: EdgeInsets.all(12),
+                          padding: const EdgeInsets.all(12),
                           decoration: BoxDecoration(
-                              color: Color(0xffF9FAFB),
+                              color: const Color(0xffF9FAFB),
                               borderRadius: BorderRadius.circular(10),
                               border: Border.all(
-                                  width: 1, color: Color(0xffE5E5EA)))),
+                                  width: 1, color: const Color(0xffE5E5EA)))),
                     )
                   : GestureDetector(
                       onTap: showCountriesModal,
                       child: Container(
                         height: 48,
-                        padding: EdgeInsets.all(12),
+                        padding: const EdgeInsets.all(12),
                         decoration: BoxDecoration(
-                            color: Color(0xffF9FAFB),
+                            color: const Color(0xffF9FAFB),
                             borderRadius: BorderRadius.circular(10),
                             border:
-                                Border.all(width: 1, color: Color(0xffE5E5EA))),
+                                Border.all(width: 1, color: const Color(0xffE5E5EA))),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
@@ -186,10 +186,10 @@ class _BusinessExistsPageState extends State<BusinessExistsPage> {
                                   currentCountry['flag'],
                                   height: 14,
                                 )),
-                            Divider(indent: 8),
+                            const Divider(indent: 8),
                             Expanded(
                               child: Text(currentCountry['title'],
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                       color: Colors.black,
                                       fontSize: 14,
                                       overflow: TextOverflow.ellipsis)),
@@ -199,22 +199,22 @@ class _BusinessExistsPageState extends State<BusinessExistsPage> {
                         ),
                       ),
                     ),
-              Divider(indent: 12),
+              const Divider(indent: 12),
               EmailTextField(
                   textEditingController: emailEditingController,
                   autofocus: false,
                   onSubmitted: () {}),
-              Divider(indent: 12),
+              const Divider(indent: 12),
               SizedBox(
                 height: 30,
                 child: TextButton(
                   onPressed: showLoginPage,
                   child: RichText(
                       text: TextSpan(
-                          style: TextStyle(
+                          style: const TextStyle(
                               fontWeight: FontWeight.w500, color: Colors.black),
                           children: [
-                        TextSpan(text: "Уже зарегистрированы? "),
+                        const TextSpan(text: "Уже зарегистрированы? "),
                         TextSpan(
                             text: "Авторизуйтесь",
                             style:
@@ -222,10 +222,10 @@ class _BusinessExistsPageState extends State<BusinessExistsPage> {
                       ])),
                 ),
               ),
-              Divider(indent: 8),
+              const Divider(indent: 8),
               Button(onPressed: verifyData, title: "Подтвердить"),
-              Divider(indent: 8),
-              PrivacyPolicyWidget()
+              const Divider(indent: 8),
+              const PrivacyPolicyWidget()
             ],
           ),
         ),

@@ -29,11 +29,11 @@ class _AboutCompanyPageState extends State<AboutCompanyPage> {
           child: Center(
               child: Column(children: [
             SvgPicture.asset("assets/icons/logo.svg", width: 60),
-            Divider(height: 12),
-            Text("GService",
+            const Divider(height: 12),
+            const Text("GService",
                 style: TextStyle(fontSize: 17, fontWeight: FontWeight.w700)),
-            Text("мир спецтехники", style: TextStyle(fontSize: 12)),
-            Divider(height: 24),
+            const Text("мир спецтехники", style: TextStyle(fontSize: 12)),
+            const Divider(height: 24),
             Text(
                 "Удобный сервис, тысячи потенциальных клиентов по всему Казахстану, качественная аналитика и выгодные условия продвижения ваших товаров и услуг",
                 textAlign: TextAlign.center,
@@ -45,23 +45,23 @@ class _AboutCompanyPageState extends State<AboutCompanyPage> {
         ListTile(
             onTap: () {},
             leading: SvgPicture.asset('assets/icons/fileOutline.svg'),
-            title: Text("Политика конфиденциальности"),
+            title: const Text("Политика конфиденциальности"),
             trailing: SvgPicture.asset('assets/icons/right.svg')),
         Divider(height: 1, color: ColorComponent.gray['200']),
         ListTile(
             leading: SvgPicture.asset('assets/icons/fileOutline.svg'),
-            title: Text("Правила пользования"),
+            title: const Text("Правила пользования"),
             trailing: SvgPicture.asset('assets/icons/right.svg')),
         Divider(height: 1, color: ColorComponent.gray['200']),
         ListTile(
             leading: SvgPicture.asset('assets/icons/headsetOutline.svg'),
-            title: Text("Служба поддержки"),
+            title: const Text("Служба поддержки"),
             trailing: SvgPicture.asset('assets/icons/right.svg')),
         Divider(height: 1, color: ColorComponent.gray['200']),
         ListTile(
             leading: SvgPicture.asset('assets/icons/phone.svg',
                 color: ColorComponent.mainColor),
-            title: Text("Контакты"),
+            title: const Text("Контакты"),
             trailing: SvgPicture.asset('assets/icons/right.svg')),
         Divider(height: 1, color: ColorComponent.gray['200']),
       ])),

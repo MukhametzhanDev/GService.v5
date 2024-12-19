@@ -41,7 +41,7 @@ class _MessageMainPageState extends State<MessageMainPage>
     // setState(() {});
   }
 
-  List _tabs = ["Все", "Новые"];
+  final List _tabs = ["Все", "Новые"];
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
@@ -66,13 +66,13 @@ class _MessageMainPageState extends State<MessageMainPage>
                             Container(
                               width: 20,
                               height: 20,
-                              margin: EdgeInsets.only(left: 10),
+                              margin: const EdgeInsets.only(left: 10),
                               alignment: Alignment.center,
                               decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(20),
                                   color:
                                       ColorComponent.mainColor.withOpacity(.1)),
-                              child: Text(
+                              child: const Text(
                                 "99",
                                 style: TextStyle(
                                     fontSize: 12,
@@ -90,14 +90,14 @@ class _MessageMainPageState extends State<MessageMainPage>
             itemCount: 10,
             itemBuilder: (context, index) {
               return Container(
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                     border: Border(
                         bottom:
                             BorderSide(width: 1, color: Color(0xffeeeeee)))),
                 child: ListTile(
                   contentPadding:
-                      EdgeInsets.symmetric(vertical: 8, horizontal: 16),
-                  leading: CacheImage(
+                      const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+                  leading: const CacheImage(
                       url:
                           "https://dev.agrokz.com/storage/ad-images/53/lEi2N7yGIRtyP3nl1m9sBrOKerl31UHFAfk7Yr92.jpg",
                       width: 48,
@@ -108,14 +108,14 @@ class _MessageMainPageState extends State<MessageMainPage>
                     children: [
                       Row(
                         children: [
-                          Text("agrokz.com",
+                          const Text("agrokz.com",
                               style: TextStyle(
                                   fontSize: 16, fontWeight: FontWeight.w600)),
-                          SizedBox(width: 8),
+                          const SizedBox(width: 8),
                           SvgPicture.asset('assets/icons/badgeCheck.svg')
                         ],
                       ),
-                      SizedBox(height: 6),
+                      const SizedBox(height: 6),
                       Text("Добро пожаловать!",
                           style: TextStyle(
                               fontSize: 14,
@@ -139,12 +139,12 @@ class _MessageMainPageState extends State<MessageMainPage>
                       Container(
                         width: 20,
                         height: 20,
-                        margin: EdgeInsets.only(left: 10, bottom: 10),
+                        margin: const EdgeInsets.only(left: 10, bottom: 10),
                         alignment: Alignment.center,
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(20),
                             color: ColorComponent.red['500']),
-                        child: Text(
+                        child: const Text(
                           "99",
                           style: TextStyle(
                               fontSize: 12,

@@ -12,22 +12,22 @@ class AdListItem extends StatefulWidget {
 class _AdListItemState extends State<AdListItem> {
   @override
   Widget build(BuildContext context) {
-    double IMAGE_WIDTH = MediaQuery.of(context).size.width - 32;
-    double IMAGE_HEIGHT = IMAGE_WIDTH / 1.4;
+    double imageWidth = MediaQuery.of(context).size.width - 32;
+    double imageHeight = imageWidth / 1.4;
 
     return GestureDetector(
       child: Column(
         children: [
           SizedBox(
-            width: IMAGE_WIDTH,
-            height: IMAGE_HEIGHT,
+            width: imageWidth,
+            height: imageHeight,
             child: Stack(
               children: [
                 CacheImage(
                     url:
                         "https://images.unsplash.com/photo-1584186118422-895ef18c418d?q=80&w=2970&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-                    width: IMAGE_WIDTH,
-                    height: IMAGE_HEIGHT,
+                    width: imageWidth,
+                    height: imageHeight,
                     borderRadius: 8),
                 Positioned(
                   top: 8,
@@ -38,7 +38,7 @@ class _AdListItemState extends State<AdListItem> {
                     children: [
                       Container(
                         padding:
-                            EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+                            const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
                         decoration: BoxDecoration(
                             color: ColorComponent.mainColor,
                             borderRadius: BorderRadius.circular(4)),

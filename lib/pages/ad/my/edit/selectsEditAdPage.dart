@@ -52,7 +52,7 @@ class _SelectsEditAdPageState extends State<SelectsEditAdPage> {
       onTap: () => closeKeyboard(),
       child: Scaffold(
         body: SingleChildScrollView(
-          padding: EdgeInsets.symmetric(horizontal: 15, vertical: 7.5),
+          padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 7.5),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -75,16 +75,16 @@ class _SelectsEditAdPageState extends State<SelectsEditAdPage> {
                   }
                 }).toList(),
               ),
-              Text("Описание",
+              const Text("Описание",
                   style: TextStyle(fontWeight: FontWeight.w500, fontSize: 13)),
-              Divider(height: 8),
+              const Divider(height: 8),
               TextFormField(
                   initialValue: widget.data['description'],
                   onChanged: (value) {
                     print(value);
                     EditData.data['description'] = value;
                   },
-                  style: TextStyle(fontSize: 14),
+                  style: const TextStyle(fontSize: 14),
                   maxLength: 1000,
                   textCapitalization: TextCapitalization.sentences,
                   maxLines: 14,
@@ -111,7 +111,7 @@ class _SelectsEditAdPageState extends State<SelectsEditAdPage> {
         bottomNavigationBar: BottomNavigationBarComponent(
             child: Button(
                 onPressed: () {},
-                padding: EdgeInsets.symmetric(horizontal: 15),
+                padding: const EdgeInsets.symmetric(horizontal: 15),
                 title: "Продолжить")),
       ),
     );

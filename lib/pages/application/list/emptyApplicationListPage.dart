@@ -24,11 +24,11 @@ class _EmptyApplicationListPageState extends State<EmptyApplicationListPage> {
         children: [
           SvgPicture.asset("assets/icons/fileOutline.svg",
               width: 120, color: ColorComponent.gray['500']),
-          Divider(indent: 12),
-          Text("К сожалению, по вашему\nзапросу ничего не найдено",
+          const Divider(indent: 12),
+          const Text("К сожалению, по вашему\nзапросу ничего не найдено",
               textAlign: TextAlign.center,
               style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600)),
-          Divider(height: 100),
+          const Divider(height: 100),
           // Padding(
           //     padding: const EdgeInsets.symmetric(horizontal: 15),
           //     child: Text(

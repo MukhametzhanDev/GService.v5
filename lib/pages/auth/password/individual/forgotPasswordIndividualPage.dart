@@ -80,9 +80,9 @@ class _ForgotPasswordIndividualPageState
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(leading: BackIconButton(), title: Text("Забыли пароль")),
+      appBar: AppBar(leading: const BackIconButton(), title: const Text("Забыли пароль")),
       body: SingleChildScrollView(
-          padding: EdgeInsets.all(15),
+          padding: const EdgeInsets.all(15),
           child: Column(
             children: [
               SizedBox(
@@ -93,10 +93,10 @@ class _ForgotPasswordIndividualPageState
                   },
                   keyboardType: TextInputType.emailAddress,
                   autofillHints: const [AutofillHints.email],
-                  style: TextStyle(fontSize: 14, height: 1.1),
+                  style: const TextStyle(fontSize: 14, height: 1.1),
                   controller: textEditingController,
                   decoration:
-                      InputDecoration(hintText: "Email или номер телефона"),
+                      const InputDecoration(hintText: "Email или номер телефона"),
                 ),
               ),
             ],
@@ -104,7 +104,7 @@ class _ForgotPasswordIndividualPageState
       bottomNavigationBar: BottomNavigationBarComponent(
           child: Button(
               onPressed: verifyData,
-              padding: EdgeInsets.symmetric(horizontal: 15),
+              padding: const EdgeInsets.symmetric(horizontal: 15),
               title: "Отправить")),
     );
   }

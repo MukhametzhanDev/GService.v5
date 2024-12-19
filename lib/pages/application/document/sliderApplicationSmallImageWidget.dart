@@ -14,19 +14,19 @@ class SliderApplicationSmallImageWidget extends StatelessWidget {
         : Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Divider(indent: 12),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16),
+              const Divider(indent: 12),
+              const Padding(
+                padding: EdgeInsets.symmetric(horizontal: 16),
                 child: Text("Фото",
                     style:
                         TextStyle(fontSize: 18, fontWeight: FontWeight.w600)),
               ),
-              Divider(height: 12),
+              const Divider(height: 12),
               SizedBox(
                 height: 100,
                 child: SingleChildScrollView(
                   scrollDirection: Axis.horizontal,
-                  padding: EdgeInsets.symmetric(horizontal: 12),
+                  padding: const EdgeInsets.symmetric(horizontal: 12),
                   child: Row(
                       children: images.map((value) {
                     int index = images.indexOf(value);

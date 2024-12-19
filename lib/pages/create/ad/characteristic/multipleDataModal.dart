@@ -69,12 +69,12 @@ class _MultipleDataModalState extends State<MultipleDataModal> {
         GestureDetector(
           onTap: () => showModal(),
           child: Container(
-              padding: EdgeInsets.symmetric(horizontal: 20),
+              padding: const EdgeInsets.symmetric(horizontal: 20),
               height: 50,
               decoration: BoxDecoration(
                   color: ColorComponent.gray['50'],
                   borderRadius: BorderRadius.circular(10),
-                  border: Border.all(width: 1, color: Color(0xffe5e7eb))),
+                  border: Border.all(width: 1, color: const Color(0xffe5e7eb))),
               child: Row(
                 children: [
                   Expanded(
@@ -117,18 +117,18 @@ class _MultipleDataModalState extends State<MultipleDataModal> {
         //     );
         //   },
         // )
-        SizedBox(height: 15),
+        const SizedBox(height: 15),
         Wrap(
             children: enterItems.map((valueWrap) {
           // bool show = valueWrap?['active'] ?? false;
           return Container(
               padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-              margin: EdgeInsets.only(right: 10, bottom: 10),
+              margin: const EdgeInsets.only(right: 10, bottom: 10),
               decoration: BoxDecoration(
                   color: ColorComponent.gray['200'],
                   borderRadius: BorderRadius.circular(8)),
               child: Text(valueWrap?['title'] ?? "",
-                  style: TextStyle(fontSize: 12)));
+                  style: const TextStyle(fontSize: 12)));
         }).toList()),
       ],
     );
@@ -238,9 +238,9 @@ class _ModalState extends State<Modal> {
       appBar: AppBar(
           leading: Container(),
           title: Text(widget.placeholderTitle),
-          actions: [CloseButton()]),
+          actions: const [CloseButton()]),
       body: data.isEmpty
-          ? Text("Ничего не найдено")
+          ? const Text("Ничего не найдено")
           // EmptyPage(
           //     icon: 'assets/icons/searchNot.svg',
           //     title: LocaleKeys.nothing_found.tr(),
@@ -255,7 +255,7 @@ class _ModalState extends State<Modal> {
               ),
               Expanded(
                   child: filterData.isEmpty
-                      ? Text("Ничего не найдено")
+                      ? const Text("Ничего не найдено")
                       // EmptyPage(
                       //     icon: 'assets/icons/searchNot.svg',
                       //     title: LocaleKeys.nothing_found.tr(),
@@ -269,7 +269,7 @@ class _ModalState extends State<Modal> {
                           itemBuilder: (context, index) {
                             var item = filterData[index];
                             return Container(
-                              decoration: BoxDecoration(
+                              decoration: const BoxDecoration(
                                   border: Border(
                                       bottom: BorderSide(
                                           width: 1, color: Color(0xfff4f5f7)))),
@@ -304,7 +304,7 @@ class _ModalState extends State<Modal> {
                 widget.addData(enterItemId, enterItems);
                 Navigator.pop(context, enterItems);
               },
-              padding: EdgeInsets.symmetric(horizontal: 15),
+              padding: const EdgeInsets.symmetric(horizontal: 15),
               title: "Продолжить")),
     );
   }

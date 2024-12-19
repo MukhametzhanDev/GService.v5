@@ -176,7 +176,7 @@ class _StructureCreateAdPageState extends State<StructureCreateAdPage> {
                           onPressed: () {
                             showCupertinoModalBottomSheet(
                                 context: context,
-                                builder: (context) => CloseCreateAdAlert());
+                                builder: (context) => const CloseCreateAdAlert());
                           },
                           icon: Text("Закрыть  ",
                               style: TextStyle(
@@ -218,13 +218,14 @@ class _StructureCreateAdPageState extends State<StructureCreateAdPage> {
                                   child: Text(
                                       data[pageIndex]['title']?['title_ru'] ??
                                           "Выберите город",
-                                      style: TextStyle(
+                                      style: const TextStyle(
                                           fontSize: 20,
                                           fontWeight: FontWeight.w600)))
                               : Container(),
                           Expanded(
                               child: IndexedStack(
-                                  children: pages, index: pageIndex)),
+                                  index: pageIndex,
+                                  children: pages)),
                         ],
                       )));
             }));

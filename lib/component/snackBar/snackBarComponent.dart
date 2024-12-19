@@ -57,7 +57,7 @@ class SnackBarComponent {
         elevation: 1,
         behavior: SnackBarBehavior.floating,
         shape: RoundedRectangleBorder(
-          side: BorderSide(color: Color(0xfff05252), width: 1),
+          side: const BorderSide(color: Color(0xfff05252), width: 1),
           borderRadius: BorderRadius.circular(12.0),
         ),
       ),
@@ -87,7 +87,7 @@ class SnackBarComponent {
         elevation: 1,
         behavior: SnackBarBehavior.floating,
         shape: RoundedRectangleBorder(
-          side: BorderSide(color: Color(0xfff05252), width: 1),
+          side: const BorderSide(color: Color(0xfff05252), width: 1),
           borderRadius: BorderRadius.circular(12.0),
         ),
       ),
@@ -116,7 +116,7 @@ class SnackBarComponent {
         elevation: 1,
         behavior: SnackBarBehavior.floating,
         shape: RoundedRectangleBorder(
-          side: BorderSide(color: Color(0xfff05252), width: 1),
+          side: const BorderSide(color: Color(0xfff05252), width: 1),
           borderRadius: BorderRadius.circular(12.0),
         ),
       ),
@@ -144,7 +144,7 @@ class SnackBarComponent {
         elevation: 1,
         behavior: SnackBarBehavior.floating,
         shape: RoundedRectangleBorder(
-          side: BorderSide(color: Color(0xfff05252), width: 1),
+          side: const BorderSide(color: Color(0xfff05252), width: 1),
           borderRadius: BorderRadius.circular(12.0),
         ),
       ),

@@ -84,12 +84,12 @@ class _PriceFilterModalState extends State<PriceFilterModal> {
       child: Scaffold(
         appBar: AppBar(
           automaticallyImplyLeading: false,
-          title: Text("Цена"),
-          actions: [CloseIconButton(iconColor: null, padding: true)],
+          title: const Text("Цена"),
+          actions: const [CloseIconButton(iconColor: null, padding: true)],
         ),
         body: Container(
-          padding: EdgeInsets.symmetric(horizontal: 15),
-          decoration: BoxDecoration(
+          padding: const EdgeInsets.symmetric(horizontal: 15),
+          decoration: const BoxDecoration(
               borderRadius: BorderRadius.vertical(top: Radius.circular(12))),
           child: Column(
             children: [
@@ -100,7 +100,7 @@ class _PriceFilterModalState extends State<PriceFilterModal> {
                         autofocus: true,
                         title: "От",
                         onSubmitted: () {})),
-                Divider(indent: 12),
+                const Divider(indent: 12),
                 Expanded(
                     child: PriceTextField(
                         textEditingController: toPrice,
@@ -108,7 +108,7 @@ class _PriceFilterModalState extends State<PriceFilterModal> {
                         title: "До",
                         onSubmitted: () {}))
               ]),
-              Divider(height: 15),
+              const Divider(height: 15),
               SizedBox(
                   height: 48,
                   child: Button(onPressed: verifyData, title: "Поиск"))

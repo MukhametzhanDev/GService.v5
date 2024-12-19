@@ -96,7 +96,7 @@ class _HistorySearchWidgetState extends State<HistorySearchWidget> {
               Column(
                 children: historyFilter.map((value) {
                   return Container(
-                      decoration: BoxDecoration(
+                      decoration: const BoxDecoration(
                           border: Border(
                               bottom: BorderSide(
                                   width: 1, color: Color(0xfff4f5f7)))),
@@ -111,7 +111,7 @@ class _HistorySearchWidgetState extends State<HistorySearchWidget> {
                         title: Text(value,
                             style: const TextStyle(
                                 fontSize: 14, fontWeight: FontWeight.w400)),
-                        trailing: Container(
+                        trailing: SizedBox(
                           width: 40,
                           child: TextButton(
                               onPressed: () {

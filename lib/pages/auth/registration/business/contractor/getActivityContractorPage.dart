@@ -41,7 +41,7 @@ class _GetActivityContractorPageState extends State<GetActivityContractorPage> {
       if (response.statusCode == 200) {
         Navigator.pushAndRemoveUntil(
             context,
-            MaterialPageRoute(builder: (_) => ContractorBottomTab()),
+            MaterialPageRoute(builder: (_) => const ContractorBottomTab()),
             (route) => false);
       } else {
         SnackBarComponent().showResponseErrorMessage(response, context);
@@ -72,11 +72,11 @@ class _GetActivityContractorPageState extends State<GetActivityContractorPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("Описание деятельности")),
+      appBar: AppBar(title: const Text("Описание деятельности")),
       body: SingleChildScrollView(
-        padding: EdgeInsets.symmetric(horizontal: 15, vertical: 8),
+        padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 8),
         child: Column(children: [
-          ExplanatoryMessage(
+          const ExplanatoryMessage(
               title:
                   "По выбранному типу деятельности, вам будут поступать заявки от клиентов",
               padding: EdgeInsets.only(bottom: 15),
@@ -116,7 +116,7 @@ class _GetActivityContractorPageState extends State<GetActivityContractorPage> {
       bottomNavigationBar: BottomNavigationBarComponent(
           child: Button(
               onPressed: verifyData,
-              padding: EdgeInsets.symmetric(horizontal: 15),
+              padding: const EdgeInsets.symmetric(horizontal: 15),
               title: "Сохранить")),
     );
   }

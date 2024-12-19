@@ -10,7 +10,7 @@ class Button extends StatelessWidget {
   final String title;
   final EdgeInsets? padding;
   final double? widthIcon;
-  Button(
+  const Button(
       {super.key,
       required this.onPressed,
       @required this.backgroundColor,
@@ -32,7 +32,7 @@ class Button extends StatelessWidget {
                   borderRadius: BorderRadius.circular(10))),
           child: Container(
             alignment: Alignment.center,
-            constraints: BoxConstraints(minHeight: 40, maxHeight: 49),
+            constraints: const BoxConstraints(minHeight: 40, maxHeight: 49),
             decoration: BoxDecoration(borderRadius: BorderRadius.circular(10)),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,

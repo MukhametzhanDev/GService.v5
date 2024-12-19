@@ -20,19 +20,19 @@ class _CurrencyMainPageState extends State<CurrencyMainPage> {
           appBar: AppBar(
             centerTitle: false,
             automaticallyImplyLeading: false,
-            leading: BackIconButton(),
-            title: Text("Моя валюта"),
+            leading: const BackIconButton(),
+            title: const Text("Моя валюта"),
             bottom: PreferredSize(
                 preferredSize: Size(MediaQuery.of(context).size.width, 50),
                 child: Container(
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                       border: Border(
                           bottom:
                               BorderSide(width: 2, color: Color(0xfff4f5f7)))),
                   child: TabBar(
                       indicatorSize: TabBarIndicatorSize.tab,
                       indicatorWeight: 3,
-                      tabs: [
+                      tabs: const [
                         Tab(text: "Продажа спецтехники"),
                         Tab(text: "Запчасти")
                       ],

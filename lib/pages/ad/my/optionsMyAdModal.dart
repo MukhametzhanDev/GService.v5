@@ -48,7 +48,7 @@ class _OptionsMyAdModalState extends State<OptionsMyAdModal> {
         backgroundColor: Colors.white,
         appBar: AppBar(
           centerTitle: true,
-          title: Text("Опции"),
+          title: const Text("Опции"),
           leading: Container(),
           leadingWidth: 0,
           actions: [
@@ -66,39 +66,39 @@ class _OptionsMyAdModalState extends State<OptionsMyAdModal> {
                       title: "Восстановить",
                       backgroundColor: ColorComponent.mainColor,
                       titleColor: Colors.white,
-                      padding: EdgeInsets.symmetric(horizontal: 15)),
-                  SizedBox(height: 12),
+                      padding: const EdgeInsets.symmetric(horizontal: 15)),
+                  const SizedBox(height: 12),
                   TextButton(
                       onPressed: () => Navigator.pop(context),
-                      child: Text("Отмена",
+                      child: const Text("Отмена",
                           style: TextStyle(
                               fontWeight: FontWeight.w500, fontSize: 16))),
                 ],
               )
             : Column(
                 children: [
-                  SizedBox(height: 8),
+                  const SizedBox(height: 8),
                   Button(
                       onPressed: showUpdateAd,
                       title: "Редактировать",
-                      padding: EdgeInsets.symmetric(horizontal: 15)),
-                  SizedBox(height: 12),
+                      padding: const EdgeInsets.symmetric(horizontal: 15)),
+                  const SizedBox(height: 12),
                   Button(
                       onPressed: archivedAd,
                       title: "В архив",
-                      padding: EdgeInsets.symmetric(horizontal: 15)),
-                  SizedBox(height: 12),
+                      padding: const EdgeInsets.symmetric(horizontal: 15)),
+                  const SizedBox(height: 12),
                   Button(
                       onPressed: removedAd,
                       title: "Удалить",
-                      padding: EdgeInsets.symmetric(horizontal: 15)),
-                  SizedBox(height: 12),
+                      padding: const EdgeInsets.symmetric(horizontal: 15)),
+                  const SizedBox(height: 12),
                   TextButton(
                       onPressed: () => Navigator.pop(context),
-                      child: Text("Отмена",
+                      child: const Text("Отмена",
                           style: TextStyle(
                               fontWeight: FontWeight.w500, fontSize: 16))),
-                  SizedBox(height: 12),
+                  const SizedBox(height: 12),
                 ],
               ),
       ),

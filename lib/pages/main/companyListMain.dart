@@ -16,31 +16,31 @@ class _CompanyListMainState extends State<CompanyListMain> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 15),
+        const Padding(
+          padding: EdgeInsets.symmetric(horizontal: 15),
           child: Text("Топ компании",
               style: TextStyle(
                   fontSize: 18, fontWeight: FontWeight.w600, height: 1)),
         ),
-        Divider(indent: 12),
+        const Divider(indent: 12),
         SizedBox(
           height: 212,
           child: SingleChildScrollView(
               scrollDirection: Axis.horizontal,
-              padding: EdgeInsets.symmetric(horizontal: 11),
+              padding: const EdgeInsets.symmetric(horizontal: 11),
               child: Row(
                 children: [1, 2, 3].map((value) {
                   return Container(
                     height: 212,
                     width: 144,
-                    margin: EdgeInsets.symmetric(horizontal: 4),
-                    padding: EdgeInsets.all(8),
+                    margin: const EdgeInsets.symmetric(horizontal: 4),
+                    padding: const EdgeInsets.all(8),
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(8),
-                        border: Border.all(width: 1, color: Color(0xffeeeeee))),
+                        border: Border.all(width: 1, color: const Color(0xffeeeeee))),
                     child: Stack(
                       children: [
-                        Column(
+                        const Column(
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
                             SizedBox(height: 4),
@@ -65,15 +65,15 @@ class _CompanyListMainState extends State<CompanyListMain> {
                           top: 0,
                           right: 0,
                           child: Container(
-                            padding: EdgeInsets.all(4),
+                            padding: const EdgeInsets.all(4),
                             decoration: BoxDecoration(
                                 color: ColorComponent.mainColor,
                                 borderRadius: BorderRadius.circular(4)),
                             child: Row(
                               children: [
                                 SvgPicture.asset('assets/icons/star.svg'),
-                                Divider(indent: 2),
-                                Text("4.92",
+                                const Divider(indent: 2),
+                                const Text("4.92",
                                     style: TextStyle(
                                         fontSize: 12,
                                         fontWeight: FontWeight.w600))

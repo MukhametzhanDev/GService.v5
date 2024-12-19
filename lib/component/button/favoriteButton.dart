@@ -87,7 +87,7 @@ class _FavoriteButtonState extends State<FavoriteButton> {
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(4),
             color:
-                widget.active ? ColorComponent.red['500'] : Color(0xffD1D5DB)),
+                widget.active ? ColorComponent.red['500'] : const Color(0xffD1D5DB)),
         child: SvgPicture.asset('assets/icons/heart.svg'),
       ),
     );

@@ -49,7 +49,7 @@ class _ExplanatoryMessageState extends State<ExplanatoryMessage> {
         ? Container()
         : AnimatedSize(
             curve: Curves.fastOutSlowIn,
-            duration: Duration(milliseconds: 300),
+            duration: const Duration(milliseconds: 300),
             child: !showMessage
                 ? Container()
                 : Padding(
@@ -58,7 +58,7 @@ class _ExplanatoryMessageState extends State<ExplanatoryMessage> {
                       decoration: BoxDecoration(
                           color: ColorComponent.gray['100'],
                           borderRadius: BorderRadius.circular(12)),
-                      padding: EdgeInsets.all(15),
+                      padding: const EdgeInsets.all(15),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -70,10 +70,10 @@ class _ExplanatoryMessageState extends State<ExplanatoryMessage> {
                                     padding: const EdgeInsets.only(top: 4),
                                     child: SvgPicture.asset(
                                         'assets/icons/infoBlue.svg')),
-                                Divider(indent: 10),
+                                const Divider(indent: 10),
                                 Expanded(
                                     child: Text(widget.title,
-                                        style: TextStyle(
+                                        style: const TextStyle(
                                             fontSize: 15,
                                             height: 1.5,
                                             fontWeight: FontWeight.w500))),

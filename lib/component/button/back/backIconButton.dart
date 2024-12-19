@@ -8,8 +8,8 @@ class BackIconButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return IconButton(
         padding: EdgeInsets.zero,
-        constraints: BoxConstraints(),
-        style: ButtonStyle(tapTargetSize: MaterialTapTargetSize.padded),
+        constraints: const BoxConstraints(),
+        style: const ButtonStyle(tapTargetSize: MaterialTapTargetSize.padded),
         onPressed: () {
           Navigator.pop(context);
         },

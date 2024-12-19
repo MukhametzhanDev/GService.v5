@@ -55,7 +55,7 @@ class _TimerButtonState extends State<TimerButton> {
     final ColorTheme = ThemeColorComponent.ColorsTheme(context);
     return Container(
       height: 50,
-      margin: EdgeInsets.symmetric(horizontal: 16),
+      margin: const EdgeInsets.symmetric(horizontal: 16),
       child: TextButton(
           onPressed: _start == 0 ? () => replaceTimer() : null,
           style: TextButton.styleFrom(
@@ -67,7 +67,7 @@ class _TimerButtonState extends State<TimerButton> {
             children: [
               Text(
                 "Запросить код повторно${_start > 0 ? " (${_start.toString().padLeft(2, '0')})" : ""}",
-                style: TextStyle(
+                style: const TextStyle(
                     fontSize: 15,
                     color: Colors.black,
                     fontWeight: FontWeight.w500),

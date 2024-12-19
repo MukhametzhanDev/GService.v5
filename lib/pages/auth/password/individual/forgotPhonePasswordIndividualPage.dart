@@ -74,7 +74,7 @@ class _ForgotPhonePasswordIndividualPageState
         Navigator.push(
             context,
             MaterialPageRoute(
-                builder: (context) => ResetIndividualPasswordPage()));
+                builder: (context) => const ResetIndividualPasswordPage()));
       } else {
         SnackBarComponent().showResponseErrorMessage(response, context);
       }
@@ -100,14 +100,14 @@ class _ForgotPhonePasswordIndividualPageState
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        title: Text('Код подтверждения'),
-        leading: BackIconButton(),
+        title: const Text('Код подтверждения'),
+        leading: const BackIconButton(),
       ),
       body: SingleChildScrollView(
-          padding: EdgeInsets.all(16),
+          padding: const EdgeInsets.all(16),
           child: Column(children: [
             SvgPicture.asset('assets/icons/sendCodePhone.svg'),
-            Divider(height: 24),
+            const Divider(height: 24),
             RichText(
                 textAlign: TextAlign.center,
                 text: TextSpan(children: [
@@ -118,15 +118,15 @@ class _ForgotPhonePasswordIndividualPageState
                       text:
                           "На ваш номер телефона +${widget.phone} был выслан SMS-код для подтверждения регистрации"),
                 ])),
-            Divider(height: 24),
+            const Divider(height: 24),
             Pinput(
                 length: 4,
                 controller: codeController,
                 defaultPinTheme: PinTheme(
                   width: 48,
                   height: 56,
-                  margin: EdgeInsets.only(left: 10),
-                  textStyle: TextStyle(
+                  margin: const EdgeInsets.only(left: 10),
+                  textStyle: const TextStyle(
                       fontSize: 16,
                       color: Colors.black,
                       fontWeight: FontWeight.w800),
@@ -143,11 +143,11 @@ class _ForgotPhonePasswordIndividualPageState
       bottomNavigationBar: BottomNavigationBarComponent(
           child: Column(children: [
         TimerButton(onPressed: sendCode),
-        SizedBox(height: 10),
+        const SizedBox(height: 10),
         Button(
           onPressed: verifyCode,
           title: "Подтвердить",
-          padding: EdgeInsets.only(left: 16, right: 16),
+          padding: const EdgeInsets.only(left: 16, right: 16),
           backgroundColor: ColorComponent.mainColor,
         )
       ])),

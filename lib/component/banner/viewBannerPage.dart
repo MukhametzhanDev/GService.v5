@@ -21,9 +21,9 @@ class _ViewBannerPageState extends State<ViewBannerPage> {
     return Scaffold(
         appBar: AppBar(
           toolbarHeight: 0,
-          shape: RoundedRectangleBorder(side: BorderSide(width: 0)),
+          shape: const RoundedRectangleBorder(side: BorderSide(width: 0)),
           backgroundColor: Colors.black,
-          systemOverlayStyle: SystemUiOverlayStyle(
+          systemOverlayStyle: const SystemUiOverlayStyle(
             statusBarColor: Colors.black,
             statusBarIconBrightness: Brightness.dark,
             statusBarBrightness: Brightness.dark,
@@ -32,7 +32,7 @@ class _ViewBannerPageState extends State<ViewBannerPage> {
         backgroundColor: Colors.black,
         body: SafeArea(
           child: Padding(
-            padding: EdgeInsets.only(bottom: 20),
+            padding: const EdgeInsets.only(bottom: 20),
             child: Stack(
               children: [
                 ClipRRect(
@@ -70,7 +70,7 @@ class _ViewBannerPageState extends State<ViewBannerPage> {
                     top: 25,
                     right: 15,
                     child: GestureDetector(
-                      child: Row(
+                      child: const Row(
                         children: [
                           CacheImage(
                               url:
@@ -100,7 +100,7 @@ class _ViewBannerPageState extends State<ViewBannerPage> {
                         onPressed: () {},
                         backgroundColor: ColorComponent.mainColor.withOpacity(.9),
                         titleColor: Colors.black,
-                        padding: EdgeInsets.symmetric(horizontal: 15),
+                        padding: const EdgeInsets.symmetric(horizontal: 15),
                         title: "Подробнее"))
               ],
             ),

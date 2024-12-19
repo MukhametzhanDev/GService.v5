@@ -70,13 +70,13 @@ class _StructureEditAdPageState extends State<StructureEditAdPage> {
               title: "Редактирование", onPressed: () => previousPage()),
         ),
         body: loader
-            ? LoaderComponent()
+            ? const LoaderComponent()
             : ValueListenableBuilder<int>(
                 valueListenable: pageControllerIndexedStack.pageIndexNotifier,
                 builder: (context, pageIndex, child) {
-                  return IndexedStack(children: [
+                  return IndexedStack(index: pageIndex, children: [
                     SelectsEditAdPage(data: data),
-                  ], index: pageIndex);
+                  ]);
                 }));
   }
 }

@@ -47,15 +47,15 @@ class _SplashScreenState extends State<SplashScreen> {
   Future showPage(String? role) async {
     if (role == "customer") {
       Navigator.of(context).pushAndRemoveUntil(
-          MaterialPageRoute(builder: (context) => CustomerBottomTab()),
+          MaterialPageRoute(builder: (context) => const CustomerBottomTab()),
           (route) => false);
     } else if (role == "contractor") {
       Navigator.of(context).pushAndRemoveUntil(
-          MaterialPageRoute(builder: (context) => ContractorBottomTab()),
+          MaterialPageRoute(builder: (context) => const ContractorBottomTab()),
           (route) => false);
     } else {
       Navigator.of(context).pushAndRemoveUntil(
-          MaterialPageRoute(builder: (context) => IndividualBottomTab()),
+          MaterialPageRoute(builder: (context) => const IndividualBottomTab()),
           (route) => false);
     }
   }
@@ -63,7 +63,7 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xffFF9500),
+      backgroundColor: const Color(0xffFF9500),
       body: SizedBox(
         width: double.infinity,
         child: Stack(
@@ -77,7 +77,7 @@ class _SplashScreenState extends State<SplashScreen> {
                     width: 100, height: 100),
               ],
             ),
-            Positioned(
+            const Positioned(
                 bottom: 100,
                 child: SizedBox(
                     width: 20,

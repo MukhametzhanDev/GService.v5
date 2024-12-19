@@ -15,7 +15,7 @@ class TransactionHistoryPage extends StatefulWidget {
 }
 
 class TransactionHistoryPageState extends State<TransactionHistoryPage> {
-  List _tabs = ["Все", "Ожидает", "Пополнения", "Оплата"];
+  final List _tabs = ["Все", "Ожидает", "Пополнения", "Оплата"];
   List<Map> sortData = [
     {"title": "За неделю"},
     {"title": "За месяц"},
@@ -76,7 +76,7 @@ class TransactionHistoryPageState extends State<TransactionHistoryPage> {
                 bottom: PreferredSize(
                     preferredSize: Size(MediaQuery.of(context).size.width, 44),
                     child: Container(
-                      decoration: BoxDecoration(
+                      decoration: const BoxDecoration(
                           border: Border(
                               bottom: BorderSide(
                                   width: 2, color: Color(0xfff4f5f7)))),
@@ -97,7 +97,7 @@ class TransactionHistoryPageState extends State<TransactionHistoryPage> {
                             style: TextStyle(
                                 fontWeight: FontWeight.w500,
                                 color: ColorComponent.blue['500'])),
-                        SizedBox(width: 4),
+                        const SizedBox(width: 4),
                         SvgPicture.asset('assets/icons/sort.svg')
                       ]),
                       shape: RoundedRectangleBorder(
@@ -105,7 +105,7 @@ class TransactionHistoryPageState extends State<TransactionHistoryPage> {
                       elevation: 1,
                       popUpAnimationStyle: AnimationStyle(curve: Curves.linear),
                       initialValue: sortValue,
-                      menuPadding: EdgeInsets.all(0),
+                      menuPadding: const EdgeInsets.all(0),
                       itemBuilder: (BuildContext context) {
                         return sortData.map((value) {
                           return PopupMenuItem<Map>(
@@ -125,18 +125,18 @@ class TransactionHistoryPageState extends State<TransactionHistoryPage> {
                     return StickyHeader(
                         header: Container(
                             width: MediaQuery.of(context).size.width,
-                            decoration: BoxDecoration(
+                            decoration: const BoxDecoration(
                                 color: Colors.white,
                                 border: Border(
                                     bottom: BorderSide(
                                         width: 1, color: Color(0xfff4f5f7)))),
-                            padding: EdgeInsets.symmetric(
+                            padding: const EdgeInsets.symmetric(
                                 horizontal: 15, vertical: 10),
-                            child: Text("15 Сентябрь 2024",
+                            child: const Text("15 Сентябрь 2024",
                                 style: TextStyle(fontWeight: FontWeight.w600))),
                         content: Column(
                             children: List.generate(6, (index) {
-                          return TransactionItem();
+                          return const TransactionItem();
                         }).toList()));
                   });
             }).toList())));

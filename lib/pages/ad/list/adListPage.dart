@@ -146,9 +146,9 @@ class _AdListPageState extends State<AdListPage> {
       //           child: SortAdWidget(onChanged: onChanged))),
       // ),
       body: loader
-          ? AdListLoader()
+          ? const AdListLoader()
           : data.isEmpty
-              ? EmptyAdListPage()
+              ? const EmptyAdListPage()
               : ListView.builder(
                   itemCount: data.length,
                   controller: scrollController,
@@ -162,7 +162,7 @@ class _AdListPageState extends State<AdListPage> {
                         //   height: 200,
                         //   color: Colors.red,
                         // ),
-                        hasNextPage ? PaginationLoaderComponent() : Container()
+                        hasNextPage ? const PaginationLoaderComponent() : Container()
                       ]);
                     } else {
                       return AdItem(data: value, showCategory: false);

@@ -37,7 +37,7 @@ class _FilterButtonState extends State<FilterButton> {
             width: 36,
             height: 36,
             alignment: Alignment.center,
-            margin: EdgeInsets.only(right: 15),
+            margin: const EdgeInsets.only(right: 15),
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(8),
                 color: ColorComponent.mainColor),

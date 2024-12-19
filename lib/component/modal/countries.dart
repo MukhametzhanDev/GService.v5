@@ -35,7 +35,7 @@ class _CountriesState extends State<Countries>
     scrollController.addListener(() => _scrollListener());
     _animationController = AnimationController(
       vsync: this,
-      duration: Duration(milliseconds: 300),
+      duration: const Duration(milliseconds: 300),
     );
 
     _fadeAnimation = CurvedAnimation(
@@ -100,7 +100,7 @@ class _CountriesState extends State<Countries>
   void _scrollToTop() {
     scrollController.animateTo(
       0.0,
-      duration: Duration(milliseconds: 400),
+      duration: const Duration(milliseconds: 400),
       curve: Curves.easeInOut,
     );
   }
@@ -129,9 +129,9 @@ class _CountriesState extends State<Countries>
           centerTitle: false,
           leading: Container(),
           leadingWidth: 0,
-          title: Text("Выберите страны",
+          title: const Text("Выберите страны",
               style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600)),
-          actions: [CloseIconButton(iconColor: null, padding: true)],
+          actions: const [CloseIconButton(iconColor: null, padding: true)],
           bottom: PreferredSize(
               preferredSize: Size(MediaQuery.of(context).size.width, 60),
               child: Padding(
@@ -142,7 +142,7 @@ class _CountriesState extends State<Countries>
               )),
         ),
         body: loader
-            ? LoaderComponent()
+            ? const LoaderComponent()
             : ListView.builder(
                 physics: physics,
                 controller: scrollController,
@@ -153,7 +153,7 @@ class _CountriesState extends State<Countries>
                   return Container(
                     decoration: BoxDecoration(
                         color: currentItem ? ColorComponent.gray['100'] : null,
-                        border: Border(
+                        border: const Border(
                             bottom: BorderSide(
                                 width: 1, color: Color(0xfff4f5f7)))),
                     child: ListTile(
@@ -164,9 +164,9 @@ class _CountriesState extends State<Countries>
                           borderRadius: BorderRadius.circular(2),
                           child: SvgPicture.network(item['flag'], width: 20)),
                       title: Text(item['title'],
-                          style: TextStyle(
+                          style: const TextStyle(
                               fontSize: 16, fontWeight: FontWeight.w500)),
-                      trailing: Container(
+                      trailing: SizedBox(
                         width: 18,
                         child: SvgPicture.asset(
                             currentItem

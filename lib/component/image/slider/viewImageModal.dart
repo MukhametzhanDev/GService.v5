@@ -59,7 +59,7 @@ class _ViewImageModalState extends State<ViewImageModal> {
                 return PhotoView(
                   minScale: PhotoViewComputedScale.contained,
                   maxScale: PhotoViewComputedScale.covered * 2,
-                  backgroundDecoration: BoxDecoration(color: Colors.black),
+                  backgroundDecoration: const BoxDecoration(color: Colors.black),
                   errorBuilder: (context, error, stackTrace) {
                     return Container(
                       alignment: Alignment.center,
@@ -84,14 +84,14 @@ class _ViewImageModalState extends State<ViewImageModal> {
                   children: [
                     Container(
                         padding:
-                            EdgeInsets.symmetric(horizontal: 12, vertical: 4),
+                            const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
                         decoration: BoxDecoration(
                             color: Colors.white.withOpacity(.6),
                             borderRadius: BorderRadius.circular(30)),
                         child: Text("${indexImage + 1}/${widget.data.length}",
-                            style: TextStyle(
+                            style: const TextStyle(
                                 fontSize: 12, fontWeight: FontWeight.w500))),
-                    CloseIconButton(iconColor: Colors.white, padding: false),
+                    const CloseIconButton(iconColor: Colors.white, padding: false),
                   ],
                 ),
               ),

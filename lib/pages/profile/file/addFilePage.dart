@@ -11,7 +11,7 @@ import 'package:gservice5/component/theme/colorComponent.dart';
 import 'package:gservice5/component/widgets/bottom/bottomNavigationBarComponent.dart';
 
 class AddFilePage extends StatefulWidget {
-  AddFilePage({super.key});
+  const AddFilePage({super.key});
 
   @override
   State<AddFilePage> createState() => _AddFilePageState();
@@ -31,7 +31,7 @@ class _AddFilePageState extends State<AddFilePage> {
       setState(() {
         fileName = textEditingController.text;
         filePath = pickedFile.path;
-        fileSize = (pickedFile.size / (1024 * 1024)).toStringAsFixed(2) + ' MB';
+        fileSize = '${(pickedFile.size / (1024 * 1024)).toStringAsFixed(2)} MB';
         isFileUploaded = true;
       });
       print(fileSize);
@@ -87,38 +87,38 @@ class _AddFilePageState extends State<AddFilePage> {
       appBar: AppBar(
           automaticallyImplyLeading: false,
           centerTitle: false,
-          title: Text("Добавить документ"),
+          title: const Text("Добавить документ"),
           actions: [
             CloseIconButton(
                 iconColor: ColorComponent.gray['400'], padding: true)
           ]),
       body: SingleChildScrollView(
-          padding: EdgeInsets.all(16),
+          padding: const EdgeInsets.all(16),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text("Заголовок",
+              const Text("Заголовок",
                   style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600)),
-              Divider(height: 8),
+              const Divider(height: 8),
               SizedBox(
                 height: 48,
                 child: TextField(
                   autofocus: true,
                   enabled: !isFileUploaded,
-                  style: TextStyle(fontSize: 14, height: 1.1),
+                  style: const TextStyle(fontSize: 14, height: 1.1),
                   controller: textEditingController,
                   onChanged: (value) {
                     setState(() {});
                   },
-                  decoration: InputDecoration(hintText: "Введите заголовок"),
+                  decoration: const InputDecoration(hintText: "Введите заголовок"),
                 ),
               ),
-              Divider(height: 16),
+              const Divider(height: 16),
               if (!isFileUploaded && textEditingController.text.isNotEmpty)
                 GestureDetector(
                   onTap: pickFile,
                   child: Container(
-                    padding: EdgeInsets.symmetric(vertical: 9, horizontal: 12),
+                    padding: const EdgeInsets.symmetric(vertical: 9, horizontal: 12),
                     width: 148,
                     height: 34,
                     decoration: BoxDecoration(
@@ -126,8 +126,8 @@ class _AddFilePageState extends State<AddFilePage> {
                         color: ColorComponent.blue['700']),
                     child: Row(children: [
                       SvgPicture.asset("assets/icons/downloadFile.svg"),
-                      SizedBox(width: 8),
-                      Text("Загрузить файл",
+                      const SizedBox(width: 8),
+                      const Text("Загрузить файл",
                           style: TextStyle(
                               fontSize: 12,
                               fontWeight: FontWeight.w500,
@@ -135,23 +135,23 @@ class _AddFilePageState extends State<AddFilePage> {
                     ]),
                   ),
                 ),
-              Divider(height: 12),
+              const Divider(height: 12),
               if (isFileUploaded && fileName != null)
                 Container(
                     decoration: BoxDecoration(
                         border: Border.all(
                             width: 1, color: Colors.grey.withOpacity(0.2)),
                         borderRadius: BorderRadius.circular(14)),
-                    padding: EdgeInsets.all(12),
+                    padding: const EdgeInsets.all(12),
                     child: Row(children: [
                       SvgPicture.asset("assets/icons/fileCard.svg"),
-                      Divider(indent: 12),
+                      const Divider(indent: 12),
                       Expanded(
                           child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                             Text(fileName!,
-                                style: TextStyle(
+                                style: const TextStyle(
                                     fontSize: 16, fontWeight: FontWeight.w600)),
                             Text(
                                 "$fileSize, ${filePath!.split('.').last.toUpperCase()}",
@@ -171,7 +171,7 @@ class _AddFilePageState extends State<AddFilePage> {
             backgroundColor: ColorComponent.mainColor,
             titleColor: Colors.black,
             icon: null,
-            padding: EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+            padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
             widthIcon: null,
             title: "Сохранить"),
       ),

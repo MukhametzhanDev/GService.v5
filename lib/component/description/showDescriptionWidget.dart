@@ -9,9 +9,9 @@ class ShowDescriptionWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-      Text("Описание",
+      const Text("Описание",
           style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600)),
-      Divider(height: 8),
+      const Divider(height: 8),
       ReadMoreText(
         desc,
         trimMode: TrimMode.Line,

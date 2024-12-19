@@ -85,7 +85,7 @@ class _LoginBusinessPageState extends State<LoginBusinessPage>
   void showRegistrationPage() {
     // Navigator.pushNamed(context, "GetAccountTypePage")
     Navigator.push(context,
-            MaterialPageRoute(builder: (context) => GetAccountTypePage()))
+            MaterialPageRoute(builder: (context) => const GetAccountTypePage()))
         .then((value) {
       if (value != null) emailEditingController.text = value;
     });
@@ -109,18 +109,18 @@ class _LoginBusinessPageState extends State<LoginBusinessPage>
                   title: "Войти", onPressed: () => Navigator.pop(context)))
           : null,
       body: SingleChildScrollView(
-          padding: EdgeInsets.all(15),
+          padding: const EdgeInsets.all(15),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Divider(height: 10),
+              const Divider(height: 10),
               SizedBox(
                   height: 48,
                   child: EmailTextField(
                       textEditingController: emailEditingController,
                       autofocus: false,
                       onSubmitted: () {})),
-              Divider(indent: 15),
+              const Divider(indent: 15),
               PasswordTextField(
                   textEditingController: passwordEditingController,
                   onSubmitted: verifyData),
@@ -141,10 +141,10 @@ class _LoginBusinessPageState extends State<LoginBusinessPage>
                   onPressed: showRegistrationPage,
                   child: RichText(
                       text: TextSpan(
-                          style: TextStyle(
+                          style: const TextStyle(
                               fontWeight: FontWeight.w500, color: Colors.black),
                           children: [
-                        TextSpan(text: "У вас нет аккаунта? "),
+                        const TextSpan(text: "У вас нет аккаунта? "),
                         TextSpan(
                             text: "Зарегистрируйтесь",
                             style:
@@ -152,10 +152,10 @@ class _LoginBusinessPageState extends State<LoginBusinessPage>
                       ])),
                 ),
               ),
-              Divider(indent: 8),
+              const Divider(indent: 8),
               Button(onPressed: verifyData, title: "Подтвердить"),
-              Divider(indent: 8),
-              PrivacyPolicyWidget()
+              const Divider(indent: 8),
+              const PrivacyPolicyWidget()
             ],
           )),
     );

@@ -63,7 +63,7 @@ class _AddressCreateApplicationPageState
   Widget build(BuildContext context) {
     return Scaffold(
       body: SingleChildScrollView(
-        padding: EdgeInsets.all(15),
+        padding: const EdgeInsets.all(15),
         child: Column(children: [
           Select(
               title: "Страна",
@@ -73,7 +73,7 @@ class _AddressCreateApplicationPageState
               },
               pagination: false,
               api: "/countries"),
-          Divider(),
+          const Divider(),
           SelectVerifyData(
               title: "Город",
               onChanged: (value) {
@@ -84,7 +84,7 @@ class _AddressCreateApplicationPageState
               api: "/cities?country_id=${country['id']}",
               showErrorMessage:
                   country.isEmpty ? "Заполните строку 'Страна'" : ""),
-          Divider(),
+          const Divider(),
           SelectButton(
               title: address.isEmpty ? "Введите адрес" : address['address'],
               active: address.isNotEmpty,
@@ -94,7 +94,7 @@ class _AddressCreateApplicationPageState
       bottomNavigationBar: BottomNavigationBarComponent(
           child: Button(
               onPressed: verifyData,
-              padding: EdgeInsets.symmetric(horizontal: 15),
+              padding: const EdgeInsets.symmetric(horizontal: 15),
               title: "Продолжить")),
     );
   }

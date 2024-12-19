@@ -7,7 +7,7 @@ import 'package:gservice5/component/widgets/bottom/bottomNavigationBarComponent.
 import 'package:gservice5/pages/profile/file/addFilePage.dart';
 
 class FilesPage extends StatefulWidget {
-  FilesPage({super.key});
+  const FilesPage({super.key});
 
   @override
   State<FilesPage> createState() => _FilesPageState();
@@ -27,14 +27,14 @@ class _FilesPageState extends State<FilesPage> {
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        leading: BackIconButton(),
+        leading: const BackIconButton(),
         centerTitle: false,
-        title: Text("Документы"),
+        title: const Text("Документы"),
       ),
       body: files.isEmpty
-          ? Center(child: Text("Пока у вас нет документов"))
+          ? const Center(child: Text("Пока у вас нет документов"))
           : ListView.builder(
-              padding: EdgeInsets.all(16),
+              padding: const EdgeInsets.all(16),
               itemCount: files.length,
               itemBuilder: (context, index) {
                 final file = files[index];
@@ -46,17 +46,17 @@ class _FilesPageState extends State<FilesPage> {
                             width: 1, color: Colors.grey.withOpacity(0.2)),
                         borderRadius: BorderRadius.circular(14),
                       ),
-                      padding: EdgeInsets.all(12),
+                      padding: const EdgeInsets.all(12),
                       child: Row(
                         children: [
                           SvgPicture.asset("assets/icons/fileCard.svg"),
-                          SizedBox(width: 12),
+                          const SizedBox(width: 12),
                           Expanded(
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(file['title'] ?? '',
-                                    style: TextStyle(
+                                    style: const TextStyle(
                                         fontSize: 16,
                                         fontWeight: FontWeight.w600)),
                                 Text(
@@ -70,7 +70,7 @@ class _FilesPageState extends State<FilesPage> {
                             child:
                                 SvgPicture.asset("assets/icons/editBadge.svg"),
                           ),
-                          SizedBox(width: 8),
+                          const SizedBox(width: 8),
                           GestureDetector(
                             onTap: () => deleteFile(index),
                             child: SvgPicture.asset(
@@ -79,7 +79,7 @@ class _FilesPageState extends State<FilesPage> {
                         ],
                       ),
                     ),
-                    Divider(),
+                    const Divider(),
                   ],
                 );
               },
@@ -101,7 +101,7 @@ class _FilesPageState extends State<FilesPage> {
           backgroundColor: ColorComponent.mainColor,
           titleColor: Colors.black,
           icon: null,
-          padding: EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+          padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
           widthIcon: null,
           title: "Добавить документ",
         ),

@@ -25,13 +25,13 @@ class _AuthorAdWidgetState extends State<AuthorAdWidget> {
                   : Padding(
                       padding: const EdgeInsets.only(bottom: 16),
                       child: Text(widget.title,
-                          style: TextStyle(
+                          style: const TextStyle(
                               fontSize: 18, fontWeight: FontWeight.w600))),
               Container(
-                padding: EdgeInsets.all(12),
+                padding: const EdgeInsets.all(12),
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(8),
-                    color: Color(0xfff4f4f4)),
+                    color: const Color(0xfff4f4f4)),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -43,7 +43,7 @@ class _AuthorAdWidgetState extends State<AuthorAdWidget> {
                             width: 48,
                             height: 48,
                             borderRadius: 6),
-                        Divider(indent: 16),
+                        const Divider(indent: 16),
                         Expanded(
                             child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -57,14 +57,14 @@ class _AuthorAdWidgetState extends State<AuthorAdWidget> {
                                             MediaQuery.of(context).size.width /
                                                 1.5),
                                     child: Text(widget.data['name'],
-                                        style: TextStyle(
+                                        style: const TextStyle(
                                             fontSize: 16,
                                             fontWeight: FontWeight.w600))),
-                                Divider(indent: 6),
+                                const Divider(indent: 6),
                                 SvgPicture.asset("assets/icons/badgeCheck.svg"),
                               ],
                             ),
-                            Divider(height: 3),
+                            const Divider(height: 3),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
@@ -72,15 +72,15 @@ class _AuthorAdWidgetState extends State<AuthorAdWidget> {
                                     style: TextStyle(
                                         color: ColorComponent.gray['500'])),
                                 Container(
-                                  padding: EdgeInsets.all(4),
+                                  padding: const EdgeInsets.all(4),
                                   decoration: BoxDecoration(
                                       color: ColorComponent.mainColor,
                                       borderRadius: BorderRadius.circular(4)),
                                   child: Row(
                                     children: [
                                       SvgPicture.asset('assets/icons/star.svg'),
-                                      Divider(indent: 2),
-                                      Text("4.92",
+                                      const Divider(indent: 2),
+                                      const Text("4.92",
                                           style: TextStyle(
                                               fontSize: 12,
                                               fontWeight: FontWeight.w600))
@@ -93,7 +93,7 @@ class _AuthorAdWidgetState extends State<AuthorAdWidget> {
                         ))
                       ],
                     ),
-                    Divider(indent: 12),
+                    const Divider(indent: 12),
                     // Row(
                     //   children: [
                     //     Container(
@@ -114,7 +114,7 @@ class _AuthorAdWidgetState extends State<AuthorAdWidget> {
                     // Divider(height: 12),
                     RichText(
                         textAlign: TextAlign.start,
-                        text: TextSpan(
+                        text: const TextSpan(
                             style: TextStyle(color: Colors.black),
                             children: [
                               TextSpan(text: "Город: "),
@@ -122,35 +122,35 @@ class _AuthorAdWidgetState extends State<AuthorAdWidget> {
                                   text: "Алматы",
                                   style: TextStyle(fontWeight: FontWeight.w600))
                             ])),
-                    Divider(height: 12),
-                    Text("Контакты",
+                    const Divider(height: 12),
+                    const Text("Контакты",
                         style: TextStyle(
                             fontSize: 16, fontWeight: FontWeight.w600)),
-                    Divider(height: 12),
+                    const Divider(height: 12),
                     GestureDetector(
-                      child: Row(children: [
+                      child: const Row(children: [
                         Text("example.com",
                             style:
                                 TextStyle(decoration: TextDecoration.underline))
                       ]),
                     ),
-                    Divider(height: 12),
+                    const Divider(height: 12),
                     GestureDetector(
-                      child: Row(children: [
+                      child: const Row(children: [
                         Text("Написать на whatsapp",
                             style:
                                 TextStyle(decoration: TextDecoration.underline))
                       ]),
                     ),
-                    Divider(height: 12),
+                    const Divider(height: 12),
                     GestureDetector(
-                      child: Row(children: [
+                      child: const Row(children: [
                         Text("@instagramnik",
                             style:
                                 TextStyle(decoration: TextDecoration.underline))
                       ]),
                     ),
-                    Divider(height: 12),
+                    const Divider(height: 12),
                     SizedBox(
                         height: 41,
                         child: Button(

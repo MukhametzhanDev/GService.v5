@@ -147,14 +147,14 @@ class _MyApplicationListPageState extends State<MyApplicationListPage> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          leading: BackIconButton(),
-          title: Text("Мои заявки"),
+          leading: const BackIconButton(),
+          title: const Text("Мои заявки"),
           elevation: 0,
           bottom: PreferredSize(
             preferredSize: Size(MediaQuery.of(context).size.width, 50),
             child: Container(
               height: 52,
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                   border: Border(
                       bottom: BorderSide(width: 2, color: Color(0xfff4f5f7)))),
               padding: const EdgeInsets.only(left: 6, right: 6),
@@ -171,7 +171,7 @@ class _MyApplicationListPageState extends State<MyApplicationListPage> {
           ),
         ),
         body: loader
-            ? LoaderComponent()
+            ? const LoaderComponent()
             : SmartRefresher(
                 onRefresh: () async {
                   await getCount();
@@ -184,7 +184,7 @@ class _MyApplicationListPageState extends State<MyApplicationListPage> {
                     color: ColorComponent.mainColor,
                     backgroundColor: Colors.white),
                 child: data.isEmpty
-                    ? EmptyMyApplicationPage()
+                    ? const EmptyMyApplicationPage()
                     : ListView.builder(
                         controller: scrollController,
                         itemCount: data.length,
@@ -198,7 +198,7 @@ class _MyApplicationListPageState extends State<MyApplicationListPage> {
                                   removeItem: updateData,
                                   restoreItem: updateData),
                               isLoadMore
-                                  ? PaginationLoaderComponent()
+                                  ? const PaginationLoaderComponent()
                                   : Container()
                             ]);
                           } else {
@@ -226,8 +226,8 @@ class _MyApplicationListPageState extends State<MyApplicationListPage> {
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(8),
               color: !active ? ColorComponent.mainColor : Colors.white),
-          padding: EdgeInsets.only(left: 16, right: 8, top: 6, bottom: 6),
-          margin: EdgeInsets.only(right: 8),
+          padding: const EdgeInsets.only(left: 16, right: 8, top: 6, bottom: 6),
+          margin: const EdgeInsets.only(right: 8),
           alignment: Alignment.center,
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -238,7 +238,7 @@ class _MyApplicationListPageState extends State<MyApplicationListPage> {
                       fontSize: 13,
                       color:
                           active ? ColorComponent.gray['700'] : Colors.black)),
-              Divider(indent: 8),
+              const Divider(indent: 8),
               Container(
                   width: 24,
                   height: 24,
@@ -250,7 +250,7 @@ class _MyApplicationListPageState extends State<MyApplicationListPage> {
                           : ColorComponent.mainColor),
                   child: Text(
                     value['count'],
-                    style: TextStyle(fontWeight: FontWeight.w500),
+                    style: const TextStyle(fontWeight: FontWeight.w500),
                   ))
             ],
           ),

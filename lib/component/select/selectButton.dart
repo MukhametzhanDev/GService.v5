@@ -23,11 +23,11 @@ class _SelectButtonState extends State<SelectButton> {
       onTap: widget.onPressed,
       child: Container(
         height: 48,
-        padding: EdgeInsets.symmetric(vertical: 12, horizontal: 15),
+        padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 15),
         decoration: BoxDecoration(
-            color: Color(0xffF9FAFB),
+            color: const Color(0xffF9FAFB),
             borderRadius: BorderRadius.circular(10),
-            border: Border.all(width: 1, color: Color(0xffE5E5EA))),
+            border: Border.all(width: 1, color: const Color(0xffE5E5EA))),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [

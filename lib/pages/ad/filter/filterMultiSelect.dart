@@ -58,17 +58,17 @@ class _FilterMultiSelectState extends State<FilterMultiSelect> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(widget.title,
-            style: TextStyle(fontWeight: FontWeight.w600, fontSize: 15)),
-        Divider(height: 8),
+            style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 15)),
+        const Divider(height: 8),
         GestureDetector(
           onTap: showModal,
           child: Container(
             height: 48,
-            padding: EdgeInsets.symmetric(vertical: 12, horizontal: 15),
+            padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 15),
             decoration: BoxDecoration(
-                color: Color(0xffF9FAFB),
+                color: const Color(0xffF9FAFB),
                 borderRadius: BorderRadius.circular(10),
-                border: Border.all(width: 1, color: Color(0xffE5E5EA))),
+                border: Border.all(width: 1, color: const Color(0xffE5E5EA))),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -93,7 +93,7 @@ class _FilterMultiSelectState extends State<FilterMultiSelect> {
                 return GestureDetector(
                   onTap: () => removedItem(index),
                   child: Container(
-                    padding: EdgeInsets.symmetric(horizontal: 8),
+                    padding: const EdgeInsets.symmetric(horizontal: 8),
                     height: 26,
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(6),
@@ -105,9 +105,9 @@ class _FilterMultiSelectState extends State<FilterMultiSelect> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(value['title'],
-                            style: TextStyle(
+                            style: const TextStyle(
                                 fontSize: 12, fontWeight: FontWeight.w500)),
-                        Divider(indent: 4),
+                        const Divider(indent: 4),
                         Padding(
                           padding: const EdgeInsets.only(top: 2),
                           child: SvgPicture.asset('assets/icons/close.svg',

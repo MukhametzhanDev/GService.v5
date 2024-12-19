@@ -80,17 +80,17 @@ class _CurrencyButtonState extends State<CurrencyButton> {
         child: Container(
           height: 48,
           width: 70,
-          margin: EdgeInsets.only(left: 12),
+          margin: const EdgeInsets.only(left: 12),
           alignment: Alignment.center,
           decoration: BoxDecoration(
-              color: Color(0xffF9FAFB),
+              color: const Color(0xffF9FAFB),
               borderRadius: BorderRadius.circular(10),
-              border: Border.all(width: 1, color: Color(0xffE5E5EA))),
+              border: Border.all(width: 1, color: const Color(0xffE5E5EA))),
           child: loader
               ? Shimmer.fromColors(
-                  baseColor: Color(0xffD1D5DB),
-                  highlightColor: Color(0xfff4f5f7),
-                  period: Duration(seconds: 1),
+                  baseColor: const Color(0xffD1D5DB),
+                  highlightColor: const Color(0xfff4f5f7),
+                  period: const Duration(seconds: 1),
                   child: Container(
                       height: 48,
                       width: 70,
@@ -102,9 +102,9 @@ class _CurrencyButtonState extends State<CurrencyButton> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(currentData['currency']['symbol'],
-                        style: TextStyle(
+                        style: const TextStyle(
                             fontSize: 16, fontWeight: FontWeight.w500)),
-                    Divider(indent: 8),
+                    const Divider(indent: 8),
                     SvgPicture.asset('assets/icons/down.svg'),
                   ],
                 ),

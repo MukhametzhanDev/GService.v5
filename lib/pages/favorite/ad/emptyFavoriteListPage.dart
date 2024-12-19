@@ -23,12 +23,12 @@ class _EmptyFavoriteListPageState extends State<EmptyFavoriteListPage> {
       children: [
         SvgPicture.asset("assets/icons/heartOutline.svg",
             width: 120, color: ColorComponent.gray['500']),
-        Divider(indent: 12),
-        Text("Место для избранного",
+        const Divider(indent: 12),
+        const Text("Место для избранного",
             style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600)),
-        Divider(indent: 12),
-        Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 15),
+        const Divider(indent: 12),
+        const Padding(
+            padding: EdgeInsets.symmetric(horizontal: 15),
             child: Text(
               "Нажимайте на ♡ рядом с объявлениями или заявками, чтобы не потерять их",
               textAlign: TextAlign.center,

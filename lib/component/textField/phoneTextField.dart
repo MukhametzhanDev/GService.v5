@@ -41,10 +41,10 @@ class _PhoneTextFieldState extends State<PhoneTextField> {
           onChanged: (value) {
             if (value.length == 18) closeKeyboard();
           },
-          style: TextStyle(fontSize: 14, height: 1.1),
+          style: const TextStyle(fontSize: 14, height: 1.1),
           onSubmitted: (value) => widget.onSubmitted(),
           controller: widget.textEditingController,
-          decoration: InputDecoration(hintText: "+7"),
+          decoration: const InputDecoration(hintText: "+7"),
         ),
       ),
     );

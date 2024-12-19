@@ -93,7 +93,7 @@ class _ListFavoriteAdPageState extends State<ListFavoriteAdPage> {
     return Scaffold(
         appBar: AppBar(toolbarHeight: 0),
         body: loader
-            ? LoaderComponent()
+            ? const LoaderComponent()
             : Column(
                 children: [
                   Expanded(
@@ -108,7 +108,7 @@ class _ListFavoriteAdPageState extends State<ListFavoriteAdPage> {
                         color: ColorComponent.mainColor,
                         backgroundColor: Colors.white),
                     child: data.isEmpty
-                        ? EmptyFavoriteListPage()
+                        ? const EmptyFavoriteListPage()
                         : ListView.builder(
                             itemCount: data.length,
                             controller: scrollController,
@@ -120,7 +120,7 @@ class _ListFavoriteAdPageState extends State<ListFavoriteAdPage> {
                                       data: value['favoritable'],
                                       showCategory: false),
                                   hasNextPage
-                                      ? PaginationLoaderComponent()
+                                      ? const PaginationLoaderComponent()
                                       : Container()
                                 ]);
                               } else {

@@ -41,7 +41,7 @@ class _GetLogoWidgetState extends State<GetLogoWidget> {
       if (e.code == "photo_access_denied") {
         showCupertinoModalBottomSheet(
           context: context,
-          builder: (context) => GalleryDeniedModal(),
+          builder: (context) => const GalleryDeniedModal(),
         );
       }
     }
@@ -104,7 +104,7 @@ class _GetLogoWidgetState extends State<GetLogoWidget> {
                         height: 80,
                         borderRadius: 40)
                     : SvgPicture.asset('assets/icons/getAvatar.svg'),
-            Divider(indent: 12),
+            const Divider(indent: 12),
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -120,20 +120,20 @@ class _GetLogoWidgetState extends State<GetLogoWidget> {
                       style: TextStyle(
                           fontWeight: FontWeight.w600,
                           color: ColorComponent.gray['500'])),
-                  Divider(height: 8),
+                  const Divider(height: 8),
                   Text("SVG, PNG, JPG или JPEG (MAX. 800x400px)",
                       style: TextStyle(
                           fontSize: 12, color: ColorComponent.gray['500'])),
-                  Divider(height: 8),
+                  const Divider(height: 8),
                   Container(
                       padding:
-                          EdgeInsets.symmetric(vertical: 6, horizontal: 12),
+                          const EdgeInsets.symmetric(vertical: 6, horizontal: 12),
                       decoration: BoxDecoration(
                           color: ColorComponent.mainColor,
                           borderRadius: BorderRadius.circular(8)),
                       child: Text(
                           widget.imageUrl != null ? "Изменить" : "Загрузить",
-                          style: TextStyle(
+                          style: const TextStyle(
                               fontSize: 12, fontWeight: FontWeight.w500)))
                 ],
               ),
@@ -159,20 +159,20 @@ class _GetLogoWidgetState extends State<GetLogoWidget> {
                       color: ColorComponent.gray['200'],
                       borderRadius: BorderRadius.circular(20)),
                 ),
-                Divider(indent: 8),
+                const Divider(indent: 8),
                 Button(
                     onPressed: () async {
                       Navigator.pop(context);
                       await getImage();
                     },
                     title: "Выбрать другое фото"),
-                Divider(indent: 8),
+                const Divider(indent: 8),
                 Button(
                     onPressed: () {
                       showEditImagePath();
                     },
                     title: "Редактировать фото"),
-                Divider(indent: 8),
+                const Divider(indent: 8),
                 Button(
                     onPressed: () {
                       image = null;
@@ -180,7 +180,7 @@ class _GetLogoWidgetState extends State<GetLogoWidget> {
                       Navigator.pop(context);
                     },
                     title: "Удалить фото"),
-                Divider(indent: 8),
+                const Divider(indent: 8),
                 Button(
                     onPressed: () => Navigator.pop(context),
                     title: "Отмена",

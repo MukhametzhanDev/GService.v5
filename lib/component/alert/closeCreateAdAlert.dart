@@ -15,9 +15,9 @@ class CloseCreateAdAlert extends StatelessWidget {
       child: Scaffold(
         appBar: AppBar(
             automaticallyImplyLeading: false,
-            title: Text("Закрыть подачу объявления?"),
-            actions: [CloseIconButton(iconColor: null, padding: true)]),
-        body: Center(
+            title: const Text("Закрыть подачу объявления?"),
+            actions: const [CloseIconButton(iconColor: null, padding: true)]),
+        body: const Center(
             child: Text(
           "Данные не сохранятся и вам придётся начинать всё сначала",
           style: TextStyle(fontWeight: FontWeight.w400, fontSize: 15),
@@ -40,7 +40,7 @@ class CloseCreateAdAlert extends StatelessWidget {
                       backgroundColor: ColorComponent.red['100'],
                       titleColor: ColorComponent.red['600'],
                       title: "Закрыть")),
-              Divider(indent: 8),
+              const Divider(indent: 8),
               Expanded(
                   child: Button(
                       onPressed: () => Navigator.pop(context), title: "Отмена"))

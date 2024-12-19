@@ -99,9 +99,9 @@ class _GetProfessionPageState
           child: SearchTextField(title: "Поиск", onChanged: searchList)),
       Expanded(
         child: loader
-            ? LoaderComponent()
+            ? const LoaderComponent()
             : ListView.builder(
-                padding: EdgeInsets.symmetric(vertical: 15),
+                padding: const EdgeInsets.symmetric(vertical: 15),
                 itemCount: data.length,
                 controller: scrollController,
                 itemBuilder: (context, index) {
@@ -109,7 +109,7 @@ class _GetProfessionPageState
                   if (data.length - 1 == index) {
                     return Column(children: [
                       Item(value),
-                      isLoadMore ? LoaderPaginationComponent() : Container()
+                      isLoadMore ? const LoaderPaginationComponent() : Container()
                     ]);
                   } else {
                     return Item(value);
@@ -122,7 +122,7 @@ class _GetProfessionPageState
   Widget Item(Map value) {
     bool active = value['active'] ?? false;
     return Container(
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
           border: Border(top: BorderSide(width: 1, color: Color(0xffF5f5f5)))),
       child: ListTile(
         onTap: () => activedItem(value),

@@ -70,43 +70,43 @@ class _ViewNewsPageState extends State<ViewNewsPage> {
           leadingWidth: 200,
           leading: BackTitleButton(
               title: "Новость", onPressed: () => Navigator.pop(context)),
-          actions: [ShareButton(id: 0, hasAd: false), Divider(indent: 16)]),
+          actions: const [ShareButton(id: 0, hasAd: false), Divider(indent: 16)]),
       body: loader
-          ? LoaderComponent()
+          ? const LoaderComponent()
           : SingleChildScrollView(
-              padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(data["title"],
                       maxLines: 3,
                       style:
-                          TextStyle(fontSize: 20, fontWeight: FontWeight.w600)),
-                  Divider(height: 12),
+                          const TextStyle(fontSize: 20, fontWeight: FontWeight.w600)),
+                  const Divider(height: 12),
                   Row(children: [
                     Text(
                         formattedDate(
                             data["created_at"], "dd MMMM yyyy, HH:mm"),
                         style: TextStyle(
                             fontSize: 12, color: ColorComponent.gray['500'])),
-                    Divider(indent: 16),
+                    const Divider(indent: 16),
                     SvgPicture.asset("assets/icons/eye.svg"),
-                    Divider(indent: 4),
+                    const Divider(indent: 4),
                     Text(data["views"].toString(),
                         style: TextStyle(
                             fontSize: 12, color: ColorComponent.gray['500']))
                   ]),
-                  Divider(indent: 12),
+                  const Divider(indent: 12),
                   CacheImage(
                       url: data["poster"],
                       width: MediaQuery.of(context).size.width,
                       height: 200,
                       borderRadius: 10),
-                  Divider(indent: 12),
+                  const Divider(indent: 12),
                   Text(data["short_description"],
                       style:
-                          TextStyle(fontSize: 16, fontWeight: FontWeight.w500)),
-                  Divider(indent: 8),
+                          const TextStyle(fontSize: 16, fontWeight: FontWeight.w500)),
+                  const Divider(indent: 8),
                   Text(data["description"]),
                   // Divider(indent: 16),
                   // Text("Комментарии",
@@ -210,25 +210,25 @@ class _ViewNewsPageState extends State<ViewNewsPage> {
                   //     padding: EdgeInsets.zero,
                   //     widthIcon: null,
                   //     title: "Отправить"),
-                  Divider(height: 16),
+                  const Divider(height: 16),
                   Wrap(
                       spacing: 8,
                       runSpacing: 8,
                       children: tags.map((value) {
                         return Container(
-                            padding: EdgeInsets.symmetric(
+                            padding: const EdgeInsets.symmetric(
                                 horizontal: 6, vertical: 2),
                             decoration: BoxDecoration(
                                 color: ColorComponent.mainColor.withOpacity(.2),
                                 borderRadius: BorderRadius.circular(4)),
                             child: Text(value['title'],
-                                style: TextStyle(fontSize: 12)));
+                                style: const TextStyle(fontSize: 12)));
                       }).toList()),
-                  Divider(height: 8),
+                  const Divider(height: 8),
                   Divider(color: ColorComponent.gray['100']),
-                  Divider(height: 8),
+                  const Divider(height: 8),
                   // AuthorAdWidget(title: "Автор", data: data['author']),
-                  Divider(height: 12),
+                  const Divider(height: 12),
                 ],
               ),
             ),

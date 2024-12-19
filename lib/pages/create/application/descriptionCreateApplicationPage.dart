@@ -42,14 +42,14 @@ class _DescriptionCreateApplicationPageState
   Widget build(BuildContext context) {
     return Scaffold(
       body: SingleChildScrollView(
-        padding: EdgeInsets.all(15),
+        padding: const EdgeInsets.all(15),
         child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-          Text("Напишите подробности",
+          const Text("Напишите подробности",
               style: TextStyle(fontWeight: FontWeight.w600, fontSize: 20)),
-          Divider(height: 8),
+          const Divider(height: 8),
           TextField(
               controller: descEditingController,
-              style: TextStyle(fontSize: 14),
+              style: const TextStyle(fontSize: 14),
               maxLength: 1000,
               textCapitalization: TextCapitalization.sentences,
               maxLines: 14,
@@ -66,7 +66,7 @@ class _DescriptionCreateApplicationPageState
       bottomNavigationBar: BottomNavigationBarComponent(
           child: Button(
               onPressed: verifyData,
-              padding: EdgeInsets.symmetric(horizontal: 15),
+              padding: const EdgeInsets.symmetric(horizontal: 15),
               title: "Продолжить")),
     );
   }

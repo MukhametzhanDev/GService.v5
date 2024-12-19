@@ -86,25 +86,25 @@ class _MultiSelectModalState extends State<MultiSelectModal> {
         appBar: AppBar(
           title: Text(widget.title),
           automaticallyImplyLeading: false,
-          actions: [CloseIconButton(iconColor: null, padding: true)],
+          actions: const [CloseIconButton(iconColor: null, padding: true)],
           bottom: PreferredSize(
               preferredSize: Size(MediaQuery.of(context).size.width, 50),
               child: Container(
-                  padding: EdgeInsets.symmetric(horizontal: 15, vertical: 2),
+                  padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 2),
                   child:
                       SearchTextField(title: "Поиск", onChanged: (value) {}))),
         ),
         body: loader
-            ? LoaderComponent()
+            ? const LoaderComponent()
             : ListView.builder(
-                padding: EdgeInsets.symmetric(vertical: 15),
+                padding: const EdgeInsets.symmetric(vertical: 15),
                 physics: physics,
                 itemCount: data.length,
                 itemBuilder: (context, index) {
                   Map value = data[index];
                   bool active = value['active'] ?? false;
                   return Container(
-                    decoration: BoxDecoration(
+                    decoration: const BoxDecoration(
                         border: Border(
                             top: BorderSide(
                                 width: 1, color: Color(0xffeeeeee)))),
@@ -115,13 +115,13 @@ class _MultiSelectModalState extends State<MultiSelectModal> {
                         height: 20,
                         alignment: Alignment.center,
                         decoration: BoxDecoration(
-                            color: active ? Color(0xff1A56DB) : null,
+                            color: active ? const Color(0xff1A56DB) : null,
                             borderRadius: BorderRadius.circular(4),
                             border: Border.all(
                                 width: 1,
                                 color: active
-                                    ? Color(0xff1A56DB)
-                                    : Color(0xffD1D5DB))),
+                                    ? const Color(0xff1A56DB)
+                                    : const Color(0xffD1D5DB))),
                         child: active
                             ? SvgPicture.asset('assets/icons/checkMini.svg',
                                 color: Colors.white)
@@ -134,7 +134,7 @@ class _MultiSelectModalState extends State<MultiSelectModal> {
         bottomNavigationBar: BottomNavigationBarComponent(
             child: Button(
                 onPressed: savedData,
-                padding: EdgeInsets.symmetric(horizontal: 16),
+                padding: const EdgeInsets.symmetric(horizontal: 16),
                 title: "Сохранить")),
       );
     });

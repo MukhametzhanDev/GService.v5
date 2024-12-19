@@ -19,17 +19,17 @@ class _NotFoundPageState extends State<NotFoundPage> {
     return widget.statusCode == 404
         ? Scaffold(
             appBar: AppBar(
-                leading: BackTitleButton(title: "Назад"), leadingWidth: 100),
+                leading: const BackTitleButton(title: "Назад"), leadingWidth: 100),
             body: Container(
               width: MediaQuery.of(context).size.width - 50,
-              margin: EdgeInsets.symmetric(horizontal: 25),
+              margin: const EdgeInsets.symmetric(horizontal: 25),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Image.asset("assets/images/404.png"),
-                  Divider(indent: 15),
-                  Text(
+                  const Divider(indent: 15),
+                  const Text(
                     "Страница не найдено",
                     style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
                   )
@@ -39,7 +39,7 @@ class _NotFoundPageState extends State<NotFoundPage> {
             bottomNavigationBar: BottomNavigationBarComponent(
                 child: Button(
                     onPressed: () => Navigator.pop(context),
-                    padding: EdgeInsets.symmetric(horizontal: 15),
+                    padding: const EdgeInsets.symmetric(horizontal: 15),
                     title: "Перейти на главную")),
           )
         : widget.child;

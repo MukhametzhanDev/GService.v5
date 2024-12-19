@@ -21,12 +21,12 @@ class _NewsMainPageState extends State<NewsMainPage> {
           appBar: AppBar(
               automaticallyImplyLeading: false,
               centerTitle: false,
-              leading: BackTitleButton(title: "Новости"),
+              leading: const BackTitleButton(title: "Новости"),
               leadingWidth: 150,
               bottom: PreferredSize(
                   preferredSize: Size(MediaQuery.of(context).size.width, 44),
                   child: Container(
-                    decoration: BoxDecoration(
+                    decoration: const BoxDecoration(
                         border: Border(
                             bottom: BorderSide(
                                 width: 2, color: Color(0xfff4f5f7)))),
@@ -36,12 +36,12 @@ class _NewsMainPageState extends State<NewsMainPage> {
                         indicatorColor: ColorComponent.mainColor,
                         labelColor: Colors.black,
                         unselectedLabelColor: ColorComponent.gray['500'],
-                        tabs: [
+                        tabs: const [
                           Tab(text: "Все новости"),
                           Tab(text: "Мои новости")
                         ]),
                   ))),
-          body: TabBarView(children: [AllNewsPage(), MyNewsPage()]),
+          body: const TabBarView(children: [AllNewsPage(), MyNewsPage()]),
         ));
   }
 }

@@ -25,7 +25,7 @@ class FilterAdWidget extends StatefulWidget implements PreferredSizeWidget {
 
   @override
   Size get preferredSize =>
-      new Size.fromHeight(appBar.preferredSize.height + 46);
+      Size.fromHeight(appBar.preferredSize.height + 46);
 }
 
 class _FilterAdWidgetState extends State<FilterAdWidget> {
@@ -122,7 +122,7 @@ class _FilterAdWidgetState extends State<FilterAdWidget> {
     } else if (price.containsKey("price_to")) {
       return Text("до ${priceFormat(price['price_to'])} ₸");
     } else {
-      return Text("Цена");
+      return const Text("Цена");
     }
   }
 
@@ -165,9 +165,9 @@ class _FilterAdWidgetState extends State<FilterAdWidget> {
           title: widget.category['title'],
           onPressed: () => Navigator.pop(context)),
       bottom: PreferredSize(
-          preferredSize: Size(double.infinity, 46),
+          preferredSize: const Size(double.infinity, 46),
           child: Container(
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                   border: Border(
                       bottom: BorderSide(width: 2, color: Color(0xfff4f5f7)))),
               padding: const EdgeInsets.only(left: 15, right: 15, bottom: 8),
@@ -179,7 +179,7 @@ class _FilterAdWidgetState extends State<FilterAdWidget> {
                     child: Container(
                         height: 36,
                         alignment: Alignment.center,
-                        margin: EdgeInsets.only(right: 12),
+                        margin: const EdgeInsets.only(right: 12),
                         padding: EdgeInsets.only(
                             left: 12, right: city.isNotEmpty ? 6 : 12),
                         decoration: BoxDecoration(
@@ -188,7 +188,7 @@ class _FilterAdWidgetState extends State<FilterAdWidget> {
                                 width: 1,
                                 color: city.isNotEmpty
                                     ? ColorComponent.mainColor
-                                    : Color(0xffD1D5DB)),
+                                    : const Color(0xffD1D5DB)),
                             color: ColorComponent.gray['50']),
                         child: Row(
                           children: [
@@ -200,7 +200,7 @@ class _FilterAdWidgetState extends State<FilterAdWidget> {
                                     color: city.isNotEmpty
                                         ? Colors.black
                                         : ColorComponent.gray['500'])),
-                            Divider(indent: 6),
+                            const Divider(indent: 6),
                             city.isNotEmpty
                                 ? GestureDetector(
                                     onTap: onClearCity,
@@ -220,7 +220,7 @@ class _FilterAdWidgetState extends State<FilterAdWidget> {
                     child: Container(
                         height: 36,
                         alignment: Alignment.center,
-                        margin: EdgeInsets.only(bottom: 2),
+                        margin: const EdgeInsets.only(bottom: 2),
                         padding: EdgeInsets.only(
                             left: 12, right: price.isNotEmpty ? 6 : 12),
                         decoration: BoxDecoration(
@@ -228,13 +228,13 @@ class _FilterAdWidgetState extends State<FilterAdWidget> {
                             border: Border.all(
                                 width: 1,
                                 color: price.isEmpty
-                                    ? Color(0xffD1D5DB)
+                                    ? const Color(0xffD1D5DB)
                                     : ColorComponent.mainColor),
                             color: ColorComponent.gray['50']),
                         child: price.isNotEmpty
                             ? Row(children: [
                                 PriceWidget(),
-                                Divider(indent: 6),
+                                const Divider(indent: 6),
                                 GestureDetector(
                                     onTap: onClearPrice,
                                     child: Container(
@@ -249,7 +249,7 @@ class _FilterAdWidgetState extends State<FilterAdWidget> {
                                   Text("Цена",
                                       style: TextStyle(
                                           color: ColorComponent.gray['500'])),
-                                  Divider(indent: 6),
+                                  const Divider(indent: 6),
                                   SvgPicture.asset('assets/icons/down.svg')
                                 ],
                               )),

@@ -93,7 +93,7 @@ class _CreateApplicationState extends State<CreateApplication> {
     // if (!hasToken) {
     pages.addAll([
       ContactCreateApplicationPage(nextPage: nextPage),
-      GetImageCreateApplicaitonPage()
+      const GetImageCreateApplicaitonPage()
     ]);
     titles.addAll(["Контакты", "Дополнительно"]);
     // } else {
@@ -120,12 +120,12 @@ class _CreateApplicationState extends State<CreateApplication> {
                           child: BackTitleButton(
                               onPressed: previousPage,
                               title: titles[currentIndex])),
-                      CloseIconButton(iconColor: null, padding: true),
+                      const CloseIconButton(iconColor: null, padding: true),
                     ],
                   ),
             Expanded(
               child: loader
-                  ? LoaderComponent()
+                  ? const LoaderComponent()
                   : IndexedStack(index: currentIndex, children: pages),
             ),
           ],

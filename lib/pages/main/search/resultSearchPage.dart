@@ -105,7 +105,7 @@ class _ResultSearchPageState extends State<ResultSearchPage> {
           automaticallyImplyLeading: false,
           shape: Border(
               bottom: BorderSide(
-                  color: Color(0xfff4f5f7), width: count.isEmpty ? 0 : 1)),
+                  color: const Color(0xfff4f5f7), width: count.isEmpty ? 0 : 1)),
           leadingWidth: 0,
           title: GestureDetector(
             onTap: () => Navigator.pop(context),
@@ -116,12 +116,12 @@ class _ResultSearchPageState extends State<ResultSearchPage> {
                     alignment: Alignment.center,
                     child:
                         SvgPicture.asset('assets/icons/left.svg', width: 26)),
-                Divider(indent: 4),
+                const Divider(indent: 4),
                 SvgPicture.asset("assets/icons/searchOutline.svg",
                     color: ColorComponent.gray['500']),
-                Divider(indent: 6),
+                const Divider(indent: 6),
                 Text(widget.title,
-                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400))
+                    style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w400))
               ],
             ),
           ),
@@ -140,9 +140,9 @@ class _ResultSearchPageState extends State<ResultSearchPage> {
                                 padding:
                                     const EdgeInsets.only(right: 8, bottom: 10),
                                 child: Shimmer.fromColors(
-                                    baseColor: Color(0xffD1D5DB),
-                                    highlightColor: Color(0xfff4f5f7),
-                                    period: Duration(seconds: 1),
+                                    baseColor: const Color(0xffD1D5DB),
+                                    highlightColor: const Color(0xfff4f5f7),
+                                    period: const Duration(seconds: 1),
                                     child: Container(
                                         width: 100,
                                         height: 36,
@@ -156,7 +156,7 @@ class _ResultSearchPageState extends State<ResultSearchPage> {
                         : count.isEmpty
                             ? Container()
                             : SingleChildScrollView(
-                                padding: EdgeInsets.only(
+                                padding: const EdgeInsets.only(
                                     left: 12, right: 12, bottom: 10),
                                 scrollDirection: Axis.horizontal,
                                 child: Row(
@@ -177,17 +177,17 @@ class _ResultSearchPageState extends State<ResultSearchPage> {
                                               BorderRadius.circular(8)),
                                       alignment: Alignment.center,
                                       margin:
-                                          EdgeInsets.symmetric(horizontal: 4),
+                                          const EdgeInsets.symmetric(horizontal: 4),
                                       padding:
-                                          EdgeInsets.only(left: 16, right: 12),
+                                          const EdgeInsets.only(left: 16, right: 12),
                                       child: Row(
                                         children: [
                                           Text(value['title'],
-                                              style: TextStyle(
+                                              style: const TextStyle(
                                                   fontWeight: FontWeight.w500)),
                                           Container(
-                                            margin: EdgeInsets.only(left: 6),
-                                            padding: EdgeInsets.symmetric(
+                                            margin: const EdgeInsets.only(left: 6),
+                                            padding: const EdgeInsets.symmetric(
                                                 horizontal: 4),
                                             decoration: BoxDecoration(
                                                 color:
@@ -196,7 +196,7 @@ class _ResultSearchPageState extends State<ResultSearchPage> {
                                                     BorderRadius.circular(20)),
                                             child: Text(
                                                 numberFormat(value['count']),
-                                                style: TextStyle(
+                                                style: const TextStyle(
                                                     fontSize: 12,
                                                     fontWeight: FontWeight.w600,
                                                     color: Colors.white)),
@@ -250,11 +250,11 @@ class _ResultSearchPageState extends State<ResultSearchPage> {
               )),
         ),
         body: loader
-            ? LoaderComponent()
+            ? const LoaderComponent()
             : count.isEmpty
-                ? EmptyAdListPage()
+                ? const EmptyAdListPage()
                 : loaderAd
-                    ? AdListLoader()
+                    ? const AdListLoader()
                     : SingleChildScrollView(
                         child: ResultListPage(data: data, param: {
                           "title": widget.title,

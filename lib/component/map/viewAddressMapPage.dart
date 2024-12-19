@@ -32,7 +32,7 @@ class _ViewAddressMapPageState extends State<ViewAddressMapPage> {
                 latitude: double.parse(latitude),
                 longitude: double.parse(longitude)),
             zoom: zoom)),
-        animation: MapAnimation(duration: 1));
+        animation: const MapAnimation(duration: 1));
   }
 
   Future<void> show2GIS() async {
@@ -58,7 +58,7 @@ class _ViewAddressMapPageState extends State<ViewAddressMapPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(leading: BackIconButton(), title: Text("Адрес")),
+      appBar: AppBar(leading: const BackIconButton(), title: const Text("Адрес")),
       body: Stack(
         alignment: Alignment.center,
         children: [
@@ -101,7 +101,7 @@ class _ViewAddressMapPageState extends State<ViewAddressMapPage> {
                     child: GestureDetector(
                         onTap: () {
                           controller.moveCamera(CameraUpdate.zoomIn(),
-                              animation: MapAnimation(duration: 0.4));
+                              animation: const MapAnimation(duration: 0.4));
                         },
                         // onTapDown: (details) async {
                         //   controller.moveCamera(CameraUpdate.zoomIn());
@@ -113,7 +113,7 @@ class _ViewAddressMapPageState extends State<ViewAddressMapPage> {
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(12)),
                           alignment: Alignment.center,
-                          child: Text(
+                          child: const Text(
                             "+",
                             style: TextStyle(fontSize: 24),
                           ),
@@ -125,13 +125,13 @@ class _ViewAddressMapPageState extends State<ViewAddressMapPage> {
                     child: GestureDetector(
                         onTap: () {
                           controller.moveCamera(CameraUpdate.zoomOut(),
-                              animation: MapAnimation(duration: 0.4));
+                              animation: const MapAnimation(duration: 0.4));
                         },
                         child: Container(
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(12)),
                           alignment: Alignment.center,
-                          child: Text(
+                          child: const Text(
                             "-",
                             style: TextStyle(fontSize: 24),
                           ),
@@ -152,7 +152,7 @@ class _ViewAddressMapPageState extends State<ViewAddressMapPage> {
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            SizedBox(height: 5),
+            const SizedBox(height: 5),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -164,16 +164,16 @@ class _ViewAddressMapPageState extends State<ViewAddressMapPage> {
                       child: SvgPicture.asset('assets/icons/pinOutline.svg',
                           color: Colors.black, width: 18),
                     ),
-                    SizedBox(width: 8),
+                    const SizedBox(width: 8),
                     Expanded(
                       child: Text(widget.data['address'],
-                          style: TextStyle(
+                          style: const TextStyle(
                               fontWeight: FontWeight.w600, fontSize: 16)),
                     ),
                   ],
                 ),
                 Padding(
-                  padding: EdgeInsets.only(top: 10, bottom: 6),
+                  padding: const EdgeInsets.only(top: 10, bottom: 6),
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
@@ -183,7 +183,7 @@ class _ViewAddressMapPageState extends State<ViewAddressMapPage> {
                             widget.data['country']['flag'],
                             width: 24),
                       ),
-                      SizedBox(width: 10),
+                      const SizedBox(width: 10),
                       Text(
                           widget.data['country']['title'] +
                               ", " +
@@ -196,12 +196,12 @@ class _ViewAddressMapPageState extends State<ViewAddressMapPage> {
                 )
               ],
             ),
-            SizedBox(height: 12),
+            const SizedBox(height: 12),
             Text("Открыть при помощи",
                 style: TextStyle(
                     color: ColorComponent.gray['500'],
                     fontWeight: FontWeight.w500)),
-            SizedBox(height: 8),
+            const SizedBox(height: 8),
             SizedBox(
               width: MediaQuery.of(context).size.width - 30,
               child: Row(
@@ -211,25 +211,25 @@ class _ViewAddressMapPageState extends State<ViewAddressMapPage> {
                         onPressed: show2GIS,
                         child: Container(
                             height: 44,
-                            padding: EdgeInsets.symmetric(vertical: 11),
+                            padding: const EdgeInsets.symmetric(vertical: 11),
                             alignment: Alignment.center,
                             decoration: BoxDecoration(
                                 border: Border.all(
-                                    width: 1, color: Color(0xffE5E7EB)),
+                                    width: 1, color: const Color(0xffE5E7EB)),
                                 borderRadius: BorderRadius.circular(8)),
                             child: Image.asset('assets/images/2gis.png'))),
                   ),
-                  SizedBox(width: 12),
+                  const SizedBox(width: 12),
                   Expanded(
                     child: TextButton(
                         onPressed: showYandexMap,
                         child: Container(
                             height: 44,
-                            padding: EdgeInsets.symmetric(vertical: 11),
+                            padding: const EdgeInsets.symmetric(vertical: 11),
                             alignment: Alignment.center,
                             decoration: BoxDecoration(
                                 border: Border.all(
-                                    width: 1, color: Color(0xffE5E7EB)),
+                                    width: 1, color: const Color(0xffE5E7EB)),
                                 borderRadius: BorderRadius.circular(8)),
                             child: Image.asset('assets/images/yandexMap.png'))),
                   ),

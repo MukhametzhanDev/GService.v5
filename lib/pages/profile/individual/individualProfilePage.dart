@@ -70,17 +70,17 @@ class _IndividualProfilePageState extends State<IndividualProfilePage> {
       appBar: AppBar(
           automaticallyImplyLeading: false,
           centerTitle: false,
-          title: Text("Профиль")),
+          title: const Text("Профиль")),
       body: loader
-          ? LoaderComponent()
+          ? const LoaderComponent()
           : SingleChildScrollView(
               child: Column(
                 children: [
                   GestureDetector(
                     onTap: () => showChangeIndividualProfilePage(),
                     child: Container(
-                      padding: EdgeInsets.only(left: 15, right: 15, bottom: 15),
-                      decoration: BoxDecoration(
+                      padding: const EdgeInsets.only(left: 15, right: 15, bottom: 15),
+                      decoration: const BoxDecoration(
                           border: Border(
                               bottom: BorderSide(
                                   width: 1, color: Color(0xffeeeeee)))),
@@ -91,13 +91,13 @@ class _IndividualProfilePageState extends State<IndividualProfilePage> {
                               width: 48,
                               height: 48,
                               borderRadius: 24),
-                          Divider(indent: 12),
+                          const Divider(indent: 12),
                           Expanded(
                               child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(data['name'],
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                       fontSize: 16,
                                       fontWeight: FontWeight.w600)),
                               Text("ID: ${data['id']}",
@@ -111,8 +111,8 @@ class _IndividualProfilePageState extends State<IndividualProfilePage> {
                       ),
                     ),
                   ),
-                  ShowWalletWidget(),
-                  ProfileListTilesWidget()
+                  const ShowWalletWidget(),
+                  const ProfileListTilesWidget()
                 ],
               ),
             ),

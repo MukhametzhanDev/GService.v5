@@ -37,7 +37,7 @@ class _PriceTextFieldState extends State<PriceTextField> {
         inputFormatters: [currencyTextInputFormatter],
         autofocus: widget.autofocus ?? false,
         keyboardType: TextInputType.number,
-        style: TextStyle(fontSize: 14, height: 1.1),
+        style: const TextStyle(fontSize: 14, height: 1.1),
         controller: widget.textEditingController,
         decoration: InputDecoration(hintText: widget.title ?? 'Введите цену'),
       ),

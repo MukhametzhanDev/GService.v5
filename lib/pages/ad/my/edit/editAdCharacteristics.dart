@@ -70,7 +70,7 @@ class _EditAdCharacteristicsState extends State<EditAdCharacteristics> {
   @override
   Widget build(BuildContext context) {
     return loader
-        ? LoaderComponent()
+        ? const LoaderComponent()
         : SingleChildScrollView(
             child: Column(
                 children: data.map((value) {
@@ -217,7 +217,7 @@ class TextFieldCharacteristic extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
       Text(data['title'],
-          style: TextStyle(fontSize: 13, fontWeight: FontWeight.w500)),
+          style: const TextStyle(fontSize: 13, fontWeight: FontWeight.w500)),
       const SizedBox(height: 7),
       TextFormField(
         initialValue: data?['value']?['value'].toString() ?? "",
@@ -226,7 +226,7 @@ class TextFieldCharacteristic extends StatelessWidget {
         onChanged: (valueChanged) {
           addData({data['id'].toString(): valueChanged});
         },
-        style: TextStyle(fontSize: 14, color: Colors.black),
+        style: const TextStyle(fontSize: 14, color: Colors.black),
         decoration: InputDecoration(
           hintText: data['tag_attribute']?['placeholder'],
         ),

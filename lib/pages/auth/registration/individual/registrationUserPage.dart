@@ -88,17 +88,17 @@ class _RegistrationIndividualPageState extends State<RegistrationIndividualPage>
     return GestureDetector(
       onTap: () => closeKeyboard(),
       child: Scaffold(
-        appBar: AppBar(title: Text("Регистрация"), leading: BackIconButton()),
+        appBar: AppBar(title: const Text("Регистрация"), leading: const BackIconButton()),
         body: SingleChildScrollView(
-          padding: EdgeInsets.symmetric(horizontal: 15, vertical: 7),
+          padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 7),
           child: Column(
             children: [
               TextField(
                   autofocus: true,
-                  style: TextStyle(fontSize: 14, height: 1.1),
-                  decoration: InputDecoration(hintText: "ФИО"),
+                  style: const TextStyle(fontSize: 14, height: 1.1),
+                  decoration: const InputDecoration(hintText: "ФИО"),
                   controller: nameEditingController),
-              Divider(indent: 8),
+              const Divider(indent: 8),
               SelectButton(
                   title: currentCity.isEmpty
                       ? "Выберите город"
@@ -114,11 +114,11 @@ class _RegistrationIndividualPageState extends State<RegistrationIndividualPage>
                             },
                             countryId: widget.data['country_id']));
                   }),
-              Divider(indent: 8),
+              const Divider(indent: 8),
               PasswordTextField(
                   textEditingController: passwordEditingController,
                   onSubmitted: () {}),
-              Divider(indent: 8),
+              const Divider(indent: 8),
               RepeatPasswordTextField(
                   textEditingController: repeatPasswordEditingController,
                   onSubmitted: verifyData)
@@ -128,7 +128,7 @@ class _RegistrationIndividualPageState extends State<RegistrationIndividualPage>
         bottomNavigationBar: BottomNavigationBarComponent(
             child: Button(
                 onPressed: verifyData,
-                padding: EdgeInsets.symmetric(horizontal: 15),
+                padding: const EdgeInsets.symmetric(horizontal: 15),
                 title: "Продолжить")),
       ),
     );

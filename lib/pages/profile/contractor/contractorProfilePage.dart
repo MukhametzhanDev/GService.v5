@@ -75,13 +75,13 @@ class _ContractorProfilePageState extends State<ContractorProfilePage> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(data['name']),
-                    Divider(indent: 4),
+                    const Divider(indent: 4),
                     SvgPicture.asset('assets/icons/badgeСheck.svg')
                   ],
                 ),
               ),
         body: loader
-            ? LoaderComponent()
+            ? const LoaderComponent()
             : SingleChildScrollView(
                 child: Column(
                   children: [
@@ -96,7 +96,7 @@ class _ContractorProfilePageState extends State<ContractorProfilePage> {
                               Container(
                                 decoration: BoxDecoration(
                                     border: Border.all(
-                                        width: 1, color: Color(0xffE5E7EB)),
+                                        width: 1, color: const Color(0xffE5E7EB)),
                                     borderRadius: BorderRadius.circular(41)),
                                 child: CacheImage(
                                     url: data['avatar'],
@@ -104,7 +104,7 @@ class _ContractorProfilePageState extends State<ContractorProfilePage> {
                                     height: 80,
                                     borderRadius: 40),
                               ),
-                              Divider(indent: 16),
+                              const Divider(indent: 16),
                               Expanded(
                                   child: Row(
                                 mainAxisAlignment:
@@ -113,7 +113,7 @@ class _ContractorProfilePageState extends State<ContractorProfilePage> {
                                   Column(
                                     children: [
                                       Text("${numberFormat(150)}K",
-                                          style: TextStyle(
+                                          style: const TextStyle(
                                               fontWeight: FontWeight.w500,
                                               fontSize: 17)),
                                       Text(
@@ -125,7 +125,7 @@ class _ContractorProfilePageState extends State<ContractorProfilePage> {
                                   ),
                                   Column(
                                     children: [
-                                      Text("Стратовый",
+                                      const Text("Стратовый",
                                           style: TextStyle(
                                               fontWeight: FontWeight.w500,
                                               fontSize: 17)),
@@ -143,7 +143,7 @@ class _ContractorProfilePageState extends State<ContractorProfilePage> {
                           // Text(data['name'],
                           //     style: TextStyle(
                           //         fontWeight: FontWeight.w500, fontSize: 16)),
-                          Divider(height: 8),
+                          const Divider(height: 8),
                           ReadMoreText(
                             data['description'] ??
                                 "Вниманию всех потенциальных клиентов и заинтересованных лиц в Республике Казахстан: ТОО ZOOMLION Central Asia является исключительным правообладателем товарного знака ZOOMLION на территории Республики",
@@ -156,40 +156,40 @@ class _ContractorProfilePageState extends State<ContractorProfilePage> {
                                 color: ColorComponent.gray['500'],
                                 fontWeight: FontWeight.w500),
                           ),
-                          Divider(height: 12),
+                          const Divider(height: 12),
                           Row(children: [
                             Expanded(
                               child: GestureDetector(
                                 onTap: showChangeCustomerProfilePage,
                                 child: Container(
                                   alignment: Alignment.center,
-                                  padding: EdgeInsets.symmetric(
+                                  padding: const EdgeInsets.symmetric(
                                       horizontal: 10, vertical: 6),
                                   decoration: BoxDecoration(
                                       border: Border.all(
                                           width: 1,
                                           color: ColorComponent.mainColor),
                                       borderRadius: BorderRadius.circular(8)),
-                                  child: Text("Редактировать",
+                                  child: const Text("Редактировать",
                                       style: TextStyle(
                                           fontWeight: FontWeight.w500)),
                                 ),
                               ),
                             ),
-                            Divider(indent: 8),
+                            const Divider(indent: 8),
                             Expanded(
                               child: GestureDetector(
                                 onTap: () {},
                                 child: Container(
                                   alignment: Alignment.center,
-                                  padding: EdgeInsets.symmetric(
+                                  padding: const EdgeInsets.symmetric(
                                       horizontal: 10, vertical: 6),
                                   decoration: BoxDecoration(
                                       border: Border.all(
                                           width: 1,
                                           color: ColorComponent.mainColor),
                                       borderRadius: BorderRadius.circular(8)),
-                                  child: Text(
+                                  child: const Text(
                                     "Поделиться",
                                     style:
                                         TextStyle(fontWeight: FontWeight.w500),
@@ -198,13 +198,13 @@ class _ContractorProfilePageState extends State<ContractorProfilePage> {
                               ),
                             ),
                           ]),
-                          Divider(height: 10),
+                          const Divider(height: 10),
                         ],
                       ),
                     ),
                     Divider(height: 1, color: ColorComponent.gray['100']),
-                    ShowWalletWidget(),
-                    ProfileListTilesWidget()
+                    const ShowWalletWidget(),
+                    const ProfileListTilesWidget()
                   ],
                 ),
               ),

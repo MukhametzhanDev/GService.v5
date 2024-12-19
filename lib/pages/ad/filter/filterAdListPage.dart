@@ -43,7 +43,7 @@ class _FilterAdListPageState extends State<FilterAdListPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: CloseTitleButton(title: "Фильтр"),
+        leading: const CloseTitleButton(title: "Фильтр"),
         leadingWidth: 200,
         actions: [
           GestureDetector(
@@ -55,7 +55,7 @@ class _FilterAdListPageState extends State<FilterAdListPage> {
                   style: TextStyle(
                       color: ColorComponent.blue['500'],
                       fontWeight: FontWeight.w500))),
-          Divider(indent: 15)
+          const Divider(indent: 15)
         ],
       ),
       body: GestureDetector(
@@ -81,12 +81,12 @@ class _FilterAdListPageState extends State<FilterAdListPage> {
                 ),
                 FilterSelectModal(
                     title: "Город",
-                    option: {"name": "city_id"},
+                    option: const {"name": "city_id"},
                     api: "/cities",
                     param: getParam,
                     value: FilterData.data["city_id_value"] ?? {}),
-                Text("Цена"),
-                Divider(height: 6),
+                const Text("Цена"),
+                const Divider(height: 6),
                 Row(children: [
                   Expanded(
                       child: PriceTextField(
@@ -102,7 +102,7 @@ class _FilterAdListPageState extends State<FilterAdListPage> {
                           },
                           title: "От",
                           onSubmitted: () {})),
-                  Divider(indent: 12),
+                  const Divider(indent: 12),
                   Expanded(
                       child: PriceTextField(
                           textEditingController: getPrice("price_to"),
@@ -127,7 +127,7 @@ class _FilterAdListPageState extends State<FilterAdListPage> {
           Navigator.pop(context, "update");
         },
         title: "Поиск",
-        padding: EdgeInsets.symmetric(horizontal: 15),
+        padding: const EdgeInsets.symmetric(horizontal: 15),
       )),
     );
   }

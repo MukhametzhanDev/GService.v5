@@ -132,14 +132,14 @@ class _VerificationEmailPageState extends State<VerificationEmailPage>
   Widget build(BuildContext context) {
     return Scaffold(
       appBar:
-          AppBar(leading: BackIconButton(), title: Text('Код подтверждения')),
+          AppBar(leading: const BackIconButton(), title: const Text('Код подтверждения')),
       body: loader
-          ? LoaderComponent()
+          ? const LoaderComponent()
           : SingleChildScrollView(
-              padding: EdgeInsets.all(16),
+              padding: const EdgeInsets.all(16),
               child: Column(children: [
                 SvgPicture.asset('assets/icons/verificationEmail.svg'),
-                Divider(height: 24),
+                const Divider(height: 24),
                 RichText(
                     textAlign: TextAlign.center,
                     text: TextSpan(
@@ -158,7 +158,7 @@ class _VerificationEmailPageState extends State<VerificationEmailPage>
                               ..onTap = () => openEmailApp(),
                           )
                         ])),
-                Divider(height: 16),
+                const Divider(height: 16),
                 Text(
                     "Письмо обычно доходит до 15 минут, так же рекомендуем проверить вкладку “Спам”",
                     style: TextStyle(
@@ -166,7 +166,7 @@ class _VerificationEmailPageState extends State<VerificationEmailPage>
                         color: ColorComponent.gray['500'],
                         fontWeight: FontWeight.w500),
                     textAlign: TextAlign.center),
-                Divider(height: 24),
+                const Divider(height: 24),
                 Pinput(
                     length: 4,
                     controller: textEditingController,
@@ -174,8 +174,8 @@ class _VerificationEmailPageState extends State<VerificationEmailPage>
                     defaultPinTheme: PinTheme(
                       width: 48,
                       height: 56,
-                      margin: EdgeInsets.only(left: 10),
-                      textStyle: TextStyle(
+                      margin: const EdgeInsets.only(left: 10),
+                      textStyle: const TextStyle(
                           fontSize: 16,
                           color: Colors.black,
                           fontWeight: FontWeight.w800),
@@ -194,11 +194,11 @@ class _VerificationEmailPageState extends State<VerificationEmailPage>
           : BottomNavigationBarComponent(
               child: Column(children: [
               TimerButton(onPressed: sendCode),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
               Button(
                 onPressed: verifyCode,
                 title: "Подтвердить регистрацию",
-                padding: EdgeInsets.only(left: 16, right: 16),
+                padding: const EdgeInsets.only(left: 16, right: 16),
                 backgroundColor: ColorComponent.mainColor,
               )
             ])),

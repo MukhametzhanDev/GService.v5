@@ -15,9 +15,9 @@ class LogOutAlert extends StatelessWidget {
       child: Scaffold(
         appBar: AppBar(
             automaticallyImplyLeading: false,
-            title: Text("Выйти из профиля"),
-            actions: [CloseIconButton(iconColor: null, padding: true)]),
-        body: Center(
+            title: const Text("Выйти из профиля"),
+            actions: const [CloseIconButton(iconColor: null, padding: true)]),
+        body: const Center(
             child: Text("Вы точно хотите выйти из аккаунта?",
                 style: TextStyle(fontWeight: FontWeight.w400, fontSize: 15),
                 textAlign: TextAlign.center)),
@@ -35,7 +35,7 @@ class LogOutAlert extends StatelessWidget {
                       backgroundColor: ColorComponent.red['100'],
                       titleColor: ColorComponent.red['600'],
                       title: "Выйти")),
-              Divider(indent: 8),
+              const Divider(indent: 8),
               Expanded(
                   child: Button(
                       onPressed: () => Navigator.pop(context), title: "Отмена"))

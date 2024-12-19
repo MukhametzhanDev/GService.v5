@@ -10,10 +10,10 @@ class LeadingLogo extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Divider(indent: 15),
+          const Divider(indent: 15),
           SvgPicture.asset('assets/icons/logo.svg', width: 40),
-          Divider(indent: 11),
-          SizedBox(
+          const Divider(indent: 11),
+          const SizedBox(
             child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.center,

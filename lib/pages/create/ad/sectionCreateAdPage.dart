@@ -103,14 +103,14 @@ class _SectionCreateAdPageState extends State<SectionCreateAdPage> {
               onPressed: () => Navigator.pop(context),
               title: "Тип объявлении")),
       body: loader
-          ? LoaderComponent()
+          ? const LoaderComponent()
           : SingleChildScrollView(
-              padding: EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+              padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
               child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text("Укажите о чем будет ваще объявление"),
-                    Divider(height: 16),
+                    const Text("Укажите о чем будет ваще объявление"),
+                    const Divider(height: 16),
                     Column(
                         children: data.map((value) {
                       int index = data.indexOf(value);
@@ -120,15 +120,15 @@ class _SectionCreateAdPageState extends State<SectionCreateAdPage> {
                           changedCurrentSection(index);
                         },
                         child: Container(
-                          padding: EdgeInsets.all(12),
-                          margin: EdgeInsets.only(bottom: 15),
+                          padding: const EdgeInsets.all(12),
+                          margin: const EdgeInsets.only(bottom: 15),
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(8),
                               border: Border.all(
                                   width: 1,
                                   color: active
                                       ? ColorComponent.mainColor
-                                      : Color(0xffeeeeee))),
+                                      : const Color(0xffeeeeee))),
                           child: Row(
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
@@ -140,15 +140,15 @@ class _SectionCreateAdPageState extends State<SectionCreateAdPage> {
                                       border: Border.all(
                                           width: active ? 4 : 1,
                                           color: active
-                                              ? Color(0xff1A56DB)
-                                              : Color(0xffD1D5DB)))),
-                              Divider(indent: 12),
+                                              ? const Color(0xff1A56DB)
+                                              : const Color(0xffD1D5DB)))),
+                              const Divider(indent: 12),
                               Expanded(
                                 child: Text(value['title'],
                                     style:
-                                        TextStyle(fontWeight: FontWeight.w500)),
+                                        const TextStyle(fontWeight: FontWeight.w500)),
                               ),
-                              Divider(indent: 12),
+                              const Divider(indent: 12),
                               SvgPicture.network(value['icon'], width: 24)
                             ],
                           ),
@@ -162,7 +162,7 @@ class _SectionCreateAdPageState extends State<SectionCreateAdPage> {
         padding: EdgeInsets.only(bottom: MediaQuery.of(context).padding.bottom),
         child: Button(
             onPressed: showPage,
-            padding: EdgeInsets.symmetric(horizontal: 15),
+            padding: const EdgeInsets.symmetric(horizontal: 15),
             title: "Продолжить"),
       )),
     );

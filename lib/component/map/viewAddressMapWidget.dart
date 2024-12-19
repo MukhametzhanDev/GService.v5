@@ -27,7 +27,7 @@ class _ViewAddressMapWidgetState extends State<ViewAddressMapWidget> {
         CameraUpdate.newCameraPosition(CameraPosition(
             target: Point(latitude: latitude, longitude: longitude),
             zoom: zoom)),
-        animation: MapAnimation(duration: 0));
+        animation: const MapAnimation(duration: 0));
   }
 
   void showPage() {
@@ -42,9 +42,9 @@ class _ViewAddressMapWidgetState extends State<ViewAddressMapWidget> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text("Адрес",
+        const Text("Адрес",
             style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600)),
-        SizedBox(height: 12),
+        const SizedBox(height: 12),
         Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -53,12 +53,12 @@ class _ViewAddressMapWidgetState extends State<ViewAddressMapWidget> {
               child:
                   SvgPicture.network(widget.data['country']['flag'], width: 24),
             ),
-            SizedBox(width: 10),
+            const SizedBox(width: 10),
             Expanded(
               child: RichText(
                   textAlign: TextAlign.start,
                   text: TextSpan(
-                      style: TextStyle(color: Colors.black),
+                      style: const TextStyle(color: Colors.black),
                       children: [
                         TextSpan(text: widget.data['country']['title'] + ", "),
                         TextSpan(text: widget.data['city']['title'] + ", "),
@@ -67,7 +67,7 @@ class _ViewAddressMapWidgetState extends State<ViewAddressMapWidget> {
             ),
           ],
         ),
-        SizedBox(height: 15),
+        const SizedBox(height: 15),
         ClipRRect(
           borderRadius: BorderRadius.circular(8),
           child: SizedBox(

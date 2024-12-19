@@ -135,10 +135,10 @@ class _ChangeContractorProfilePageState extends State<ChangeContractorProfilePag
       child: Scaffold(
         appBar: AppBar(
             centerTitle: false,
-            leading: BackIconButton(),
-            title: Text("Изменить данные компании")),
+            leading: const BackIconButton(),
+            title: const Text("Изменить данные компании")),
         body: SingleChildScrollView(
-          padding: EdgeInsets.all(15),
+          padding: const EdgeInsets.all(15),
           child: Column(children: [
             GetLogoWidget(
                 imageUrl: widget.data['avatar'],
@@ -146,35 +146,35 @@ class _ChangeContractorProfilePageState extends State<ChangeContractorProfilePag
                   imagePath = path;
                   setState(() {});
                 }),
-            Divider(height: 24),
+            const Divider(height: 24),
             SelectButton(
                 title: currentCity.isNotEmpty
                     ? currentCity['title']
                     : "Выберите город",
                 active: currentCity.isNotEmpty,
                 onPressed: showCityModal),
-            Divider(indent: 8),
+            const Divider(indent: 8),
             TextField(
                 controller: nameEditingController,
-                style: TextStyle(fontSize: 14),
+                style: const TextStyle(fontSize: 14),
                 keyboardType: TextInputType.text,
-                decoration: InputDecoration(hintText: "Название компании")),
-            Divider(indent: 8),
+                decoration: const InputDecoration(hintText: "Название компании")),
+            const Divider(indent: 8),
             TextField(
                 controller: identifierEditingController,
-                style: TextStyle(fontSize: 14),
+                style: const TextStyle(fontSize: 14),
                 keyboardType: TextInputType.number,
                 maxLength: 12,
                 decoration: InputDecoration(
                     hintText: "БИН",
                     helperStyle: TextStyle(color: ColorComponent.gray['500']))),
-            Divider(),
+            const Divider(),
             TextField(
                 controller: descEditingController,
                 decoration: InputDecoration(
                     hintText: "Описание вашей компании",
                     helperStyle: TextStyle(color: ColorComponent.gray['500'])),
-                style: TextStyle(fontSize: 14),
+                style: const TextStyle(fontSize: 14),
                 maxLength: 200,
                 maxLines: 8,
                 minLines: 4),
@@ -183,7 +183,7 @@ class _ChangeContractorProfilePageState extends State<ChangeContractorProfilePag
         bottomNavigationBar: BottomNavigationBarComponent(
             child: Button(
                 onPressed: () => verifyData(),
-                padding: EdgeInsets.symmetric(horizontal: 15),
+                padding: const EdgeInsets.symmetric(horizontal: 15),
                 title: "Изменить")),
       ),
     );

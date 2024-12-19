@@ -68,16 +68,16 @@ class _PriceCreateApplicationPageState
   Widget build(BuildContext context) {
     return Scaffold(
       body: SingleChildScrollView(
-        padding: EdgeInsets.all(15),
+        padding: const EdgeInsets.all(15),
         child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-          ExplanatoryMessage(
+          const ExplanatoryMessage(
               title:
                   "Цену лучше указать — так удобнее для покупателей. Если цена не указана, то при расширенном поиске покупатели могут не найти ваше объявление, а в объявлении будет автоматически указана стоимость «По запросу».",
               padding: EdgeInsets.only(bottom: 15),
               type: "application-price"),
-          Text("Укажите цену",
+          const Text("Укажите цену",
               style: TextStyle(fontWeight: FontWeight.w600, fontSize: 20)),
-          Divider(),
+          const Divider(),
           SizedBox(
             height: 48,
             child: TextField(
@@ -87,7 +87,7 @@ class _PriceCreateApplicationPageState
               enabled: !negotiablePrice,
               inputFormatters: [currencyTextInputFormatter],
               keyboardType: TextInputType.number,
-              style: TextStyle(fontSize: 14, height: 1.1),
+              style: const TextStyle(fontSize: 14, height: 1.1),
               controller: priceEditingController,
               decoration: InputDecoration(
                   hintText: negotiablePrice ? 'Договорная' : 'Введите цену'),
@@ -104,19 +104,19 @@ class _PriceCreateApplicationPageState
               height: 20,
               alignment: Alignment.center,
               decoration: BoxDecoration(
-                  color: negotiablePrice ? Color(0xff1A56DB) : null,
+                  color: negotiablePrice ? const Color(0xff1A56DB) : null,
                   borderRadius: BorderRadius.circular(4),
                   border: Border.all(
                       width: 1,
                       color: negotiablePrice
-                          ? Color(0xff1A56DB)
-                          : Color(0xffD1D5DB))),
+                          ? const Color(0xff1A56DB)
+                          : const Color(0xffD1D5DB))),
               child: negotiablePrice
                   ? SvgPicture.asset('assets/icons/checkMini.svg',
                       color: Colors.white)
                   : Container(),
             ),
-            title: Text("Договорная"),
+            title: const Text("Договорная"),
           ),
           ListTile(
             onTap: () {
@@ -129,24 +129,24 @@ class _PriceCreateApplicationPageState
               height: 20,
               alignment: Alignment.center,
               decoration: BoxDecoration(
-                  color: canLease ? Color(0xff1A56DB) : null,
+                  color: canLease ? const Color(0xff1A56DB) : null,
                   borderRadius: BorderRadius.circular(4),
                   border: Border.all(
                       width: 1,
-                      color: canLease ? Color(0xff1A56DB) : Color(0xffD1D5DB))),
+                      color: canLease ? const Color(0xff1A56DB) : const Color(0xffD1D5DB))),
               child: canLease
                   ? SvgPicture.asset('assets/icons/checkMini.svg',
                       color: Colors.white)
                   : Container(),
             ),
-            title: Text("Лизинг"),
+            title: const Text("Лизинг"),
           ),
         ]),
       ),
       bottomNavigationBar: BottomNavigationBarComponent(
           child: Button(
               onPressed: verifyData,
-              padding: EdgeInsets.symmetric(horizontal: 15),
+              padding: const EdgeInsets.symmetric(horizontal: 15),
               title: "Продолжить")),
     );
   }

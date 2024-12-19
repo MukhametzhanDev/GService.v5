@@ -65,24 +65,24 @@ class _MyApplicationItemState extends State<MyApplicationItem> {
         widget.onPressed(widget.data['id']);
       },
       child: Container(
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
             border:
                 Border(bottom: BorderSide(width: 1, color: Color(0xfff4f4f4)))),
         padding: const EdgeInsets.symmetric(horizontal: 15),
         child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-          Divider(height: 12),
+          const Divider(height: 12),
           Text(widget.data['title'],
               style: TextStyle(
                   fontSize: 18,
                   fontWeight: FontWeight.w600,
                   color: ColorComponent.blue['500'])),
-          Divider(height: 8),
+          const Divider(height: 8),
           // Text(myPriceFormatted(data['prices']),
           // style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600)),
           // Divider(height: 12),
           Text(widget.data['description'],
               maxLines: 2, overflow: TextOverflow.ellipsis),
-          Divider(height: 12),
+          const Divider(height: 12),
           SizedBox(
             height: 40,
             child: widget.data['status'] == "canceled"
@@ -97,30 +97,30 @@ class _MyApplicationItemState extends State<MyApplicationItem> {
                     titleColor: ColorComponent.red['700'],
                     title: "Удалить"),
           ),
-          Divider(height: 12),
+          const Divider(height: 12),
           Row(children: [
             SvgPicture.asset("assets/icons/pin.svg",
                 width: 16, color: ColorComponent.gray['500']),
-            Divider(indent: 4),
+            const Divider(indent: 4),
             Text(widget.data['city']['title'],
                 style: TextStyle(
                     fontSize: 12,
                     // fontWeight: FontWeight.3500,
                     color: ColorComponent.gray['500'])),
-            Divider(indent: 12),
+            const Divider(indent: 12),
             Text(formattedDate(widget.data['created_at'], "dd MMMM yyyy"),
                 style:
                     TextStyle(fontSize: 12, color: ColorComponent.gray['500'])),
             Expanded(child: Container()),
             Row(children: [
               SvgPicture.asset("assets/icons/eye.svg"),
-              Divider(indent: 4),
+              const Divider(indent: 4),
               Text(widget.data['statistics']['viewed'].toString(),
                   style: TextStyle(
                       fontSize: 12, color: ColorComponent.gray['500']))
             ])
           ]),
-          Divider(height: 16),
+          const Divider(height: 16),
         ]),
       ),
     );

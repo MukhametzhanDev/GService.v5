@@ -136,51 +136,51 @@ class _RegistrationContractorPageState
       onTap: () => closeKeyboard(),
       child: Scaffold(
         appBar:
-            AppBar(leading: BackIconButton(), title: Text("Данные компании")),
+            AppBar(leading: const BackIconButton(), title: const Text("Данные компании")),
         body: SingleChildScrollView(
-          padding: EdgeInsets.all(15),
+          padding: const EdgeInsets.all(15),
           child: Column(children: [
             GetLogoWidget(onChanged: (path) {
               imagePath = path;
               setState(() {});
             }),
-            Divider(height: 24),
+            const Divider(height: 24),
             SelectButton(
                 title: currentCity.isNotEmpty
                     ? currentCity['title']
                     : "Выберите город",
                 active: currentCity.isNotEmpty,
                 onPressed: showCityModal),
-            Divider(indent: 8),
+            const Divider(indent: 8),
             TextField(
                 controller: nameEditingController,
-                style: TextStyle(fontSize: 14),
+                style: const TextStyle(fontSize: 14),
                 keyboardType: TextInputType.text,
-                decoration: InputDecoration(hintText: "Название компании")),
-            Divider(indent: 8),
+                decoration: const InputDecoration(hintText: "Название компании")),
+            const Divider(indent: 8),
             TextField(
                 controller: identifierEditingController,
-                style: TextStyle(fontSize: 14),
+                style: const TextStyle(fontSize: 14),
                 keyboardType: TextInputType.number,
                 maxLength: 12,
                 decoration: InputDecoration(
                     hintText: "БИН",
                     helperStyle: TextStyle(color: ColorComponent.gray['500']))),
-            Divider(indent: 8),
+            const Divider(indent: 8),
             TextField(
                 controller: descEditingController,
                 decoration: InputDecoration(
                     hintText: "Описание вашей компании",
                     helperStyle: TextStyle(color: ColorComponent.gray['500'])),
-                style: TextStyle(fontSize: 14),
+                style: const TextStyle(fontSize: 14),
                 maxLength: 200,
                 maxLines: 8,
                 minLines: 4),
-            Divider(indent: 8),
+            const Divider(indent: 8),
             PasswordTextField(
                 textEditingController: passwordEditingController,
                 onSubmitted: () {}),
-            Divider(indent: 8),
+            const Divider(indent: 8),
             RepeatPasswordTextField(
                 textEditingController: repeatPasswordEditingController,
                 onSubmitted: () {}),
@@ -189,7 +189,7 @@ class _RegistrationContractorPageState
         bottomNavigationBar: BottomNavigationBarComponent(
             child: Button(
                 onPressed: () => verifyData(),
-                padding: EdgeInsets.symmetric(horizontal: 15),
+                padding: const EdgeInsets.symmetric(horizontal: 15),
                 title: "Подтвердить")),
       ),
     );

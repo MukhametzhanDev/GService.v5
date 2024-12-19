@@ -23,7 +23,7 @@ class LoaderPaginationComponent extends StatelessWidget {
     return Container(
       height: 60,
       alignment: Alignment.center,
-      child: SizedBox(
+      child: const SizedBox(
           width: 22,
           height: 22,
           child: CircularProgressIndicator(color: Colors.blue)),

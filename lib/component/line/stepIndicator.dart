@@ -25,7 +25,7 @@ class _StepIndicatorState extends State<StepIndicator> {
         ? ColorComponent.mainColor
         : widget.activeIndex > index
             ? ColorComponent.mainColor.withOpacity(.4)
-            : Color(0xffffe5e7eb);
+            : const Color(0xffffe5e7eb);
   }
 
   @override

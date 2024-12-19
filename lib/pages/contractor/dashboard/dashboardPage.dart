@@ -18,10 +18,10 @@ class _DashboardPageState extends State<DashboardPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xfff4f4f4),
+      backgroundColor: const Color(0xfff4f4f4),
       body: SafeArea(
         child: SingleChildScrollView(
-          padding: EdgeInsets.all(15),
+          padding: const EdgeInsets.all(15),
           controller: widget.scrollController,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -168,10 +168,10 @@ class _DashboardPageState extends State<DashboardPage> {
               //     )
               //   ],
               // )),
-              Divider(height: 16),
+              const Divider(height: 16),
               Row(
                 children: [
-                  Expanded(
+                  const Expanded(
                       child: Text("Новые заявки",
                           style: TextStyle(
                               fontSize: 16, fontWeight: FontWeight.w600))),
@@ -181,28 +181,28 @@ class _DashboardPageState extends State<DashboardPage> {
                           style: TextStyle(
                               color: ColorComponent.blue['500'],
                               fontWeight: FontWeight.w500)),
-                      Divider(indent: 4),
+                      const Divider(indent: 4),
                       SvgPicture.asset('assets/icons/rightBlue.svg')
                     ],
                   )
                 ],
               ),
-              Divider(height: 12),
+              const Divider(height: 12),
               ClipRRect(
                 borderRadius: BorderRadius.circular(10),
                 child: Container(
                     decoration: BoxDecoration(
                         color: Colors.white,
-                        border: Border.all(width: 1, color: Color(0xffeeeeee))),
+                        border: Border.all(width: 1, color: const Color(0xffeeeeee))),
                     child: Column(
                         children: app.map((value) {
                       return ApplicationItem(data: value, showCategory: true);
                     }).toList())),
               ),
-              Divider(height: 16),
+              const Divider(height: 16),
               Row(
                 children: [
-                  Expanded(
+                  const Expanded(
                       child: Text("Мои",
                           style: TextStyle(
                               fontSize: 16, fontWeight: FontWeight.w600))),
@@ -212,13 +212,13 @@ class _DashboardPageState extends State<DashboardPage> {
                           style: TextStyle(
                               color: ColorComponent.blue['500'],
                               fontWeight: FontWeight.w500)),
-                      Divider(indent: 4),
+                      const Divider(indent: 4),
                       SvgPicture.asset('assets/icons/rightBlue.svg')
                     ],
                   )
                 ],
               ),
-              Divider(height: 12),
+              const Divider(height: 12),
               Row(
                 children: [
                   Expanded(
@@ -235,25 +235,25 @@ class _DashboardPageState extends State<DashboardPage> {
                               'assets/icons/clipboardOutline.svg',
                               color: Colors.black),
                         ),
-                        Divider(indent: 12),
+                        const Divider(indent: 12),
                         Expanded(
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
                                 numberFormat(1234),
-                                style: TextStyle(
+                                style: const TextStyle(
                                     fontSize: 16, fontWeight: FontWeight.w600),
                               ),
-                              Divider(height: 4),
-                              Text("Объявлении")
+                              const Divider(height: 4),
+                              const Text("Объявлении")
                             ],
                           ),
                         )
                       ],
                     )),
                   ),
-                  Divider(indent: 12),
+                  const Divider(indent: 12),
                   Expanded(
                     child: ContainerWidget(Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -270,18 +270,18 @@ class _DashboardPageState extends State<DashboardPage> {
                             width: 22,
                           ),
                         ),
-                        Divider(indent: 12),
+                        const Divider(indent: 12),
                         Expanded(
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
                                 numberFormat(1234),
-                                style: TextStyle(
+                                style: const TextStyle(
                                     fontSize: 16, fontWeight: FontWeight.w600),
                               ),
-                              Divider(height: 4),
-                              Text("Заявки")
+                              const Divider(height: 4),
+                              const Text("Заявки")
                             ],
                           ),
                         )
@@ -290,7 +290,7 @@ class _DashboardPageState extends State<DashboardPage> {
                   ),
                 ],
               ),
-              NewsWidget()
+              const NewsWidget()
             ],
           ),
         ),
@@ -301,11 +301,11 @@ class _DashboardPageState extends State<DashboardPage> {
 
 Widget ContainerWidget(Widget child) {
   return Container(
-      padding: EdgeInsets.all(15),
+      padding: const EdgeInsets.all(15),
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
           color: Colors.white,
-          border: Border.all(width: 1, color: Color(0xffeeeeee))),
+          border: Border.all(width: 1, color: const Color(0xffeeeeee))),
       child: child);
 }
 

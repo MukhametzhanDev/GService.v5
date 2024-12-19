@@ -15,14 +15,14 @@ class _ShowPackageIconsState extends State<ShowPackageIcons> {
     return Row(children: [
       Container(
           width: 24,
-          margin: EdgeInsets.only(left: 6),
+          margin: const EdgeInsets.only(left: 6),
           child: SvgPicture.asset(
             'assets/icons/checkCircle.svg',
             width: 22,
           )),
       Container(
           width: 24,
-          margin: EdgeInsets.only(left: 6),
+          margin: const EdgeInsets.only(left: 6),
           child: SvgPicture.asset(
             'assets/icons/starPackage.svg',
             width: 22,
@@ -38,7 +38,7 @@ class _ShowPackageIconsState extends State<ShowPackageIcons> {
         },
         child: Container(
             width: 24,
-            margin: EdgeInsets.only(left: 6),
+            margin: const EdgeInsets.only(left: 6),
             child: SvgPicture.asset('assets/icons/fire.svg')),
       ),
     ]);

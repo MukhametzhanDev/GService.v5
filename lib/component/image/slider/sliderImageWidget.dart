@@ -26,16 +26,16 @@ class _SliderImageWidgetState extends State<SliderImageWidget> {
 
   @override
   Widget build(BuildContext context) {
-    double IMAGE_WIDTH = MediaQuery.of(context).size.width;
+    double imageWidth = MediaQuery.of(context).size.width;
     return widget.images.isEmpty
         ? Container()
         : SizedBox(
-            height: IMAGE_WIDTH / 1.13,
+            height: imageWidth / 1.13,
             child: Stack(
               children: [
                 SizedBox(
                   width: MediaQuery.of(context).size.width,
-                  height: IMAGE_WIDTH / 1.2,
+                  height: imageWidth / 1.2,
                   child: PageView(
                     controller: pageController,
                     onPageChanged: (value) {
@@ -67,8 +67,8 @@ class _SliderImageWidgetState extends State<SliderImageWidget> {
                           children: [
                             CacheImage(
                                 url: url,
-                                width: IMAGE_WIDTH,
-                                height: IMAGE_WIDTH / 1.2,
+                                width: imageWidth,
+                                height: imageWidth / 1.2,
                                 borderRadius: 0),
                             Align(
                               alignment: Alignment.bottomCenter,
@@ -76,15 +76,15 @@ class _SliderImageWidgetState extends State<SliderImageWidget> {
                                 decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(20),
                                     color:
-                                        Color(0xff9A9A9ABF).withOpacity(.75)),
-                                margin: EdgeInsets.only(bottom: 12),
+                                        const Color(0xff9a9a9abf).withOpacity(.75)),
+                                margin: const EdgeInsets.only(bottom: 12),
                                 constraints:
-                                    BoxConstraints(minHeight: 23, minWidth: 42),
-                                padding: EdgeInsets.symmetric(
+                                    const BoxConstraints(minHeight: 23, minWidth: 42),
+                                padding: const EdgeInsets.symmetric(
                                     horizontal: 12, vertical: 4),
                                 child: Text(
                                     "${index + 1}/${widget.images.length}",
-                                    style: TextStyle(
+                                    style: const TextStyle(
                                         fontSize: 12,
                                         fontWeight: FontWeight.w700,
                                         color: Colors.white)),

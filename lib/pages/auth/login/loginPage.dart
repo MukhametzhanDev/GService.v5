@@ -23,7 +23,7 @@ class _LoginPageState extends State<LoginPage>
             onTap: () => closeKeyboard(),
             child: Scaffold(
                 appBar: AppBar(
-                  title: Text("Войти в GService"),
+                  title: const Text("Войти в GService"),
                   leading: widget.showBackButton
                       ? const BackIconButton()
                       : Container(),
@@ -33,14 +33,14 @@ class _LoginPageState extends State<LoginPage>
                       child: Container(
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(8),
-                            color: Color(0xffeeeeee)),
+                            color: const Color(0xffeeeeee)),
                         width: MediaQuery.of(context).size.width - 30,
                         height: 44,
                         child: TabBar(
                           indicatorSize: TabBarIndicatorSize.tab,
                           labelColor: Colors.black,
-                          indicatorPadding: EdgeInsets.all(3),
-                          tabs: [Tab(text: "Физ лицо"), Tab(text: "Юр лицо")],
+                          indicatorPadding: const EdgeInsets.all(3),
+                          tabs: const [Tab(text: "Физ лицо"), Tab(text: "Юр лицо")],
                           indicator: BoxDecoration(
                             color: ColorComponent.mainColor,
                             borderRadius: BorderRadius.circular(6),
@@ -52,7 +52,7 @@ class _LoginPageState extends State<LoginPage>
                         ),
                       )),
                 ),
-                body: TabBarView(children: [
+                body: const TabBarView(children: [
                   LoginUserPage(),
                   LoginBusinessPage(showBackButton: false)
                 ]))));

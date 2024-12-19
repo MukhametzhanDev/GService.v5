@@ -9,7 +9,7 @@ class NotificationDeniedPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       width: MediaQuery.of(context).size.width,
       child: SafeArea(
         child: Padding(
@@ -21,19 +21,19 @@ class NotificationDeniedPage extends StatelessWidget {
                 'assets/icons/miniNotification.svg',
                 width: MediaQuery.of(context).size.width / 3,
               ),
-              SizedBox(height: 30),
-              Text(
+              const SizedBox(height: 30),
+              const Text(
                 "Разрешите уведомления",
                 style: TextStyle(fontWeight: FontWeight.w600, fontSize: 24),
                 textAlign: TextAlign.center,
               ),
-              SizedBox(height: 10),
-              Text(
+              const SizedBox(height: 10),
+              const Text(
                 "Уведомления помогут вам быть в курсе актуальной информации, новых функций и интересных событий в нашем приложении",
                 style: TextStyle(fontSize: 15, height: 1.7),
                 textAlign: TextAlign.center,
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               Button(
                   onPressed: () {
                     AppSettings.openAppSettings(type: AppSettingsType.location);

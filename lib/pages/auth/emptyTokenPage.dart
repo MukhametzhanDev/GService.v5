@@ -21,12 +21,12 @@ class _EmptyTokenPageState extends State<EmptyTokenPage> {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           SvgPicture.asset("assets/icons/user.svg", width: 120),
-          Divider(indent: 12),
-          Text("Войдите или создайте учетную запись",
+          const Divider(indent: 12),
+          const Text("Войдите или создайте учетную запись",
               style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600)),
-          Divider(indent: 12),
-          Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 15),
+          const Divider(indent: 12),
+          const Padding(
+              padding: EdgeInsets.symmetric(horizontal: 15),
               child: Text(
                 "Для выполнения этой функции, просим вас пройти регистрацию",
                 textAlign: TextAlign.center,
@@ -41,9 +41,9 @@ class _EmptyTokenPageState extends State<EmptyTokenPage> {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => LoginPage(showBackButton: true)));
+                        builder: (context) => const LoginPage(showBackButton: true)));
               },
-              padding: EdgeInsets.symmetric(horizontal: 15),
+              padding: const EdgeInsets.symmetric(horizontal: 15),
               title: "Aвторизоваться")),
     );
   }

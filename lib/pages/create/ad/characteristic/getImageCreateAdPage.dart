@@ -99,12 +99,12 @@ class _GetImageCreateAdPageState extends State<GetImageCreateAdPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SingleChildScrollView(
-        padding: EdgeInsets.symmetric(vertical: 15),
+        padding: const EdgeInsets.symmetric(vertical: 15),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Padding(
-                padding: const EdgeInsets.only(bottom: 15, left: 15),
+            const Padding(
+                padding: EdgeInsets.only(bottom: 15, left: 15),
                 child: Text("Загрузите изображение",
                     style:
                         TextStyle(fontSize: 20, fontWeight: FontWeight.w600))),
@@ -120,7 +120,7 @@ class _GetImageCreateAdPageState extends State<GetImageCreateAdPage> {
         children: [
           Button(
               onPressed: verifyData,
-              padding: EdgeInsets.symmetric(horizontal: 15),
+              padding: const EdgeInsets.symmetric(horizontal: 15),
               title: "Опубликовать"),
           // Divider(height: 4),
           // Button(

@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
 
 class ChartWidget extends StatefulWidget {
-  ChartWidget({super.key});
+  const ChartWidget({super.key});
 
   @override
   State<ChartWidget> createState() => _ChartWidgetState();
@@ -36,7 +36,7 @@ class _ChartWidgetState extends State<ChartWidget> {
 
   @override
   Widget build(BuildContext context) {
-    double CHART_MAX_HEIGHT = MediaQuery.of(context).size.height / 3 - 15;
+    double chartMaxHeight = MediaQuery.of(context).size.height / 3 - 15;
     return Container(
       height: MediaQuery.of(context).size.height / 2.5,
       width: MediaQuery.of(context).size.width - 30,
@@ -60,13 +60,13 @@ class _ChartWidgetState extends State<ChartWidget> {
                 AnimatedContainer(
                     duration: const Duration(milliseconds: 400),
                     padding: const EdgeInsets.only(top: 12),
-                    height: getHeight(value, CHART_MAX_HEIGHT),
+                    height: getHeight(value, chartMaxHeight),
                     decoration: BoxDecoration(
                         color: ColorComponent.mainColor,
                         borderRadius:
                             const BorderRadius.vertical(top: Radius.circular(8))),
                     margin: const EdgeInsets.symmetric(horizontal: 12),
-                    constraints: BoxConstraints(maxHeight: CHART_MAX_HEIGHT)),
+                    constraints: BoxConstraints(maxHeight: chartMaxHeight)),
                 const Divider(height: 10),
                 Text("17 Окт",
                     style: TextStyle(

@@ -77,7 +77,7 @@ class _ViewMyApplicationPageState extends State<ViewMyApplicationPage> {
   Widget build(BuildContext context) {
     return Scaffold(
         body: loader
-            ? LoaderComponent()
+            ? const LoaderComponent()
             : CustomScrollView(controller: scrollController, slivers: [
                 SliverAppBar(
                   pinned: true,
@@ -86,7 +86,7 @@ class _ViewMyApplicationPageState extends State<ViewMyApplicationPage> {
                   actions: [
                     // FavoriteButtonComponent(iconColor: ColorTheme['black_white']),
                     ShareButton(id: widget.id, hasAd: true),
-                    Divider(indent: 15)
+                    const Divider(indent: 15)
                   ],
                   title: FadeOnScroll(
                     scrollController: scrollController,
@@ -101,7 +101,7 @@ class _ViewMyApplicationPageState extends State<ViewMyApplicationPage> {
                                 color: ColorComponent.blue['700']),
                             maxLines: 1),
                         Text(priceFormat(0),
-                            style: TextStyle(
+                            style: const TextStyle(
                                 fontSize: 14, fontWeight: FontWeight.w600),
                             maxLines: 1),
                       ],
@@ -124,7 +124,7 @@ class _ViewMyApplicationPageState extends State<ViewMyApplicationPage> {
                                     color: ColorComponent.blue['700'])),
                             const SizedBox(height: 8),
                             Text(priceFormat(data['cost']),
-                                style: TextStyle(
+                                style: const TextStyle(
                                     fontSize: 20, fontWeight: FontWeight.w600)),
                             const SizedBox(height: 8),
                           ],
@@ -168,19 +168,19 @@ class _ViewMyApplicationPageState extends State<ViewMyApplicationPage> {
                                       data['created_at'], "dd MMMM yyyy")
                                 }),
                             const SizedBox(height: 16),
-                            Text("Описание",
+                            const Text("Описание",
                                 style: TextStyle(
                                     fontSize: 18, fontWeight: FontWeight.w600)),
-                            Divider(height: 12),
+                            const Divider(height: 12),
                             Text(data['description'],
-                                style: TextStyle(height: 1.6)),
-                            Divider(indent: 12),
-                            Divider(height: 1, color: Color(0xfff4f5f7)),
+                                style: const TextStyle(height: 1.6)),
+                            const Divider(indent: 12),
+                            const Divider(height: 1, color: Color(0xfff4f5f7)),
                           ],
                         ),
                       ),
                       SliderApplicationSmallImageWidget(images: images),
-                      Divider(indent: 12),
+                      const Divider(indent: 12),
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 16),
                         child: Column(
@@ -210,7 +210,7 @@ class _ViewMyApplicationPageState extends State<ViewMyApplicationPage> {
                                 ),
                               ],
                             ),
-                            Divider(indent: 16),
+                            const Divider(indent: 16),
                           ],
                         ),
                       ),

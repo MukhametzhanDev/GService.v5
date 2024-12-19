@@ -114,10 +114,10 @@ class _ListModalComponentState extends State<ListModalComponent> {
           leadingWidth: 100,
           leading: Container(),
           title: Text(widget.placeholderTitle),
-          actions: [CloseIconButton(padding: true, iconColor: null)],
+          actions: const [CloseIconButton(padding: true, iconColor: null)],
         ),
         body: data.isEmpty
-            ? Text("Ничего не найдено")
+            ? const Text("Ничего не найдено")
             : Column(children: [
                 Padding(
                   padding:
@@ -127,7 +127,7 @@ class _ListModalComponentState extends State<ListModalComponent> {
                 ),
                 Expanded(
                     child: filterData.isEmpty
-                        ? Text("Ничего не найдено")
+                        ? const Text("Ничего не найдено")
                         : ListView.builder(
                             physics: const ClampingScrollPhysics(),
                             padding: EdgeInsets.only(

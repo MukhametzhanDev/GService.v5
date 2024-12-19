@@ -36,7 +36,7 @@ class _RecommendationSearchTitleWidgetState
                 height: 45,
                 alignment: Alignment.centerLeft,
                 decoration: BoxDecoration(color: ColorComponent.gray['100']),
-                padding: EdgeInsets.symmetric(
+                padding: const EdgeInsets.symmetric(
                   vertical: 12,
                   horizontal: 16,
                 ),
@@ -49,7 +49,7 @@ class _RecommendationSearchTitleWidgetState
                 children:
                     List.generate(20, (index) => index.toString()).map((value) {
                   return Container(
-                      decoration: BoxDecoration(
+                      decoration: const BoxDecoration(
                           border: Border(
                               top: BorderSide(
                                   width: 1, color: Color(0xffe5e7eb)))),
@@ -57,13 +57,13 @@ class _RecommendationSearchTitleWidgetState
                           onTap: () {
                             widget.getResult("SDLG");
                           },
-                          contentPadding: EdgeInsets.only(
+                          contentPadding: const EdgeInsets.only(
                               top: 0, bottom: 0, left: 16, right: 8),
                           leading: SvgPicture.asset(
                               'assets/icons/searchOutline.svg',
                               color: ColorComponent.gray['500'],
                               width: 18),
-                          title: Text(
+                          title: const Text(
                             "SDLG",
                             style: TextStyle(
                                 fontSize: 14, fontWeight: FontWeight.w400),

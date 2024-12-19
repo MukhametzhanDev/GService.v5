@@ -85,7 +85,7 @@ class _GetImageCreateApplicaitonPageState
   Widget build(BuildContext context) {
     return Scaffold(
       body: SingleChildScrollView(
-        padding: EdgeInsets.symmetric(vertical: 15),
+        padding: const EdgeInsets.symmetric(vertical: 15),
         child: Column(
           children: [
             GetImageWidget(onImagesSelected: (value) {
@@ -100,13 +100,13 @@ class _GetImageCreateApplicaitonPageState
         children: [
           Button(
               onPressed: verifyData,
-              padding: EdgeInsets.symmetric(horizontal: 15),
+              padding: const EdgeInsets.symmetric(horizontal: 15),
               title: "Опубликовать"),
-          Divider(height: 4),
+          const Divider(height: 4),
           Button(
               onPressed: postData,
               backgroundColor: Colors.white,
-              padding: EdgeInsets.symmetric(horizontal: 15),
+              padding: const EdgeInsets.symmetric(horizontal: 15),
               title: "Пропустить"),
         ],
       )),

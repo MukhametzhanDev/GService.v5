@@ -9,7 +9,7 @@ class PackageItem extends StatelessWidget {
   final Map data;
   final void Function(Map value) onChangedPackage;
   final bool active;
-  PackageItem(
+  const PackageItem(
       {super.key,
       required this.data,
       required this.onChangedPackage,
@@ -32,18 +32,18 @@ class PackageItem extends StatelessWidget {
         data['title'].toString().replaceAll(RegExp(r"\bX\d+\b"), "").trim();
     List promotions = data['promotions'];
     return Container(
-      margin: EdgeInsets.only(bottom: 14),
+      margin: const EdgeInsets.only(bottom: 14),
       decoration: BoxDecoration(
           color: Colors.white,
           boxShadow: [
             BoxShadow(
                 color: Colors.black.withOpacity(.1),
                 blurRadius: 5,
-                offset: Offset(0, 1))
+                offset: const Offset(0, 1))
           ],
           borderRadius: BorderRadius.circular(12),
           border: Border.all(
-              color: Color(0xffeeeeee),
+              color: const Color(0xffeeeeee),
               //  hexToColor(data['color']),
               width: 1)),
       child: Stack(children: [
@@ -55,48 +55,48 @@ class PackageItem extends StatelessWidget {
                 Text(title,
                     // data['title'],
                     style:
-                        TextStyle(fontSize: 16, fontWeight: FontWeight.w700)),
+                        const TextStyle(fontSize: 16, fontWeight: FontWeight.w700)),
                 Container(
-                  margin: EdgeInsets.only(left: 8),
+                  margin: const EdgeInsets.only(left: 8),
                   height: 28,
-                  padding: EdgeInsets.symmetric(horizontal: 4),
+                  padding: const EdgeInsets.symmetric(horizontal: 4),
                   alignment: Alignment.center,
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(14),
                       color: ColorComponent.blue['500']),
                   child: Text(data['title'].toString().split(" ").last,
-                      style: TextStyle(
+                      style: const TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.w700,
                           color: Colors.white)),
                 ),
               ]),
-              SizedBox(height: 8),
+              const SizedBox(height: 8),
               Text(data['description']),
-              SizedBox(height: 12),
+              const SizedBox(height: 12),
               Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: promotions
                       .map((detail) => Padding(
-                          padding: EdgeInsets.only(bottom: 10),
+                          padding: const EdgeInsets.only(bottom: 10),
                           child: Row(children: [
                             SvgPicture.network(
                               detail['icon'],
                               width: 20,
                             ),
-                            SizedBox(width: 8),
+                            const SizedBox(width: 8),
                             Text(
                                 "${detail['value']} ${promotionTitle[detail['id']]}",
-                                style: TextStyle(
+                                style: const TextStyle(
                                     fontSize: 14, fontWeight: FontWeight.w400))
                           ])))
                       .toList()),
-              SizedBox(height: 16),
+              const SizedBox(height: 16),
               Row(children: [
                 Text("${priceFormat(data['price'])} ₸",
                     style:
-                        TextStyle(fontSize: 20, fontWeight: FontWeight.w600)),
-                SizedBox(width: 12),
+                        const TextStyle(fontSize: 20, fontWeight: FontWeight.w600)),
+                const SizedBox(width: 12),
                 data['old_price'] == 0 || data['old_price'] == null
                     ? Container()
                     : Text("${priceFormat(data['old_price'])} ₸",
@@ -106,7 +106,7 @@ class PackageItem extends StatelessWidget {
                             decorationColor: ColorComponent.gray['500'],
                             decoration: TextDecoration.lineThrough))
               ]),
-              SizedBox(height: 16),
+              const SizedBox(height: 16),
               Container(
                 height: 50,
                 decoration: BoxDecoration(
@@ -136,7 +136,7 @@ class PackageItem extends StatelessWidget {
                   child: Container(
                     width: 50,
                     height: 50,
-                    decoration: BoxDecoration(
+                    decoration: const BoxDecoration(
                         borderRadius:
                             BorderRadius.only(topRight: Radius.circular(10)),
                         color: Color(0xffE02424)),
@@ -152,7 +152,7 @@ class PackageItem extends StatelessWidget {
                   angle: 0.785,
                   child: Text(
                     "${getDiscount()}%",
-                    style: TextStyle(
+                    style: const TextStyle(
                         fontSize: 12,
                         fontWeight: FontWeight.bold,
                         color: Colors.white),

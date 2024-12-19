@@ -48,12 +48,12 @@ class _RecommendationApplicationListState
         : Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 15),
+              const Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 15),
                   child: Text("Похожие заявки",
                       style: TextStyle(
                           fontSize: 18, fontWeight: FontWeight.w600))),
-              SizedBox(height: 15),
+              const SizedBox(height: 15),
               loader
                   ? Column(
                       children: data.map((value) {
@@ -61,9 +61,9 @@ class _RecommendationApplicationListState
                         padding: const EdgeInsets.only(
                             left: 15, right: 15, bottom: 15),
                         child: Shimmer.fromColors(
-                            baseColor: Color(0xffD1D5DB),
-                            highlightColor: Color(0xfff4f5f7),
-                            period: Duration(seconds: 1),
+                            baseColor: const Color(0xffD1D5DB),
+                            highlightColor: const Color(0xfff4f5f7),
+                            period: const Duration(seconds: 1),
                             child: Container(
                                 width: MediaQuery.of(context).size.width - 30,
                                 height: 110,
@@ -75,8 +75,8 @@ class _RecommendationApplicationListState
                   : ListView.builder(
                       shrinkWrap: true,
                       itemCount: data.length,
-                      physics: NeverScrollableScrollPhysics(),
-                      padding: EdgeInsets.symmetric(horizontal: 12),
+                      physics: const NeverScrollableScrollPhysics(),
+                      padding: const EdgeInsets.symmetric(horizontal: 12),
                       itemBuilder: (context, index) {
                         Map item = data[index];
                         return Padding(

@@ -79,7 +79,7 @@ class _ContactCreateApplicationPageState
   Widget build(BuildContext context) {
     return Scaffold(
       body: SingleChildScrollView(
-        padding: EdgeInsets.all(15),
+        padding: const EdgeInsets.all(15),
         child: Column(children: [
           AutofillGroup(
               child: TextField(
@@ -87,23 +87,23 @@ class _ContactCreateApplicationPageState
                   controller: nameEditingController,
                   keyboardType: TextInputType.name,
                   textCapitalization: TextCapitalization.sentences,
-                  style: TextStyle(fontSize: 14),
-                  decoration: InputDecoration(labelText: "Имя"))),
-          Divider(height: 24),
+                  style: const TextStyle(fontSize: 14),
+                  decoration: const InputDecoration(labelText: "Имя"))),
+          const Divider(height: 24),
           AutofillGroup(
             child: TextField(
                 controller: phoneEditingController,
                 autofillHints: const [AutofillHints.telephoneNumber],
                 keyboardType: TextInputType.number,
-                style: TextStyle(fontSize: 14),
-                decoration: InputDecoration(labelText: "Номер телефона")),
+                style: const TextStyle(fontSize: 14),
+                decoration: const InputDecoration(labelText: "Номер телефона")),
           )
         ]),
       ),
       bottomNavigationBar: BottomNavigationBarComponent(
           child: Button(
               onPressed: verifyData,
-              padding: EdgeInsets.symmetric(horizontal: 15),
+              padding: const EdgeInsets.symmetric(horizontal: 15),
               title: "Продолжить")),
     );
   }

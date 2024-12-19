@@ -17,41 +17,41 @@ class SmallAdItem extends StatefulWidget {
 class _SmallAdItemState extends State<SmallAdItem> {
   @override
   Widget build(BuildContext context) {
-    double ITEM_WIDTH = MediaQuery.of(context).size.width / 2;
+    double itemWidth = MediaQuery.of(context).size.width / 2;
     return GestureDetector(
       onLongPress: () => onLongPressShowNumber({}, context),
       child: Container(
-        width: ITEM_WIDTH - 24,
-        height: ITEM_WIDTH - 2,
-        decoration: BoxDecoration(color: Colors.white),
+        width: itemWidth - 24,
+        height: itemWidth - 2,
+        decoration: const BoxDecoration(color: Colors.white),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             SizedBox(
-              width: ITEM_WIDTH - 24,
-              height: ITEM_WIDTH / 1.7,
+              width: itemWidth - 24,
+              height: itemWidth / 1.7,
               child: Stack(
                 children: [
                   CacheImage(
                       url:
                           "https://images.unsplash.com/photo-1583024011792-b165975b52f5?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MjZ8fGV4Y2F2YXRvcnxlbnwwfHwwfHx8MA%3D%3D",
-                      width: ITEM_WIDTH - 24,
-                      height: ITEM_WIDTH / 1.7,
+                      width: itemWidth - 24,
+                      height: itemWidth / 1.7,
                       borderRadius: 10),
                   Positioned(
                     top: 10,
                     right: 0,
                     child: Container(
                       height: 20,
-                      padding: EdgeInsets.symmetric(horizontal: 8),
+                      padding: const EdgeInsets.symmetric(horizontal: 8),
                       alignment: Alignment.center,
                       decoration: BoxDecoration(
                           color: ColorComponent.mainColor,
-                          borderRadius: BorderRadius.only(
+                          borderRadius: const BorderRadius.only(
                               topLeft: Radius.circular(4),
                               bottomLeft: Radius.circular(4))),
                       child: Text(widget.index == 1 ? "Продажа" : "Аренда",
-                          style: TextStyle(
+                          style: const TextStyle(
                               height: 1,
                               fontSize: 11,
                               fontWeight: FontWeight.w500)),
@@ -61,8 +61,8 @@ class _SmallAdItemState extends State<SmallAdItem> {
                       bottom: 0,
                       child: Container(
                         padding:
-                            EdgeInsets.symmetric(horizontal: 6, vertical: 4),
-                        decoration: BoxDecoration(
+                            const EdgeInsets.symmetric(horizontal: 6, vertical: 4),
+                        decoration: const BoxDecoration(
                             color: Colors.white,
                             borderRadius: BorderRadius.only(
                                 topRight: Radius.circular(8))),
@@ -70,10 +70,10 @@ class _SmallAdItemState extends State<SmallAdItem> {
                           children: [
                             SvgPicture.asset('assets/icons/fire.svg',
                                 width: 16),
-                            Divider(indent: 2),
+                            const Divider(indent: 2),
                             SvgPicture.asset('assets/icons/star.svg',
                                 width: 16, color: ColorComponent.mainColor),
-                            Divider(indent: 2),
+                            const Divider(indent: 2),
                             SvgPicture.asset('assets/icons/badgeCheck.svg',
                                 width: 16),
                           ],
@@ -82,13 +82,13 @@ class _SmallAdItemState extends State<SmallAdItem> {
                 ],
               ),
             ),
-            Divider(height: 8),
+            const Divider(height: 8),
             Text(widget.index == 1 ? "SDLG 3CX" : "Экскаватор погрузчик ",
                 style: TextStyle(
                     fontSize: 15,
                     fontWeight: FontWeight.w500,
                     color: ColorComponent.blue['700'])),
-            Divider(height: 2),
+            const Divider(height: 2),
             widget.index == 1
                 ? Text(
                     "Договорная",
@@ -100,7 +100,7 @@ class _SmallAdItemState extends State<SmallAdItem> {
                   )
                 : Row(crossAxisAlignment: CrossAxisAlignment.center, children: [
                     RichText(
-                        text: TextSpan(
+                        text: const TextSpan(
                             style: TextStyle(
                                 fontWeight: FontWeight.w600,
                                 color: Colors.black),
@@ -115,7 +115,7 @@ class _SmallAdItemState extends State<SmallAdItem> {
                     Text(" | ",
                         style: TextStyle(color: ColorComponent.gray['400'])),
                     RichText(
-                        text: TextSpan(
+                        text: const TextSpan(
                             style: TextStyle(
                                 fontWeight: FontWeight.w500,
                                 color: Colors.black),
@@ -133,7 +133,7 @@ class _SmallAdItemState extends State<SmallAdItem> {
             //         fontSize: 13,
             //         fontWeight: FontWeight.w700,
             //         color: ColorComponent.blue['500'])),
-            Divider(height: 2),
+            const Divider(height: 2),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               crossAxisAlignment: CrossAxisAlignment.center,
@@ -149,11 +149,11 @@ class _SmallAdItemState extends State<SmallAdItem> {
                       width: 14,
                       color: ColorComponent.gray["400"],
                     ),
-                    Divider(indent: 4),
+                    const Divider(indent: 4),
                     Text(numberFormat(120),
                         style: TextStyle(
                             fontSize: 12, color: ColorComponent.gray["500"])),
-                    Divider(indent: 4),
+                    const Divider(indent: 4),
                   ],
                 ),
               ],

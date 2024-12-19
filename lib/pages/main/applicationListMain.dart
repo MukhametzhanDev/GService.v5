@@ -31,12 +31,12 @@ class _ApplicationListMainState extends State<ApplicationListMain> {
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => ApplicationListPage()));
+                      builder: (context) => const ApplicationListPage()));
             },
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text("Заявки на спецтехнику",
+                const Text("Заявки на спецтехнику",
                     style: TextStyle(
                         fontSize: 16, fontWeight: FontWeight.w600, height: 1)),
                 SvgPicture.asset('assets/icons/right.svg')
@@ -44,12 +44,12 @@ class _ApplicationListMainState extends State<ApplicationListMain> {
             ),
           ),
         ),
-        Divider(height: 18),
+        const Divider(height: 18),
         SizedBox(
           height: 110,
           child: SingleChildScrollView(
               scrollDirection: Axis.horizontal,
-              padding: EdgeInsets.symmetric(horizontal: 11),
+              padding: const EdgeInsets.symmetric(horizontal: 11),
               child: Row(
                 children: widget.data.map((value) {
                   int index = widget.data.indexOf(value);
@@ -58,7 +58,7 @@ class _ApplicationListMainState extends State<ApplicationListMain> {
                       children: [
                         SmallApplicationItem(
                             onPressed: showPage, data: value, position: "main"),
-                        ShowMoreApplicaiton()
+                        const ShowMoreApplicaiton()
                       ],
                     );
                   }
@@ -80,10 +80,10 @@ class ShowMoreApplicaiton extends StatelessWidget {
     return GestureDetector(
         onTap: () {
           Navigator.push(context,
-              MaterialPageRoute(builder: (context) => ApplicationListPage()));
+              MaterialPageRoute(builder: (context) => const ApplicationListPage()));
         },
         child: Container(
-          margin: EdgeInsets.symmetric(horizontal: 4),
+          margin: const EdgeInsets.symmetric(horizontal: 4),
           width: 166,
           height: 122,
           decoration: BoxDecoration(
@@ -94,8 +94,8 @@ class ShowMoreApplicaiton extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               SvgPicture.asset("assets/icons/searchOutline.svg", width: 32),
-              Divider(height: 4),
-              Text(
+              const Divider(height: 4),
+              const Text(
                 "еще 12 000\nзаявок",
                 textAlign: TextAlign.center,
               )

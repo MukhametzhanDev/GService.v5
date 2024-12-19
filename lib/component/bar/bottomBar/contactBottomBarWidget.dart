@@ -42,7 +42,7 @@ class _ContactBottomBarWidgetState extends State<ContactBottomBarWidget> {
                   widthIcon: 20,
                   icon: "chat.svg",
                   title: "Написать")),
-          Divider(indent: 16),
+          const Divider(indent: 16),
           Expanded(
               child: Button(
             onPressed: () {},

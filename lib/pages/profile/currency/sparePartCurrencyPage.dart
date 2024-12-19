@@ -12,6 +12,8 @@ import 'package:gservice5/component/theme/colorComponent.dart';
 import 'package:gservice5/component/widgets/bottom/bottomNavigationBarComponent.dart';
 
 class SparePartCurrencyPage extends StatefulWidget {
+  const SparePartCurrencyPage({super.key});
+
   @override
   _SparePartCurrencyPageState createState() => _SparePartCurrencyPageState();
 }
@@ -76,17 +78,17 @@ class _SparePartCurrencyPageState extends State<SparePartCurrencyPage> {
       onTap: () => closeKeyboard(),
       child: Scaffold(
         body: loader
-            ? LoaderComponent()
+            ? const LoaderComponent()
             : Column(
                 children: [
-                  ExplanatoryMessage(
+                  const ExplanatoryMessage(
                       title:
                           "Если цена озгертсен, букыл объявление цена озгереды братка",
                       padding: EdgeInsets.symmetric(horizontal: 16),
                       type: "my_currency"),
                   Expanded(
                     child: ListView.builder(
-                        padding: EdgeInsets.all(16),
+                        padding: const EdgeInsets.all(16),
                         itemCount: data.length,
                         itemBuilder: (BuildContext context, int index) {
                           Map value = data[index];
@@ -94,14 +96,14 @@ class _SparePartCurrencyPageState extends State<SparePartCurrencyPage> {
                             Row(children: [
                               Expanded(
                                   child: Container(
-                                      padding: EdgeInsets.all(16),
+                                      padding: const EdgeInsets.all(16),
                                       decoration: BoxDecoration(
                                           color: ColorComponent.gray['50'],
                                           borderRadius:
                                               BorderRadius.circular(10),
                                           border: Border.all(
                                               width: 1,
-                                              color: Color(0xffe5e7eb))),
+                                              color: const Color(0xffe5e7eb))),
                                       child: Row(
                                         mainAxisAlignment:
                                             MainAxisAlignment.spaceBetween,
@@ -118,9 +120,9 @@ class _SparePartCurrencyPageState extends State<SparePartCurrencyPage> {
                                                       .gray['500'])),
                                         ],
                                       ))),
-                              SizedBox(width: 8),
-                              Text("=", style: TextStyle(fontSize: 20)),
-                              SizedBox(width: 8),
+                              const SizedBox(width: 8),
+                              const Text("=", style: TextStyle(fontSize: 20)),
+                              const SizedBox(width: 8),
                               Expanded(
                                   flex: 2,
                                   child: TextFormField(
@@ -131,7 +133,7 @@ class _SparePartCurrencyPageState extends State<SparePartCurrencyPage> {
                                         value['in_tenge'] = title;
                                       },
                                       decoration: InputDecoration(
-                                        border: OutlineInputBorder(),
+                                        border: const OutlineInputBorder(),
                                         hintStyle: TextStyle(
                                             color: ColorComponent.gray['500'],
                                             fontSize: 14,
@@ -140,11 +142,11 @@ class _SparePartCurrencyPageState extends State<SparePartCurrencyPage> {
                                             style: TextStyle(
                                                 color: ColorComponent
                                                     .gray['500'])),
-                                        suffixIconConstraints: BoxConstraints(
+                                        suffixIconConstraints: const BoxConstraints(
                                             minWidth: 25, maxWidth: 25),
                                       )))
                             ]),
-                            Divider(height: 12)
+                            const Divider(height: 12)
                           ]);
                         }),
                   ),
@@ -157,7 +159,7 @@ class _SparePartCurrencyPageState extends State<SparePartCurrencyPage> {
                 titleColor: Colors.black,
                 icon: null,
                 padding:
-                    EdgeInsets.only(left: 16, right: 16, top: 8, bottom: 8),
+                    const EdgeInsets.only(left: 16, right: 16, top: 8, bottom: 8),
                 widthIcon: null,
                 title: "Сохранить")),
       ),

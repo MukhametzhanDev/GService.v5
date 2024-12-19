@@ -42,7 +42,7 @@ class _MainDrawerState extends State<MainDrawer> {
   void showChangeTypeModal() {
     Navigator.pop(context);
     showCupertinoModalBottomSheet(
-        context: context, builder: (context) => ChangedAccountType());
+        context: context, builder: (context) => const ChangedAccountType());
   }
 
   void showDrawerPage(Map value) {
@@ -57,7 +57,7 @@ class _MainDrawerState extends State<MainDrawer> {
         child: Scaffold(
           appBar: AppBar(
             leadingWidth: 160,
-            leading: LeadingLogo(),
+            leading: const LeadingLogo(),
             actions: [
               GestureDetector(
                 onTap: () => Navigator.pop(context),
@@ -72,11 +72,11 @@ class _MainDrawerState extends State<MainDrawer> {
                       color: Colors.black),
                 ),
               ),
-              Divider(indent: 15)
+              const Divider(indent: 15)
             ],
           ),
           body: SingleChildScrollView(
-            padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -90,10 +90,10 @@ class _MainDrawerState extends State<MainDrawer> {
                               height: 48,
                               child: Row(children: [
                                 SvgPicture.network(value['icon'], width: 24),
-                                Divider(indent: 8),
+                                const Divider(indent: 8),
                                 Text(
                                   value['title'],
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                       fontWeight: FontWeight.w500,
                                       fontSize: 15),
                                 ),
@@ -111,9 +111,9 @@ class _MainDrawerState extends State<MainDrawer> {
                             children: [
                               SvgPicture.asset("assets/icons/${value['icon']}",
                                   width: 24),
-                              Divider(indent: 8),
+                              const Divider(indent: 8),
                               Text(value['title'],
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                       fontWeight: FontWeight.w500,
                                       fontSize: 15)),
                             ],

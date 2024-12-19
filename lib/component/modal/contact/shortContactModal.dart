@@ -15,7 +15,7 @@ void onLongPressShowNumber(Map data, BuildContext context) {
         height: MediaQuery.of(context).padding.bottom + 163,
         child: Scaffold(
           body: Padding(
-            padding: EdgeInsets.all(12),
+            padding: const EdgeInsets.all(12),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -23,7 +23,7 @@ void onLongPressShowNumber(Map data, BuildContext context) {
                 // Text(priceFormat(data['price']),
                 //     style:
                 //         TextStyle(fontSize: 16, fontWeight: FontWeight.w600)),
-                Divider(indent: 8),
+                const Divider(indent: 8),
                 Text(
                   data['title'],
                   style: TextStyle(

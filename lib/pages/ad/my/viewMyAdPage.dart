@@ -100,7 +100,7 @@ class _ViewMyAdPageState extends State<ViewMyAdPage> {
   Widget build(BuildContext context) {
     return Scaffold(
         body: loader
-            ? LoaderComponent()
+            ? const LoaderComponent()
             : CustomScrollView(controller: scrollController, slivers: [
                 SliverAppBar(
                   pinned: true,
@@ -109,7 +109,7 @@ class _ViewMyAdPageState extends State<ViewMyAdPage> {
                   actions: [
                     // FavoriteButton(iconColor: ColorTheme['black_white']),
                     ShareButton(id: widget.id, hasAd: true),
-                    Divider(indent: 15)
+                    const Divider(indent: 15)
                   ],
                   title: FadeOnScroll(
                     scrollController: scrollController,
@@ -123,7 +123,7 @@ class _ViewMyAdPageState extends State<ViewMyAdPage> {
                                 fontWeight: FontWeight.w500,
                                 color: ColorComponent.blue['700']),
                             maxLines: 1),
-                        Divider(height: 4),
+                        const Divider(height: 4),
                         PriceTextWidget(prices: data['prices'], fontSize: 13)
                       ],
                     ),
@@ -164,17 +164,17 @@ class _ViewMyAdPageState extends State<ViewMyAdPage> {
                                           color: ColorComponent.blue['700'],
                                           fontWeight: FontWeight.w600)),
                                 ),
-                                Divider(indent: 16),
+                                const Divider(indent: 16),
                                 Container(
                                   height: 24,
-                                  padding: EdgeInsets.symmetric(horizontal: 8),
+                                  padding: const EdgeInsets.symmetric(horizontal: 8),
                                   alignment: Alignment.center,
                                   decoration: BoxDecoration(
                                       color: ColorComponent.mainColor,
                                       borderRadius: BorderRadius.circular(6)),
                                   child: Text(
                                     data['category']['title'],
-                                    style: TextStyle(
+                                    style: const TextStyle(
                                         height: 1,
                                         fontSize: 12,
                                         fontWeight: FontWeight.w600),
@@ -182,7 +182,7 @@ class _ViewMyAdPageState extends State<ViewMyAdPage> {
                                 ),
                               ],
                             ),
-                            Divider(height: 6),
+                            const Divider(height: 6),
                             PriceTextWidget(
                                 prices: data['prices'], fontSize: 16),
                             const SizedBox(height: 4),
@@ -200,19 +200,19 @@ class _ViewMyAdPageState extends State<ViewMyAdPage> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             // Divider(indent: 24),
-                            Text("Статистика",
+                            const Text("Статистика",
                                 style: TextStyle(
                                     fontSize: 18, fontWeight: FontWeight.w600)),
-                            Divider(height: 10),
+                            const Divider(height: 10),
                             AnalyticAdWidget(data: data['statistics']),
-                            Divider(height: 16),
+                            const Divider(height: 16),
                             Divider(
                                 height: 1, color: ColorComponent.gray['100']),
-                            Divider(height: 16),
-                            Text("Характеристики",
+                            const Divider(height: 16),
+                            const Text("Характеристики",
                                 style: TextStyle(
                                     fontSize: 18, fontWeight: FontWeight.w600)),
-                            Divider(height: 4),
+                            const Divider(height: 4),
                             ShowCharacteristicWidget(
                                 title: "Город", subTitle: data['city']),
                             ShowCharacteristicWidget(
@@ -239,10 +239,10 @@ class _ViewMyAdPageState extends State<ViewMyAdPage> {
                                 characteristics: data['characteristics']),
                             const SizedBox(height: 10),
                             ShowDescriptionWidget(desc: data['description']),
-                            Divider(height: 12),
+                            const Divider(height: 12),
                             Divider(
                                 height: 1, color: ColorComponent.gray['100']),
-                            Divider(height: 12),
+                            const Divider(height: 12),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
@@ -273,14 +273,14 @@ class _ViewMyAdPageState extends State<ViewMyAdPage> {
                         onPressed: unZipAd,
                         title: "Разархивировать",
                         backgroundColor: ColorComponent.mainColor,
-                        padding: EdgeInsets.symmetric(horizontal: 15),
+                        padding: const EdgeInsets.symmetric(horizontal: 15),
                       )
                     : data['status'] == "deleted"
                         ? Button(
                             onPressed: restoreAd,
                             title: "Восстановить",
                             backgroundColor: ColorComponent.mainColor,
-                            padding: EdgeInsets.symmetric(horizontal: 15),
+                            padding: const EdgeInsets.symmetric(horizontal: 15),
                           )
                         : Row(
                             children: [
@@ -289,7 +289,7 @@ class _ViewMyAdPageState extends State<ViewMyAdPage> {
                                   onPressed: showPromotionAdPage,
                                   title: "Поднять в ТОП",
                                   backgroundColor: ColorComponent.mainColor,
-                                  padding: EdgeInsets.symmetric(horizontal: 15),
+                                  padding: const EdgeInsets.symmetric(horizontal: 15),
                                 ),
                               ),
                               GestureDetector(
@@ -317,7 +317,7 @@ class _ViewMyAdPageState extends State<ViewMyAdPage> {
                                   ),
                                 ),
                               ),
-                              SizedBox(width: 15)
+                              const SizedBox(width: 15)
                             ],
                           )));
   }

@@ -19,12 +19,12 @@ class _EmptyMyNewsPageState extends State<EmptyMyNewsPage> {
       children: [
         SvgPicture.asset("assets/icons/bullhorn.svg",
             width: 120, color: ColorComponent.gray['500']),
-        Divider(indent: 12),
-        Text("У вас пока нет новостей",
+        const Divider(indent: 12),
+        const Text("У вас пока нет новостей",
             style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600)),
-        Divider(indent: 12),
-        Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 15),
+        const Divider(indent: 12),
+        const Padding(
+            padding: EdgeInsets.symmetric(horizontal: 15),
             child: Text(
               "На данный момент у вас нет добавленных новостей. Вы можете создать новость, используя веб-версию.",
               textAlign: TextAlign.center,

@@ -38,12 +38,12 @@ class _CreateSectionPageState extends State<CreateSectionPage> {
     {
       "title": "Объявление",
       "subTitle": "Для продажи и аренды спецтехники и запчастей",
-      "page": SectionCreateAdPage(),
+      "page": const SectionCreateAdPage(),
     },
     {
       "title": "Заявки",
       "subTitle": "Сообщите о требуемой услуге, спецтехнике или запчасти",
-      "page": SectionCreateApplicationPage(),
+      "page": const SectionCreateApplicationPage(),
     },
     // {
     //   "title": "Найти работу",
@@ -70,7 +70,7 @@ class _CreateSectionPageState extends State<CreateSectionPage> {
 
     if (data.isEmpty) {
       showCupertinoModalBottomSheet(
-          context: context, builder: (context) => AddContactsPage());
+          context: context, builder: (context) => const AddContactsPage());
     } else {
       showPage();
     }
@@ -88,14 +88,14 @@ class _CreateSectionPageState extends State<CreateSectionPage> {
         appBar: AppBar(
           automaticallyImplyLeading: false,
           centerTitle: false,
-          title: Text("Новое объявление"),
-          actions: [CloseIconButton(iconColor: null, padding: true)],
+          title: const Text("Новое объявление"),
+          actions: const [CloseIconButton(iconColor: null, padding: true)],
         ),
         body: !verifyToken
-            ? EmptyTokenPage()
+            ? const EmptyTokenPage()
             : SingleChildScrollView(
                 physics: physics,
-                padding: EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+                padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
                 child: Column(
                     children: data.map((value) {
                   int index = data.indexOf(value);
@@ -105,15 +105,15 @@ class _CreateSectionPageState extends State<CreateSectionPage> {
                       activedItem(index);
                     },
                     child: Container(
-                      padding: EdgeInsets.all(12),
-                      margin: EdgeInsets.only(bottom: 15),
+                      padding: const EdgeInsets.all(12),
+                      margin: const EdgeInsets.only(bottom: 15),
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(8),
                           border: Border.all(
                               width: 1,
                               color: active
                                   ? ColorComponent.mainColor
-                                  : Color(0xffeeeeee))),
+                                  : const Color(0xffeeeeee))),
                       child: Row(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
@@ -125,18 +125,18 @@ class _CreateSectionPageState extends State<CreateSectionPage> {
                                   border: Border.all(
                                       width: active ? 4 : 1,
                                       color: active
-                                          ? Color(0xff1A56DB)
-                                          : Color(0xffD1D5DB)))),
-                          Divider(indent: 12),
+                                          ? const Color(0xff1A56DB)
+                                          : const Color(0xffD1D5DB)))),
+                          const Divider(indent: 12),
                           Expanded(
                             child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(value['title'],
-                                      style: TextStyle(
+                                      style: const TextStyle(
                                           fontSize: 16,
                                           fontWeight: FontWeight.w500)),
-                                  Divider(height: 4),
+                                  const Divider(height: 4),
                                   Text(value['subTitle'],
                                       style: TextStyle(
                                           color: ColorComponent.gray['500']))
@@ -153,7 +153,7 @@ class _CreateSectionPageState extends State<CreateSectionPage> {
             : BottomNavigationBarComponent(
                 child: Button(
                     onPressed: verifyContacts,
-                    padding: EdgeInsets.symmetric(horizontal: 15),
+                    padding: const EdgeInsets.symmetric(horizontal: 15),
                     title: "Продолжить")),
       );
     });

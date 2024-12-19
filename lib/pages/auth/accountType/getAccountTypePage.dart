@@ -65,11 +65,11 @@ class _GetAccountTypePageState extends State<GetAccountTypePage>
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-          leading: BackIconButton(), title: Text("Тип личного кабинета")),
+          leading: const BackIconButton(), title: const Text("Тип личного кабинета")),
       body: loader
-          ? LoaderComponent()
+          ? const LoaderComponent()
           : SingleChildScrollView(
-              padding: EdgeInsets.symmetric(horizontal: 16, vertical: 5),
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 5),
               child: Column(
                 children: [
                   Column(
@@ -82,15 +82,15 @@ class _GetAccountTypePageState extends State<GetAccountTypePage>
                           // showInfoTypeAccount(value);
                         },
                         child: Container(
-                          margin: EdgeInsets.only(bottom: 16),
-                          padding: EdgeInsets.all(12),
+                          margin: const EdgeInsets.only(bottom: 16),
+                          padding: const EdgeInsets.all(12),
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(12),
                               border: Border.all(
                                   width: 1,
                                   color: index == currentType
                                       ? ColorComponent.mainColor
-                                      : Color(0xffEEEEEE))),
+                                      : const Color(0xffEEEEEE))),
                           child: Row(
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
@@ -102,18 +102,18 @@ class _GetAccountTypePageState extends State<GetAccountTypePage>
                                       border: Border.all(
                                           width: currentType == index ? 4 : 1,
                                           color: index == currentType
-                                              ? Color(0xff1A56DB)
-                                              : Color(0xffD1D5DB)))),
-                              Divider(indent: 12),
+                                              ? const Color(0xff1A56DB)
+                                              : const Color(0xffD1D5DB)))),
+                              const Divider(indent: 12),
                               Expanded(
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Text(value['title'],
-                                        style: TextStyle(
+                                        style: const TextStyle(
                                             fontWeight: FontWeight.w500,
                                             fontSize: 16)),
-                                    Divider(height: 4),
+                                    const Divider(height: 4),
                                     Text(value['sub_title'],
                                         style: TextStyle(
                                             color: ColorComponent.gray['500']))
@@ -126,7 +126,7 @@ class _GetAccountTypePageState extends State<GetAccountTypePage>
                       );
                     }).toList(),
                   ),
-                  Divider(),
+                  const Divider(),
                   InfoTypeAccountModal(data: data[currentType]['description'])
                 ],
               )),
@@ -135,7 +135,7 @@ class _GetAccountTypePageState extends State<GetAccountTypePage>
           : BottomNavigationBarComponent(
               child: Button(
                   onPressed: showRegistrationPage,
-                  padding: EdgeInsets.symmetric(horizontal: 15),
+                  padding: const EdgeInsets.symmetric(horizontal: 15),
                   title: "Продолжить")),
     );
   }

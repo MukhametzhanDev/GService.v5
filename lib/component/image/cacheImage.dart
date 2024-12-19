@@ -43,9 +43,9 @@ class CacheImage extends StatelessWidget {
               fit: BoxFit.cover,
               progressIndicatorBuilder: (context, url, downloadProgress) {
                 return Shimmer.fromColors(
-                  baseColor: Color(0xffD1D5DB),
-                  highlightColor: Color(0xfff4f5f7),
-                  period: Duration(seconds: 1),
+                  baseColor: const Color(0xffD1D5DB),
+                  highlightColor: const Color(0xfff4f5f7),
+                  period: const Duration(seconds: 1),
                   child: Container(
                       width: width.toDouble(),
                       height: height.toDouble(),

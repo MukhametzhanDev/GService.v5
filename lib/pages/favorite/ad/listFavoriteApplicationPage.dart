@@ -99,9 +99,9 @@ class _ListFavoriteApplicationPageState
           //     preferredSize: Size(double.infinity, 48), child: Row(children: [])),
         ),
         body: loader
-            ? LoaderComponent()
+            ? const LoaderComponent()
             : data.isEmpty
-                ? EmptyFavoriteListPage()
+                ? const EmptyFavoriteListPage()
                 : Column(
                     children: [
                       Expanded(
@@ -126,7 +126,7 @@ class _ListFavoriteApplicationPageState
                                       data: value['favoritable'],
                                       showCategory: false),
                                   hasNextPage
-                                      ? PaginationLoaderComponent()
+                                      ? const PaginationLoaderComponent()
                                       : Container()
                                 ]);
                               } else {

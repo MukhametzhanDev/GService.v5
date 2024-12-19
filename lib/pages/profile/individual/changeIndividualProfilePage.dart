@@ -122,7 +122,7 @@ class _ChangeIndividualProfilePageState
                 title: "Изменить данные",
                 onPressed: () => Navigator.pop(context))),
         body: SingleChildScrollView(
-          padding: EdgeInsets.all(15),
+          padding: const EdgeInsets.all(15),
           child: Column(children: [
             GetLogoWidget(
                 role: "individual",
@@ -131,25 +131,25 @@ class _ChangeIndividualProfilePageState
                   imagePath = path;
                   setState(() {});
                 }),
-            Divider(height: 24),
+            const Divider(height: 24),
             SelectButton(
                 title: currentCity.isNotEmpty
                     ? currentCity['title']
                     : "Выберите город",
                 active: currentCity.isNotEmpty,
                 onPressed: showCityModal),
-            Divider(indent: 8),
+            const Divider(indent: 8),
             TextField(
                 controller: nameEditingController,
-                style: TextStyle(fontSize: 14),
+                style: const TextStyle(fontSize: 14),
                 keyboardType: TextInputType.text,
-                decoration: InputDecoration(hintText: "Название компании")),
+                decoration: const InputDecoration(hintText: "Название компании")),
           ]),
         ),
         bottomNavigationBar: BottomNavigationBarComponent(
             child: Button(
                 onPressed: () => verifyData(),
-                padding: EdgeInsets.symmetric(horizontal: 15),
+                padding: const EdgeInsets.symmetric(horizontal: 15),
                 title: "Изменить")),
       ),
     );

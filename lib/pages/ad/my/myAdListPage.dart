@@ -183,13 +183,13 @@ class _MyAdListPageState extends State<MyAdListPage>
       length: 3,
       child: Scaffold(
           appBar: AppBar(
-            leading: BackIconButton(),
-            title: Text("Мои объялвения"),
+            leading: const BackIconButton(),
+            title: const Text("Мои объялвения"),
             elevation: 0,
             bottom: PreferredSize(
                 preferredSize: Size(MediaQuery.of(context).size.width, 50),
                 child: Container(
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                       border: Border(
                           bottom:
                               BorderSide(width: 2, color: Color(0xffe5e7eb)))),
@@ -205,7 +205,7 @@ class _MyAdListPageState extends State<MyAdListPage>
           body: TabBarView(
               controller: tabController,
               children: List.generate(
-                  3, (index) => loader ? LoaderComponent() : ListMyAds()))),
+                  3, (index) => loader ? const LoaderComponent() : ListMyAds()))),
     );
   }
 
@@ -244,7 +244,7 @@ class _MyAdListPageState extends State<MyAdListPage>
         //     child:
 
         data.isEmpty
-            ? MyAdEmptyPage()
+            ? const MyAdEmptyPage()
             : ListView.builder(
                 padding: EdgeInsets.only(
                     bottom: MediaQuery.of(context).padding.bottom),
@@ -270,14 +270,14 @@ class _MyAdListPageState extends State<MyAdListPage>
       Container(
         width: 20,
         height: 20,
-        margin: EdgeInsets.only(left: 10),
+        margin: const EdgeInsets.only(left: 10),
         alignment: Alignment.center,
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(20),
             color: ColorComponent.mainColor.withOpacity(.1)),
         child: Text(
           value['count'],
-          style: TextStyle(
+          style: const TextStyle(
               fontSize: 12, fontWeight: FontWeight.w500, color: Colors.black),
         ),
       )

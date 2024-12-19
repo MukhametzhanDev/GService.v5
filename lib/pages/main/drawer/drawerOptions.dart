@@ -12,7 +12,7 @@ class DrawerOptions {
       "full_title": "Новости",
       "title": "Новости",
       "icon": "bullhorn.svg",
-      "page": AllNewsPage(showBackButton: true)
+      "page": const AllNewsPage(showBackButton: true)
     },
     {
       "full_title": "Гид",

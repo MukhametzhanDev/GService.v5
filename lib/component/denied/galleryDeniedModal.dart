@@ -45,7 +45,7 @@ class _GalleryDeniedModalState extends State<GalleryDeniedModal>
       appBar: AppBar(
         leading: Container(),
         leadingWidth: 0,
-        actions: [CloseIconButton(padding: true)],
+        actions: const [CloseIconButton(padding: true)],
       ),
       body: SafeArea(
         child: Padding(
@@ -55,14 +55,14 @@ class _GalleryDeniedModalState extends State<GalleryDeniedModal>
             children: [
               SvgPicture.asset('assets/icons/camera.svg',
                   color: ColorComponent.mainColor),
-              SizedBox(height: 30),
-              Text(
+              const SizedBox(height: 30),
+              const Text(
                 "Привлекайте больше клиентов!",
                 style: TextStyle(fontWeight: FontWeight.w600, fontSize: 24),
                 textAlign: TextAlign.center,
               ),
-              SizedBox(height: 10),
-              Text(
+              const SizedBox(height: 10),
+              const Text(
                 "Для этого разрешите доступ к камере и галереи, чтобы вы могли добавлять изображения!",
                 style: TextStyle(fontSize: 15, height: 1.7),
                 textAlign: TextAlign.center,
@@ -77,7 +77,7 @@ class _GalleryDeniedModalState extends State<GalleryDeniedModal>
               onPressed: () {
                 AppSettings.openAppSettings(type: AppSettingsType.location);
               },
-              padding: EdgeInsets.symmetric(horizontal: 15),
+              padding: const EdgeInsets.symmetric(horizontal: 15),
               title: "Разрешить доступ",
               backgroundColor: ColorComponent.mainColor)),
     );

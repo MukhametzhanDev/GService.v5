@@ -53,9 +53,9 @@ class _CategoriesListWidgetState extends State<CategoriesListWidget> {
                     return Padding(
                       padding: const EdgeInsets.only(right: 8),
                       child: Shimmer.fromColors(
-                          baseColor: Color(0xffD1D5DB),
-                          highlightColor: Color(0xfff4f5f7),
-                          period: Duration(seconds: 1),
+                          baseColor: const Color(0xffD1D5DB),
+                          highlightColor: const Color(0xfff4f5f7),
+                          period: const Duration(seconds: 1),
                           child: Container(
                               width: 60,
                               height: 30,
@@ -77,14 +77,14 @@ class _CategoriesListWidgetState extends State<CategoriesListWidget> {
                             },
                             child: Container(
                                 height: 32,
-                                padding: EdgeInsets.symmetric(horizontal: 12),
-                                margin: EdgeInsets.symmetric(horizontal: 4),
+                                padding: const EdgeInsets.symmetric(horizontal: 12),
+                                margin: const EdgeInsets.symmetric(horizontal: 4),
                                 alignment: Alignment.center,
                                 decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(8),
                                     color: ColorComponent.mainColor
                                         .withOpacity(.2)),
-                                child: Text("Заявки",
+                                child: const Text("Заявки",
                                     style: TextStyle(
                                         fontSize: 12,
                                         fontWeight: FontWeight.w400,
@@ -106,14 +106,14 @@ class _CategoriesListWidgetState extends State<CategoriesListWidget> {
       },
       child: Container(
           height: 32,
-          padding: EdgeInsets.symmetric(horizontal: 12),
-          margin: EdgeInsets.symmetric(horizontal: 4),
+          padding: const EdgeInsets.symmetric(horizontal: 12),
+          margin: const EdgeInsets.symmetric(horizontal: 4),
           alignment: Alignment.center,
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(8),
               color: ColorComponent.mainColor.withOpacity(.2)),
           child: Text(value['title'],
-              style: TextStyle(
+              style: const TextStyle(
                   fontSize: 12, fontWeight: FontWeight.w400, height: 1))),
     );
   }

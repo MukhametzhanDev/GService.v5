@@ -11,10 +11,10 @@ class ShowCharacteristicWidget extends StatelessWidget {
     return subTitle == null
         ? Container()
         : Container(
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
                 border: Border(
                     bottom: BorderSide(width: 1, color: Color(0xfff4f5f7)))),
-            padding: EdgeInsets.symmetric(vertical: 12),
+            padding: const EdgeInsets.symmetric(vertical: 12),
             child: Row(children: [
               Expanded(
                   child: Text(
@@ -25,7 +25,7 @@ class ShowCharacteristicWidget extends StatelessWidget {
                   child: subTitle.runtimeType == List
                       ? InfoListCharacteristic(subTitle)
                       : Text(subTitle['title'] ?? "",
-                          style: TextStyle(fontWeight: FontWeight.w500)))
+                          style: const TextStyle(fontWeight: FontWeight.w500)))
             ]),
           );
   }
@@ -38,6 +38,6 @@ Widget InfoListCharacteristic(List data) {
     int index = data.indexOf(element);
     String showComma = data.length == 1 || index == data.length - 1 ? "" : ", ";
     return Text(title + showComma,
-        style: TextStyle(fontSize: 15, fontWeight: FontWeight.w500));
+        style: const TextStyle(fontSize: 15, fontWeight: FontWeight.w500));
   }).toList());
 }

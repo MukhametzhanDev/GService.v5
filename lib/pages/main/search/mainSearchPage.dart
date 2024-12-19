@@ -58,13 +58,13 @@ class _MainSearchPageState extends State<MainSearchPage> {
           bottom: false,
           child: Column(
             children: [
-              Container(
+              SizedBox(
                   height: 55,
                   child: Row(
                     children: [
                       Container(
                         width: 20,
-                        margin: EdgeInsets.only(left: 16),
+                        margin: const EdgeInsets.only(left: 16),
                         child: TextButton(
                             onPressed: () => Navigator.pop(context),
                             style: TextButton.styleFrom(
@@ -80,7 +80,7 @@ class _MainSearchPageState extends State<MainSearchPage> {
                       ),
                       Expanded(
                         child: TextField(
-                          style: TextStyle(fontSize: 16),
+                          style: const TextStyle(fontSize: 16),
                           keyboardType: TextInputType.text,
                           textInputAction: TextInputAction.search,
                           controller: textEditingController,
@@ -89,13 +89,13 @@ class _MainSearchPageState extends State<MainSearchPage> {
                           },
                           onSubmitted: getResult,
                           autofocus: true,
-                          decoration: InputDecoration(
+                          decoration: const InputDecoration(
                               contentPadding: EdgeInsets.zero,
-                              focusedBorder: const OutlineInputBorder(
+                              focusedBorder: OutlineInputBorder(
                                 borderSide: BorderSide(
                                     width: 1, color: Colors.transparent),
                               ),
-                              disabledBorder: const OutlineInputBorder(
+                              disabledBorder: OutlineInputBorder(
                                 borderSide: BorderSide(
                                     width: 1, color: Colors.transparent),
                               ),
@@ -103,10 +103,10 @@ class _MainSearchPageState extends State<MainSearchPage> {
                                 borderSide: BorderSide(
                                     width: 1, color: Colors.transparent),
                               ),
-                              errorBorder: const OutlineInputBorder(
+                              errorBorder: OutlineInputBorder(
                                   borderSide: BorderSide(
                                       width: 2, color: Colors.transparent)),
-                              focusedErrorBorder: const OutlineInputBorder(
+                              focusedErrorBorder: OutlineInputBorder(
                                   borderSide: BorderSide(
                                       width: 2, color: Colors.transparent)),
                               fillColor: Colors.white,

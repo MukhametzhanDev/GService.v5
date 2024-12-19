@@ -90,7 +90,7 @@ class _LoginUserPageState extends State<LoginUserPage>
 
   void showRegistrationPage() {
     Navigator.push(context,
-            MaterialPageRoute(builder: (context) => GetAccountTypePage()))
+            MaterialPageRoute(builder: (context) => const GetAccountTypePage()))
         .then((value) {
       if (value != null) textEditingController.text = value;
     });
@@ -107,11 +107,11 @@ class _LoginUserPageState extends State<LoginUserPage>
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
-        padding: EdgeInsets.all(15),
+        padding: const EdgeInsets.all(15),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Divider(height: 15),
+            const Divider(height: 15),
             SizedBox(
               height: 48,
               child: TextField(
@@ -120,13 +120,13 @@ class _LoginUserPageState extends State<LoginUserPage>
                 },
                 keyboardType: TextInputType.emailAddress,
                 autofillHints: const [AutofillHints.email],
-                style: TextStyle(fontSize: 14, height: 1.1),
+                style: const TextStyle(fontSize: 14, height: 1.1),
                 controller: textEditingController,
                 decoration:
-                    InputDecoration(hintText: "Email или номер телефона"),
+                    const InputDecoration(hintText: "Email или номер телефона"),
               ),
             ),
-            Divider(indent: 15),
+            const Divider(indent: 15),
             PasswordTextField(
                 textEditingController: passwordEditingController,
                 onSubmitted: verifyData),
@@ -147,20 +147,20 @@ class _LoginUserPageState extends State<LoginUserPage>
                 onPressed: showRegistrationPage,
                 child: RichText(
                     text: TextSpan(
-                        style: TextStyle(
+                        style: const TextStyle(
                             fontWeight: FontWeight.w500, color: Colors.black),
                         children: [
-                      TextSpan(text: "У вас нет аккаунта? "),
+                      const TextSpan(text: "У вас нет аккаунта? "),
                       TextSpan(
                           text: "Зарегистрируйтесь",
                           style: TextStyle(color: ColorComponent.blue['700'])),
                     ])),
               ),
             ),
-            Divider(indent: 8),
+            const Divider(indent: 8),
             Button(onPressed: verifyData, title: "Войти"),
-            Divider(indent: 8),
-            PrivacyPolicyWidget()
+            const Divider(indent: 8),
+            const PrivacyPolicyWidget()
           ],
         ));
   }

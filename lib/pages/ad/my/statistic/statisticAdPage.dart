@@ -45,7 +45,7 @@ class _StatisticAdPageState extends State<StatisticAdPage> {
             leading: BackTitleButton(
                 title: "Статистика", onPressed: () => Navigator.pop(context)),
             bottom: PreferredSize(
-                preferredSize: Size(double.infinity, 48),
+                preferredSize: const Size(double.infinity, 48),
                 child: TabBar(
                     isScrollable: true,
                     indicatorSize: TabBarIndicatorSize.tab,
@@ -58,7 +58,7 @@ class _StatisticAdPageState extends State<StatisticAdPage> {
           body: TabBarView(
               children: _tabs.map((value) {
             return SingleChildScrollView(
-              padding: EdgeInsets.all(15),
+              padding: const EdgeInsets.all(15),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -66,11 +66,11 @@ class _StatisticAdPageState extends State<StatisticAdPage> {
                       title: currentPeriod['title'],
                       active: currentPeriod.isNotEmpty,
                       onPressed: showModalPeriod),
-                  Divider(height: 20),
+                  const Divider(height: 20),
                   RichText(
                       textAlign: TextAlign.start,
                       text: TextSpan(
-                          style: TextStyle(
+                          style: const TextStyle(
                               fontWeight: FontWeight.w700,
                               fontSize: 20,
                               color: Colors.black),
@@ -81,14 +81,14 @@ class _StatisticAdPageState extends State<StatisticAdPage> {
                                     color: ColorComponent.gray['500'])),
                             TextSpan(text: numberFormat(32000)),
                           ])),
-                  Divider(height: 20),
+                  const Divider(height: 20),
                   ChartWidget(),
-                  Divider(height: 20),
+                  const Divider(height: 20),
                   Column(
                       children:
                           List.generate(10, (index) => index).map((value) {
                     return Container(
-                      decoration: BoxDecoration(
+                      decoration: const BoxDecoration(
                           border: Border(
                               bottom: BorderSide(
                                   width: 1, color: Color(0xfff4f5f7)))),
@@ -100,11 +100,11 @@ class _StatisticAdPageState extends State<StatisticAdPage> {
                                 child: Text("7 Сентябрь 2024 ",
                                     style: TextStyle(
                                         color: ColorComponent.gray['600']))),
-                            SizedBox(width: 8),
+                            const SizedBox(width: 8),
                             Expanded(
                                 child: Text(
                               numberFormat(5400),
-                              style: TextStyle(fontWeight: FontWeight.w600),
+                              style: const TextStyle(fontWeight: FontWeight.w600),
                             ))
                           ]),
                     );
@@ -134,12 +134,12 @@ class ModalPeriod extends StatelessWidget {
       child: Scaffold(
         appBar: AppBar(
             automaticallyImplyLeading: false,
-            title: Text("Период"),
-            actions: [CloseIconButton(iconColor: null, padding: true)]),
+            title: const Text("Период"),
+            actions: const [CloseIconButton(iconColor: null, padding: true)]),
         body: Column(
             children: _period.map((value) {
           return Container(
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                   border: Border(
                       top: BorderSide(width: 1, color: Color(0xfff4f5f7)))),
               child: ListTile(

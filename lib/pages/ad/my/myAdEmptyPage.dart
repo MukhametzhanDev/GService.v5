@@ -16,15 +16,15 @@ class MyAdEmptyPage extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           SvgPicture.asset("assets/icons/clipboardOutline.svg", width: 80),
-          Divider(indent: 12),
-          Text("У вас пока нет опубликованных объявлении",
+          const Divider(indent: 12),
+          const Text("У вас пока нет опубликованных объявлении",
               style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600)),
-          Divider(indent: 12),
+          const Divider(indent: 12),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 15),
             child: RichText(
                 textAlign: TextAlign.center,
-                text: TextSpan(
+                text: const TextSpan(
                     style: TextStyle(
                         color: Colors.black, fontSize: 14, height: 1.5),
                     children: [
@@ -47,7 +47,7 @@ class MyAdEmptyPage extends StatelessWidget {
           Navigator.pushNamed(context, "SectionCreateAdPage");
         },
         title: "Создать объявление",
-        padding: EdgeInsets.symmetric(horizontal: 15),
+        padding: const EdgeInsets.symmetric(horizontal: 15),
       )),
     );
   }

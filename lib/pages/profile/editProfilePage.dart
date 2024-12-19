@@ -63,7 +63,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
 
   void editPasswordPage() {
     Navigator.push(
-        context, MaterialPageRoute(builder: (context) => ChangePasswordPage()));
+        context, MaterialPageRoute(builder: (context) => const ChangePasswordPage()));
   }
 
   @override
@@ -79,30 +79,30 @@ class _EditProfilePageState extends State<EditProfilePage> {
         child: Column(
           children: [
             Container(
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                     border: Border(
                         top: BorderSide(width: 1, color: Color(0xffeeeeee)))),
                 child: ListTile(
                     onTap: () => editProfileDetails(),
-                    title: Text("Изменить данные профиля"),
+                    title: const Text("Изменить данные профиля"),
                     trailing: SvgPicture.asset('assets/icons/right.svg'))),
             Container(
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                     border: Border(
                         top: BorderSide(width: 1, color: Color(0xffeeeeee)))),
                 child: ListTile(
                     onTap: () => editPasswordPage(),
-                    title: Text("Изменить пароль"),
+                    title: const Text("Изменить пароль"),
                     trailing: SvgPicture.asset('assets/icons/right.svg'))),
             role == "individual"
                 ? Container()
                 : Container(
-                    decoration: BoxDecoration(
+                    decoration: const BoxDecoration(
                         border: Border(
                             top: BorderSide(
                                 width: 1, color: Color(0xffeeeeee)))),
                     child: ListTile(
-                        title: Text("Редактировать контакты"),
+                        title: const Text("Редактировать контакты"),
                         trailing: SvgPicture.asset('assets/icons/right.svg'))),
             // Container(
             //     decoration: BoxDecoration(

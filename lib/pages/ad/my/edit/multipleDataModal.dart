@@ -11,7 +11,7 @@ import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
 class MultipleDataModal extends StatefulWidget {
   final Map data;
-  MultipleDataModal({super.key, required this.data});
+  const MultipleDataModal({super.key, required this.data});
 
   @override
   State<MultipleDataModal> createState() => _MultipleDataModalState();
@@ -55,12 +55,12 @@ class _MultipleDataModalState extends State<MultipleDataModal> {
         GestureDetector(
           onTap: () => showModal(),
           child: Container(
-              padding: EdgeInsets.symmetric(horizontal: 20),
+              padding: const EdgeInsets.symmetric(horizontal: 20),
               height: 50,
               decoration: BoxDecoration(
                   color: ColorComponent.gray['50'],
                   borderRadius: BorderRadius.circular(10),
-                  border: Border.all(width: 1, color: Color(0xffe5e7eb))),
+                  border: Border.all(width: 1, color: const Color(0xffe5e7eb))),
               child: Row(
                 children: [
                   Expanded(
@@ -80,17 +80,17 @@ class _MultipleDataModalState extends State<MultipleDataModal> {
                 ],
               )),
         ),
-        SizedBox(height: 15),
+        const SizedBox(height: 15),
         Wrap(
             children: enterItems.map((valueWrap) {
           return Container(
               padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-              margin: EdgeInsets.only(right: 10, bottom: 10),
+              margin: const EdgeInsets.only(right: 10, bottom: 10),
               decoration: BoxDecoration(
                   color: ColorTheme['surring_dark'],
                   borderRadius: BorderRadius.circular(8)),
               child: Text(valueWrap?['title'] ?? "",
-                  style: TextStyle(fontSize: 13)));
+                  style: const TextStyle(fontSize: 13)));
         }).toList()),
       ],
     );
@@ -101,7 +101,7 @@ class Modal extends StatefulWidget {
   final Map data;
   final List values;
   final void Function(List data) addData;
-  Modal(
+  const Modal(
       {super.key,
       required this.data,
       required this.addData,
@@ -183,9 +183,9 @@ class _ModalState extends State<Modal> {
       appBar: AppBar(
           leading: Container(),
           title: Text(widget.data['title']),
-          actions: [CloseIconButton(padding: true, iconColor: null)]),
+          actions: const [CloseIconButton(padding: true, iconColor: null)]),
       body: data.isEmpty
-          ? Text("Ничего не найдено")
+          ? const Text("Ничего не найдено")
           : Column(children: [
               Padding(
                 padding:
@@ -195,7 +195,7 @@ class _ModalState extends State<Modal> {
               ),
               Expanded(
                   child: filterData.isEmpty
-                      ? Text("Ничего не найдено")
+                      ? const Text("Ничего не найдено")
                       : ListView.builder(
                           physics: const ClampingScrollPhysics(),
                           itemCount: filterData.length,
@@ -234,7 +234,7 @@ class _ModalState extends State<Modal> {
               .addAll({widget.data['id'].toString(): enterItemId});
           Navigator.pop(context);
         },
-        padding: EdgeInsets.symmetric(horizontal: 15),
+        padding: const EdgeInsets.symmetric(horizontal: 15),
         title: "Сохранить",
       )),
     );

@@ -96,12 +96,12 @@ class _CancelApplicationModalState extends State<CancelApplicationModal> {
         child: Scaffold(
           appBar: AppBar(
             automaticallyImplyLeading: false,
-            title: Text("Почему вы хотите удалить?"),
+            title: const Text("Почему вы хотите удалить?"),
             centerTitle: false,
-            actions: [CloseIconButton(iconColor: null, padding: true)],
+            actions: const [CloseIconButton(iconColor: null, padding: true)],
           ),
           body: loader
-              ? LoaderComponent()
+              ? const LoaderComponent()
               : SingleChildScrollView(
                   physics: physics,
                   child: Column(
@@ -113,7 +113,7 @@ class _CancelApplicationModalState extends State<CancelApplicationModal> {
                         return GestureDetector(
                           onTap: () => activedItem(index),
                           child: Container(
-                            decoration: BoxDecoration(
+                            decoration: const BoxDecoration(
                                 border: Border(
                                     bottom: BorderSide(
                                         width: 1, color: Color(0xfff4f5f7)))),
@@ -124,13 +124,13 @@ class _CancelApplicationModalState extends State<CancelApplicationModal> {
                                     decoration: BoxDecoration(
                                         color: active
                                             ? Colors.white
-                                            : Color(0xffe5e7eb),
+                                            : const Color(0xffe5e7eb),
                                         borderRadius: BorderRadius.circular(12),
                                         border: Border.all(
                                             width: active ? 5 : 0,
                                             color: active
-                                                ? Color(0xff1A56DB)
-                                                : Color(0xffe5e7eb)))),
+                                                ? const Color(0xff1A56DB)
+                                                : const Color(0xffe5e7eb)))),
                                 title: Text(value['title'])),
                           ),
                         );
@@ -141,7 +141,7 @@ class _CancelApplicationModalState extends State<CancelApplicationModal> {
                               padding: const EdgeInsets.all(15.0),
                               child: TextField(
                                   controller: descEditingController,
-                                  style: TextStyle(fontSize: 14),
+                                  style: const TextStyle(fontSize: 14),
                                   textCapitalization:
                                       TextCapitalization.sentences,
                                   maxLines: 10,
@@ -152,15 +152,15 @@ class _CancelApplicationModalState extends State<CancelApplicationModal> {
                                           color: ColorComponent.gray['500']))),
                             )
                           : Container(),
-                      Divider(height: 16),
+                      const Divider(height: 16),
                       Button(
                           onPressed: verifyData,
-                          padding: EdgeInsets.symmetric(horizontal: 15),
+                          padding: const EdgeInsets.symmetric(horizontal: 15),
                           title: "Отправить и удалить"),
-                      Divider(height: 8),
+                      const Divider(height: 8),
                       Button(
                           onPressed: () => Navigator.pop(context),
-                          padding: EdgeInsets.symmetric(horizontal: 15),
+                          padding: const EdgeInsets.symmetric(horizontal: 15),
                           backgroundColor: Colors.white,
                           title: "Назад")
                     ],

@@ -17,10 +17,10 @@ class _ChangedAccountWidgetState extends State<ChangedAccountWidget> {
       ListTile(
           onTap: () {
             showCupertinoModalBottomSheet(
-                context: context, builder: (context) => ChangedAccountType());
+                context: context, builder: (context) => const ChangedAccountType());
           },
           leading: SvgPicture.asset('assets/icons/plus.svg'),
-          title: Text("Добавить бизнес аккаунт"))
+          title: const Text("Добавить бизнес аккаунт"))
     ]);
   }
 }

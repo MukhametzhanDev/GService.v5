@@ -28,9 +28,9 @@ class _EmailTextFieldState extends State<EmailTextField> {
           autofocus: widget.autofocus ?? false,
           keyboardType: TextInputType.emailAddress,
           autofillHints: const [AutofillHints.email],
-          style: TextStyle(fontSize: 14, height: 1.1),
+          style: const TextStyle(fontSize: 14, height: 1.1),
           controller: widget.textEditingController,
-          decoration: InputDecoration(hintText: "Email"),
+          decoration: const InputDecoration(hintText: "Email"),
         ),
       ),
     );

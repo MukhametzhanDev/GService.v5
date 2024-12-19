@@ -30,15 +30,15 @@ class _SmallApplicationItemState extends State<SmallApplicationItem> {
       onLongPress: () => onLongPressShowNumber({}, context),
       child: Container(
         height: 110,
-        margin: EdgeInsets.symmetric(horizontal: 4),
+        margin: const EdgeInsets.symmetric(horizontal: 4),
         constraints: BoxConstraints(
             maxWidth: widget.position == "main"
                 ? MediaQuery.of(context).size.width / 1.3
                 : MediaQuery.of(context).size.width - 30),
-        padding: EdgeInsets.all(12),
+        padding: const EdgeInsets.all(12),
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(8),
-            border: Border.all(width: 1, color: Color(0xffeeeeee))),
+            border: Border.all(width: 1, color: const Color(0xffeeeeee))),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -76,7 +76,7 @@ class _SmallApplicationItemState extends State<SmallApplicationItem> {
                 Expanded(
                   child: Text(
                       "${priceFormat(widget.data['price']?['price'])} ₸",
-                      style: TextStyle(
+                      style: const TextStyle(
                           fontSize: 14,
                           fontWeight: FontWeight.w600,
                           color: Colors.black)),
@@ -102,7 +102,7 @@ class _SmallApplicationItemState extends State<SmallApplicationItem> {
                 children: [
                   SvgPicture.asset('assets/icons/pin.svg',
                       width: 16, color: ColorComponent.gray['500']),
-                  Divider(indent: 4),
+                  const Divider(indent: 4),
                   Text(
                     widget.data['city']['title'],
                     style: TextStyle(

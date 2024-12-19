@@ -71,9 +71,9 @@ class _SearchMapAddressPageState extends State<SearchMapAddressPage> {
     final list = <Widget>[];
 
     if (results.isEmpty) {
-      list.add(Center(
+      list.add(const Center(
           child: Padding(
-        padding: const EdgeInsets.only(top: 20),
+        padding: EdgeInsets.only(top: 20),
         child: (Text("Ничего не найдено")),
       )));
     }
@@ -101,7 +101,7 @@ class _SearchMapAddressPageState extends State<SearchMapAddressPage> {
         };
         if (street[0] != "") {
           list.add(Container(
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
                 border: Border(
                     bottom: BorderSide(width: 1, color: Color(0xffD1D5DB)))),
             child: ListTile(
@@ -136,7 +136,7 @@ class _SearchMapAddressPageState extends State<SearchMapAddressPage> {
           children: [
             Container(
                 height: 55,
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                     color: Colors.white,
                     border: Border(
                         bottom:
@@ -145,7 +145,7 @@ class _SearchMapAddressPageState extends State<SearchMapAddressPage> {
                   children: [
                     Container(
                       width: 20,
-                      margin: EdgeInsets.only(left: 16),
+                      margin: const EdgeInsets.only(left: 16),
                       child: TextButton(
                           onPressed: () => Navigator.pop(context),
                           style: TextButton.styleFrom(
@@ -160,7 +160,7 @@ class _SearchMapAddressPageState extends State<SearchMapAddressPage> {
                     ),
                     Expanded(
                       child: TextField(
-                        style: TextStyle(fontSize: 16),
+                        style: const TextStyle(fontSize: 16),
                         keyboardType: TextInputType.text,
                         textInputAction: TextInputAction.search,
                         controller: textEditingController,
@@ -168,13 +168,13 @@ class _SearchMapAddressPageState extends State<SearchMapAddressPage> {
                           getAddress();
                         },
                         autofocus: true,
-                        decoration: InputDecoration(
+                        decoration: const InputDecoration(
                             contentPadding: EdgeInsets.zero,
-                            focusedBorder: const OutlineInputBorder(
+                            focusedBorder: OutlineInputBorder(
                               borderSide: BorderSide(
                                   width: 1, color: Colors.transparent),
                             ),
-                            disabledBorder: const OutlineInputBorder(
+                            disabledBorder: OutlineInputBorder(
                               borderSide: BorderSide(
                                   width: 1, color: Colors.transparent),
                             ),
@@ -182,10 +182,10 @@ class _SearchMapAddressPageState extends State<SearchMapAddressPage> {
                               borderSide: BorderSide(
                                   width: 1, color: Colors.transparent),
                             ),
-                            errorBorder: const OutlineInputBorder(
+                            errorBorder: OutlineInputBorder(
                                 borderSide: BorderSide(
                                     width: 2, color: Colors.transparent)),
-                            focusedErrorBorder: const OutlineInputBorder(
+                            focusedErrorBorder: OutlineInputBorder(
                                 borderSide: BorderSide(
                                     width: 2, color: Colors.transparent)),
                             fillColor: Colors.white,

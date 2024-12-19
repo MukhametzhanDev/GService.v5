@@ -37,7 +37,7 @@ class _RegistrationCountriesState extends State<RegistrationCountries>
     scrollController.addListener(() => _scrollListener());
     _animationController = AnimationController(
       vsync: this,
-      duration: Duration(milliseconds: 300),
+      duration: const Duration(milliseconds: 300),
     );
 
     _fadeAnimation = CurvedAnimation(
@@ -128,7 +128,7 @@ class _RegistrationCountriesState extends State<RegistrationCountries>
   void _scrollToTop() {
     scrollController.animateTo(
       0.0,
-      duration: Duration(milliseconds: 400),
+      duration: const Duration(milliseconds: 400),
       curve: Curves.easeInOut,
     );
   }
@@ -154,9 +154,9 @@ class _RegistrationCountriesState extends State<RegistrationCountries>
           centerTitle: false,
           leading: Container(),
           leadingWidth: 0,
-          title: Text("Выберите страны",
+          title: const Text("Выберите страны",
               style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600)),
-          actions: [CloseIconButton(iconColor: null, padding: true)],
+          actions: const [CloseIconButton(iconColor: null, padding: true)],
           bottom: PreferredSize(
               preferredSize: Size(MediaQuery.of(context).size.width, 60),
               child: Padding(
@@ -173,11 +173,11 @@ class _RegistrationCountriesState extends State<RegistrationCountries>
           itemBuilder: (context, index) {
             Map item = data[index];
             bool currentItem = item['id'] == getIdCurrent();
-            if (isLoadMore) PaginationLoaderComponent();
+            if (isLoadMore) const PaginationLoaderComponent();
             return Container(
               decoration: BoxDecoration(
                   color: currentItem ? ColorComponent.gray['100'] : null,
-                  border: Border(
+                  border: const Border(
                       bottom: BorderSide(width: 1, color: Color(0xfff4f5f7)))),
               child: ListTile(
                 onTap: () {
@@ -188,8 +188,8 @@ class _RegistrationCountriesState extends State<RegistrationCountries>
                     child: SvgPicture.network(item['flag'], width: 20)),
                 title: Text(item['title'],
                     style:
-                        TextStyle(fontSize: 16, fontWeight: FontWeight.w500)),
-                trailing: Container(
+                        const TextStyle(fontSize: 16, fontWeight: FontWeight.w500)),
+                trailing: SizedBox(
                   width: 18,
                   child: SvgPicture.asset(
                       currentItem

@@ -112,7 +112,7 @@ class _GetMapAddressPageState extends State<GetMapAddressPage> {
         CameraUpdate.newCameraPosition(CameraPosition(
             target: Point(latitude: latitude, longitude: longitude),
             zoom: zoom)),
-        animation: MapAnimation(duration: 0.5));
+        animation: const MapAnimation(duration: 0.5));
   }
 
   Future<Position> _determinePosition() async {
@@ -167,31 +167,31 @@ class _GetMapAddressPageState extends State<GetMapAddressPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: BackIconButton(),
-        title: Text("Укажите адрес"),
+        leading: const BackIconButton(),
+        title: const Text("Укажите адрес"),
         bottom: PreferredSize(
             preferredSize: Size(MediaQuery.of(context).size.width, 66),
             child: Container(
               height: 66,
               alignment: Alignment.center,
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                   border: Border(
                       top: BorderSide(width: 1, color: Color(0xffE5E7EB)))),
               child: GestureDetector(
                 onTap: showSearchAddressPage,
                 child: Container(
                   height: 42,
-                  padding: EdgeInsets.symmetric(horizontal: 16),
-                  margin: EdgeInsets.symmetric(horizontal: 15),
+                  padding: const EdgeInsets.symmetric(horizontal: 16),
+                  margin: const EdgeInsets.symmetric(horizontal: 15),
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(8),
-                      border: Border.all(width: 1, color: Color(0xffE5E7EB))),
+                      border: Border.all(width: 1, color: const Color(0xffE5E7EB))),
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       SvgPicture.asset('assets/icons/searchOutline.svg',
                           width: 18, color: ColorComponent.gray['500']),
-                      SizedBox(width: 8),
+                      const SizedBox(width: 8),
                       Text("Поиск по городу",
                           style: TextStyle(color: ColorComponent.gray['500']))
                     ],
@@ -249,13 +249,13 @@ class _GetMapAddressPageState extends State<GetMapAddressPage> {
                     child: GestureDetector(
                         onTap: () {
                           controller.moveCamera(CameraUpdate.zoomIn(),
-                              animation: MapAnimation(duration: 0.4));
+                              animation: const MapAnimation(duration: 0.4));
                         },
                         child: Container(
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(12)),
                           alignment: Alignment.center,
-                          child: Text(
+                          child: const Text(
                             "+",
                             style: TextStyle(fontSize: 24),
                           ),
@@ -267,13 +267,13 @@ class _GetMapAddressPageState extends State<GetMapAddressPage> {
                     child: GestureDetector(
                         onTap: () {
                           controller.moveCamera(CameraUpdate.zoomOut(),
-                              animation: MapAnimation(duration: 0.4));
+                              animation: const MapAnimation(duration: 0.4));
                         },
                         child: Container(
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(12)),
                           alignment: Alignment.center,
-                          child: Text(
+                          child: const Text(
                             "-",
                             style: TextStyle(fontSize: 24),
                           ),
@@ -308,7 +308,7 @@ class _GetMapAddressPageState extends State<GetMapAddressPage> {
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            SizedBox(height: 5),
+            const SizedBox(height: 5),
             loader
                 ? Container(
                     width: 20,
@@ -329,16 +329,16 @@ class _GetMapAddressPageState extends State<GetMapAddressPage> {
                                 color: ColorComponent.gray['500'],
                                 width: 18),
                           ),
-                          SizedBox(width: 8),
+                          const SizedBox(width: 8),
                           Expanded(
                             child: Text(capitalized(position?['address'] ?? ""),
-                                style: TextStyle(
+                                style: const TextStyle(
                                     fontWeight: FontWeight.w600, fontSize: 16)),
                           ),
                         ],
                       ),
                       Padding(
-                        padding: EdgeInsets.only(top: 10, bottom: 6),
+                        padding: const EdgeInsets.only(top: 10, bottom: 6),
                         child: Text(widget.cityData?['title'] ?? "",
                             style: TextStyle(
                                 color: ColorComponent.gray['500'],
@@ -346,7 +346,7 @@ class _GetMapAddressPageState extends State<GetMapAddressPage> {
                       )
                     ],
                   ),
-            SizedBox(height: 15),
+            const SizedBox(height: 15),
             Button(onPressed: savedData, title: "Сохранить")
             // TextButton(
             //     onPressed: ,
@@ -389,7 +389,7 @@ Widget UserLocaitonWidget(animatedImage, loader) {
             width: 40,
             height: 46,
             margin: EdgeInsets.only(bottom: animatedImage ? 0 : 10),
-            duration: Duration(milliseconds: 200),
+            duration: const Duration(milliseconds: 200),
             child: Column(
               children: [
                 Container(
@@ -405,8 +405,8 @@ Widget UserLocaitonWidget(animatedImage, loader) {
         AnimatedContainer(
           width: animatedImage ? 15 : 40,
           height: 10,
-          duration: Duration(milliseconds: 200),
-          decoration: BoxDecoration(
+          duration: const Duration(milliseconds: 200),
+          decoration: const BoxDecoration(
               image: DecorationImage(
             image: AssetImage('assets/images/shadow.png'),
           )),

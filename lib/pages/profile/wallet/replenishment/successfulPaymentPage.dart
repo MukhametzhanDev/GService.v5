@@ -17,30 +17,30 @@ class SuccessfulPaymentPage extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               SvgPicture.asset('assets/icons/badgeCheckBig.svg'),
-              Divider(height: 16),
-              Text("Баланс успешно пополнен",
+              const Divider(height: 16),
+              const Text("Баланс успешно пополнен",
                   style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600)),
               Container(
-                margin: EdgeInsets.all(15),
-                padding: EdgeInsets.all(15),
+                margin: const EdgeInsets.all(15),
+                padding: const EdgeInsets.all(15),
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(8),
-                    border: Border.all(width: 1, color: Color(0xffeeeeee))),
+                    border: Border.all(width: 1, color: const Color(0xffeeeeee))),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text("# 123456789"),
-                    Divider(height: 8),
+                    const Text("# 123456789"),
+                    const Divider(height: 8),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text("Пополнения",
+                        const Text("Пополнения",
                             style: TextStyle(fontWeight: FontWeight.w600)),
                         Text("+ ${priceFormat(1000000)} ₸",
-                            style: TextStyle(fontWeight: FontWeight.w600))
+                            style: const TextStyle(fontWeight: FontWeight.w600))
                       ],
                     ),
-                    Divider(height: 8),
+                    const Divider(height: 8),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -48,13 +48,13 @@ class SuccessfulPaymentPage extends StatelessWidget {
                             style:
                                 TextStyle(color: ColorComponent.gray['500'])),
                         Container(
-                          padding: EdgeInsets.symmetric(
+                          padding: const EdgeInsets.symmetric(
                               horizontal: 6, vertical: 0.5),
                           decoration: BoxDecoration(
                               color: ColorComponent.mainColor.withOpacity(.2),
                               borderRadius: BorderRadius.circular(10)),
                           child: Text("${priceFormat(100000)} бонус",
-                              style: TextStyle(
+                              style: const TextStyle(
                                   fontWeight: FontWeight.w600, fontSize: 12)),
                         )
                       ],
@@ -67,7 +67,7 @@ class SuccessfulPaymentPage extends StatelessWidget {
                     Navigator.pop(context);
                     Navigator.pop(context);
                   },
-                  padding: EdgeInsets.all(15),
+                  padding: const EdgeInsets.all(15),
                   title: "В профиль"),
               // Button(
               //     onPressed: () {

@@ -12,7 +12,7 @@ class FavoriteMainPage extends StatefulWidget {
 }
 
 class _FavoriteMainPageState extends State<FavoriteMainPage> {
-  List _tabs = [
+  final List _tabs = [
     "Объявлении", "Заявки",
     // "Поиски"
   ];
@@ -33,7 +33,7 @@ class _FavoriteMainPageState extends State<FavoriteMainPage> {
   @override
   Widget build(BuildContext context) {
     return !token
-        ? EmptyTokenPage()
+        ? const EmptyTokenPage()
         : DefaultTabController(
             length: 2,
             child: Scaffold(
@@ -42,7 +42,7 @@ class _FavoriteMainPageState extends State<FavoriteMainPage> {
                 bottom: PreferredSize(
                     preferredSize: Size(MediaQuery.of(context).size.width, 49),
                     child: Container(
-                      decoration: BoxDecoration(
+                      decoration: const BoxDecoration(
                           border: Border(
                               bottom: BorderSide(
                                   width: 2, color: Color(0xfff4f5f7)))),
@@ -79,7 +79,7 @@ class _FavoriteMainPageState extends State<FavoriteMainPage> {
                           }).toList()),
                     )),
               ),
-              body: TabBarView(children: [
+              body: const TabBarView(children: [
                 ListFavoriteAdPage(),
                 ListFavoriteApplicationPage(),
                 // Container()

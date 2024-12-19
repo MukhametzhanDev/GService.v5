@@ -67,7 +67,7 @@ class _ViewApplicationPageState extends State<ViewApplicationPage> {
       statusCode: statusCode,
       child: Scaffold(
           body: data.isEmpty
-              ? LoaderComponent()
+              ? const LoaderComponent()
               : CustomScrollView(controller: scrollController, slivers: [
                   SliverAppBar(
                     pinned: true,
@@ -76,12 +76,12 @@ class _ViewApplicationPageState extends State<ViewApplicationPage> {
                     actions: [
                       // FavoriteButtonComponent(iconColor: ColorTheme['black_white']),
                       ShareButton(id: widget.id, hasAd: true),
-                      Divider(indent: 10),
+                      const Divider(indent: 10),
                       FavoriteButton(
                           id: widget.id,
                           active: data['is_favorite'],
                           type: "application"),
-                      Divider(indent: 15)
+                      const Divider(indent: 15)
                     ],
                     title: FadeOnScroll(
                       scrollController: scrollController,
@@ -96,7 +96,7 @@ class _ViewApplicationPageState extends State<ViewApplicationPage> {
                                   color: ColorComponent.blue['700']),
                               maxLines: 1),
                           Text(priceFormat(0),
-                              style: TextStyle(
+                              style: const TextStyle(
                                   fontSize: 14, fontWeight: FontWeight.w600),
                               maxLines: 1),
                         ],
@@ -119,7 +119,7 @@ class _ViewApplicationPageState extends State<ViewApplicationPage> {
                                       color: ColorComponent.blue['700'])),
                               const SizedBox(height: 8),
                               Text(priceFormat(data['cost']),
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                       fontSize: 20,
                                       fontWeight: FontWeight.w600)),
                               const SizedBox(height: 8),
@@ -165,20 +165,20 @@ class _ViewApplicationPageState extends State<ViewApplicationPage> {
                                         data['created_at'], "dd MMMM yyyy")
                                   }),
                               const SizedBox(height: 16),
-                              Text("Описание",
+                              const Text("Описание",
                                   style: TextStyle(
                                       fontSize: 18,
                                       fontWeight: FontWeight.w600)),
-                              Divider(height: 12),
+                              const Divider(height: 12),
                               Text(data['description'],
-                                  style: TextStyle(height: 1.6)),
-                              Divider(indent: 12),
-                              Divider(height: 1, color: Color(0xfff4f5f7)),
+                                  style: const TextStyle(height: 1.6)),
+                              const Divider(indent: 12),
+                              const Divider(height: 1, color: Color(0xfff4f5f7)),
                             ],
                           ),
                         ),
                         SliderApplicationSmallImageWidget(images: images),
-                        Divider(indent: 12),
+                        const Divider(indent: 12),
                         Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 16),
                           child: Column(
@@ -197,7 +197,7 @@ class _ViewApplicationPageState extends State<ViewApplicationPage> {
                                     icon: "alert.svg",
                                     title: "Пожаловаться на заявки"),
                               ),
-                              Divider(indent: 16),
+                              const Divider(indent: 16),
                               Row(
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
@@ -221,15 +221,15 @@ class _ViewApplicationPageState extends State<ViewApplicationPage> {
                                   ),
                                 ],
                               ),
-                              Divider(indent: 16),
+                              const Divider(indent: 16),
                               AuthorAdWidget(
                                   title: "Заказчик", data: data['author']),
-                              Divider(height: 1, color: Color(0xfff4f5f7)),
-                              Divider(height: 12),
+                              const Divider(height: 1, color: Color(0xfff4f5f7)),
+                              const Divider(height: 12),
                             ],
                           ),
                         ),
-                        RecommendationApplicationList(),
+                        const RecommendationApplicationList(),
                       ],
                     ),
                   ),

@@ -19,17 +19,17 @@ class ModalButtonComponent extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(title, style: TextStyle(fontSize: 14)),
+        Text(title, style: const TextStyle(fontSize: 14)),
         const SizedBox(height: 8),
         GestureDetector(
           onTap: () => onPressed(),
           child: Container(
-              padding: EdgeInsets.symmetric(horizontal: 20),
+              padding: const EdgeInsets.symmetric(horizontal: 20),
               height: 50,
               decoration: BoxDecoration(
                   color: ColorComponent.gray['50'],
                   borderRadius: BorderRadius.circular(10),
-                  border: Border.all(width: 1, color: Color(0xffe5e7eb))),
+                  border: Border.all(width: 1, color: const Color(0xffe5e7eb))),
               margin: EdgeInsets.symmetric(horizontal: padding ? 16 : 0),
               child: Row(
                 children: [

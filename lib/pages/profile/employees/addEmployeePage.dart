@@ -43,47 +43,47 @@ class _AddEmployeePageState extends State<AddEmployeePage> {
     return Scaffold(
       appBar: AppBar(
           automaticallyImplyLeading: false,
-          title: Text("Добавить сотрудника"),
+          title: const Text("Добавить сотрудника"),
           centerTitle: false,
           actions: [
             CloseIconButton(
                 iconColor: ColorComponent.gray['400'], padding: true)
           ]),
       body: SingleChildScrollView(
-          padding: EdgeInsets.all(16),
+          padding: const EdgeInsets.all(16),
           child:
               Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-            Divider(height: 16),
+            const Divider(height: 16),
             GetLogoWidget(onChanged: (path) {}),
-            Divider(height: 30),
-            Text("ФИО",
+            const Divider(height: 30),
+            const Text("ФИО",
                 style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600)),
-            Divider(height: 8),
+            const Divider(height: 8),
             SizedBox(
                 height: 48,
                 child: TextField(
                     onSubmitted: (value) {},
                     keyboardType: TextInputType.text,
-                    style: TextStyle(fontSize: 14, height: 1.1),
+                    style: const TextStyle(fontSize: 14, height: 1.1),
                     controller: nameEditingController,
-                    decoration: InputDecoration(hintText: "ФИО"))),
-            Divider(height: 12),
-            Text("Номер телефона",
+                    decoration: const InputDecoration(hintText: "ФИО"))),
+            const Divider(height: 12),
+            const Text("Номер телефона",
                 style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600)),
-            Divider(height: 8),
+            const Divider(height: 8),
             PhoneTextField(
                 textEditingController: phoneEditingController,
                 autofocus: false,
                 onSubmitted: () {}),
-            Divider(height: 12),
-            Text("Придумайте пароль",
+            const Divider(height: 12),
+            const Text("Придумайте пароль",
                 style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600)),
-            Divider(height: 8),
+            const Divider(height: 8),
             PasswordTextField(
                 hintText: "Пароль",
                 textEditingController: passwordEditingController,
                 onSubmitted: () {}),
-            Divider(height: 8),
+            const Divider(height: 8),
             Text("Пароль должен содержать минимум 8 символов",
                 style:
                     TextStyle(fontSize: 12, color: ColorComponent.gray['500']))
@@ -94,7 +94,7 @@ class _AddEmployeePageState extends State<AddEmployeePage> {
               backgroundColor: ColorComponent.mainColor,
               titleColor: Colors.black,
               icon: null,
-              padding: EdgeInsets.only(bottom: 8, top: 8, right: 16, left: 16),
+              padding: const EdgeInsets.only(bottom: 8, top: 8, right: 16, left: 16),
               widthIcon: null,
               title: "Сохранить")),
     );

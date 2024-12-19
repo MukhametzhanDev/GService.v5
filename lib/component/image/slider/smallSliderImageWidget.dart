@@ -15,26 +15,26 @@ class SmallSliderImageWidget extends StatelessWidget {
         : Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Divider(height: 12),
+              const Divider(height: 12),
               Divider(height: 1, color: ColorComponent.gray['50']),
-              Divider(height: 12),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16),
+              const Divider(height: 12),
+              const Padding(
+                padding: EdgeInsets.symmetric(horizontal: 16),
                 child: Text("Фото",
                     style:
                         TextStyle(fontSize: 18, fontWeight: FontWeight.w600)),
               ),
-              Divider(height: 12),
+              const Divider(height: 12),
               SizedBox(
                 height: 70,
                 child: SingleChildScrollView(
-                    padding: EdgeInsets.symmetric(horizontal: 12),
+                    padding: const EdgeInsets.symmetric(horizontal: 12),
                     scrollDirection: Axis.horizontal,
                     child: Row(
                         children: images.map((value) {
                       int index = images.indexOf(value);
                       return Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 4),
+                        padding: const EdgeInsets.symmetric(horizontal: 4),
                         child: GestureDetector(
                           onTap: () {
                             showMaterialModalBottomSheet(

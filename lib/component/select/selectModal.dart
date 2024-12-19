@@ -78,24 +78,24 @@ class _SelectModalState extends State<SelectModal> {
         appBar: AppBar(
           title: Text(widget.title),
           automaticallyImplyLeading: false,
-          actions: [CloseIconButton(iconColor: null, padding: true)],
+          actions: const [CloseIconButton(iconColor: null, padding: true)],
           bottom: PreferredSize(
               preferredSize: Size(MediaQuery.of(context).size.width, 50),
               child: Container(
-                  padding: EdgeInsets.symmetric(horizontal: 15, vertical: 2),
+                  padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 2),
                   child: SearchTextField(title: "Поиск", onChanged: addTitle))),
         ),
         body: loader
-            ? LoaderComponent()
+            ? const LoaderComponent()
             : ListView.builder(
-                padding: EdgeInsets.symmetric(vertical: 15),
+                padding: const EdgeInsets.symmetric(vertical: 15),
                 physics: physics,
                 itemCount: filterData.length,
                 itemBuilder: (context, index) {
                   Map value = filterData[index];
                   bool active = value['id'] == widget.data['id'];
                   return Container(
-                    decoration: BoxDecoration(
+                    decoration: const BoxDecoration(
                         border: Border(
                             top: BorderSide(
                                 width: 1, color: Color(0xffeeeeee)))),

@@ -56,7 +56,7 @@ class _EmployeeListPageState extends State<EmployeeListPage> {
         appBar: AppBar(
             automaticallyImplyLeading: false,
             elevation: 0,
-            leading: BackTitleButton(title: "Сотрудники"),
+            leading: const BackTitleButton(title: "Сотрудники"),
             leadingWidth: 200,
             bottom: PreferredSize(
                 preferredSize: Size(MediaQuery.of(context).size.width, 70),
@@ -65,22 +65,22 @@ class _EmployeeListPageState extends State<EmployeeListPage> {
                         borderRadius: BorderRadius.circular(12),
                         border: Border.all(
                             width: 1, color: Colors.grey.withOpacity(0.3))),
-                    margin: EdgeInsets.only(
+                    margin: const EdgeInsets.only(
                         left: 16, right: 16, top: 8, bottom: 16),
-                    padding: EdgeInsets.only(
+                    padding: const EdgeInsets.only(
                         left: 16, right: 16, top: 12, bottom: 12),
                     child: Row(children: [
                       SvgPicture.asset("assets/icons/searchOutline.svg",
                           color: ColorComponent.gray['500']),
-                      Divider(indent: 8),
+                      const Divider(indent: 8),
                       Text("Поиск сотрудников",
                           style: TextStyle(color: ColorComponent.gray['500']))
                     ])))),
         body: loader
-            ? LoaderComponent()
+            ? const LoaderComponent()
             : Column(children: [
                 Padding(
-                  padding: EdgeInsets.only(left: 16, right: 16, bottom: 12),
+                  padding: const EdgeInsets.only(left: 16, right: 16, bottom: 12),
                   child: Row(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -100,8 +100,8 @@ class _EmployeeListPageState extends State<EmployeeListPage> {
                           Map employee = data[index];
                           return Container(
                             height: 64,
-                            padding: EdgeInsets.symmetric(horizontal: 15),
-                            decoration: BoxDecoration(
+                            padding: const EdgeInsets.symmetric(horizontal: 15),
+                            decoration: const BoxDecoration(
                                 border: Border(
                                     bottom: BorderSide(
                                         width: 1, color: Color(0xfff4f5f7)))),
@@ -113,7 +113,7 @@ class _EmployeeListPageState extends State<EmployeeListPage> {
                                       width: 40,
                                       height: 40,
                                       borderRadius: 20),
-                                  Divider(indent: 12),
+                                  const Divider(indent: 12),
                                   Expanded(
                                       child: Column(
                                           mainAxisAlignment:
@@ -130,7 +130,7 @@ class _EmployeeListPageState extends State<EmployeeListPage> {
                                       ])),
                                   SvgPicture.asset(
                                       "assets/icons/editBadge.svg"),
-                                  Divider(indent: 8),
+                                  const Divider(indent: 8),
                                   GestureDetector(
                                     onTap: () => deleteEmployee(index),
                                     child: SvgPicture.asset(
@@ -145,7 +145,7 @@ class _EmployeeListPageState extends State<EmployeeListPage> {
           onPressed: () {
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => AddEmployeePage()),
+              MaterialPageRoute(builder: (context) => const AddEmployeePage()),
             ).then((newEmployee) {
               if (newEmployee != null) {
                 setState(() {
@@ -157,7 +157,7 @@ class _EmployeeListPageState extends State<EmployeeListPage> {
           backgroundColor: ColorComponent.mainColor,
           titleColor: Colors.black,
           icon: null,
-          padding: EdgeInsets.only(left: 16, right: 16, bottom: 8, top: 8),
+          padding: const EdgeInsets.only(left: 16, right: 16, bottom: 8, top: 8),
           widthIcon: null,
           title: "Добавить сотрудника",
         )));

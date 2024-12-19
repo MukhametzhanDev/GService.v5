@@ -12,7 +12,7 @@ class CloseIconButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return IconButton(
         padding: EdgeInsets.zero,
-        constraints: BoxConstraints(),
+        constraints: const BoxConstraints(),
         style: ButtonStyle(
           tapTargetSize: padding
               ? MaterialTapTargetSize.padded

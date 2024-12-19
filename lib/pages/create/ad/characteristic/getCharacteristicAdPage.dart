@@ -54,11 +54,11 @@ class _GetCharacteristicAdPageState extends State<GetCharacteristicAdPage> {
     }
   }
 
-  Future getStructureTransportType(String? filter_key) async {
+  Future getStructureTransportType(String? filterKey) async {
     showModalLoader(context);
     try {
       Response response = await dio.get("/characteristics",
-          queryParameters: {filter_key!: CreateData.data[filter_key]});
+          queryParameters: {filterKey!: CreateData.data[filterKey]});
       print(response.data);
       Navigator.pop(context);
       if (response.data['success']) {
@@ -139,17 +139,17 @@ class _GetCharacteristicAdPageState extends State<GetCharacteristicAdPage> {
       onTap: () => closeKeyboard(),
       child: Scaffold(
         body: SingleChildScrollView(
-            padding: EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+            padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Padding(
                     padding: const EdgeInsets.only(bottom: 15),
                     child: Text(getTitle(),
-                        style: TextStyle(
+                        style: const TextStyle(
                             fontSize: 20, fontWeight: FontWeight.w600))),
                 loader
-                    ? LoaderComponent()
+                    ? const LoaderComponent()
                     : Column(
                         children: data.map((value) {
                         if (value['field_type'] == "input" &&
@@ -206,7 +206,7 @@ class _GetCharacteristicAdPageState extends State<GetCharacteristicAdPage> {
         bottomNavigationBar: BottomNavigationBarComponent(
             child: Button(
                 onPressed: verifyData,
-                padding: EdgeInsets.symmetric(horizontal: 15),
+                padding: const EdgeInsets.symmetric(horizontal: 15),
                 title: "Сохранить")),
       ),
     );
@@ -265,7 +265,7 @@ class MultipleSelectCharacteristic extends StatelessWidget {
           data: value['options'],
           title: value['title'],
           placeholderTitle: "Выберите",
-          values: []),
+          values: const []),
     );
   }
 }
@@ -312,7 +312,7 @@ class TextFieldCharacteristic extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-      Text(value['title'], style: TextStyle(fontSize: 14)),
+      Text(value['title'], style: const TextStyle(fontSize: 14)),
       const SizedBox(height: 7),
       TextField(
         keyboardType: sortType(value['input_type']),
@@ -321,7 +321,7 @@ class TextFieldCharacteristic extends StatelessWidget {
           addData({value['id'].toString(): valueChanged},
               {value['title']: valueChanged});
         },
-        style: TextStyle(fontSize: 14),
+        style: const TextStyle(fontSize: 14),
         decoration: InputDecoration(
           hintStyle: TextStyle(
               fontSize: 14,
@@ -396,7 +396,7 @@ class _CheckBoxCharacteristicState extends State<CheckBoxCharacteristic> {
 
 TextInputType sortType(value) {
   if (value == "number") {
-    return TextInputType.numberWithOptions(decimal: true);
+    return const TextInputType.numberWithOptions(decimal: true);
   } else if (value == "password") {
     return TextInputType.visiblePassword;
   } else if (value == "email") {

@@ -64,13 +64,13 @@ class MyAdItem extends StatelessWidget {
                             decoration: BoxDecoration(
                                 color: ColorComponent.mainColor.withOpacity(.2),
                                 borderRadius: BorderRadius.circular(4)),
+                            padding: const EdgeInsets.symmetric(
+                                vertical: 2.5, horizontal: 7),
                             child: Text(
                               data['category']['title'],
                               style: const TextStyle(
                                   fontSize: 12, fontWeight: FontWeight.w600),
                             ),
-                            padding: const EdgeInsets.symmetric(
-                                vertical: 2.5, horizontal: 7),
                           ),
                           // Divider(height: 8),
                           Text(

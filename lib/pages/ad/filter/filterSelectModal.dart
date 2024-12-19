@@ -76,21 +76,21 @@ class _FilterSelectModalState extends State<FilterSelectModal> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(widget.title,
-              style: TextStyle(fontSize: 13, fontWeight: FontWeight.w500)),
-          Divider(height: 6),
+              style: const TextStyle(fontSize: 13, fontWeight: FontWeight.w500)),
+          const Divider(height: 6),
           Container(
             height: 48,
-            margin: EdgeInsets.only(bottom: 20),
-            padding: EdgeInsets.symmetric(vertical: 12, horizontal: 15),
+            margin: const EdgeInsets.only(bottom: 20),
+            padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 15),
             decoration: BoxDecoration(
-                color: Color(0xffF9FAFB),
+                color: const Color(0xffF9FAFB),
                 borderRadius: BorderRadius.circular(10),
-                border: Border.all(width: 1, color: Color(0xffE5E5EA))),
+                border: Border.all(width: 1, color: const Color(0xffE5E5EA))),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Expanded(
-                  child: Text(currentData?['title'] ?? "Выберите",
+                  child: Text(currentData['title'] ?? "Выберите",
                       style: TextStyle(
                           color: currentData.isEmpty
                               ? ColorComponent.gray['500']
@@ -153,7 +153,7 @@ class _SelectModalState extends State<SelectModal> {
     try {
       page = 1;
       Map param = widget.param(widget.option);
-      print("widget.param ${param}");
+      print("widget.param $param");
       setState(() {});
       Response response = await dio.get(widget.api,
           queryParameters: {"title": title, "page": page, ...param});
@@ -212,11 +212,11 @@ class _SelectModalState extends State<SelectModal> {
         appBar: AppBar(
           title: Text(widget.title),
           automaticallyImplyLeading: false,
-          actions: [CloseIconButton(iconColor: null, padding: true)],
+          actions: const [CloseIconButton(iconColor: null, padding: true)],
           bottom: PreferredSize(
               preferredSize: Size(MediaQuery.of(context).size.width, 50),
               child: Container(
-                  padding: EdgeInsets.symmetric(horizontal: 15, vertical: 2),
+                  padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 2),
                   child: SearchTextField(
                       title: "Поиск",
                       onChanged: (value) {
@@ -225,9 +225,9 @@ class _SelectModalState extends State<SelectModal> {
                       }))),
         ),
         body: loader
-            ? LoaderComponent()
+            ? const LoaderComponent()
             : ListView.builder(
-                padding: EdgeInsets.symmetric(vertical: 15),
+                padding: const EdgeInsets.symmetric(vertical: 15),
                 physics: physics,
                 controller: scrollController,
                 itemCount: data.length,
@@ -237,7 +237,7 @@ class _SelectModalState extends State<SelectModal> {
                   if (data.length - 1 == index) {
                     return Column(children: [
                       ListItem(value, active),
-                      hasNextPage ? PaginationLoaderComponent() : Container()
+                      hasNextPage ? const PaginationLoaderComponent() : Container()
                     ]);
                   } else {
                     return ListItem(value, active);
@@ -249,7 +249,7 @@ class _SelectModalState extends State<SelectModal> {
 
   Widget ListItem(Map value, bool active) {
     return Container(
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
           border: Border(top: BorderSide(width: 1, color: Color(0xffeeeeee)))),
       child: ListTile(
         onTap: () => activedItem(value),

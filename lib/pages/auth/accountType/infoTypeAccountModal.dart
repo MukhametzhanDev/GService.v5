@@ -29,10 +29,10 @@ class _InfoTypeAccountModalState extends State<InfoTypeAccountModal> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Divider(height: 1, color: ColorComponent.gray['100']),
-        Divider(height: 22),
-        Text("Как это работает?",
+        const Divider(height: 22),
+        const Text("Как это работает?",
             style: TextStyle(fontWeight: FontWeight.w500, fontSize: 16)),
-        Divider(height: 16),
+        const Divider(height: 16),
         // Stepper(
         //     controlsBuilder: (context, controller) => Container(),
         //     margin: EdgeInsets.zero,
@@ -56,21 +56,21 @@ class _InfoTypeAccountModalState extends State<InfoTypeAccountModal> {
         //       Step(title: Text("adfasdfasdf"), content: Container())
         //     ]),
         HtmlWidget(widget.data),
-        Divider(height: 16),
-        Text("Остались вопросы по типу кабинета?",
+        const Divider(height: 16),
+        const Text("Остались вопросы по типу кабинета?",
             style: TextStyle(fontWeight: FontWeight.w500, fontSize: 15)),
-        Divider(height: 16),
+        const Divider(height: 16),
         Container(
           height: 48,
-          padding: EdgeInsets.symmetric(horizontal: 12),
+          padding: const EdgeInsets.symmetric(horizontal: 12),
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(12),
               color: ColorComponent.mainColor.withOpacity(.1)),
           child: Row(
             children: [
               SvgPicture.asset("assets/icons/headsetOutline.svg"),
-              Divider(indent: 8),
-              Text("Обратиться в поддержку GService",
+              const Divider(indent: 8),
+              const Text("Обратиться в поддержку GService",
                   style: TextStyle(fontWeight: FontWeight.w500))
             ],
           ),

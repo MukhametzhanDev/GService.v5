@@ -93,7 +93,7 @@ class _MyNewsPageState extends State<MyNewsPage> {
   @override
   Widget build(BuildContext context) {
     return loader
-        ? LoaderComponent()
+        ? const LoaderComponent()
         : SmartRefresher(
             onRefresh: () async {
               await getData();
@@ -104,9 +104,9 @@ class _MyNewsPageState extends State<MyNewsPage> {
             header: MaterialClassicHeader(
                 color: ColorComponent.mainColor, backgroundColor: Colors.white),
             child: data.isEmpty
-                ? EmptyMyNewsPage()
+                ? const EmptyMyNewsPage()
                 : ListView.builder(
-                    padding: EdgeInsets.all(16),
+                    padding: const EdgeInsets.all(16),
                     controller: scrollController,
                     itemCount: data.length,
                     itemBuilder: (context, index) {
@@ -127,7 +127,7 @@ class _MyNewsPageState extends State<MyNewsPage> {
                                     width: 120,
                                     height: 94,
                                     borderRadius: 12),
-                                Divider(indent: 12),
+                                const Divider(indent: 12),
                                 Expanded(
                                   child: Column(
                                       crossAxisAlignment:
@@ -135,10 +135,10 @@ class _MyNewsPageState extends State<MyNewsPage> {
                                       children: [
                                         Text(data[index]["title"],
                                             maxLines: 2,
-                                            style: TextStyle(
+                                            style: const TextStyle(
                                                 fontSize: 16,
                                                 fontWeight: FontWeight.w600)),
-                                        Divider(height: 12),
+                                        const Divider(height: 12),
                                         Row(
                                           children: [
                                             Text(
@@ -149,10 +149,10 @@ class _MyNewsPageState extends State<MyNewsPage> {
                                                     fontSize: 12,
                                                     color: ColorComponent
                                                         .gray['500'])),
-                                            Divider(indent: 24),
+                                            const Divider(indent: 24),
                                             SvgPicture.asset(
                                                 "assets/icons/eye.svg"),
-                                            Divider(indent: 4),
+                                            const Divider(indent: 4),
                                             Text(
                                                 data[index]["views"].toString(),
                                                 style: TextStyle(
@@ -165,7 +165,7 @@ class _MyNewsPageState extends State<MyNewsPage> {
                                 )
                               ],
                             ),
-                            Divider(height: 16),
+                            const Divider(height: 16),
                             Divider(
                                 height: 1, color: ColorComponent.gray['100'])
                           ],

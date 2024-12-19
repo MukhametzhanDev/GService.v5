@@ -53,7 +53,7 @@ class _ReplenishmentWalletPageState extends State<ReplenishmentWalletPage> {
 
   void showModal() {
     showMaterialModalBottomSheet(
-        context: context, builder: (context) => SuccessfulPaymentPage());
+        context: context, builder: (context) => const SuccessfulPaymentPage());
   }
 
   @override
@@ -62,16 +62,16 @@ class _ReplenishmentWalletPageState extends State<ReplenishmentWalletPage> {
       onTap: () => closeKeyboard(),
       child: Scaffold(
         appBar: AppBar(
-            leading: BackIconButton(),
+            leading: const BackIconButton(),
             centerTitle: false,
-            title: Text("Пополнение баланса")),
+            title: const Text("Пополнение баланса")),
         body: SingleChildScrollView(
-          padding: EdgeInsets.symmetric(horizontal: 15, vertical: 7.5),
+          padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 7.5),
           child:
               Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-            Text("Введите сумму пополнения",
+            const Text("Введите сумму пополнения",
                 style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600)),
-            Divider(indent: 16),
+            const Divider(indent: 16),
             Row(
                 children: prices.map((value) {
               return GestureDetector(
@@ -80,18 +80,18 @@ class _ReplenishmentWalletPageState extends State<ReplenishmentWalletPage> {
                   percentagePrice();
                 },
                 child: Container(
-                    padding: EdgeInsets.symmetric(vertical: 7, horizontal: 15),
+                    padding: const EdgeInsets.symmetric(vertical: 7, horizontal: 15),
                     decoration: BoxDecoration(
                         border: Border.all(
                             width: 1, color: ColorComponent.mainColor),
                         borderRadius: BorderRadius.circular(8)),
-                    margin: EdgeInsets.only(right: 8),
+                    margin: const EdgeInsets.only(right: 8),
                     child: Text("${priceFormat(value)} ₸",
-                        style: TextStyle(
+                        style: const TextStyle(
                             fontSize: 12, fontWeight: FontWeight.w600))),
               );
             }).toList()),
-            Divider(indent: 16),
+            const Divider(indent: 16),
             TextFormField(
                 controller: priceController,
                 maxLength: 13,
@@ -101,38 +101,38 @@ class _ReplenishmentWalletPageState extends State<ReplenishmentWalletPage> {
                 },
                 keyboardType: TextInputType.number,
                 decoration: InputDecoration(
-                    contentPadding: EdgeInsets.only(
+                    contentPadding: const EdgeInsets.only(
                         left: 18, right: 10, top: 10, bottom: 10),
                     suffix: Padding(
-                      padding: EdgeInsets.only(bottom: 8),
+                      padding: const EdgeInsets.only(bottom: 8),
                       child: Container(
                           padding:
-                              EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                          margin: EdgeInsets.only(right: 4),
+                              const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                          margin: const EdgeInsets.only(right: 4),
                           decoration: BoxDecoration(
                               color: ColorComponent.mainColor,
                               borderRadius: BorderRadius.circular(8)),
                           child: Text(
                               "+ ${NumberFormat.currency(locale: 'kk', symbol: '').format(percentagePrice()).toString().split(',')[0]} бонус",
-                              style: TextStyle(
+                              style: const TextStyle(
                                   fontWeight: FontWeight.w700,
                                   color: Colors.black))),
                     ),
                     hintText: "Введите цену",
                     counterText: "",
                     helperStyle:
-                        TextStyle(fontWeight: FontWeight.w700, fontSize: 14)),
+                        const TextStyle(fontWeight: FontWeight.w700, fontSize: 14)),
                 style:
-                    TextStyle(fontWeight: FontWeight.w700, color: Colors.black),
+                    const TextStyle(fontWeight: FontWeight.w700, color: Colors.black),
                 inputFormatters: [
                   CurrencyTextInputFormatter.currency(
                       decimalDigits: 0, locale: 'kk', symbol: "₸")
                 ]),
-            Divider(indent: 15),
+            const Divider(indent: 15),
             RichText(
                 text: TextSpan(
                     style: TextStyle(color: ColorComponent.gray['500']),
-                    children: [
+                    children: const [
                   TextSpan(text: "От 50 000 ₸ "),
                   TextSpan(
                       text: "+20% бонус",
@@ -143,7 +143,7 @@ class _ReplenishmentWalletPageState extends State<ReplenishmentWalletPage> {
         bottomNavigationBar: BottomNavigationBarComponent(
             child: Button(
                 onPressed: verifyData,
-                padding: EdgeInsets.symmetric(horizontal: 15),
+                padding: const EdgeInsets.symmetric(horizontal: 15),
                 title: "Пополнить баланс")),
       ),
     );
