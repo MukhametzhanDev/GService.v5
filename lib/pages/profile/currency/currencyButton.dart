@@ -70,46 +70,50 @@ class _CurrencyButtonState extends State<CurrencyButton> {
 
   @override
   Widget build(BuildContext context) {
-    if (role == "individual" && categoryId == 1 && categoryId == 4) {
+    if (role == "individual") {
       return Container();
     } else {
-      return GestureDetector(
-        onTap: () {
-          showGetCurrencyModal();
-        },
-        child: Container(
-          height: 48,
-          width: 70,
-          margin: const EdgeInsets.only(left: 12),
-          alignment: Alignment.center,
-          decoration: BoxDecoration(
-              color: const Color(0xffF9FAFB),
-              borderRadius: BorderRadius.circular(10),
-              border: Border.all(width: 1, color: const Color(0xffE5E5EA))),
-          child: loader
-              ? Shimmer.fromColors(
-                  baseColor: const Color(0xffD1D5DB),
-                  highlightColor: const Color(0xfff4f5f7),
-                  period: const Duration(seconds: 1),
-                  child: Container(
-                      height: 48,
-                      width: 70,
-                      decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(8))),
-                )
-              : Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(currentData['currency']['symbol'],
-                        style: const TextStyle(
-                            fontSize: 16, fontWeight: FontWeight.w500)),
-                    const Divider(indent: 8),
-                    SvgPicture.asset('assets/icons/down.svg'),
-                  ],
-                ),
-        ),
-      );
+      if (categoryId == 1 && categoryId == 4) {
+        return GestureDetector(
+          onTap: () {
+            showGetCurrencyModal();
+          },
+          child: Container(
+            height: 48,
+            width: 70,
+            margin: const EdgeInsets.only(left: 12),
+            alignment: Alignment.center,
+            decoration: BoxDecoration(
+                color: const Color(0xffF9FAFB),
+                borderRadius: BorderRadius.circular(10),
+                border: Border.all(width: 1, color: const Color(0xffE5E5EA))),
+            child: loader
+                ? Shimmer.fromColors(
+                    baseColor: const Color(0xffD1D5DB),
+                    highlightColor: const Color(0xfff4f5f7),
+                    period: const Duration(seconds: 1),
+                    child: Container(
+                        height: 48,
+                        width: 70,
+                        decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(8))),
+                  )
+                : Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(currentData['currency']['symbol'],
+                          style: const TextStyle(
+                              fontSize: 16, fontWeight: FontWeight.w500)),
+                      const Divider(indent: 8),
+                      SvgPicture.asset('assets/icons/down.svg'),
+                    ],
+                  ),
+          ),
+        );
+      } else {
+        return Container();
+      }
     }
   }
 }

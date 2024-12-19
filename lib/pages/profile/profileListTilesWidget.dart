@@ -5,6 +5,7 @@ import 'package:gservice5/component/functions/token/changedToken.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
 import 'package:gservice5/pages/ad/my/myAdListPage.dart';
 import 'package:gservice5/pages/application/my/myApplicationListPage.dart';
+import 'package:gservice5/pages/create/createContactsPage.dart';
 import 'package:gservice5/pages/profile/aboutCompany/aboutCompanyPage.dart';
 import 'package:gservice5/pages/profile/currency/currencyMainPage.dart';
 import 'package:gservice5/pages/profile/currency/editCurrencyPage.dart';
@@ -52,18 +53,18 @@ class _ProfileListTilesWidgetState extends State<ProfileListTilesWidget> {
   }
 
   void showEditCurrencyPage() {
-    Navigator.push(
-        context, MaterialPageRoute(builder: (context) => const CurrencyMainPage()));
+    Navigator.push(context,
+        MaterialPageRoute(builder: (context) => const CurrencyMainPage()));
   }
 
   void showEmployeesPage() {
-    Navigator.push(
-        context, MaterialPageRoute(builder: (context) => const EmployeeListPage()));
+    Navigator.push(context,
+        MaterialPageRoute(builder: (context) => const EmployeeListPage()));
   }
 
   void showAboutCompanyPage() {
-    Navigator.push(
-        context, MaterialPageRoute(builder: (context) => const AboutCompanyPage()));
+    Navigator.push(context,
+        MaterialPageRoute(builder: (context) => const AboutCompanyPage()));
   }
 
   @override
@@ -109,7 +110,8 @@ class _ProfileListTilesWidgetState extends State<ProfileListTilesWidget> {
             ? Container()
             : Container(
                 decoration: BoxDecoration(
-                    border: Border.all(width: 1, color: const Color(0xfff4f5f7))),
+                    border:
+                        Border.all(width: 1, color: const Color(0xfff4f5f7))),
                 child: ListTile(
                     onTap: showNewsPage,
                     leading: SvgPicture.asset('assets/icons/bullhorn.svg'),
@@ -120,7 +122,8 @@ class _ProfileListTilesWidgetState extends State<ProfileListTilesWidget> {
             ? Container()
             : Container(
                 decoration: BoxDecoration(
-                    border: Border.all(width: 1, color: const Color(0xfff4f5f7))),
+                    border:
+                        Border.all(width: 1, color: const Color(0xfff4f5f7))),
                 child: ListTile(
                     leading: SvgPicture.asset('assets/icons/fileOutline.svg'),
                     title: const Text("Документы"),
@@ -130,7 +133,8 @@ class _ProfileListTilesWidgetState extends State<ProfileListTilesWidget> {
             ? Container()
             : Container(
                 decoration: BoxDecoration(
-                    border: Border.all(width: 1, color: const Color(0xfff4f5f7))),
+                    border:
+                        Border.all(width: 1, color: const Color(0xfff4f5f7))),
                 child: ListTile(
                     onTap: showEditCurrencyPage,
                     leading: SvgPicture.asset('assets/icons/dollarOutline.svg'),
@@ -141,7 +145,8 @@ class _ProfileListTilesWidgetState extends State<ProfileListTilesWidget> {
             ? Container()
             : Container(
                 decoration: BoxDecoration(
-                    border: Border.all(width: 1, color: const Color(0xfff4f5f7))),
+                    border:
+                        Border.all(width: 1, color: const Color(0xfff4f5f7))),
                 child: ListTile(
                     onTap: showEmployeesPage,
                     leading: SvgPicture.asset('assets/icons/users.svg'),
@@ -179,6 +184,20 @@ class _ProfileListTilesWidgetState extends State<ProfileListTilesWidget> {
                   builder: (context) => LogOutAlert(onPressed: () async {
                         await ChangedToken().removeToken(context);
                       }));
+            },
+            leading: SvgPicture.asset('assets/icons/exit.svg'),
+            title: const Text("Выход"),
+          ),
+        ),
+        Container(
+          decoration: BoxDecoration(
+              border: Border.all(width: 1, color: const Color(0xfff4f5f7))),
+          child: ListTile(
+            onTap: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => CreateContactsPage()));
             },
             leading: SvgPicture.asset('assets/icons/exit.svg'),
             title: const Text("Выход"),

@@ -105,7 +105,8 @@ class _ResultSearchPageState extends State<ResultSearchPage> {
           automaticallyImplyLeading: false,
           shape: Border(
               bottom: BorderSide(
-                  color: const Color(0xfff4f5f7), width: count.isEmpty ? 0 : 1)),
+                  color: const Color(0xfff4f5f7),
+                  width: count.isEmpty ? 0 : 1)),
           leadingWidth: 0,
           title: GestureDetector(
             onTap: () => Navigator.pop(context),
@@ -121,7 +122,8 @@ class _ResultSearchPageState extends State<ResultSearchPage> {
                     color: ColorComponent.gray['500']),
                 const Divider(indent: 6),
                 Text(widget.title,
-                    style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w400))
+                    style: const TextStyle(
+                        fontSize: 16, fontWeight: FontWeight.w400))
               ],
             ),
           ),
@@ -176,17 +178,22 @@ class _ResultSearchPageState extends State<ResultSearchPage> {
                                           borderRadius:
                                               BorderRadius.circular(8)),
                                       alignment: Alignment.center,
-                                      margin:
-                                          const EdgeInsets.symmetric(horizontal: 4),
-                                      padding:
-                                          const EdgeInsets.only(left: 16, right: 12),
+                                      margin: const EdgeInsets.symmetric(
+                                          horizontal: 4),
+                                      padding: const EdgeInsets.only(
+                                          left: 16, right: 12),
                                       child: Row(
                                         children: [
                                           Text(value['title'],
                                               style: const TextStyle(
                                                   fontWeight: FontWeight.w500)),
                                           Container(
-                                            margin: const EdgeInsets.only(left: 6),
+                                            margin:
+                                                const EdgeInsets.only(left: 6),
+                                            height: 18,
+                                            constraints:
+                                                BoxConstraints(minWidth: 18),
+                                            alignment: Alignment.center,
                                             padding: const EdgeInsets.symmetric(
                                                 horizontal: 4),
                                             decoration: BoxDecoration(

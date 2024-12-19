@@ -3,6 +3,7 @@ import 'package:gservice5/component/categories/data/categoriesData.dart';
 import 'package:gservice5/component/request/getCategories.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
 import 'package:gservice5/pages/ad/list/adListPage.dart';
+import 'package:gservice5/pages/application/list/applicationListPage.dart';
 import 'package:shimmer/shimmer.dart';
 
 class CategoriesListWidget extends StatefulWidget {
@@ -31,8 +32,13 @@ class _CategoriesListWidgetState extends State<CategoriesListWidget> {
   }
 
   void showAdPage(Map value) {
-    Navigator.push(context,
-        MaterialPageRoute(builder: (context) => AdListPage(category: value)));
+    if (value['id'] == 3) {
+      Navigator.push(context,
+          MaterialPageRoute(builder: (context) => const ApplicationListPage()));
+    } else {
+      Navigator.push(context,
+          MaterialPageRoute(builder: (context) => AdListPage(category: value)));
+    }
   }
 
   void showApplicationPage() {
@@ -67,33 +73,7 @@ class _CategoriesListWidgetState extends State<CategoriesListWidget> {
               : Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: data.map((value) {
-                    int index = data.indexOf(value);
-                    if (index == 0) {
-                      return Row(
-                        children: [
-                          GestureDetector(
-                            onTap: () {
-                              showApplicationPage();
-                            },
-                            child: Container(
-                                height: 32,
-                                padding: const EdgeInsets.symmetric(horizontal: 12),
-                                margin: const EdgeInsets.symmetric(horizontal: 4),
-                                alignment: Alignment.center,
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(8),
-                                    color: ColorComponent.mainColor
-                                        .withOpacity(.2)),
-                                child: const Text("Заявки",
-                                    style: TextStyle(
-                                        fontSize: 12,
-                                        fontWeight: FontWeight.w400,
-                                        height: 1))),
-                          ),
-                          CategoryButton(value)
-                        ],
-                      );
-                    }
+                    // int index = data.indexOf(value);
                     return CategoryButton(value);
                   }).toList()),
         ));

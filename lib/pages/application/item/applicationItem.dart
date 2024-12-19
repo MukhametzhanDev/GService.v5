@@ -66,7 +66,7 @@ class _ApplicationItemState extends State<ApplicationItem> {
             ],
           ),
           const Divider(height: 8),
-          Text(priceFormat(widget.data['price']?['price']),
+          Text(priceFormatted(widget.data['price']?['price']),
               style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w600)),
           // Row(
           //   children: [

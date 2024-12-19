@@ -1,17 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:gservice5/component/button/back/closeTitleButton.dart';
 import 'package:gservice5/component/button/button.dart';
 import 'package:gservice5/component/button/back/closeIconButton.dart';
 import 'package:gservice5/component/functions/token/changedToken.dart';
-import 'package:gservice5/component/loader/modalLoaderComponent.dart';
 import 'package:gservice5/component/modal/modalBottomSheetWrapper.dart';
-import 'package:gservice5/component/request/verifyContact.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
 import 'package:gservice5/component/widgets/bottom/bottomNavigationBarComponent.dart';
 import 'package:gservice5/pages/auth/emptyTokenPage.dart';
 import 'package:gservice5/pages/create/ad/sectionCreateAdPage.dart';
 import 'package:gservice5/pages/create/application/sectionCreateApplicationPage.dart';
-import 'package:gservice5/pages/profile/contacts/addContactsPage.dart';
-import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
 class CreateSectionPage extends StatefulWidget {
   const CreateSectionPage({super.key});
@@ -62,20 +59,6 @@ class _CreateSectionPageState extends State<CreateSectionPage> {
     setState(() {});
   }
 
-  Future verifyContacts() async {
-    showModalLoader(context);
-    List data = await GetContact().getData(context);
-    print(data);
-    Navigator.pop(context);
-
-    if (data.isEmpty) {
-      showCupertinoModalBottomSheet(
-          context: context, builder: (context) => const AddContactsPage());
-    } else {
-      showPage();
-    }
-  }
-
   void showPage() {
     Navigator.push(context,
         MaterialPageRoute(builder: (context) => data[currentIndex]['page']));
@@ -88,14 +71,15 @@ class _CreateSectionPageState extends State<CreateSectionPage> {
         appBar: AppBar(
           automaticallyImplyLeading: false,
           centerTitle: false,
-          title: const Text("Новое объявление"),
-          actions: const [CloseIconButton(iconColor: null, padding: true)],
+          leadingWidth: 200,
+          leading: CloseTitleButton(title: "Разместить"),
         ),
         body: !verifyToken
             ? const EmptyTokenPage()
             : SingleChildScrollView(
                 physics: physics,
-                padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
                 child: Column(
                     children: data.map((value) {
                   int index = data.indexOf(value);
@@ -152,7 +136,7 @@ class _CreateSectionPageState extends State<CreateSectionPage> {
             ? null
             : BottomNavigationBarComponent(
                 child: Button(
-                    onPressed: verifyContacts,
+                    onPressed: showPage,
                     padding: const EdgeInsets.symmetric(horizontal: 15),
                     title: "Продолжить")),
       );

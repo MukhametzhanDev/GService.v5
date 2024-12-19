@@ -1,9 +1,7 @@
 import 'dart:ui';
-
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:gservice5/component/color/formattedHexColor.dart';
 import 'package:gservice5/component/dio/dio.dart';
 import 'package:gservice5/component/formatted/number/numberFormatted.dart';
 import 'package:gservice5/component/image/cacheImage.dart';
@@ -11,17 +9,18 @@ import 'package:gservice5/component/snackBar/snackBarComponent.dart';
 import 'package:gservice5/component/stickers/showStickersList.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
 import 'package:gservice5/component/widgets/price/priceTextWidget.dart';
-import 'package:gservice5/pages/ad/package/showPackageIcons.dart';
 import 'package:intl/intl.dart';
 
 class PreviewItemWidget extends StatefulWidget {
   final int adId;
   final Map? package;
   final List stickers;
+  final List promotions;
   const PreviewItemWidget(
       {super.key,
       required this.adId,
       required this.package,
+      required this.promotions,
       required this.stickers});
 
   @override
@@ -42,7 +41,6 @@ class _PreviewItemWidgetState extends State<PreviewItemWidget> {
     print(widget.adId);
     try {
       Response response = await dio.get("/ad-list-data/${widget.adId}");
-      print("DATA ${response.data}");
       if (response.data['success']) {
         data = response.data['data'];
         setState(() {});
@@ -61,7 +59,7 @@ class _PreviewItemWidgetState extends State<PreviewItemWidget> {
     Color color = widget.package != null
         ? Color(int.parse(widget.package!['color'])).withOpacity(.1)
         : Colors.white;
-    List promotions = widget.package?['promotions'] ?? [];
+    List promotions = widget.package?['promotions'] ?? widget.promotions;
     return data.isEmpty
         ? Container()
         : GestureDetector(
@@ -234,13 +232,25 @@ class _PreviewItemWidgetState extends State<PreviewItemWidget> {
                             ),
                           ],
                         ),
-                        Row(
-                            children: promotions.map((value) {
-                          return Padding(
-                            padding: const EdgeInsets.only(right: 4),
-                            child: SvgPicture.network(value['icon']),
-                          );
-                        }).toList())
+                        widget.package?['promotions'] == null
+                            ? Row(
+                                children: promotions.map((value) {
+                                if (value['active'] ?? false) {
+                                  return Padding(
+                                    padding: const EdgeInsets.only(left: 8),
+                                    child: SvgPicture.network(value['icon']),
+                                  );
+                                } else {
+                                  return Container();
+                                }
+                              }).toList())
+                            : Row(
+                                children: promotions.map((value) {
+                                return Padding(
+                                  padding: const EdgeInsets.only(left: 8),
+                                  child: SvgPicture.network(value['icon']),
+                                );
+                              }).toList())
                       ],
                     ),
                   ),

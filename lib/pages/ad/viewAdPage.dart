@@ -136,35 +136,11 @@ class _ViewAdPageState extends State<ViewAdPage> {
                               //               style: TextStyle(
                               //                   color: ColorComponent.gray['500'])),
                               //         ])),
-                              Row(
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  Expanded(
-                                    child: Text(data['title'],
-                                        style: TextStyle(
-                                            fontSize: 18,
-                                            color: ColorComponent.blue['700'],
-                                            fontWeight: FontWeight.w600)),
-                                  ),
-                                  const Divider(indent: 16),
-                                  Container(
-                                    height: 24,
-                                    padding:
-                                        const EdgeInsets.symmetric(horizontal: 8),
-                                    alignment: Alignment.center,
-                                    decoration: BoxDecoration(
-                                        color: ColorComponent.mainColor,
-                                        borderRadius: BorderRadius.circular(6)),
-                                    child: Text(
-                                      data['category']['title'],
-                                      style: const TextStyle(
-                                          height: 1,
-                                          fontSize: 12,
-                                          fontWeight: FontWeight.w600),
-                                    ),
-                                  ),
-                                ],
-                              ),
+                              Text(data['title'],
+                                  style: TextStyle(
+                                      fontSize: 18,
+                                      color: ColorComponent.blue['700'],
+                                      fontWeight: FontWeight.w600)),
                               const Divider(height: 6),
                               PriceTextWidget(
                                   prices: data['prices'], fontSize: 16),
@@ -262,7 +238,8 @@ class _ViewAdPageState extends State<ViewAdPage> {
                                 ],
                               ),
                               const Divider(height: 14),
-                              const Divider(height: 1, color: Color(0xfff4f5f7)),
+                              const Divider(
+                                  height: 1, color: Color(0xfff4f5f7)),
                               const Divider(height: 12),
                               // AuthorAdWidget(
                               //     title: "О владельце объявления", data: {}),

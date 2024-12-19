@@ -86,7 +86,7 @@ class _CreateApplicationState extends State<CreateApplication> {
       titles.add("Профессия");
     }
     pages.addAll([
-      PriceCreateApplicationPage(nextPage: nextPage,canLease:canLease),
+      PriceCreateApplicationPage(nextPage: nextPage, canLease: canLease),
       AddressCreateApplicationPage(nextPage: nextPage)
     ]);
     titles.addAll(["Данные и цена", "Указать адрес"]);

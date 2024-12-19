@@ -2,9 +2,11 @@ import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:gservice5/component/button/back/closeIconButton.dart';
 import 'package:gservice5/component/button/button.dart';
+import 'package:gservice5/component/denied/galleryDeniedModal.dart';
 import 'package:gservice5/component/dio/dio.dart';
 import 'package:gservice5/component/image/cacheImage.dart';
 import 'package:gservice5/component/loader/modalLoaderComponent.dart';
@@ -30,29 +32,47 @@ class _GetImageWidgetState extends State<GetImageWidget> {
   final ImagePicker _picker = ImagePicker();
 
   Future<void> _pickImages() async {
-    showModalLoader(context);
-    final List<XFile> pickedFiles = await _picker.pickMultiImage();
-    if (pickedFiles != null && pickedFiles.isNotEmpty) {
-      setState(() {
-        _images.addAll(pickedFiles.map((file) => XFile(file.path)).toList());
-        widget.onImagesSelected(_images);
-      });
+    try {
+      showModalLoader(context);
+      final List<XFile> pickedFiles = await _picker.pickMultiImage();
+      if (pickedFiles != null && pickedFiles.isNotEmpty) {
+        setState(() {
+          _images.addAll(pickedFiles.map((file) => XFile(file.path)).toList());
+          widget.onImagesSelected(_images);
+        });
+      }
+      Navigator.pop(context);
+      Navigator.pop(context);
+    } on PlatformException catch (e) {
+      if (e.code == "photo_access_denied") {
+        showCupertinoModalBottomSheet(
+          context: context,
+          builder: (context) => const GalleryDeniedModal(),
+        );
+      }
     }
-    Navigator.pop(context);
-    Navigator.pop(context);
   }
 
   Future<void> _pickImage(ImageSource source) async {
-    showModalLoader(context);
-    final XFile? pickedFile = await _picker.pickImage(source: source);
-    if (pickedFile != null) {
-      setState(() {
-        _images.add(XFile(pickedFile.path));
-      });
+    try {
+      showModalLoader(context);
+      final XFile? pickedFile = await _picker.pickImage(source: source);
+      if (pickedFile != null) {
+        setState(() {
+          _images.add(XFile(pickedFile.path));
+        });
+      }
+      widget.onImagesSelected(_images);
+      Navigator.pop(context);
+      Navigator.pop(context);
+    } on PlatformException catch (e) {
+      if (e.code == "photo_access_denied") {
+        showCupertinoModalBottomSheet(
+          context: context,
+          builder: (context) => const GalleryDeniedModal(),
+        );
+      }
     }
-    widget.onImagesSelected(_images);
-    Navigator.pop(context);
-    Navigator.pop(context);
   }
 
   Future<void> _editImage(int index) async {
@@ -359,7 +379,8 @@ class _GetImageWidgetState extends State<GetImageWidget> {
                             left: 12,
                             right: 12,
                             child: Container(
-                                padding: const EdgeInsets.only(left: 6, right: 6),
+                                padding:
+                                    const EdgeInsets.only(left: 6, right: 6),
                                 alignment: Alignment.center,
                                 decoration: BoxDecoration(
                                     color: ColorComponent.mainColor,

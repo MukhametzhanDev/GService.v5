@@ -71,7 +71,7 @@ class _SectionCreateApplicationPageState
       appBar: AppBar(
           leadingWidth: MediaQuery.of(context).size.width - 100,
           leading: BackTitleButton(
-              onPressed: () => Navigator.pop(context), title: "Тип заявки")),
+              onPressed: () => Navigator.pop(context), title: "Разместить заявку")),
       body: loader
           ? const LoaderComponent()
           : SingleChildScrollView(
@@ -79,7 +79,7 @@ class _SectionCreateApplicationPageState
               child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Text("Укажите о чем будет ваще объявление"),
+                    const Text("Какая у вас задача?"),
                     const Divider(height: 16),
                     Column(
                         children: data.map((value) {

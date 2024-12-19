@@ -43,18 +43,19 @@ class _AdItemState extends State<AdItem> {
   }
 
   Widget getCharacteristic(List data) {
-    return Wrap(
+    double lineHeight = 15.0;
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Wrap(
+            runSpacing: 1.5,
             children: data.map((value) {
-          int index = data.indexOf(value);
-          bool last = index == data.length - 1;
-          String title = getTitle(value);
-          if (title.length > 3) {
-            return RichText(
-              text: TextSpan(
-                  style: const TextStyle(fontSize: 13, height: 1.4),
-                  children: [
+              int index = data.indexOf(value);
+              bool last = index == data.length - 1;
+              String title = getTitle(value);
+              if (title.length > 3) {
+                return RichText(
+                  text: TextSpan(style: TextStyle(fontSize: 13), children: [
                     TextSpan(
                         text: title,
                         style: TextStyle(color: ColorComponent.gray['700'])),
@@ -65,17 +66,27 @@ class _AdItemState extends State<AdItem> {
                                 ? Colors.black
                                 : ColorComponent.gray['300']))
                   ]),
-            );
-          } else {
-            return Container();
-          }
-        }).toList()),
-        Text(
-            "Прицеп 105 кубов в отличном состоянии тент крыша новая хадовка отличная все делал месяц назад.",
-            style: TextStyle(
-                fontSize: 13, height: 1.4, color: ColorComponent.gray['700']),
-            maxLines: 2,
-            overflow: TextOverflow.ellipsis)
+                );
+              } else {
+                return Container();
+              }
+            }).toList()),
+        Expanded(
+          child: LayoutBuilder(builder: (context, constraints) {
+            int calculateMaxLines(BoxConstraints constraints) {
+              return (constraints.maxHeight / (lineHeight + 5)).floor();
+            }
+
+            return Text(
+                "Прицеп 105 кубов в отличном состоянии тент крыша новая хадовка отличная все делал месяц назад.",
+                style: TextStyle(
+                    fontSize: 13,
+                    height: lineHeight / 10,
+                    color: ColorComponent.gray['700']),
+                maxLines: calculateMaxLines(constraints),
+                overflow: TextOverflow.ellipsis);
+          }),
+        )
       ],
     );
     // RichText(
@@ -123,15 +134,13 @@ class _AdItemState extends State<AdItem> {
               Row(
                 children: [
                   Expanded(
-                    child: Text(
-                      widget.data['title'] ?? "",
-                      style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.w400,
-                          color: ColorComponent.blue['700']),
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                    ),
+                    child: Text(widget.data['title'] ?? "",
+                        style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w400,
+                            color: ColorComponent.blue['700']),
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis),
                   ),
                   const SizedBox(width: 16),
                   widget.showCategory
@@ -216,7 +225,7 @@ class _AdItemState extends State<AdItem> {
                     Expanded(
                         child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      // mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
                         Text(widget.data['sub_title'],
                             style: const TextStyle(
@@ -225,8 +234,10 @@ class _AdItemState extends State<AdItem> {
                                 height: 1.3),
                             maxLines: 2,
                             overflow: TextOverflow.ellipsis),
-                        // Divider(height: 10),
-                        getCharacteristic(widget.data['characteristics']),
+                        Divider(height: 8),
+                        Expanded(
+                            child: getCharacteristic(
+                                widget.data['characteristics'])),
                         // Text(
                         //     "На заказы от 3-х смен мы предоставляем скидку. Вся техника находится у нас в собственности, работают опытные операторы и качественно",
                         //     maxLines: 3,

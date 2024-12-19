@@ -23,6 +23,7 @@ class _PriceFilterModalState extends State<PriceFilterModal> {
   CurrencyTextInputFormatter currencyTextInputFormatter =
       CurrencyTextInputFormatter(
           NumberFormat.currency(decimalDigits: 0, symbol: "", locale: 'kk'));
+
   @override
   void initState() {
     addPrice();

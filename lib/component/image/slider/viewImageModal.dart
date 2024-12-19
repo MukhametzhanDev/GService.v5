@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:gservice5/component/button/back/closeIconButton.dart';
-import 'package:gservice5/component/theme/colorComponent.dart';
 import 'package:photo_view/photo_view.dart';
 
 class ViewImageModal extends StatefulWidget {

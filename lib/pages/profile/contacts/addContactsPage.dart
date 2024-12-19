@@ -138,7 +138,7 @@ class _AddContactsPageState extends State<AddContactsPage> {
       print(response.data);
       Navigator.pop(context);
       if (response.data['success']) {
-        Navigator.pop(context, "update");
+        Navigator.pop(context, response.data['data']);
       } else {
         SnackBarComponent().showErrorMessage(response.data['message'], context);
       }
@@ -152,7 +152,8 @@ class _AddContactsPageState extends State<AddContactsPage> {
     return GestureDetector(
       onTap: () => closeKeyboard(),
       child: Scaffold(
-        appBar: AppBar(title: const Text("Контакты"), leading: const BackIconButton()),
+        appBar: AppBar(
+            title: const Text("Контакты"), leading: const BackIconButton()),
         body: loader
             ? const LoaderComponent()
             : SingleChildScrollView(
@@ -168,7 +169,7 @@ class _AddContactsPageState extends State<AddContactsPage> {
                       const SizedBox(height: 16),
                       const Text("Телефонные номера",
                           style: TextStyle(
-                              fontWeight: FontWeight.w600, fontSize: 16)),
+                              fontWeight: FontWeight.w500, fontSize: 15)),
                       const SizedBox(height: 12),
                       Column(
                           children: phoneNumber.map((value) {
@@ -197,8 +198,9 @@ class _AddContactsPageState extends State<AddContactsPage> {
                                   style: const TextStyle(
                                       fontSize: 14, color: Colors.black),
                                   decoration: InputDecoration(
-                                      contentPadding: const EdgeInsets.symmetric(
-                                          horizontal: 0, vertical: 0),
+                                      contentPadding:
+                                          const EdgeInsets.symmetric(
+                                              horizontal: 0, vertical: 0),
                                       counterStyle: TextStyle(
                                           fontSize: 12,
                                           fontWeight: FontWeight.w500,
@@ -206,8 +208,9 @@ class _AddContactsPageState extends State<AddContactsPage> {
                                       helperStyle: TextStyle(
                                           fontSize: 14,
                                           color: ColorComponent.gray['500']),
-                                      prefixIconConstraints: const BoxConstraints(
-                                          minHeight: 42, maxHeight: 50),
+                                      prefixIconConstraints:
+                                          const BoxConstraints(
+                                              minHeight: 42, maxHeight: 50),
                                       prefixIcon: Container(
                                         height: 54,
                                         padding:
@@ -220,14 +223,16 @@ class _AddContactsPageState extends State<AddContactsPage> {
                                                 side: const BorderSide(
                                                     width: 1,
                                                     color: Color(0xffe5e7eb)),
-                                                shape: const RoundedRectangleBorder(
-                                                    borderRadius:
-                                                        BorderRadius.only(
-                                                            topLeft: Radius
-                                                                .circular(8),
-                                                            bottomLeft:
-                                                                Radius.circular(
-                                                                    8)))),
+                                                shape:
+                                                    const RoundedRectangleBorder(
+                                                        borderRadius:
+                                                            BorderRadius.only(
+                                                                topLeft: Radius
+                                                                    .circular(
+                                                                        8),
+                                                                bottomLeft: Radius
+                                                                    .circular(
+                                                                        8)))),
                                             child: Container(
                                               width: 90,
                                               decoration: BoxDecoration(

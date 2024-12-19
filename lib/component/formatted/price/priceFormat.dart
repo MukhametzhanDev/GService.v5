@@ -5,7 +5,10 @@ String priceFormat(cost) {
     if (cost == "" || cost == null || cost == 0) {
       return "Договорная";
     } else {
-      return NumberFormat.currency(locale: 'kk', symbol: '').format(cost).toString().split(',')[0];
+      return NumberFormat.currency(locale: 'kk', symbol: '')
+          .format(cost)
+          .toString()
+          .split(',')[0];
     }
   } else if (cost == null) {
     return "Договорная";
@@ -14,15 +17,17 @@ String priceFormat(cost) {
   }
 }
 
-String priceFormatted(List prices) {
-  if (prices.length == 1) {
-    return "${priceFormat(prices[0]['price'])} ₸";
-  } else if (prices.length == 2) {
-    String toPrice = priceFormat(prices[0]['price']);
-    String fromPrice = priceFormat(prices[1]['price']);
-    return "$toPrice ₸ - $fromPrice ₸";
-  } else {
+String priceFormatted(cost) {
+  if (cost.runtimeType == int) {
+    if (cost == "" || cost == null || cost == 0) {
+      return "Договорная";
+    } else {
+      return "${NumberFormat.currency(locale: 'kk', symbol: '').format(cost).toString().split(',')[0]} ₸";
+    }
+  } else if (cost == null) {
     return "Договорная";
+  } else {
+    return cost;
   }
 }
 

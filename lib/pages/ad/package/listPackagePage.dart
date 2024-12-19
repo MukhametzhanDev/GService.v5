@@ -79,6 +79,7 @@ class _ListPackagePageState extends State<ListPackagePage> {
   }
 
   int stickerCount = 0;
+
   void onChangedStickers(Map value) {
     int price = value['price'];
     if (value['active'] ?? false) {
@@ -96,7 +97,16 @@ class _ListPackagePageState extends State<ListPackagePage> {
       }
     }
     setState(() {});
-    print(stickers);
+  }
+
+  void onChangedPromotions(Map value) {
+    bool active = value['active'] ?? false;
+    if (active) {
+      value['active'] = false;
+    } else {
+      value['active'] = true;
+    }
+    setState(() {});
   }
 
   void validateData() {
@@ -143,7 +153,7 @@ class _ListPackagePageState extends State<ListPackagePage> {
                                   children: promotions.map((value) {
                                   bool active = value['active'] ?? false;
                                   return GestureDetector(
-                                    onTap: () => onChangedStickers(value),
+                                    onTap: () => onChangedPromotions(value),
                                     child: Container(
                                       margin: const EdgeInsets.only(top: 12),
                                       padding: const EdgeInsets.symmetric(
@@ -164,7 +174,7 @@ class _ListPackagePageState extends State<ListPackagePage> {
                                               width: 1)),
                                       child: Row(
                                         children: [
-                                          const CheckBoxWidget(active: true),
+                                          CheckBoxWidget(active: active),
                                           const Divider(indent: 16),
                                           Expanded(
                                             child: Column(
@@ -173,8 +183,8 @@ class _ListPackagePageState extends State<ListPackagePage> {
                                               children: [
                                                 Text(
                                                   "${value['value']} ${promotionTitle[value['id']]}",
-                                                  style:
-                                                      const TextStyle(fontSize: 16),
+                                                  style: const TextStyle(
+                                                      fontSize: 16),
                                                 ),
                                                 const Divider(height: 6),
                                                 Text(
@@ -209,8 +219,8 @@ class _ListPackagePageState extends State<ListPackagePage> {
                             return GestureDetector(
                               onTap: () => onChangedStickers(value),
                               child: Container(
-                                  margin:
-                                      const EdgeInsets.only(right: 10, bottom: 10),
+                                  margin: const EdgeInsets.only(
+                                      right: 10, bottom: 10),
                                   padding: const EdgeInsets.symmetric(
                                       horizontal: 10, vertical: 6),
                                   decoration: BoxDecoration(
@@ -234,7 +244,8 @@ class _ListPackagePageState extends State<ListPackagePage> {
                       PreviewItemWidget(
                           adId: widget.adId,
                           package: currentPackage,
-                          stickers: stickers),
+                          stickers: stickers,
+                          promotions: promotions),
                       const SizedBox(height: 12),
                       Button(
                           onPressed: validateData,

@@ -4,11 +4,14 @@ import 'package:gservice5/component/button/back/backIconButton.dart';
 import 'package:gservice5/component/button/button.dart';
 import 'package:gservice5/component/dio/dio.dart';
 import 'package:gservice5/component/loader/modalLoaderComponent.dart';
+import 'package:gservice5/component/request/verifyContact.dart';
 import 'package:gservice5/component/snackBar/snackBarComponent.dart';
 import 'package:gservice5/component/widgets/bottom/bottomNavigationBarComponent.dart';
 import 'package:gservice5/pages/create/data/createData.dart';
 import 'package:gservice5/pages/create/getImageWidget.dart';
+import 'package:gservice5/pages/profile/contacts/addContactsPage.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
 class GetImageCreateApplicaitonPage extends StatefulWidget {
   const GetImageCreateApplicaitonPage({super.key});
@@ -72,12 +75,26 @@ class _GetImageCreateApplicaitonPageState
     }
   }
 
+  Future verifyContacts() async {
+    showModalLoader(context);
+    List data = await GetContact().getData(context);
+    print(data);
+    Navigator.pop(context);
+
+    if (data.isEmpty) {
+      showCupertinoModalBottomSheet(
+          context: context, builder: (context) => const AddContactsPage());
+    } else {
+      postData();
+    }
+  }
+
   void verifyData() {
     if (imagesPath.isEmpty) {
       SnackBarComponent().showErrorMessage("Загрузите изображения", context);
     } else {
       // postImage();
-      postData();
+      verifyContacts();
     }
   }
 

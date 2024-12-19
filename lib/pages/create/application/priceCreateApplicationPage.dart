@@ -118,29 +118,33 @@ class _PriceCreateApplicationPageState
             ),
             title: const Text("Договорная"),
           ),
-          ListTile(
-            onTap: () {
-              canLease = !canLease;
-              setState(() {});
-            },
-            contentPadding: EdgeInsets.zero,
-            leading: Container(
-              width: 20,
-              height: 20,
-              alignment: Alignment.center,
-              decoration: BoxDecoration(
-                  color: canLease ? const Color(0xff1A56DB) : null,
-                  borderRadius: BorderRadius.circular(4),
-                  border: Border.all(
-                      width: 1,
-                      color: canLease ? const Color(0xff1A56DB) : const Color(0xffD1D5DB))),
-              child: canLease
-                  ? SvgPicture.asset('assets/icons/checkMini.svg',
-                      color: Colors.white)
-                  : Container(),
-            ),
-            title: const Text("Лизинг"),
-          ),
+          CreateData.data['category']['can_lease']
+              ? ListTile(
+                  onTap: () {
+                    canLease = !canLease;
+                    setState(() {});
+                  },
+                  contentPadding: EdgeInsets.zero,
+                  leading: Container(
+                    width: 20,
+                    height: 20,
+                    alignment: Alignment.center,
+                    decoration: BoxDecoration(
+                        color: canLease ? const Color(0xff1A56DB) : null,
+                        borderRadius: BorderRadius.circular(4),
+                        border: Border.all(
+                            width: 1,
+                            color: canLease
+                                ? const Color(0xff1A56DB)
+                                : const Color(0xffD1D5DB))),
+                    child: canLease
+                        ? SvgPicture.asset('assets/icons/checkMini.svg',
+                            color: Colors.white)
+                        : Container(),
+                  ),
+                  title: const Text("Лизинг"),
+                )
+              : Container(),
         ]),
       ),
       bottomNavigationBar: BottomNavigationBarComponent(
