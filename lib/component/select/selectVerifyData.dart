@@ -11,13 +11,15 @@ class SelectVerifyData extends StatefulWidget {
   final void Function(Map data) onChanged;
   final bool pagination;
   final String showErrorMessage;
+  final Map? value;
   const SelectVerifyData(
       {super.key,
       required this.title,
       required this.onChanged,
       required this.pagination,
       required this.api,
-      required this.showErrorMessage});
+      required this.showErrorMessage,
+      @required this.value});
 
   @override
   State<SelectVerifyData> createState() => _SelectVerifyDataState();
@@ -25,6 +27,12 @@ class SelectVerifyData extends StatefulWidget {
 
 class _SelectVerifyDataState extends State<SelectVerifyData> {
   Map data = {};
+
+  @override
+  void initState() {
+    data = widget.value ?? {};
+    super.initState();
+  }
 
   void showModal() {
     if (widget.showErrorMessage.isNotEmpty) {

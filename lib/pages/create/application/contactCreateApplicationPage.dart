@@ -88,7 +88,7 @@ class _ContactCreateApplicationPageState
                   keyboardType: TextInputType.name,
                   textCapitalization: TextCapitalization.sentences,
                   style: const TextStyle(fontSize: 14),
-                  decoration: const InputDecoration(labelText: "Имя"))),
+                  decoration: const InputDecoration(hintText: "Имя"))),
           const Divider(height: 24),
           AutofillGroup(
             child: TextField(
@@ -96,7 +96,7 @@ class _ContactCreateApplicationPageState
                 autofillHints: const [AutofillHints.telephoneNumber],
                 keyboardType: TextInputType.number,
                 style: const TextStyle(fontSize: 14),
-                decoration: const InputDecoration(labelText: "Номер телефона")),
+                decoration: const InputDecoration(hintText: "Номер телефона")),
           )
         ]),
       ),

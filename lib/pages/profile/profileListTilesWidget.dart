@@ -5,7 +5,7 @@ import 'package:gservice5/component/functions/token/changedToken.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
 import 'package:gservice5/pages/ad/my/myAdListPage.dart';
 import 'package:gservice5/pages/application/my/myApplicationListPage.dart';
-import 'package:gservice5/pages/create/createContactsPage.dart';
+import 'package:gservice5/pages/create/ad/createAdContactsPage.dart';
 import 'package:gservice5/pages/profile/aboutCompany/aboutCompanyPage.dart';
 import 'package:gservice5/pages/profile/currency/currencyMainPage.dart';
 import 'package:gservice5/pages/profile/currency/editCurrencyPage.dart';
@@ -94,7 +94,7 @@ class _ProfileListTilesWidgetState extends State<ProfileListTilesWidget> {
               border: Border.all(width: 1, color: const Color(0xfff4f5f7))),
           child: ListTile(
               onTap: () => showContactsPage(),
-              leading: SvgPicture.asset('assets/icons/phone.svg',
+              leading: SvgPicture.asset('assets/icons/phoneOutline.svg',
                   color: ColorComponent.mainColor),
               title: const Text("Контакты"),
               trailing: SvgPicture.asset('assets/icons/right.svg')),
@@ -184,20 +184,6 @@ class _ProfileListTilesWidgetState extends State<ProfileListTilesWidget> {
                   builder: (context) => LogOutAlert(onPressed: () async {
                         await ChangedToken().removeToken(context);
                       }));
-            },
-            leading: SvgPicture.asset('assets/icons/exit.svg'),
-            title: const Text("Выход"),
-          ),
-        ),
-        Container(
-          decoration: BoxDecoration(
-              border: Border.all(width: 1, color: const Color(0xfff4f5f7))),
-          child: ListTile(
-            onTap: () {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => CreateContactsPage()));
             },
             leading: SvgPicture.asset('assets/icons/exit.svg'),
             title: const Text("Выход"),

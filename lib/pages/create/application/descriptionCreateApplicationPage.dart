@@ -4,10 +4,19 @@ import 'package:gservice5/component/snackBar/snackBarComponent.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
 import 'package:gservice5/component/widgets/bottom/bottomNavigationBarComponent.dart';
 import 'package:gservice5/pages/create/data/createData.dart';
+import 'package:gservice5/pages/create/structure/controllerPage/pageControllerIndexedStack.dart';
 
 class DescriptionCreateApplicationPage extends StatefulWidget {
+  final void Function() previousPage;
   final void Function() nextPage;
-  const DescriptionCreateApplicationPage({super.key, required this.nextPage});
+  final String exampleTitle;
+  DescriptionCreateApplicationPage(
+      {super.key,
+      required this.previousPage,
+      required this.nextPage,
+      required this.exampleTitle});
+  PageControllerIndexedStack pageControllerIndexedStack =
+      PageControllerIndexedStack();
 
   @override
   State<DescriptionCreateApplicationPage> createState() =>
@@ -17,7 +26,9 @@ class DescriptionCreateApplicationPage extends StatefulWidget {
 class _DescriptionCreateApplicationPageState
     extends State<DescriptionCreateApplicationPage> {
   TextEditingController descEditingController = TextEditingController();
-
+  PageControllerIndexedStack pageControllerIndexedStack =
+      PageControllerIndexedStack();
+      
   @override
   void dispose() {
     descEditingController.dispose();
@@ -35,6 +46,7 @@ class _DescriptionCreateApplicationPageState
 
   void savedData() {
     CreateData.data['description'] = descEditingController.text;
+    pageControllerIndexedStack.nextPage();
     widget.nextPage();
   }
 
@@ -57,10 +69,8 @@ class _DescriptionCreateApplicationPageState
               decoration: InputDecoration(
                   hintText: "Что нужно сделать?",
                   helperStyle: TextStyle(color: ColorComponent.gray['500']))),
-          Text(
-            "Например: Нужен трактор для участка",
-            style: TextStyle(color: ColorComponent.gray['500']),
-          )
+          Text(widget.exampleTitle,
+              style: TextStyle(color: ColorComponent.gray['500']))
         ]),
       ),
       bottomNavigationBar: BottomNavigationBarComponent(

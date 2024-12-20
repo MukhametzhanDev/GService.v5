@@ -9,6 +9,7 @@ import 'package:gservice5/component/snackBar/snackBarComponent.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
 import 'package:gservice5/component/widgets/bottom/bottomNavigationBarComponent.dart';
 import 'package:gservice5/pages/create/application/createApplication.dart';
+import 'package:gservice5/pages/create/application/createApplication2.dart';
 import 'package:gservice5/pages/create/data/createData.dart';
 
 class SectionCreateApplicationPage extends StatefulWidget {
@@ -59,10 +60,13 @@ class _SectionCreateApplicationPageState
 
   void showPage() {
     CreateData.data['category_id'] = data[currentIndex]['id'];
-    CreateData.data['category'] = data[currentIndex];
-    Navigator.pushNamed(context, "CreateApplication");
-    // Navigator.push(
-    //     context, MaterialPageRoute(builder: (context) => CreateApplication()));
+    // CreateData.data['category'] = data[currentIndex];
+    // Navigator.pushNamed(context, "CreateApplication");
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) =>
+                CreateApplication2(data: data[currentIndex])));
   }
 
   @override
@@ -71,7 +75,8 @@ class _SectionCreateApplicationPageState
       appBar: AppBar(
           leadingWidth: MediaQuery.of(context).size.width - 100,
           leading: BackTitleButton(
-              onPressed: () => Navigator.pop(context), title: "Разместить заявку")),
+              onPressed: () => Navigator.pop(context),
+              title: "Разместить заявку")),
       body: loader
           ? const LoaderComponent()
           : SingleChildScrollView(
@@ -79,7 +84,8 @@ class _SectionCreateApplicationPageState
               child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Text("Какая у вас задача?"),
+                    const Text("Какая у вас задача?",
+                        style: TextStyle(fontSize: 15)),
                     const Divider(height: 16),
                     Column(
                         children: data.map((value) {
@@ -115,8 +121,8 @@ class _SectionCreateApplicationPageState
                               const Divider(indent: 12),
                               Expanded(
                                 child: Text(value['title'],
-                                    style:
-                                        const TextStyle(fontWeight: FontWeight.w500)),
+                                    style: const TextStyle(
+                                        fontWeight: FontWeight.w500)),
                               ),
                               const Divider(indent: 12),
                               SvgPicture.network(value['icon'], width: 24)

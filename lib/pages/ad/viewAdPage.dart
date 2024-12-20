@@ -14,7 +14,6 @@ import 'package:gservice5/component/loader/loaderComponent.dart';
 import 'package:gservice5/component/snackBar/snackBarComponent.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
 import 'package:gservice5/component/widgets/404/notFoundpage.dart';
-import 'package:gservice5/component/widgets/author/authorAdWidget.dart';
 import 'package:gservice5/component/widgets/characteristic/showCharacteristicWidget.dart';
 import 'package:gservice5/component/widgets/price/priceTextWidget.dart';
 import 'package:gservice5/pages/ad/list/recommendationAdList.dart';

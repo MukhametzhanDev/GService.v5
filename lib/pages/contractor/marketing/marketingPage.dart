@@ -142,7 +142,7 @@ class _MarketingPageState extends State<MarketingPage> {
                             decoration: BoxDecoration(
                                 color: ColorComponent.mainColor.withOpacity(.2),
                                 borderRadius: BorderRadius.circular(4)),
-                            child: SvgPicture.asset('assets/icons/phone.svg',
+                            child: SvgPicture.asset('assets/icons/phoneOutline.svg',
                                 color: Colors.black),
                           ),
                           const Divider(indent: 12),

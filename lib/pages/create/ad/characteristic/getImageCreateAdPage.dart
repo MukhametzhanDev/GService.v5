@@ -3,19 +3,18 @@ import 'package:flutter/material.dart';
 import 'package:gservice5/component/button/button.dart';
 import 'package:gservice5/component/dio/dio.dart';
 import 'package:gservice5/component/loader/modalLoaderComponent.dart';
-import 'package:gservice5/component/request/verifyContact.dart';
 import 'package:gservice5/component/snackBar/snackBarComponent.dart';
 import 'package:gservice5/component/widgets/bottom/bottomNavigationBarComponent.dart';
-import 'package:gservice5/pages/ad/package/listPackagePage.dart';
 import 'package:gservice5/pages/create/data/createData.dart';
 import 'package:gservice5/pages/create/getImageWidget.dart';
-import 'package:gservice5/pages/profile/contacts/addContactsPage.dart';
+import 'package:gservice5/pages/create/structure/controllerPage/pageControllerIndexedStack.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
 class GetImageCreateAdPage extends StatefulWidget {
   final void Function() previousPage;
-  const GetImageCreateAdPage({super.key, required this.previousPage});
+  final void Function() nextPage;
+  const GetImageCreateAdPage(
+      {super.key, required this.previousPage, required this.nextPage});
 
   @override
   State<GetImageCreateAdPage> createState() => _GetImageCreateAdPageState();
@@ -24,45 +23,8 @@ class GetImageCreateAdPage extends StatefulWidget {
 class _GetImageCreateAdPageState extends State<GetImageCreateAdPage> {
   List imagesPath = [];
   List imagesUrl = [];
-
-  Future postData(List images) async {
-    showModalLoader(context);
-    CreateData.characteristic
-        .removeWhere((key, value) => value is Map<String, dynamic>);
-    CreateData.data.removeWhere((key, value) => value is Map<String, dynamic>);
-    print(CreateData.data);
-    FormData formData = FormData.fromMap({
-      "images": images,
-      ...CreateData.data,
-      "characteristic": CreateData.characteristic,
-      "country_id": 1
-    }, ListFormat.multiCompatible);
-    try {
-      Response response = await dio.post("/ad", data: formData);
-      print(response.data);
-      if (response.data['success'] && response.statusCode == 200) {
-        CreateData.data.clear();
-        CreateData.images.clear();
-        CreateData.characteristic.clear();
-        Navigator.pop(context);
-        Navigator.pop(context, "ad");
-        Navigator.pop(context, "ad");
-        Navigator.push(
-            context,
-            MaterialPageRoute(
-                builder: (context) => ListPackagePage(
-                    categoryId: response.data['data']['category']['id'],
-                    adId: response.data['data']['id'],
-                    goBack: false)));
-      } else {
-        Navigator.pop(context);
-        SnackBarComponent().showResponseErrorMessage(response, context);
-      }
-    } on DioException catch (e) {
-      print(e.response);
-      SnackBarComponent().showServerErrorMessage(context);
-    }
-  }
+  PageControllerIndexedStack pageControllerIndexedStack =
+      PageControllerIndexedStack();
 
   Future postImage() async {
     showModalImageLoader(context);
@@ -81,7 +43,7 @@ class _GetImageCreateAdPageState extends State<GetImageCreateAdPage> {
       Navigator.pop(context);
       if (response.data['success']) {
         CreateData.data['images'] = response.data['data'];
-        await postData(response.data['data']);
+        savedData();
       } else {
         SnackBarComponent().showResponseErrorMessage(response, context);
       }
@@ -90,25 +52,16 @@ class _GetImageCreateAdPageState extends State<GetImageCreateAdPage> {
     }
   }
 
-  Future verifyContacts() async {
-    showModalLoader(context);
-    List data = await GetContact().getData(context);
-    print(data);
-    Navigator.pop(context);
-
-    if (data.isEmpty) {
-      showCupertinoModalBottomSheet(
-          context: context, builder: (context) => const AddContactsPage());
-    } else {
-      postImage();
-    }
+  void savedData() {
+    pageControllerIndexedStack.nextPage();
+    widget.nextPage();
   }
 
   void verifyData() {
     if (imagesPath.isEmpty) {
       SnackBarComponent().showErrorMessage("Загрузите изображения", context);
     } else {
-      verifyContacts();
+      postImage();
     }
   }
 
@@ -138,7 +91,7 @@ class _GetImageCreateAdPageState extends State<GetImageCreateAdPage> {
           Button(
               onPressed: verifyData,
               padding: const EdgeInsets.symmetric(horizontal: 15),
-              title: "Опубликовать"),
+              title: "Продолжить"),
           // Divider(height: 4),
           // Button(
           //     onPressed: postData,

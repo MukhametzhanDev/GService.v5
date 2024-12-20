@@ -59,7 +59,7 @@ class _AboutCompanyPageState extends State<AboutCompanyPage> {
             trailing: SvgPicture.asset('assets/icons/right.svg')),
         Divider(height: 1, color: ColorComponent.gray['200']),
         ListTile(
-            leading: SvgPicture.asset('assets/icons/phone.svg',
+            leading: SvgPicture.asset('assets/icons/phoneOutline.svg',
                 color: ColorComponent.mainColor),
             title: const Text("Контакты"),
             trailing: SvgPicture.asset('assets/icons/right.svg')),

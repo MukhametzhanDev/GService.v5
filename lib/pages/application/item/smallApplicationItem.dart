@@ -74,8 +74,7 @@ class _SmallApplicationItemState extends State<SmallApplicationItem> {
             Row(
               children: [
                 Expanded(
-                  child: Text(
-                      "${priceFormat(widget.data['price']?['price'])} ₸",
+                  child: Text(priceFormatted(widget.data['price']?['price']),
                       style: const TextStyle(
                           fontSize: 14,
                           fontWeight: FontWeight.w600,

@@ -283,7 +283,7 @@ class MyAdItem extends StatelessWidget {
                 ),
                 Row(
                   children: [
-                    SvgPicture.asset('assets/icons/phone.svg',
+                    SvgPicture.asset('assets/icons/phoneOutline.svg',
                         width: 16, color: ColorComponent.gray['500']),
                     const SizedBox(width: 4),
                     Text(data['statistics']['called'].toString(),

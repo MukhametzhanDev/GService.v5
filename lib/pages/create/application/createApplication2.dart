@@ -3,15 +3,15 @@ import 'package:gservice5/component/alert/closeCreateAdAlert.dart';
 import 'package:gservice5/component/button/back/backTitleButton.dart';
 import 'package:gservice5/component/textField/closeKeyboard/closeKeyboard.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
-import 'package:gservice5/pages/create/ad/characteristic/getCharacteristicAdPage.dart';
 import 'package:gservice5/pages/create/ad/characteristic/getChildCharacteristicPage.dart';
-import 'package:gservice5/pages/create/ad/characteristic/getImageCreateAdPage.dart';
-import 'package:gservice5/pages/create/ad/stepCreateAdWidget.dart';
-import 'package:gservice5/pages/create/ad/titleCreateAdPage.dart';
+import 'package:gservice5/pages/create/application/createApplicationContactsPage.dart';
+import 'package:gservice5/pages/create/application/descriptionCreateApplicationPage.dart';
+import 'package:gservice5/pages/create/application/getImageCreateApplicaitonPage.dart';
+import 'package:gservice5/pages/create/application/priceCreateApplicationPage.dart';
+import 'package:gservice5/pages/create/application/stepCreateApplicationWidget.dart';
 import 'package:gservice5/pages/create/ad/createAdContactsPage.dart';
 import 'package:gservice5/pages/create/data/createData.dart';
 import 'package:gservice5/pages/create/options/getSelectPage.dart';
-import 'package:gservice5/pages/create/priceCreateAdPage.dart';
 import 'package:gservice5/pages/create/structure/controllerPage/pageControllerIndexedStack.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
@@ -22,15 +22,15 @@ import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 //price
 //image
 
-class StructureCreateAdPage extends StatefulWidget {
+class CreateApplication2 extends StatefulWidget {
   final Map data;
-  const StructureCreateAdPage({super.key, required this.data});
+  const CreateApplication2({super.key, required this.data});
 
   @override
-  State<StructureCreateAdPage> createState() => _StructureCreateAdPageState();
+  State<CreateApplication2> createState() => _CreateApplication2State();
 }
 
-class _StructureCreateAdPageState extends State<StructureCreateAdPage> {
+class _CreateApplication2State extends State<CreateApplication2> {
   PageController pageController = PageController();
   List<Map> data = [];
   List<Widget> pages = [];
@@ -66,44 +66,38 @@ class _StructureCreateAdPageState extends State<StructureCreateAdPage> {
   void formattedPages() {
     closeKeyboard();
     int index = pageControllerIndexedStack.getIndex();
-    if (index == data.length - 1) {
-      bool showTitle = widget.data['options']['has_title'];
-      pages.add(TitleCreateAdPage(
-          nextPage: addCharacteristicPage,
-          previousPage: previousPage,
-          showTitle: showTitle));
+    if (index == data.length) {
+      addDescriptionPage();
     } else if (index < data.length) {
       addPage();
     }
     setState(() {});
   }
 
-  void addCharacteristicPage() {
+  void addDescriptionPage() {
     closeKeyboard();
-    pages.add(GetCharacteristicAdPage(
-        nextPage: addChildCharacteristicPage, previousPage: previousPage));
+    pages.add(DescriptionCreateApplicationPage(
+        exampleTitle: widget.data['options']['description_placeholder']
+            ['title_ru'],
+        previousPage: previousPage,
+        nextPage: addGetPricePage));
   }
 
   void addGetPricePage() {
-    List prices = widget.data['options']['prices'] ?? [];
     closeKeyboard();
-    if (prices.isEmpty) {
-      addGetImagePage();
-    } else {
-      pages.add(PriceCreateAdPage(
-          nextPage: addGetImagePage, previousPage: previousPage, data: prices));
-    }
+    bool canLease = widget.data['can_lease'];
+    pages.add(PriceCreateApplicationPage(
+        nextPage: addGetImagePage, canLease: canLease));
   }
 
   void addGetImagePage() {
     closeKeyboard();
-    pages.add(GetImageCreateAdPage(
-        previousPage: previousPage, nextPage: addContactPage));
+    pages.add(GetImageCreateApplicaitonPage(nextPage: addContactPage));
   }
 
   void addContactPage() {
     closeKeyboard();
-    pages.add(CreateAdContactsPage(previousPage: previousPage));
+    pages.add(CreateApplicationContactsPage());
   }
 
   void addChildCharacteristicPage(List data) {
@@ -166,7 +160,7 @@ class _StructureCreateAdPageState extends State<StructureCreateAdPage> {
         child: ValueListenableBuilder<int>(
             valueListenable: pageControllerIndexedStack.pageIndexNotifier,
             builder: (context, pageIndex, child) {
-              bool showTitle = data.length - 1 > pageIndex;
+              bool showTitle = data.length > pageIndex;
               return Scaffold(
                   appBar: AppBar(
                     // leadingWidth: MediaQuery.of(context).size.width - 100,
@@ -190,7 +184,7 @@ class _StructureCreateAdPageState extends State<StructureCreateAdPage> {
                             Size(MediaQuery.of(context).size.width, 10),
                         child: Padding(
                           padding: const EdgeInsets.only(bottom: 5),
-                          child: StepCreateAdWidget(
+                          child: StepCreateApplicationWidget(
                               options: widget.data['options'],
                               activeIndex: pageIndex),
                         )),

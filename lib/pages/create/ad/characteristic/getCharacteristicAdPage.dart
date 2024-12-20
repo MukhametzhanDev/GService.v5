@@ -323,13 +323,13 @@ class TextFieldCharacteristic extends StatelessWidget {
         },
         style: const TextStyle(fontSize: 14),
         decoration: InputDecoration(
-          hintStyle: TextStyle(
-              fontSize: 14,
-              color: ColorComponent.gray['500'],
-              fontWeight: FontWeight.w400),
-          hintText: "Напишите",
-          labelText: value['tag_attribute']?['placeholder'],
-        ),
+            hintStyle: TextStyle(
+                fontSize: 14,
+                color: ColorComponent.gray['500'],
+                fontWeight: FontWeight.w400),
+            hintText: "Напишите",
+            labelText: value['tag_attribute']?['placeholder'],
+            suffixText: value['measurement_unit']?['title_ru'] ?? ""),
       ),
       const SizedBox(height: 14),
     ]);

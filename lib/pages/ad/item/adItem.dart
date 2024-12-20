@@ -7,6 +7,7 @@ import 'package:gservice5/component/image/cacheImage.dart';
 import 'package:gservice5/component/modal/contact/shortContactModal.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
 import 'package:gservice5/component/widgets/price/priceTextWidget.dart';
+import 'package:gservice5/pages/ad/item/adItemCharacteristic.dart';
 import 'package:gservice5/pages/ad/package/showPackageIcons.dart';
 import 'package:gservice5/pages/ad/viewAdPage.dart';
 import 'package:gservice5/pages/favorite/ad/data/favoriteAdData.dart';
@@ -26,85 +27,6 @@ class _AdItemState extends State<AdItem> {
     Navigator.push(context,
             MaterialPageRoute(builder: (context) => ViewAdPage(id: id)))
         .then(verifyFavoriteAd);
-  }
-
-  String getTitle(value) {
-    if (value['values']['title'].runtimeType == String) {
-      if (value['values']['title'].length > 3) {
-        return value['values']['title'];
-      } else {
-        return "${value['characteristic']['title']}: ${value['values']['title'].toString().toLowerCase()}";
-      }
-    } else if (value['values']['title'].runtimeType == int) {
-      return value['values']['title'].toString();
-    } else {
-      return "";
-    }
-  }
-
-  Widget getCharacteristic(List data) {
-    double lineHeight = 15.0;
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Wrap(
-            runSpacing: 1.5,
-            children: data.map((value) {
-              int index = data.indexOf(value);
-              bool last = index == data.length - 1;
-              String title = getTitle(value);
-              if (title.length > 3) {
-                return RichText(
-                  text: TextSpan(style: TextStyle(fontSize: 13), children: [
-                    TextSpan(
-                        text: title,
-                        style: TextStyle(color: ColorComponent.gray['700'])),
-                    TextSpan(
-                        text: last ? "." : " / ",
-                        style: TextStyle(
-                            color: last
-                                ? Colors.black
-                                : ColorComponent.gray['300']))
-                  ]),
-                );
-              } else {
-                return Container();
-              }
-            }).toList()),
-        Expanded(
-          child: LayoutBuilder(builder: (context, constraints) {
-            int calculateMaxLines(BoxConstraints constraints) {
-              return (constraints.maxHeight / (lineHeight + 5)).floor();
-            }
-
-            return Text(
-                "Прицеп 105 кубов в отличном состоянии тент крыша новая хадовка отличная все делал месяц назад.",
-                style: TextStyle(
-                    fontSize: 13,
-                    height: lineHeight / 10,
-                    color: ColorComponent.gray['700']),
-                maxLines: calculateMaxLines(constraints),
-                overflow: TextOverflow.ellipsis);
-          }),
-        )
-      ],
-    );
-    // RichText(
-    //     maxLines: 3,
-    //     overflow: TextOverflow.ellipsis,
-    //     text: TextSpan(
-    //         style: TextStyle(
-    //             color: ColorComponent.gray['500'], fontSize: 13, height: 1.4),
-    //         children: data.map((value) {
-    //           int index = data.indexOf(value);
-    //           String slash = data.length - 1 == index ? "." : ", ";
-    //           String title =
-    //               value['characteristic']['title'].toString().split("/")[0];
-    //           return TextSpan(
-    //               text:
-    //                   "${value['values']['title']}$slash ");
-    //         }).toList()));
-    // // return "";
   }
 
   void verifyFavoriteAd(value) {
@@ -236,8 +158,7 @@ class _AdItemState extends State<AdItem> {
                             overflow: TextOverflow.ellipsis),
                         Divider(height: 8),
                         Expanded(
-                            child: getCharacteristic(
-                                widget.data['characteristics'])),
+                            child: AdItemCharacteristic(data: widget.data)),
                         // Text(
                         //     "На заказы от 3-х смен мы предоставляем скидку. Вся техника находится у нас в собственности, работают опытные операторы и качественно",
                         //     maxLines: 3,

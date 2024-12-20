@@ -71,7 +71,7 @@ class _CreateApplicationState extends State<CreateApplication> {
       pages.add(GetTypeEquipmentPage(nextPage: nextPage));
       titles.add("Какой тип техники вы хотите купить?");
     }
-    pages.add(DescriptionCreateApplicationPage(nextPage: nextPage));
+    // pages.add(DescriptionCreateApplicationPage(nextPage: nextPage));
     titles.add("Напишите подробности");
     if (options['has_transport_brand']) {
       pages.add(GetBrandEquipmentPage(nextPage: nextPage));
@@ -86,14 +86,14 @@ class _CreateApplicationState extends State<CreateApplication> {
       titles.add("Профессия");
     }
     pages.addAll([
-      PriceCreateApplicationPage(nextPage: nextPage, canLease: canLease),
+      // PriceCreateApplicationPage(nextPage: nextPage, canLease: canLease),
       AddressCreateApplicationPage(nextPage: nextPage)
     ]);
     titles.addAll(["Данные и цена", "Указать адрес"]);
     // if (!hasToken) {
     pages.addAll([
       ContactCreateApplicationPage(nextPage: nextPage),
-      const GetImageCreateApplicaitonPage()
+      // const GetImageCreateApplicaitonPage()
     ]);
     titles.addAll(["Контакты", "Дополнительно"]);
     // } else {

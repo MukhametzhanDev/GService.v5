@@ -7,6 +7,7 @@ import 'package:gservice5/component/message/explanatoryMessage.dart';
 import 'package:gservice5/component/snackBar/snackBarComponent.dart';
 import 'package:gservice5/component/widgets/bottom/bottomNavigationBarComponent.dart';
 import 'package:gservice5/pages/create/data/createData.dart';
+import 'package:gservice5/pages/create/structure/controllerPage/pageControllerIndexedStack.dart';
 import 'package:intl/intl.dart';
 
 class PriceCreateApplicationPage extends StatefulWidget {
@@ -28,6 +29,8 @@ class _PriceCreateApplicationPageState
   CurrencyTextInputFormatter currencyTextInputFormatter =
       CurrencyTextInputFormatter(
           NumberFormat.currency(decimalDigits: 0, symbol: "", locale: 'kk'));
+  PageControllerIndexedStack pageControllerIndexedStack =
+      PageControllerIndexedStack();
 
   void verifyData() {
     String fromPrice = priceEditingController.text.trim();
@@ -61,6 +64,7 @@ class _PriceCreateApplicationPageState
 
   void showPage() {
     savedData();
+    pageControllerIndexedStack.nextPage();
     widget.nextPage();
   }
 
@@ -118,7 +122,7 @@ class _PriceCreateApplicationPageState
             ),
             title: const Text("Договорная"),
           ),
-          CreateData.data['category']['can_lease']
+          widget.canLease
               ? ListTile(
                   onTap: () {
                     canLease = !canLease;

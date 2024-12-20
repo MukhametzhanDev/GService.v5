@@ -3,33 +3,35 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:gservice5/component/button/button.dart';
 import 'package:gservice5/component/dio/dio.dart';
-import 'package:gservice5/component/map/getMapAddressPage.dart';
-import 'package:gservice5/component/select/selectButton.dart';
+import 'package:gservice5/component/loader/modalLoaderComponent.dart';
 import 'package:gservice5/component/select/selectVerifyData.dart';
 import 'package:gservice5/component/snackBar/snackBarComponent.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
 import 'package:gservice5/component/widgets/bottom/bottomNavigationBarComponent.dart';
 import 'package:gservice5/component/widgets/checkBox/checkBoxWidget.dart';
+import 'package:gservice5/pages/ad/package/listPackagePage.dart';
+import 'package:gservice5/pages/create/data/createData.dart';
 import 'package:gservice5/pages/profile/contacts/addContactModal.dart';
-import 'package:gservice5/pages/profile/contacts/addContactsPage.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
-class CreateContactsPage extends StatefulWidget {
-  const CreateContactsPage({super.key});
+class CreateAdContactsPage extends StatefulWidget {
+  final void Function() previousPage;
+  const CreateAdContactsPage({super.key, required this.previousPage});
 
   @override
-  State<CreateContactsPage> createState() => _CreateContactsPageState();
+  State<CreateAdContactsPage> createState() => _CreateAdContactsPageState();
 }
 
-class _CreateContactsPageState extends State<CreateContactsPage> {
-  Map address = {};
+class _CreateAdContactsPageState extends State<CreateAdContactsPage> {
   Map city = {};
   List contacts = [];
   bool loader = true;
+  bool loaderUser = true;
 
   @override
   void initState() {
     getData();
+    getUserData();
     super.initState();
   }
 
@@ -48,25 +50,83 @@ class _CreateContactsPageState extends State<CreateContactsPage> {
     }
   }
 
+  Future getUserData() async {
+    try {
+      Response response = await dio.get("/user");
+      if (response.data['success']) {
+        city = response.data['data']['city'];
+      }
+    } catch (e) {}
+    loaderUser = false;
+    setState(() {});
+  }
+
+  FormData getFormData() {
+    CreateData.characteristic
+        .removeWhere((key, value) => value is Map<String, dynamic>);
+    CreateData.data.removeWhere((key, value) => value is Map<String, dynamic>);
+    List phones = getPhones();
+    FormData formData = FormData.fromMap({
+      ...CreateData.data,
+      "characteristic": CreateData.characteristic,
+      "city_id": city['id'],
+      "phones": phones,
+      "country_id": 1
+    }, ListFormat.multiCompatible);
+    return formData;
+  }
+
+  Future postData() async {
+    showModalLoader(context);
+    try {
+      Response response = await dio.post("/ad", data: getFormData());
+      print(response.data);
+      if (response.data['success'] && response.statusCode == 200) {
+        CreateData.data.clear();
+        CreateData.images.clear();
+        CreateData.characteristic.clear();
+        Navigator.pop(context);
+        Navigator.pop(context, "ad");
+        Navigator.pop(context, "ad");
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => ListPackagePage(
+                    categoryId: response.data['data']['category']['id'],
+                    adId: response.data['data']['id'],
+                    goBack: false)));
+      } else {
+        Navigator.pop(context);
+        SnackBarComponent().showResponseErrorMessage(response, context);
+      }
+    } on DioException catch (e) {
+      print(e.response);
+      SnackBarComponent().showServerErrorMessage(context);
+    }
+  }
+
+  List getPhones() {
+    List value = contacts
+        .where((value) => value['active'])
+        .map((value) => value['phone'])
+        .toList();
+    return value;
+  }
+
+  void verifyData() {
+    if (city.isEmpty) {
+      SnackBarComponent().showErrorMessage("Заполните строку 'Город'", context);
+    } else if (contacts.isEmpty) {
+      SnackBarComponent()
+          .showErrorMessage("Заполните строку 'Телефоны'", context);
+    } else {
+      postData();
+    }
+  }
+
   List allActived(List data) {
     data.forEach((value) => value['active'] = true);
     return data;
-  }
-
-  void showGetAddressPage() {
-    if (city.isEmpty) {
-      SnackBarComponent().showErrorMessage("Заполните строку 'Город'", context);
-    } else {
-      Navigator.push(
-          context,
-          MaterialPageRoute(
-              builder: (context) => GetMapAddressPage(
-                  onSavedData: (value) {
-                    address = value;
-                    setState(() {});
-                  },
-                  cityData: city)));
-    }
   }
 
   void showContactPage() {
@@ -103,24 +163,22 @@ class _CreateContactsPageState extends State<CreateContactsPage> {
                 child: Text("Контактная информация",
                     style:
                         TextStyle(fontSize: 20, fontWeight: FontWeight.w600))),
-            const Divider(height: 24),
-            Text("Город и адрес",
+            const Divider(height: 12),
+            Text("Город",
                 style: TextStyle(fontSize: 15, fontWeight: FontWeight.w500)),
             const Divider(height: 12),
-            SelectVerifyData(
-                title: "Город",
-                onChanged: (value) {
-                  city = value;
-                  setState(() {});
-                },
-                pagination: false,
-                api: "/cities?country_id=191",
-                showErrorMessage: ""),
-            const Divider(),
-            SelectButton(
-                title: address.isEmpty ? "Введите адрес" : address['address'],
-                active: address.isNotEmpty,
-                onPressed: showGetAddressPage),
+            loaderUser
+                ? Container()
+                : SelectVerifyData(
+                    title: "Город",
+                    value: city,
+                    onChanged: (value) {
+                      city = value;
+                      setState(() {});
+                    },
+                    pagination: false,
+                    api: "/cities?country_id=191",
+                    showErrorMessage: ""),
             const Divider(height: 24),
             Text("Телефоны",
                 style: TextStyle(fontSize: 15, fontWeight: FontWeight.w500)),
@@ -153,7 +211,7 @@ class _CreateContactsPageState extends State<CreateContactsPage> {
               //       Navigator.push(
               //           context,
               //           MaterialPageRoute(
-              //               builder: (context) => CreateContactsPage()));
+              //               builder: (context) => CreateAdContactsPage()));
               //     },
               //     title: const Text("+7 747 265 23 38",
               //         style: TextStyle(fontSize: 14)));
@@ -178,7 +236,7 @@ class _CreateContactsPageState extends State<CreateContactsPage> {
       ),
       bottomNavigationBar: BottomNavigationBarComponent(
           child: Button(
-              onPressed: () {},
+              onPressed: verifyData,
               padding: EdgeInsets.symmetric(horizontal: 15),
               title: "Подать объявление")),
     );

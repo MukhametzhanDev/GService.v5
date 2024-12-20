@@ -11,8 +11,12 @@ import 'package:gservice5/pages/create/structure/controllerPage/pageControllerIn
 class TitleCreateAdPage extends StatefulWidget {
   final void Function() nextPage;
   final void Function() previousPage;
+  final bool showTitle;
   const TitleCreateAdPage(
-      {super.key, required this.nextPage, required this.previousPage});
+      {super.key,
+      required this.nextPage,
+      required this.previousPage,
+      required this.showTitle});
 
   @override
   State<TitleCreateAdPage> createState() => _TitleCreateAdPageState();
@@ -20,6 +24,7 @@ class TitleCreateAdPage extends StatefulWidget {
 
 class _TitleCreateAdPageState extends State<TitleCreateAdPage> {
   TextEditingController descEditingController = TextEditingController();
+  TextEditingController titleEditingController = TextEditingController();
   PageControllerIndexedStack pageControllerIndexedStack =
       PageControllerIndexedStack();
   List tags = [];
@@ -34,6 +39,7 @@ class _TitleCreateAdPageState extends State<TitleCreateAdPage> {
   @override
   void dispose() {
     descEditingController.dispose();
+    titleEditingController.dispose();
     super.dispose();
   }
 
@@ -55,8 +61,10 @@ class _TitleCreateAdPageState extends State<TitleCreateAdPage> {
 
   void verifyData() {
     String desc = descEditingController.text.trim();
-    if (desc.isEmpty) {
-      SnackBarComponent().showErrorMessage("Заполните все строки", context);
+    if (widget.showTitle && titleEditingController.text.isEmpty) {
+      SnackBarComponent().showErrorMessage("Введите заголовок", context);
+    } else if (desc.isEmpty) {
+      SnackBarComponent().showErrorMessage("Введите описание", context);
     } else {
       savedData();
     }
@@ -78,6 +86,7 @@ class _TitleCreateAdPageState extends State<TitleCreateAdPage> {
 
   void savedData() {
     CreateData.data['description'] = descEditingController.text;
+    CreateData.data['title'] = titleEditingController.text;
     pageControllerIndexedStack.nextPage();
     widget.nextPage();
   }
@@ -92,6 +101,18 @@ class _TitleCreateAdPageState extends State<TitleCreateAdPage> {
               padding: EdgeInsets.only(bottom: 12),
               child: Text("Напишите подробности",
                   style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600))),
+          widget.showTitle
+              ? Padding(
+                  padding: const EdgeInsets.only(bottom: 16),
+                  child: TextField(
+                      controller: titleEditingController,
+                      textCapitalization: TextCapitalization.sentences,
+                      decoration: InputDecoration(
+                          hintText: "Введите заголовок",
+                          helperStyle:
+                              TextStyle(color: ColorComponent.gray['500']))),
+                )
+              : Container(),
           TextField(
               controller: descEditingController,
               style: const TextStyle(fontSize: 14),

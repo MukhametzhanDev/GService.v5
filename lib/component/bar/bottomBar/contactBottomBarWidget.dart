@@ -46,7 +46,7 @@ class _ContactBottomBarWidgetState extends State<ContactBottomBarWidget> {
           Expanded(
               child: Button(
             onPressed: () {},
-            icon: "phone.svg",
+            icon: "phoneOutline.svg",
             title: "Позвонить",
             widthIcon: 20,
             backgroundColor: ColorComponent.mainColor.withOpacity(.1),

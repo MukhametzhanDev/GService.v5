@@ -9,6 +9,8 @@ import 'package:gservice5/component/snackBar/snackBarComponent.dart';
 import 'package:gservice5/component/stickers/showStickersList.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
 import 'package:gservice5/component/widgets/price/priceTextWidget.dart';
+import 'package:gservice5/pages/ad/item/adItem.dart';
+import 'package:gservice5/pages/ad/item/adItemCharacteristic.dart';
 import 'package:intl/intl.dart';
 
 class PreviewItemWidget extends StatefulWidget {
@@ -170,20 +172,24 @@ class _PreviewItemWidgetState extends State<PreviewItemWidget> {
                         Expanded(
                             child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
+                          // mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: [
                             Text(data['sub_title'],
                                 style: const TextStyle(
                                     fontSize: 15,
                                     fontWeight: FontWeight.w500,
-                                    height: 1.3)),
-                            const Divider(height: 10),
-                            Text(
-                                "На заказы от 3-х смен мы предоставляем скидку. Вся техника находится у нас в собственности, работают опытные операторы и качественно",
-                                maxLines: 3,
-                                overflow: TextOverflow.ellipsis,
-                                style: TextStyle(
-                                    color: ColorComponent.gray['600'],
-                                    fontSize: 13)),
+                                    height: 1.3),
+                                maxLines: 2,
+                                overflow: TextOverflow.ellipsis),
+                            Divider(height: 8),
+                            Expanded(child: AdItemCharacteristic(data: data)),
+                            // Text(
+                            //     "На заказы от 3-х смен мы предоставляем скидку. Вся техника находится у нас в собственности, работают опытные операторы и качественно",
+                            //     maxLines: 3,
+                            //     overflow: TextOverflow.ellipsis,
+                            //     style: TextStyle(
+                            //         color: ColorComponent.gray['600'],
+                            //         fontSize: 13))
                           ],
                         ))
                       ],
