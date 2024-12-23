@@ -34,7 +34,7 @@ class AdItemCharacteristic extends StatelessWidget {
               String title = getTitle(value);
               if (title.length > 3) {
                 return RichText(
-                  text: TextSpan(style: TextStyle(fontSize: 13), children: [
+                  text: TextSpan(style: const TextStyle(fontSize: 13), children: [
                     TextSpan(
                         text: title,
                         style: TextStyle(color: ColorComponent.gray['700'])),

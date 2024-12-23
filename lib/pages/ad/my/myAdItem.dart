@@ -6,7 +6,6 @@ import 'package:gservice5/component/image/cacheImage.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
 import 'package:gservice5/component/widgets/price/priceTextWidget.dart';
 import 'package:gservice5/pages/ad/my/statistic/statisticAdPage.dart';
-import 'package:intl/intl.dart';
 
 class MyAdItem extends StatelessWidget {
   final Map<String, dynamic> data;

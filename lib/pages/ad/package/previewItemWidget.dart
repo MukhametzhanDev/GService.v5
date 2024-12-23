@@ -181,7 +181,7 @@ class _PreviewItemWidgetState extends State<PreviewItemWidget> {
                                     height: 1.3),
                                 maxLines: 2,
                                 overflow: TextOverflow.ellipsis),
-                            Divider(height: 8),
+                            const Divider(height: 8),
                             Expanded(child: AdItemCharacteristic(data: data)),
                             // Text(
                             //     "На заказы от 3-х смен мы предоставляем скидку. Вся техника находится у нас в собственности, работают опытные операторы и качественно",

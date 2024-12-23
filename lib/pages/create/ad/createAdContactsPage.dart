@@ -125,7 +125,9 @@ class _CreateAdContactsPageState extends State<CreateAdContactsPage> {
   }
 
   List allActived(List data) {
-    data.forEach((value) => value['active'] = true);
+    for (var value in data) {
+      value['active'] = true;
+    }
     return data;
   }
 
@@ -164,7 +166,7 @@ class _CreateAdContactsPageState extends State<CreateAdContactsPage> {
                     style:
                         TextStyle(fontSize: 20, fontWeight: FontWeight.w600))),
             const Divider(height: 12),
-            Text("Город",
+            const Text("Город",
                 style: TextStyle(fontSize: 15, fontWeight: FontWeight.w500)),
             const Divider(height: 12),
             loaderUser
@@ -180,7 +182,7 @@ class _CreateAdContactsPageState extends State<CreateAdContactsPage> {
                     api: "/cities?country_id=191",
                     showErrorMessage: ""),
             const Divider(height: 24),
-            Text("Телефоны",
+            const Text("Телефоны",
                 style: TextStyle(fontSize: 15, fontWeight: FontWeight.w500)),
             const Divider(height: 12),
             Column(
@@ -190,7 +192,7 @@ class _CreateAdContactsPageState extends State<CreateAdContactsPage> {
                 onTap: () => onChangedPhone(value),
                 child: Container(
                   height: 52,
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                       color: Colors.white,
                       border: Border(
                           bottom:
@@ -198,7 +200,7 @@ class _CreateAdContactsPageState extends State<CreateAdContactsPage> {
                   child: Row(
                     children: [
                       CheckBoxWidget(active: active),
-                      Divider(indent: 16),
+                      const Divider(indent: 16),
                       Text(
                           "+${value['country']['phone_code']}${value['phone']}")
                     ],
@@ -216,7 +218,7 @@ class _CreateAdContactsPageState extends State<CreateAdContactsPage> {
               //     title: const Text("+7 747 265 23 38",
               //         style: TextStyle(fontSize: 14)));
             }).toList()),
-            Divider(height: 8),
+            const Divider(height: 8),
             TextButton(
                 onPressed: showContactPage,
                 style: TextButton.styleFrom(backgroundColor: Colors.white),
@@ -237,7 +239,7 @@ class _CreateAdContactsPageState extends State<CreateAdContactsPage> {
       bottomNavigationBar: BottomNavigationBarComponent(
           child: Button(
               onPressed: verifyData,
-              padding: EdgeInsets.symmetric(horizontal: 15),
+              padding: const EdgeInsets.symmetric(horizontal: 15),
               title: "Подать объявление")),
     );
   }

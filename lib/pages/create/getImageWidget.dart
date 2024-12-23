@@ -35,7 +35,7 @@ class _GetImageWidgetState extends State<GetImageWidget> {
     try {
       showModalLoader(context);
       final List<XFile> pickedFiles = await _picker.pickMultiImage();
-      if (pickedFiles != null && pickedFiles.isNotEmpty) {
+      if (pickedFiles.isNotEmpty) {
         setState(() {
           _images.addAll(pickedFiles.map((file) => XFile(file.path)).toList());
           widget.onImagesSelected(_images);

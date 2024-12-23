@@ -8,7 +8,6 @@ import 'package:gservice5/component/loader/loaderComponent.dart';
 import 'package:gservice5/component/snackBar/snackBarComponent.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
 import 'package:gservice5/component/widgets/bottom/bottomNavigationBarComponent.dart';
-import 'package:gservice5/pages/create/application/createApplication.dart';
 import 'package:gservice5/pages/create/application/createApplication2.dart';
 import 'package:gservice5/pages/create/data/createData.dart';
 

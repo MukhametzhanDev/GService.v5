@@ -82,7 +82,7 @@ class _StatisticAdPageState extends State<StatisticAdPage> {
                             TextSpan(text: numberFormat(32000)),
                           ])),
                   const Divider(height: 20),
-                  ChartWidget(),
+                  const ChartWidget(),
                   const Divider(height: 20),
                   Column(
                       children:

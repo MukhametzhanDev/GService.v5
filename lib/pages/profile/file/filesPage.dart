@@ -89,7 +89,7 @@ class _FilesPageState extends State<FilesPage> {
           onPressed: () {
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => AddFilePage()),
+              MaterialPageRoute(builder: (context) => const AddFilePage()),
             ).then((value) {
               if (value != null) {
                 setState(() {

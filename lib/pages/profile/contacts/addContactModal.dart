@@ -113,7 +113,7 @@ class _AddContactModalState extends State<AddContactModal> {
           actions: const [CloseIconButton(iconColor: null, padding: true)],
         ),
         body: loader
-            ? LoaderComponent()
+            ? const LoaderComponent()
             : Container(
                 padding: const EdgeInsets.symmetric(horizontal: 15),
                 decoration: const BoxDecoration(

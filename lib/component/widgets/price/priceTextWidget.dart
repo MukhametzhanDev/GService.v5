@@ -1,4 +1,3 @@
-import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:gservice5/component/formatted/price/priceFormat.dart';

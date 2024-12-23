@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:gservice5/pages/ad/item/adItem.dart';
 import 'package:gservice5/pages/ad/item/smallAdItem.dart';
 
 class RecommendationAdList extends StatefulWidget {

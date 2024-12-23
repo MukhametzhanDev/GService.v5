@@ -42,7 +42,7 @@ class _CurrencyMainPageState extends State<CurrencyMainPage> {
                                   width: 2, color: ColorComponent.mainColor)))),
                 )),
           ),
-          body: TabBarView(
+          body: const TabBarView(
               children: [TransportSaleCurrencyPage(), SparePartCurrencyPage()]),
         ));
   }

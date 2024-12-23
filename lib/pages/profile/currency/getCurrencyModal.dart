@@ -6,7 +6,6 @@ import 'package:gservice5/component/modal/modalBottomSheetWrapper.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
 import 'package:gservice5/component/widgets/bottom/bottomNavigationBarComponent.dart';
 import 'package:gservice5/pages/profile/currency/currencyMainPage.dart';
-import 'package:gservice5/pages/profile/currency/editCurrencyPage.dart';
 
 class GetCurrencyModal extends StatefulWidget {
   final List data;

@@ -7,11 +7,8 @@ import 'package:gservice5/component/image/cacheImage.dart';
 import 'package:gservice5/component/loader/loaderComponent.dart';
 import 'package:gservice5/component/snackBar/snackBarComponent.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
-import 'package:gservice5/pages/profile/news/allNewsPage.dart';
 import 'package:gservice5/pages/profile/news/empty/emptyMyNewsPage.dart';
-import 'package:gservice5/pages/profile/news/empty/emptyNewsPage.dart';
 import 'package:gservice5/pages/profile/news/viewNewsPage.dart';
-import 'package:intl/intl.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 class MyNewsPage extends StatefulWidget {

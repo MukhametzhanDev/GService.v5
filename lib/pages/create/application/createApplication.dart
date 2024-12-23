@@ -1,15 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:gservice5/component/line/stepIndicator.dart';
 import 'package:gservice5/component/loader/loaderComponent.dart';
 import 'package:gservice5/component/textField/closeKeyboard/closeKeyboard.dart';
 import 'package:gservice5/pages/create/application/addressCreateApplicationPage.dart';
 import 'package:gservice5/pages/create/options/getBrandEquipmentPage.dart';
-import 'package:gservice5/pages/create/application/descriptionCreateApplicationPage.dart';
 import 'package:gservice5/component/button/back/backTitleButton.dart';
 import 'package:gservice5/component/button/back/closeIconButton.dart';
-import 'package:gservice5/pages/create/application/getImageCreateApplicaitonPage.dart';
 import 'package:gservice5/pages/create/options/getModelEquipmentPage.dart';
-import 'package:gservice5/pages/create/application/priceCreateApplicationPage.dart';
 import 'package:gservice5/pages/create/options/getProfessionPage.dart';
 import 'package:gservice5/pages/create/options/getTypeEquipmentPage.dart';
 import 'package:gservice5/pages/create/application/contactCreateApplicationPage.dart';

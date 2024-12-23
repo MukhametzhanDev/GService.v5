@@ -192,7 +192,7 @@ class _ResultSearchPageState extends State<ResultSearchPage> {
                                                 const EdgeInsets.only(left: 6),
                                             height: 18,
                                             constraints:
-                                                BoxConstraints(minWidth: 18),
+                                                const BoxConstraints(minWidth: 18),
                                             alignment: Alignment.center,
                                             padding: const EdgeInsets.symmetric(
                                                 horizontal: 4),

@@ -107,7 +107,7 @@ class _CreateApplicationContactsPageState
                     style:
                         TextStyle(fontSize: 20, fontWeight: FontWeight.w600))),
             const Divider(height: 12),
-            Text("Имя",
+            const Text("Имя",
                 style: TextStyle(fontSize: 15, fontWeight: FontWeight.w500)),
             const Divider(height: 8),
             AutofillGroup(
@@ -119,7 +119,7 @@ class _CreateApplicationContactsPageState
                     style: const TextStyle(fontSize: 14),
                     decoration: const InputDecoration(hintText: "Имя"))),
             const Divider(height: 16),
-            Text("Номер телефона",
+            const Text("Номер телефона",
                 style: TextStyle(fontSize: 15, fontWeight: FontWeight.w500)),
             const Divider(height: 8),
             AutofillGroup(
@@ -132,7 +132,7 @@ class _CreateApplicationContactsPageState
                       const InputDecoration(hintText: "Номер телефона")),
             ),
             const Divider(height: 16),
-            Text("Город",
+            const Text("Город",
                 style: TextStyle(fontSize: 15, fontWeight: FontWeight.w500)),
             const Divider(height: 8),
             loaderUser
@@ -153,7 +153,7 @@ class _CreateApplicationContactsPageState
       bottomNavigationBar: BottomNavigationBarComponent(
           child: Button(
               onPressed: verifyData,
-              padding: EdgeInsets.symmetric(horizontal: 15),
+              padding: const EdgeInsets.symmetric(horizontal: 15),
               title: "Подать заявку")),
     );
   }

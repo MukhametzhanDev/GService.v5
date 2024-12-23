@@ -72,7 +72,7 @@ class _CreateSectionPageState extends State<CreateSectionPage> {
           automaticallyImplyLeading: false,
           centerTitle: false,
           leadingWidth: 200,
-          leading: CloseTitleButton(title: "Разместить"),
+          leading: const CloseTitleButton(title: "Разместить"),
         ),
         body: !verifyToken
             ? const EmptyTokenPage()

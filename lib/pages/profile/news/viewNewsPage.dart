@@ -9,7 +9,6 @@ import 'package:gservice5/component/image/cacheImage.dart';
 import 'package:gservice5/component/loader/loaderComponent.dart';
 import 'package:gservice5/component/snackBar/snackBarComponent.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
-import 'package:gservice5/component/widgets/author/authorAdWidget.dart';
 
 class ViewNewsPage extends StatefulWidget {
   final int id;

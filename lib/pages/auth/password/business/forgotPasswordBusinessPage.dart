@@ -4,7 +4,6 @@ import 'package:gservice5/component/button/button.dart';
 import 'package:gservice5/component/snackBar/snackBarComponent.dart';
 import 'package:gservice5/component/widgets/bottom/bottomNavigationBarComponent.dart';
 import 'package:gservice5/pages/auth/password/business/forgotEmailPasswordBusinessPage.dart';
-import 'package:gservice5/pages/auth/password/individual/forgotEmailPasswordIndividualPage.dart';
 
 class ForgotPasswordBusinessPage extends StatefulWidget {
   final String email;

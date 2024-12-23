@@ -89,7 +89,7 @@ class _RecommendationSearchTitleWidgetState
                               width: 18),
                           title: Text(
                             value,
-                            style: TextStyle(
+                            style: const TextStyle(
                                 fontSize: 14, fontWeight: FontWeight.w400),
                           )));
                 }).toList(),

@@ -97,7 +97,7 @@ class _CreateApplication2State extends State<CreateApplication2> {
 
   void addContactPage() {
     closeKeyboard();
-    pages.add(CreateApplicationContactsPage());
+    pages.add(const CreateApplicationContactsPage());
   }
 
   void addChildCharacteristicPage(List data) {

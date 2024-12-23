@@ -5,7 +5,6 @@ import 'package:gservice5/component/loader/paginationLoaderComponent.dart';
 import 'package:gservice5/component/snackBar/snackBarComponent.dart';
 import 'package:gservice5/pages/ad/item/adItem.dart';
 import 'package:gservice5/pages/ad/list/adListLoader.dart';
-import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 class AdListMain extends StatefulWidget {
   final ScrollController scrollController;

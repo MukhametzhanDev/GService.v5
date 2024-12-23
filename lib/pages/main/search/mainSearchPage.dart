@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:gservice5/component/theme/colorComponent.dart';
 import 'package:gservice5/data/cache/cacheSearchTitleData.dart';
 import 'package:gservice5/pages/main/search/historySearchWidget.dart';
 import 'package:gservice5/pages/main/search/recommendationSearchTitleWidget.dart';
