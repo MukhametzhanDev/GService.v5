@@ -50,20 +50,20 @@ class AdItemCharacteristic extends StatelessWidget {
                 return Container();
               }
             }).toList()),
-        Expanded(
-          child: LayoutBuilder(builder: (context, constraints) {
-            int calculateMaxLines(BoxConstraints constraints) {
-              return (constraints.maxHeight / (lineHeight + 5)).floor();
-            }
-            return Text(data['description'] ?? "",
-                style: TextStyle(
-                    fontSize: 13,
-                    height: lineHeight / 10,
-                    color: ColorComponent.gray['700']),
-                maxLines: calculateMaxLines(constraints),
-                overflow: TextOverflow.ellipsis);
-          }),
-        )
+        // Expanded(
+        //   child: LayoutBuilder(builder: (context, constraints) {
+        //     int calculateMaxLines(BoxConstraints constraints) {
+        //       return (constraints.maxHeight / (lineHeight + 5)).floor();
+        //     }
+        //     return Text(data['description'] ?? "",
+        //         style: TextStyle(
+        //             fontSize: 13,
+        //             height: lineHeight / 10,
+        //             color: ColorComponent.gray['700']),
+        //         maxLines: calculateMaxLines(constraints),
+        //         overflow: TextOverflow.ellipsis);
+        //   }),
+        // )
       ],
     );
   }

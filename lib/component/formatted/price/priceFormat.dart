@@ -10,10 +10,16 @@ String priceFormat(cost) {
           .toString()
           .split(',')[0];
     }
+  } else if (cost.runtimeType == double) {
+    cost = cost.round();
+    return NumberFormat.currency(locale: 'kk', symbol: '')
+        .format(cost)
+        .toString()
+        .split(',')[0];
   } else if (cost == null) {
     return "Договорная";
   } else {
-    return cost;
+    return cost.toString();
   }
 }
 

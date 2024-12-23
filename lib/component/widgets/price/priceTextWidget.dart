@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:gservice5/component/formatted/price/priceFormat.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
@@ -28,8 +27,8 @@ class PriceTextWidget extends StatelessWidget {
       return Row(crossAxisAlignment: CrossAxisAlignment.end, children: [
         RichText(
             text: TextSpan(
-                style:
-                    const TextStyle(fontWeight: FontWeight.w600, color: Colors.black),
+                style: const TextStyle(
+                    fontWeight: FontWeight.w600, color: Colors.black),
                 children: [
               TextSpan(
                   text: "${priceFormat(prices![1]['price'])} ₸",
@@ -44,8 +43,8 @@ class PriceTextWidget extends StatelessWidget {
         const Text("  |  "),
         RichText(
             text: TextSpan(
-                style:
-                    const TextStyle(fontWeight: FontWeight.w500, color: Colors.black),
+                style: const TextStyle(
+                    fontWeight: FontWeight.w500, color: Colors.black),
                 children: [
               TextSpan(
                   text: "${priceFormat(prices![0]['price'])} ₸",

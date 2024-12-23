@@ -156,7 +156,7 @@ class _AdItemState extends State<AdItem> {
                                 height: 1.3),
                             maxLines: 2,
                             overflow: TextOverflow.ellipsis),
-                        const Divider(height: 8),
+                        Divider(height: 8),
                         Expanded(
                             child: AdItemCharacteristic(data: widget.data)),
                         // Text(

@@ -86,7 +86,10 @@ class _TitleCreateAdPageState extends State<TitleCreateAdPage> {
 
   void savedData() {
     CreateData.data['description'] = descEditingController.text;
-    CreateData.data['title'] = titleEditingController.text;
+    String title = titleEditingController.text.trim();
+    if (title.isNotEmpty) {
+      CreateData.data['title'] = titleEditingController.text;
+    }
     pageControllerIndexedStack.nextPage();
     widget.nextPage();
   }
