@@ -6,6 +6,7 @@ import 'package:gservice5/component/button/searchButton.dart';
 import 'package:gservice5/component/categories/data/mainPageData.dart';
 import 'package:gservice5/component/request/getMainPageData.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
+import 'package:gservice5/component/categories/data/categoriesData.dart';
 import 'package:gservice5/pages/main/adListMain.dart';
 import 'package:gservice5/pages/main/applicationListMain.dart';
 import 'package:gservice5/component/categories/categoriesListWidget.dart';

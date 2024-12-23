@@ -110,7 +110,6 @@ class _AdListMainState extends State<AdListMain> {
             : ListView.builder(
                 shrinkWrap: true,
                 physics: const NeverScrollableScrollPhysics(),
-                controller: widget.scrollController,
                 itemCount: data.length,
                 itemBuilder: (context, int index) {
                   Map value = data[index];

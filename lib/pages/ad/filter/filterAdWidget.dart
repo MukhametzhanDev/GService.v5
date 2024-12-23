@@ -127,12 +127,13 @@ class _FilterAdWidgetState extends State<FilterAdWidget> {
   }
 
   void showFilterPage() {
-    showCupertinoModalBottomSheet(
-            context: context,
-            enableDrag: false,
-            builder: (context) => FilterAdListPage(
-                data: widget.category['options']['necessary_inputs']))
-        .then(filteredAds);
+    print(widget.category);
+    // showCupertinoModalBottomSheet(
+    //         context: context,
+    //         enableDrag: false,
+    //         builder: (context) => FilterAdListPage(
+    //             data: widget.category['options']['necessary_inputs']))
+    //     .then(filteredAds);
   }
 
   void filteredAds(value) {

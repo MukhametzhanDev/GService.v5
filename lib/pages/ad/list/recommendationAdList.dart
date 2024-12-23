@@ -28,7 +28,7 @@ class _RecommendationAdListState extends State<RecommendationAdList> {
             crossAxisSpacing: 8,
             padding: const EdgeInsets.symmetric(horizontal: 15),
             children: List.generate(10, (index) => index).map((value) {
-              return SmallAdItem(index: value);
+              return SmallAdItem(index: value, showFullInfo: true);
             }).toList())
       ],
     );

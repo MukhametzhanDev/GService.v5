@@ -59,7 +59,10 @@ class _IndividualBottomTabState extends State<IndividualBottomTab>
     final ColorTheme = ThemeColorComponent.ColorsTheme(context);
     return Scaffold(
       body: IndexedStack(index: _selectedIndex, children: [
-        MainPage(scrollController: scrollController),
+        MainPage(
+          scrollController: scrollController,
+          // key: GlobalKey(debugLabel: "main_page"),
+        ),
         const FavoriteMainPage(),
         Container(),
         const MessageMainPage(),

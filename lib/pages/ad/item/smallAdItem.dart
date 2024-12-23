@@ -7,7 +7,9 @@ import 'package:gservice5/component/theme/colorComponent.dart';
 
 class SmallAdItem extends StatefulWidget {
   final int index;
-  const SmallAdItem({super.key, required this.index});
+  final bool showFullInfo;
+  const SmallAdItem(
+      {super.key, required this.index, required this.showFullInfo});
 
   @override
   State<SmallAdItem> createState() => _SmallAdItemState();
@@ -37,30 +39,30 @@ class _SmallAdItemState extends State<SmallAdItem> {
                       width: itemWidth - 24,
                       height: itemWidth / 1.7,
                       borderRadius: 10),
-                  Positioned(
-                    top: 10,
-                    right: 0,
-                    child: Container(
-                      height: 20,
-                      padding: const EdgeInsets.symmetric(horizontal: 8),
-                      alignment: Alignment.center,
-                      decoration: BoxDecoration(
-                          color: ColorComponent.mainColor,
-                          borderRadius: const BorderRadius.only(
-                              topLeft: Radius.circular(4),
-                              bottomLeft: Radius.circular(4))),
-                      child: Text(widget.index == 1 ? "Продажа" : "Аренда",
-                          style: const TextStyle(
-                              height: 1,
-                              fontSize: 11,
-                              fontWeight: FontWeight.w500)),
-                    ),
-                  ),
+                  // Positioned(
+                  //   top: 10,
+                  //   right: 0,
+                  //   child: Container(
+                  //     height: 20,
+                  //     padding: const EdgeInsets.symmetric(horizontal: 8),
+                  //     alignment: Alignment.center,
+                  //     decoration: BoxDecoration(
+                  //         color: ColorComponent.mainColor,
+                  //         borderRadius: const BorderRadius.only(
+                  //             topLeft: Radius.circular(4),
+                  //             bottomLeft: Radius.circular(4))),
+                  //     child: Text(widget.index == 1 ? "Продажа" : "Аренда",
+                  //         style: const TextStyle(
+                  //             height: 1,
+                  //             fontSize: 11,
+                  //             fontWeight: FontWeight.w500)),
+                  //   ),
+                  // ),
                   Positioned(
                       bottom: 0,
                       child: Container(
-                        padding:
-                            const EdgeInsets.symmetric(horizontal: 6, vertical: 4),
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 6, vertical: 4),
                         decoration: const BoxDecoration(
                             color: Colors.white,
                             borderRadius: BorderRadius.only(
@@ -89,14 +91,9 @@ class _SmallAdItemState extends State<SmallAdItem> {
                     color: ColorComponent.blue['700'])),
             const Divider(height: 2),
             widget.index == 1
-                ? Text(
-                    "Договорная",
+                ? const Text("Договорная",
                     // "${priceFormat(15000000)} ₸",
-                    style: TextStyle(
-                        fontWeight: FontWeight.w600,
-                        fontSize: 12,
-                        color: ColorComponent.blue['700']),
-                  )
+                    style: TextStyle(fontWeight: FontWeight.w600, fontSize: 12))
                 : Row(crossAxisAlignment: CrossAxisAlignment.center, children: [
                     RichText(
                         text: const TextSpan(
@@ -132,31 +129,39 @@ class _SmallAdItemState extends State<SmallAdItem> {
             //         fontSize: 13,
             //         fontWeight: FontWeight.w700,
             //         color: ColorComponent.blue['500'])),
-            const Divider(height: 2),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Text("Алматы",
-                    style: TextStyle(
-                        fontSize: 12, color: ColorComponent.gray['500'])),
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    SvgPicture.asset(
-                      'assets/icons/eye.svg',
-                      width: 14,
-                      color: ColorComponent.gray["400"],
-                    ),
-                    const Divider(indent: 4),
-                    Text(numberFormat(120),
-                        style: TextStyle(
-                            fontSize: 12, color: ColorComponent.gray["500"])),
-                    const Divider(indent: 4),
-                  ],
-                ),
-              ],
-            )
+            widget.showFullInfo
+                ? Column(
+                    children: [
+                      const Divider(height: 2),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Text("Алматы",
+                              style: TextStyle(
+                                  fontSize: 12,
+                                  color: ColorComponent.gray['500'])),
+                          Row(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              SvgPicture.asset(
+                                'assets/icons/eye.svg',
+                                width: 14,
+                                color: ColorComponent.gray["400"],
+                              ),
+                              const Divider(indent: 4),
+                              Text(numberFormat(120),
+                                  style: TextStyle(
+                                      fontSize: 12,
+                                      color: ColorComponent.gray["500"])),
+                              const Divider(indent: 4),
+                            ],
+                          ),
+                        ],
+                      )
+                    ],
+                  )
+                : Container()
           ],
         ),
       ),

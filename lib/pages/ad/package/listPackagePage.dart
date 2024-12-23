@@ -29,7 +29,7 @@ class ListPackagePage extends StatefulWidget {
 
 class _ListPackagePageState extends State<ListPackagePage> {
   List packages = [];
-  List promotions = [];
+  // List promotions = [];
   Map? currentPackage;
   List stickers = [];
   int totalPrice = 0;
@@ -41,13 +41,14 @@ class _ListPackagePageState extends State<ListPackagePage> {
   }
 
   void getPackagesData() async {
+    print(widget.categoryId);
     try {
       Response response = await dio.get("/ad-promotions",
           queryParameters: {"category_id": widget.categoryId});
       print(response.data);
       if (response.data['success']) {
         packages = response.data['data']['ad_packages'];
-        promotions = response.data['data']['ad_promotions'];
+        // promotions = response.data['data']['ad_promotions'];
         stickers = response.data['data']['stickers'];
         setState(() {});
       } else {
@@ -144,69 +145,69 @@ class _ListPackagePageState extends State<ListPackagePage> {
                       //     rubricId: widget.rubricId,
                       //     onChangedStickers: onChangedStickers),
 
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          currentPackage != null
-                              ? Container()
-                              : Column(
-                                  children: promotions.map((value) {
-                                  bool active = value['active'] ?? false;
-                                  return GestureDetector(
-                                    onTap: () => onChangedPromotions(value),
-                                    child: Container(
-                                      margin: const EdgeInsets.only(top: 12),
-                                      padding: const EdgeInsets.symmetric(
-                                          horizontal: 14, vertical: 14),
-                                      decoration: BoxDecoration(
-                                          color: Colors.white,
-                                          boxShadow: [
-                                            BoxShadow(
-                                                color: Colors.black
-                                                    .withOpacity(.1),
-                                                blurRadius: 5,
-                                                offset: const Offset(0, 1))
-                                          ],
-                                          borderRadius:
-                                              BorderRadius.circular(12),
-                                          border: Border.all(
-                                              color: const Color(0xffeeeeee),
-                                              width: 1)),
-                                      child: Row(
-                                        children: [
-                                          CheckBoxWidget(active: active),
-                                          const Divider(indent: 16),
-                                          Expanded(
-                                            child: Column(
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
-                                              children: [
-                                                Text(
-                                                  "${value['value']} ${promotionTitle[value['id']]}",
-                                                  style: const TextStyle(
-                                                      fontSize: 16),
-                                                ),
-                                                const Divider(height: 6),
-                                                Text(
-                                                  "${priceFormat(value['price'])} ₸",
-                                                  style: const TextStyle(
-                                                      fontWeight:
-                                                          FontWeight.w600),
-                                                )
-                                              ],
-                                            ),
-                                          ),
-                                          SvgPicture.network(
-                                            value['icon'],
-                                            width: 20,
-                                          )
-                                        ],
-                                      ),
-                                    ),
-                                  );
-                                }).toList())
-                        ],
-                      ),
+                      // Column(
+                      //   crossAxisAlignment: CrossAxisAlignment.start,
+                      //   children: [
+                      //     currentPackage != null
+                      //         ? Container()
+                      //         : Column(
+                      //             children: promotions.map((value) {
+                      //             bool active = value['active'] ?? false;
+                      //             return GestureDetector(
+                      //               onTap: () => onChangedPromotions(value),
+                      //               child: Container(
+                      //                 margin: const EdgeInsets.only(top: 12),
+                      //                 padding: const EdgeInsets.symmetric(
+                      //                     horizontal: 14, vertical: 14),
+                      //                 decoration: BoxDecoration(
+                      //                     color: Colors.white,
+                      //                     boxShadow: [
+                      //                       BoxShadow(
+                      //                           color: Colors.black
+                      //                               .withOpacity(.1),
+                      //                           blurRadius: 5,
+                      //                           offset: const Offset(0, 1))
+                      //                     ],
+                      //                     borderRadius:
+                      //                         BorderRadius.circular(12),
+                      //                     border: Border.all(
+                      //                         color: const Color(0xffeeeeee),
+                      //                         width: 1)),
+                      //                 child: Row(
+                      //                   children: [
+                      //                     CheckBoxWidget(active: active),
+                      //                     const Divider(indent: 16),
+                      //                     Expanded(
+                      //                       child: Column(
+                      //                         crossAxisAlignment:
+                      //                             CrossAxisAlignment.start,
+                      //                         children: [
+                      //                           Text(
+                      //                             "${value['value']} ${promotionTitle[value['id']]}",
+                      //                             style: const TextStyle(
+                      //                                 fontSize: 16),
+                      //                           ),
+                      //                           const Divider(height: 6),
+                      //                           Text(
+                      //                             "${priceFormat(value['price'])} ₸",
+                      //                             style: const TextStyle(
+                      //                                 fontWeight:
+                      //                                     FontWeight.w600),
+                      //                           )
+                      //                         ],
+                      //                       ),
+                      //                     ),
+                      //                     SvgPicture.network(
+                      //                       value['icon'],
+                      //                       width: 20,
+                      //                     )
+                      //                   ],
+                      //                 ),
+                      //               ),
+                      //             );
+                      //           }).toList())
+                      //   ],
+                      // ),
                       const Divider(height: 24),
                       const Text("Стикеры по 100 ₸",
                           style: TextStyle(
@@ -245,7 +246,8 @@ class _ListPackagePageState extends State<ListPackagePage> {
                           adId: widget.adId,
                           package: currentPackage,
                           stickers: stickers,
-                          promotions: promotions),
+                          // promotions: promotions
+                          ),
                       const SizedBox(height: 12),
                       Button(
                           onPressed: validateData,

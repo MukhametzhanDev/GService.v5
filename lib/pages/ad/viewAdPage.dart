@@ -14,6 +14,7 @@ import 'package:gservice5/component/loader/loaderComponent.dart';
 import 'package:gservice5/component/snackBar/snackBarComponent.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
 import 'package:gservice5/component/widgets/404/notFoundpage.dart';
+import 'package:gservice5/pages/author/authorAdWidget.dart';
 import 'package:gservice5/component/widgets/characteristic/showCharacteristicWidget.dart';
 import 'package:gservice5/component/widgets/price/priceTextWidget.dart';
 import 'package:gservice5/pages/ad/list/recommendationAdList.dart';
@@ -240,12 +241,15 @@ class _ViewAdPageState extends State<ViewAdPage> {
                               const Divider(
                                   height: 1, color: Color(0xfff4f5f7)),
                               const Divider(height: 12),
-                              // AuthorAdWidget(
-                              //     title: "О владельце объявления", data: {}),
-                              const Divider(indent: 16)
                             ],
                           ),
                         ),
+                        AuthorAdWidget(
+                            title: "О владельце объявления",
+                            data: data['author']),
+                        const Divider(height: 6),
+                        const Divider(height: 1, color: Color(0xfff4f5f7)),
+                        const Divider(indent: 16),
                         const RecommendationAdList(),
                       ],
                     ),

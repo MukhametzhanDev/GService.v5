@@ -34,7 +34,8 @@ class AdItemCharacteristic extends StatelessWidget {
               String title = getTitle(value);
               if (title.length > 3) {
                 return RichText(
-                  text: TextSpan(style: const TextStyle(fontSize: 13), children: [
+                  text:
+                      TextSpan(style: const TextStyle(fontSize: 13), children: [
                     TextSpan(
                         text: title,
                         style: TextStyle(color: ColorComponent.gray['700'])),
@@ -50,20 +51,21 @@ class AdItemCharacteristic extends StatelessWidget {
                 return Container();
               }
             }).toList()),
-        // Expanded(
-        //   child: LayoutBuilder(builder: (context, constraints) {
-        //     int calculateMaxLines(BoxConstraints constraints) {
-        //       return (constraints.maxHeight / (lineHeight + 5)).floor();
-        //     }
-        //     return Text(data['description'] ?? "",
-        //         style: TextStyle(
-        //             fontSize: 13,
-        //             height: lineHeight / 10,
-        //             color: ColorComponent.gray['700']),
-        //         maxLines: calculateMaxLines(constraints),
-        //         overflow: TextOverflow.ellipsis);
-        //   }),
-        // )
+        Expanded(
+          child: LayoutBuilder(builder: (context, constraints) {
+            int calculateMaxLines(BoxConstraints constraints) {
+              return (constraints.maxHeight / (lineHeight + 5)).floor();
+            }
+
+            return Text(data['description'] ?? "",
+                style: TextStyle(
+                    fontSize: 13,
+                    height: lineHeight / 10,
+                    color: ColorComponent.gray['700']),
+                maxLines: calculateMaxLines(constraints),
+                overflow: TextOverflow.ellipsis);
+          }),
+        )
       ],
     );
   }

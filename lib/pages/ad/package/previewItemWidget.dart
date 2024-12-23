@@ -17,12 +17,12 @@ class PreviewItemWidget extends StatefulWidget {
   final int adId;
   final Map? package;
   final List stickers;
-  final List promotions;
+  // final List promotions;
   const PreviewItemWidget(
       {super.key,
       required this.adId,
       required this.package,
-      required this.promotions,
+      // required this.promotions,
       required this.stickers});
 
   @override
@@ -61,13 +61,11 @@ class _PreviewItemWidgetState extends State<PreviewItemWidget> {
     Color color = widget.package != null
         ? Color(int.parse(widget.package!['color'])).withOpacity(.1)
         : Colors.white;
-    List promotions = widget.package?['promotions'] ?? widget.promotions;
+    List promotions = widget.package?['promotions'] ?? [];
     return data.isEmpty
         ? Container()
         : GestureDetector(
-            onTap: () {
-              print(promotions);
-            },
+            onTap: () {},
             child: Container(
               padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 12),
               decoration: BoxDecoration(
