@@ -92,9 +92,10 @@ class _AllNewsPageState extends State<AllNewsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: widget.showBackButton!
+      appBar: widget.showBackButton ?? false
           ? AppBar(
-              leading: const BackTitleButton(title: "Новости"), leadingWidth: 200)
+              leading: const BackTitleButton(title: "Новости"),
+              leadingWidth: 200)
           : null,
       body: loader
           ? const LoaderComponent()

@@ -8,7 +8,6 @@ import 'package:gservice5/component/snackBar/snackBarComponent.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
 import 'package:gservice5/pages/ad/list/adListLoader.dart';
 import 'package:gservice5/pages/ad/list/emptyAdListPage.dart';
-import 'package:gservice5/pages/main/adListMain.dart';
 import 'package:gservice5/pages/main/search/resultListPage.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:shimmer/shimmer.dart';

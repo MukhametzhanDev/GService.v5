@@ -9,7 +9,6 @@ import 'package:gservice5/pages/create/application/descriptionCreateApplicationP
 import 'package:gservice5/pages/create/application/getImageCreateApplicaitonPage.dart';
 import 'package:gservice5/pages/create/application/priceCreateApplicationPage.dart';
 import 'package:gservice5/pages/create/application/stepCreateApplicationWidget.dart';
-import 'package:gservice5/pages/create/ad/createAdContactsPage.dart';
 import 'package:gservice5/pages/create/data/createData.dart';
 import 'package:gservice5/pages/create/options/getSelectPage.dart';
 import 'package:gservice5/pages/create/structure/controllerPage/pageControllerIndexedStack.dart';

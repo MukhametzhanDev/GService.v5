@@ -48,7 +48,7 @@ class ViewCharacteristicWidget extends StatelessWidget {
     if (data['value'] is bool) {
       title = data['value'] ? "Да" : "Нет";
     } else {
-      title = data['title'].toString();
+      title = "${data['title']} ${data['measurement_unit'] ?? ""}";
     }
 
     return Text(title,

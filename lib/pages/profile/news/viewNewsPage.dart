@@ -61,7 +61,7 @@ class _ViewNewsPageState extends State<ViewNewsPage> {
 
   @override
   Widget build(BuildContext context) {
-    List tags = data['news_tags'];
+    List tags = data['news_tags'] ?? [];
     return Scaffold(
       appBar: AppBar(
           automaticallyImplyLeading: false,
@@ -69,7 +69,10 @@ class _ViewNewsPageState extends State<ViewNewsPage> {
           leadingWidth: 200,
           leading: BackTitleButton(
               title: "Новость", onPressed: () => Navigator.pop(context)),
-          actions: const [ShareButton(id: 0, hasAd: false), Divider(indent: 16)]),
+          actions: const [
+            ShareButton(id: 0, hasAd: false),
+            Divider(indent: 16)
+          ]),
       body: loader
           ? const LoaderComponent()
           : SingleChildScrollView(
@@ -79,8 +82,8 @@ class _ViewNewsPageState extends State<ViewNewsPage> {
                 children: [
                   Text(data["title"],
                       maxLines: 3,
-                      style:
-                          const TextStyle(fontSize: 20, fontWeight: FontWeight.w600)),
+                      style: const TextStyle(
+                          fontSize: 20, fontWeight: FontWeight.w600)),
                   const Divider(height: 12),
                   Row(children: [
                     Text(
@@ -103,8 +106,8 @@ class _ViewNewsPageState extends State<ViewNewsPage> {
                       borderRadius: 10),
                   const Divider(indent: 12),
                   Text(data["short_description"],
-                      style:
-                          const TextStyle(fontSize: 16, fontWeight: FontWeight.w500)),
+                      style: const TextStyle(
+                          fontSize: 16, fontWeight: FontWeight.w500)),
                   const Divider(indent: 8),
                   Text(data["description"]),
                   // Divider(indent: 16),

@@ -18,6 +18,7 @@ import 'package:gservice5/component/widgets/characteristic/showCharacteristicWid
 import 'package:gservice5/component/widgets/price/priceTextWidget.dart';
 import 'package:gservice5/pages/ad/my/optionsMyAdModal.dart';
 import 'package:gservice5/pages/ad/my/request/myAdRequest.dart';
+import 'package:gservice5/pages/ad/package/listPackagePage.dart';
 import 'package:gservice5/pages/ad/widget/viewCharacteristicWidget.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
@@ -77,11 +78,13 @@ class _ViewMyAdPageState extends State<ViewMyAdPage> {
   }
 
   void showPromotionAdPage() {
-    // Navigator.push(
-    //     context,
-    //     MaterialPageRoute(
-    //         builder: (context) => ListPromotionPage(
-    //             rubricId: 6, adId: data['id'], goBack: true)));
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => ListPackagePage(
+                categoryId: data['category']['id'],
+                adId: data['id'],
+                goBack: true)));
   }
 
   void showOptionsModal(Map<String, dynamic> data) {
@@ -166,7 +169,8 @@ class _ViewMyAdPageState extends State<ViewMyAdPage> {
                                 const Divider(indent: 16),
                                 Container(
                                   height: 24,
-                                  padding: const EdgeInsets.symmetric(horizontal: 8),
+                                  padding:
+                                      const EdgeInsets.symmetric(horizontal: 8),
                                   alignment: Alignment.center,
                                   decoration: BoxDecoration(
                                       color: ColorComponent.mainColor,
@@ -288,7 +292,8 @@ class _ViewMyAdPageState extends State<ViewMyAdPage> {
                                   onPressed: showPromotionAdPage,
                                   title: "Поднять в ТОП",
                                   backgroundColor: ColorComponent.mainColor,
-                                  padding: const EdgeInsets.symmetric(horizontal: 15),
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 15),
                                 ),
                               ),
                               GestureDetector(

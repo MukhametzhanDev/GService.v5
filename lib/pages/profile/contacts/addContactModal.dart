@@ -1,19 +1,15 @@
-import 'package:currency_text_input_formatter/currency_text_input_formatter.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:gservice5/component/button/back/closeIconButton.dart';
 import 'package:gservice5/component/button/button.dart';
 import 'package:gservice5/component/dio/dio.dart';
-import 'package:gservice5/component/functions/number/getIntNumber.dart';
 import 'package:gservice5/component/loader/loaderComponent.dart';
 import 'package:gservice5/component/loader/modalLoaderComponent.dart';
 import 'package:gservice5/component/snackBar/snackBarComponent.dart';
-import 'package:gservice5/component/textField/priceTextField.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
 import 'package:gservice5/pages/profile/contacts/countryCodeListModal.dart';
 import 'package:gservice5/pages/profile/contacts/requestContact.dart';
-import 'package:intl/intl.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
 class AddContactModal extends StatefulWidget {

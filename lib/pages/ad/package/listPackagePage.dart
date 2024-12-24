@@ -1,17 +1,17 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:gservice5/component/button/back/backIconButton.dart';
 import 'package:gservice5/component/button/button.dart';
 import 'package:gservice5/component/dio/dio.dart';
-import 'package:gservice5/component/formatted/price/priceFormat.dart';
 import 'package:gservice5/component/loader/loaderComponent.dart';
+import 'package:gservice5/component/loader/modalLoaderComponent.dart';
 import 'package:gservice5/component/snackBar/snackBarComponent.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
-import 'package:gservice5/component/widgets/checkBox/checkBoxWidget.dart';
 import 'package:gservice5/pages/ad/package/packageItem.dart';
 import 'package:gservice5/pages/ad/package/previewItemWidget.dart';
 import 'package:gservice5/pages/create/data/createData.dart';
+import 'package:gservice5/pages/payment/paymentMethodModal.dart';
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
 class ListPackagePage extends StatefulWidget {
   final int categoryId;
@@ -56,6 +56,33 @@ class _ListPackagePageState extends State<ListPackagePage> {
       }
     } catch (e) {
       SnackBarComponent().showNotGoBackServerErrorMessage(context);
+    }
+  }
+
+  void postData() async {
+    showModalLoader(context);
+    try {
+      Response response = await dio.post("/order/package", data: {
+        "ad_id": widget.adId,
+        "package_id": currentPackage?['id'],
+        "sticker_id": stickers
+            .where((element) => element['active'] ?? false)
+            .map((e) => e['id'])
+            .toList(),
+      });
+      print(response.data);
+      Navigator.pop(context);
+      if (response.data['success']) {
+        showCupertinoModalBottomSheet(
+            context: context,
+            builder: (context) =>
+                PaymentMethodModal(paymentId: response.data['data']));
+      } else {
+        SnackBarComponent().showResponseErrorMessage(response, context);
+      }
+    } catch (e) {
+      print(e);
+      SnackBarComponent().showServerErrorMessage(context);
     }
   }
 
@@ -114,7 +141,9 @@ class _ListPackagePageState extends State<ListPackagePage> {
     if (currentPackage == null || stickers.isEmpty) {
       SnackBarComponent()
           .showErrorMessage("Выберите пакеты или стикеры", context);
-    } else {}
+    } else {
+      postData();
+    }
   }
 
   @override
@@ -243,11 +272,11 @@ class _ListPackagePageState extends State<ListPackagePage> {
                               fontSize: 16, fontWeight: FontWeight.w700)),
                       const Divider(height: 12),
                       PreviewItemWidget(
-                          adId: widget.adId,
-                          package: currentPackage,
-                          stickers: stickers,
-                          // promotions: promotions
-                          ),
+                        adId: widget.adId,
+                        package: currentPackage,
+                        stickers: stickers,
+                        // promotions: promotions
+                      ),
                       const SizedBox(height: 12),
                       Button(
                           onPressed: validateData,

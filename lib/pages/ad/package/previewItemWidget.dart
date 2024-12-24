@@ -9,7 +9,6 @@ import 'package:gservice5/component/snackBar/snackBarComponent.dart';
 import 'package:gservice5/component/stickers/showStickersList.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
 import 'package:gservice5/component/widgets/price/priceTextWidget.dart';
-import 'package:gservice5/pages/ad/item/adItem.dart';
 import 'package:gservice5/pages/ad/item/adItemCharacteristic.dart';
 import 'package:intl/intl.dart';
 

@@ -37,7 +37,7 @@ class _AuthorAdWidgetState extends State<AuthorAdWidget> {
                         fontSize: 18, fontWeight: FontWeight.w600))),
         Container(
             padding: const EdgeInsets.all(12),
-            margin: EdgeInsets.symmetric(horizontal: 15),
+            margin: const EdgeInsets.symmetric(horizontal: 15),
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(8),
                 color: const Color(0xfff4f4f4)),
@@ -73,10 +73,9 @@ class _AuthorAdWidgetState extends State<AuthorAdWidget> {
                                               fontWeight: FontWeight.w600))),
                                   const Divider(indent: 6),
                                   SvgPicture.asset(
-                                      "assets/icons/badgeCheck.svg"),
+                                      "assets/icons/badgeCheck.svg")
                                 ],
                               ),
-                              const Divider(height: 3),
                               Row(
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
@@ -126,7 +125,7 @@ class _AuthorAdWidgetState extends State<AuthorAdWidget> {
                       //   ],
                       // ),
                       // Divider(height: 12),
-                     Text("Официальный диллер"),
+                      const Text("Официальный диллер"),
                       // const Divider(height: 12),
                       // const Text("Контакты",
                       //     style: TextStyle(
@@ -178,24 +177,24 @@ class _AuthorAdWidgetState extends State<AuthorAdWidget> {
                         Text(widget.data['name'],
                             style: const TextStyle(
                                 fontSize: 16, fontWeight: FontWeight.w600)),
-                        Divider(height: 3),
+                        const Divider(height: 3),
                         Text("ID: ${widget.data['id']}",
                             style: TextStyle(color: ColorComponent.gray['500']))
                       ],
                     )),
                     SvgPicture.asset("assets/icons/right.svg"),
-                    Divider(indent: 8)
+                    const Divider(indent: 8)
                   ])),
-        Divider(height: 16),
-        Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16),
-            child: const Text("Другие объявления продавца",
+        const Divider(height: 16),
+        const Padding(
+            padding: EdgeInsets.symmetric(horizontal: 16),
+            child: Text("Другие объявления продавца",
                 style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600))),
-        Divider(height: 12),
-        Container(
+        const Divider(height: 12),
+        SizedBox(
           height: MediaQuery.of(context).size.width / 2.3,
           child: SingleChildScrollView(
-            padding: EdgeInsets.symmetric(horizontal: 8),
+            padding: const EdgeInsets.symmetric(horizontal: 8),
             scrollDirection: Axis.horizontal,
             child: Row(
                 children: [1, 2, 3].map((value) {

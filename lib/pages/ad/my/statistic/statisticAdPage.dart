@@ -1,13 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:gservice5/component/button/back/backTitleButton.dart';
 import 'package:gservice5/component/button/back/closeIconButton.dart';
-import 'package:gservice5/component/button/button.dart';
 import 'package:gservice5/component/formatted/number/numberFormatted.dart';
 import 'package:gservice5/component/select/selectButton.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
-import 'package:gservice5/component/widgets/bottom/bottomNavigationBarComponent.dart';
 import 'package:gservice5/pages/ad/my/statistic/chartWidget.dart';
-import 'package:gservice5/pages/create/ad/characteristic/modalButtonComponent.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
 class StatisticAdPage extends StatefulWidget {

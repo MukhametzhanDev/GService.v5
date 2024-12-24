@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_sticky_header/flutter_sticky_header.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:gservice5/component/appBar/fadeOnScroll.dart';
+import 'package:gservice5/component/bar/bottomBar/contactBottomBarWidget.dart';
 import 'package:gservice5/component/button/back/backIconButton.dart';
 import 'package:gservice5/component/button/button.dart';
 import 'package:gservice5/component/button/shareButton.dart';
@@ -16,6 +17,8 @@ import 'package:gservice5/component/snackBar/snackBarComponent.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
 import 'package:gservice5/component/widgets/bottom/bottomNavigationBarComponent.dart';
 import 'package:gservice5/pages/ad/list/adListPage.dart';
+import 'package:gservice5/pages/ad/list/adListWidget.dart';
+import 'package:gservice5/pages/author/contractor/viewAboutContractorPage.dart';
 import 'package:gservice5/pages/author/filesListPage.dart';
 import 'package:readmore/readmore.dart';
 
@@ -31,9 +34,15 @@ class _ViewContractorPageState extends State<ViewContractorPage> {
   Map data = {};
   bool loader = true;
   List childData = [
-    {"page": FilesListPage(), "title": "Подписчики"},
-    {"page": FilesListPage(), "title": "Отзывы"},
-    {"page": FilesListPage(), "title": "Файлы"},
+    {"page": const FilesListPage(), "title": "Подписчики"},
+    {"page": const FilesListPage(), "title": "Отзывы"},
+    {"page": const FilesListPage(), "title": "Файлы"},
+  ];
+  List pages = [
+    {"title": "О компании"},
+    {"title": "Объявления"},
+    {"title": "Заявки"},
+    {"title": "Новости"},
   ];
   List categories = CategoriesData.categories;
   ScrollController scrollController = ScrollController();
@@ -91,359 +100,211 @@ class _ViewContractorPageState extends State<ViewContractorPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        leading: BackIconButton(),
-        actions: [ShareButton(id: 0, hasAd: false), Divider(indent: 15)],
-        title: loader
-            ? Container()
-            : FadeOnScroll(
-                scrollController: scrollController,
-                fullOpacityOffset: 180,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Container(
-                            constraints: BoxConstraints(
-                                maxWidth:
-                                    MediaQuery.of(context).size.width / 1.5),
-                            child: Text(data['name'],
-                                style: const TextStyle(
-                                    fontSize: 15,
-                                    fontWeight: FontWeight.w600))),
-                        const Divider(indent: 6),
-                        SvgPicture.asset("assets/icons/badgeCheck.svg",
-                            width: 18),
-                      ],
-                    ),
-                    const Divider(height: 2),
-                    Text(daysBetween().toString(),
-                        style: TextStyle(
-                            fontWeight: FontWeight.w400,
-                            fontSize: 12,
-                            color: ColorComponent.gray['500'])),
-                    // PriceTextWidget(prices: data['price'], fontSize: 14)
-                  ],
-                ),
-              ),
-      ),
-      body: loader
-          ? LoaderComponent()
-          : DefaultTabController(
-              length: categories.length,
-              child: NestedScrollView(
-                  controller: scrollController,
-                  headerSliverBuilder:
-                      (BuildContext context, bool innerBoxIsScrolled) {
-                    return [
-                      SliverToBoxAdapter(
-                        child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Padding(
-                                padding: EdgeInsets.symmetric(
-                                    horizontal: 15, vertical: 7),
-                                child: Row(
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    CacheImage(
-                                        url: data['avatar'],
-                                        width: 70,
-                                        height: 70,
-                                        borderRadius: 10),
-                                    const Divider(indent: 16),
-                                    Expanded(
-                                        child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Row(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.center,
-                                          children: [
-                                            Container(
-                                                constraints: BoxConstraints(
-                                                    maxWidth:
-                                                        MediaQuery.of(context)
-                                                                .size
-                                                                .width /
-                                                            1.5),
-                                                child: Text(data['name'],
-                                                    style: const TextStyle(
-                                                        fontSize: 18,
-                                                        fontWeight:
-                                                            FontWeight.w600))),
-                                            const Divider(indent: 6),
-                                            SvgPicture.asset(
-                                                "assets/icons/badgeCheck.svg"),
-                                          ],
-                                        ),
-                                        Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
-                                          children: [
-                                            Text(daysBetween().toString(),
-                                                style: TextStyle(
-                                                    color: ColorComponent
-                                                        .gray['500'])),
-                                            Container(
-                                              padding: const EdgeInsets.all(4),
-                                              decoration: BoxDecoration(
-                                                  color:
-                                                      ColorComponent.mainColor,
-                                                  borderRadius:
-                                                      BorderRadius.circular(4)),
-                                              child: Row(
-                                                children: [
-                                                  SvgPicture.asset(
-                                                      'assets/icons/star.svg'),
-                                                  const Divider(indent: 2),
-                                                  Text(
-                                                      data['rating'].toString(),
-                                                      style: TextStyle(
-                                                          fontSize: 12,
-                                                          fontWeight:
-                                                              FontWeight.w600))
-                                                ],
-                                              ),
-                                            ),
-                                          ],
-                                        )
-                                      ],
-                                    ))
-                                  ],
+        appBar: AppBar(
+          leadingWidth: MediaQuery.of(context).size.width - 100,
+          leading: IconButton(
+            padding: EdgeInsets.zero,
+            constraints: const BoxConstraints(),
+            style:
+                const ButtonStyle(tapTargetSize: MaterialTapTargetSize.padded),
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            icon: loader
+                ? Container()
+                : Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      const Divider(indent: 15),
+                      SvgPicture.asset('assets/icons/left.svg', width: 28),
+                      const Divider(indent: 10),
+                      Container(
+                          constraints: BoxConstraints(
+                              maxWidth:
+                                  MediaQuery.of(context).size.width / 1.5),
+                          child: Text(data['name'],
+                              style: const TextStyle(
+                                  fontSize: 18, fontWeight: FontWeight.w600))),
+                      const Divider(indent: 6),
+                      SvgPicture.asset("assets/icons/badgeCheck.svg"),
+                    ],
+                  ),
+          ),
+          actions: const [ShareButton(id: 0, hasAd: false), Divider(indent: 15)],
+        ),
+        body: loader
+            ? const LoaderComponent()
+            : DefaultTabController(
+                length: pages.length,
+                child: NestedScrollView(
+                    controller: scrollController,
+                    headerSliverBuilder:
+                        (BuildContext context, bool innerBoxIsScrolled) {
+                      return [
+                        SliverToBoxAdapter(
+                          child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 15, vertical: 7),
+                                  child: Row(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                    children: [
+                                      CacheImage(
+                                          url: data['avatar'],
+                                          width: 70,
+                                          height: 70,
+                                          borderRadius: 40),
+                                      const Divider(indent: 16),
+                                      Expanded(
+                                          child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.center,
+                                        children: [
+                                          Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            children: [
+                                              SvgPicture.asset(
+                                                  'assets/icons/users.svg',
+                                                  width: 20,
+                                                  color: Colors.black),
+                                              const Divider(indent: 6),
+                                              Text(numberFormat(1200),
+                                                  style: const TextStyle(
+                                                      fontWeight:
+                                                          FontWeight.w500))
+                                            ],
+                                          ),
+                                          const Divider(height: 3),
+                                          Text("Подписчиков",
+                                              style: TextStyle(
+                                                  fontSize: 13,
+                                                  color: ColorComponent
+                                                      .gray['500'])),
+                                          const Divider(height: 4),
+                                        ],
+                                      )),
+                                      Expanded(
+                                          child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.center,
+                                        children: [
+                                          Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            children: [
+                                              SvgPicture.asset(
+                                                  'assets/icons/file.svg',
+                                                  width: 20,
+                                                  color: Colors.black),
+                                              const Divider(indent: 6),
+                                              Text(numberFormat(1200),
+                                                  style: const TextStyle(
+                                                      fontWeight:
+                                                          FontWeight.w500))
+                                            ],
+                                          ),
+                                          const Divider(height: 3),
+                                          Text("Объявлении",
+                                              style: TextStyle(
+                                                  fontSize: 13,
+                                                  color: ColorComponent
+                                                      .gray['500'])),
+                                          const Divider(height: 4),
+                                        ],
+                                      )),
+                                      Expanded(
+                                          child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.center,
+                                        children: [
+                                          Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            children: [
+                                              SvgPicture.asset(
+                                                  'assets/icons/starOutline.svg',
+                                                  width: 20,
+                                                  color: Colors.black),
+                                              const Divider(indent: 6),
+                                              Text("${data['rating']}",
+                                                  style: const TextStyle(
+                                                      fontWeight:
+                                                          FontWeight.w500))
+                                            ],
+                                          ),
+                                          const Divider(height: 3),
+                                          Text("143 отзывов",
+                                              style: TextStyle(
+                                                  fontSize: 13,
+                                                  color: ColorComponent
+                                                      .gray['500'])),
+                                          const Divider(height: 4),
+                                        ],
+                                      ))
+                                    ],
+                                  ),
                                 ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 15, vertical: 10),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    ReadMoreText(
-                                      "Севало Инжиниринг Машинери Казахстан)» создано в Казахстане (г.Алматы) в Мае, 2012 года.Наша компания в основном реализует продукцию Южной Кореи (экскаватор, погрузчик, дробилка), Шаньдунской компании Линь Гун Китай (погрузчики), Уханьской компании Шань Мао, Китай (Bobcat), Шанхайской компании Хань Юй Китай, (гидромолот) и других известных компаний.Компания предоставляет клиентам комплексное обслуживание как реализация, сервисное обслуживание машин, управление финансирования и страховое агентство. Компания всегда придерживается идеи бизнеса комплексное обслуживание и высокое качество, а также принципов - честность, искренний труд, и непреклонное стремление к совершенству",
-                                      trimMode: TrimMode.Line,
-                                      trimLines: 3,
-                                      trimCollapsedText: ' Показать больше',
-                                      trimExpandedText: ' Cкрыть',
-                                      lessStyle: TextStyle(
-                                          fontSize: 14,
-                                          color: ColorComponent.blue['500'],
-                                          fontWeight: FontWeight.w500),
-                                      moreStyle: TextStyle(
-                                          fontSize: 14,
-                                          color: ColorComponent.blue['500'],
-                                          fontWeight: FontWeight.w500),
-                                    ),
-                                  ],
+                                const Divider(height: 10),
+                                Container(
+                                  padding: const EdgeInsets.symmetric(horizontal: 15),
+                                  height: 40,
+                                  child: Row(
+                                    children: [
+                                      Expanded(
+                                        child: Button(
+                                            onPressed: () {},
+                                            backgroundColor: ColorComponent
+                                                .mainColor
+                                                .withOpacity(.2),
+                                            title: "Поделится"),
+                                      ),
+                                      const Divider(indent: 10),
+                                      Expanded(
+                                        child: Button(
+                                            onPressed: () {},
+                                            title: "Подписаться"),
+                                      ),
+                                    ],
+                                  ),
                                 ),
-                              ),
-                              // SizedBox(
-                              //   height: 40,
-                              //   child: SingleChildScrollView(
-                              //     padding: EdgeInsets.symmetric(horizontal: 15),
-                              //     scrollDirection: Axis.horizontal,
-                              //     child: Row(
-                              //         children: childData.map((value) {
-                              //       return GestureDetector(
-                              //         onTap: () {
-                              //           showPage(value);
-                              //         },
-                              //         child: Container(
-                              //             height: 32,
-                              //             padding: const EdgeInsets.symmetric(
-                              //                 horizontal: 12),
-                              //             margin: const EdgeInsets.symmetric(
-                              //                 horizontal: 4),
-                              //             alignment: Alignment.center,
-                              //             decoration: BoxDecoration(
-                              //                 borderRadius:
-                              //                     BorderRadius.circular(8),
-                              //                 color: ColorComponent.mainColor
-                              //                     .withOpacity(.2)),
-                              //             child: Text(value['title'],
-                              //                 style: const TextStyle(
-                              //                     fontSize: 12,
-                              //                     fontWeight: FontWeight.w400,
-                              //                     height: 1))),
-                              //       );
-                              //     }).toList()),
-                              //   ),
-                              // ),
-                              InfoButton(
-                                  SvgPicture.asset(
-                                      'assets/icons/starOutline.svg',
-                                      width: 18,
-                                      color: Color(0xff6b7280)),
-                                  "4.92 рейтинг",
-                                  () {}),
-                              InfoButton(
-                                  SvgPicture.asset('assets/icons/users.svg',
-                                      width: 18, color: Color(0xff6b7280)),
-                                  "${numberFormat(1000)} подписчиков",
-                                  () {}),
-                              InfoButton(
-                                  SvgPicture.asset('assets/icons/pin.svg',
-                                      width: 18, color: Color(0xff6b7280)),
-                                  data['city']['title'],
-                                  () {}),
-                              InfoButton(
-                                  Container(
-                                      width: 8,
-                                      height: 8,
-                                      margin:
-                                          EdgeInsets.only(right: 4, left: 5),
-                                      decoration: BoxDecoration(
-                                          color: ColorComponent.red['500'],
-                                          borderRadius:
-                                              BorderRadius.circular(5))),
-                                  "Закрыто до завтра",
-                                  () {}),
-
-                              // Container(
-                              //   padding: const EdgeInsets.symmetric(
-                              //       horizontal: 15, vertical: 12),
-                              //   child: Row(
-                              //     children: [
-                              //       Expanded(
-                              //         child: Row(
-                              //           children: [
-                              //             SvgPicture.asset(
-                              //                 'assets/icons/pin.svg',
-                              //                 width: 18,
-                              //                 color: Color(0xff6b7280)),
-                              //             Divider(indent: 6),
-                              //             Text(data['city']['title'],
-                              //                 style: TextStyle(
-                              //                     fontSize: 16,
-                              //                     fontWeight: FontWeight.w500)),
-                              //           ],
-                              //         ),
-                              //       ),
-                              //       SvgPicture.asset("assets/icons/right.svg")
-                              //     ],
-                              //   ),
-                              // ),
-                              Divider(height: 10),
-                              SizedBox(
-                                height: 40,
-                                child: Button(
-                                  onPressed: () {},
-                                  title: "Подписаться",
-                                  padding: EdgeInsets.symmetric(horizontal: 15),
-                                ),
-                              ),
-                              Divider(height: 10),
-                            ]),
-                      ),
-                      SliverAppBar(
-                        pinned: true,
-                        toolbarHeight: 0,
-                        bottom: PreferredSize(
-                          preferredSize:
-                              Size(MediaQuery.of(context).size.width, 51),
-                          child: Container(
-                            decoration: BoxDecoration(
-                                border: Border(
-                                    // top: BorderSide(
-                                    //     width: 1, color: Color(0xfff4f5f7)),
-                                    bottom: BorderSide(
-                                        width: 2, color: Color(0xfff4f5f7)))),
-                            child: TabBar(
-                                isScrollable: true,
-                                tabAlignment: TabAlignment.start,
-                                tabs: categories.map((value) {
-                                  return Tab(text: value['title']);
-                                }).toList()),
+                                const Divider(height: 10),
+                              ]),
+                        ),
+                        SliverAppBar(
+                          pinned: true,
+                          toolbarHeight: 0,
+                          bottom: PreferredSize(
+                            preferredSize:
+                                Size(MediaQuery.of(context).size.width, 51),
+                            child: Container(
+                              decoration: const BoxDecoration(
+                                  border: Border(
+                                      // top: BorderSide(
+                                      //     width: 1, color: Color(0xfff4f5f7)),
+                                      bottom: BorderSide(
+                                          width: 2, color: Color(0xfff4f5f7)))),
+                              child: TabBar(
+                                  isScrollable: true,
+                                  tabAlignment: TabAlignment.start,
+                                  tabs: pages.map((value) {
+                                    return Tab(text: value['title']);
+                                  }).toList()),
+                            ),
                           ),
                         ),
-                      ),
-
-                      // SliverStickyHeader(
-                      //     header: Container(
-                      //       color: Colors.white,
-                      //       child: TabBar(
-                      //           isScrollable: true,
-                      //           tabAlignment: TabAlignment.start,
-                      //           tabs: categories.map((value) {
-                      //             return Tab(text: value['title']);
-                      //           }).toList()),
-                      //     ),
-                      //     sliver: SliverList(
-                      //       delegate: SliverChildBuilderDelegate(
-                      //         (context, i) => ListTile(
-                      //           leading: CircleAvatar(
-                      //             child: Text('0'),
-                      //           ),
-                      //           title: Text('List tile #$i'),
-                      //         ),
-                      //         childCount: 4,
-                      //       ),
-                      //       // ),
-                      //     )),
-                    ];
-                  },
-                  body: TabBarView(
-                    children: categories.map((value) {
-                      return ListView.builder(
-                        itemCount: 40,
-                        shrinkWrap: true,
-                        itemBuilder: (context, index) {
-                          return ListTile(
-                            leading: CircleAvatar(
-                              child: Text('0'),
-                            ),
-                            title: Text('List tile #$index'),
-                          );
-                        },
-                      );
-                    }).toList(),
-                  )),
-            ),
-      bottomNavigationBar: BottomNavigationBarComponent(
-          child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 15),
-        child: Row(
-          children: [
-            Expanded(
-                child: Button(
-                    onPressed: () {},
-                    backgroundColor: ColorComponent.mainColor.withOpacity(.1),
-                    title: "Соц. сети")),
-            const Divider(indent: 8),
-            Expanded(
-                child: Button(
-                    onPressed: () {}, icon: "phone.svg", title: "Позвонить"))
-          ],
-        ),
-      )),
-    );
-  }
-
-  Widget InfoButton(Widget leading, String title, VoidCallback onTap) {
-    return GestureDetector(
-      onTap: onTap,
-      child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 12),
-        child: Row(
-          children: [
-            Expanded(
-              child: Row(
-                children: [
-                  leading,
-                  Divider(indent: 10),
-                  Text(title,
-                      style:
-                          TextStyle(fontSize: 16, fontWeight: FontWeight.w500)),
-                ],
+                      ];
+                    }, 
+                    body: TabBarView(children: [
+                      ViewAboutContractorPage(data: data),
+                      AdListWidget(param: {"company_id": data['id']}),
+                      const FilesListPage(),
+                      const FilesListPage()
+                    ])),
               ),
-            ),
-            SvgPicture.asset("assets/icons/right.svg")
-          ],
-        ),
-      ),
-    );
+        bottomNavigationBar: const ContactBottomBarWidget(hasAd: false, id: 1));
   }
 }

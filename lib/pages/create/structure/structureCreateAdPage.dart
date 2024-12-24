@@ -216,7 +216,8 @@ class _StructureCreateAdPageState extends State<StructureCreateAdPage> {
                                   padding: const EdgeInsets.only(
                                       top: 12, right: 15, left: 15),
                                   child: Text(
-                                      data[pageIndex]['title']?['title_ru'],
+                                      data[pageIndex]['title']?['title_ru'] ??
+                                          "",
                                       style: const TextStyle(
                                           fontSize: 20,
                                           fontWeight: FontWeight.w600)))

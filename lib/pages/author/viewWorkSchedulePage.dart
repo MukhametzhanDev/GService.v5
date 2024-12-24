@@ -10,6 +10,6 @@ class ViewWorkSchedulePage extends StatefulWidget {
 class _ViewWorkSchedulePageState extends State<ViewWorkSchedulePage> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold();
+    return const Scaffold();
   }
 }

@@ -328,8 +328,7 @@ class TextFieldCharacteristic extends StatelessWidget {
                 color: ColorComponent.gray['500'],
                 fontWeight: FontWeight.w400),
             hintText: "Напишите",
-            labelText: value['tag_attribute']?['placeholder'],
-            suffixText: value['measurement_unit']?['title_ru'] ?? ""),
+            labelText: value['tag_attribute']?['placeholder']),
       ),
       const SizedBox(height: 14),
     ]);

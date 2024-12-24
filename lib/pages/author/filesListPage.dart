@@ -15,8 +15,8 @@ class _FilesListPageState extends State<FilesListPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leadingWidth: 100,
-        leading: BackTitleButton(title: "Файлы"),
+        leadingWidth: 200,
+        leading: const BackTitleButton(title: "Сертификаты"),
       ),
       body: ListView.builder(
         itemCount: 10,
@@ -24,26 +24,26 @@ class _FilesListPageState extends State<FilesListPage> {
           return Container(
               decoration: BoxDecoration(
                   border: Border(
-                      top: BorderSide(color: ColorComponent.gray["100"]!))),
+                      bottom: BorderSide(color: ColorComponent.gray["100"]!))),
               child: Container(
-                padding: EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+                padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
                 child: Row(
                   children: [
                     CircleAvatar(
+                        backgroundColor: ColorComponent.mainColor,
                         child: SvgPicture.asset('assets/icons/file.svg',
-                            color: Colors.black),
-                        backgroundColor: ColorComponent.mainColor),
-                    Divider(indent: 16),
+                            color: Colors.black)),
+                    const Divider(indent: 16),
                     Expanded(
                         child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
+                        const Text(
                           "Сертификат",
                           style: TextStyle(
                               fontSize: 15, fontWeight: FontWeight.w500),
                         ),
-                        Divider(height: 4),
+                        const Divider(height: 4),
                         Text("Сертификат на продукцию",
                             style: TextStyle(
                                 color: ColorComponent.gray['500'],

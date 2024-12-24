@@ -8,9 +8,7 @@ import 'package:gservice5/component/select/selectVerifyData.dart';
 import 'package:gservice5/component/snackBar/snackBarComponent.dart';
 import 'package:gservice5/component/widgets/bottom/bottomNavigationBarComponent.dart';
 import 'package:gservice5/pages/create/data/createData.dart';
-import 'package:gservice5/pages/profile/contacts/addContactModal.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
-import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
 class CreateApplicationContactsPage extends StatefulWidget {
   const CreateApplicationContactsPage({super.key});

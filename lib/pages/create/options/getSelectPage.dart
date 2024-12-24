@@ -182,11 +182,9 @@ class _GetSelectPageState extends State<GetSelectPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-        data.isEmpty
-            ? Container()
-            : Padding(
-                padding: const EdgeInsets.only(right: 15, left: 15, top: 15),
-                child: SearchTextField(title: "Поиск", onChanged: searchList)),
+        Padding(
+            padding: const EdgeInsets.only(right: 15, left: 15, top: 15),
+            child: SearchTextField(title: "Поиск", onChanged: searchList)),
         Expanded(
           child: loader
               ? const LoaderComponent()
@@ -230,19 +228,13 @@ class _GetSelectPageState extends State<GetSelectPage> {
       ]),
       bottomNavigationBar: loader
           ? null
-          : data.isEmpty
+          : widget.value['multiple']
               ? BottomNavigationBarComponent(
                   child: Button(
                       onPressed: () => savedData(),
                       padding: const EdgeInsets.symmetric(horizontal: 15),
-                      title: "Пропустить"))
-              : widget.value['multiple']
-                  ? BottomNavigationBarComponent(
-                      child: Button(
-                          onPressed: () => savedData(),
-                          padding: const EdgeInsets.symmetric(horizontal: 15),
-                          title: "Продолжить"))
-                  : null,
+                      title: "Продолжить"))
+              : null,
     );
   }
 
@@ -272,7 +264,9 @@ class _GetSelectPageState extends State<GetSelectPage> {
       decoration: BoxDecoration(
           color: active ? ColorComponent.blue['500'] : Colors.white,
           border: Border.all(
-              width: 1, color: active ? const Color(0xff3f83f8) : const Color(0xff9fa6b2)),
+              width: 1,
+              color:
+                  active ? const Color(0xff3f83f8) : const Color(0xff9fa6b2)),
           borderRadius: BorderRadius.circular(4)),
       child: active
           ? SvgPicture.asset('assets/icons/check.svg', color: Colors.white)

@@ -4,7 +4,6 @@ import 'package:gservice5/component/button/back/backTitleButton.dart';
 import 'package:gservice5/component/formatted/price/priceFormat.dart';
 import 'package:gservice5/component/modal/cities.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
-import 'package:gservice5/pages/ad/filter/filterAdListPage.dart';
 import 'package:gservice5/pages/ad/filter/filterButton.dart';
 import 'package:gservice5/pages/ad/filter/priceFilterModal.dart';
 import 'package:gservice5/pages/create/data/createData.dart';

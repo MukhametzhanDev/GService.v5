@@ -88,10 +88,9 @@ class _ViewAdPageState extends State<ViewAdPage> {
                       ShareButton(id: widget.id, hasAd: true),
                       const Divider(indent: 10),
                       FavoriteButton(
-                        id: data['id'],
-                        type: "ad",
-                        active: data['is_favorite'],
-                      ),
+                          id: data['id'],
+                          type: "ad",
+                          active: data['is_favorite']),
                       const Divider(indent: 15)
                     ],
                     title: FadeOnScroll(
@@ -107,7 +106,7 @@ class _ViewAdPageState extends State<ViewAdPage> {
                                   color: ColorComponent.blue['700']),
                               maxLines: 1),
                           const Divider(height: 4),
-                          PriceTextWidget(prices: data['price'], fontSize: 14)
+                          PriceTextWidget(prices: data['prices'], fontSize: 14)
                         ],
                       ),
                     ),
@@ -190,11 +189,8 @@ class _ViewAdPageState extends State<ViewAdPage> {
                               ViewCharacteristicWidget(
                                   characteristics: data['characteristics']),
                               const SizedBox(height: 10),
-                              Divider(
-                                  height: 1, color: ColorComponent.gray['50']),
-                              const SizedBox(height: 10),
                               ShowDescriptionWidget(desc: data['description']),
-                              const Divider(indent: 16),
+                              const Divider(height: 16),
                               SizedBox(
                                 height: 41,
                                 child: Button(
