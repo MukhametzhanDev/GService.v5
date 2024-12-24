@@ -1,10 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_sticky_header/flutter_sticky_header.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:gservice5/component/appBar/fadeOnScroll.dart';
 import 'package:gservice5/component/bar/bottomBar/contactBottomBarWidget.dart';
-import 'package:gservice5/component/button/back/backIconButton.dart';
 import 'package:gservice5/component/button/button.dart';
 import 'package:gservice5/component/button/shareButton.dart';
 import 'package:gservice5/component/categories/data/categoriesData.dart';
@@ -15,12 +12,9 @@ import 'package:gservice5/component/loader/loaderComponent.dart';
 import 'package:gservice5/component/request/getCategories.dart';
 import 'package:gservice5/component/snackBar/snackBarComponent.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
-import 'package:gservice5/component/widgets/bottom/bottomNavigationBarComponent.dart';
-import 'package:gservice5/pages/ad/list/adListPage.dart';
 import 'package:gservice5/pages/ad/list/adListWidget.dart';
 import 'package:gservice5/pages/author/contractor/viewAboutContractorPage.dart';
 import 'package:gservice5/pages/author/filesListPage.dart';
-import 'package:readmore/readmore.dart';
 
 class ViewContractorPage extends StatefulWidget {
   final int id;
@@ -77,21 +71,6 @@ class _ViewContractorPageState extends State<ViewContractorPage> {
     }
   }
 
-  String daysBetween() {
-    DateTime from = DateTime.parse(data['created_at']);
-    DateTime to = DateTime.now();
-    int days = to.difference(from).inDays;
-    if (days < 27) {
-      return "$days дней на GService.kz";
-    } else if (days > 27 && days < 365) {
-      int month = (days / 27).round();
-      return "$month месяцев на GService.kz";
-    } else {
-      int year = (days / 365).round();
-      return "$year лет на GService.kz";
-    }
-  }
-
   void showPage(value) {
     Navigator.push(
         context, MaterialPageRoute(builder: (context) => value['page']));
@@ -130,7 +109,10 @@ class _ViewContractorPageState extends State<ViewContractorPage> {
                     ],
                   ),
           ),
-          actions: const [ShareButton(id: 0, hasAd: false), Divider(indent: 15)],
+          actions: const [
+            ShareButton(id: 0, hasAd: false),
+            Divider(indent: 15)
+          ],
         ),
         body: loader
             ? const LoaderComponent()
@@ -250,7 +232,8 @@ class _ViewContractorPageState extends State<ViewContractorPage> {
                                 ),
                                 const Divider(height: 10),
                                 Container(
-                                  padding: const EdgeInsets.symmetric(horizontal: 15),
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 15),
                                   height: 40,
                                   child: Row(
                                     children: [
@@ -297,7 +280,7 @@ class _ViewContractorPageState extends State<ViewContractorPage> {
                           ),
                         ),
                       ];
-                    }, 
+                    },
                     body: TabBarView(children: [
                       ViewAboutContractorPage(data: data),
                       AdListWidget(param: {"company_id": data['id']}),

@@ -73,10 +73,10 @@ class _ListPackagePageState extends State<ListPackagePage> {
       print(response.data);
       Navigator.pop(context);
       if (response.data['success']) {
-        showCupertinoModalBottomSheet(
+        showModalBottomSheet(
             context: context,
             builder: (context) =>
-                PaymentMethodModal(paymentId: response.data['data']));
+                PaymentMethodModal(orderId: response.data['data']));
       } else {
         SnackBarComponent().showResponseErrorMessage(response, context);
       }

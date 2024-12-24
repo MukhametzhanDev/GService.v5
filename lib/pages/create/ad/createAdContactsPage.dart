@@ -77,6 +77,7 @@ class _CreateAdContactsPageState extends State<CreateAdContactsPage> {
   }
 
   Future postData() async {
+    print(getFormData().fields);
     showModalLoader(context);
     try {
       Response response = await dio.post("/ad", data: getFormData());

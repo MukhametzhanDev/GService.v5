@@ -5,6 +5,7 @@ import 'package:gservice5/component/image/cacheImage.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
 import 'package:gservice5/pages/ad/item/smallAdItem.dart';
 import 'package:gservice5/pages/author/contractor/viewContractorPage.dart';
+import 'package:gservice5/pages/author/individual/viewIndiviualPage.dart';
 
 class AuthorAdWidget extends StatefulWidget {
   final String title;
@@ -22,6 +23,28 @@ class _AuthorAdWidgetState extends State<AuthorAdWidget> {
         MaterialPageRoute(
             builder: (context) => ViewContractorPage(id: widget.data['id'])));
   }
+
+  void showViewIndividualPage() {
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => ViewIndiviualPage(id: widget.data['id'])));
+  }
+
+  // String daysBetween() {
+  //   DateTime from = DateTime.parse(data['created_at']);
+  //   DateTime to = DateTime.now();
+  //   int days = to.difference(from).inDays;
+  //   if (days < 27) {
+  //     return "$days дней на GService.kz";
+  //   } else if (days > 27 && days < 365) {
+  //     int month = (days / 27).round();
+  //     return "$month месяцев на GService.kz";
+  //   } else {
+  //     int year = (days / 365).round();
+  //     return "$year лет на GService.kz";
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -163,28 +186,34 @@ class _AuthorAdWidgetState extends State<AuthorAdWidget> {
                               title: "Страница продавца"))
                     ],
                   )
-                : Row(children: [
-                    CacheImage(
-                        url: widget.data['avatar'],
-                        width: 48,
-                        height: 48,
-                        borderRadius: 6),
-                    const Divider(indent: 16),
-                    Expanded(
-                        child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(widget.data['name'],
-                            style: const TextStyle(
-                                fontSize: 16, fontWeight: FontWeight.w600)),
-                        const Divider(height: 3),
-                        Text("ID: ${widget.data['id']}",
-                            style: TextStyle(color: ColorComponent.gray['500']))
-                      ],
-                    )),
-                    SvgPicture.asset("assets/icons/right.svg"),
-                    const Divider(indent: 8)
-                  ])),
+                : GestureDetector(
+                    onTap: () {
+                      showViewIndividualPage();
+                    },
+                    child: Row(children: [
+                      CacheImage(
+                          url: widget.data['avatar'],
+                          width: 48,
+                          height: 48,
+                          borderRadius: 6),
+                      const Divider(indent: 16),
+                      Expanded(
+                          child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(widget.data['name'],
+                              style: const TextStyle(
+                                  fontSize: 16, fontWeight: FontWeight.w600)),
+                          const Divider(height: 3),
+                          Text("ID: ${widget.data['id']}",
+                              style:
+                                  TextStyle(color: ColorComponent.gray['500']))
+                        ],
+                      )),
+                      SvgPicture.asset("assets/icons/right.svg"),
+                      const Divider(indent: 8)
+                    ]),
+                  )),
         const Divider(height: 16),
         const Padding(
             padding: EdgeInsets.symmetric(horizontal: 16),

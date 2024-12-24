@@ -153,6 +153,17 @@ class _GetCharacteristicAdPageState extends State<GetCharacteristicAdPage> {
                     : Column(
                         children: data.map((value) {
                         if (value['field_type'] == "input" &&
+                            value['input_type'] == "radio") {
+                          List childData = value['child_characteristics'];
+                          return Column(
+                            children: [
+                              RadioButtonCharacteristic(
+                                  value: value, addData: addData),
+                              ChildCharacteristics(
+                                  data: childData, addData: addData)
+                            ],
+                          );
+                        } else if (value['field_type'] == "input" &&
                             value['input_type'] != "checkbox") {
                           List childData = value['child_characteristics'];
                           return Column(
@@ -236,6 +247,9 @@ class _ChildCharacteristicsState extends State<ChildCharacteristics> {
       } else if (value['field_type'] == "input" &&
           value['input_type'] == "checkbox") {
         return CheckBoxCharacteristic(value: value, addData: widget.addData);
+      } else if (value['field_type'] == "input" &&
+          value['input_type'] == "radio") {
+        return RadioButtonCharacteristic(value: value, addData: widget.addData);
       } else if (value['field_type'] == "select" &&
           value['tag_attribute']["multiple"]) {
         return MultipleSelectCharacteristic(
@@ -390,6 +404,91 @@ class _CheckBoxCharacteristicState extends State<CheckBoxCharacteristic> {
                 )
               ],
             )));
+  }
+}
+
+class RadioButtonCharacteristic extends StatefulWidget {
+  final Map value;
+  final Function addData;
+  const RadioButtonCharacteristic(
+      {super.key, required this.value, required this.addData});
+
+  @override
+  State<RadioButtonCharacteristic> createState() =>
+      _RadioButtonCharacteristicState();
+}
+
+class _RadioButtonCharacteristicState extends State<RadioButtonCharacteristic> {
+  int currentIndex = 0;
+
+  @override
+  void initState() {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (mounted) {
+        addData();
+      }
+    });
+    super.initState();
+  }
+
+  void addData() {
+    Map value = widget.value['options'][currentIndex];
+    widget.addData({widget.value['id'].toString(): value['id'].toString()},
+        {widget.value['title']: value['title']});
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    List options = widget.value['options'];
+    return SizedBox(
+      width: MediaQuery.of(context).size.width - 30,
+      child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            Text(widget.value['title'], style: const TextStyle(fontSize: 14)),
+            const SizedBox(height: 7),
+            Wrap(
+                spacing: 20,
+                runSpacing: 10,
+                children: options.map((value) {
+                  int index = options.indexOf(value);
+                  bool active = index == currentIndex;
+                  return GestureDetector(
+                    onTap: () {
+                      currentIndex = index;
+                      addData();
+                      setState(() {});
+                    },
+                    child: SizedBox(
+                      height: 46,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Container(
+                              width: 22,
+                              height: 22,
+                              decoration: BoxDecoration(
+                                  color: active
+                                      ? Colors.white
+                                      : ColorComponent.gray['50'],
+                                  borderRadius: BorderRadius.circular(15),
+                                  border: Border.all(
+                                      width: active ? 4 : 1,
+                                      color: active
+                                          ? ColorComponent.blue['500']!
+                                          : ColorComponent.gray['300']!))),
+                          Divider(indent: 12),
+                          Text(value['title']),
+                        ],
+                      ),
+                    ),
+                  );
+                }).toList()),
+            const SizedBox(height: 14),
+          ]),
+    );
   }
 }
 
