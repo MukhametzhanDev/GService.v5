@@ -8,19 +8,20 @@ import 'package:gservice5/component/snackBar/snackBarComponent.dart';
 import 'package:gservice5/pages/ad/item/adItem.dart';
 import 'package:gservice5/pages/ad/list/adListLoader.dart';
 import 'package:gservice5/pages/ad/list/emptyAdListPage.dart';
+import 'package:gservice5/pages/application/item/applicationItem.dart';
 import 'package:gservice5/pages/create/data/createData.dart';
 
-class AdListWidget extends StatefulWidget {
+class ApplicationListWidget extends StatefulWidget {
   final Map<String, dynamic> param;
   final ScrollController scrollController;
-  const AdListWidget(
+  const ApplicationListWidget(
       {super.key, required this.param, required this.scrollController});
 
   @override
-  State<AdListWidget> createState() => _AdListWidgetState();
+  State<ApplicationListWidget> createState() => _AdListWidgetState();
 }
 
-class _AdListWidgetState extends State<AdListWidget>
+class _AdListWidgetState extends State<ApplicationListWidget>
     with AutomaticKeepAliveClientMixin {
   List data = [];
   bool loader = true;
@@ -54,7 +55,7 @@ class _AdListWidgetState extends State<AdListWidget>
     try {
       page = 1;
       showLoader();
-      Response response = await dio.get("/ad", queryParameters: param);
+      Response response = await dio.get("/application", queryParameters: param);
       print(response.data);
       if (response.statusCode == 200) {
         data = response.data['data'];
@@ -79,7 +80,7 @@ class _AdListWidgetState extends State<AdListWidget>
         page += 1;
         setState(() {});
         Response response = await dio
-            .get("/ad", queryParameters: {"page": page.toString(), ...param});
+            .get("/application", queryParameters: {"page": page.toString(), ...param});
         print(response.data);
         if (response.statusCode == 200) {
           data.addAll(response.data['data']);
@@ -152,13 +153,13 @@ class _AdListWidgetState extends State<AdListWidget>
                       Map value = data[index];
                       if (data.length - 1 == index) {
                         return Column(children: [
-                          AdItem(data: value, showCategory: true),
+                          ApplicationItem(data: value, showCategory: true),
                           hasNextPage
                               ? const PaginationLoaderComponent()
                               : Container()
                         ]);
                       } else {
-                        return AdItem(data: value, showCategory: true);
+                        return ApplicationItem(data: value, showCategory: true);
                       }
                     });
   }

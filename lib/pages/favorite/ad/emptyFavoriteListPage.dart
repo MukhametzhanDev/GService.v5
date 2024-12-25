@@ -26,7 +26,7 @@ class _EmptyFavoriteListPageState extends State<EmptyFavoriteListPage> {
         const Padding(
             padding: EdgeInsets.symmetric(horizontal: 15),
             child: Text(
-              "Нажимайте на ♡ рядом с объявлениями или заявками, чтобы не потерять их",
+              "Нажимайте на ♡ рядом с объявлениями или заказами, чтобы не потерять их",
               textAlign: TextAlign.center,
               style: TextStyle(color: Colors.black, fontSize: 15, height: 1.5),
             )),

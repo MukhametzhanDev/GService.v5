@@ -31,7 +31,7 @@ class _EmptyAdListPageState extends State<EmptyAdListPage> {
           const Padding(
               padding: EdgeInsets.symmetric(horizontal: 15),
               child: Text(
-                "Вы можете бесплатно разместить заявку, и исполнители свяжутся с вами!",
+                "Вы можете бесплатно разместить заказ, и исполнители свяжутся с вами!",
                 textAlign: TextAlign.center,
                 style:
                     TextStyle(color: Colors.black, fontSize: 15, height: 1.5),
@@ -46,7 +46,7 @@ class _EmptyAdListPageState extends State<EmptyAdListPage> {
                     builder: (context) => const SectionCreateApplicationPage());
               },
               padding: const EdgeInsets.symmetric(horizontal: 15),
-              title: "Разместить заявку")),
+              title: "Разместить заказ")),
     );
   }
 }

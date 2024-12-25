@@ -41,7 +41,8 @@ class _MainPageState extends State<MainPage> {
     Navigator.push(
         context,
         MaterialPageRoute(
-            builder: (context) => const MainSearchPage(showType: "back", title: "")));
+            builder: (context) =>
+                const MainSearchPage(showType: "back", title: "")));
   }
 
   @override
@@ -100,8 +101,18 @@ class _MainPageState extends State<MainPage> {
               const Divider(height: 20),
               ApplicationListMain(data: data['applications']),
               const Divider(height: 24),
-              AdListMain(scrollController: widget.scrollController, param: const {})
-            ]))
+            ])),
+            SliverToBoxAdapter(
+              child: Padding(
+                  padding: EdgeInsets.only(left: 15, right: 15, bottom: 10),
+                  child: Text("Спецтехники по Казахстану",
+                      style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w600,
+                          height: 1))),
+            ),
+            AdListMain(
+                scrollController: widget.scrollController, param: const {})
           ]),
         ),
         drawer: const MainDrawer(),

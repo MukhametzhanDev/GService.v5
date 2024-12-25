@@ -223,7 +223,7 @@ class _ViewMyApplicationPageState extends State<ViewMyApplicationPage> {
                 padding: const EdgeInsets.symmetric(horizontal: 15),
                 child: Button(
                   onPressed: deleteData,
-                  title: "Отменить заявку",
+                  title: "Отменить заказ",
                   backgroundColor: ColorComponent.red['100'],
                   titleColor: ColorComponent.red['600'],
                 ))));

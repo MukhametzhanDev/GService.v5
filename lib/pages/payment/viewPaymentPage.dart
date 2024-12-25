@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:gservice5/component/button/back/backIconButton.dart';
 import 'package:gservice5/component/dio/dio.dart';
 import 'package:gservice5/component/snackBar/snackBarComponent.dart';
@@ -17,6 +18,7 @@ class ViewPaymentPage extends StatefulWidget {
 class _ViewPaymentPageState extends State<ViewPaymentPage> {
   String url = "";
   bool loader = true;
+  bool webLoader = true;
 
   @override
   void initState() {
@@ -48,6 +50,28 @@ class _ViewPaymentPageState extends State<ViewPaymentPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(leading: BackIconButton()),
+      body: Stack(
+        children: [
+          InAppWebView(
+            initialUrlRequest:
+                URLRequest(url: WebUri("https://www.youtube.com/")),
+            onLoadStart: (controller, url) {
+              setState(() {
+                webLoader = true;
+              });
+            },
+            onLoadStop: (controller, url) async {
+              setState(() {
+                webLoader = false;
+              });
+            },
+          ),
+          if (webLoader)
+            Center(
+              child: CircularProgressIndicator(),
+            ),
+        ],
+      ),
     );
   }
 }

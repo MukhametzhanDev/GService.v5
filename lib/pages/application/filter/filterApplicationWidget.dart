@@ -22,8 +22,7 @@ class FilterApplicationWidget extends StatefulWidget
       _FilterApplicationWidgetState();
 
   @override
-  Size get preferredSize =>
-      Size.fromHeight(appBar.preferredSize.height + 46);
+  Size get preferredSize => Size.fromHeight(appBar.preferredSize.height + 46);
 }
 
 class _FilterApplicationWidgetState extends State<FilterApplicationWidget> {
@@ -126,9 +125,10 @@ class _FilterApplicationWidgetState extends State<FilterApplicationWidget> {
 
   void showFilterPage() {
     showCupertinoModalBottomSheet(
-        context: context,
-        enableDrag: false,
-        builder: (context) => const FilterApplicationListPage()).then(filteredAds);
+            context: context,
+            enableDrag: false,
+            builder: (context) => const FilterApplicationListPage())
+        .then(filteredAds);
   }
 
   void filteredAds(value) {
@@ -137,12 +137,13 @@ class _FilterApplicationWidgetState extends State<FilterApplicationWidget> {
     }
   }
 
+  // void 
+
   @override
   Widget build(BuildContext context) {
     return AppBar(
       leadingWidth: MediaQuery.of(context).size.width - 100,
       actions: [
-        FilterButton(showFilterPage: showFilterPage)
         // GestureDetector(
         //   onTap: () => showFilterPage(),
         //   child: Container(
@@ -153,13 +154,13 @@ class _FilterApplicationWidgetState extends State<FilterApplicationWidget> {
         //     decoration: BoxDecoration(
         //         borderRadius: BorderRadius.circular(8),
         //         color: ColorComponent.mainColor),
-        //     child: SvgPicture.asset("assets/icons/filter.svg", width: 20),
+        //     child: SvgPicture.asset("assets/icons/bellOutline.svg", width: 20),
         //   ),
-        // )
+        // ),
+        FilterButton(showFilterPage: showFilterPage)
       ],
       leading: BackTitleButton(
-          title: "Заявки",
-          onPressed: () => Navigator.pop(context)),
+          title: "Заказы", onPressed: () => Navigator.pop(context)),
       bottom: PreferredSize(
           preferredSize: const Size(double.infinity, 46),
           child: Container(

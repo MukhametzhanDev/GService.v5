@@ -62,7 +62,7 @@ class _CreateMainPageState extends State<CreateMainPage>
                 child: TabBar(
                   controller: tabController,
                   indicatorSize: TabBarIndicatorSize.tab,
-                  tabs: const [Tab(text: "Мои объявление"), Tab(text: "Мои заявки")],
+                  tabs: const [Tab(text: "Мои объявление"), Tab(text: "Мои заказы")],
                   labelColor: Colors.black,
                   indicator: BoxDecoration(
                     color: ColorComponent.mainColor,

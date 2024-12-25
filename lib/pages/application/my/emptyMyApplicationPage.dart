@@ -27,13 +27,13 @@ class _EmptyMyApplicationPageState extends State<EmptyMyApplicationPage> {
             color: ColorComponent.gray['500'],
           ),
           const Divider(indent: 12),
-          const Text("Здесь будет ваши заявки",
+          const Text("Здесь будет ваши заказы",
               style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600)),
           const Divider(indent: 12),
           const Padding(
               padding: EdgeInsets.symmetric(horizontal: 15),
               child: Text(
-                "Оставляйте заявки, чтобы быстро и удобно найти подходящую спецтехнику.",
+                "Оставляйте заказ, чтобы быстро и удобно найти подходящую спецтехнику.",
                 textAlign: TextAlign.center,
                 style:
                     TextStyle(color: Colors.black, fontSize: 15, height: 1.5),

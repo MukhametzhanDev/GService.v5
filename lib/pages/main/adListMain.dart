@@ -10,9 +10,7 @@ class AdListMain extends StatefulWidget {
   final ScrollController scrollController;
   final Map<String, dynamic> param;
   const AdListMain(
-      {super.key,
-      required this.scrollController,
-      required this.param});
+      {super.key, required this.scrollController, required this.param});
 
   @override
   State<AdListMain> createState() => _AdListMainState();
@@ -94,35 +92,19 @@ class _AdListMainState extends State<AdListMain> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        widget.param.isNotEmpty
-            ? Container()
-            : const Padding(
-                padding: EdgeInsets.only(left: 15, right: 15, bottom: 10),
-                child: Text("Спецтехники по Казахстану",
-                    style: TextStyle(
-                        fontSize: 16, fontWeight: FontWeight.w600, height: 1)),
-              ),
-        loader
-            ? const AdListLoader()
-            : ListView.builder(
-                shrinkWrap: true,
-                physics: const NeverScrollableScrollPhysics(),
-                itemCount: data.length,
-                itemBuilder: (context, int index) {
-                  Map value = data[index];
-                  if (data.length - 1 == index) {
-                    return Column(children: [
-                      AdItem(data: value, showCategory: false),
-                      hasNextPage ? const PaginationLoaderComponent() : Container()
-                    ]);
-                  } else {
-                    return AdItem(data: value, showCategory: true);
-                  }
-                }),
-      ],
-    );
+    return loader
+        ? SliverToBoxAdapter(child: AdListLoader())
+        : SliverList(
+            delegate: SliverChildBuilderDelegate((context, index) {
+            Map value = data[index];
+            if (data.length - 1 == index) {
+              return Column(children: [
+                AdItem(data: value, showCategory: false),
+                hasNextPage ? const PaginationLoaderComponent() : Container()
+              ]);
+            } else {
+              return AdItem(data: value, showCategory: true);
+            }
+          }, childCount: data.length));
   }
 }

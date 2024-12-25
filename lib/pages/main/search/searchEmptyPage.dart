@@ -34,7 +34,7 @@ class _SearchEmptyPageState extends State<SearchEmptyPage> {
                   color: ColorComponent.gray['500'])),
           const SizedBox(height: 16),
           Text(
-              "Оставьте заявку с этими характеристиками и найдите то, что вам нужно",
+              "Оставьте заказ с этими характеристиками и найдите то, что вам нужно",
               style: TextStyle(
                   fontWeight: FontWeight.w500,
                   color: ColorComponent.gray['500']),
@@ -46,7 +46,7 @@ class _SearchEmptyPageState extends State<SearchEmptyPage> {
                   backgroundColor: ColorComponent.mainColor,
                   padding:
                       const EdgeInsets.symmetric(horizontal: 12, vertical: 8)),
-              child: const Text("Создать заявку",
+              child: const Text("Создать заказ",
                   style: TextStyle(
                       fontWeight: FontWeight.w600, color: Colors.white)))
         ],

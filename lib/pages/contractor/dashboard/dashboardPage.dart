@@ -171,12 +171,12 @@ class _DashboardPageState extends State<DashboardPage> {
               Row(
                 children: [
                   const Expanded(
-                      child: Text("Новые заявки",
+                      child: Text("Новые заказы",
                           style: TextStyle(
                               fontSize: 16, fontWeight: FontWeight.w600))),
                   Row(
                     children: [
-                      Text("Показать  все",
+                      Text("Показать все",
                           style: TextStyle(
                               color: ColorComponent.blue['500'],
                               fontWeight: FontWeight.w500)),
@@ -280,7 +280,7 @@ class _DashboardPageState extends State<DashboardPage> {
                                     fontSize: 16, fontWeight: FontWeight.w600),
                               ),
                               const Divider(height: 4),
-                              const Text("Заявки")
+                              const Text("Заказы")
                             ],
                           ),
                         )

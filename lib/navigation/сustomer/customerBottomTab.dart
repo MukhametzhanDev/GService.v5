@@ -18,7 +18,7 @@ class _CustomerBottomTabState extends State<CustomerBottomTab>
     with SingleTickerProviderStateMixin {
   int _selectedIndex = 0;
   static final List<Map> _tabs = <Map>[
-    {"icon": "assets/icons/fileOutline.svg", "label": "Мои заявки"},
+    {"icon": "assets/icons/fileOutline.svg", "label": "Мои заказы"},
     {"icon": "assets/icons/plus.svg", "label": "Объявление"},
     {"icon": "assets/icons/messages.svg", "label": "Сообщения"},
     {"icon": "assets/icons/user.svg", "label": "Профиль"},

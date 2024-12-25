@@ -13,6 +13,7 @@ import 'package:gservice5/component/request/getCategories.dart';
 import 'package:gservice5/component/snackBar/snackBarComponent.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
 import 'package:gservice5/pages/ad/list/adListWidget.dart';
+import 'package:gservice5/pages/application/list/applicationListWidget.dart';
 import 'package:gservice5/pages/author/contractor/viewAboutContractorPage.dart';
 import 'package:gservice5/pages/author/filesListPage.dart';
 
@@ -24,7 +25,8 @@ class ViewContractorPage extends StatefulWidget {
   State<ViewContractorPage> createState() => _ViewContractorPageState();
 }
 
-class _ViewContractorPageState extends State<ViewContractorPage> {
+class _ViewContractorPageState extends State<ViewContractorPage>
+    with SingleTickerProviderStateMixin {
   Map data = {};
   bool loader = true;
   List childData = [
@@ -35,16 +37,18 @@ class _ViewContractorPageState extends State<ViewContractorPage> {
   List pages = [
     {"title": "О компании"},
     {"title": "Объявления"},
-    {"title": "Заявки"},
+    {"title": "Заказы"},
     {"title": "Новости"},
   ];
   List categories = CategoriesData.categories;
   ScrollController scrollController = ScrollController();
+  TabController? tabController;
 
   @override
   void initState() {
     getData();
     getCategories();
+    tabController = TabController(length: pages.length, vsync: this);
     super.initState();
   }
 
@@ -74,6 +78,10 @@ class _ViewContractorPageState extends State<ViewContractorPage> {
   void showPage(value) {
     Navigator.push(
         context, MaterialPageRoute(builder: (context) => value['page']));
+  }
+
+  void changedAdTab() {
+    tabController!.animateTo(1);
   }
 
   @override
@@ -140,93 +148,15 @@ class _ViewContractorPageState extends State<ViewContractorPage> {
                                           height: 70,
                                           borderRadius: 40),
                                       const Divider(indent: 16),
-                                      Expanded(
-                                          child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.center,
-                                        children: [
-                                          Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            children: [
-                                              SvgPicture.asset(
-                                                  'assets/icons/users.svg',
-                                                  width: 20,
-                                                  color: Colors.black),
-                                              const Divider(indent: 6),
-                                              Text(numberFormat(1200),
-                                                  style: const TextStyle(
-                                                      fontWeight:
-                                                          FontWeight.w500))
-                                            ],
-                                          ),
-                                          const Divider(height: 3),
-                                          Text("Подписчиков",
-                                              style: TextStyle(
-                                                  fontSize: 13,
-                                                  color: ColorComponent
-                                                      .gray['500'])),
-                                          const Divider(height: 4),
-                                        ],
-                                      )),
-                                      Expanded(
-                                          child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.center,
-                                        children: [
-                                          Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            children: [
-                                              SvgPicture.asset(
-                                                  'assets/icons/file.svg',
-                                                  width: 20,
-                                                  color: Colors.black),
-                                              const Divider(indent: 6),
-                                              Text(numberFormat(1200),
-                                                  style: const TextStyle(
-                                                      fontWeight:
-                                                          FontWeight.w500))
-                                            ],
-                                          ),
-                                          const Divider(height: 3),
-                                          Text("Объявлении",
-                                              style: TextStyle(
-                                                  fontSize: 13,
-                                                  color: ColorComponent
-                                                      .gray['500'])),
-                                          const Divider(height: 4),
-                                        ],
-                                      )),
-                                      Expanded(
-                                          child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.center,
-                                        children: [
-                                          Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            children: [
-                                              SvgPicture.asset(
-                                                  'assets/icons/starOutline.svg',
-                                                  width: 20,
-                                                  color: Colors.black),
-                                              const Divider(indent: 6),
-                                              Text("${data['rating']}",
-                                                  style: const TextStyle(
-                                                      fontWeight:
-                                                          FontWeight.w500))
-                                            ],
-                                          ),
-                                          const Divider(height: 3),
-                                          Text("143 отзывов",
-                                              style: TextStyle(
-                                                  fontSize: 13,
-                                                  color: ColorComponent
-                                                      .gray['500'])),
-                                          const Divider(height: 4),
-                                        ],
-                                      ))
+                                      ButtonInfo("users.svg", "Подписчиков",
+                                          numberFormat(1200), () {}),
+                                      ButtonInfo("file.svg", "Объявлении",
+                                          numberFormat(1200), changedAdTab),
+                                      ButtonInfo(
+                                          "starOutline.svg",
+                                          "143 отзывов",
+                                          data['rating'].toString(),
+                                          () {}),
                                     ],
                                   ),
                                 ),
@@ -271,6 +201,7 @@ class _ViewContractorPageState extends State<ViewContractorPage> {
                                       bottom: BorderSide(
                                           width: 2, color: Color(0xfff4f5f7)))),
                               child: TabBar(
+                                  controller: tabController,
                                   isScrollable: true,
                                   tabAlignment: TabAlignment.start,
                                   tabs: pages.map((value) {
@@ -281,13 +212,44 @@ class _ViewContractorPageState extends State<ViewContractorPage> {
                         ),
                       ];
                     },
-                    body: TabBarView(children: [
+                    body: TabBarView(controller: tabController, children: [
                       ViewAboutContractorPage(data: data),
-                      AdListWidget(param: {"company_id": data['id']}),
-                      const FilesListPage(),
+                      AdListWidget(
+                          param: {"company_id": data['id']},
+                          scrollController: scrollController),
+                      ApplicationListWidget(
+                          param: {"company_id": data['id']},
+                          scrollController: scrollController),
                       const FilesListPage()
                     ])),
               ),
         bottomNavigationBar: const ContactBottomBarWidget(hasAd: false, id: 1));
+  }
+
+  Widget ButtonInfo(
+      String icon, String title, String count, VoidCallback onPressed) {
+    return Expanded(
+      child: GestureDetector(
+          onTap: onPressed,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  SvgPicture.asset('assets/icons/$icon',
+                      width: 18, color: Colors.black),
+                  const Divider(indent: 6),
+                  Text(count,
+                      style: const TextStyle(fontWeight: FontWeight.w500))
+                ],
+              ),
+              const Divider(height: 6),
+              Text(title,
+                  style: TextStyle(
+                      fontSize: 12, color: ColorComponent.gray['500'])),
+            ],
+          )),
+    );
   }
 }

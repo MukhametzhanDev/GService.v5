@@ -148,7 +148,7 @@ class _MyApplicationListPageState extends State<MyApplicationListPage> {
     return Scaffold(
         appBar: AppBar(
           leading: const BackIconButton(),
-          title: const Text("Мои заявки"),
+          title: const Text("Мои заказы"),
           elevation: 0,
           bottom: PreferredSize(
             preferredSize: Size(MediaQuery.of(context).size.width, 50),

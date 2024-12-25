@@ -173,7 +173,8 @@ class _ViewApplicationPageState extends State<ViewApplicationPage> {
                               Text(data['description'],
                                   style: const TextStyle(height: 1.6)),
                               const Divider(indent: 12),
-                              const Divider(height: 1, color: Color(0xfff4f5f7)),
+                              const Divider(
+                                  height: 1, color: Color(0xfff4f5f7)),
                             ],
                           ),
                         ),
@@ -195,7 +196,7 @@ class _ViewApplicationPageState extends State<ViewApplicationPage> {
                                     backgroundColor: ColorComponent.mainColor
                                         .withOpacity(.1),
                                     icon: "alert.svg",
-                                    title: "Пожаловаться на заявки"),
+                                    title: "Пожаловаться на заказ"),
                               ),
                               const Divider(indent: 16),
                               Row(
@@ -222,13 +223,12 @@ class _ViewApplicationPageState extends State<ViewApplicationPage> {
                                 ],
                               ),
                               const Divider(indent: 16),
-                              AuthorAdWidget(
-                                  title: "Заказчик", data: data['author']),
-                              const Divider(height: 1, color: Color(0xfff4f5f7)),
-                              const Divider(height: 12),
                             ],
                           ),
                         ),
+                        AuthorAdWidget(title: "Заказчик", data: data['author']),
+                        const Divider(height: 1, color: Color(0xfff4f5f7)),
+                        const Divider(height: 12),
                         const RecommendationApplicationList(),
                       ],
                     ),

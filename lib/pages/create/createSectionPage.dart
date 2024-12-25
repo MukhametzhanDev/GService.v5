@@ -37,7 +37,7 @@ class _CreateSectionPageState extends State<CreateSectionPage> {
       "page": const SectionCreateAdPage(),
     },
     {
-      "title": "Заявки",
+      "title": "Заказы",
       "subTitle": "Сообщите о требуемой услуге, спецтехнике или запчасти",
       "page": const SectionCreateApplicationPage(),
     },

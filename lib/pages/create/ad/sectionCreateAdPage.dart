@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:gservice5/component/button/back/backTitleButton.dart';
+import 'package:gservice5/component/button/back/closeTitleButton.dart';
 import 'package:gservice5/component/button/button.dart';
 import 'package:gservice5/component/dio/dio.dart';
 import 'package:gservice5/component/loader/loaderComponent.dart';
@@ -99,7 +100,7 @@ class _SectionCreateAdPageState extends State<SectionCreateAdPage> {
     return Scaffold(
       appBar: AppBar(
           leadingWidth: MediaQuery.of(context).size.width - 100,
-          leading: BackTitleButton(
+          leading: CloseTitleButton(
               onPressed: () => Navigator.pop(context),
               title: "Тип объявлении")),
       body: loader

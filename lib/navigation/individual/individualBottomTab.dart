@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:badges/badges.dart' as badges;
 import 'package:gservice5/component/theme/colorComponent.dart';
+import 'package:gservice5/pages/create/ad/sectionCreateAdPage.dart';
 import 'package:gservice5/pages/create/createSectionPage.dart';
 import 'package:gservice5/pages/favorite/favoriteMainPage.dart';
 import 'package:gservice5/pages/main/mainPage.dart';
@@ -35,7 +36,7 @@ class _IndividualBottomTabState extends State<IndividualBottomTab>
     } else if (index == 2) {
       showMaterialModalBottomSheet(
           context: context,
-          builder: (context) => const CreateSectionPage()).then((value) {
+          builder: (context) => const SectionCreateAdPage()).then((value) {
         if (value == "ad") {
           Navigator.pushNamed(context, "MyAdListPage");
         } else if (value == "application") {

@@ -243,7 +243,7 @@ class _CustomerProfilePageState extends State<CustomerProfilePage> {
         //                             style: TextStyle(
         //                                 fontWeight: FontWeight.w500,
         //                                 fontSize: 17)),
-        //                         Text("заявки")
+        //                         Text("заказы")
         //                       ],
         //                     ),
         //                   ],

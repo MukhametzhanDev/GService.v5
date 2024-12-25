@@ -9,7 +9,9 @@ import 'package:gservice5/component/textField/searchTextField.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
 import 'package:gservice5/component/widgets/bottom/bottomNavigationBarComponent.dart';
 import 'package:gservice5/pages/create/data/createData.dart';
+import 'package:gservice5/pages/create/options/addEmptySelectModal.dart';
 import 'package:gservice5/pages/create/structure/controllerPage/pageControllerIndexedStack.dart';
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
 class GetSelectPage extends StatefulWidget {
   final Map value;
@@ -178,6 +180,11 @@ class _GetSelectPageState extends State<GetSelectPage> {
     getData();
   }
 
+  void showEmptyModal() {
+    showCupertinoModalBottomSheet(
+        context: context, builder: (context) => AddEmptySelectModal());
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -189,22 +196,35 @@ class _GetSelectPageState extends State<GetSelectPage> {
           child: loader
               ? const LoaderComponent()
               : data.isEmpty
-                  ? const Padding(
+                  ? Padding(
                       padding: EdgeInsets.symmetric(horizontal: 15),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
+                          SvgPicture.asset(
+                            'assets/icons/fileEmpty.svg',
+                            width: 120,
+                            color: ColorComponent.gray['500'],
+                          ),
+                          Divider(indent: 12),
                           Text("Здесь пусто",
                               style: TextStyle(
                                   fontSize: 16, fontWeight: FontWeight.w600)),
                           Divider(indent: 12),
                           Text(
-                            "Сызге керек данный бызде жок болса бызге жаза аласыз, быз немедленно косып беремыз",
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                                color: Colors.black, fontSize: 15, height: 1.5),
-                          ),
+                              "Нет в списке? Воспользуйтесь кнопкой ниже и напишите нам. Мы обязательно добавим!",
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 15,
+                                  height: 1.5)),
+                          Divider(height: 20),
+                          Button(
+                              onPressed: showEmptyModal,
+                              padding: EdgeInsets.symmetric(horizontal: 15),
+                              title: "Добавить"),
+                          Divider(height: 80),
                         ],
                       ))
                   : ListView.builder(

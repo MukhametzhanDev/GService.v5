@@ -74,7 +74,7 @@ class _ProfileListTilesWidgetState extends State<ProfileListTilesWidget> {
           child: ListTile(
               onTap: () => showMyApplicationPage(),
               leading: SvgPicture.asset('assets/icons/file.svg'),
-              title: const Text("Мои заявки"),
+              title: const Text("Мои заказы"),
               trailing: SvgPicture.asset('assets/icons/right.svg')),
         ),
         Container(

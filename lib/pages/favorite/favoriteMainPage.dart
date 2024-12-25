@@ -13,7 +13,7 @@ class FavoriteMainPage extends StatefulWidget {
 
 class _FavoriteMainPageState extends State<FavoriteMainPage> {
   final List _tabs = [
-    "Объявлении", "Заявки",
+    "Объявлении", "Заказы",
     // "Поиски"
   ];
   bool token = false;

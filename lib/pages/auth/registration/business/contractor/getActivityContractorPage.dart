@@ -78,7 +78,7 @@ class _GetActivityContractorPageState extends State<GetActivityContractorPage> {
         child: Column(children: [
           const ExplanatoryMessage(
               title:
-                  "По выбранному типу деятельности, вам будут поступать заявки от клиентов",
+                  "По выбранному типу деятельности, вам будут поступать заказы от клиентов",
               padding: EdgeInsets.only(bottom: 15),
               type: "activity"),
           // Divider(),

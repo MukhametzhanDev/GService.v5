@@ -36,10 +36,21 @@ class _ApplicationListMainState extends State<ApplicationListMain> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                const Text("Заявки на спецтехнику",
+                const Text("Заказы на спецтехнику",
                     style: TextStyle(
                         fontSize: 16, fontWeight: FontWeight.w600, height: 1)),
-                SvgPicture.asset('assets/icons/right.svg')
+                // SvgPicture.asset('assets/icons/right.svg')
+                Container(
+                  padding: EdgeInsets.symmetric(horizontal: 5, vertical: 2),
+                  decoration: BoxDecoration(
+                      color: ColorComponent.blue['100'],
+                      borderRadius: BorderRadius.circular(4)),
+                  child: Text("Разместить заказ",
+                      style: TextStyle(
+                          fontWeight: FontWeight.w500,
+                          fontSize: 13,
+                          color: ColorComponent.blue['600'])),
+                )
               ],
             ),
           ),
@@ -79,8 +90,10 @@ class ShowMoreApplicaiton extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
         onTap: () {
-          Navigator.push(context,
-              MaterialPageRoute(builder: (context) => const ApplicationListPage()));
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => const ApplicationListPage()));
         },
         child: Container(
           margin: const EdgeInsets.symmetric(horizontal: 4),

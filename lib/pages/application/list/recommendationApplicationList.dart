@@ -50,7 +50,7 @@ class _RecommendationApplicationListState
             children: [
               const Padding(
                   padding: EdgeInsets.symmetric(horizontal: 15),
-                  child: Text("Похожие заявки",
+                  child: Text("Похожие заказы",
                       style: TextStyle(
                           fontSize: 18, fontWeight: FontWeight.w600))),
               const SizedBox(height: 15),

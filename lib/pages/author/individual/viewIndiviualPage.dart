@@ -6,6 +6,7 @@ import 'package:gservice5/component/button/shareButton.dart';
 import 'package:gservice5/component/dio/dio.dart';
 import 'package:gservice5/component/image/cacheImage.dart';
 import 'package:gservice5/component/snackBar/snackBarComponent.dart';
+import 'package:gservice5/component/theme/colorComponent.dart';
 
 class ViewIndiviualPage extends StatefulWidget {
   final int id;
@@ -41,6 +42,24 @@ class _ViewIndiviualPageState extends State<ViewIndiviualPage> {
     }
   }
 
+  String daysBetween() {
+    DateTime from = DateTime.parse(
+        // data['created_at']
+        "2024-12-24T10:06:47.000000Z");
+    DateTime to = DateTime.now();
+    int days = to.difference(from).inDays;
+    if (days < 27) {
+      days = days == 0 ? 1 : days;
+      return "$days дней на GService.kz";
+    } else if (days > 27 && days < 365) {
+      int month = (days / 27).round();
+      return "$month месяцев на GService.kz";
+    } else {
+      int year = (days / 365).round();
+      return "$year лет на GService.kz";
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -68,7 +87,9 @@ class _ViewIndiviualPageState extends State<ViewIndiviualPage> {
                       children: [
                         Text("Name",
                             style: const TextStyle(
-                                fontSize: 18, fontWeight: FontWeight.w600))
+                                fontSize: 18, fontWeight: FontWeight.w600)),
+                        Text(daysBetween(),
+                            style: TextStyle(color: ColorComponent.gray['500']))
                       ],
                     ))
                   ],

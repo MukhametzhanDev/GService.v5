@@ -152,7 +152,7 @@ class _CreateApplicationContactsPageState
           child: Button(
               onPressed: verifyData,
               padding: const EdgeInsets.symmetric(horizontal: 15),
-              title: "Подать заявку")),
+              title: "Подать заказ")),
     );
   }
 }
