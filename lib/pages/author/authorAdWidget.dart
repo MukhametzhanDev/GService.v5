@@ -28,7 +28,7 @@ class _AuthorAdWidgetState extends State<AuthorAdWidget> {
     Navigator.push(
         context,
         MaterialPageRoute(
-            builder: (context) => ViewIndiviualPage(id: widget.data['id'])));
+            builder: (context) => ViewIndividualPage(id: widget.data['id'])));
   }
 
   // String daysBetween() {

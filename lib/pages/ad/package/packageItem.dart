@@ -79,10 +79,7 @@ class PackageItem extends StatelessWidget {
                       .map((detail) => Padding(
                           padding: const EdgeInsets.only(bottom: 10),
                           child: Row(children: [
-                            SvgPicture.network(
-                              detail['icon'],
-                              width: 20,
-                            ),
+                            SvgPicture.network(detail['icon'] ?? "", width: 20),
                             const SizedBox(width: 8),
                             Text(
                                 "${detail['value']} ${promotionTitle[detail['id']]}",

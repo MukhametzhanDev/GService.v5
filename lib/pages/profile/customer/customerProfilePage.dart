@@ -8,7 +8,7 @@ import 'package:gservice5/component/image/cacheImage.dart';
 import 'package:gservice5/component/loader/loaderComponent.dart';
 import 'package:gservice5/component/snackBar/snackBarComponent.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
-import 'package:gservice5/component/wallet/showWalletWidget.dart';
+import 'package:gservice5/pages/payment/wallet/showWalletWidget.dart';
 import 'package:gservice5/pages/profile/editProfilePage.dart';
 import 'package:gservice5/pages/profile/profileListTilesWidget.dart';
 
@@ -95,7 +95,8 @@ class _CustomerProfilePageState extends State<CustomerProfilePage> {
                               Container(
                                 decoration: BoxDecoration(
                                     border: Border.all(
-                                        width: 1, color: const Color(0xffE5E7EB)),
+                                        width: 1,
+                                        color: const Color(0xffE5E7EB)),
                                     borderRadius: BorderRadius.circular(41)),
                                 child: CacheImage(
                                     url: data['avatar'],
@@ -188,7 +189,7 @@ class _CustomerProfilePageState extends State<CustomerProfilePage> {
                       ),
                     ),
                     Divider(height: 1, color: ColorComponent.gray['100']),
-                    const ShowWalletWidget(),
+                    const ShowWalletWidget(showButton: true),
                     const ProfileListTilesWidget()
                   ],
                 ),

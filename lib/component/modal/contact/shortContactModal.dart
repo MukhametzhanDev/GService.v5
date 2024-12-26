@@ -35,7 +35,7 @@ void onLongPressShowNumber(Map data, BuildContext context) {
             ),
           ),
           bottomNavigationBar:
-              ContactBottomBarWidget(id: data['id'], hasAd: true),
+              ContactBottomBarWidget(id: data['id'], hasAd: true, phones: []),
         ),
       );
     },

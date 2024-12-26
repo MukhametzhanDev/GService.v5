@@ -223,7 +223,7 @@ class _ViewContractorPageState extends State<ViewContractorPage>
                       const FilesListPage()
                     ])),
               ),
-        bottomNavigationBar: const ContactBottomBarWidget(hasAd: false, id: 1));
+        bottomNavigationBar: const ContactBottomBarWidget(hasAd: false, id: 1, phones: []));
   }
 
   Widget ButtonInfo(

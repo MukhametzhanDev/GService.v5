@@ -74,8 +74,8 @@ class _ListPackagePageState extends State<ListPackagePage> {
       if (response.data['success']) {
         showModalBottomSheet(
             context: context,
-            builder: (context) =>
-                PaymentMethodModal(orderId: response.data['data']));
+            builder: (context) => PaymentMethodModal(
+                orderId: response.data['data'], data: getProduct()));
       } else {
         SnackBarComponent().showResponseErrorMessage(response, context);
       }
@@ -83,6 +83,18 @@ class _ListPackagePageState extends State<ListPackagePage> {
       print(e);
       SnackBarComponent().showServerErrorMessage(context);
     }
+  }
+
+  Map getProduct() {
+    List stickersParam = stickers
+        .where((element) => element['active'] ?? false)
+        .map((e) => e)
+        .toList();
+    Map? param;
+    if (currentPackage != null) {
+      param = {"stickers": stickersParam, "package": currentPackage};
+    }
+    return param!;
   }
 
   void showSuccessfullyPage() {

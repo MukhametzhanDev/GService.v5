@@ -1,6 +1,7 @@
 import 'package:currency_text_input_formatter/currency_text_input_formatter.dart';
 import 'package:flutter/material.dart';
 import 'package:gservice5/component/button/back/backIconButton.dart';
+import 'package:gservice5/component/button/back/backTitleButton.dart';
 import 'package:gservice5/component/button/button.dart';
 import 'package:gservice5/component/formatted/price/priceFormat.dart';
 import 'package:gservice5/component/functions/number/getIntNumber.dart';
@@ -62,9 +63,9 @@ class _ReplenishmentWalletPageState extends State<ReplenishmentWalletPage> {
       onTap: () => closeKeyboard(),
       child: Scaffold(
         appBar: AppBar(
-            leading: const BackIconButton(),
-            centerTitle: false,
-            title: const Text("Пополнение баланса")),
+            leadingWidth: 300,
+            leading: const BackTitleButton(title: "Пополнение баланса"),
+            centerTitle: false),
         body: SingleChildScrollView(
           padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 7.5),
           child:
@@ -80,7 +81,8 @@ class _ReplenishmentWalletPageState extends State<ReplenishmentWalletPage> {
                   percentagePrice();
                 },
                 child: Container(
-                    padding: const EdgeInsets.symmetric(vertical: 7, horizontal: 15),
+                    padding:
+                        const EdgeInsets.symmetric(vertical: 7, horizontal: 15),
                     decoration: BoxDecoration(
                         border: Border.all(
                             width: 1, color: ColorComponent.mainColor),
@@ -106,8 +108,8 @@ class _ReplenishmentWalletPageState extends State<ReplenishmentWalletPage> {
                     suffix: Padding(
                       padding: const EdgeInsets.only(bottom: 8),
                       child: Container(
-                          padding:
-                              const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 8, vertical: 4),
                           margin: const EdgeInsets.only(right: 4),
                           decoration: BoxDecoration(
                               color: ColorComponent.mainColor,
@@ -120,10 +122,10 @@ class _ReplenishmentWalletPageState extends State<ReplenishmentWalletPage> {
                     ),
                     hintText: "Введите цену",
                     counterText: "",
-                    helperStyle:
-                        const TextStyle(fontWeight: FontWeight.w700, fontSize: 14)),
-                style:
-                    const TextStyle(fontWeight: FontWeight.w700, color: Colors.black),
+                    helperStyle: const TextStyle(
+                        fontWeight: FontWeight.w700, fontSize: 14)),
+                style: const TextStyle(
+                    fontWeight: FontWeight.w700, color: Colors.black),
                 inputFormatters: [
                   CurrencyTextInputFormatter.currency(
                       decimalDigits: 0, locale: 'kk', symbol: "₸")

@@ -5,6 +5,7 @@ import 'package:gservice5/component/button/favoriteButton.dart';
 import 'package:gservice5/component/formatted/number/numberFormatted.dart';
 import 'package:gservice5/component/image/cacheImage.dart';
 import 'package:gservice5/component/modal/contact/shortContactModal.dart';
+import 'package:gservice5/component/stickers/showStickersList.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
 import 'package:gservice5/component/widgets/price/priceTextWidget.dart';
 import 'package:gservice5/pages/ad/item/adItemCharacteristic.dart';
@@ -171,8 +172,8 @@ class _AdItemState extends State<AdItem> {
                   ],
                 ),
               ),
-              const Divider(height: 6),
-              // ShowStickersList(),
+              const Divider(height: 3),
+              ShowStickersList(data: widget.data['stickers']),
               const Divider(height: 10),
               Divider(height: 1, color: ColorComponent.gray['100']),
               const Divider(height: 10),
@@ -212,7 +213,7 @@ class _AdItemState extends State<AdItem> {
                       ),
                     ],
                   ),
-                  const ShowPackageIcons()
+                  ShowPackageIcons(data: widget.data['ad_promotions'])
                 ],
               ),
             ],

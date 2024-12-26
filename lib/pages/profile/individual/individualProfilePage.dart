@@ -7,7 +7,7 @@ import 'package:gservice5/component/image/cacheImage.dart';
 import 'package:gservice5/component/loader/loaderComponent.dart';
 import 'package:gservice5/component/snackBar/snackBarComponent.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
-import 'package:gservice5/component/wallet/showWalletWidget.dart';
+import 'package:gservice5/pages/payment/wallet/showWalletWidget.dart';
 import 'package:gservice5/pages/profile/editProfilePage.dart';
 import 'package:gservice5/pages/profile/profileListTilesWidget.dart';
 
@@ -76,7 +76,8 @@ class _IndividualProfilePageState extends State<IndividualProfilePage> {
                   GestureDetector(
                     onTap: () => showChangeIndividualProfilePage(),
                     child: Container(
-                      padding: const EdgeInsets.only(left: 15, right: 15, bottom: 15),
+                      padding: const EdgeInsets.only(
+                          left: 15, right: 15, bottom: 15),
                       decoration: const BoxDecoration(
                           border: Border(
                               bottom: BorderSide(
@@ -108,7 +109,7 @@ class _IndividualProfilePageState extends State<IndividualProfilePage> {
                       ),
                     ),
                   ),
-                  const ShowWalletWidget(),
+                  const ShowWalletWidget(showButton: true),
                   const ProfileListTilesWidget()
                 ],
               ),

@@ -1,34 +1,47 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:gservice5/component/appBar/fadeOnScroll.dart';
+import 'package:gservice5/component/bar/bottomBar/contactBottomBarWidget.dart';
 import 'package:gservice5/component/button/back/backIconButton.dart';
-import 'package:gservice5/component/button/back/backTitleButton.dart';
 import 'package:gservice5/component/button/shareButton.dart';
 import 'package:gservice5/component/dio/dio.dart';
 import 'package:gservice5/component/image/cacheImage.dart';
+import 'package:gservice5/component/loader/loaderComponent.dart';
 import 'package:gservice5/component/snackBar/snackBarComponent.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
+import 'package:gservice5/pages/ad/list/adListWidget.dart';
+import 'package:gservice5/pages/application/list/applicationListWidget.dart';
 
-class ViewIndiviualPage extends StatefulWidget {
+class ViewIndividualPage extends StatefulWidget {
   final int id;
-  const ViewIndiviualPage({super.key, required this.id});
+  const ViewIndividualPage({super.key, required this.id});
 
   @override
-  State<ViewIndiviualPage> createState() => _ViewIndiviualPageState();
+  State<ViewIndividualPage> createState() => _ViewIndividualPageState();
 }
 
-class _ViewIndiviualPageState extends State<ViewIndiviualPage> {
-  Map data = {}; //data from api
+class _ViewIndividualPageState extends State<ViewIndividualPage>
+    with SingleTickerProviderStateMixin {
+  Map data = {};
   bool loader = true;
+  List pages = [
+    {"title": "Объявления"},
+    {"title": "Заказы"},
+  ];
+  ScrollController scrollController = ScrollController();
+  TabController? tabController;
 
   @override
   void initState() {
     getData();
+    tabController = TabController(length: pages.length, vsync: this);
     super.initState();
   }
 
   Future getData() async {
     try {
-      Response response = await dio.get("/company/${widget.id}");
+      Response response = await dio.get("/user/${widget.id}");
       if (response.statusCode == 200) {
         setState(() {
           data = response.data['data'];
@@ -60,43 +73,142 @@ class _ViewIndiviualPageState extends State<ViewIndiviualPage> {
     }
   }
 
+  void showPage(value) {
+    Navigator.push(
+        context, MaterialPageRoute(builder: (context) => value['page']));
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        leading: const BackIconButton(),
-        actions: const [ShareButton(id: 0, hasAd: false), Divider(indent: 15)],
-      ),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 7),
-                child: Row(
-                  children: [
-                    const CacheImage(
-                        url:
-                            "https://images.unsplash.com/photo-1720048171419-b515a96a73b8?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDF8MHxmZWF0dXJlZC1waG90b3MtZmVlZHwxMXx8fGVufDB8fHx8fA%3D%3D",
-                        width: 60,
-                        height: 60,
-                        borderRadius: 30),
-                    const Divider(indent: 15),
-                    Expanded(
-                        child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        const Text("Name",
-                            style: TextStyle(
-                                fontSize: 18, fontWeight: FontWeight.w600)),
-                        Text(daysBetween(),
-                            style: TextStyle(color: ColorComponent.gray['500']))
-                      ],
-                    ))
-                  ],
-                )),
+        appBar: AppBar(
+          leading: BackIconButton(),
+          centerTitle: false,
+          title: loader
+              ? Container()
+              : FadeOnScroll(
+                  scrollController: scrollController,
+                  fullOpacityOffset: 100,
+                  child: Text(data['name'],
+                      style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w500,
+                          color: Colors.black),
+                      textAlign: TextAlign.left,
+                      maxLines: 1),
+                ),
+          actions: const [
+            ShareButton(id: 0, hasAd: false),
+            Divider(indent: 15)
           ],
         ),
-      ),
+        body: loader
+            ? const LoaderComponent()
+            : DefaultTabController(
+                length: pages.length,
+                child: NestedScrollView(
+                    controller: scrollController,
+                    headerSliverBuilder:
+                        (BuildContext context, bool innerBoxIsScrolled) {
+                      return [
+                        SliverToBoxAdapter(
+                          child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 15, vertical: 5),
+                                  child: Row(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                    children: [
+                                      CacheImage(
+                                          url: data['avatar'],
+                                          width: 55,
+                                          height: 55,
+                                          borderRadius: 40),
+                                      const Divider(indent: 16),
+                                      Expanded(
+                                          child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Text(data['name'],
+                                              style: TextStyle(
+                                                  fontSize: 18,
+                                                  fontWeight: FontWeight.w600)),
+                                          Text(daysBetween(),
+                                              style: TextStyle(
+                                                  color: ColorComponent
+                                                      .gray['500']))
+                                        ],
+                                      ))
+                                    ],
+                                  ),
+                                ),
+                              ]),
+                        ),
+                        SliverAppBar(
+                          pinned: true,
+                          toolbarHeight: 0,
+                          bottom: PreferredSize(
+                            preferredSize:
+                                Size(MediaQuery.of(context).size.width, 51),
+                            child: Container(
+                              decoration: const BoxDecoration(
+                                  border: Border(
+                                      // top: BorderSide(
+                                      //     width: 1, color: Color(0xfff4f5f7)),
+                                      bottom: BorderSide(
+                                          width: 2, color: Color(0xfff4f5f7)))),
+                              child: TabBar(
+                                  controller: tabController,
+                                  indicatorSize: TabBarIndicatorSize.tab,
+                                  tabs: pages.map((value) {
+                                    return Tab(text: value['title']);
+                                  }).toList()),
+                            ),
+                          ),
+                        ),
+                      ];
+                    },
+                    body: TabBarView(controller: tabController, children: [
+                      AdListWidget(
+                          param: {"company_id": data['id']},
+                          scrollController: scrollController),
+                      ApplicationListWidget(
+                          param: {"company_id": data['id']},
+                          scrollController: scrollController)
+                    ])),
+              ),
+        bottomNavigationBar:
+            const ContactBottomBarWidget(hasAd: false, id: 1, phones: []));
+  }
+
+  Widget ButtonInfo(
+      String icon, String title, String count, VoidCallback onPressed) {
+    return Expanded(
+      child: GestureDetector(
+          onTap: onPressed,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  SvgPicture.asset('assets/icons/$icon',
+                      width: 18, color: Colors.black),
+                  const Divider(indent: 6),
+                  Text(count,
+                      style: const TextStyle(fontWeight: FontWeight.w500))
+                ],
+              ),
+              const Divider(height: 6),
+              Text(title,
+                  style: TextStyle(
+                      fontSize: 12, color: ColorComponent.gray['500'])),
+            ],
+          )),
     );
   }
 }

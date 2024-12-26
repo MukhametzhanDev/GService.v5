@@ -53,13 +53,23 @@ class _PreviewItemWidgetState extends State<PreviewItemWidget> {
     }
   }
 
+  Color getColor() {
+    if (widget.package != null) {
+      List promotions = widget.package?['promotions'];
+      var value = promotions.where((value) => value['type'] == "color");
+      Color color = value.isEmpty
+          ? Colors.white
+          : Color(int.parse(value.first['value'])).withOpacity(.1);
+      return color;
+    } else {
+      return Colors.white;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     print("widget.stickers ${widget.stickers}");
     double imageHeight = 120.0;
-    Color color = widget.package != null
-        ? Color(int.parse(widget.package!['color'])).withOpacity(.1)
-        : Colors.white;
     List promotions = widget.package?['promotions'] ?? [];
     return data.isEmpty
         ? Container()
@@ -69,7 +79,7 @@ class _PreviewItemWidgetState extends State<PreviewItemWidget> {
               padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 12),
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(12),
-                  color: color,
+                  color: getColor(),
                   border: Border.all(width: 1, color: const Color(0xffeeeeee))),
               // padding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
               child: Column(
@@ -192,7 +202,7 @@ class _PreviewItemWidgetState extends State<PreviewItemWidget> {
                       ],
                     ),
                   ),
-                  const Divider(height: 10),
+                  const Divider(height: 8),
                   ShowStickersList(data: widget.stickers),
                   const Divider(height: 10),
                   Divider(height: 1, color: ColorComponent.gray['100']),
@@ -251,7 +261,8 @@ class _PreviewItemWidgetState extends State<PreviewItemWidget> {
                                 children: promotions.map((value) {
                                 return Padding(
                                   padding: const EdgeInsets.only(left: 8),
-                                  child: SvgPicture.network(value['icon']),
+                                  child:
+                                      SvgPicture.network(value?['icon'] ?? ""),
                                 );
                               }).toList())
                       ],

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:gservice5/component/button/back/backTitleButton.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
-import 'package:gservice5/component/wallet/transaction/transactionItem.dart';
+import 'package:gservice5/pages/payment/transaction/transactionItem.dart';
 import 'package:sticky_headers/sticky_headers.dart';
 
 class TransactionHistoryPage extends StatefulWidget {

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gservice5/component/theme/darkThemeProvider.dart';
 import 'package:gservice5/component/theme/styles.dart';
-import 'package:gservice5/component/wallet/transaction/transactionHistoryPage.dart';
+import 'package:gservice5/pages/payment/transaction/transactionHistoryPage.dart';
 import 'package:gservice5/navigation/individual/individualBottomTab.dart';
 import 'package:gservice5/pages/ad/my/myAdListPage.dart';
 import 'package:gservice5/pages/application/list/applicationListPage.dart';
