@@ -16,7 +16,7 @@ class _AddEmptySelectModalState extends State<AddEmptySelectModal> {
       return Scaffold(
         appBar: AppBar(
             automaticallyImplyLeading: false,
-            actions: [CloseIconButton(iconColor: null, padding: true)]),
+            actions: const [CloseIconButton(iconColor: null, padding: true)]),
         body: SingleChildScrollView(physics: physic),
       );
     });

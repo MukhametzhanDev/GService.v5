@@ -64,29 +64,29 @@ class _ViewIndiviualPageState extends State<ViewIndiviualPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: BackIconButton(),
-        actions: [ShareButton(id: 0, hasAd: false), Divider(indent: 15)],
+        leading: const BackIconButton(),
+        actions: const [ShareButton(id: 0, hasAd: false), Divider(indent: 15)],
       ),
       body: SingleChildScrollView(
         child: Column(
           children: [
             Padding(
-                padding: EdgeInsets.symmetric(horizontal: 15, vertical: 7),
+                padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 7),
                 child: Row(
                   children: [
-                    CacheImage(
+                    const CacheImage(
                         url:
                             "https://images.unsplash.com/photo-1720048171419-b515a96a73b8?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDF8MHxmZWF0dXJlZC1waG90b3MtZmVlZHwxMXx8fGVufDB8fHx8fA%3D%3D",
                         width: 60,
                         height: 60,
                         borderRadius: 30),
-                    Divider(indent: 15),
+                    const Divider(indent: 15),
                     Expanded(
                         child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text("Name",
-                            style: const TextStyle(
+                        const Text("Name",
+                            style: TextStyle(
                                 fontSize: 18, fontWeight: FontWeight.w600)),
                         Text(daysBetween(),
                             style: TextStyle(color: ColorComponent.gray['500']))

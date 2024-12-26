@@ -15,7 +15,6 @@ class PackageItem extends StatelessWidget {
       required this.onChangedPackage,
       required this.active});
 
-
   int getDiscount() {
     if (data['old_price'] == 0 || data['old_price'] == null) {
       return 0;
@@ -54,8 +53,8 @@ class PackageItem extends StatelessWidget {
               Row(children: [
                 Text(title,
                     // data['title'],
-                    style:
-                        const TextStyle(fontSize: 16, fontWeight: FontWeight.w700)),
+                    style: const TextStyle(
+                        fontSize: 16, fontWeight: FontWeight.w700)),
                 Container(
                   margin: const EdgeInsets.only(left: 8),
                   height: 28,
@@ -94,8 +93,8 @@ class PackageItem extends StatelessWidget {
               const SizedBox(height: 16),
               Row(children: [
                 Text("${priceFormat(data['price'])} ₸",
-                    style:
-                        const TextStyle(fontSize: 20, fontWeight: FontWeight.w600)),
+                    style: const TextStyle(
+                        fontSize: 20, fontWeight: FontWeight.w600)),
                 const SizedBox(width: 12),
                 data['old_price'] == 0 || data['old_price'] == null
                     ? Container()
@@ -108,7 +107,7 @@ class PackageItem extends StatelessWidget {
               ]),
               const SizedBox(height: 16),
               Container(
-                height: 50,
+                height: 42,
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(9),
                     // color: active ? Colors.white : ColorComponent.mainColor,

@@ -11,7 +11,6 @@ import 'package:gservice5/pages/ad/package/packageItem.dart';
 import 'package:gservice5/pages/ad/package/previewItemWidget.dart';
 import 'package:gservice5/pages/create/data/createData.dart';
 import 'package:gservice5/pages/payment/paymentMethodModal.dart';
-import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
 class ListPackagePage extends StatefulWidget {
   final int categoryId;
@@ -138,9 +137,8 @@ class _ListPackagePageState extends State<ListPackagePage> {
   }
 
   void validateData() {
-    if (currentPackage == null || stickers.isEmpty) {
-      SnackBarComponent()
-          .showErrorMessage("Выберите пакеты или стикеры", context);
+    if (currentPackage == null) {
+      SnackBarComponent().showErrorMessage("Выберите пакеты", context);
     } else {
       postData();
     }

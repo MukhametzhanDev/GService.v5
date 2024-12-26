@@ -4,6 +4,7 @@ import 'package:gservice5/component/theme/colorComponent.dart';
 import 'package:gservice5/pages/application/list/applicationListPage.dart';
 import 'package:gservice5/pages/application/item/smallApplicationItem.dart';
 import 'package:gservice5/pages/application/viewApplicationPage.dart';
+import 'package:gservice5/pages/create/application/sectionCreateApplicationPage.dart';
 
 class ApplicationListMain extends StatefulWidget {
   final List data;
@@ -26,33 +27,42 @@ class _ApplicationListMainState extends State<ApplicationListMain> {
       children: [
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 15),
-          child: GestureDetector(
-            onTap: () {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => const ApplicationListPage()));
-            },
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                const Text("Заказы на спецтехнику",
-                    style: TextStyle(
-                        fontSize: 16, fontWeight: FontWeight.w600, height: 1)),
-                // SvgPicture.asset('assets/icons/right.svg')
-                Container(
-                  padding: EdgeInsets.symmetric(horizontal: 5, vertical: 2),
-                  decoration: BoxDecoration(
-                      color: ColorComponent.blue['100'],
-                      borderRadius: BorderRadius.circular(4)),
-                  child: Text("Разместить заказ",
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const ApplicationListPage()));
+                  },
+                  child: const Text("Заказы на спецтехнику",
                       style: TextStyle(
-                          fontWeight: FontWeight.w500,
-                          fontSize: 13,
-                          color: ColorComponent.blue['600'])),
-                )
-              ],
-            ),
+                          fontSize: 16,
+                          fontWeight: FontWeight.w600,
+                          height: 1))),
+              // SvgPicture.asset('assets/icons/right.svg')
+              GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) =>
+                                const SectionCreateApplicationPage()));
+                  },
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 2),
+                    decoration: BoxDecoration(
+                        color: ColorComponent.blue['100'],
+                        borderRadius: BorderRadius.circular(4)),
+                    child: Text("Разместить заказ",
+                        style: TextStyle(
+                            fontWeight: FontWeight.w600,
+                            fontSize: 13,
+                            color: ColorComponent.blue['600'])),
+                  ))
+            ],
           ),
         ),
         const Divider(height: 18),

@@ -54,7 +54,7 @@ class _AuthorAdWidgetState extends State<AuthorAdWidget> {
         widget.title.isEmpty
             ? Container()
             : Padding(
-                padding: const EdgeInsets.only(bottom: 16, right: 16, left: 16),
+                padding: const EdgeInsets.only(bottom: 10, right: 16, left: 16),
                 child: Text(widget.title,
                     style: const TextStyle(
                         fontSize: 18, fontWeight: FontWeight.w600))),

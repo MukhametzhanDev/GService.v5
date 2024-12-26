@@ -93,7 +93,7 @@ class _AdListMainState extends State<AdListMain> {
   @override
   Widget build(BuildContext context) {
     return loader
-        ? SliverToBoxAdapter(child: AdListLoader())
+        ? const SliverToBoxAdapter(child: AdListLoader())
         : SliverList(
             delegate: SliverChildBuilderDelegate((context, index) {
             Map value = data[index];

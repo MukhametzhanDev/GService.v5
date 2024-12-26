@@ -45,8 +45,9 @@ class _PaymentMethodModalState extends State<PaymentMethodModal> {
     Navigator.push(
         context,
         MaterialPageRoute(
-            builder: (context) =>
-                ViewPaymentPage(orderId: widget.orderId, methodId: methodId)));
+            builder: (context) => ViewPaymentPage(
+                orderId: widget.orderId,
+                methodId: methodId))).then((value) => Navigator.pop(context));
   }
 
   @override
@@ -56,7 +57,7 @@ class _PaymentMethodModalState extends State<PaymentMethodModal> {
       children: [
         Container(
           child: loader
-              ? SizedBox(height: 300, child: const LoaderComponent())
+              ? const SizedBox(height: 300, child: LoaderComponent())
               : ClipRRect(
                   borderRadius:
                       const BorderRadius.vertical(top: Radius.circular(10)),
