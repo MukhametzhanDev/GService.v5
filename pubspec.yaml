@@ -71,6 +71,9 @@ dependencies:
   app_settings: ^5.1.1
   flutter_sticky_header: ^0.7.0
   flutter_inappwebview: ^6.1.5
+  firebase_core: ^3.9.0
+  firebase_analytics: ^11.3.6
+  get_it: ^8.0.3
 
 dev_dependencies:
   flutter_test:
