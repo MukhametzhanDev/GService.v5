@@ -66,6 +66,8 @@ class _PreviewItemWidgetState extends State<PreviewItemWidget> {
     }
   }
 
+  
+
   @override
   Widget build(BuildContext context) {
     print("widget.stickers ${widget.stickers}");

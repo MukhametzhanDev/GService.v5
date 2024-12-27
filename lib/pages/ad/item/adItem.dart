@@ -36,6 +36,19 @@ class _AdItemState extends State<AdItem> {
     setState(() {});
   }
 
+  Color getColor() {
+    List promotions = widget.data['ad_promotions'];
+    if (promotions.isEmpty) {
+      return Colors.white;
+    } else {
+      if (promotions.last['type'] == "color") {
+        return Color(int.parse(promotions.last['value'])).withOpacity(.1);
+      } else {
+        return Colors.white;
+      }
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     double imageHeight = 120.0;
@@ -45,8 +58,8 @@ class _AdItemState extends State<AdItem> {
         },
         onLongPress: () => onLongPressShowNumber(widget.data, context),
         child: Container(
-          decoration: const BoxDecoration(
-              color: Colors.white,
+          decoration: BoxDecoration(
+              color: getColor(),
               border: Border(
                   bottom: BorderSide(width: 6, color: Color(0xfff4f5f7)))),
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
@@ -175,7 +188,7 @@ class _AdItemState extends State<AdItem> {
               const Divider(height: 3),
               ShowStickersList(data: widget.data['stickers']),
               const Divider(height: 10),
-              Divider(height: 1, color: ColorComponent.gray['100']),
+              Divider(height: 1, color: ColorComponent.gray['200']),
               const Divider(height: 10),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,

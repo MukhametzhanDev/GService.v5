@@ -73,9 +73,10 @@ class _ListPackagePageState extends State<ListPackagePage> {
       Navigator.pop(context);
       if (response.data['success']) {
         showModalBottomSheet(
-            context: context,
-            builder: (context) => PaymentMethodModal(
-                orderId: response.data['data'], data: getProduct()));
+                context: context,
+                builder: (context) => PaymentMethodModal(
+                    orderId: response.data['data'], data: getProduct()))
+            .then((value) => Navigator.pop(context, value));
       } else {
         SnackBarComponent().showResponseErrorMessage(response, context);
       }
@@ -154,6 +155,14 @@ class _ListPackagePageState extends State<ListPackagePage> {
     } else {
       postData();
     }
+  }
+
+  List getStickers() {
+    List stickersParam = stickers
+        .where((element) => element['active'] ?? false)
+        .map((e) => e)
+        .toList();
+    return stickersParam;
   }
 
   @override
@@ -284,7 +293,7 @@ class _ListPackagePageState extends State<ListPackagePage> {
                       PreviewItemWidget(
                         adId: widget.adId,
                         package: currentPackage,
-                        stickers: stickers,
+                        stickers: getStickers(),
                         // promotions: promotions
                       ),
                       const SizedBox(height: 12),

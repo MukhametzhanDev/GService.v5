@@ -15,14 +15,15 @@ class _ShowPackageIconsState extends State<ShowPackageIcons> {
   Widget build(BuildContext context) {
     return Row(
         children: widget.data.map((value) {
-      return Container(
-          width: 20,
-          height: 20,
-          margin: const EdgeInsets.only(left: 6),
-          child: SvgPicture.asset(
-            'assets/icons/checkCircle.svg',
-            width: 22,
-          ));
+      return value['icon'] == null
+          ? Container()
+          : Container(
+              width: 17,
+              height: 17,
+              margin: const EdgeInsets.only(left: 10),
+              child: SvgPicture.network(
+                value['icon'] ?? "",
+              ));
     }).toList()
         // [
         //   Container(

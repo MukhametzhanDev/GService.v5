@@ -52,15 +52,16 @@ class _ViewPaymentPageState extends State<ViewPaymentPage> {
     bool failed = url.contains("failure");
     if (failed) {
       Navigator.pop(context);
+    } else if (success) {
+      Navigator.pop(context, "success");
     }
-
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar:
-          AppBar(leading: const BackTitleButton(title: "Оплата"), leadingWidth: 130),
+      appBar: AppBar(
+          leading: const BackTitleButton(title: "Оплата"), leadingWidth: 130),
       body: loader
           ? const LoaderComponent()
           : Stack(

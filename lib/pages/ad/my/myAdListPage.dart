@@ -204,8 +204,8 @@ class _MyAdListPageState extends State<MyAdListPage>
           ),
           body: TabBarView(
               controller: tabController,
-              children: List.generate(
-                  3, (index) => loader ? const LoaderComponent() : ListMyAds()))),
+              children: List.generate(3,
+                  (index) => loader ? const LoaderComponent() : ListMyAds()))),
     );
   }
 
@@ -226,7 +226,11 @@ class _MyAdListPageState extends State<MyAdListPage>
             builder: (context) => ListPackagePage(
                 categoryId: value['category']['id'],
                 adId: value['id'],
-                goBack: true)));
+                goBack: true))).then((element) {
+      value['stickers'] = element['stickers'];
+      value['ad_promotions'] = element['package']['promotions'];
+      setState(() {});
+    });
   }
 
   Widget ListMyAds() {

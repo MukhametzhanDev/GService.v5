@@ -17,6 +17,14 @@ class AuthorAdWidget extends StatefulWidget {
 }
 
 class _AuthorAdWidgetState extends State<AuthorAdWidget> {
+  void showPage() {
+    if (widget.data['is_company']) {
+      showViewCompanyPage();
+    } else {
+      showViewIndividualPage();
+    }
+  }
+
   void showViewCompanyPage() {
     Navigator.push(
         context,
@@ -58,7 +66,9 @@ class _AuthorAdWidgetState extends State<AuthorAdWidget> {
                 child: Text(widget.title,
                     style: const TextStyle(
                         fontSize: 18, fontWeight: FontWeight.w600))),
-        Container(
+        GestureDetector(
+          onTap: () => showPage(),
+          child: Container(
             padding: const EdgeInsets.all(12),
             margin: const EdgeInsets.symmetric(horizontal: 15),
             decoration: BoxDecoration(
@@ -186,34 +196,30 @@ class _AuthorAdWidgetState extends State<AuthorAdWidget> {
                               title: "Страница продавца"))
                     ],
                   )
-                : GestureDetector(
-                    onTap: () {
-                      showViewIndividualPage();
-                    },
-                    child: Row(children: [
-                      CacheImage(
-                          url: widget.data['avatar'],
-                          width: 48,
-                          height: 48,
-                          borderRadius: 6),
-                      const Divider(indent: 16),
-                      Expanded(
-                          child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(widget.data['name'],
-                              style: const TextStyle(
-                                  fontSize: 16, fontWeight: FontWeight.w600)),
-                          const Divider(height: 3),
-                          Text("ID: ${widget.data['id']}",
-                              style:
-                                  TextStyle(color: ColorComponent.gray['500']))
-                        ],
-                      )),
-                      SvgPicture.asset("assets/icons/right.svg"),
-                      const Divider(indent: 8)
-                    ]),
-                  )),
+                : Row(children: [
+                    CacheImage(
+                        url: widget.data['avatar'],
+                        width: 48,
+                        height: 48,
+                        borderRadius: 6),
+                    const Divider(indent: 16),
+                    Expanded(
+                        child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(widget.data['name'],
+                            style: const TextStyle(
+                                fontSize: 16, fontWeight: FontWeight.w600)),
+                        const Divider(height: 3),
+                        Text("ID: ${widget.data['id']}",
+                            style: TextStyle(color: ColorComponent.gray['500']))
+                      ],
+                    )),
+                    SvgPicture.asset("assets/icons/right.svg"),
+                    const Divider(indent: 8)
+                  ]),
+          ),
+        ),
         const Divider(height: 16),
         const Padding(
             padding: EdgeInsets.symmetric(horizontal: 16),

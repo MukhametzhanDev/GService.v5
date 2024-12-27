@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:gservice5/component/button/button.dart';
-import 'package:gservice5/component/date/formattedDate.dart';
 import 'package:gservice5/component/image/cacheImage.dart';
+import 'package:gservice5/component/stickers/showStickersList.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
 import 'package:gservice5/component/widgets/price/priceTextWidget.dart';
 import 'package:gservice5/pages/ad/my/statistic/statisticAdPage.dart';
+import 'package:gservice5/pages/ad/package/showPackageIcons.dart';
+import 'package:intl/intl.dart';
 
 class MyAdItem extends StatelessWidget {
   final Map<String, dynamic> data;
@@ -21,8 +23,61 @@ class MyAdItem extends StatelessWidget {
       required this.showListPromotionPage,
       required this.role});
 
+  Color getColor() {
+    List promotions = data['ad_promotions'];
+    if (promotions.isEmpty) {
+      return Colors.white;
+    } else {
+      if (promotions.last['type'] == "color") {
+        return Color(int.parse(promotions.last['value'])).withOpacity(.2);
+      } else {
+        return Colors.white;
+      }
+    }
+  }
+
+  Widget getExpires() {
+    List promotions = data['ad_promotions'];
+    if (promotions.isEmpty) {
+      return Container();
+    } else {
+      return Padding(
+        padding: EdgeInsets.only(bottom: data['stickers'].isEmpty ? 10 : 4.0),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Container(
+              padding: EdgeInsets.symmetric(horizontal: 6, vertical: 3),
+              decoration: BoxDecoration(
+                  color: getColor(), borderRadius: BorderRadius.circular(4)),
+              child: RichText(
+                  text: TextSpan(
+                      style: const TextStyle(color: Colors.black),
+                      children: [
+                    TextSpan(
+                        text: "Вверх в списке до ",
+                        style: TextStyle(color: ColorComponent.gray['700'])),
+                    TextSpan(
+                        text: formattedDate(promotions.last['expires_at']),
+                        style: TextStyle(fontWeight: FontWeight.w600)),
+                  ])),
+            ),
+            ShowPackageIcons(data: data['ad_promotions'])
+          ],
+        ),
+      );
+    }
+  }
+
+  String formattedDate(String dateString) {
+    final DateTime date = DateTime.parse(dateString);
+    final String formattedDate = DateFormat('d MMMM', 'ru').format(date);
+    return formattedDate;
+  }
+
   @override
   Widget build(BuildContext context) {
+    List promotions = data['ad_promotions'];
     return GestureDetector(
       onTap: () {
         onPressed(data['id']);
@@ -32,8 +87,8 @@ class MyAdItem extends StatelessWidget {
       // },
       child: Container(
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
-          decoration: const BoxDecoration(
-              color: Colors.white,
+          decoration: BoxDecoration(
+              // color: getColor(),
               border: Border(
                   bottom: BorderSide(width: 6, color: Color(0xfff4f5f7)))),
           child:
@@ -59,18 +114,6 @@ class MyAdItem extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
-                          Container(
-                            decoration: BoxDecoration(
-                                color: ColorComponent.mainColor.withOpacity(.2),
-                                borderRadius: BorderRadius.circular(4)),
-                            padding: const EdgeInsets.symmetric(
-                                vertical: 2.5, horizontal: 7),
-                            child: Text(
-                              data['category']['title'],
-                              style: const TextStyle(
-                                  fontSize: 12, fontWeight: FontWeight.w600),
-                            ),
-                          ),
                           // Divider(height: 8),
                           Text(
                             data['title'],
@@ -84,33 +127,18 @@ class MyAdItem extends StatelessWidget {
                           ),
                           // const SizedBox(height: 8),
                           PriceTextWidget(prices: data['prices']),
+                          Text(
+                            data['city']['title'],
+                            // data['title'],
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                          ),
                         ],
                       )),
                 ),
               ],
             ),
-            const SizedBox(height: 16),
-            role == "individual"
-                ? Container()
-                : Container(
-                    margin: const EdgeInsets.only(bottom: 16),
-                    height: 36,
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
-                        border: Border.all(
-                            width: 1, color: ColorComponent.mainColor)),
-                    child: Button(
-                        onPressed: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) =>
-                                      StatisticAdPage(id: data['id'])));
-                        },
-                        title: "Статистика",
-                        icon: "charTmixeDoutline.svg",
-                        backgroundColor: Colors.white),
-                  ),
+            const SizedBox(height: 10),
             // Row(
             //   children: [
             //     Container(
@@ -131,6 +159,12 @@ class MyAdItem extends StatelessWidget {
             //   ],
             // ),
             // const SizedBox(height: 16),
+            getExpires(),
+            Padding(
+              padding:
+                  EdgeInsets.only(bottom: data['stickers'].isEmpty ? 0 : 12.0),
+              child: ShowStickersList(data: data['stickers']),
+            ),
             data['status'] == "archived"
                 ? SizedBox(
                     height: 36,
@@ -151,32 +185,15 @@ class MyAdItem extends StatelessWidget {
                       )
                     : Row(children: [
                         Expanded(
-                          child: SizedBox(
-                            height: 36,
-                            child: Button(
-                                onPressed: () {
-                                  showListPromotionPage(data);
-                                },
-                                title: "Поднять в ТОП"),
-                          ),
-                        ),
-                        // Expanded(
-                        //   child: GestureDetector(
-                        //     onTap: () {
-                        //       showListPromotionPage(data);
-                        //     },
-                        //     child: Container(
-                        //       height: 40,
-                        //       alignment: Alignment.center,
-                        //       decoration: BoxDecoration(
-                        //           borderRadius: BorderRadius.circular(8),
-                        //           color: ColorComponent.mainColor),
-                        //       child: const Text("Поднять в ТОП",
-                        //           style: TextStyle(
-                        //               fontWeight: FontWeight.w700, fontSize: 15)),
-                        //     ),
-                        //   ),
-                        // ),
+                            child: SizedBox(
+                                height: 36,
+                                child: Button(
+                                    onPressed: () {
+                                      showListPromotionPage(data);
+                                    },
+                                    title: promotions.isNotEmpty
+                                        ? "Продлить пакет"
+                                        : "Поднять в ТОП"))),
                         const SizedBox(width: 12),
                         GestureDetector(
                           onTap: () {
@@ -198,103 +215,78 @@ class MyAdItem extends StatelessWidget {
                                 ],
                               )),
                         ),
-                        // GestureDetector(
-                        //   child: Container(
-                        //     width: 32,
-                        //     height: 32,
-                        //     alignment: Alignment.center,
-                        //     decoration: BoxDecoration(
-                        //         borderRadius: BorderRadius.circular(7),
-                        //         color: ColorComponent.blue['100']),
-                        //     child: SvgPicture.asset('assets/icons/pen.svg'),
-                        //   ),
-                        // ),
-                        // const SizedBox(width: 8),
-                        // GestureDetector(
-                        //   child: Container(
-                        //     width: 32,
-                        //     height: 32,
-                        //     alignment: Alignment.center,
-                        //     decoration: BoxDecoration(
-                        //         borderRadius: BorderRadius.circular(7),
-                        //         color: ColorComponent.red['100']),
-                        //     child: SvgPicture.asset('assets/icons/trash.svg'),
-                        //   ),
-                        // )
-                        // GestureDetector(
-                        //   onTap: () {
-                        //     showOptions(data);
-                        //   },
-                        //   child: Container(
-                        //     height: 40,
-                        //     padding: const EdgeInsets.symmetric(horizontal: 8),
-                        //     child: Row(
-                        //       children: [
-                        //         Text(
-                        //           "Править",
-                        //           style: TextStyle(
-                        //               color: ColorComponent.gray['500'],
-                        //               fontSize: 15,
-                        //               fontWeight: FontWeight.w500),
-                        //         ),
-                        //         const SizedBox(width: 12),
-                        //         SvgPicture.asset('assets/icons/dotsHorizontal.svg',
-                        //             width: 16)
-                        //       ],
-                        //     ),
-                        //   ),
-                        // )
                       ]),
-            const SizedBox(height: 14),
-            Divider(height: 1, color: ColorComponent.gray['100']),
-            const SizedBox(height: 12),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Row(
-                  children: [
-                    SvgPicture.asset('assets/icons/pinOutline.svg'),
-                    const SizedBox(width: 4),
-                    Text(data['city']['title'],
-                        style: TextStyle(
-                            color: ColorComponent.gray['500'],
-                            fontSize: 12,
-                            fontWeight: FontWeight.w500)),
-                  ],
-                ),
-                Text(formattedDate(data['created_at'], "dd MMMM HH:mm"),
-                    // data['city']['title'],
-                    style: TextStyle(
-                        color: ColorComponent.gray['500'],
-                        fontSize: 12,
-                        fontWeight: FontWeight.w500)),
-                Row(
-                  children: [
-                    SvgPicture.asset('assets/icons/eye.svg'),
-                    const SizedBox(width: 4),
-                    Text(data['statistics']['viewed'].toString(),
-                        // data['city']['title'],
-                        style: TextStyle(
-                            color: ColorComponent.gray['500'],
-                            fontSize: 12,
-                            fontWeight: FontWeight.w500)),
-                  ],
-                ),
-                Row(
-                  children: [
-                    SvgPicture.asset('assets/icons/phoneOutline.svg',
-                        width: 16, color: ColorComponent.gray['500']),
-                    const SizedBox(width: 4),
-                    Text(data['statistics']['called'].toString(),
-                        // data['city']['title'],
-                        style: TextStyle(
-                            color: ColorComponent.gray['500'],
-                            fontSize: 12,
-                            fontWeight: FontWeight.w500)),
-                  ],
-                ),
-              ],
-            )
+            role == "individual"
+                ? Container()
+                : Container(
+                    height: 36,
+                    margin: EdgeInsets.only(top: 12),
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        border: Border.all(
+                            width: 1, color: ColorComponent.mainColor)),
+                    child: Button(
+                        onPressed: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      StatisticAdPage(id: data['id'])));
+                        },
+                        title: "Статистика",
+                        icon: "charTmixeDoutline.svg",
+                        backgroundColor: Colors.white),
+                  ),
+            // const SizedBox(height: 14),
+            // Divider(height: 1, color: ColorComponent.gray['200']),
+            // const SizedBox(height: 12),
+            // Row(
+            //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            //   children: [
+            //     Row(
+            //       children: [
+            //         SvgPicture.asset('assets/icons/pinOutline.svg'),
+            //         const SizedBox(width: 4),
+            //         Text(data['city']['title'],
+            //             style: TextStyle(
+            //                 color: ColorComponent.gray['500'],
+            //                 fontSize: 12,
+            //                 fontWeight: FontWeight.w500)),
+            //       ],
+            //     ),
+            //     Text(formattedDate(data['created_at'], "dd MMMM HH:mm"),
+            //         // data['city']['title'],
+            //         style: TextStyle(
+            //             color: ColorComponent.gray['500'],
+            //             fontSize: 12,
+            //             fontWeight: FontWeight.w500)),
+            //     Row(
+            //       children: [
+            //         SvgPicture.asset('assets/icons/eye.svg'),
+            //         const SizedBox(width: 4),
+            //         Text(data['statistics']['viewed'].toString(),
+            //             // data['city']['title'],
+            //             style: TextStyle(
+            //                 color: ColorComponent.gray['500'],
+            //                 fontSize: 12,
+            //                 fontWeight: FontWeight.w500)),
+            //       ],
+            //     ),
+            //     Row(
+            //       children: [
+            //         SvgPicture.asset('assets/icons/phoneOutline.svg',
+            //             width: 16, color: ColorComponent.gray['500']),
+            //         const SizedBox(width: 4),
+            //         Text(data['statistics']['called'].toString(),
+            //             // data['city']['title'],
+            //             style: TextStyle(
+            //                 color: ColorComponent.gray['500'],
+            //                 fontSize: 12,
+            //                 fontWeight: FontWeight.w500)),
+            //       ],
+            //     ),
+            //   ],
+            // )
           ])),
     );
   }

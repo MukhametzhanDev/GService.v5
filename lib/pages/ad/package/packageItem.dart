@@ -30,6 +30,7 @@ class PackageItem extends StatelessWidget {
     String title =
         data['title'].toString().replaceAll(RegExp(r"\bX\d+\b"), "").trim();
     List promotions = data['promotions'];
+    bool showPrice = data['old_price'] == 0 || data['old_price'] == null;
     return Container(
       margin: const EdgeInsets.only(bottom: 14),
       decoration: BoxDecoration(
@@ -75,8 +76,11 @@ class PackageItem extends StatelessWidget {
               const SizedBox(height: 12),
               Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  children: promotions
-                      .map((detail) => Padding(
+                  children: promotions.map((detail) {
+                    if (detail['icon'] == null || detail['icon'] == "") {
+                      return Container();
+                    } else {
+                      return Padding(
                           padding: const EdgeInsets.only(bottom: 10),
                           child: Row(children: [
                             SvgPicture.network(detail['icon'] ?? "", width: 20),
@@ -85,22 +89,35 @@ class PackageItem extends StatelessWidget {
                                 "${detail['value']} ${promotionTitle[detail['id']]}",
                                 style: const TextStyle(
                                     fontSize: 14, fontWeight: FontWeight.w400))
-                          ])))
-                      .toList()),
+                          ]));
+                    }
+                  }).toList()),
               const SizedBox(height: 16),
               Row(children: [
                 Text("${priceFormat(data['price'])} ₸",
                     style: const TextStyle(
                         fontSize: 20, fontWeight: FontWeight.w600)),
                 const SizedBox(width: 12),
-                data['old_price'] == 0 || data['old_price'] == null
+                showPrice
                     ? Container()
                     : Text("${priceFormat(data['old_price'])} ₸",
                         style: TextStyle(
                             fontSize: 17,
                             color: ColorComponent.gray['500'],
                             decorationColor: ColorComponent.gray['500'],
-                            decoration: TextDecoration.lineThrough))
+                            decoration: TextDecoration.lineThrough)),
+                Spacer(),
+                showPrice
+                    ? Container()
+                    : Padding(
+                        padding: const EdgeInsets.only(left: 12.0),
+                        child: Text(
+                            "Экономия ${priceFormat(data['old_price'] - data['price'])} ₸",
+                            style: TextStyle(
+                                fontSize: 14,
+                                fontWeight: FontWeight.w500,
+                                color: ColorComponent.blue['600'])),
+                      )
               ]),
               const SizedBox(height: 16),
               Container(
@@ -123,7 +140,7 @@ class PackageItem extends StatelessWidget {
                         active ? ColorComponent.gray['500'] : Colors.black),
               )
             ])),
-        data['old_price'] == 0 || data['old_price'] == null
+        showPrice
             ? Container()
             : Positioned(
                 right: 0,
@@ -139,7 +156,7 @@ class PackageItem extends StatelessWidget {
                   ),
                 ),
               ),
-        data['old_price'] == 0 || data['old_price'] == null
+        showPrice
             ? Container()
             : Positioned(
                 right: 0,
