@@ -1,5 +1,8 @@
 import 'package:dio/dio.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
+import 'package:gservice5/analytics/event_name.constan.dart';
 import 'package:gservice5/component/dio/dio.dart';
 import 'package:gservice5/component/loader/paginationLoaderComponent.dart';
 import 'package:gservice5/component/snackBar/snackBarComponent.dart';
@@ -56,6 +59,18 @@ class _AdListMainState extends State<AdListMain> {
         loader = false;
         hasNextPage = page != response.data['meta']['last_page'];
         setState(() {});
+
+        await GetIt.I<FirebaseAnalytics>().logViewItemList(
+            items: data
+                .map((item) => AnalyticsEventItem(
+                      itemId: item['id'].toString(),
+                      itemName: item['title'],
+                      itemCategory: item['category']['title'],
+                    ))
+                .toList(),
+            itemListId: GAParams.adMainIdList,
+            itemListName: GAParams.adList,
+            parameters: {'screen_name': GAParams.mainPage});
       } else {
         SnackBarComponent().showResponseErrorMessage(response, context);
       }

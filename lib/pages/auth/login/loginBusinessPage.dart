@@ -106,6 +106,12 @@ class _LoginBusinessPageState extends State<LoginBusinessPage>
         .then((value) {
       if (value != null) emailEditingController.text = value;
     });
+
+    GetIt.I<FirebaseAnalytics>()
+        .logEvent(name: GAEventName.buttonClick, parameters: {
+      'button_name': GAParams.textButtonRegister,
+      "screen_name": GAParams.loginBusinessPage
+    }).catchError((e) => debugPrint(e));
   }
 
   void showForgotPasswordIndividualPage() {
@@ -114,6 +120,12 @@ class _LoginBusinessPageState extends State<LoginBusinessPage>
         MaterialPageRoute(
             builder: (context) => ForgotPasswordBusinessPage(
                 email: emailEditingController.text)));
+
+    GetIt.I<FirebaseAnalytics>()
+        .logEvent(name: GAEventName.buttonClick, parameters: {
+      'button_name': GAParams.textButtonForgotPassword,
+      "screen_name": GAParams.loginBusinessPage
+    }).catchError((e) => debugPrint(e));
   }
 
   @override

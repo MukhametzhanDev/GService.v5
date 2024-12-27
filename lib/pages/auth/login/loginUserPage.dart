@@ -97,6 +97,10 @@ class _LoginUserPageState extends State<LoginUserPage>
               "type_account": "user"
             }).catchError((e) => debugPrint(e));
 
+        GetIt.I<FirebaseAnalytics>()
+            .setUserId(id: response.data['data']['user']['id'].toString())
+            .catchError((e) => debugPrint(e));
+
         ChangedToken().saveIndividualToken(response.data['data'], context);
       } else {
         SnackBarComponent().showResponseErrorMessage(response, context);

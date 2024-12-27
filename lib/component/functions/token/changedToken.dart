@@ -1,6 +1,8 @@
 import 'package:dio/dio.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:get_it/get_it.dart';
 import 'package:gservice5/component/loader/modalLoaderComponent.dart';
 import 'package:gservice5/navigation/%D1%81ustomer/customerBottomTab.dart';
 import 'package:gservice5/navigation/contractor/contractorBottomTab.dart';
@@ -109,10 +111,14 @@ class ChangedToken {
       await flutterSecureStorage.deleteAll();
       dio.options.headers['authorization'] = "";
       dio.options.baseUrl = "https://dev.gservice-co.kz/api";
+
+      await GetIt.I<FirebaseAnalytics>()
+          .setUserId(id: null)
+          .catchError((e) => debugPrint(e));
+
       Navigator.pushAndRemoveUntil(
           context,
-          MaterialPageRoute(
-              builder: (_) => const IndividualBottomTab()),
+          MaterialPageRoute(builder: (_) => const IndividualBottomTab()),
           (route) => false);
     } catch (e) {}
   }

@@ -1,6 +1,8 @@
 import 'package:dio/dio.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get_it/get_it.dart';
 import 'package:gservice5/component/appBar/fadeOnScroll.dart';
 import 'package:gservice5/component/bar/bottomBar/contactBottomBarWidget.dart';
 import 'package:gservice5/component/button/back/backIconButton.dart';
@@ -51,6 +53,8 @@ class _ViewAdPageState extends State<ViewAdPage> {
         loader = false;
         addAdFavorite();
         setState(() {});
+
+        // await GetIt.I<FirebaseAnalytics>()
       } else {
         SnackBarComponent().showResponseErrorMessage(response, context);
       }

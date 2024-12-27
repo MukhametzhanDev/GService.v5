@@ -28,6 +28,12 @@ class GAParams {
   static const String textButtonPolicy = 'text_button_policy';
 
   //BUTTON
+
+  //LIST
+  static const String adList = "AdList";
+  static const String adMainIdList = "AdMainIdList";
+
+  static const String applicationList = "applicationList";
 }
 
 class GAContentType {
