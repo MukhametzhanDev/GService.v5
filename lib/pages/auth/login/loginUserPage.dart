@@ -1,5 +1,8 @@
 import 'package:dio/dio.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
+import 'package:gservice5/analytics/event_name.constan.dart';
 import 'package:gservice5/component/button/button.dart';
 import 'package:gservice5/component/dio/dio.dart';
 import 'package:gservice5/component/functions/token/changedToken.dart';
@@ -59,6 +62,13 @@ class _LoginUserPageState extends State<LoginUserPage>
         }
       }
     }
+
+    GetIt.I<FirebaseAnalytics>().logEvent(
+        name: GAEventName.buttonClick,
+        parameters: {
+          'button_name': GAParams.loginButton,
+          "screen_name": GAParams.loginUserPage
+        }).catchError((e) => debugPrint(e));
   }
 
   bool isNumeric(String text) {
@@ -76,8 +86,17 @@ class _LoginUserPageState extends State<LoginUserPage>
             "password": passwordEditingController.text
           });
       print(response.data);
+
       Navigator.pop(context);
+
       if (response.statusCode == 200 && response.data['success']) {
+        GetIt.I<FirebaseAnalytics>().logLogin(
+            loginMethod: param.containsKey("phone") ? 'phone' : 'email',
+            parameters: {
+              "screen_name": GAParams.loginUserPage,
+              "type_account": "user"
+            }).catchError((e) => debugPrint(e));
+
         ChangedToken().saveIndividualToken(response.data['data'], context);
       } else {
         SnackBarComponent().showResponseErrorMessage(response, context);
@@ -94,6 +113,12 @@ class _LoginUserPageState extends State<LoginUserPage>
         .then((value) {
       if (value != null) textEditingController.text = value;
     });
+
+    GetIt.I<FirebaseAnalytics>()
+        .logEvent(name: GAEventName.buttonClick, parameters: {
+      'button_name': GAParams.textButtonRegister,
+      "screen_name": GAParams.loginUserPage
+    }).catchError((e) => debugPrint(e));
   }
 
   void showForgotPasswordIndividualPage() {
@@ -102,6 +127,12 @@ class _LoginUserPageState extends State<LoginUserPage>
         MaterialPageRoute(
             builder: (context) => ForgotPasswordIndividualPage(
                 title: textEditingController.text)));
+
+    GetIt.I<FirebaseAnalytics>()
+        .logEvent(name: GAEventName.buttonClick, parameters: {
+      'button_name': GAParams.textButtonForgotPassword,
+      "screen_name": GAParams.loginUserPage
+    }).catchError((e) => debugPrint(e));
   }
 
   @override

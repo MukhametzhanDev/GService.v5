@@ -1,5 +1,8 @@
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get_it/get_it.dart';
+import 'package:gservice5/analytics/event_name.constan.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
 import 'package:gservice5/pages/application/list/applicationListPage.dart';
 import 'package:gservice5/pages/application/item/smallApplicationItem.dart';
@@ -17,6 +20,16 @@ class _ApplicationListMainState extends State<ApplicationListMain> {
   void showPage(id) {
     Navigator.push(context,
         MaterialPageRoute(builder: (context) => ViewApplicationPage(id: id)));
+
+    GetIt.I<FirebaseAnalytics>().logSelectContent(
+        contentType: GAContentType.application,
+        itemId: id.toString(),
+        parameters: {
+          'title': widget.data.firstWhere((e) => e['id'] == id,
+                  orElse: () => '')['title'] ??
+              '',
+          'screen_name': GAParams.mainPage
+        }).catchError((e) => debugPrint(e));
   }
 
   @override

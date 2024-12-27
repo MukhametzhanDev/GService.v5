@@ -1,6 +1,9 @@
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get_it/get_it.dart';
+import 'package:gservice5/analytics/event_name.constan.dart';
 import 'package:gservice5/component/banner/bannersList.dart';
 import 'package:gservice5/component/button/searchButton.dart';
 import 'package:gservice5/component/categories/data/mainPageData.dart';
@@ -43,6 +46,15 @@ class _MainPageState extends State<MainPage> {
         MaterialPageRoute(
             builder: (context) =>
                 const MainSearchPage(showType: "back", title: "")));
+
+    GetIt.I<FirebaseAnalytics>().logEvent(
+        name: GAEventName.buttonClick,
+        parameters: {
+          'button_name': GAParams.searchButton,
+          'screen_name': GAParams.mainPage
+        }).catchError((e) {
+      debugPrint(e);
+    });
   }
 
   @override
@@ -75,6 +87,13 @@ class _MainPageState extends State<MainPage> {
                   GestureDetector(
                     onTap: () {
                       scaffoldKey.currentState?.openDrawer();
+                      GetIt.I<FirebaseAnalytics>()
+                          .logEvent(name: GAEventName.buttonClick, parameters: {
+                        'button_name': GAParams.searchButton,
+                        'screen_name': GAParams.mainPage,
+                      }).catchError((e) {
+                        debugPrint(e);
+                      });
                     },
                     child: Container(
                       height: 40,

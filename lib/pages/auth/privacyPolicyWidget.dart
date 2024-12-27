@@ -1,5 +1,8 @@
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
+import 'package:gservice5/analytics/event_name.constan.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
 
 class PrivacyPolicyWidget extends StatefulWidget {
@@ -28,6 +31,11 @@ class _PrivacyPolicyWidgetState extends State<PrivacyPolicyWidget> {
                 decoration: TextDecoration.underline),
             recognizer: TapGestureRecognizer()
               ..onTap = () {
+                GetIt.I<FirebaseAnalytics>().logEvent(
+                    name: GAEventName.buttonClick,
+                    parameters: {
+                      'button_name': GAParams.textButtonAgreement
+                    }).catchError((e) => debugPrint(e));
                 print('object');
               },
           ),
@@ -40,6 +48,11 @@ class _PrivacyPolicyWidgetState extends State<PrivacyPolicyWidget> {
             ),
             recognizer: TapGestureRecognizer()
               ..onTap = () {
+                GetIt.I<FirebaseAnalytics>().logEvent(
+                    name: GAEventName.buttonClick,
+                    parameters: {
+                      'button_name': GAParams.textButtonPolicy
+                    }).catchError((e) => debugPrint(e));
                 print('object');
               },
           ),

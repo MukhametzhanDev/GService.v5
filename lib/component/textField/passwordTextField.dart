@@ -1,5 +1,8 @@
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get_it/get_it.dart';
+import 'package:gservice5/analytics/event_name.constan.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
 
 class PasswordTextField extends StatefulWidget {
@@ -37,6 +40,10 @@ class _PasswordTextFieldState extends State<PasswordTextField> {
                   setState(() {
                     showPassword = !showPassword;
                   });
+                  GetIt.I<FirebaseAnalytics>()
+                      .logEvent(name: GAEventName.buttonClick, parameters: {
+                    'button_name': "ic_btn_show_Pwd",
+                  }).catchError((e) => debugPrint(e));
                 },
                 iconSize: 20,
                 icon: SvgPicture.asset('assets/icons/eyeOutline.svg',

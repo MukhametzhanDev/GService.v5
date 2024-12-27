@@ -16,6 +16,6 @@ void main() async {
   FirebaseAnalytics analytics = FirebaseAnalytics.instance;
 
   GetIt.I.registerSingleton(analytics);
-  
+
   runApp(const Index());
 }

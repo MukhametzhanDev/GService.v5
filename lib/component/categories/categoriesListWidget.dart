@@ -1,4 +1,7 @@
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
+import 'package:gservice5/analytics/event_name.constan.dart';
 import 'package:gservice5/component/categories/data/categoriesData.dart';
 import 'package:gservice5/component/request/getCategories.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
@@ -33,9 +36,29 @@ class _CategoriesListWidgetState extends State<CategoriesListWidget> {
 
   void showAdPage(Map value) {
     if (value['id'] == 3) {
+      GetIt.I<FirebaseAnalytics>().logSelectContent(
+          contentType: GAContentType.category,
+          itemId: value['id'].toString(),
+          parameters: {
+            'screen_name': GAParams.mainPage,
+            'category_name': value['title']
+          }).catchError((e) {
+        debugPrint(e);
+      });
+
       Navigator.push(context,
           MaterialPageRoute(builder: (context) => const ApplicationListPage()));
     } else {
+      GetIt.I<FirebaseAnalytics>().logSelectContent(
+          contentType: GAContentType.category,
+          itemId: value['id'].toString(),
+          parameters: {
+            'screen_name': GAParams.mainPage,
+            'category_name': value['title']
+          }).catchError((e) {
+        debugPrint(e);
+      });
+
       Navigator.push(context,
           MaterialPageRoute(builder: (context) => AdListPage(category: value)));
     }

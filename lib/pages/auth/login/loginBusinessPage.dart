@@ -1,5 +1,8 @@
 import 'package:dio/dio.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
+import 'package:gservice5/analytics/event_name.constan.dart';
 import 'package:gservice5/component/button/back/backTitleButton.dart';
 import 'package:gservice5/component/button/button.dart';
 import 'package:gservice5/component/dio/dio.dart';
@@ -66,10 +69,24 @@ class _LoginBusinessPageState extends State<LoginBusinessPage>
       });
       print(response.data);
       Navigator.pop(context);
+
       if (response.statusCode == 200 && response.data['success']) {
         if (response.data['data']['user']['role'] == "customer") {
+          GetIt.I<FirebaseAnalytics>()
+              .logLogin(loginMethod: 'email', parameters: {
+            'screen_name': GAParams.loginBusinessPage,
+            'account_type': 'bussiness',
+            'role_type': "customer"
+          }).catchError((e) => debugPrint(e));
+
           ChangedToken().saveCustomerToken(response.data['data'], context);
         } else {
+          GetIt.I<FirebaseAnalytics>()
+              .logLogin(loginMethod: 'email', parameters: {
+            'screen_name': GAParams.loginBusinessPage,
+            'account_type': 'bussiness',
+            'role_type': "contractor"
+          }).catchError((e) => debugPrint(e));
           ChangedToken()
               .saveContractorToken(response.data['data'], "login", context);
         }

@@ -1,6 +1,9 @@
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:badges/badges.dart' as badges;
+import 'package:get_it/get_it.dart';
+import 'package:gservice5/analytics/event_name.constan.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
 import 'package:gservice5/pages/create/ad/sectionCreateAdPage.dart';
 import 'package:gservice5/pages/create/createSectionPage.dart';
@@ -33,7 +36,24 @@ class _IndividualBottomTabState extends State<IndividualBottomTab>
     if (_selectedIndex == 0 && index == 0) {
       scrollController.animateTo(0,
           duration: const Duration(milliseconds: 300), curve: Curves.easeInOut);
+
+      GetIt.I<FirebaseAnalytics>().logEvent(
+          name: GAEventName.screenView,
+          parameters: {
+            'screen_name': GAParams.mainPage,
+            'firebase_screen_class': GAParams.mainPage
+          }).catchError((e) {
+        debugPrint(e);
+      });
     } else if (index == 2) {
+      GetIt.I<FirebaseAnalytics>()
+          .logEvent(name: GAEventName.screenView, parameters: {
+        'screen_name': GAParams.tabBottomAd,
+        'firebase_screen_class': GAParams.tabBottomAd
+      }).catchError((e) {
+        debugPrint(e);
+      });
+
       showMaterialModalBottomSheet(
           context: context,
           builder: (context) => const SectionCreateAdPage()).then((value) {
@@ -45,6 +65,21 @@ class _IndividualBottomTabState extends State<IndividualBottomTab>
       });
     } else {
       _selectedIndex = index;
+
+      GetIt.I<FirebaseAnalytics>()
+          .logEvent(name: GAEventName.screenView, parameters: {
+        'screen_name': index == 1
+            ? GAParams.favoriteMainPage
+            : index == 3
+                ? GAParams.messageMainPage
+                : index == 4
+                    ? GAParams.verifyProfilePage
+                    : GAParams.mainPage,
+        'firebase_screen_class': 'IndividualBottomTab'
+      }).catchError((e) {
+        debugPrint(e);
+      });
+
       setState(() {});
     }
   }

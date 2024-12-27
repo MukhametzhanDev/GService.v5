@@ -1,4 +1,6 @@
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
 import 'package:gservice5/component/theme/darkThemeProvider.dart';
 import 'package:gservice5/component/theme/styles.dart';
 import 'package:gservice5/component/wallet/transaction/transactionHistoryPage.dart';
@@ -44,10 +46,13 @@ class _IndexState extends State<Index> {
             routes: {
               "IndividualBottomTab": (context) => const IndividualBottomTab(),
               "SplashScreen": (context) => const SplashScreen(),
-              "ReplenishmentWalletPage": (context) => const ReplenishmentWalletPage(),
-              "TransactionHistoryPage": (context) => const TransactionHistoryPage(),
+              "ReplenishmentWalletPage": (context) =>
+                  const ReplenishmentWalletPage(),
+              "TransactionHistoryPage": (context) =>
+                  const TransactionHistoryPage(),
               "MyAdListPage": (context) => const MyAdListPage(),
-              "MyApplicationListPage": (context) => const MyApplicationListPage(),
+              "MyApplicationListPage": (context) =>
+                  const MyApplicationListPage(),
               "SectionCreateAdPage": (context) => const SectionCreateAdPage(),
               "GetAccountTypePage": (context) => const GetAccountTypePage(),
               "ResetIndividualPasswordPage": (context) =>
@@ -59,6 +64,9 @@ class _IndexState extends State<Index> {
                   const GetActivityContractorPage(),
               "AddContactsPage": (context) => const AddContactsPage(),
             },
+            navigatorObservers: [
+              FirebaseAnalyticsObserver(analytics: GetIt.I<FirebaseAnalytics>())
+            ],
           );
         }));
   }

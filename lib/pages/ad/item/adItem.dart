@@ -1,6 +1,9 @@
 import 'dart:ui';
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get_it/get_it.dart';
+import 'package:gservice5/analytics/event_name.constan.dart';
 import 'package:gservice5/component/button/favoriteButton.dart';
 import 'package:gservice5/component/formatted/number/numberFormatted.dart';
 import 'package:gservice5/component/image/cacheImage.dart';
@@ -27,6 +30,13 @@ class _AdItemState extends State<AdItem> {
     Navigator.push(context,
             MaterialPageRoute(builder: (context) => ViewAdPage(id: id)))
         .then(verifyFavoriteAd);
+
+    GetIt.I<FirebaseAnalytics>().logSelectContent(
+        contentType: GAContentType.ad,
+        itemId: id.toString(),
+        parameters: {
+          'title': widget.data['title'] ?? ''
+        }).catchError((e) => debugPrint(e));
   }
 
   void verifyFavoriteAd(value) {
