@@ -88,7 +88,6 @@ class _CreateAdContactsPageState extends State<CreateAdContactsPage> {
         CreateData.characteristic.clear();
         Navigator.pop(context);
         Navigator.pop(context, "ad");
-        Navigator.pop(context, "ad");
         Navigator.push(
             context,
             MaterialPageRoute(

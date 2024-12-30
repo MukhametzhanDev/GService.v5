@@ -205,7 +205,8 @@ class _ViewAdPageState extends State<ViewAdPage> {
                         ),
                         AuthorAdWidget(
                             title: "О владельце объявления",
-                            data: data['author']),
+                            data: data['author'],
+                            showOtherAd: true),
                         const Divider(height: 6),
                         const Divider(height: 1, color: Color(0xfff4f5f7)),
                         const Divider(height: 14),

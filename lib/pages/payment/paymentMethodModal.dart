@@ -50,14 +50,18 @@ class _PaymentMethodModalState extends State<PaymentMethodModal> {
           context,
           MaterialPageRoute(
               builder: (context) => ViewWalletPage(
+                  title: value['title'],
                   orderId: widget.orderId,
                   methodId: value['id'],
-                  data: widget.data)));
+                  data: widget.data))).then((value) {
+        if (value == "success") Navigator.pop(context, widget.data);
+      });
     } else {
       Navigator.push(
           context,
           MaterialPageRoute(
               builder: (context) => ViewPaymentPage(
+                  title: value['title'],
                   orderId: widget.orderId,
                   methodId: value['id']))).then((value) {
         if (value == "success") Navigator.pop(context, widget.data);

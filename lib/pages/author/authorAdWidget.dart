@@ -10,7 +10,12 @@ import 'package:gservice5/pages/author/individual/viewIndiviualPage.dart';
 class AuthorAdWidget extends StatefulWidget {
   final String title;
   final Map data;
-  const AuthorAdWidget({super.key, required this.title, required this.data});
+  final bool showOtherAd;
+  const AuthorAdWidget(
+      {super.key,
+      required this.title,
+      required this.data,
+      required this.showOtherAd});
 
   @override
   State<AuthorAdWidget> createState() => _AuthorAdWidgetState();
@@ -220,26 +225,33 @@ class _AuthorAdWidgetState extends State<AuthorAdWidget> {
                   ]),
           ),
         ),
-        const Divider(height: 16),
-        const Padding(
-            padding: EdgeInsets.symmetric(horizontal: 16),
-            child: Text("Другие объявления продавца",
-                style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600))),
-        const Divider(height: 12),
-        SizedBox(
-          height: MediaQuery.of(context).size.width / 2.3,
-          child: SingleChildScrollView(
-            padding: const EdgeInsets.symmetric(horizontal: 8),
-            scrollDirection: Axis.horizontal,
-            child: Row(
-                children: [1, 2, 3].map((value) {
-              return Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 6),
-                child: SmallAdItem(index: value, showFullInfo: false),
-              );
-            }).toList()),
-          ),
-        )
+        widget.showOtherAd
+            ? Column(
+                children: [
+                  const Divider(height: 16),
+                  const Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 16),
+                      child: Text("Другие объявления продавца",
+                          style: TextStyle(
+                              fontSize: 16, fontWeight: FontWeight.w600))),
+                  const Divider(height: 12),
+                  SizedBox(
+                    height: MediaQuery.of(context).size.width / 2.3,
+                    child: SingleChildScrollView(
+                      padding: const EdgeInsets.symmetric(horizontal: 8),
+                      scrollDirection: Axis.horizontal,
+                      child: Row(
+                          children: [1, 2, 3].map((value) {
+                        return Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 6),
+                          child: SmallAdItem(index: value, showFullInfo: false),
+                        );
+                      }).toList()),
+                    ),
+                  )
+                ],
+              )
+            : Container(),
       ],
     );
   }

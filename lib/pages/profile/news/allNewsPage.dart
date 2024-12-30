@@ -9,6 +9,7 @@ import 'package:gservice5/component/loader/loaderComponent.dart';
 import 'package:gservice5/component/snackBar/snackBarComponent.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
 import 'package:gservice5/pages/profile/news/empty/emptyNewsPage.dart';
+import 'package:gservice5/pages/profile/news/newsItem.dart';
 import 'package:gservice5/pages/profile/news/viewNewsPage.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
@@ -112,78 +113,10 @@ class _AllNewsPageState extends State<AllNewsPage> {
               child: data.isEmpty
                   ? const EmptyNewsPage()
                   : ListView.builder(
-                      padding: const EdgeInsets.all(16),
                       controller: scrollController,
                       itemCount: data.length,
                       itemBuilder: (context, index) {
-                        return GestureDetector(
-                          onTap: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) =>
-                                        ViewNewsPage(id: data[index]['id'])));
-                          },
-                          child: Container(
-                            color: Colors.white,
-                            child: Column(
-                              children: [
-                                Row(
-                                  children: [
-                                    CacheImage(
-                                        url: data[index]["poster"],
-                                        width: 120,
-                                        height: 94,
-                                        borderRadius: 12),
-                                    const Divider(indent: 12),
-                                    Expanded(
-                                      child: Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            Text(data[index]["title"],
-                                                maxLines: 2,
-                                                style: const TextStyle(
-                                                    fontSize: 16,
-                                                    fontWeight:
-                                                        FontWeight.w600)),
-                                            const Divider(height: 12),
-                                            Row(
-                                              children: [
-                                                Text(
-                                                    formattedDate(
-                                                        data[index]
-                                                            ["created_at"],
-                                                        "dd MMMM yyyy, HH:mm"),
-                                                    style: TextStyle(
-                                                        fontSize: 12,
-                                                        color: ColorComponent
-                                                            .gray['500'])),
-                                                const Divider(indent: 24),
-                                                SvgPicture.asset(
-                                                    "assets/icons/eye.svg"),
-                                                const Divider(indent: 4),
-                                                Text(
-                                                    data[index]["views"]
-                                                        .toString(),
-                                                    style: TextStyle(
-                                                        fontSize: 12,
-                                                        color: ColorComponent
-                                                            .gray['500'])),
-                                              ],
-                                            ),
-                                          ]),
-                                    )
-                                  ],
-                                ),
-                                const Divider(height: 16),
-                                Divider(
-                                    height: 1,
-                                    color: ColorComponent.gray['100'])
-                              ],
-                            ),
-                          ),
-                        );
+                        return NewsItem(data: data[index]);
                       }),
             ),
     );

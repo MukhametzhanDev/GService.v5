@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gservice5/component/theme/darkThemeProvider.dart';
 import 'package:gservice5/component/theme/styles.dart';
+import 'package:gservice5/pages/companies/companiesMainPage.dart';
 import 'package:gservice5/pages/payment/transaction/transactionHistoryPage.dart';
 import 'package:gservice5/navigation/individual/individualBottomTab.dart';
 import 'package:gservice5/pages/ad/my/myAdListPage.dart';
@@ -15,6 +16,7 @@ import 'package:gservice5/pages/profile/contacts/addContactsPage.dart';
 import 'package:gservice5/pages/profile/news/allNewsPage.dart';
 import 'package:gservice5/pages/profile/wallet/replenishment/replenishmentWalletPage.dart';
 import 'package:gservice5/pages/splash/splashScreen.dart';
+import 'package:gservice5/provider/walletAmountProvider.dart';
 import 'package:provider/provider.dart';
 
 class Index extends StatefulWidget {
@@ -32,6 +34,7 @@ class _IndexState extends State<Index> {
     return MultiProvider(
         providers: [
           ChangeNotifierProvider(create: (_) => themeChangeProvider),
+          ChangeNotifierProvider.value(value: WalletAmountProvider()),
         ],
         child: Consumer<DarkThemeProvider>(
             builder: (BuildContext context, value, child) {
@@ -44,10 +47,13 @@ class _IndexState extends State<Index> {
             routes: {
               "IndividualBottomTab": (context) => const IndividualBottomTab(),
               "SplashScreen": (context) => const SplashScreen(),
-              "ReplenishmentWalletPage": (context) => const ReplenishmentWalletPage(),
-              "TransactionHistoryPage": (context) => const TransactionHistoryPage(),
+              "ReplenishmentWalletPage": (context) =>
+                  const ReplenishmentWalletPage(),
+              "TransactionHistoryPage": (context) =>
+                  const TransactionHistoryPage(),
               "MyAdListPage": (context) => const MyAdListPage(),
-              "MyApplicationListPage": (context) => const MyApplicationListPage(),
+              "MyApplicationListPage": (context) =>
+                  const MyApplicationListPage(),
               "SectionCreateAdPage": (context) => const SectionCreateAdPage(),
               "GetAccountTypePage": (context) => const GetAccountTypePage(),
               "ResetIndividualPasswordPage": (context) =>
@@ -58,6 +64,7 @@ class _IndexState extends State<Index> {
               "GetActivityContractorPage": (context) =>
                   const GetActivityContractorPage(),
               "AddContactsPage": (context) => const AddContactsPage(),
+              "CompaniesMainPage": (context) => const CompaniesMainPage(),
             },
           );
         }));

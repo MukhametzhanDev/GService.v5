@@ -214,16 +214,19 @@ class _ViewContractorPageState extends State<ViewContractorPage>
                     },
                     body: TabBarView(controller: tabController, children: [
                       ViewAboutContractorPage(data: data),
-                      AdListWidget(
-                          param: {"company_id": data['id']},
-                          scrollController: scrollController),
-                      ApplicationListWidget(
-                          param: {"company_id": data['id']},
-                          scrollController: scrollController),
+                      AdListWidget(param: {
+                        "author_id": widget.id,
+                        "author_type": "company"
+                      }, scrollController: scrollController),
+                      ApplicationListWidget(param: {
+                        "author_id": widget.id,
+                        "author_type": "company"
+                      }, scrollController: scrollController),
                       const FilesListPage()
                     ])),
               ),
-        bottomNavigationBar: const ContactBottomBarWidget(hasAd: false, id: 1, phones: []));
+        bottomNavigationBar:
+            const ContactBottomBarWidget(hasAd: false, id: 1, phones: []));
   }
 
   Widget ButtonInfo(

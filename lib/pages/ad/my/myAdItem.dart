@@ -45,6 +45,7 @@ class MyAdItem extends StatelessWidget {
         padding: EdgeInsets.only(bottom: data['stickers'].isEmpty ? 10 : 4.0),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Container(
               padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 3),

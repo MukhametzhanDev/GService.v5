@@ -8,9 +8,13 @@ import 'package:gservice5/component/snackBar/snackBarComponent.dart';
 
 class ViewPaymentPage extends StatefulWidget {
   final String orderId;
+  final String title;
   final int methodId;
   const ViewPaymentPage(
-      {super.key, required this.orderId, required this.methodId});
+      {super.key,
+      required this.orderId,
+      required this.methodId,
+      required this.title});
 
   @override
   State<ViewPaymentPage> createState() => _ViewPaymentPageState();
@@ -61,7 +65,7 @@ class _ViewPaymentPageState extends State<ViewPaymentPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-          leading: const BackTitleButton(title: "Оплата"), leadingWidth: 130),
+          leading: BackTitleButton(title: widget.title), leadingWidth: 300),
       body: loader
           ? const LoaderComponent()
           : Stack(

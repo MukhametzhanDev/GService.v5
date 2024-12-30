@@ -1,19 +1,25 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_switch/flutter_switch.dart';
 import 'package:gservice5/component/button/back/backTitleButton.dart';
 import 'package:gservice5/component/button/button.dart';
+import 'package:gservice5/component/dio/dio.dart';
 import 'package:gservice5/component/formatted/price/priceFormat.dart';
+import 'package:gservice5/component/loader/modalLoaderComponent.dart';
+import 'package:gservice5/component/snackBar/snackBarComponent.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
 import 'package:gservice5/component/widgets/bottom/bottomNavigationBarComponent.dart';
 import 'package:gservice5/pages/payment/wallet/showWalletWidget.dart';
 
 class ViewWalletPage extends StatefulWidget {
   final String orderId;
+  final String title;
   final int methodId;
   final Map data;
   const ViewWalletPage(
       {super.key,
       required this.orderId,
+      required this.title,
       required this.methodId,
       required this.data});
 
@@ -29,6 +35,24 @@ class _ViewWalletPageState extends State<ViewWalletPage> {
   void initState() {
     getTotalPrice();
     super.initState();
+  }
+
+  Future postData() async {
+    showModalLoader(context);
+    try {
+      Response response = await dio.post("/make-payment", data: {
+        "order_id": widget.orderId,
+        "payment_method_id": widget.methodId
+      });
+      Navigator.pop(context);
+      if (response.data['success'] && response.statusCode == 200) {
+        Navigator.pop(context, "success");
+      } else {
+        SnackBarComponent().showResponseErrorMessage(response, context);
+      }
+    } catch (e) {
+      SnackBarComponent().showNotGoBackServerErrorMessage(context);
+    }
   }
 
   void getTotalPrice() {
@@ -63,8 +87,7 @@ class _ViewWalletPageState extends State<ViewWalletPage> {
     Map package = widget.data['package'];
     return Scaffold(
       appBar: AppBar(
-          leading: const BackTitleButton(title: "Оплата с кошелька"),
-          leadingWidth: 220),
+          leading: BackTitleButton(title: widget.title), leadingWidth: 220),
       body: SingleChildScrollView(
         child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
           Container(
@@ -91,10 +114,12 @@ class _ViewWalletPageState extends State<ViewWalletPage> {
                         width: 1, color: ColorComponent.gray['100']!))),
             child: ListTile(
               title: Text(package['title'],
-                  style: const TextStyle(fontSize: 15, fontWeight: FontWeight.w400)),
+                  style: const TextStyle(
+                      fontSize: 15, fontWeight: FontWeight.w400)),
               trailing: Text(
                 "${priceFormat(package['price'])} ₸",
-                style: const TextStyle(fontSize: 15, fontWeight: FontWeight.w600),
+                style:
+                    const TextStyle(fontSize: 15, fontWeight: FontWeight.w600),
               ),
             ),
           ),
@@ -109,8 +134,8 @@ class _ViewWalletPageState extends State<ViewWalletPage> {
                           width: 1, color: ColorComponent.gray['100']!))),
               child: ListTile(
                 title: Text("Стикер «${value['title']}»",
-                    style:
-                        const TextStyle(fontSize: 15, fontWeight: FontWeight.w400)),
+                    style: const TextStyle(
+                        fontSize: 15, fontWeight: FontWeight.w400)),
                 trailing: const Text("100 ₸",
                     style:
                         TextStyle(fontSize: 15, fontWeight: FontWeight.w600)),
@@ -139,13 +164,14 @@ class _ViewWalletPageState extends State<ViewWalletPage> {
                       children: [
                         RichText(
                           text: TextSpan(
-                            style: const TextStyle(fontSize: 17, color: Colors.black),
+                            style: const TextStyle(
+                                fontSize: 17, color: Colors.black),
                             children: <TextSpan>[
                               const TextSpan(text: "Накоплено "),
                               TextSpan(
                                   text: "${priceFormat(1000 ?? 0)} Б",
-                                  style:
-                                      const TextStyle(fontWeight: FontWeight.w700)),
+                                  style: const TextStyle(
+                                      fontWeight: FontWeight.w700)),
                             ],
                           ),
                         ),
@@ -181,7 +207,8 @@ class _ViewWalletPageState extends State<ViewWalletPage> {
                     child: Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const Text("Будет списано", style: TextStyle(fontSize: 17)),
+                        const Text("Будет списано",
+                            style: TextStyle(fontSize: 17)),
                         debitWallet() == 0
                             ? Container()
                             : Row(
@@ -219,8 +246,7 @@ class _ViewWalletPageState extends State<ViewWalletPage> {
                                     ),
                                   ),
                                   const Padding(
-                                    padding:
-                                        EdgeInsets.only(left: 15, top: 2),
+                                    padding: EdgeInsets.only(left: 15, top: 2),
                                     child: Text("+",
                                         style: TextStyle(
                                             fontWeight: FontWeight.w400,
@@ -262,7 +288,9 @@ class _ViewWalletPageState extends State<ViewWalletPage> {
       ),
       bottomNavigationBar: BottomNavigationBarComponent(
           child: Button(
-              onPressed: () {},
+              onPressed: () {
+                postData();
+              },
               padding: const EdgeInsets.symmetric(horizontal: 15),
               title: "К оплате, ${priceFormat(totalPrice)} ₸")),
     );

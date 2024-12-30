@@ -3,6 +3,9 @@ import 'package:flutter_svg/svg.dart';
 import 'package:gservice5/component/button/button.dart';
 import 'package:gservice5/component/formatted/price/priceFormat.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
+import 'package:gservice5/pages/payment/wallet/request/walletService.dart';
+import 'package:gservice5/provider/walletAmountProvider.dart';
+import 'package:provider/provider.dart';
 
 class ShowWalletWidget extends StatefulWidget {
   final bool showButton;
@@ -13,6 +16,14 @@ class ShowWalletWidget extends StatefulWidget {
 }
 
 class _ShowWalletWidgetState extends State<ShowWalletWidget> {
+  WalletServices services = WalletServices();
+
+  @override
+  void initState() {
+    super.initState();
+    Provider.of<WalletAmountProvider>(context, listen: false).getData(context);
+  }
+
   void showPage() {
     Navigator.pushNamed(context, "ReplenishmentWalletPage");
   }
@@ -23,6 +34,8 @@ class _ShowWalletWidgetState extends State<ShowWalletWidget> {
 
   @override
   Widget build(BuildContext context) {
+    final walletAmount = Provider.of<WalletAmountProvider>(context);
+
     return Container(
       decoration: const BoxDecoration(
           border:

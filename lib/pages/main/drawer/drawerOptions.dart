@@ -1,3 +1,4 @@
+import 'package:gservice5/pages/companies/companiesMainPage.dart';
 import 'package:gservice5/pages/profile/news/allNewsPage.dart';
 
 class DrawerOptions {
@@ -6,7 +7,7 @@ class DrawerOptions {
       "full_title": "Компании",
       "title": "Компании",
       "icon": "usersGroup.svg",
-      "page": "AllNewsPage"
+      "page": const CompaniesMainPage()
     },
     {
       "full_title": "Новости",
