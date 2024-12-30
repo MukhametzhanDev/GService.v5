@@ -63,7 +63,7 @@ class _ViewWalletPageState extends State<ViewWalletPage> {
     Map package = widget.data['package'];
     return Scaffold(
       appBar: AppBar(
-          leading: BackTitleButton(title: "Оплата с кошелька"),
+          leading: const BackTitleButton(title: "Оплата с кошелька"),
           leadingWidth: 220),
       body: SingleChildScrollView(
         child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
@@ -74,7 +74,7 @@ class _ViewWalletPageState extends State<ViewWalletPage> {
             child: const Text("Баланс",
                 style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600)),
           ),
-          ShowWalletWidget(showButton: false),
+          const ShowWalletWidget(showButton: false),
           Container(
             color: ColorComponent.gray['100'],
             width: double.infinity,
@@ -91,10 +91,10 @@ class _ViewWalletPageState extends State<ViewWalletPage> {
                         width: 1, color: ColorComponent.gray['100']!))),
             child: ListTile(
               title: Text(package['title'],
-                  style: TextStyle(fontSize: 15, fontWeight: FontWeight.w400)),
+                  style: const TextStyle(fontSize: 15, fontWeight: FontWeight.w400)),
               trailing: Text(
                 "${priceFormat(package['price'])} ₸",
-                style: TextStyle(fontSize: 15, fontWeight: FontWeight.w600),
+                style: const TextStyle(fontSize: 15, fontWeight: FontWeight.w600),
               ),
             ),
           ),
@@ -110,8 +110,8 @@ class _ViewWalletPageState extends State<ViewWalletPage> {
               child: ListTile(
                 title: Text("Стикер «${value['title']}»",
                     style:
-                        TextStyle(fontSize: 15, fontWeight: FontWeight.w400)),
-                trailing: Text("100 ₸",
+                        const TextStyle(fontSize: 15, fontWeight: FontWeight.w400)),
+                trailing: const Text("100 ₸",
                     style:
                         TextStyle(fontSize: 15, fontWeight: FontWeight.w600)),
               ),
@@ -125,7 +125,7 @@ class _ViewWalletPageState extends State<ViewWalletPage> {
                 style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600)),
           ),
           Container(
-              padding: EdgeInsets.all(15),
+              padding: const EdgeInsets.all(15),
               decoration: BoxDecoration(
                   border: Border(
                       bottom: BorderSide(
@@ -139,17 +139,17 @@ class _ViewWalletPageState extends State<ViewWalletPage> {
                       children: [
                         RichText(
                           text: TextSpan(
-                            style: TextStyle(fontSize: 17, color: Colors.black),
+                            style: const TextStyle(fontSize: 17, color: Colors.black),
                             children: <TextSpan>[
-                              TextSpan(text: "Накоплено "),
+                              const TextSpan(text: "Накоплено "),
                               TextSpan(
                                   text: "${priceFormat(1000 ?? 0)} Б",
                                   style:
-                                      TextStyle(fontWeight: FontWeight.w700)),
+                                      const TextStyle(fontWeight: FontWeight.w700)),
                             ],
                           ),
                         ),
-                        SizedBox(height: 5),
+                        const SizedBox(height: 5),
                         Text("Потратить бонусы",
                             style: TextStyle(
                                 fontSize: 13,
@@ -174,14 +174,14 @@ class _ViewWalletPageState extends State<ViewWalletPage> {
           AnimatedOpacity(
             opacity: bonus ? 1 : 0,
             curve: Curves.linear,
-            duration: Duration(milliseconds: 300),
+            duration: const Duration(milliseconds: 300),
             child: bonus
                 ? Container(
-                    padding: EdgeInsets.all(20),
+                    padding: const EdgeInsets.all(20),
                     child: Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text("Будет списано", style: TextStyle(fontSize: 17)),
+                        const Text("Будет списано", style: TextStyle(fontSize: 17)),
                         debitWallet() == 0
                             ? Container()
                             : Row(
@@ -194,7 +194,7 @@ class _ViewWalletPageState extends State<ViewWalletPage> {
                                           CrossAxisAlignment.center,
                                       children: [
                                         Container(
-                                          padding: EdgeInsets.symmetric(
+                                          padding: const EdgeInsets.symmetric(
                                               vertical: 4, horizontal: 8),
                                           decoration: BoxDecoration(
                                               borderRadius:
@@ -203,13 +203,13 @@ class _ViewWalletPageState extends State<ViewWalletPage> {
                                                   ColorComponent.gray['100']),
                                           child: Text(
                                             "${priceFormat(debitWallet())} ₸",
-                                            style: TextStyle(
+                                            style: const TextStyle(
                                                 fontSize: 16,
                                                 fontWeight: FontWeight.bold,
                                                 color: Colors.black),
                                           ),
                                         ),
-                                        SizedBox(height: 2),
+                                        const SizedBox(height: 2),
                                         Text("С кошелька",
                                             style: TextStyle(
                                                 fontSize: 13,
@@ -218,9 +218,9 @@ class _ViewWalletPageState extends State<ViewWalletPage> {
                                       ],
                                     ),
                                   ),
-                                  Padding(
+                                  const Padding(
                                     padding:
-                                        const EdgeInsets.only(left: 15, top: 2),
+                                        EdgeInsets.only(left: 15, top: 2),
                                     child: Text("+",
                                         style: TextStyle(
                                             fontWeight: FontWeight.w400,
@@ -234,18 +234,18 @@ class _ViewWalletPageState extends State<ViewWalletPage> {
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
                               Container(
-                                padding: EdgeInsets.symmetric(
+                                padding: const EdgeInsets.symmetric(
                                     vertical: 4, horizontal: 8),
                                 decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(13),
                                     color: ColorComponent.blue['500']),
                                 child: Text("${debitBonus()} Б",
-                                    style: TextStyle(
+                                    style: const TextStyle(
                                         fontSize: 16,
                                         fontWeight: FontWeight.bold,
                                         color: Colors.white)),
                               ),
-                              SizedBox(height: 2),
+                              const SizedBox(height: 2),
                               Text("Бонусов",
                                   style: TextStyle(
                                       fontSize: 13,
@@ -263,7 +263,7 @@ class _ViewWalletPageState extends State<ViewWalletPage> {
       bottomNavigationBar: BottomNavigationBarComponent(
           child: Button(
               onPressed: () {},
-              padding: EdgeInsets.symmetric(horizontal: 15),
+              padding: const EdgeInsets.symmetric(horizontal: 15),
               title: "К оплате, ${priceFormat(totalPrice)} ₸")),
     );
   }

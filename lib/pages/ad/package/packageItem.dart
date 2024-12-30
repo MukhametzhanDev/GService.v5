@@ -106,7 +106,7 @@ class PackageItem extends StatelessWidget {
                             color: ColorComponent.gray['500'],
                             decorationColor: ColorComponent.gray['500'],
                             decoration: TextDecoration.lineThrough)),
-                Spacer(),
+                const Spacer(),
                 showPrice
                     ? Container()
                     : Padding(

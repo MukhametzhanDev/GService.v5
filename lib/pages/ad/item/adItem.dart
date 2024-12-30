@@ -60,7 +60,7 @@ class _AdItemState extends State<AdItem> {
         child: Container(
           decoration: BoxDecoration(
               color: getColor(),
-              border: Border(
+              border: const Border(
                   bottom: BorderSide(width: 6, color: Color(0xfff4f5f7)))),
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
           child: Column(

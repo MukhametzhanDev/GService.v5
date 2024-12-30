@@ -82,7 +82,7 @@ class _ViewIndividualPageState extends State<ViewIndividualPage>
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          leading: BackIconButton(),
+          leading: const BackIconButton(),
           centerTitle: false,
           title: loader
               ? Container()
@@ -90,7 +90,7 @@ class _ViewIndividualPageState extends State<ViewIndividualPage>
                   scrollController: scrollController,
                   fullOpacityOffset: 100,
                   child: Text(data['name'],
-                      style: TextStyle(
+                      style: const TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.w500,
                           color: Colors.black),
@@ -134,7 +134,7 @@ class _ViewIndividualPageState extends State<ViewIndividualPage>
                                             CrossAxisAlignment.start,
                                         children: [
                                           Text(data['name'],
-                                              style: TextStyle(
+                                              style: const TextStyle(
                                                   fontSize: 18,
                                                   fontWeight: FontWeight.w600)),
                                           Text(daysBetween(),
@@ -181,8 +181,8 @@ class _ViewIndividualPageState extends State<ViewIndividualPage>
                           scrollController: scrollController)
                     ])),
               ),
-        bottomNavigationBar:
-            const ContactBottomBarWidget(hasAd: false, id: 1, phones: []));
+        bottomNavigationBar: ContactBottomBarWidget(
+            hasAd: false, id: 1, phones: [data['phone']]));
   }
 
   Widget ButtonInfo(

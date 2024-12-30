@@ -89,9 +89,8 @@ class _ContactstListModalState extends State<ContactstListModal> {
       filter: {"#": RegExp(r'[0-9]')},
       type: MaskAutoCompletionType.lazy);
 
-  void showCallPhone(String phone) async {
-    await launchUrl(Uri.parse('https://wa.me/+$phone'),
-        mode: LaunchMode.externalApplication);
+  void showCall(String phone) async {
+    await launchUrl(Uri(scheme: "tel", path: "+$phone"));
   }
 
   @override
@@ -103,9 +102,9 @@ class _ContactstListModalState extends State<ContactstListModal> {
           AppBar(
               centerTitle: false,
               automaticallyImplyLeading: false,
-              title: Text("Контакты"),
-              actions: [CloseIconButton(iconColor: null, padding: true)]),
-          ExplanatoryMessage(
+              title: const Text("Контакты"),
+              actions: const [CloseIconButton(iconColor: null, padding: true)]),
+          const ExplanatoryMessage(
               title:
                   "Будьте осторожны при переводе средств, мы не гарантирует безопасность от мошенничества",
               padding: EdgeInsets.symmetric(horizontal: 15, vertical: 5),
@@ -118,7 +117,7 @@ class _ContactstListModalState extends State<ContactstListModal> {
                       bottom: BorderSide(
                           width: 1, color: ColorComponent.gray['100']!))),
               child: ListTile(
-                  onTap: () => showCallPhone(value),
+                  onTap: () => showCall(value),
                   leading: Container(
                     width: 30,
                     height: 30,
@@ -148,6 +147,11 @@ class WhatsAppListModal extends StatefulWidget {
 }
 
 class _WhatsAppListModalState extends State<WhatsAppListModal> {
+  void showWhatsApp(String phone) async {
+    await launchUrl(Uri.parse('https://wa.me/+$phone'),
+        mode: LaunchMode.externalApplication);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Material(
@@ -157,9 +161,9 @@ class _WhatsAppListModalState extends State<WhatsAppListModal> {
           AppBar(
               centerTitle: false,
               automaticallyImplyLeading: false,
-              title: Text("WhatsApp"),
-              actions: [CloseIconButton(iconColor: null, padding: true)]),
-          ExplanatoryMessage(
+              title: const Text("WhatsApp"),
+              actions: const [CloseIconButton(iconColor: null, padding: true)]),
+          const ExplanatoryMessage(
               title:
                   "Будьте осторожны при переводе средств, наше приложение не гарантирует безопасность от мошенничества",
               padding: EdgeInsets.symmetric(horizontal: 15, vertical: 5),
@@ -172,6 +176,7 @@ class _WhatsAppListModalState extends State<WhatsAppListModal> {
                       bottom: BorderSide(
                           width: 1, color: ColorComponent.gray['100']!))),
               child: ListTile(
+                  onTap: () => showWhatsApp(value),
                   leading:
                       SvgPicture.asset("assets/icons/whatsapp.svg", width: 30),
                   // Container(
@@ -184,7 +189,7 @@ class _WhatsAppListModalState extends State<WhatsAppListModal> {
                   //   child: SvgPicture.asset("assets/icons/phone.svg",
                   //       width: 18, color: Colors.white),
                   // ),
-                  title: Text("+${value}")),
+                  title: Text("+$value")),
             );
           }).toList()),
           Divider(height: MediaQuery.of(context).padding.bottom + 15)

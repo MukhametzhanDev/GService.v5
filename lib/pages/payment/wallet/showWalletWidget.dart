@@ -35,14 +35,14 @@ class _ShowWalletWidgetState extends State<ShowWalletWidget> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 widget.showButton
-                    ? Padding(
-                        padding: const EdgeInsets.only(bottom: 6),
-                        child: const Text("Баланс",
+                    ? const Padding(
+                        padding: EdgeInsets.only(bottom: 6),
+                        child: Text("Баланс",
                             style: TextStyle(
                                 fontSize: 16, fontWeight: FontWeight.w600)),
                       )
                     : Container(),
-                Text(priceFormat(1000000),
+                Text(priceFormat(100000),
                     style: const TextStyle(
                         fontSize: 20, fontWeight: FontWeight.w600)),
                 const Divider(height: 6),
@@ -59,7 +59,7 @@ class _ShowWalletWidgetState extends State<ShowWalletWidget> {
                 ),
                 widget.showButton
                     ? Container(
-                        margin: EdgeInsets.only(top: 12),
+                        margin: const EdgeInsets.only(top: 12),
                         height: 42,
                         child: Row(
                           children: [

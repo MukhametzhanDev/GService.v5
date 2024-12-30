@@ -46,13 +46,19 @@ class _ApplicationListMainState extends State<ApplicationListMain> {
               GestureDetector(
                   onTap: () {
                     Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) =>
-                                const SectionCreateApplicationPage()));
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    const SectionCreateApplicationPage()))
+                        .then((value) {
+                      if (value == "application") {
+                        Navigator.pushNamed(context, "MyApplicationListPage");
+                      }
+                    });
                   },
                   child: Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 2),
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 5, vertical: 2),
                     decoration: BoxDecoration(
                         color: ColorComponent.blue['100'],
                         borderRadius: BorderRadius.circular(4)),

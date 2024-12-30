@@ -47,7 +47,7 @@ class MyAdItem extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Container(
-              padding: EdgeInsets.symmetric(horizontal: 6, vertical: 3),
+              padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 3),
               decoration: BoxDecoration(
                   color: getColor(), borderRadius: BorderRadius.circular(4)),
               child: RichText(
@@ -59,7 +59,7 @@ class MyAdItem extends StatelessWidget {
                         style: TextStyle(color: ColorComponent.gray['700'])),
                     TextSpan(
                         text: formattedDate(promotions.last['expires_at']),
-                        style: TextStyle(fontWeight: FontWeight.w600)),
+                        style: const TextStyle(fontWeight: FontWeight.w600)),
                   ])),
             ),
             ShowPackageIcons(data: data['ad_promotions'])
@@ -87,7 +87,7 @@ class MyAdItem extends StatelessWidget {
       // },
       child: Container(
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
-          decoration: BoxDecoration(
+          decoration: const BoxDecoration(
               // color: getColor(),
               border: Border(
                   bottom: BorderSide(width: 6, color: Color(0xfff4f5f7)))),
@@ -220,7 +220,7 @@ class MyAdItem extends StatelessWidget {
                 ? Container()
                 : Container(
                     height: 36,
-                    margin: EdgeInsets.only(top: 12),
+                    margin: const EdgeInsets.only(top: 12),
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(10),
                         border: Border.all(
