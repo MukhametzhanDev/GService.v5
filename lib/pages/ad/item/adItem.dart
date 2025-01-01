@@ -107,57 +107,63 @@ class _AdItemState extends State<AdItem> {
               const Divider(height: 8),
               PriceTextWidget(prices: widget.data['prices'], fontSize: 15),
               const Divider(height: 12),
-              SizedBox(
-                height: imageHeight,
+              Container(
+                constraints: BoxConstraints(maxHeight: imageHeight),
                 child: Row(
                   children: [
-                    SizedBox(
-                      width: MediaQuery.of(context).size.width / 2.2,
-                      height: imageHeight,
-                      child: Stack(
-                        children: [
-                          CacheImage(
-                              url: widget.data['images'][0],
-                              width: MediaQuery.of(context).size.width / 2.2,
-                              height: imageHeight,
-                              borderRadius: 8),
-                          Positioned(
-                            top: 8,
-                            left: 8,
-                            child: ClipRRect(
-                              child: BackdropFilter(
-                                filter:
-                                    ImageFilter.blur(sigmaX: 4.0, sigmaY: 4.0),
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                      color: Colors.white.withOpacity(.7),
-                                      borderRadius: BorderRadius.circular(4)),
-                                  padding: const EdgeInsets.symmetric(
-                                      vertical: 3, horizontal: 8),
-                                  child: Row(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.center,
-                                    children: [
-                                      SvgPicture.asset(
-                                          'assets/icons/badgeCheck.svg',
-                                          width: 16),
-                                      const Divider(indent: 4),
-                                      Text("От диллера",
-                                          style: TextStyle(
-                                              fontSize: 12,
-                                              fontWeight: FontWeight.w600,
-                                              color:
-                                                  ColorComponent.blue['500']))
-                                    ],
-                                  ),
+                    widget.data['images'].isEmpty ||
+                            widget.data['images'] == null
+                        ? Container()
+                        : SizedBox(
+                            width: MediaQuery.of(context).size.width / 2.2,
+                            height: imageHeight,
+                            child: Stack(
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.only(right: 12.0),
+                                  child: CacheImage(
+                                      url: widget.data['images'][0],
+                                      width: MediaQuery.of(context).size.width /
+                                          2.2,
+                                      height: imageHeight,
+                                      borderRadius: 8),
                                 ),
-                              ),
+                                // Positioned(
+                                //   top: 8,
+                                //   left: 8,
+                                //   child: ClipRRect(
+                                //     child: BackdropFilter(
+                                //       filter:
+                                //           ImageFilter.blur(sigmaX: 4.0, sigmaY: 4.0),
+                                //       child: Container(
+                                //         decoration: BoxDecoration(
+                                //             color: Colors.white.withOpacity(.7),
+                                //             borderRadius: BorderRadius.circular(4)),
+                                //         padding: const EdgeInsets.symmetric(
+                                //             vertical: 3, horizontal: 8),
+                                //         child: Row(
+                                //           crossAxisAlignment:
+                                //               CrossAxisAlignment.center,
+                                //           children: [
+                                //             SvgPicture.asset(
+                                //                 'assets/icons/badgeCheck.svg',
+                                //                 width: 16),
+                                //             const Divider(indent: 4),
+                                //             Text("От диллера",
+                                //                 style: TextStyle(
+                                //                     fontSize: 12,
+                                //                     fontWeight: FontWeight.w600,
+                                //                     color:
+                                //                         ColorComponent.blue['500']))
+                                //           ],
+                                //         ),
+                                //       ),
+                                //     ),
+                                //   ),
+                                // )
+                              ],
                             ),
-                          )
-                        ],
-                      ),
-                    ),
-                    const Divider(indent: 12),
+                          ),
                     Expanded(
                         child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -181,7 +187,7 @@ class _AdItemState extends State<AdItem> {
                         //         color: ColorComponent.gray['600'],
                         //         fontSize: 13))
                       ],
-                    ))
+                    )),
                   ],
                 ),
               ),

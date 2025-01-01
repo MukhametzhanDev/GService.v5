@@ -12,7 +12,6 @@ class WalletAmountProvider with ChangeNotifier {
     loading = true;
     data = await services.getData();
     loading = false;
-
     notifyListeners();
   }
 }

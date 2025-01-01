@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:gservice5/component/dio/dio.dart';
 import 'package:gservice5/component/loader/paginationLoaderComponent.dart';
 import 'package:gservice5/component/snackBar/snackBarComponent.dart';
-import 'package:gservice5/pages/ad/filter/filterAdWidget.dart';
+import 'package:gservice5/pages/ad/filter/filterAdAppBarWidget.dart';
 import 'package:gservice5/pages/ad/item/adItem.dart';
 import 'package:gservice5/pages/ad/list/adListLoader.dart';
 import 'package:gservice5/pages/ad/list/emptyAdListPage.dart';
@@ -111,7 +111,7 @@ class _AdListPageState extends State<AdListPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: FilterAdWidget(
+      appBar: FilterAdAppBarWidget(
           category: widget.category, appBar: AppBar(), onChanged: filteredAds),
       // AppBar(
       //   leadingWidth: MediaQuery.of(context).size.width - 100,

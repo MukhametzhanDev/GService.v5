@@ -173,14 +173,16 @@ class _ViewIndividualPageState extends State<ViewIndividualPage>
                       ];
                     },
                     body: TabBarView(controller: tabController, children: [
-                      AdListWidget(
-                          param: {"company_id": data['id']},
-                          scrollController: scrollController),
-                      ApplicationListWidget(
-                          param: {"company_id": data['id']},
-                          scrollController: scrollController)
+                      AdListWidget(param: {
+                        "author_id": widget.id,
+                        "author_type": "user"
+                      }, scrollController: scrollController),
+                      ApplicationListWidget(param: {
+                        "author_id": widget.id,
+                        "author_type": "user"
+                      }, scrollController: scrollController)
                     ])),
-              ),
+            ),
         bottomNavigationBar: ContactBottomBarWidget(
             hasAd: false, id: 1, phones: [data['phone']]));
   }

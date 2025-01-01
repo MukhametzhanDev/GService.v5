@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:gservice5/component/dio/dio.dart';
 import 'package:gservice5/component/loader/paginationLoaderComponent.dart';
 import 'package:gservice5/component/snackBar/snackBarComponent.dart';
+import 'package:gservice5/pages/ad/filter/filterAdAppBarWidget.dart';
+import 'package:gservice5/pages/ad/filter/filterAdWidget.dart';
 import 'package:gservice5/pages/ad/item/adItem.dart';
 import 'package:gservice5/pages/ad/list/adListLoader.dart';
 import 'package:gservice5/pages/ad/list/emptyAdListPage.dart';
@@ -54,7 +56,7 @@ class _AdListWidgetState extends State<AdListWidget>
     try {
       page = 1;
       showLoader();
-      Response response = await dio.get("/ad", queryParameters: param);
+      Response response = await dio.get("/ad", data: param);
       print(response.data);
       if (response.statusCode == 200) {
         data = response.data['data'];
@@ -78,8 +80,8 @@ class _AdListWidgetState extends State<AdListWidget>
         isLoadMore = true;
         page += 1;
         setState(() {});
-        Response response = await dio
-            .get("/ad", queryParameters: {"page": page.toString(), ...param});
+        Response response =
+            await dio.get("/ad", data: {"page": page.toString(), ...param});
         print(response.data);
         if (response.statusCode == 200) {
           data.addAll(response.data['data']);
@@ -143,24 +145,34 @@ class _AdListWidgetState extends State<AdListWidget>
             ? const AdListLoader()
             : data.isEmpty
                 ? const EmptyAdListPage()
-                : ListView.builder(
-                    itemCount: data.length,
-                    shrinkWrap: true,
-                    physics: const NeverScrollableScrollPhysics(),
-                    // controller: scrollController,
-                    itemBuilder: (context, int index) {
-                      Map value = data[index];
-                      if (data.length - 1 == index) {
-                        return Column(children: [
-                          AdItem(data: value, showCategory: true),
-                          hasNextPage
-                              ? const PaginationLoaderComponent()
-                              : Container()
-                        ]);
-                      } else {
-                        return AdItem(data: value, showCategory: true);
-                      }
-                    });
+                : Column(
+                    children: [
+                      SizedBox(
+                          height: 60,
+                          width: MediaQuery.of(context).size.width,
+                          child: FilterAdWidget(onChanged: (value) {})),
+                      Expanded(
+                        child: ListView.builder(
+                            itemCount: data.length,
+                            shrinkWrap: true,
+                            physics: const NeverScrollableScrollPhysics(),
+                            // controller: scrollController,
+                            itemBuilder: (context, int index) {
+                              Map value = data[index];
+                              if (data.length - 1 == index) {
+                                return Column(children: [
+                                  AdItem(data: value, showCategory: true),
+                                  hasNextPage
+                                      ? const PaginationLoaderComponent()
+                                      : Container()
+                                ]);
+                              } else {
+                                return AdItem(data: value, showCategory: true);
+                              }
+                            }),
+                      ),
+                    ],
+                  );
   }
 
   @override

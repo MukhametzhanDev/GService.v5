@@ -108,10 +108,14 @@ class _ViewContractorPageState extends State<ViewContractorPage>
                       Container(
                           constraints: BoxConstraints(
                               maxWidth:
-                                  MediaQuery.of(context).size.width / 1.5),
-                          child: Text(data['name'],
-                              style: const TextStyle(
-                                  fontSize: 18, fontWeight: FontWeight.w600))),
+                                  MediaQuery.of(context).size.width / 1.7),
+                          child: Text(
+                            data['name'],
+                            style: const TextStyle(
+                                fontSize: 18, fontWeight: FontWeight.w600),
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                          )),
                       const Divider(indent: 6),
                       SvgPicture.asset("assets/icons/badgeCheck.svg"),
                     ],
@@ -225,8 +229,9 @@ class _ViewContractorPageState extends State<ViewContractorPage>
                       const FilesListPage()
                     ])),
               ),
-        bottomNavigationBar:
-            const ContactBottomBarWidget(hasAd: false, id: 1, phones: []));
+        bottomNavigationBar: loader
+            ? SizedBox.shrink()
+            : const ContactBottomBarWidget(hasAd: false, id: 1, phones: []));
   }
 
   Widget ButtonInfo(

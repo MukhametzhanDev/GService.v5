@@ -5,7 +5,9 @@ import 'package:gservice5/component/formatted/price/priceFormat.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
 import 'package:gservice5/pages/payment/wallet/request/walletService.dart';
 import 'package:gservice5/provider/walletAmountProvider.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
+import 'package:shimmer/shimmer.dart';
 
 class ShowWalletWidget extends StatefulWidget {
   final bool showButton;
@@ -32,10 +34,17 @@ class _ShowWalletWidgetState extends State<ShowWalletWidget> {
     Navigator.pushNamed(context, "TransactionHistoryPage");
   }
 
+  String formattedPrice(int cost) {
+    String price = NumberFormat.currency(locale: 'kk', symbol: '')
+        .format(cost)
+        .toString()
+        .split(',')[0];
+    return price;
+  }
+
   @override
   Widget build(BuildContext context) {
     final walletAmount = Provider.of<WalletAmountProvider>(context);
-
     return Container(
       decoration: const BoxDecoration(
           border:
@@ -55,21 +64,45 @@ class _ShowWalletWidgetState extends State<ShowWalletWidget> {
                                 fontSize: 16, fontWeight: FontWeight.w600)),
                       )
                     : Container(),
-                Text(priceFormat(100000),
-                    style: const TextStyle(
-                        fontSize: 20, fontWeight: FontWeight.w600)),
+                walletAmount.loading
+                    ? Shimmer.fromColors(
+                        baseColor: const Color(0xffD1D5DB),
+                        highlightColor: const Color(0xfff4f5f7),
+                        period: const Duration(seconds: 1),
+                        child: Container(
+                            width: 100,
+                            height: 29,
+                            decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.circular(10))),
+                      )
+                    : Text(formattedPrice(walletAmount.data.amount as int),
+                        style: const TextStyle(
+                            fontSize: 20, fontWeight: FontWeight.w600)),
                 const Divider(height: 6),
-                Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 4),
-                  decoration: BoxDecoration(
-                      color: ColorComponent.mainColor.withOpacity(.2),
-                      borderRadius: BorderRadius.circular(112)),
-                  child: Text(
-                    "${priceFormat(100000)} Б",
-                    style: const TextStyle(
-                        fontSize: 12, fontWeight: FontWeight.w600),
-                  ),
-                ),
+                walletAmount.loading
+                    ? Shimmer.fromColors(
+                        baseColor: const Color(0xffD1D5DB),
+                        highlightColor: const Color(0xfff4f5f7),
+                        period: const Duration(seconds: 1),
+                        child: Container(
+                            width: 70,
+                            height: 17,
+                            decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.circular(6))),
+                      )
+                    : Container(
+                        padding: const EdgeInsets.symmetric(horizontal: 4),
+                        decoration: BoxDecoration(
+                            color: ColorComponent.mainColor.withOpacity(.2),
+                            borderRadius: BorderRadius.circular(112)),
+                        child: Text(
+                          "${formattedPrice(walletAmount.data.bonus as int)} Б",
+                          style: const TextStyle(
+                              fontSize: 12, fontWeight: FontWeight.w600),
+                        ),
+                      ),
                 widget.showButton
                     ? Container(
                         margin: const EdgeInsets.only(top: 12),

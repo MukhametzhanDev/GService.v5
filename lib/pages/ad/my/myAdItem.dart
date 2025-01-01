@@ -59,7 +59,8 @@ class MyAdItem extends StatelessWidget {
                         text: "Вверх в списке до ",
                         style: TextStyle(color: ColorComponent.gray['700'])),
                     TextSpan(
-                        text: formattedDate(promotions.last['expires_at']),
+                        text:
+                            formattedDate(promotions.last?['expires_at'] ?? ""),
                         style: const TextStyle(fontWeight: FontWeight.w600)),
                   ])),
             ),
@@ -71,7 +72,10 @@ class MyAdItem extends StatelessWidget {
   }
 
   String formattedDate(String dateString) {
-    final DateTime date = DateTime.parse(dateString);
+    DateTime date = DateTime.parse(dateString);
+    if (dateString.isEmpty) {
+      date = DateTime.now();
+    }
     final String formattedDate = DateFormat('d MMMM', 'ru').format(date);
     return formattedDate;
   }

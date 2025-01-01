@@ -4,12 +4,14 @@ import 'package:flutter_switch/flutter_switch.dart';
 import 'package:gservice5/component/button/back/backTitleButton.dart';
 import 'package:gservice5/component/button/button.dart';
 import 'package:gservice5/component/dio/dio.dart';
-import 'package:gservice5/component/formatted/price/priceFormat.dart';
 import 'package:gservice5/component/loader/modalLoaderComponent.dart';
 import 'package:gservice5/component/snackBar/snackBarComponent.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
 import 'package:gservice5/component/widgets/bottom/bottomNavigationBarComponent.dart';
 import 'package:gservice5/pages/payment/wallet/showWalletWidget.dart';
+import 'package:gservice5/provider/walletAmountProvider.dart';
+import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 
 class ViewWalletPage extends StatefulWidget {
   final String orderId;
@@ -42,12 +44,15 @@ class _ViewWalletPageState extends State<ViewWalletPage> {
     try {
       Response response = await dio.post("/make-payment", data: {
         "order_id": widget.orderId,
-        "payment_method_id": widget.methodId
+        "payment_method_id": widget.methodId,
+        "with_bonus": bonus
       });
+      await WalletAmountProvider().getData(context);
       Navigator.pop(context);
       if (response.data['success'] && response.statusCode == 200) {
         Navigator.pop(context, "success");
       } else {
+        Navigator.pop(context);
         SnackBarComponent().showResponseErrorMessage(response, context);
       }
     } catch (e) {
@@ -61,8 +66,7 @@ class _ViewWalletPageState extends State<ViewWalletPage> {
     setState(() {});
   }
 
-  int debitWallet() {
-    int bonus = 1000;
+  int debitWallet(int bonus) {
     // int.parse(bonusData['amount']);
     if (totalPrice <= bonus) {
       return 0;
@@ -71,8 +75,7 @@ class _ViewWalletPageState extends State<ViewWalletPage> {
     }
   }
 
-  int debitBonus() {
-    int bonus = 2000;
+  int debitBonus(int bonus) {
     // int.parse(bonusData['amount']);
     if (totalPrice <= bonus) {
       return totalPrice;
@@ -81,10 +84,19 @@ class _ViewWalletPageState extends State<ViewWalletPage> {
     }
   }
 
+  String formattedPrice(int cost) {
+    String price = NumberFormat.currency(locale: 'kk', symbol: '')
+        .format(cost)
+        .toString()
+        .split(',')[0];
+    return price;
+  }
+
   @override
   Widget build(BuildContext context) {
     List stickers = widget.data['stickers'];
     Map package = widget.data['package'];
+    final walletAmount = Provider.of<WalletAmountProvider>(context);
     return Scaffold(
       appBar: AppBar(
           leading: BackTitleButton(title: widget.title), leadingWidth: 220),
@@ -117,7 +129,7 @@ class _ViewWalletPageState extends State<ViewWalletPage> {
                   style: const TextStyle(
                       fontSize: 15, fontWeight: FontWeight.w400)),
               trailing: Text(
-                "${priceFormat(package['price'])} ₸",
+                "${formattedPrice(package['price'])} ₸",
                 style:
                     const TextStyle(fontSize: 15, fontWeight: FontWeight.w600),
               ),
@@ -169,7 +181,8 @@ class _ViewWalletPageState extends State<ViewWalletPage> {
                             children: <TextSpan>[
                               const TextSpan(text: "Накоплено "),
                               TextSpan(
-                                  text: "${priceFormat(1000 ?? 0)} Б",
+                                  text:
+                                      "${formattedPrice(walletAmount.data.bonus ?? 0)} Б",
                                   style: const TextStyle(
                                       fontWeight: FontWeight.w700)),
                             ],
@@ -200,7 +213,7 @@ class _ViewWalletPageState extends State<ViewWalletPage> {
           AnimatedOpacity(
             opacity: bonus ? 1 : 0,
             curve: Curves.linear,
-            duration: const Duration(milliseconds: 300),
+            duration: const Duration(milliseconds: 200),
             child: bonus
                 ? Container(
                     padding: const EdgeInsets.all(20),
@@ -208,8 +221,8 @@ class _ViewWalletPageState extends State<ViewWalletPage> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         const Text("Будет списано",
-                            style: TextStyle(fontSize: 17)),
-                        debitWallet() == 0
+                            style: TextStyle(fontSize: 15)),
+                        debitWallet(walletAmount.data.bonus ?? 0) == 0
                             ? Container()
                             : Row(
                                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -229,7 +242,7 @@ class _ViewWalletPageState extends State<ViewWalletPage> {
                                               color:
                                                   ColorComponent.gray['100']),
                                           child: Text(
-                                            "${priceFormat(debitWallet())} ₸",
+                                            "${formattedPrice(debitWallet(walletAmount.data.bonus ?? 0))} ₸",
                                             style: const TextStyle(
                                                 fontSize: 16,
                                                 fontWeight: FontWeight.bold,
@@ -265,7 +278,8 @@ class _ViewWalletPageState extends State<ViewWalletPage> {
                                 decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(13),
                                     color: ColorComponent.blue['500']),
-                                child: Text("${debitBonus()} Б",
+                                child: Text(
+                                    "${debitBonus(walletAmount.data.bonus ?? 0)} Б",
                                     style: const TextStyle(
                                         fontSize: 16,
                                         fontWeight: FontWeight.bold,
@@ -292,7 +306,7 @@ class _ViewWalletPageState extends State<ViewWalletPage> {
                 postData();
               },
               padding: const EdgeInsets.symmetric(horizontal: 15),
-              title: "К оплате, ${priceFormat(totalPrice)} ₸")),
+              title: "К оплате, ${formattedPrice(totalPrice)} ₸")),
     );
   }
 }

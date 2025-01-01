@@ -1,8 +1,16 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:gservice5/component/button/back/backTitleButton.dart';
+import 'package:gservice5/component/dio/dio.dart';
 import 'package:gservice5/component/image/cacheImage.dart';
+import 'package:gservice5/component/loader/paginationLoaderComponent.dart';
+import 'package:gservice5/component/snackBar/snackBarComponent.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
+import 'package:gservice5/pages/ad/filter/filterButton.dart';
+import 'package:gservice5/pages/companies/companyItem.dart';
+import 'package:gservice5/pages/companies/createCompanyWidget.dart';
+import 'package:gservice5/pages/profile/news/newsItem.dart';
 
 class CompaniesMainPage extends StatefulWidget {
   const CompaniesMainPage({super.key});
@@ -12,77 +20,109 @@ class CompaniesMainPage extends StatefulWidget {
 }
 
 class _CompaniesMainPageState extends State<CompaniesMainPage> {
+  List data = [];
+  bool loader = true;
+  bool hasNextPage = false;
+  bool isLoadMore = false;
+  int page = 1;
+  ScrollController scrollController = ScrollController();
+
+  @override
+  void initState() {
+    getData();
+    scrollController.addListener(() {
+      loadMoreAd();
+    });
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    scrollController.dispose();
+    super.dispose();
+  }
+
+  void showLoader() {
+    if (!loader) {
+      loader = true;
+      setState(() {});
+    }
+  }
+
+  Future getData() async {
+    try {
+      page = 1;
+      showLoader();
+      Response response = await dio.get("/companies");
+      print(response.data);
+      if (response.statusCode == 200) {
+        data = response.data['data'];
+        loader = false;
+        hasNextPage = page != response.data['meta']['last_page'];
+        setState(() {});
+      } else {
+        SnackBarComponent().showResponseErrorMessage(response, context);
+      }
+    } on DioException catch (e) {
+      print(e);
+      SnackBarComponent().showNotGoBackServerErrorMessage(context);
+    }
+  }
+
+  void loadMoreAd() async {
+    if (scrollController.position.extentAfter < 100 &&
+        hasNextPage &&
+        !isLoadMore) {
+      try {
+        isLoadMore = true;
+        page += 1;
+        setState(() {});
+        Response response = await dio
+            .get("/companies", queryParameters: {"page": page.toString()});
+        print(response.data);
+        if (response.statusCode == 200) {
+          data.addAll(response.data['data']);
+          hasNextPage = page != response.data['meta']['last_page'];
+          isLoadMore = false;
+          setState(() {});
+        } else {
+          SnackBarComponent().showResponseErrorMessage(response, context);
+        }
+      } catch (e) {
+        SnackBarComponent().showNotGoBackServerErrorMessage(context);
+      }
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-          leading: BackTitleButton(title: "Компании"), leadingWidth: 150),
+          actions: [FilterButton(showFilterPage: () {})],
+          leading: BackTitleButton(title: "Компании"),
+          leadingWidth: 150),
       body: ListView.builder(
-        itemCount: 10,
+        controller: scrollController,
+        itemCount: data.length,
         itemBuilder: (context, index) {
-          return Container(
-            padding: EdgeInsets.symmetric(horizontal: 15, vertical: 10),
-            decoration: BoxDecoration(
-                border: Border(
-                    bottom: BorderSide(
-                        width: 1, color: ColorComponent.gray['100']!))),
-            child: Column(
+          Map item = data[index];
+          if (data.length - 1 == index) {
+            return Column(
               children: [
-                Row(
-                  children: [
-                    CacheImage(
-                        url:
-                            "https://images.unsplash.com/photo-1606834330324-544ea3bf3015?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTAzfHxuaWtlfGVufDB8fDB8fHww",
-                        width: 60,
-                        height: 60,
-                        borderRadius: 40),
-                    Divider(indent: 10),
-                    Expanded(
-                        child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Row(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Container(
-                                constraints: BoxConstraints(
-                                    maxWidth:
-                                        MediaQuery.of(context).size.width /
-                                            1.5),
-                                child: Text("SDLG",
-                                    style: const TextStyle(
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.w600))),
-                            const Divider(indent: 6),
-                            SvgPicture.asset("assets/icons/badgeCheck.svg",
-                                width: 18)
-                          ],
-                        ),
-                        // Container(
-                        //   margin: EdgeInsets.only(top: 8),
-                        //   padding: const EdgeInsets.all(4),
-                        //   decoration: BoxDecoration(
-                        //       color: ColorComponent.mainColor,
-                        //       borderRadius: BorderRadius.circular(4)),
-                        //   child: Row(
-                        //     mainAxisSize: MainAxisSize.min,
-                        //     children: [
-                        //       SvgPicture.asset('assets/icons/star.svg'),
-                        //       const Divider(indent: 2),
-                        //       const Text("4.92",
-                        //           style: TextStyle(
-                        //               fontSize: 12,
-                        //               fontWeight: FontWeight.w600))
-                        //     ],
-                        //   ),
-                        // ),
-                      ],
-                    ))
-                  ],
-                )
+                CompanyItem(data: item),
+                CreateCompanyWidget(),
+                hasNextPage ? const PaginationLoaderComponent() : Container()
               ],
-            ),
-          );
+            );
+          } else {
+            // if (index > 14 && index % 15 == 0) {
+            //   return Column(
+            //     children: [CreateCompanyWidget(), CompanyItem(data: item)],
+            //   );
+            // } else {
+            return CompanyItem(data: item);
+            // }
+          }
         },
       ),
     );

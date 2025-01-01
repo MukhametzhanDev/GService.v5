@@ -78,7 +78,7 @@ class _AuthorAdWidgetState extends State<AuthorAdWidget> {
             margin: const EdgeInsets.symmetric(horizontal: 15),
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(8),
-                color: const Color(0xfff4f4f4)),
+                color: ColorComponent.gray['100']),
             child: widget.data['is_company']
                 ? Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -227,6 +227,7 @@ class _AuthorAdWidgetState extends State<AuthorAdWidget> {
         ),
         widget.showOtherAd
             ? Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   const Divider(height: 16),
                   const Padding(

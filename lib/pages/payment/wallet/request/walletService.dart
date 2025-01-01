@@ -7,6 +7,7 @@ class WalletServices {
     late WalletModel walletModel;
     try {
       Response response = await dio.get("/user-wallet");
+      print("RESP WWALLLETT ----> ${response.data}");
       if (response.data['success']) {
         walletModel = WalletModel.fromJson(response.data['data']);
       }

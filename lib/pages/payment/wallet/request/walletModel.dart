@@ -1,12 +1,12 @@
 class WalletModel {
-  String? amount;
-  String? bonus;
+  int? amount;
+  int? bonus;
 
   WalletModel({this.amount});
 
   WalletModel.fromJson(Map<String, dynamic> json) {
-    amount = json['wallet']['amount'];
-    bonus = json['bonus']['amount'];
+    amount = json['wallet']['balance'];
+    bonus = json['bonus']['balance'];
   }
 
   Map<String, dynamic> toJson() {
