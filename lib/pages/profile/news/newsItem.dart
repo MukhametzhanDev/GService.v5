@@ -24,7 +24,7 @@ class NewsItem extends StatelessWidget {
             border: Border(
                 bottom:
                     BorderSide(width: 1, color: ColorComponent.gray['100']!))),
-        padding: EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+        padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
         child: Column(
           children: [
             Row(

@@ -138,7 +138,7 @@ class _FilterAdWidgetState extends State<FilterAdWidget> {
       child: SingleChildScrollView(
         scrollDirection: Axis.horizontal,
         child: Row(children: [
-          Divider(indent: 15),
+          const Divider(indent: 15),
           GestureDetector(
             onTap: showCityList,
             child: Container(
@@ -219,7 +219,7 @@ class _FilterAdWidgetState extends State<FilterAdWidget> {
                         ],
                       )),
           ),
-          Divider(indent: 12),
+          const Divider(indent: 12),
           GestureDetector(
             onTap: showFilterPrice,
             child: Container(

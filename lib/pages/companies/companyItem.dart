@@ -18,9 +18,9 @@ class CompanyItem extends StatelessWidget {
                 builder: (context) => ViewContractorPage(id: data['id'])));
       },
       child: Container(
-        padding: EdgeInsets.symmetric(horizontal: 15, vertical: 12),
-        decoration: BoxDecoration(
-            border: const Border(
+        padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 12),
+        decoration: const BoxDecoration(
+            border: Border(
                 bottom: BorderSide(width: 6, color: Color(0xfff4f5f7)))),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -32,7 +32,7 @@ class CompanyItem extends StatelessWidget {
                     width: 70,
                     height: 52,
                     borderRadius: 10),
-                Divider(indent: 10),
+                const Divider(indent: 10),
                 Expanded(
                     child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -57,7 +57,7 @@ class CompanyItem extends StatelessWidget {
                         )
                       ],
                     ),
-                    Divider(height: 3),
+                    const Divider(height: 3),
                     Text(data['city']['title'],
                         style: TextStyle(color: ColorComponent.gray['500']))
                     // Container(
@@ -82,7 +82,7 @@ class CompanyItem extends StatelessWidget {
                 )),
               ],
             ),
-            Divider(height: 12),
+            const Divider(height: 12),
             Row(
               children: [
                 Container(
@@ -92,14 +92,14 @@ class CompanyItem extends StatelessWidget {
                     decoration: BoxDecoration(
                         color: ColorComponent.mainColor.withOpacity(.2),
                         borderRadius: BorderRadius.circular(4)),
-                    child: Text("Сельхозтехника",
-                        style: const TextStyle(
+                    child: const Text("Сельхозтехника",
+                        style: TextStyle(
                             height: 1,
                             fontSize: 12,
                             fontWeight: FontWeight.w500),
                         textAlign: TextAlign.center)),
                 Container(
-                  margin: EdgeInsets.only(left: 10),
+                  margin: const EdgeInsets.only(left: 10),
                   padding: const EdgeInsets.all(4),
                   decoration: BoxDecoration(
                       color: ColorComponent.mainColor.withOpacity(.2),
@@ -109,13 +109,13 @@ class CompanyItem extends StatelessWidget {
                       SvgPicture.asset('assets/icons/star.svg'),
                       const Divider(indent: 2),
                       Text(data['rating'].toString(),
-                          style: TextStyle(
+                          style: const TextStyle(
                               fontSize: 12, fontWeight: FontWeight.w600))
                     ],
                   ),
                 ),
-                Divider(indent: 8),
-                Text("88 отзывов")
+                const Divider(indent: 8),
+                const Text("88 отзывов")
               ],
             ),
             data['description'] == null
@@ -123,7 +123,7 @@ class CompanyItem extends StatelessWidget {
                 : Padding(
                     padding: const EdgeInsets.only(top: 12.0),
                     child: Text(data['description'] ?? "",
-                        style: TextStyle(height: 1.6),
+                        style: const TextStyle(height: 1.6),
                         maxLines: 2,
                         overflow: TextOverflow.ellipsis),
                   ),

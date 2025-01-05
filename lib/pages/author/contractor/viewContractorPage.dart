@@ -230,7 +230,7 @@ class _ViewContractorPageState extends State<ViewContractorPage>
                     ])),
               ),
         bottomNavigationBar: loader
-            ? SizedBox.shrink()
+            ? const SizedBox.shrink()
             : const ContactBottomBarWidget(hasAd: false, id: 1, phones: []));
   }
 

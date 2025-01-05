@@ -1,16 +1,12 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:gservice5/component/button/back/backTitleButton.dart';
-import 'package:gservice5/component/date/formattedDate.dart';
 import 'package:gservice5/component/dio/dio.dart';
-import 'package:gservice5/component/image/cacheImage.dart';
 import 'package:gservice5/component/loader/loaderComponent.dart';
 import 'package:gservice5/component/snackBar/snackBarComponent.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
 import 'package:gservice5/pages/profile/news/empty/emptyNewsPage.dart';
 import 'package:gservice5/pages/profile/news/newsItem.dart';
-import 'package:gservice5/pages/profile/news/viewNewsPage.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 class AllNewsPage extends StatefulWidget {

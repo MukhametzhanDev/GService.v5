@@ -184,7 +184,7 @@ class _GetCharacteristicAdPageState extends State<GetCharacteristicAdPage> {
                                 MultipleSelectCharacteristic(
                                     value: value, addData: addData),
                                 ChildCharacteristics(
-                                    data: childData, addData: addData)
+                                    data: childData, addData: addData),
                               ],
                             );
                           } else {

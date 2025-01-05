@@ -10,9 +10,9 @@ class WalletModel {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['amount'] = this.amount;
-    data['bonus'] = this.bonus;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['amount'] = amount;
+    data['bonus'] = bonus;
     return data;
   }
 }

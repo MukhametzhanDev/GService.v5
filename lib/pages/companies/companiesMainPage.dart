@@ -99,7 +99,7 @@ class _CompaniesMainPageState extends State<CompaniesMainPage> {
     return Scaffold(
       appBar: AppBar(
           actions: [FilterButton(showFilterPage: () {})],
-          leading: BackTitleButton(title: "Компании"),
+          leading: const BackTitleButton(title: "Компании"),
           leadingWidth: 150),
       body: ListView.builder(
         controller: scrollController,
@@ -110,7 +110,7 @@ class _CompaniesMainPageState extends State<CompaniesMainPage> {
             return Column(
               children: [
                 CompanyItem(data: item),
-                CreateCompanyWidget(),
+                const CreateCompanyWidget(),
                 hasNextPage ? const PaginationLoaderComponent() : Container()
               ],
             );
