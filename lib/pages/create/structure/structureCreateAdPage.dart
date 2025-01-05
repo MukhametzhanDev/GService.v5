@@ -3,8 +3,6 @@ import 'package:gservice5/component/alert/closeCreateAdAlert.dart';
 import 'package:gservice5/component/button/back/backTitleButton.dart';
 import 'package:gservice5/component/textField/closeKeyboard/closeKeyboard.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
-import 'package:gservice5/pages/create/ad/characteristic/getCharacteristicAdPage.dart';
-import 'package:gservice5/pages/create/ad/characteristic/getChildCharacteristicPage.dart';
 import 'package:gservice5/pages/create/ad/characteristic/getImageCreateAdPage.dart';
 import 'package:gservice5/pages/create/ad/stepCreateAdWidget.dart';
 import 'package:gservice5/pages/create/ad/titleCreateAdPage.dart';
@@ -13,6 +11,8 @@ import 'package:gservice5/pages/create/data/createData.dart';
 import 'package:gservice5/pages/create/options/getSelectPage.dart';
 import 'package:gservice5/pages/create/priceCreateAdPage.dart';
 import 'package:gservice5/pages/create/structure/controllerPage/pageControllerIndexedStack.dart';
+import 'package:gservice5/pages/testCharactestic/testCharactesticPage.dart';
+import 'package:gservice5/pages/testCharactestic/testChildCharactesticPage.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
 //selects
@@ -80,8 +80,15 @@ class _StructureCreateAdPageState extends State<StructureCreateAdPage> {
 
   void addCharacteristicPage() {
     closeKeyboard();
-    pages.add(GetCharacteristicAdPage(
-        nextPage: addChildCharacteristicPage, previousPage: previousPage));
+    // pages.add(GetCharacteristicAdPage(
+    //   nextPage: addChildCharacteristicPage, previousPage: previousPage));
+    Map<String, dynamic> param = {
+      "category_id": CreateData.data['category_id']
+    };
+    pages.add(TestCharactesticPage(
+        nextPage: addChildCharacteristicPage,
+        previousPage: previousPage,
+        param: param));
   }
 
   void addGetPricePage() {
@@ -111,7 +118,7 @@ class _StructureCreateAdPageState extends State<StructureCreateAdPage> {
     if (data.isEmpty) {
       addGetPricePage();
     } else {
-      pages.add(GetChildCharacteristicPage(
+      pages.add(TestChildCharactesticPage(
           data: data, nextPage: addGetPricePage, previousPage: previousPage));
     }
   }

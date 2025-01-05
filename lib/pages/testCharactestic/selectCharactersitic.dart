@@ -68,7 +68,7 @@ class _SelectCharactersiticState extends State<SelectCharactersitic> {
           onPressed: showModal,
           title: getTitle(),
           subtitle: currentValue),
-      const SizedBox(height: 24),
+      const SizedBox(height: 16),
     ]);
   }
 }

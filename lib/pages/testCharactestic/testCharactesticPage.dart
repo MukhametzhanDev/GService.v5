@@ -1,15 +1,25 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:gservice5/component/button/button.dart';
 import 'package:gservice5/component/dio/dio.dart';
+import 'package:gservice5/component/loader/loaderComponent.dart';
+import 'package:gservice5/component/loader/modalLoaderComponent.dart';
+import 'package:gservice5/component/snackBar/snackBarComponent.dart';
 import 'package:gservice5/component/textField/closeKeyboard/closeKeyboard.dart';
-import 'package:gservice5/pages/testCharactestic/checkboxCharacteristic.dart';
-import 'package:gservice5/pages/testCharactestic/inputCharacteristicWidget.dart';
-import 'package:gservice5/pages/testCharactestic/multiSelectCharactersitic.dart';
-import 'package:gservice5/pages/testCharactestic/radioCharacteristicWidget.dart';
-import 'package:gservice5/pages/testCharactestic/selectCharactersitic.dart';
+import 'package:gservice5/component/widgets/bottom/bottomNavigationBarComponent.dart';
+import 'package:gservice5/pages/create/data/createData.dart';
+import 'package:gservice5/pages/create/structure/controllerPage/pageControllerIndexedStack.dart';
+import 'package:gservice5/pages/testCharactestic/characteristicWidgets.dart';
 
 class TestCharactesticPage extends StatefulWidget {
-  const TestCharactesticPage({super.key});
+  final void Function(List data) nextPage;
+  final void Function() previousPage;
+  final Map<String, dynamic> param;
+  const TestCharactesticPage(
+      {super.key,
+      required this.nextPage,
+      required this.previousPage,
+      required this.param});
 
   @override
   State<TestCharactesticPage> createState() => _TestCharactesticPageState();
@@ -17,6 +27,8 @@ class TestCharactesticPage extends StatefulWidget {
 
 class _TestCharactesticPageState extends State<TestCharactesticPage> {
   List data = [];
+  PageControllerIndexedStack pageControllerIndexedStack =
+      PageControllerIndexedStack();
 
   @override
   void initState() {
@@ -26,13 +38,73 @@ class _TestCharactesticPageState extends State<TestCharactesticPage> {
 
   Future getData() async {
     try {
-      Response response = await dio.get("/characteristics?transport_type_id=1");
+      Response response =
+          await dio.get("/characteristics", queryParameters: widget.param);
       print(response.data);
       if (response.data['success']) {
         data = response.data['data'];
         setState(() {});
+      } else {
+        SnackBarComponent().showResponseErrorMessage(response, context);
       }
-    } catch (e) {}
+    } catch (e) {
+      SnackBarComponent().showNotGoBackServerErrorMessage(context);
+    }
+  }
+
+  void verifyData() {
+    for (Map value in data) {
+      print(value);
+      bool hasKey =
+          CreateData.characteristic.containsKey(value['id'].toString());
+      if (hasKey) {
+        String title =
+            CreateData.characteristic["${value['id']}"].toString().trim();
+        if (value['is_required'] && title.isEmpty) {
+          SnackBarComponent().showErrorMessage(
+              "Заполните строку '${value['title']}'", context);
+          return;
+        }
+      } else {
+        SnackBarComponent()
+            .showErrorMessage("Заполните строку '${value['title']}'", context);
+        return;
+      }
+    }
+    print(CreateData.characteristic);
+
+    showPage();
+  }
+
+  Future getStructureTransportType(String? filterKey) async {
+    showModalLoader(context);
+    try {
+      Response response = await dio.get("/characteristics",
+          queryParameters: {filterKey!: CreateData.data[filterKey]});
+      print("---->${response.data}");
+      Navigator.pop(context);
+      if (response.data['success']) {
+        List resp = response.data['data'] ?? [];
+        widget.nextPage(resp);
+        pageControllerIndexedStack.nextPage();
+      } else {
+        SnackBarComponent().showResponseErrorMessage(response, context);
+      }
+    } catch (e) {
+      SnackBarComponent().showServerErrorMessage(context);
+    }
+  }
+
+  void showPage() {
+    Map characteristics = CreateData.characteristic['characteristics'];
+    bool isAvailable = characteristics['is_available'];
+    if (isAvailable) {
+      String? filterKey = characteristics['filter_key'];
+      getStructureTransportType(filterKey);
+    } else {
+      widget.nextPage([]);
+      pageControllerIndexedStack.nextPage();
+    }
   }
 
   @override
@@ -40,71 +112,22 @@ class _TestCharactesticPageState extends State<TestCharactesticPage> {
     return GestureDetector(
       onTap: () => closeKeyboard(),
       child: Scaffold(
-        appBar: AppBar(title: const Text("Characteristic")),
-        body: SingleChildScrollView(
-            padding: const EdgeInsets.all(15),
-            child: CharacteristicWidget(data: data)),
+        body: data.isEmpty
+            ? const LoaderComponent()
+            : SingleChildScrollView(
+                padding: const EdgeInsets.all(15),
+                child: CharacteristicWidget(data: data)),
+        bottomNavigationBar: data.isEmpty
+            ? const SizedBox.shrink()
+            : BottomNavigationBarComponent(
+                child: Button(
+                    onPressed: () {
+                      print(CreateData.characteristic);
+                      verifyData();
+                    },
+                    padding: const EdgeInsets.symmetric(horizontal: 15),
+                    title: "Продолжить")),
       ),
     );
-  }
-}
-
-class CharacteristicWidget extends StatelessWidget {
-  final List data;
-  const CharacteristicWidget({super.key, required this.data});
-
-  Widget ChildCharacteristics(Map value) {
-    if (value['child_characteristics'].isEmpty) {
-      print('TRUE');
-      return Container();
-    } else {
-      print('FALSE');
-      return CharacteristicWidget(data: (value['child_characteristics']));
-    }
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: data.map((value) {
-          if (value['field_type'] == "input" &&
-              value['input_type'] == "radio") {
-            return Column(
-              children: [
-                RadioCharacteristicWidget(value: value),
-                ChildCharacteristics(value)
-              ],
-            );
-          } else if (value['field_type'] == "input" &&
-              value['input_type'] == "checkbox") {
-            return Column(
-              children: [
-                CheckboxCharacteristic(value: value),
-                ChildCharacteristics(value)
-              ],
-            );
-          } else if (value['field_type'] == "input") {
-            return Column(
-              children: [
-                InputCharacteristicWidget(value: value),
-                ChildCharacteristics(value)
-              ],
-            );
-          } else if (value['field_type'] == "select" &&
-              value['tag_attribute']['multiple']) {
-            return Column(
-              children: [
-                MultiSelectCharactersitic(value: value),
-                ChildCharacteristics(value)
-              ],
-            );
-          } else if (value['field_type'] == "select" &&
-              value['tag_attribute']['multiple'] == false) {
-            return SelectCharactersitic(value: value);
-          } else {
-            return Text(value['title']);
-          }
-        }).toList());
   }
 }

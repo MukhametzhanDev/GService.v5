@@ -7,6 +7,7 @@ class InputCharacteristicWidget extends StatelessWidget {
   const InputCharacteristicWidget({super.key, required this.value});
 
   void onChanged(valueChanged) {
+    print(valueChanged);
     CreateData.characteristic["${value['id']}"] = valueChanged;
   }
 
@@ -58,7 +59,7 @@ class InputCharacteristicWidget extends StatelessWidget {
           hintText: value['tag_attribute']?['placeholder'] ?? "Напишите",
         ),
       ),
-      const SizedBox(height: 24),
+      const SizedBox(height: 16),
     ]);
   }
 }

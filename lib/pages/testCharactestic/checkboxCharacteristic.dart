@@ -39,7 +39,7 @@ class _CheckboxCharacteristicState extends State<CheckboxCharacteristic> {
     return GestureDetector(
       onTap: onChanged,
       child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 8),
+        padding: const EdgeInsets.only(top: 8, bottom: 16),
         child: Row(children: [
           Container(
             width: 24,

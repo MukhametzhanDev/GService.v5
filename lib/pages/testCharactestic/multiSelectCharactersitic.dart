@@ -84,7 +84,8 @@ class _MultiSelectCharactersiticState extends State<MultiSelectCharactersitic> {
           title: getTitle(),
           subtitle: const {}),
       Padding(
-        padding: EdgeInsets.only(top: currentValues.isEmpty ? 0 : 12),
+        padding:
+            EdgeInsets.only(top: currentValues.isEmpty ? 0 : 12, bottom: 16),
         child: Wrap(
             spacing: 8,
             runSpacing: 8,
@@ -111,7 +112,6 @@ class _MultiSelectCharactersiticState extends State<MultiSelectCharactersitic> {
               );
             }).toList()),
       ),
-      const SizedBox(height: 24),
     ]);
   }
 }

@@ -38,7 +38,7 @@ class _RadioCharacteristicWidgetState extends State<RadioCharacteristicWidget> {
 
   void onChanged(value) {
     id = value;
-    CreateData.characteristic["$value"] = value;
+    CreateData.characteristic["${widget.value['id']}"] = value;
     setState(() {});
   }
 
