@@ -53,9 +53,7 @@ class ChangedToken {
       dio.options.headers['authorization'] = "";
       dio.options.baseUrl = "https://dev.gservice-co.kz/api";
 
-      await GetIt.I<FirebaseAnalytics>()
-          .setUserId(id: null)
-          .catchError((e) => debugPrint(e));
+      await GetIt.I<FirebaseAnalytics>().setUserId(id: null);
 
       Navigator.pushAndRemoveUntil(
           context,

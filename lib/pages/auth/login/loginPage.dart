@@ -93,6 +93,9 @@ class _LoginPageState extends State<LoginPage>
 
         await GetIt.I<FirebaseAnalytics>().logLogin(
             loginMethod: param.containsKey('email') ? 'email' : 'phone');
+
+        await GetIt.I<FirebaseAnalytics>()
+            .setUserId(id: response.data['user']?['id'].toString());
       } else {
         SnackBarComponent().showResponseErrorMessage(response, context);
       }
