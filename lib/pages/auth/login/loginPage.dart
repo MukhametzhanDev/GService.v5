@@ -8,11 +8,11 @@ import 'package:gservice5/component/loader/modalLoaderComponent.dart';
 import 'package:gservice5/component/snackBar/snackBarComponent.dart';
 import 'package:gservice5/component/textField/passwordTextField.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
-import 'package:gservice5/pages/auth/password/individual/forgotPasswordIndividualPage.dart';
+import 'package:gservice5/pages/auth/password/customer/forgotPasswordCustomerPage.dart';
 import 'package:gservice5/pages/auth/privacyPolicyWidget.dart';
 import 'package:gservice5/pages/auth/accountType/getAccountTypePage.dart';
-import 'package:gservice5/pages/auth/registration/individual/individualExistsPage.dart';
-import 'package:gservice5/pages/auth/registration/individual/registrationUserPage.dart';
+import 'package:gservice5/pages/auth/registration/customer/customerExistsPage.dart';
+import 'package:gservice5/pages/auth/registration/customer/customerRegistrationPage.dart';
 
 class LoginPage extends StatefulWidget {
   final bool showBackButton;
@@ -94,7 +94,7 @@ class _LoginPageState extends State<LoginPage>
 
   void showRegistrationPage() {
     Navigator.push(context,
-        MaterialPageRoute(builder: (context) => const IndividualExistsPage()));
+        MaterialPageRoute(builder: (context) => const CusomterExistsPage()));
     // Navigator.push(context,
     //         MaterialPageRoute(builder: (context) => const GetAccountTypePage()))
     //     .then((value) {
@@ -102,11 +102,11 @@ class _LoginPageState extends State<LoginPage>
     // });
   }
 
-  void showForgotPasswordIndividualPage() {
+  void showForgotPasswordCustomerPage() {
     Navigator.push(
         context,
         MaterialPageRoute(
-            builder: (context) => ForgotPasswordIndividualPage(
+            builder: (context) => ForgotPasswordCustomerPage(
                 title: textEditingController.text)));
   }
 
@@ -143,7 +143,7 @@ class _LoginPageState extends State<LoginPage>
               Align(
                   alignment: Alignment.centerRight,
                   child: TextButton(
-                      onPressed: showForgotPasswordIndividualPage,
+                      onPressed: showForgotPasswordCustomerPage,
                       child: Text(
                         "Забыли пароль?",
                         style: TextStyle(

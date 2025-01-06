@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:gservice5/component/button/back/backIconButton.dart';
+import 'package:gservice5/component/button/back/backTitleButton.dart';
 import 'package:gservice5/component/button/button.dart';
 import 'package:gservice5/component/dio/dio.dart';
 import 'package:gservice5/component/image/getImage/getLogoWidget.dart';
@@ -9,24 +9,22 @@ import 'package:gservice5/component/modal/cities.dart';
 import 'package:gservice5/component/select/selectButton.dart';
 import 'package:gservice5/component/snackBar/snackBarComponent.dart';
 import 'package:gservice5/component/textField/closeKeyboard/closeKeyboard.dart';
-import 'package:gservice5/component/theme/colorComponent.dart';
 import 'package:gservice5/component/widgets/bottom/bottomNavigationBarComponent.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
-class ChangeContractorProfilePage extends StatefulWidget {
+class ChangeCustomerProfilePage extends StatefulWidget {
   final Map data;
-  const ChangeContractorProfilePage({super.key, required this.data});
+  const ChangeCustomerProfilePage({super.key, required this.data});
 
   @override
-  State<ChangeContractorProfilePage> createState() =>
-      _ChangeContractorProfilePageState();
+  State<ChangeCustomerProfilePage> createState() =>
+      _ChangeCustomerProfilePageState();
 }
 
-class _ChangeContractorProfilePageState extends State<ChangeContractorProfilePage> {
+class _ChangeCustomerProfilePageState
+    extends State<ChangeCustomerProfilePage> {
   Map currentCity = {};
   TextEditingController nameEditingController = TextEditingController();
-  TextEditingController identifierEditingController = TextEditingController();
-  TextEditingController descEditingController = TextEditingController();
   String imagePath = "";
   String imageUrl = "";
   Map<String, dynamic> param = {};
@@ -35,15 +33,12 @@ class _ChangeContractorProfilePageState extends State<ChangeContractorProfilePag
   void initState() {
     currentCity = widget.data['city'];
     nameEditingController.text = widget.data['name'];
-    identifierEditingController.text = widget.data['identifier'];
-    descEditingController.text = widget.data['description'];
     super.initState();
   }
 
   @override
   void dispose() {
     nameEditingController.dispose();
-    identifierEditingController.dispose();
     super.dispose();
   }
 
@@ -76,14 +71,10 @@ class _ChangeContractorProfilePageState extends State<ChangeContractorProfilePag
     showModalLoader(context);
     try {
       param.addAll({
-        "role": "customer",
         "name": nameEditingController.text,
         "city_id": currentCity['id'],
-        "identifier": identifierEditingController.text,
-        "description": descEditingController.text,
-        "email": widget.data['email']
       });
-      Response response = await dio.put("/company", data: param);
+      Response response = await dio.put("/user", data: param);
       print(response.data);
       Navigator.pop(context);
       if (response.statusCode == 200) {
@@ -98,19 +89,10 @@ class _ChangeContractorProfilePageState extends State<ChangeContractorProfilePag
 
   void verifyData() {
     String name = nameEditingController.text.trim();
-    String indentifier = identifierEditingController.text.trim();
-    String desc = descEditingController.text.trim();
-    if (currentCity.isEmpty ||
-        name.isEmpty ||
-        indentifier.isEmpty ||
-        desc.isEmpty) {
+    if (currentCity.isEmpty || name.isEmpty) {
       SnackBarComponent().showErrorMessage("Заполните все строки", context);
     } else {
-      if (indentifier.length == 12) {
-        postImage();
-      } else {
-        SnackBarComponent().showErrorMessage("Неправильный БИН", context);
-      }
+      postImage();
     }
   }
 
@@ -118,7 +100,8 @@ class _ChangeContractorProfilePageState extends State<ChangeContractorProfilePag
     showCupertinoModalBottomSheet(
         context: context,
         builder: (context) => Cities(
-            onPressed: savedcurrentCity, countryId: widget.data['country_id']));
+            onPressed: savedcurrentCity,
+            countryId: widget.data['country']['id']));
   }
 
   void savedcurrentCity(value) {
@@ -134,12 +117,15 @@ class _ChangeContractorProfilePageState extends State<ChangeContractorProfilePag
       child: Scaffold(
         appBar: AppBar(
             centerTitle: false,
-            leading: const BackIconButton(),
-            title: const Text("Изменить данные компании")),
+            leadingWidth: MediaQuery.of(context).size.width - 100,
+            leading: BackTitleButton(
+                title: "Изменить данные",
+                onPressed: () => Navigator.pop(context))),
         body: SingleChildScrollView(
           padding: const EdgeInsets.all(15),
           child: Column(children: [
             GetLogoWidget(
+                role: "individual",
                 imageUrl: widget.data['avatar'],
                 onChanged: (path) {
                   imagePath = path;
@@ -158,25 +144,6 @@ class _ChangeContractorProfilePageState extends State<ChangeContractorProfilePag
                 style: const TextStyle(fontSize: 14),
                 keyboardType: TextInputType.text,
                 decoration: const InputDecoration(hintText: "Название компании")),
-            const Divider(indent: 8),
-            TextField(
-                controller: identifierEditingController,
-                style: const TextStyle(fontSize: 14),
-                keyboardType: TextInputType.number,
-                maxLength: 12,
-                decoration: InputDecoration(
-                    hintText: "БИН",
-                    helperStyle: TextStyle(color: ColorComponent.gray['500']))),
-            const Divider(),
-            TextField(
-                controller: descEditingController,
-                decoration: InputDecoration(
-                    hintText: "Описание вашей компании",
-                    helperStyle: TextStyle(color: ColorComponent.gray['500'])),
-                style: const TextStyle(fontSize: 14),
-                maxLength: 200,
-                maxLines: 8,
-                minLines: 4),
           ]),
         ),
         bottomNavigationBar: BottomNavigationBarComponent(

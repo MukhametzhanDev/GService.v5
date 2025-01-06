@@ -5,7 +5,7 @@ import 'package:gservice5/pages/contractor/dashboard/dashboardPage.dart';
 import 'package:gservice5/pages/contractor/marketing/marketingPage.dart';
 import 'package:gservice5/pages/create/createSectionPage.dart';
 import 'package:gservice5/pages/message/messageMainPage.dart';
-import 'package:gservice5/pages/profile/contractor/contractorProfilePage.dart';
+import 'package:gservice5/pages/profile/business/businessProfilePage.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:badges/badges.dart' as badges;
 
@@ -62,7 +62,7 @@ class _BusinessBottomTabState extends State<BusinessBottomTab> {
         Container(),
         // CreateMainPage(),
         const MessageMainPage(),
-        const ContractorProfilePage(),
+        const BusinessProfilePage(),
       ]),
       bottomNavigationBar: BottomNavigationBar(
           backgroundColor: ColorTheme['white_black'],

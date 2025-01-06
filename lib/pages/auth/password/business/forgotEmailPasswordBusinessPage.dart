@@ -76,7 +76,7 @@ class _ForgotEmailPasswordBusinessPageState
                     ResetBusinessPasswordPage(data: response.data['data'])));
         // await ChangedToken()
         //     .savedToken(response.data['data'], context);
-        // Navigator.pushNamed(context, "ResetIndividualPasswordPage");
+        // Navigator.pushNamed(context, "ResetCustomerPasswordPage");
       } else {
         SnackBarComponent().showResponseErrorMessage(response, context);
       }

@@ -3,20 +3,20 @@ import 'package:gservice5/component/button/back/backIconButton.dart';
 import 'package:gservice5/component/button/button.dart';
 import 'package:gservice5/component/snackBar/snackBarComponent.dart';
 import 'package:gservice5/component/widgets/bottom/bottomNavigationBarComponent.dart';
-import 'package:gservice5/pages/auth/password/individual/forgotEmailPasswordIndividualPage.dart';
-import 'package:gservice5/pages/auth/password/individual/forgotPhonePasswordIndividualPage.dart';
+import 'package:gservice5/pages/auth/password/customer/forgotEmailPasswordCustomerPage.dart';
+import 'package:gservice5/pages/auth/password/customer/forgotPhonePasswordCustomerPage.dart';
 
-class ForgotPasswordIndividualPage extends StatefulWidget {
+class ForgotPasswordCustomerPage extends StatefulWidget {
   final String title;
-  const ForgotPasswordIndividualPage({super.key, required this.title});
+  const ForgotPasswordCustomerPage({super.key, required this.title});
 
   @override
-  State<ForgotPasswordIndividualPage> createState() =>
-      _ForgotPasswordIndividualPageState();
+  State<ForgotPasswordCustomerPage> createState() =>
+      _ForgotPasswordCustomerPageState();
 }
 
-class _ForgotPasswordIndividualPageState
-    extends State<ForgotPasswordIndividualPage> {
+class _ForgotPasswordCustomerPageState
+    extends State<ForgotPasswordCustomerPage> {
   TextEditingController textEditingController = TextEditingController();
 
   @override
@@ -38,7 +38,7 @@ class _ForgotPasswordIndividualPageState
     } else {
       if (isNumeric(text)) {
         if (text.length >= 10) {
-          showForgotPhonePasswordIndividualPage();
+          showForgotPhonePasswordCustomerPage();
         } else {
           SnackBarComponent()
               .showErrorMessage("Неправильный номер телефона", context);
@@ -48,7 +48,7 @@ class _ForgotPasswordIndividualPageState
                 r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
             .hasMatch(text);
         if (emailValid) {
-          showForgotEmailPasswordIndividualPage();
+          showForgotEmailPasswordCustomerPage();
         } else {
           SnackBarComponent().showErrorMessage("Неправильный email", context);
         }
@@ -56,20 +56,20 @@ class _ForgotPasswordIndividualPageState
     }
   }
 
-  void showForgotEmailPasswordIndividualPage() {
+  void showForgotEmailPasswordCustomerPage() {
     Navigator.push(
         context,
         MaterialPageRoute(
-            builder: (context) => ForgotEmailPasswordIndividualPage(
+            builder: (context) => ForgotEmailPasswordCustomerPage(
                 email: textEditingController.text)));
   }
 
-  void showForgotPhonePasswordIndividualPage() {
+  void showForgotPhonePasswordCustomerPage() {
     String text = textEditingController.text;
     Navigator.push(
         context,
         MaterialPageRoute(
-            builder: (context) => ForgotPhonePasswordIndividualPage(
+            builder: (context) => ForgotPhonePasswordCustomerPage(
                 phone: "7${text.substring(text.length - 10)}")));
   }
 

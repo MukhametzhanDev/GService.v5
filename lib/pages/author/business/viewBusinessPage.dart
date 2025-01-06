@@ -14,18 +14,18 @@ import 'package:gservice5/component/snackBar/snackBarComponent.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
 import 'package:gservice5/pages/ad/list/adListWidget.dart';
 import 'package:gservice5/pages/application/list/applicationListWidget.dart';
-import 'package:gservice5/pages/author/contractor/viewAboutContractorPage.dart';
+import 'package:gservice5/pages/author/business/viewAboutBusinessPage.dart';
 import 'package:gservice5/pages/author/filesListPage.dart';
 
-class ViewContractorPage extends StatefulWidget {
+class ViewBusinessPage extends StatefulWidget {
   final int id;
-  const ViewContractorPage({super.key, required this.id});
+  const ViewBusinessPage({super.key, required this.id});
 
   @override
-  State<ViewContractorPage> createState() => _ViewContractorPageState();
+  State<ViewBusinessPage> createState() => _ViewBusinessPageState();
 }
 
-class _ViewContractorPageState extends State<ViewContractorPage>
+class _ViewBusinessPageState extends State<ViewBusinessPage>
     with SingleTickerProviderStateMixin {
   Map data = {};
   bool loader = true;
@@ -217,7 +217,7 @@ class _ViewContractorPageState extends State<ViewContractorPage>
                       ];
                     },
                     body: TabBarView(controller: tabController, children: [
-                      ViewAboutContractorPage(data: data),
+                      ViewAboutBusinessPage(data: data),
                       AdListWidget(param: {
                         "author_id": widget.id,
                         "author_type": "company"

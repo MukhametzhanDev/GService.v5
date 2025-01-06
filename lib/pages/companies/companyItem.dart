@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:gservice5/component/image/cacheImage.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
-import 'package:gservice5/pages/author/contractor/viewContractorPage.dart';
+import 'package:gservice5/pages/author/business/viewBusinessPage.dart';
 
 class CompanyItem extends StatelessWidget {
   final Map data;
@@ -15,7 +15,7 @@ class CompanyItem extends StatelessWidget {
         Navigator.push(
             context,
             MaterialPageRoute(
-                builder: (context) => ViewContractorPage(id: data['id'])));
+                builder: (context) => ViewBusinessPage(id: data['id'])));
       },
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 12),

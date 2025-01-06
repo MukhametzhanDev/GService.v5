@@ -13,15 +13,15 @@ import 'package:gservice5/component/theme/colorComponent.dart';
 import 'package:gservice5/pages/ad/list/adListWidget.dart';
 import 'package:gservice5/pages/application/list/applicationListWidget.dart';
 
-class ViewIndividualPage extends StatefulWidget {
+class ViewCustomerPage extends StatefulWidget {
   final int id;
-  const ViewIndividualPage({super.key, required this.id});
+  const ViewCustomerPage({super.key, required this.id});
 
   @override
-  State<ViewIndividualPage> createState() => _ViewIndividualPageState();
+  State<ViewCustomerPage> createState() => _ViewCustomerPageState();
 }
 
-class _ViewIndividualPageState extends State<ViewIndividualPage>
+class _ViewCustomerPageState extends State<ViewCustomerPage>
     with SingleTickerProviderStateMixin {
   Map data = {};
   bool loader = true;

@@ -9,14 +9,14 @@ import 'package:gservice5/pages/message/messageMainPage.dart';
 import 'package:gservice5/pages/profile/verifyProfilePage.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
-class IndividualBottomTab extends StatefulWidget {
-  const IndividualBottomTab({super.key});
+class CustomerBottomTab extends StatefulWidget {
+  const CustomerBottomTab({super.key});
 
   @override
-  State<IndividualBottomTab> createState() => _IndividualBottomTabState();
+  State<CustomerBottomTab> createState() => _CustomerBottomTabState();
 }
 
-class _IndividualBottomTabState extends State<IndividualBottomTab>
+class _CustomerBottomTabState extends State<CustomerBottomTab>
     with SingleTickerProviderStateMixin {
   int _selectedIndex = 0;
   static final List<Map> _tabs = <Map>[

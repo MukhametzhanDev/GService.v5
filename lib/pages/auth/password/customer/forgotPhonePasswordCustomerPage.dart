@@ -11,21 +11,21 @@ import 'package:gservice5/component/loader/modalLoaderComponent.dart';
 import 'package:gservice5/component/snackBar/snackBarComponent.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
 import 'package:gservice5/component/widgets/bottom/bottomNavigationBarComponent.dart';
-import 'package:gservice5/pages/auth/password/individual/resetIndividualPasswordPage.dart';
+import 'package:gservice5/pages/auth/password/customer/resetCustomerPasswordPage.dart';
 import 'package:pinput/pinput.dart';
 import 'package:sms_autofill/sms_autofill.dart';
 
-class ForgotPhonePasswordIndividualPage extends StatefulWidget {
+class ForgotPhonePasswordCustomerPage extends StatefulWidget {
   final String phone;
-  const ForgotPhonePasswordIndividualPage({super.key, required this.phone});
+  const ForgotPhonePasswordCustomerPage({super.key, required this.phone});
 
   @override
-  State<ForgotPhonePasswordIndividualPage> createState() =>
-      _ForgotPhonePasswordIndividualPageState();
+  State<ForgotPhonePasswordCustomerPage> createState() =>
+      _ForgotPhonePasswordCustomerPageState();
 }
 
-class _ForgotPhonePasswordIndividualPageState
-    extends State<ForgotPhonePasswordIndividualPage> with CodeAutoFill {
+class _ForgotPhonePasswordCustomerPageState
+    extends State<ForgotPhonePasswordCustomerPage> with CodeAutoFill {
   String otpCode = '';
   bool loader = true;
   TextEditingController codeController = TextEditingController();
@@ -72,7 +72,7 @@ class _ForgotPhonePasswordIndividualPageState
         Navigator.push(
             context,
             MaterialPageRoute(
-                builder: (context) => const ResetIndividualPasswordPage()));
+                builder: (context) => const ResetCustomerPasswordPage()));
       } else {
         SnackBarComponent().showResponseErrorMessage(response, context);
       }

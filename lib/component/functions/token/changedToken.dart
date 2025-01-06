@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:gservice5/component/loader/modalLoaderComponent.dart';
 import 'package:gservice5/component/snackBar/snackBarComponent.dart';
-import 'package:gservice5/navigation/individual/individualBottomTab.dart';
+import 'package:gservice5/navigation/customer/customerBottomTab.dart';
 import 'package:gservice5/component/dio/dio.dart';
 
 class ChangedToken {
@@ -29,7 +29,7 @@ class ChangedToken {
     dio.options.headers['authorization'] = "Bearer ${value['user_token']}";
     Navigator.pushAndRemoveUntil(
         context,
-        MaterialPageRoute(builder: (_) => const IndividualBottomTab()),
+        MaterialPageRoute(builder: (_) => const CustomerBottomTab()),
         (route) => false);
   }
 
@@ -44,7 +44,7 @@ class ChangedToken {
       dio.options.baseUrl = "https://dev.gservice-co.kz/api";
       Navigator.pushAndRemoveUntil(
           context,
-          MaterialPageRoute(builder: (_) => const IndividualBottomTab()),
+          MaterialPageRoute(builder: (_) => const CustomerBottomTab()),
           (route) => false);
     } catch (e) {
       SnackBarComponent().showNotGoBackServerErrorMessage(context);
@@ -58,7 +58,7 @@ class ChangedToken {
   //   dio.options.headers['authorization'] = "Bearer $token";
   //   Navigator.pushAndRemoveUntil(
   //       context,
-  //       MaterialPageRoute(builder: (_) => const IndividualBottomTab()),
+  //       MaterialPageRoute(builder: (_) => const CustomerBottomTab()),
   //       (route) => false);
   // }
 

@@ -12,7 +12,7 @@ import 'package:gservice5/component/loader/modalLoaderComponent.dart';
 import 'package:gservice5/component/snackBar/snackBarComponent.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
 import 'package:gservice5/component/widgets/bottom/bottomNavigationBarComponent.dart';
-import 'package:gservice5/pages/auth/registration/individual/registrationUserPage.dart';
+import 'package:gservice5/pages/auth/registration/customer/customerRegistrationPage.dart';
 import 'package:pinput/pinput.dart';
 import 'package:sms_autofill/sms_autofill.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -112,7 +112,7 @@ class _VerificationEmailPageState extends State<VerificationEmailPage>
     Navigator.push(
         context,
         MaterialPageRoute(
-            builder: (context) => RegistrationIndividualPage(
+            builder: (context) => CusomterRegistrationPage(
                 data: widget.userData, isPhone: false)));
     // }
   }

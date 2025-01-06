@@ -4,7 +4,7 @@ import 'package:gservice5/component/functions/token/changedToken.dart';
 import 'package:gservice5/component/request/getMainPageData.dart';
 import 'package:gservice5/navigation/business/businessBottomTab.dart';
 import 'package:gservice5/component/dio/dio.dart';
-import 'package:gservice5/navigation/individual/individualBottomTab.dart';
+import 'package:gservice5/navigation/customer/customerBottomTab.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -44,7 +44,7 @@ class _SplashScreenState extends State<SplashScreen> {
           (route) => false);
     } else {
       Navigator.of(context).pushAndRemoveUntil(
-          MaterialPageRoute(builder: (context) => const IndividualBottomTab()),
+          MaterialPageRoute(builder: (context) => const CustomerBottomTab()),
           (route) => false);
     }
   }

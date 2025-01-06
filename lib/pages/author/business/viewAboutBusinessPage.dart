@@ -4,16 +4,16 @@ import 'package:gservice5/component/theme/colorComponent.dart';
 import 'package:gservice5/pages/author/filesListPage.dart';
 import 'package:readmore/readmore.dart';
 
-class ViewAboutContractorPage extends StatefulWidget {
+class ViewAboutBusinessPage extends StatefulWidget {
   final Map data;
-  const ViewAboutContractorPage({super.key, required this.data});
+  const ViewAboutBusinessPage({super.key, required this.data});
 
   @override
-  State<ViewAboutContractorPage> createState() =>
-      _ViewAboutContractorPageState();
+  State<ViewAboutBusinessPage> createState() =>
+      _ViewAboutBusinessPageState();
 }
 
-class _ViewAboutContractorPageState extends State<ViewAboutContractorPage> {
+class _ViewAboutBusinessPageState extends State<ViewAboutBusinessPage> {
   void showFilesPage() {
     Navigator.push(
         context, MaterialPageRoute(builder: (context) => const FilesListPage()));

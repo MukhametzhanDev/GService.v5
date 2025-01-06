@@ -9,18 +9,18 @@ import 'package:gservice5/component/loader/loaderComponent.dart';
 import 'package:gservice5/component/snackBar/snackBarComponent.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
 import 'package:gservice5/pages/payment/wallet/showWalletWidget.dart';
-import 'package:gservice5/pages/profile/contractor/changeContractorProfilePage.dart';
+import 'package:gservice5/pages/profile/business/changeBusinessProfilePage.dart';
 import 'package:gservice5/pages/profile/profileListTilesWidget.dart';
 import 'package:readmore/readmore.dart';
 
-class ContractorProfilePage extends StatefulWidget {
-  const ContractorProfilePage({super.key});
+class BusinessProfilePage extends StatefulWidget {
+  const BusinessProfilePage({super.key});
 
   @override
-  State<ContractorProfilePage> createState() => _ContractorProfilePageState();
+  State<BusinessProfilePage> createState() => _BusinessProfilePageState();
 }
 
-class _ContractorProfilePageState extends State<ContractorProfilePage> {
+class _BusinessProfilePageState extends State<BusinessProfilePage> {
   Map data = {};
   bool loader = true;
 
@@ -52,7 +52,7 @@ class _ContractorProfilePageState extends State<ContractorProfilePage> {
     Navigator.push(
             context,
             MaterialPageRoute(
-                builder: (context) => ChangeContractorProfilePage(data: data)))
+                builder: (context) => ChangeBusinessProfilePage(data: data)))
         .then((value) => changedDataUser(value));
   }
 

@@ -2,9 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:gservice5/component/functions/token/changedToken.dart';
 import 'package:gservice5/component/loader/loaderComponent.dart';
 import 'package:gservice5/pages/auth/login/loginPage.dart';
-import 'package:gservice5/pages/profile/contractor/contractorProfilePage.dart';
+import 'package:gservice5/pages/profile/business/businessProfilePage.dart';
 import 'package:gservice5/pages/profile/customer/customerProfilePage.dart';
-import 'package:gservice5/pages/profile/individual/individualProfilePage.dart';
 
 class VerifyProfilePage extends StatefulWidget {
   const VerifyProfilePage({super.key});
@@ -36,11 +35,11 @@ class _VerifyProfilePageState extends State<VerifyProfilePage> {
   Future verifyRole() async {
     String? role = await ChangedToken().getRole();
     if (role == "contractor") {
-      return const ContractorProfilePage();
+      return const BusinessProfilePage();
     } else if (role == "customer") {
       return const CustomerProfilePage();
     } else {
-      return const IndividualProfilePage();
+      return const CustomerProfilePage();
     }
   }
 
@@ -63,11 +62,11 @@ class _VerifyProfilePageState extends State<VerifyProfilePage> {
     );
     // verifyTokenData
     //     ? role == "contractor"
-    //         ? ContractorProfilePage()
+    //         ? BusinessProfilePage()
     //         : role == "customer"
     //             ? CustomerProfilePage()
     //             : role == "individual"
-    //                 ? const IndividualProfilePage()
+    //                 ? const CustomerProfilePage()
     //                 : LoaderComponent()
     //     : const LoginPage(showBackButton: false);
   }

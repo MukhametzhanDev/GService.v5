@@ -10,16 +10,16 @@ import 'package:gservice5/component/textField/passwordTextField.dart';
 import 'package:gservice5/component/textField/repeatPasswordTextField.dart';
 import 'package:gservice5/component/widgets/bottom/bottomNavigationBarComponent.dart';
 
-class ResetIndividualPasswordPage extends StatefulWidget {
-  const ResetIndividualPasswordPage({super.key});
+class ResetCustomerPasswordPage extends StatefulWidget {
+  const ResetCustomerPasswordPage({super.key});
 
   @override
-  State<ResetIndividualPasswordPage> createState() =>
-      _ResetIndividualPasswordPageState();
+  State<ResetCustomerPasswordPage> createState() =>
+      _ResetCustomerPasswordPageState();
 }
 
-class _ResetIndividualPasswordPageState
-    extends State<ResetIndividualPasswordPage> {
+class _ResetCustomerPasswordPageState
+    extends State<ResetCustomerPasswordPage> {
   TextEditingController passwordEditingController = TextEditingController();
   TextEditingController repeatPasswordEditingController =
       TextEditingController();

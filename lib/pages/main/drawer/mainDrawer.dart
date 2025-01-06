@@ -49,7 +49,7 @@ class _MainDrawerState extends State<MainDrawer> {
   void showCreateCompany() {
     Navigator.pop(context);
     // showCupertinoModalBottomSheet(
-    // context: context, builder: (context) => const ChangedAccountType());
+    //     context: context, builder: (context) => const ChangedAccountType());
   }
 
   void showDrawerPage(Map value) {
@@ -133,41 +133,43 @@ class _MainDrawerState extends State<MainDrawer> {
               ),
             ),
             bottomNavigationBar: BottomNavigationBarComponent(
-              child:
-                  //     Container(
-                  //   height: 42,
-                  //   margin: EdgeInsets.symmetric(horizontal: 15),
-                  //   padding: EdgeInsets.symmetric(horizontal: 10),
-                  //   decoration: BoxDecoration(
-                  //       borderRadius: BorderRadius.circular(8),
-                  //       color: ColorComponent.mainColor),
-                  //   child: Row(
-                  //     children: [
-                  //       // SvgPicture.asset("assets/icons/users.svg",
-                  //       //     width: 20, color: Colors.black),
-                  //       // Divider(indent: 8),
-                  //       Expanded(
-                  //         child: Text("Стать партнером",
-                  //             style: TextStyle(fontWeight: FontWeight.w600)),
-                  //       ),
-                  //       Text("Подробнее", style: TextStyle(fontSize: 12))
-                  //     ],
-                  //   ),
-                  // )
-                  SizedBox(
+                child: GestureDetector(
+              onTap: showCreateCompany,
+              child: Row(
+                children: [
+                  Expanded(
+                    child: Container(
                       height: 42,
-                      child: Row(
-                        children: [
-                          Expanded(
-                            child: Button(
-                                onPressed: () {},
-                                padding: const EdgeInsets.symmetric(horizontal: 10),
-                                title: "Стать партнером"),
-                          ),
-                          SvgPicture.asset("assets/icons/questionOutline.svg"),
-                          const Divider(indent: 10)
-                        ],
-                      )),
-            )));
+                      alignment: Alignment.center,
+                      margin: EdgeInsets.symmetric(horizontal: 15),
+                      padding: EdgeInsets.symmetric(horizontal: 10),
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(8),
+                          color: ColorComponent.mainColor),
+                      child: Text("Стать партнером",
+                          style: TextStyle(fontWeight: FontWeight.w600)),
+                    ),
+                  ),
+                  SvgPicture.asset("assets/icons/questionOutline.svg"),
+                  const Divider(indent: 20)
+                ],
+              ),
+            )
+                // SizedBox(
+                //     height: 42,
+                //     child: Row(
+                //       children: [
+                //         Expanded(
+                //           child: Button(
+                //               onPressed: () {},
+                //               padding:
+                //                   const EdgeInsets.symmetric(horizontal: 10),
+                //               title: "Стать партнером"),
+                //         ),
+                //         SvgPicture.asset("assets/icons/questionOutline.svg"),
+                //         const Divider(indent: 20)
+                //       ],
+                //     )),
+                )));
   }
 }

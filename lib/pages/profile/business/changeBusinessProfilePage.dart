@@ -9,78 +9,85 @@ import 'package:gservice5/component/modal/cities.dart';
 import 'package:gservice5/component/select/selectButton.dart';
 import 'package:gservice5/component/snackBar/snackBarComponent.dart';
 import 'package:gservice5/component/textField/closeKeyboard/closeKeyboard.dart';
-import 'package:gservice5/component/textField/passwordTextField.dart';
-import 'package:gservice5/component/textField/repeatPasswordTextField.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
 import 'package:gservice5/component/widgets/bottom/bottomNavigationBarComponent.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
-class RegistrationCustomerPage extends StatefulWidget {
+class ChangeBusinessProfilePage extends StatefulWidget {
   final Map data;
-  const RegistrationCustomerPage({super.key, required this.data});
+  const ChangeBusinessProfilePage({super.key, required this.data});
 
   @override
-  State<RegistrationCustomerPage> createState() =>
-      _RegistrationCustomerPageState();
+  State<ChangeBusinessProfilePage> createState() =>
+      _ChangeBusinessProfilePageState();
 }
 
-class _RegistrationCustomerPageState extends State<RegistrationCustomerPage> {
+class _ChangeBusinessProfilePageState extends State<ChangeBusinessProfilePage> {
   Map currentCity = {};
   TextEditingController nameEditingController = TextEditingController();
   TextEditingController identifierEditingController = TextEditingController();
-  TextEditingController passwordEditingController = TextEditingController();
-  TextEditingController repeatPasswordEditingController =
-      TextEditingController();
+  TextEditingController descEditingController = TextEditingController();
   String imagePath = "";
+  String imageUrl = "";
+  Map<String, dynamic> param = {};
+
+  @override
+  void initState() {
+    currentCity = widget.data['city'];
+    nameEditingController.text = widget.data['name'];
+    identifierEditingController.text = widget.data['identifier'];
+    descEditingController.text = widget.data['description'];
+    super.initState();
+  }
 
   @override
   void dispose() {
     nameEditingController.dispose();
     identifierEditingController.dispose();
-    passwordEditingController.dispose();
-    repeatPasswordEditingController.dispose();
     super.dispose();
   }
 
   Future postImage() async {
-    showModalLoader(context);
-    try {
-      FormData formData = FormData.fromMap({
-        "image": await MultipartFile.fromFile(imagePath,
-            filename: imagePath.split('/').last)
-      });
-      Response response = await dio.post("/image/avatar", data: formData);
-      print(response.data);
-      Navigator.pop(context);
-      if (response.statusCode == 200) {
-        postData(response.data['data']);
-      } else {
-        SnackBarComponent().showResponseErrorMessage(response, context);
+    if (imagePath == "") {
+      postData();
+    } else {
+      showModalLoader(context);
+      try {
+        FormData formData = FormData.fromMap({
+          "image": await MultipartFile.fromFile(imagePath,
+              filename: imagePath.split('/').last)
+        });
+        Response response = await dio.post("/image/avatar", data: formData);
+        print(response.data);
+        Navigator.pop(context);
+        if (response.statusCode == 200) {
+          param.addAll({"avatar": response.data['data']});
+          postData();
+        } else {
+          SnackBarComponent().showResponseErrorMessage(response, context);
+        }
+      } catch (e) {
+        SnackBarComponent().showServerErrorMessage(context);
       }
-    } catch (e) {
-      SnackBarComponent().showServerErrorMessage(context);
     }
   }
 
-  Future postData(String url) async {
+  Future postData() async {
     showModalLoader(context);
-    print(widget.data);
     try {
-      Map<String, dynamic> param = {
+      param.addAll({
         "role": "customer",
         "name": nameEditingController.text,
-        "password": passwordEditingController.text,
         "city_id": currentCity['id'],
-        "country_id": widget.data['country_id'],
-        "email": widget.data['email'],
-        "avatar": url,
-        "identifier": identifierEditingController.text
-      };
-      Response response = await dio.post("/business/register", data: param);
+        "identifier": identifierEditingController.text,
+        "description": descEditingController.text,
+        "email": widget.data['email']
+      });
+      Response response = await dio.put("/company", data: param);
       print(response.data);
       Navigator.pop(context);
       if (response.statusCode == 200) {
-        // ChangedToken().saveCustomerToken(response.data['data'], context);
+        Navigator.pop(context, response.data['data']);
       } else {
         SnackBarComponent().showResponseErrorMessage(response, context);
       }
@@ -92,17 +99,18 @@ class _RegistrationCustomerPageState extends State<RegistrationCustomerPage> {
   void verifyData() {
     String name = nameEditingController.text.trim();
     String indentifier = identifierEditingController.text.trim();
-    String password = passwordEditingController.text.trim();
-    String repeatPassword = repeatPasswordEditingController.text.trim();
-    if (imagePath.isEmpty ||
-        currentCity.isEmpty ||
+    String desc = descEditingController.text.trim();
+    if (currentCity.isEmpty ||
         name.isEmpty ||
         indentifier.isEmpty ||
-        password.isEmpty ||
-        repeatPassword.isEmpty) {
+        desc.isEmpty) {
       SnackBarComponent().showErrorMessage("Заполните все строки", context);
     } else {
-      postImage();
+      if (indentifier.length == 12) {
+        postImage();
+      } else {
+        SnackBarComponent().showErrorMessage("Неправильный БИН", context);
+      }
     }
   }
 
@@ -124,15 +132,19 @@ class _RegistrationCustomerPageState extends State<RegistrationCustomerPage> {
     return GestureDetector(
       onTap: () => closeKeyboard(),
       child: Scaffold(
-        appBar:
-            AppBar(leading: const BackIconButton(), title: const Text("Данные компании")),
+        appBar: AppBar(
+            centerTitle: false,
+            leading: const BackIconButton(),
+            title: const Text("Изменить данные компании")),
         body: SingleChildScrollView(
           padding: const EdgeInsets.all(15),
           child: Column(children: [
-            GetLogoWidget(onChanged: (path) {
-              imagePath = path;
-              setState(() {});
-            }),
+            GetLogoWidget(
+                imageUrl: widget.data['avatar'],
+                onChanged: (path) {
+                  imagePath = path;
+                  setState(() {});
+                }),
             const Divider(height: 24),
             SelectButton(
                 title: currentCity.isNotEmpty
@@ -155,21 +167,23 @@ class _RegistrationCustomerPageState extends State<RegistrationCustomerPage> {
                 decoration: InputDecoration(
                     hintText: "БИН",
                     helperStyle: TextStyle(color: ColorComponent.gray['500']))),
-            const Divider(indent: 8),
-            PasswordTextField(
-                textEditingController: passwordEditingController,
-                onSubmitted: () {}),
-            const Divider(indent: 8),
-            RepeatPasswordTextField(
-                textEditingController: repeatPasswordEditingController,
-                onSubmitted: () {}),
+            const Divider(),
+            TextField(
+                controller: descEditingController,
+                decoration: InputDecoration(
+                    hintText: "Описание вашей компании",
+                    helperStyle: TextStyle(color: ColorComponent.gray['500'])),
+                style: const TextStyle(fontSize: 14),
+                maxLength: 200,
+                maxLines: 8,
+                minLines: 4),
           ]),
         ),
         bottomNavigationBar: BottomNavigationBarComponent(
             child: Button(
                 onPressed: () => verifyData(),
                 padding: const EdgeInsets.symmetric(horizontal: 15),
-                title: "Подтвердить")),
+                title: "Изменить")),
       ),
     );
   }

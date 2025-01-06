@@ -13,22 +13,22 @@ import 'package:gservice5/component/loader/modalLoaderComponent.dart';
 import 'package:gservice5/component/snackBar/snackBarComponent.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
 import 'package:gservice5/component/widgets/bottom/bottomNavigationBarComponent.dart';
-import 'package:gservice5/pages/auth/password/individual/resetIndividualPasswordPage.dart';
+import 'package:gservice5/pages/auth/password/customer/resetCustomerPasswordPage.dart';
 import 'package:pinput/pinput.dart';
 import 'package:sms_autofill/sms_autofill.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-class ForgotEmailPasswordIndividualPage extends StatefulWidget {
+class ForgotEmailPasswordCustomerPage extends StatefulWidget {
   final String email;
-  const ForgotEmailPasswordIndividualPage({super.key, required this.email});
+  const ForgotEmailPasswordCustomerPage({super.key, required this.email});
 
   @override
-  State<ForgotEmailPasswordIndividualPage> createState() =>
-      _ForgotEmailPasswordIndividualPageState();
+  State<ForgotEmailPasswordCustomerPage> createState() =>
+      _ForgotEmailPasswordCustomerPageState();
 }
 
-class _ForgotEmailPasswordIndividualPageState
-    extends State<ForgotEmailPasswordIndividualPage> with CodeAutoFill {
+class _ForgotEmailPasswordCustomerPageState
+    extends State<ForgotEmailPasswordCustomerPage> with CodeAutoFill {
   TextEditingController textEditingController = TextEditingController();
   String otpCode = '';
   bool loader = true;
@@ -75,7 +75,7 @@ class _ForgotEmailPasswordIndividualPageState
         Navigator.push(
             context,
             MaterialPageRoute(
-                builder: (context) => const ResetIndividualPasswordPage()));
+                builder: (context) => const ResetCustomerPasswordPage()));
       } else {
         SnackBarComponent().showResponseErrorMessage(response, context);
       }

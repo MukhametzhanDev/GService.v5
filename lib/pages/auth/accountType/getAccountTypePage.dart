@@ -9,7 +9,7 @@ import 'package:gservice5/component/theme/colorComponent.dart';
 import 'package:gservice5/component/widgets/bottom/bottomNavigationBarComponent.dart';
 import 'package:gservice5/pages/auth/accountType/infoTypeAccountModal.dart';
 import 'package:gservice5/pages/auth/registration/business/businessExistsPage.dart';
-import 'package:gservice5/pages/auth/registration/individual/individualExistsPage.dart';
+import 'package:gservice5/pages/auth/registration/customer/customerExistsPage.dart';
 
 class GetAccountTypePage extends StatefulWidget {
   const GetAccountTypePage({super.key});
@@ -50,7 +50,7 @@ class _GetAccountTypePageState extends State<GetAccountTypePage>
       Navigator.push(
           context,
           MaterialPageRoute(
-              builder: (context) => const IndividualExistsPage(
+              builder: (context) => const CusomterExistsPage(
                   // data: {"role": data[currentType]['type']}
                   )));
     } else {

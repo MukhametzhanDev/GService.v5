@@ -4,8 +4,8 @@ import 'package:gservice5/component/button/button.dart';
 import 'package:gservice5/component/image/cacheImage.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
 import 'package:gservice5/pages/ad/item/smallAdItem.dart';
-import 'package:gservice5/pages/author/contractor/viewContractorPage.dart';
-import 'package:gservice5/pages/author/individual/viewIndiviualPage.dart';
+import 'package:gservice5/pages/author/business/viewBusinessPage.dart';
+import 'package:gservice5/pages/author/customer/viewCustomerPage.dart';
 
 class AuthorAdWidget extends StatefulWidget {
   final String title;
@@ -26,7 +26,7 @@ class _AuthorAdWidgetState extends State<AuthorAdWidget> {
     if (widget.data['is_company']) {
       showViewCompanyPage();
     } else {
-      showViewIndividualPage();
+      showViewCustomerPage();
     }
   }
 
@@ -34,14 +34,14 @@ class _AuthorAdWidgetState extends State<AuthorAdWidget> {
     Navigator.push(
         context,
         MaterialPageRoute(
-            builder: (context) => ViewContractorPage(id: widget.data['id'])));
+            builder: (context) => ViewBusinessPage(id: widget.data['id'])));
   }
 
-  void showViewIndividualPage() {
+  void showViewCustomerPage() {
     Navigator.push(
         context,
         MaterialPageRoute(
-            builder: (context) => ViewIndividualPage(id: widget.data['id'])));
+            builder: (context) => ViewCustomerPage(id: widget.data['id'])));
   }
 
   // String daysBetween() {

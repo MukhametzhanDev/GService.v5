@@ -15,19 +15,19 @@ import 'package:gservice5/component/textField/repeatPasswordTextField.dart';
 import 'package:gservice5/component/widgets/bottom/bottomNavigationBarComponent.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
-class RegistrationIndividualPage extends StatefulWidget {
+class CusomterRegistrationPage extends StatefulWidget {
   final Map data;
   final bool isPhone;
-  const RegistrationIndividualPage(
+  const CusomterRegistrationPage(
       {super.key, required this.data, required this.isPhone});
 
   @override
-  State<RegistrationIndividualPage> createState() =>
-      _RegistrationIndividualPageState();
+  State<CusomterRegistrationPage> createState() =>
+      _CusomterRegistrationPageState();
 }
 
-class _RegistrationIndividualPageState
-    extends State<RegistrationIndividualPage> {
+class _CusomterRegistrationPageState
+    extends State<CusomterRegistrationPage> {
   TextEditingController nameEditingController = TextEditingController();
   TextEditingController passwordEditingController = TextEditingController();
   TextEditingController repeatPasswordEditingController =
