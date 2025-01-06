@@ -217,7 +217,7 @@ class _GetSelectPageState extends State<GetSelectPage> {
 
   void showEmptyModal() {
     showCupertinoModalBottomSheet(
-        context: context, builder: (context) => AddEmptySelectModal());
+        context: context, builder: (context) => const AddEmptySelectModal());
   }
 
   @override
@@ -232,7 +232,7 @@ class _GetSelectPageState extends State<GetSelectPage> {
               ? const LoaderComponent()
               : data.isEmpty
                   ? Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 15),
+                      padding: const EdgeInsets.symmetric(horizontal: 15),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -242,24 +242,24 @@ class _GetSelectPageState extends State<GetSelectPage> {
                             width: 120,
                             color: ColorComponent.gray['500'],
                           ),
-                          Divider(indent: 12),
-                          Text("Здесь пусто",
+                          const Divider(indent: 12),
+                          const Text("Здесь пусто",
                               style: TextStyle(
                                   fontSize: 16, fontWeight: FontWeight.w600)),
-                          Divider(indent: 12),
-                          Text(
+                          const Divider(indent: 12),
+                          const Text(
                               "Нет в списке? Воспользуйтесь кнопкой ниже и напишите нам. Мы обязательно добавим!",
                               textAlign: TextAlign.center,
                               style: TextStyle(
                                   color: Colors.black,
                                   fontSize: 15,
                                   height: 1.5)),
-                          Divider(height: 20),
+                          const Divider(height: 20),
                           Button(
                               onPressed: showEmptyModal,
-                              padding: EdgeInsets.symmetric(horizontal: 15),
+                              padding: const EdgeInsets.symmetric(horizontal: 15),
                               title: "Добавить"),
-                          Divider(height: 80),
+                          const Divider(height: 80),
                         ],
                       ))
                   : ListView.builder(

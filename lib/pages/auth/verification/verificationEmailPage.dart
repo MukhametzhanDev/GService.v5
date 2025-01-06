@@ -12,9 +12,7 @@ import 'package:gservice5/component/loader/modalLoaderComponent.dart';
 import 'package:gservice5/component/snackBar/snackBarComponent.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
 import 'package:gservice5/component/widgets/bottom/bottomNavigationBarComponent.dart';
-import 'package:gservice5/pages/auth/registration/business/contractor/registrationContractorPage.dart';
-import 'package:gservice5/pages/auth/registration/business/customer/registrationCustomerPage.dart';
-import 'package:gservice5/pages/auth/registration/individual/registrationUserPage.dart';
+import 'package:gservice5/pages/auth/registration/customer/customerRegistrationPage.dart';
 import 'package:pinput/pinput.dart';
 import 'package:sms_autofill/sms_autofill.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -96,27 +94,27 @@ class _VerificationEmailPageState extends State<VerificationEmailPage>
 
   void showRegistrationPage() {
     Navigator.pop(context);
-    if (widget.userData['role'] == "contractor") {
-      widget.userData['email'] = widget.email;
-      Navigator.push(
-          context,
-          MaterialPageRoute(
-              builder: (context) =>
-                  RegistrationContractorPage(data: widget.userData)));
-    } else if (widget.userData['role'] == "customer") {
-      widget.userData['email'] = widget.email;
-      Navigator.push(
-          context,
-          MaterialPageRoute(
-              builder: (context) =>
-                  RegistrationCustomerPage(data: widget.userData)));
-    } else {
-      Navigator.push(
-          context,
-          MaterialPageRoute(
-              builder: (context) =>
-                  RegistrationIndividualPage(data: widget.userData)));
-    }
+    // if (widget.userData['role'] == "contractor") {
+    //   widget.userData['email'] = widget.email;
+    //   Navigator.push(
+    //       context,
+    //       MaterialPageRoute(
+    //           builder: (context) =>
+    //               RegistrationContractorPage(data: widget.userData)));
+    // } else if (widget.userData['role'] == "customer") {
+    //   widget.userData['email'] = widget.email;
+    //   Navigator.push(
+    //       context,
+    //       MaterialPageRoute(
+    //           builder: (context) =>
+    //               RegistrationCustomerPage(data: widget.userData)));
+    // } else {
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => CusomterRegistrationPage(
+                data: widget.userData, isPhone: false)));
+    // }
   }
 
   Future<void> openEmailApp() async {
@@ -131,8 +129,9 @@ class _VerificationEmailPageState extends State<VerificationEmailPage>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar:
-          AppBar(leading: const BackIconButton(), title: const Text('Код подтверждения')),
+      appBar: AppBar(
+          leading: const BackIconButton(),
+          title: const Text('Код подтверждения')),
       body: loader
           ? const LoaderComponent()
           : SingleChildScrollView(

@@ -4,11 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get_it/get_it.dart';
 import 'package:gservice5/component/loader/modalLoaderComponent.dart';
-import 'package:gservice5/navigation/%D1%81ustomer/customerBottomTab.dart';
-import 'package:gservice5/navigation/contractor/contractorBottomTab.dart';
-import 'package:gservice5/navigation/individual/individualBottomTab.dart';
+import 'package:gservice5/component/snackBar/snackBarComponent.dart';
+import 'package:gservice5/navigation/business/businessBottomTab.dart';
+import 'package:gservice5/navigation/customer/customerBottomTab.dart';
 import 'package:gservice5/component/dio/dio.dart';
-import 'package:gservice5/pages/auth/registration/business/contractor/getActivityContractorPage.dart';
 
 class ChangedToken {
   FlutterSecureStorage flutterSecureStorage = const FlutterSecureStorage();
@@ -27,79 +26,21 @@ class ChangedToken {
     return role ?? "";
   }
 
-  Future saveIndividualToken(value, context) async {
+  Future savedToken(value, context) async {
     await flutterSecureStorage.write(key: "role", value: "individual");
-    await flutterSecureStorage.write(
-        key: "token_individual", value: value['user_token']);
+    await flutterSecureStorage.write(key: "token", value: value['user_token']);
     dio.options.headers['authorization'] = "Bearer ${value['user_token']}";
-    Navigator.pushAndRemoveUntil(
-        context,
-        MaterialPageRoute(builder: (_) => const IndividualBottomTab()),
-        (route) => false);
-  }
-
-  Future changeIndividualToken(context) async {
-    await flutterSecureStorage.write(key: "role", value: "individual");
-    String? token = await flutterSecureStorage.read(key: "token_individual");
-    dio.options.baseUrl = "https://dev.gservice-co.kz/api/";
-    dio.options.headers['authorization'] = "Bearer $token";
-    Navigator.pushAndRemoveUntil(
-        context,
-        MaterialPageRoute(builder: (_) => const IndividualBottomTab()),
-        (route) => false);
-  }
-
-  Future saveCustomerToken(value, context) async {
-    await flutterSecureStorage.write(key: "role", value: "customer");
-    await flutterSecureStorage.write(
-        key: "token_customer", value: value['user_token']);
-    dio.options.headers['authorization'] = "Bearer ${value['user_token']}";
-    dio.options.baseUrl = "https://dev.gservice-co.kz/api/business/";
-    Navigator.pushAndRemoveUntil(
-        context,
-        MaterialPageRoute(builder: (_) => const CustomerBottomTab()),
-        (route) => false);
-  }
-
-  Future changedCustomerToken(context) async {
-    await flutterSecureStorage.write(key: "role", value: "customer");
-    String? token = await flutterSecureStorage.read(key: "token_customer");
-    dio.options.headers['authorization'] = "Bearer $token";
-    dio.options.baseUrl = "https://dev.gservice-co.kz/api/business/";
-    Navigator.pushAndRemoveUntil(
-        context,
-        MaterialPageRoute(builder: (_) => const CustomerBottomTab()),
-        (route) => false);
-  }
-
-  Future saveContractorToken(value, String type, BuildContext context) async {
-    await flutterSecureStorage.write(key: "role", value: "contractor");
-    await flutterSecureStorage.write(
-        key: "token_contractor", value: value['user_token']);
-    dio.options.headers['authorization'] = "Bearer ${value['user_token']}";
-    dio.options.baseUrl = "https://dev.gservice-co.kz/api/business/";
-    if (type == "login") {
+    if (value['user']['role']['code_type'] == "customer") {
       Navigator.pushAndRemoveUntil(
           context,
-          MaterialPageRoute(builder: (_) => const ContractorBottomTab()),
+          MaterialPageRoute(builder: (_) => const CustomerBottomTab()),
           (route) => false);
     } else {
       Navigator.pushAndRemoveUntil(
           context,
-          MaterialPageRoute(builder: (_) => const GetActivityContractorPage()),
+          MaterialPageRoute(builder: (_) => const BusinessBottomTab()),
           (route) => false);
     }
-  }
-
-  Future changedContractorToken(BuildContext context) async {
-    await flutterSecureStorage.write(key: "role", value: "contractor");
-    String? token = await flutterSecureStorage.read(key: "token_contractor");
-    dio.options.headers['authorization'] = "Bearer $token";
-    dio.options.baseUrl = "https://dev.gservice-co.kz/api/business/";
-    Navigator.pushAndRemoveUntil(
-        context,
-        MaterialPageRoute(builder: (_) => const ContractorBottomTab()),
-        (route) => false);
   }
 
   Future removeToken(context) async {
@@ -118,8 +59,74 @@ class ChangedToken {
 
       Navigator.pushAndRemoveUntil(
           context,
-          MaterialPageRoute(builder: (_) => const IndividualBottomTab()),
+          MaterialPageRoute(builder: (_) => const CustomerBottomTab()),
           (route) => false);
-    } catch (e) {}
+    } catch (e) {
+      SnackBarComponent().showNotGoBackServerErrorMessage(context);
+    }
   }
+
+  // Future changeIndividualToken(context) async {
+  //   await flutterSecureStorage.write(key: "role", value: "individual");
+  //   String? token = await flutterSecureStorage.read(key: "token");
+  //   dio.options.baseUrl = "https://dev.gservice-co.kz/api/";
+  //   dio.options.headers['authorization'] = "Bearer $token";
+  //   Navigator.pushAndRemoveUntil(
+  //       context,
+  //       MaterialPageRoute(builder: (_) => const CustomerBottomTab()),
+  //       (route) => false);
+  // }
+
+  // Future saveCustomerToken(value, context) async {
+  //   await flutterSecureStorage.write(key: "role", value: "customer");
+  //   await flutterSecureStorage.write(
+  //       key: "token_customer", value: value['user_token']);
+  //   dio.options.headers['authorization'] = "Bearer ${value['user_token']}";
+  //   dio.options.baseUrl = "https://dev.gservice-co.kz/api/business/";
+  //   Navigator.pushAndRemoveUntil(
+  //       context,
+  //       MaterialPageRoute(builder: (_) => const CustomerBottomTab()),
+  //       (route) => false);
+  // }
+
+  // Future changedCustomerToken(context) async {
+  //   await flutterSecureStorage.write(key: "role", value: "customer");
+  //   String? token = await flutterSecureStorage.read(key: "token_customer");
+  //   dio.options.headers['authorization'] = "Bearer $token";
+  //   dio.options.baseUrl = "https://dev.gservice-co.kz/api/business/";
+  //   Navigator.pushAndRemoveUntil(
+  //       context,
+  //       MaterialPageRoute(builder: (_) => const CustomerBottomTab()),
+  //       (route) => false);
+  // }
+
+  // Future saveContractorToken(value, String type, BuildContext context) async {
+  //   await flutterSecureStorage.write(key: "role", value: "contractor");
+  //   await flutterSecureStorage.write(
+  //       key: "token_contractor", value: value['user_token']);
+  //   dio.options.headers['authorization'] = "Bearer ${value['user_token']}";
+  //   dio.options.baseUrl = "https://dev.gservice-co.kz/api/business/";
+  //   if (type == "login") {
+  //     Navigator.pushAndRemoveUntil(
+  //         context,
+  //         MaterialPageRoute(builder: (_) => const BusinessBottomTab()),
+  //         (route) => false);
+  //   } else {
+  //     Navigator.pushAndRemoveUntil(
+  //         context,
+  //         MaterialPageRoute(builder: (_) => const GetActivityContractorPage()),
+  //         (route) => false);
+  //   }
+  // }
+
+  // Future changedContractorToken(BuildContext context) async {
+  //   await flutterSecureStorage.write(key: "role", value: "contractor");
+  //   String? token = await flutterSecureStorage.read(key: "token_contractor");
+  //   dio.options.headers['authorization'] = "Bearer $token";
+  //   dio.options.baseUrl = "https://dev.gservice-co.kz/api/business/";
+  //   Navigator.pushAndRemoveUntil(
+  //       context,
+  //       MaterialPageRoute(builder: (_) => const BusinessBottomTab()),
+  //       (route) => false);
+  // }
 }

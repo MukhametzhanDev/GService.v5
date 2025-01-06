@@ -1,15 +1,20 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
-import 'package:gservice5/component/button/back/backIconButton.dart';
+import 'package:gservice5/component/button/back/backTitleButton.dart';
 import 'package:gservice5/component/dio/dio.dart';
+import 'package:gservice5/component/loader/loaderComponent.dart';
 import 'package:gservice5/component/snackBar/snackBarComponent.dart';
 
 class ViewPaymentPage extends StatefulWidget {
   final String orderId;
+  final String title;
   final int methodId;
   const ViewPaymentPage(
-      {super.key, required this.orderId, required this.methodId});
+      {super.key,
+      required this.orderId,
+      required this.methodId,
+      required this.title});
 
   @override
   State<ViewPaymentPage> createState() => _ViewPaymentPageState();
@@ -46,32 +51,57 @@ class _ViewPaymentPageState extends State<ViewPaymentPage> {
     }
   }
 
+  void verifyStatus(String url) {
+    bool success = url.contains("success");
+    bool failed = url.contains("failure");
+    if (failed) {
+      Navigator.pop(context);
+    } else if (success) {
+      Navigator.pop(context, "success");
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(leading: BackIconButton()),
-      body: Stack(
-        children: [
-          InAppWebView(
-            initialUrlRequest:
-                URLRequest(url: WebUri("https://www.youtube.com/")),
-            onLoadStart: (controller, url) {
-              setState(() {
-                webLoader = true;
-              });
-            },
-            onLoadStop: (controller, url) async {
-              setState(() {
-                webLoader = false;
-              });
-            },
-          ),
-          if (webLoader)
-            Center(
-              child: CircularProgressIndicator(),
+      appBar: AppBar(
+          leading: BackTitleButton(title: widget.title), leadingWidth: 300),
+      body: loader
+          ? const LoaderComponent()
+          : Stack(
+              children: [
+                InAppWebView(
+                  initialUrlRequest: URLRequest(url: WebUri(url)),
+                  onConsoleMessage:
+                      (controller, ConsoleMessage consoleMessage) {
+                    debugPrint(
+                        "------>{consoleMessage.message${consoleMessage.message}");
+                    debugPrint(
+                        "------>{consoleMessage.messageLevel${consoleMessage.messageLevel}");
+                  },
+                  onLoadStart: (controller, url) {
+                    setState(() {
+                      webLoader = true;
+                    });
+                  },
+                  onLoadStop: (controller, url) async {
+                    setState(() {
+                      webLoader = false;
+                    });
+                  },
+                  onUpdateVisitedHistory: (controller, url, isReload) {
+                    verifyStatus(url.toString());
+                    if (isReload ?? false) {
+                      Navigator.pop(context);
+                    }
+                  },
+                ),
+                if (webLoader)
+                  const Center(
+                    child: CircularProgressIndicator(),
+                  ),
+              ],
             ),
-        ],
-      ),
     );
   }
 }

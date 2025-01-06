@@ -153,9 +153,9 @@ class _MainPageState extends State<MainPage> {
               ApplicationListMain(data: data['applications']),
               const Divider(height: 24),
             ])),
-            SliverToBoxAdapter(
+            const SliverToBoxAdapter(
               child: Padding(
-                  padding: EdgeInsets.only(left: 15, right: 15, bottom: 10),
+                  padding: EdgeInsets.only(left: 15, right: 15, bottom: 15),
                   child: Text("Спецтехники по Казахстану",
                       style: TextStyle(
                           fontSize: 16,

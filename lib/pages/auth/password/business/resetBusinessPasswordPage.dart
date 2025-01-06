@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:gservice5/component/button/back/backIconButton.dart';
 import 'package:gservice5/component/button/button.dart';
 import 'package:gservice5/component/dio/dio.dart';
-import 'package:gservice5/component/functions/token/changedToken.dart';
 import 'package:gservice5/component/loader/modalLoaderComponent.dart';
 import 'package:gservice5/component/snackBar/snackBarComponent.dart';
 import 'package:gservice5/component/textField/closeKeyboard/closeKeyboard.dart';
@@ -39,7 +38,7 @@ class _ResetBusinessPasswordPageState extends State<ResetBusinessPasswordPage> {
         "password": passwordEditingController.text,
         "password_confirmation": repeatPasswordEditingController.text
       };
-      Response response = await dio.post("/business/password-reset",
+      Response response = await dio.post("/password-reset",
           data: param,
           options: Options(headers: {
             "authorization": "Bearer ${widget.data['user_token']}"
@@ -47,10 +46,10 @@ class _ResetBusinessPasswordPageState extends State<ResetBusinessPasswordPage> {
       print(response.data);
       if (response.statusCode == 200 && response.data['success']) {
         if (widget.data['role'] == "cusomter") {
-          ChangedToken().saveCustomerToken(widget.data, context);
+          // ChangedToken().saveCustomerToken(widget.data, context);
         } else {
-          ChangedToken()
-              .saveContractorToken(widget.data, "login", context);
+         // ChangedToken()
+         //     .saveContractorToken(widget.data, "login", context);
         }
         Navigator.pop(context);
       } else {

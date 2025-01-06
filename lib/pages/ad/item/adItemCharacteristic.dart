@@ -26,6 +26,13 @@ class AdItemCharacteristic extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
+        // Text(data['category']['title'] ?? "",
+        //     style: TextStyle(
+        //       fontSize: 13,
+        //       color: ColorComponent.gray['700'],
+        //       height: lineHeight / 12,
+        //     ),
+        //     overflow: TextOverflow.ellipsis),
         Wrap(
             runSpacing: 1.5,
             children: characteristics.map((value) {

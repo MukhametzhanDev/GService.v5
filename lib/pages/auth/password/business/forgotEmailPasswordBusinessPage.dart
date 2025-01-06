@@ -43,7 +43,7 @@ class _ForgotEmailPasswordBusinessPageState
     try {
       loader = true;
       setState(() {});
-      Response response = await dio.post("/business/send-mail-verify-code",
+      Response response = await dio.post("/send-mail-verify-code",
           queryParameters: {"email": widget.email});
       print(response.data);
       if (response.statusCode == 200 && response.data['success']) {
@@ -61,7 +61,7 @@ class _ForgotEmailPasswordBusinessPageState
     showModalLoader(context);
     print('otpCode $otpCode');
     try {
-      Response response = await dio.post("/business/verify-mail-code", data: {
+      Response response = await dio.post("/verify-mail-code", data: {
         "email": widget.email,
         "code": textEditingController.text,
         "for_password_reset": true
@@ -75,8 +75,8 @@ class _ForgotEmailPasswordBusinessPageState
                 builder: (context) =>
                     ResetBusinessPasswordPage(data: response.data['data'])));
         // await ChangedToken()
-        //     .saveIndividualToken(response.data['data'], context);
-        // Navigator.pushNamed(context, "ResetIndividualPasswordPage");
+        //     .savedToken(response.data['data'], context);
+        // Navigator.pushNamed(context, "ResetCustomerPasswordPage");
       } else {
         SnackBarComponent().showResponseErrorMessage(response, context);
       }

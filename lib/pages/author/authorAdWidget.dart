@@ -4,31 +4,44 @@ import 'package:gservice5/component/button/button.dart';
 import 'package:gservice5/component/image/cacheImage.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
 import 'package:gservice5/pages/ad/item/smallAdItem.dart';
-import 'package:gservice5/pages/author/contractor/viewContractorPage.dart';
-import 'package:gservice5/pages/author/individual/viewIndiviualPage.dart';
+import 'package:gservice5/pages/author/business/viewBusinessPage.dart';
+import 'package:gservice5/pages/author/customer/viewCustomerPage.dart';
 
 class AuthorAdWidget extends StatefulWidget {
   final String title;
   final Map data;
-  const AuthorAdWidget({super.key, required this.title, required this.data});
+  final bool showOtherAd;
+  const AuthorAdWidget(
+      {super.key,
+      required this.title,
+      required this.data,
+      required this.showOtherAd});
 
   @override
   State<AuthorAdWidget> createState() => _AuthorAdWidgetState();
 }
 
 class _AuthorAdWidgetState extends State<AuthorAdWidget> {
+  void showPage() {
+    if (widget.data['is_company']) {
+      showViewCompanyPage();
+    } else {
+      showViewCustomerPage();
+    }
+  }
+
   void showViewCompanyPage() {
     Navigator.push(
         context,
         MaterialPageRoute(
-            builder: (context) => ViewContractorPage(id: widget.data['id'])));
+            builder: (context) => ViewBusinessPage(id: widget.data['id'])));
   }
 
-  void showViewIndividualPage() {
+  void showViewCustomerPage() {
     Navigator.push(
         context,
         MaterialPageRoute(
-            builder: (context) => ViewIndiviualPage(id: widget.data['id'])));
+            builder: (context) => ViewCustomerPage(id: widget.data['id'])));
   }
 
   // String daysBetween() {
@@ -54,16 +67,18 @@ class _AuthorAdWidgetState extends State<AuthorAdWidget> {
         widget.title.isEmpty
             ? Container()
             : Padding(
-                padding: const EdgeInsets.only(bottom: 16, right: 16, left: 16),
+                padding: const EdgeInsets.only(bottom: 10, right: 16, left: 16),
                 child: Text(widget.title,
                     style: const TextStyle(
                         fontSize: 18, fontWeight: FontWeight.w600))),
-        Container(
+        GestureDetector(
+          onTap: () => showPage(),
+          child: Container(
             padding: const EdgeInsets.all(12),
             margin: const EdgeInsets.symmetric(horizontal: 15),
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(8),
-                color: const Color(0xfff4f4f4)),
+                color: ColorComponent.gray['100']),
             child: widget.data['is_company']
                 ? Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -186,54 +201,58 @@ class _AuthorAdWidgetState extends State<AuthorAdWidget> {
                               title: "Страница продавца"))
                     ],
                   )
-                : GestureDetector(
-                    onTap: () {
-                      showViewIndividualPage();
-                    },
-                    child: Row(children: [
-                      CacheImage(
-                          url: widget.data['avatar'],
-                          width: 48,
-                          height: 48,
-                          borderRadius: 6),
-                      const Divider(indent: 16),
-                      Expanded(
-                          child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(widget.data['name'],
-                              style: const TextStyle(
-                                  fontSize: 16, fontWeight: FontWeight.w600)),
-                          const Divider(height: 3),
-                          Text("ID: ${widget.data['id']}",
-                              style:
-                                  TextStyle(color: ColorComponent.gray['500']))
-                        ],
-                      )),
-                      SvgPicture.asset("assets/icons/right.svg"),
-                      const Divider(indent: 8)
-                    ]),
-                  )),
-        const Divider(height: 16),
-        const Padding(
-            padding: EdgeInsets.symmetric(horizontal: 16),
-            child: Text("Другие объявления продавца",
-                style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600))),
-        const Divider(height: 12),
-        SizedBox(
-          height: MediaQuery.of(context).size.width / 2.3,
-          child: SingleChildScrollView(
-            padding: const EdgeInsets.symmetric(horizontal: 8),
-            scrollDirection: Axis.horizontal,
-            child: Row(
-                children: [1, 2, 3].map((value) {
-              return Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 6),
-                child: SmallAdItem(index: value, showFullInfo: false),
-              );
-            }).toList()),
+                : Row(children: [
+                    CacheImage(
+                        url: widget.data['avatar'],
+                        width: 48,
+                        height: 48,
+                        borderRadius: 6),
+                    const Divider(indent: 16),
+                    Expanded(
+                        child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(widget.data['name'],
+                            style: const TextStyle(
+                                fontSize: 16, fontWeight: FontWeight.w600)),
+                        const Divider(height: 3),
+                        Text("ID: ${widget.data['id']}",
+                            style: TextStyle(color: ColorComponent.gray['500']))
+                      ],
+                    )),
+                    SvgPicture.asset("assets/icons/right.svg"),
+                    const Divider(indent: 8)
+                  ]),
           ),
-        )
+        ),
+        widget.showOtherAd
+            ? Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Divider(height: 16),
+                  const Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 16),
+                      child: Text("Другие объявления продавца",
+                          style: TextStyle(
+                              fontSize: 16, fontWeight: FontWeight.w600))),
+                  const Divider(height: 12),
+                  SizedBox(
+                    height: MediaQuery.of(context).size.width / 2.3,
+                    child: SingleChildScrollView(
+                      padding: const EdgeInsets.symmetric(horizontal: 8),
+                      scrollDirection: Axis.horizontal,
+                      child: Row(
+                          children: [1, 2, 3].map((value) {
+                        return Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 6),
+                          child: SmallAdItem(index: value, showFullInfo: false),
+                        );
+                      }).toList()),
+                    ),
+                  )
+                ],
+              )
+            : Container(),
       ],
     );
   }

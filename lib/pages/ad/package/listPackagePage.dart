@@ -11,7 +11,6 @@ import 'package:gservice5/pages/ad/package/packageItem.dart';
 import 'package:gservice5/pages/ad/package/previewItemWidget.dart';
 import 'package:gservice5/pages/create/data/createData.dart';
 import 'package:gservice5/pages/payment/paymentMethodModal.dart';
-import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
 class ListPackagePage extends StatefulWidget {
   final int categoryId;
@@ -74,9 +73,10 @@ class _ListPackagePageState extends State<ListPackagePage> {
       Navigator.pop(context);
       if (response.data['success']) {
         showModalBottomSheet(
-            context: context,
-            builder: (context) =>
-                PaymentMethodModal(orderId: response.data['data']));
+                context: context,
+                builder: (context) => PaymentMethodModal(
+                    orderId: response.data['data'], data: getProduct()))
+            .then((value) => Navigator.pop(context, value));
       } else {
         SnackBarComponent().showResponseErrorMessage(response, context);
       }
@@ -84,6 +84,18 @@ class _ListPackagePageState extends State<ListPackagePage> {
       print(e);
       SnackBarComponent().showServerErrorMessage(context);
     }
+  }
+
+  Map getProduct() {
+    List stickersParam = stickers
+        .where((element) => element['active'] ?? false)
+        .map((e) => e)
+        .toList();
+    Map? param;
+    if (currentPackage != null) {
+      param = {"stickers": stickersParam, "package": currentPackage};
+    }
+    return param!;
   }
 
   void showSuccessfullyPage() {
@@ -138,12 +150,19 @@ class _ListPackagePageState extends State<ListPackagePage> {
   }
 
   void validateData() {
-    if (currentPackage == null || stickers.isEmpty) {
-      SnackBarComponent()
-          .showErrorMessage("Выберите пакеты или стикеры", context);
+    if (currentPackage == null) {
+      SnackBarComponent().showErrorMessage("Выберите пакеты", context);
     } else {
       postData();
     }
+  }
+
+  List getStickers() {
+    List stickersParam = stickers
+        .where((element) => element['active'] ?? false)
+        .map((e) => e)
+        .toList();
+    return stickersParam;
   }
 
   @override
@@ -274,7 +293,7 @@ class _ListPackagePageState extends State<ListPackagePage> {
                       PreviewItemWidget(
                         adId: widget.adId,
                         package: currentPackage,
-                        stickers: stickers,
+                        stickers: getStickers(),
                         // promotions: promotions
                       ),
                       const SizedBox(height: 12),

@@ -18,11 +18,12 @@ class LeadingLogo extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text("GService",
+                  Text("GService.kz",
                       style: TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.w700,
                           height: 1)),
+                          Divider(height: 3),
                   Text(
                     "мир спецтехники",
                     style: TextStyle(fontSize: 9.5),

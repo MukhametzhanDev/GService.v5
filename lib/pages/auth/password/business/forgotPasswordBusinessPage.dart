@@ -39,14 +39,14 @@ class _ForgotPasswordBusinessPageState
               r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
           .hasMatch(text);
       if (emailValid) {
-        showForgotEmailPasswordIndividualPage();
+        showForgotEmailPasswordCustomerPage();
       } else {
         SnackBarComponent().showErrorMessage("Неправильный email", context);
       }
     }
   }
 
-  void showForgotEmailPasswordIndividualPage() {
+  void showForgotEmailPasswordCustomerPage() {
     Navigator.push(
         context,
         MaterialPageRoute(

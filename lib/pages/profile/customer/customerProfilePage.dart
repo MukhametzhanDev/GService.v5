@@ -2,13 +2,12 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:gservice5/component/dio/dio.dart';
-import 'package:gservice5/component/formatted/number/numberFormatted.dart';
 import 'package:gservice5/component/functions/token/changedToken.dart';
 import 'package:gservice5/component/image/cacheImage.dart';
 import 'package:gservice5/component/loader/loaderComponent.dart';
 import 'package:gservice5/component/snackBar/snackBarComponent.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
-import 'package:gservice5/component/wallet/showWalletWidget.dart';
+import 'package:gservice5/pages/payment/wallet/showWalletWidget.dart';
 import 'package:gservice5/pages/profile/editProfilePage.dart';
 import 'package:gservice5/pages/profile/profileListTilesWidget.dart';
 
@@ -31,7 +30,7 @@ class _CustomerProfilePageState extends State<CustomerProfilePage> {
 
   void getData() async {
     try {
-      Response response = await dio.get("/company");
+      Response response = await dio.get("/user");
       print(response.data);
       if (response.data['success'] && response.statusCode == 200) {
         data = response.data['data'];
@@ -64,250 +63,57 @@ class _CustomerProfilePageState extends State<CustomerProfilePage> {
 
   @override
   Widget build(BuildContext context) {
-    return DefaultTabController(
-      length: 3,
-      child: Scaffold(
-        appBar: loader
-            ? AppBar()
-            : AppBar(
-                title: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(data['name']),
-                    const Divider(indent: 4),
-                    SvgPicture.asset('assets/icons/badgeСheck.svg')
-                  ],
-                ),
-              ),
-        body: loader
-            ? const LoaderComponent()
-            : SingleChildScrollView(
-                child: Column(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 15, vertical: 5),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
+    return Scaffold(
+      appBar: AppBar(
+          automaticallyImplyLeading: false,
+          centerTitle: false,
+          title: const Text("Профиль")),
+      body: loader
+          ? const LoaderComponent()
+          : SingleChildScrollView(
+              child: Column(
+                children: [
+                  GestureDetector(
+                    onTap: () => showChangeCustomerProfilePage(),
+                    child: Container(
+                      padding: const EdgeInsets.only(
+                          left: 15, right: 15, bottom: 15),
+                      decoration: const BoxDecoration(
+                          border: Border(
+                              bottom: BorderSide(
+                                  width: 1, color: Color(0xffeeeeee)))),
+                      child: Row(
                         children: [
-                          Row(
+                          CacheImage(
+                              url: data['avatar'],
+                              width: 48,
+                              height: 48,
+                              borderRadius: 24),
+                          const Divider(indent: 12),
+                          Expanded(
+                              child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Container(
-                                decoration: BoxDecoration(
-                                    border: Border.all(
-                                        width: 1, color: const Color(0xffE5E7EB)),
-                                    borderRadius: BorderRadius.circular(41)),
-                                child: CacheImage(
-                                    url: data['avatar'],
-                                    width: 80,
-                                    height: 80,
-                                    borderRadius: 40),
-                              ),
-                              const Divider(indent: 16),
-                              Expanded(
-                                  child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceAround,
-                                children: [
-                                  Column(
-                                    children: [
-                                      Text(numberFormat(150),
-                                          style: const TextStyle(
-                                              fontWeight: FontWeight.w500,
-                                              fontSize: 17)),
-                                      Text(
-                                        "подписчики",
-                                        style: TextStyle(
-                                            color: ColorComponent.gray['500']),
-                                      )
-                                    ],
-                                  ),
-                                  Column(
-                                    children: [
-                                      const Text("Стратовый",
-                                          style: TextStyle(
-                                              fontWeight: FontWeight.w500,
-                                              fontSize: 17)),
-                                      Text("Тариф",
-                                          style: TextStyle(
-                                              color:
-                                                  ColorComponent.gray['500']))
-                                    ],
-                                  ),
-                                ],
-                              ))
+                              Text(data['name'],
+                                  style: const TextStyle(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.w600)),
+                              Text("ID: ${data['id']}",
+                                  style: TextStyle(
+                                      color: ColorComponent.gray['500']))
                             ],
-                          ),
-                          // Divider(height: 12),
-                          // Text(data['name'],
-                          //     style: TextStyle(
-                          //         fontWeight: FontWeight.w500, fontSize: 16)),
-                          const Divider(height: 8),
-                          Row(children: [
-                            Expanded(
-                                child: GestureDetector(
-                                    onTap: showChangeCustomerProfilePage,
-                                    child: Container(
-                                      alignment: Alignment.center,
-                                      padding: const EdgeInsets.symmetric(
-                                          horizontal: 10, vertical: 6),
-                                      decoration: BoxDecoration(
-                                          border: Border.all(
-                                              width: 1,
-                                              color: ColorComponent.mainColor),
-                                          borderRadius:
-                                              BorderRadius.circular(8)),
-                                      child: const Text("Редактировать",
-                                          style: TextStyle(
-                                              fontWeight: FontWeight.w500)),
-                                    ))),
-                            const Divider(indent: 8),
-                            Expanded(
-                              child: GestureDetector(
-                                onTap: () {},
-                                child: Container(
-                                  alignment: Alignment.center,
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 10, vertical: 6),
-                                  decoration: BoxDecoration(
-                                      border: Border.all(
-                                          width: 1,
-                                          color: ColorComponent.mainColor),
-                                      borderRadius: BorderRadius.circular(8)),
-                                  child: const Text(
-                                    "Поделиться",
-                                    style:
-                                        TextStyle(fontWeight: FontWeight.w500),
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ]),
-                          const Divider(height: 10),
+                          )),
+                          SvgPicture.asset('assets/icons/right.svg',
+                              color: Colors.black)
                         ],
                       ),
                     ),
-                    Divider(height: 1, color: ColorComponent.gray['100']),
-                    const ShowWalletWidget(),
-                    const ProfileListTilesWidget()
-                  ],
-                ),
+                  ),
+                  const ShowWalletWidget(showButton: true),
+                  const ProfileListTilesWidget()
+                ],
               ),
-
-        //  loader
-        //     ? LoaderComponent()
-        //     : SingleChildScrollView(
-        //         padding: EdgeInsets.symmetric(horizontal: 15, vertical: 7.5),
-        //         child: Column(
-        //           crossAxisAlignment: CrossAxisAlignment.start,
-        //           children: [
-        //             Row(
-        //               children: [
-        //                 Container(
-        //                   decoration: BoxDecoration(
-        //                       border:
-        //                           Border.all(width: 1, color: Color(0xffE5E7EB)),
-        //                       borderRadius: BorderRadius.circular(41)),
-        //                   child: CacheImage(
-        //                       url: data['avatar'],
-        //                       width: 80,
-        //                       height: 80,
-        //                       borderRadius: 40),
-        //                 ),
-        //                 Divider(indent: 16),
-        //                 Expanded(
-        //                     child: Row(
-        //                   mainAxisAlignment: MainAxisAlignment.spaceAround,
-        //                   children: [
-        //                     Column(
-        //                       children: [
-        //                         Text(numberFormat(150),
-        //                             style: TextStyle(
-        //                                 fontWeight: FontWeight.w500,
-        //                                 fontSize: 17)),
-        //                         Text("подписчики")
-        //                       ],
-        //                     ),
-        //                     Column(
-        //                       children: [
-        //                         Text(numberFormat(40),
-        //                             style: TextStyle(
-        //                                 fontWeight: FontWeight.w500,
-        //                                 fontSize: 17)),
-        //                         Text("объявлении")
-        //                       ],
-        //                     ),
-        //                     Column(
-        //                       children: [
-        //                         Text(numberFormat(19),
-        //                             style: TextStyle(
-        //                                 fontWeight: FontWeight.w500,
-        //                                 fontSize: 17)),
-        //                         Text("заказы")
-        //                       ],
-        //                     ),
-        //                   ],
-        //                 ))
-        //               ],
-        //             ),
-        //             Divider(indent: 16),
-        //             Text(data['name'],
-        //                 style:
-        //                     TextStyle(fontWeight: FontWeight.w500, fontSize: 16)),
-        //             Divider(height: 8),
-        //             ReadMoreText(
-        //               data['description'] ??
-        //                   "Вниманию всех потенциальных клиентов и заинтересованных лиц в Республике Казахстан: ТОО ZOOMLION Central Asia является исключительным правообладателем товарного знака ZOOMLION на территории Республики",
-        //               trimMode: TrimMode.Line,
-        //               trimLines: 3,
-        //               trimCollapsedText: 'еще',
-        //               trimExpandedText: '',
-        //               moreStyle:
-        //                   TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
-        //             ),
-        //             Divider(height: 12),
-        //             Row(children: [
-        //               Expanded(
-        //                 child: GestureDetector(
-        //                   onTap: () {},
-        //                   child: Container(
-        //                     alignment: Alignment.center,
-        //                     padding:
-        //                         EdgeInsets.symmetric(horizontal: 10, vertical: 4),
-        //                     decoration: BoxDecoration(
-        //                         color: ColorComponent.gray['200'],
-        //                         borderRadius: BorderRadius.circular(4)),
-        //                     child: Text(
-        //                       "Изменить",
-        //                       style: TextStyle(fontWeight: FontWeight.w500),
-        //                     ),
-        //                   ),
-        //                 ),
-        //               ),
-        //               Divider(indent: 8),
-        //               Expanded(
-        //                 child: GestureDetector(
-        //                   onTap: () {},
-        //                   child: Container(
-        //                     alignment: Alignment.center,
-        //                     padding:
-        //                         EdgeInsets.symmetric(horizontal: 10, vertical: 4),
-        //                     decoration: BoxDecoration(
-        //                         color: ColorComponent.gray['200'],
-        //                         borderRadius: BorderRadius.circular(4)),
-        //                     child: Text(
-        //                       "Поделиться",
-        //                       style: TextStyle(fontWeight: FontWeight.w500),
-        //                     ),
-        //                   ),
-        //                 ),
-        //               )
-        //             ]),
-
-        //           ],
-        //         ),
-        //       ),
-      ),
+            ),
     );
   }
 }

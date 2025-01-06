@@ -3,9 +3,8 @@ import 'package:flutter_svg/svg.dart';
 import 'package:gservice5/component/button/back/backTitleButton.dart';
 import 'package:gservice5/component/functions/token/changedToken.dart';
 import 'package:gservice5/pages/profile/changePasswordPage.dart';
-import 'package:gservice5/pages/profile/contractor/changeContractorProfilePage.dart';
-import 'package:gservice5/pages/profile/customer/changeCustomerProfilePage.dart';
-import 'package:gservice5/pages/profile/individual/changeIndividualProfilePage.dart';
+import 'package:gservice5/pages/profile/business/changeBusinessProfilePage.dart';
+import 'package:gservice5/pages/profile/customer/changeCusomterProfilePage.dart';
 
 class EditProfilePage extends StatefulWidget {
   final Map data;
@@ -36,7 +35,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
               context,
               MaterialPageRoute(
                   builder: (context) =>
-                      ChangeIndividualProfilePage(data: widget.data)))
+                      ChangeCustomerProfilePage(data: widget.data)))
           .then((value) => backSendData(value));
     } else if (role == "customer") {
       Navigator.push(
@@ -50,7 +49,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
               context,
               MaterialPageRoute(
                   builder: (context) =>
-                      ChangeContractorProfilePage(data: widget.data)))
+                      ChangeBusinessProfilePage(data: widget.data)))
           .then((value) => backSendData(value));
     }
   }
@@ -62,8 +61,8 @@ class _EditProfilePageState extends State<EditProfilePage> {
   }
 
   void editPasswordPage() {
-    Navigator.push(
-        context, MaterialPageRoute(builder: (context) => const ChangePasswordPage()));
+    Navigator.push(context,
+        MaterialPageRoute(builder: (context) => const ChangePasswordPage()));
   }
 
   @override

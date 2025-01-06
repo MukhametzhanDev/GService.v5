@@ -7,10 +7,13 @@ import 'package:gservice5/component/loader/loaderComponent.dart';
 import 'package:gservice5/component/snackBar/snackBarComponent.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
 import 'package:gservice5/pages/payment/viewPaymentPage.dart';
+import 'package:gservice5/pages/payment/wallet/viewWalletPage.dart';
 
 class PaymentMethodModal extends StatefulWidget {
   final String orderId;
-  const PaymentMethodModal({super.key, required this.orderId});
+  final Map data;
+  const PaymentMethodModal(
+      {super.key, required this.orderId, required this.data});
 
   @override
   State<PaymentMethodModal> createState() => _PaymentMethodModalState();
@@ -41,12 +44,29 @@ class _PaymentMethodModalState extends State<PaymentMethodModal> {
     }
   }
 
-  void showPaymentPage(int methodId) {
-    Navigator.push(
-        context,
-        MaterialPageRoute(
-            builder: (context) =>
-                ViewPaymentPage(orderId: widget.orderId, methodId: methodId)));
+  void showPaymentPage(Map value) {
+    if (value['is_wallet']) {
+      Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) => ViewWalletPage(
+                  title: value['title'],
+                  orderId: widget.orderId,
+                  methodId: value['id'],
+                  data: widget.data))).then((value) {
+        if (value == "success") Navigator.pop(context, widget.data);
+      });
+    } else {
+      Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) => ViewPaymentPage(
+                  title: value['title'],
+                  orderId: widget.orderId,
+                  methodId: value['id']))).then((value) {
+        if (value == "success") Navigator.pop(context, widget.data);
+      });
+    }
   }
 
   @override
@@ -56,7 +76,7 @@ class _PaymentMethodModalState extends State<PaymentMethodModal> {
       children: [
         Container(
           child: loader
-              ? SizedBox(height: 300, child: const LoaderComponent())
+              ? const SizedBox(height: 300, child: LoaderComponent())
               : ClipRRect(
                   borderRadius:
                       const BorderRadius.vertical(top: Radius.circular(10)),
@@ -77,7 +97,7 @@ class _PaymentMethodModalState extends State<PaymentMethodModal> {
                                     bottom: BorderSide(
                                         color: ColorComponent.gray['100']!))),
                             child: ListTile(
-                                onTap: () => showPaymentPage(value['id']),
+                                onTap: () => showPaymentPage(value),
                                 trailing:
                                     SvgPicture.asset('assets/icons/right.svg'),
                                 title: Text(value['title'],

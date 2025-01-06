@@ -9,7 +9,7 @@ import 'package:gservice5/component/theme/colorComponent.dart';
 import 'package:gservice5/component/widgets/bottom/bottomNavigationBarComponent.dart';
 import 'package:gservice5/pages/auth/accountType/infoTypeAccountModal.dart';
 import 'package:gservice5/pages/auth/registration/business/businessExistsPage.dart';
-import 'package:gservice5/pages/auth/registration/individual/individualExistsPage.dart';
+import 'package:gservice5/pages/auth/registration/customer/customerExistsPage.dart';
 
 class GetAccountTypePage extends StatefulWidget {
   const GetAccountTypePage({super.key});
@@ -50,8 +50,9 @@ class _GetAccountTypePageState extends State<GetAccountTypePage>
       Navigator.push(
           context,
           MaterialPageRoute(
-              builder: (context) => IndividualExistsPage(
-                  data: {"role": data[currentType]['type']})));
+              builder: (context) => const CusomterExistsPage(
+                  // data: {"role": data[currentType]['type']}
+                  )));
     } else {
       Navigator.push(
           context,
@@ -65,7 +66,8 @@ class _GetAccountTypePageState extends State<GetAccountTypePage>
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-          leading: const BackIconButton(), title: const Text("Тип личного кабинета")),
+          leading: const BackIconButton(),
+          title: const Text("Тип личного кабинета")),
       body: loader
           ? const LoaderComponent()
           : SingleChildScrollView(

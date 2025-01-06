@@ -2,10 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:gservice5/component/functions/token/changedToken.dart';
 import 'package:gservice5/component/request/getMainPageData.dart';
-import 'package:gservice5/navigation/%D1%81ustomer/customerBottomTab.dart';
-import 'package:gservice5/navigation/contractor/contractorBottomTab.dart';
-import 'package:gservice5/navigation/individual/individualBottomTab.dart';
+import 'package:gservice5/navigation/business/businessBottomTab.dart';
 import 'package:gservice5/component/dio/dio.dart';
+import 'package:gservice5/navigation/customer/customerBottomTab.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -29,9 +28,6 @@ class _SplashScreenState extends State<SplashScreen> {
     if (token != null) {
       dio.options.headers['authorization'] = "Bearer $token";
     }
-    if (role == "customer" || role == "contractor") {
-      dio.options.baseUrl = "https://dev.gservice-co.kz/api/business/";
-    }
     await getMainData(role);
   }
 
@@ -42,17 +38,13 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   Future showPage(String? role) async {
-    if (role == "customer") {
+    if (role == "business") {
       Navigator.of(context).pushAndRemoveUntil(
-          MaterialPageRoute(builder: (context) => const CustomerBottomTab()),
-          (route) => false);
-    } else if (role == "contractor") {
-      Navigator.of(context).pushAndRemoveUntil(
-          MaterialPageRoute(builder: (context) => const ContractorBottomTab()),
+          MaterialPageRoute(builder: (context) => const BusinessBottomTab()),
           (route) => false);
     } else {
       Navigator.of(context).pushAndRemoveUntil(
-          MaterialPageRoute(builder: (context) => const IndividualBottomTab()),
+          MaterialPageRoute(builder: (context) => const CustomerBottomTab()),
           (route) => false);
     }
   }

@@ -251,7 +251,7 @@ class _GetCharacteristicAdPageState extends State<GetCharacteristicAdPage> {
                                 MultipleSelectCharacteristic(
                                     value: value, addData: addData),
                                 ChildCharacteristics(
-                                    data: childData, addData: addData)
+                                    data: childData, addData: addData),
                               ],
                             );
                           } else {
@@ -546,7 +546,7 @@ class _RadioButtonCharacteristicState extends State<RadioButtonCharacteristic> {
                                       color: active
                                           ? ColorComponent.blue['500']!
                                           : ColorComponent.gray['300']!))),
-                          Divider(indent: 12),
+                          const Divider(indent: 12),
                           Text(value['title']),
                         ],
                       ),

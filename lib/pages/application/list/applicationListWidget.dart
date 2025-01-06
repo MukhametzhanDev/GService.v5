@@ -5,10 +5,9 @@ import 'package:flutter/material.dart';
 import 'package:gservice5/component/dio/dio.dart';
 import 'package:gservice5/component/loader/paginationLoaderComponent.dart';
 import 'package:gservice5/component/snackBar/snackBarComponent.dart';
-import 'package:gservice5/pages/ad/item/adItem.dart';
 import 'package:gservice5/pages/ad/list/adListLoader.dart';
-import 'package:gservice5/pages/ad/list/emptyAdListPage.dart';
 import 'package:gservice5/pages/application/item/applicationItem.dart';
+import 'package:gservice5/pages/application/list/emptyApplicationListPage.dart';
 import 'package:gservice5/pages/create/data/createData.dart';
 
 class ApplicationListWidget extends StatefulWidget {
@@ -55,7 +54,7 @@ class _AdListWidgetState extends State<ApplicationListWidget>
     try {
       page = 1;
       showLoader();
-      Response response = await dio.get("/application", queryParameters: param);
+      Response response = await dio.get("/application", data: param);
       print(response.data);
       if (response.statusCode == 200) {
         data = response.data['data'];
@@ -80,7 +79,7 @@ class _AdListWidgetState extends State<ApplicationListWidget>
         page += 1;
         setState(() {});
         Response response = await dio
-            .get("/application", queryParameters: {"page": page.toString(), ...param});
+            .get("/application", data: {"page": page.toString(), ...param});
         print(response.data);
         if (response.statusCode == 200) {
           data.addAll(response.data['data']);
@@ -143,7 +142,7 @@ class _AdListWidgetState extends State<ApplicationListWidget>
         loader
             ? const AdListLoader()
             : data.isEmpty
-                ? const EmptyAdListPage()
+                ? const EmptyApplicationListPage()
                 : ListView.builder(
                     itemCount: data.length,
                     shrinkWrap: true,

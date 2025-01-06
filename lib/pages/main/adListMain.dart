@@ -110,7 +110,7 @@ class _AdListMainState extends State<AdListMain> {
   @override
   Widget build(BuildContext context) {
     return loader
-        ? SliverToBoxAdapter(child: AdListLoader())
+        ? const SliverToBoxAdapter(child: AdListLoader())
         : SliverList(
             delegate: SliverChildBuilderDelegate((context, index) {
             Map value = data[index];
@@ -120,7 +120,7 @@ class _AdListMainState extends State<AdListMain> {
                 hasNextPage ? const PaginationLoaderComponent() : Container()
               ]);
             } else {
-              return AdItem(data: value, showCategory: true);
+              return AdItem(data: value, showCategory: false);
             }
           }, childCount: data.length));
   }

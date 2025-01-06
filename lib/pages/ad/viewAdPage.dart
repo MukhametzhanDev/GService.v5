@@ -18,6 +18,7 @@ import 'package:gservice5/component/loader/loaderComponent.dart';
 import 'package:gservice5/component/snackBar/snackBarComponent.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
 import 'package:gservice5/component/widgets/404/notFoundpage.dart';
+import 'package:gservice5/pages/create/application/leasing/createApplicationLeasingWidget.dart';
 import 'package:gservice5/pages/author/authorAdWidget.dart';
 import 'package:gservice5/component/widgets/characteristic/showCharacteristicWidget.dart';
 import 'package:gservice5/component/widgets/price/priceTextWidget.dart';
@@ -195,15 +196,36 @@ class _ViewAdPageState extends State<ViewAdPage> {
                               const SizedBox(height: 10),
                               ShowDescriptionWidget(desc: data['description']),
                               const Divider(height: 16),
+                              const Divider(
+                                  height: 1, color: Color(0xfff4f5f7)),
+                              const Divider(height: 12),
+                              CreateApplicationLeasingWidget(data: data),
+                              const Divider(height: 12),
+                              const Divider(
+                                  height: 1, color: Color(0xfff4f5f7)),
+                              const Divider(height: 12),
+                            ],
+                          ),
+                        ),
+                        AuthorAdWidget(
+                            title: "О владельце объявления",
+                            data: data['author'],
+                            showOtherAd: true),
+                        const Divider(height: 6),
+                        const Divider(height: 1, color: Color(0xfff4f5f7)),
+                        const Divider(height: 14),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 15),
+                          child: Column(
+                            children: [
                               SizedBox(
-                                height: 41,
-                                child: Button(
-                                    onPressed: () {},
-                                    backgroundColor: ColorComponent.mainColor
-                                        .withOpacity(.1),
-                                    icon: "alert.svg",
-                                    title: "Пожаловаться на объявление"),
-                              ),
+                                  height: 41,
+                                  child: Button(
+                                      onPressed: () {},
+                                      backgroundColor: ColorComponent.mainColor
+                                          .withOpacity(.1),
+                                      icon: "alert.svg",
+                                      title: "Пожаловаться на объявление")),
                               const Divider(indent: 16),
                               Row(
                                 mainAxisAlignment:
@@ -237,17 +259,10 @@ class _ViewAdPageState extends State<ViewAdPage> {
                                   ),
                                 ],
                               ),
-                              const Divider(height: 14),
-                              const Divider(
-                                  height: 1, color: Color(0xfff4f5f7)),
-                              const Divider(height: 12),
                             ],
                           ),
                         ),
-                        AuthorAdWidget(
-                            title: "О владельце объявления",
-                            data: data['author']),
-                        const Divider(height: 6),
+                        const Divider(height: 14),
                         const Divider(height: 1, color: Color(0xfff4f5f7)),
                         const Divider(indent: 16),
                         const RecommendationAdList(),
@@ -257,7 +272,8 @@ class _ViewAdPageState extends State<ViewAdPage> {
                 ]),
           bottomNavigationBar: loader
               ? null
-              : ContactBottomBarWidget(id: data['id'], hasAd: true)),
+              : ContactBottomBarWidget(
+                  id: data['id'], hasAd: true, phones: data['phones'])),
     );
   }
 }

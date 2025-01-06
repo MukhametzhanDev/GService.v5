@@ -4,10 +4,12 @@ import 'package:flutter_svg/svg.dart';
 import 'package:gservice5/component/button/back/closeIconButton.dart';
 import 'package:gservice5/component/dio/dio.dart';
 import 'package:gservice5/component/loader/loaderComponent.dart';
+import 'package:gservice5/component/modal/cities.dart';
 import 'package:gservice5/component/modal/modalBottomSheetWrapper.dart';
 import 'package:gservice5/component/snackBar/snackBarComponent.dart';
 import 'package:gservice5/component/textField/searchTextField.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
 class Countries extends StatefulWidget {
   final void Function(Map value) onPressed;
@@ -48,8 +50,7 @@ class _CountriesState extends State<Countries>
     try {
       Response response = await dio.get("/countries");
       print(response.data);
-             if (response.statusCode==200) {
-
+      if (response.statusCode == 200) {
         data = response.data['data'];
         filterData = response.data['data'];
         loader = false;
@@ -107,10 +108,18 @@ class _CountriesState extends State<Countries>
 
   void savedData(Map value) {
     Navigator.pop(context);
-    // showCupertinoModalBottomSheet(
-    //     context: context,
-    //     builder: (context) =>
-    //         Cities(onPressed: widget.onPressed, countryData: value));
+    showCupertinoModalBottomSheet(
+        context: context,
+        builder: (context) => Cities(
+            onPressed: (city) {
+              getCity(value, city);
+            },
+            countryId: value['id']));
+  }
+
+  void getCity(country, city) {
+    Map param = {"country": country, "city": city};
+    widget.onPressed(param);
   }
 
   int getIdCurrent() {

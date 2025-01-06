@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 
 class ColorComponent {
   static Color mainColor = const Color(0xffFFCA0A);
+  static Color red2 = const Color(0xffFF3B30);
   static Map<String, Color> gray = {
     "50": const Color(0xfff9fafb),
     "100": const Color(0xfff4f5f7),

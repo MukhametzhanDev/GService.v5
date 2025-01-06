@@ -25,7 +25,7 @@ class _SmallApplicationItemState extends State<SmallApplicationItem> {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        widget.onPressed(1);
+        widget.onPressed(widget.data['id']);
       },
       onLongPress: () => onLongPressShowNumber({}, context),
       child: Container(
