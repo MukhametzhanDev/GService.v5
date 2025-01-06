@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:gservice5/component/button/back/backTitleButton.dart';
 import 'package:gservice5/component/formatted/price/priceFormat.dart';
 import 'package:gservice5/component/modal/cities.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
-import 'package:gservice5/pages/ad/filter/filterButton.dart';
 import 'package:gservice5/pages/ad/filter/priceFilterModal.dart';
 import 'package:gservice5/pages/create/data/createData.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';

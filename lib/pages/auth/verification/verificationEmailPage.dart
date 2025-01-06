@@ -12,8 +12,6 @@ import 'package:gservice5/component/loader/modalLoaderComponent.dart';
 import 'package:gservice5/component/snackBar/snackBarComponent.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
 import 'package:gservice5/component/widgets/bottom/bottomNavigationBarComponent.dart';
-import 'package:gservice5/pages/auth/registration/business/contractor/registrationContractorPage.dart';
-import 'package:gservice5/pages/auth/registration/business/customer/registrationCustomerPage.dart';
 import 'package:gservice5/pages/auth/registration/individual/registrationUserPage.dart';
 import 'package:pinput/pinput.dart';
 import 'package:sms_autofill/sms_autofill.dart';

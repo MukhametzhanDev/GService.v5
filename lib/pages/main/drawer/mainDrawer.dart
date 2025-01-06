@@ -161,11 +161,11 @@ class _MainDrawerState extends State<MainDrawer> {
                           Expanded(
                             child: Button(
                                 onPressed: () {},
-                                padding: EdgeInsets.symmetric(horizontal: 10),
+                                padding: const EdgeInsets.symmetric(horizontal: 10),
                                 title: "Стать партнером"),
                           ),
                           SvgPicture.asset("assets/icons/questionOutline.svg"),
-                          Divider(indent: 10)
+                          const Divider(indent: 10)
                         ],
                       )),
             )));

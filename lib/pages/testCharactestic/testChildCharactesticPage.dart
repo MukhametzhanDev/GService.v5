@@ -71,7 +71,7 @@ class _TestChildCharactesticPageState extends State<TestChildCharactesticPage> {
                   print(CreateData.characteristic);
                   verifyData();
                 },
-                padding: EdgeInsets.symmetric(horizontal: 15),
+                padding: const EdgeInsets.symmetric(horizontal: 15),
                 title: "Продолжить")),
       ),
     );

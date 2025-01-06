@@ -1,16 +1,12 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:gservice5/component/button/back/backTitleButton.dart';
 import 'package:gservice5/component/dio/dio.dart';
-import 'package:gservice5/component/image/cacheImage.dart';
 import 'package:gservice5/component/loader/paginationLoaderComponent.dart';
 import 'package:gservice5/component/snackBar/snackBarComponent.dart';
-import 'package:gservice5/component/theme/colorComponent.dart';
 import 'package:gservice5/pages/ad/filter/filterButton.dart';
 import 'package:gservice5/pages/companies/companyItem.dart';
 import 'package:gservice5/pages/companies/createCompanyWidget.dart';
-import 'package:gservice5/pages/profile/news/newsItem.dart';
 
 class CompaniesMainPage extends StatefulWidget {
   const CompaniesMainPage({super.key});
