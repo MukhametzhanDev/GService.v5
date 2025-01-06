@@ -73,7 +73,7 @@ class _RegistrationBusinessPageState extends State<RegistrationBusinessPage> {
       Response response = await dio.post("/company", data: param);
       Navigator.pop(context);
       if (response.statusCode == 200) {
-        ChangedToken().savedToken(response.data['data'], context);
+        ChangedToken().savedToken(response.data['data'], "business", context);
       } else {
         SnackBarComponent().showResponseErrorMessage(response, context);
       }

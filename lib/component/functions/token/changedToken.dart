@@ -18,7 +18,7 @@ class ChangedToken {
     return role ?? "";
   }
 
-  Future savedToken(value, context) async {
+  Future savedToken(value, role, context) async {
     await flutterSecureStorage.write(key: "role", value: "customer");
     await flutterSecureStorage.write(key: "token", value: value['user_token']);
     dio.options.headers['authorization'] = "Bearer ${value['user_token']}";
@@ -47,7 +47,6 @@ class ChangedToken {
       Navigator.pop(context);
       await flutterSecureStorage.deleteAll();
       dio.options.headers['authorization'] = "";
-      dio.options.baseUrl = "https://dev.gservice-co.kz/api";
       Navigator.pushAndRemoveUntil(
           context,
           MaterialPageRoute(builder: (_) => const CustomerBottomTab()),

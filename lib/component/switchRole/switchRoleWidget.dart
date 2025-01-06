@@ -31,15 +31,15 @@ class _SwitchRoleWidgetState extends State<SwitchRoleWidget> {
     bool hasToken = await ChangedToken().getToken() != null;
     if (hasToken) {
       role = await ChangedToken().getRole();
+      print("role $role");
       String API = role == "business" ? "/user" : "/my-company";
       try {
         Response response = await dio.get(API);
         if (response.data['success']) {
           if (response.data['data'] != null) {
             data = response.data['data'];
-            loader = false;
-            setState(() {});
           }
+          loader = false;
         } else {
           SnackBarComponent().showResponseErrorMessage(response, context);
         }

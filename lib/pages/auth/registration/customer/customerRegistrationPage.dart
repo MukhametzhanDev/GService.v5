@@ -26,8 +26,7 @@ class CusomterRegistrationPage extends StatefulWidget {
       _CusomterRegistrationPageState();
 }
 
-class _CusomterRegistrationPageState
-    extends State<CusomterRegistrationPage> {
+class _CusomterRegistrationPageState extends State<CusomterRegistrationPage> {
   TextEditingController nameEditingController = TextEditingController();
   TextEditingController passwordEditingController = TextEditingController();
   TextEditingController repeatPasswordEditingController =
@@ -41,7 +40,7 @@ class _CusomterRegistrationPageState
       print(response.data);
       Navigator.pop(context);
       if (response.statusCode == 200) {
-        ChangedToken().savedToken(response.data['data'], context);
+        ChangedToken().savedToken(response.data['data'], "customer", context);
       } else {
         SnackBarComponent().showResponseErrorMessage(response, context);
       }
@@ -110,6 +109,7 @@ class _CusomterRegistrationPageState
             children: [
               TextField(
                   autofocus: true,
+                  
                   style: const TextStyle(fontSize: 14, height: 1.1),
                   decoration: const InputDecoration(hintText: "ФИО"),
                   controller: nameEditingController),

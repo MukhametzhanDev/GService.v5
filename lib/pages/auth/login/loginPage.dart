@@ -83,7 +83,7 @@ class _LoginPageState extends State<LoginPage>
       Navigator.pop(context);
       if (response.statusCode == 200 && response.data['success']) {
         print(response.data);
-        ChangedToken().savedToken(response.data['data'], context);
+        ChangedToken().savedToken(response.data['data'], "customer", context);
       } else {
         SnackBarComponent().showResponseErrorMessage(response, context);
       }
@@ -107,15 +107,15 @@ class _LoginPageState extends State<LoginPage>
     Navigator.push(
         context,
         MaterialPageRoute(
-            builder: (context) => ForgotPasswordCustomerPage(
-                title: textEditingController.text)));
+            builder: (context) =>
+                ForgotPasswordCustomerPage(title: textEditingController.text)));
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-          title: const Text("Войти в GService"),
+          title: const Text("Войти в GService.kz"),
           leading:
               widget.showBackButton ? const BackIconButton() : Container()),
       body: SingleChildScrollView(
