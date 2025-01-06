@@ -113,6 +113,12 @@ class _LoginPageState extends State<LoginPage>
     //     .then((value) {
     //   if (value != null) textEditingController.text = value;
     // });
+
+    GetIt.I<FirebaseAnalytics>().logEvent(
+        name: GAEventName.buttonClick,
+        parameters: {
+          'button_name': GAParams.textButtonRegister
+        }).catchError((onError) => debugPrint(onError));
   }
 
   void showForgotPasswordCustomerPage() {
@@ -121,6 +127,12 @@ class _LoginPageState extends State<LoginPage>
         MaterialPageRoute(
             builder: (context) =>
                 ForgotPasswordCustomerPage(title: textEditingController.text)));
+
+    GetIt.I<FirebaseAnalytics>().logEvent(
+        name: GAEventName.buttonClick,
+        parameters: {
+          'button_name': GAParams.textButtonForgotPassword
+        }).catchError((onError) => debugPrint(onError));
   }
 
   @override

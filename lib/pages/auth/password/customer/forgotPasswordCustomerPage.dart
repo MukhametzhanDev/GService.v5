@@ -1,4 +1,7 @@
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
+import 'package:gservice5/analytics/event_name.constan.dart';
 import 'package:gservice5/component/button/back/backIconButton.dart';
 import 'package:gservice5/component/button/button.dart';
 import 'package:gservice5/component/snackBar/snackBarComponent.dart';
@@ -54,6 +57,12 @@ class _ForgotPasswordCustomerPageState
         }
       }
     }
+
+    GetIt.I<FirebaseAnalytics>().logEvent(
+        name: GAEventName.buttonClick,
+        parameters: {
+          'button_name': GAParams.buttonSendForgotPwd
+        }).catchError((onError) => debugPrint(onError));
   }
 
   void showForgotEmailPasswordCustomerPage() {
@@ -80,7 +89,8 @@ class _ForgotPasswordCustomerPageState
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(leading: const BackIconButton(), title: const Text("Забыли пароль")),
+      appBar: AppBar(
+          leading: const BackIconButton(), title: const Text("Забыли пароль")),
       body: SingleChildScrollView(
           padding: const EdgeInsets.all(15),
           child: Column(
@@ -95,8 +105,8 @@ class _ForgotPasswordCustomerPageState
                   autofillHints: const [AutofillHints.email],
                   style: const TextStyle(fontSize: 14, height: 1.1),
                   controller: textEditingController,
-                  decoration:
-                      const InputDecoration(hintText: "Email или номер телефона"),
+                  decoration: const InputDecoration(
+                      hintText: "Email или номер телефона"),
                 ),
               ),
             ],

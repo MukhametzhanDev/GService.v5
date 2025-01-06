@@ -1,4 +1,7 @@
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
+import 'package:gservice5/analytics/event_name.constan.dart';
 import 'package:gservice5/component/alert/closeCreateAdAlert.dart';
 import 'package:gservice5/component/button/back/backTitleButton.dart';
 import 'package:gservice5/component/textField/closeKeyboard/closeKeyboard.dart';
@@ -187,6 +190,13 @@ class _StructureCreateAdPageState extends State<StructureCreateAdPage> {
                                 context: context,
                                 builder: (context) =>
                                     const CloseCreateAdAlert());
+
+                            GetIt.I<FirebaseAnalytics>().logEvent(
+                                name: GAEventName.buttonClick,
+                                parameters: {
+                                  'button_name':
+                                      GAParams.textbuttonCloseAdStructure
+                                });
                           },
                           icon: Text("Закрыть  ",
                               style: TextStyle(
@@ -194,7 +204,15 @@ class _StructureCreateAdPageState extends State<StructureCreateAdPage> {
                                   color: ColorComponent.blue['700'])))
                     ],
                     leading: BackTitleButton(
-                        title: "", onPressed: () => previousPage()),
+                        title: "",
+                        onPressed: () {
+                          previousPage();
+                          GetIt.I<FirebaseAnalytics>().logEvent(
+                              name: GAEventName.buttonClick,
+                              parameters: {
+                                'button_name': GAParams.buttonBackAdStructure
+                              }).catchError((onError) => debugPrint(onError));
+                        }),
                     bottom: PreferredSize(
                         preferredSize:
                             Size(MediaQuery.of(context).size.width, 10),

@@ -1,8 +1,11 @@
 import 'dart:async';
 import 'package:dio/dio.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get_it/get_it.dart';
+import 'package:gservice5/analytics/event_name.constan.dart';
 import 'package:gservice5/component/button/back/backIconButton.dart';
 import 'package:gservice5/component/button/button.dart';
 import 'package:gservice5/component/button/timerButton.dart';
@@ -56,6 +59,12 @@ class _ForgotEmailPasswordCustomerPageState
     } catch (e) {
       SnackBarComponent().showNotGoBackServerErrorMessage(context);
     }
+
+    GetIt.I<FirebaseAnalytics>().logEvent(
+        name: GAEventName.buttonClick,
+        parameters: {
+          'button_name': GAParams.buttonForgotReplayEmailOtp
+        }).catchError((onError) => debugPrint(onError));
   }
 
   void verifyCode() async {
@@ -70,8 +79,7 @@ class _ForgotEmailPasswordCustomerPageState
       Navigator.pop(context);
       print(response.data);
       if (response.statusCode == 200 && response.data['success']) {
-        await ChangedToken()
-            .savedToken(response.data['data'], context);
+        await ChangedToken().savedToken(response.data['data'], context);
         Navigator.push(
             context,
             MaterialPageRoute(
@@ -111,8 +119,9 @@ class _ForgotEmailPasswordCustomerPageState
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar:
-          AppBar(leading: const BackIconButton(), title: const Text('Код подтверждения')),
+      appBar: AppBar(
+          leading: const BackIconButton(),
+          title: const Text('Код подтверждения')),
       body: loader
           ? const LoaderComponent()
           : SingleChildScrollView(
@@ -179,6 +188,11 @@ class _ForgotEmailPasswordCustomerPageState
                 onPressed: () {
                   textEditingController.clear();
                   verifyCode();
+                  GetIt.I<FirebaseAnalytics>().logEvent(
+                      name: GAEventName.buttonClick,
+                      parameters: {
+                        'button_name': GAParams.buttonForgotConfrimEmail
+                      }).catchError((onError) => debugPrint(onError));
                 },
                 title: "Подтвердить регистрацию",
                 padding: const EdgeInsets.only(left: 16, right: 16),

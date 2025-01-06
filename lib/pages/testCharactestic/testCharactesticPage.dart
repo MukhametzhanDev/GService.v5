@@ -1,5 +1,8 @@
 import 'package:dio/dio.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
+import 'package:gservice5/analytics/event_name.constan.dart';
 import 'package:gservice5/component/button/button.dart';
 import 'package:gservice5/component/dio/dio.dart';
 import 'package:gservice5/component/loader/loaderComponent.dart';
@@ -44,6 +47,29 @@ class _TestCharactesticPageState extends State<TestCharactesticPage> {
       if (response.data['success']) {
         data = response.data['data'];
         setState(() {});
+
+        for (int i = 0; i < data.length; i++) {
+          final idList = data[i]?['id']?.toString();
+          final listName = data[i]?['title'];
+          final fieldType = data[i]?['field_type'];
+          List options = data[i]?['options'];
+
+          print('fieldType ${fieldType}');
+
+          if (data[i]['field_type'] == 'select') {
+            print('+++ select');
+            await GetIt.I<FirebaseAnalytics>().logViewItemList(
+                parameters: {'step': 'Характеристика', 'field_type': fieldType},
+                itemListId:
+                    '${GAParams.adCharacteristicChildListId}_${idList.toString()}',
+                itemListName: listName,
+                items: options
+                    .map((toElement) => AnalyticsEventItem(
+                        itemName: toElement?['title'],
+                        itemId: toElement?['id'].toString()))
+                    .toList());
+          }
+        }
       } else {
         SnackBarComponent().showResponseErrorMessage(response, context);
       }

@@ -28,12 +28,19 @@ class GAParams {
   static const String textButtonAgreement = 'text_button_agreement';
   static const String textButtonPolicy = 'text_button_policy';
   static const String textButtonPlaceOrder = 'text_button_place_order';
+  static const String textbuttonCloseAdStructure = 'textbuttonCloseAdStructure';
   static const String buttonMoreOrder = 'buttonMoreOrder';
   static const String buttonApplicationFilter = 'buttonApplicationFilter';
   static const String buttonFilterClose = 'buttonFilterClose';
   static const String buttonClearFilter = 'buttonClearFilter';
   static const String buttonCity = 'buttonCity';
   static const String buttonContinueTypeAd = 'buttonContinueTypeAd';
+  static const String buttonBackAdStructure = 'buttonBackAdStructure';
+  static const String buttonSendForgotPwd = 'buttonSendForgotPwd';
+  static const String buttonForgotConfrimEmail = 'buttonForgotConfrimEmail';
+  static const String buttonForgotReplayEmailOtp = 'buttonForgotReplayEmailOtp';
+
+
 
   //BUTTON
 

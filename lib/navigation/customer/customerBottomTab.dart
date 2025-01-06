@@ -36,23 +36,13 @@ class _CustomerBottomTabState extends State<CustomerBottomTab>
       scrollController.animateTo(0,
           duration: const Duration(milliseconds: 300), curve: Curves.easeInOut);
 
-      GetIt.I<FirebaseAnalytics>().logEvent(
-          name: GAEventName.screenView,
-          parameters: {
-            'screen_name': GAParams.mainPage,
-            'firebase_screen_class': GAParams.mainPage
-          }).catchError((e) {
-        debugPrint(e);
-      });
-    } else if (index == 2) {
       GetIt.I<FirebaseAnalytics>()
           .logEvent(name: GAEventName.screenView, parameters: {
-        'screen_name': GAParams.tabBottomAd,
-        'firebase_screen_class': GAParams.tabBottomAd
+        'screen_name': GAParams.mainPage,
       }).catchError((e) {
         debugPrint(e);
       });
-
+    } else if (index == 2) {
       showMaterialModalBottomSheet(
           context: context,
           builder: (context) => const SectionCreateAdPage()).then((value) {
@@ -61,6 +51,13 @@ class _CustomerBottomTabState extends State<CustomerBottomTab>
         } else if (value == "application") {
           Navigator.pushNamed(context, "MyApplicationListPage");
         }
+      });
+
+      GetIt.I<FirebaseAnalytics>()
+          .logEvent(name: GAEventName.screenView, parameters: {
+        'screen_name': GAParams.tabBottomAd,
+      }).catchError((e) {
+        debugPrint(e);
       });
     } else {
       _selectedIndex = index;
@@ -74,7 +71,6 @@ class _CustomerBottomTabState extends State<CustomerBottomTab>
                 : index == 4
                     ? GAParams.verifyProfilePage
                     : GAParams.mainPage,
-        'firebase_screen_class': 'IndividualBottomTab'
       }).catchError((e) {
         debugPrint(e);
       });
