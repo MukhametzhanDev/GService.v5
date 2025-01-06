@@ -1,6 +1,9 @@
 import 'package:dio/dio.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get_it/get_it.dart';
+import 'package:gservice5/analytics/event_name.constan.dart';
 import 'package:gservice5/component/button/button.dart';
 import 'package:gservice5/component/dio/dio.dart';
 import 'package:gservice5/component/loader/loaderComponent.dart';
@@ -19,6 +22,8 @@ class GetSelectPage extends StatefulWidget {
   final PageController pageController;
   final void Function() nextPage;
   final void Function() previousPage;
+  final String? title;
+  final String? listIndex;
   // final void Function() hasNextRemovedPage;
   const GetSelectPage(
       {super.key,
@@ -27,7 +32,9 @@ class GetSelectPage extends StatefulWidget {
       required this.nextPage,
       required this.previousPage,
       // required this.hasNextRemovedPage,
-      required this.pageController});
+      required this.pageController,
+      this.title,
+      this.listIndex});
 
   @override
   State<GetSelectPage> createState() => _GetSelectPageState();
@@ -66,6 +73,15 @@ class _GetSelectPageState extends State<GetSelectPage> {
         loader = false;
         hasNextPage = page != response.data?['meta']?['last_page'];
         setState(() {});
+
+        await GetIt.I<FirebaseAnalytics>().logViewItemList(
+            itemListId: "${GAParams.adSelectListId}_${widget.listIndex}",
+            itemListName: '${widget.title}',
+            items: data
+                .map((e) => AnalyticsEventItem(
+                    itemName: e['title'] ?? '',
+                    itemId: e['id']?.toString() ?? ''))
+                .toList());
       } else {
         SnackBarComponent().showResponseErrorMessage(response, context);
       }
@@ -96,6 +112,16 @@ class _GetSelectPageState extends State<GetSelectPage> {
           hasNextPage = page != response.data['meta']['last_page'];
           isLoadMore = false;
           setState(() {});
+
+          await GetIt.I<FirebaseAnalytics>().logViewItemList(
+              parameters: {'isPagination': 'true'},
+              itemListId: "${GAParams.adSelectListId}_${widget.listIndex}",
+              itemListName: '${widget.title}',
+              items: data
+                  .map((e) => AnalyticsEventItem(
+                      itemName: e['title'] ?? '',
+                      itemId: e['id']?.toString() ?? ''))
+                  .toList());
         } else {
           SnackBarComponent().showResponseErrorMessage(response, context);
         }
@@ -141,6 +167,15 @@ class _GetSelectPageState extends State<GetSelectPage> {
       // verifyNextPage(value);
     }
     setState(() {});
+
+    GetIt.I<FirebaseAnalytics>().logSelectItem(
+        items: [
+          AnalyticsEventItem(
+              itemId: value['id']?.toString() ?? '',
+              itemName: value['title'] ?? '')
+        ],
+        itemListId: '${GAParams.adSelectListId}_${widget.listIndex}',
+        itemListName: widget.title).catchError((e) => debugPrint(e));
   }
 
   // void verifyNextPage(value) {

@@ -63,13 +63,15 @@ class _AdListMainState extends State<AdListMain> {
         await GetIt.I<FirebaseAnalytics>().logViewItemList(
             items: data
                 .map((item) => AnalyticsEventItem(
-                      itemId: item['id'].toString(),
-                      itemName: item['title'],
-                      itemCategory: item['category']['title'],
-                    ))
+                        itemId: item?['id']?.toString(),
+                        itemName: item?['title'],
+                        itemCategory: item?['category']?['id']?.toString(),
+                        parameters: {
+                          'itemCategoryName': item?['category']?['title']
+                        }))
                 .toList(),
-            itemListId: GAParams.adMainIdList,
-            itemListName: GAParams.adList,
+            itemListId: GAParams.adMainListId,
+            itemListName: GAParams.adMainListName,
             parameters: {'screen_name': GAParams.mainPage});
       } else {
         SnackBarComponent().showResponseErrorMessage(response, context);

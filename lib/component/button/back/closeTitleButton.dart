@@ -1,5 +1,8 @@
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get_it/get_it.dart';
+import 'package:gservice5/analytics/event_name.constan.dart';
 
 class CloseTitleButton extends StatelessWidget {
   final String title;
@@ -14,6 +17,12 @@ class CloseTitleButton extends StatelessWidget {
         style: const ButtonStyle(tapTargetSize: MaterialTapTargetSize.padded),
         onPressed: () {
           onPressed == null ? Navigator.pop(context) : onPressed();
+
+          GetIt.I<FirebaseAnalytics>().logEvent(
+              name: GAEventName.buttonClick,
+              parameters: {
+                'button_name': GAParams.buttonFilterClose
+              }).catchError((e) => debugPrint(e));
         },
         icon: Row(
           children: [
@@ -21,7 +30,8 @@ class CloseTitleButton extends StatelessWidget {
             SvgPicture.asset('assets/icons/close.svg', width: 22),
             const Divider(indent: 8),
             Text(title,
-                style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w600))
+                style:
+                    const TextStyle(fontSize: 16, fontWeight: FontWeight.w600))
           ],
         ));
   }

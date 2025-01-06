@@ -120,12 +120,15 @@ class _StructureCreateAdPageState extends State<StructureCreateAdPage> {
     int index = pageControllerIndexedStack.getIndex();
     closeKeyboard();
     pages.add(GetSelectPage(
-        value: data[index],
-        nextPage: formattedPages,
-        previousPage: previousPage,
-        // hasNextRemovedPage: hasNextRemovedPage,
-        options: data,
-        pageController: pageController));
+      value: data[index],
+      nextPage: formattedPages,
+      previousPage: previousPage,
+      // hasNextRemovedPage: hasNextRemovedPage,
+      options: data,
+      pageController: pageController,
+      title: data[index]['title']?['title_ru'] ?? '',
+      listIndex: index.toString(),
+    ));
   }
 
   // void hasNextRemovedPage() {

@@ -37,6 +37,38 @@ class _MainPageState extends State<MainPage> {
     if (data.isEmpty) {
       await GetMainPageData().getData(context);
       setState(() {});
+
+      final localApplciations = data['applications'] as List;
+
+      await GetIt.I<FirebaseAnalytics>().logViewItemList(
+          itemListId: GAParams.applicationMainListId,
+          itemListName: GAParams.applicationMainListName,
+          items: localApplciations
+              .map((item) => AnalyticsEventItem(
+                      itemId: item?['id']?.toString(),
+                      itemName: item?['title'],
+                      itemCategory: item?['category']?['id']?.toString(),
+                      parameters: {
+                        'itemCategoryTitle': item?['category']?['title']
+                      }))
+              .toList(),
+          parameters: {'screen_name': GAParams.mainPage});
+    } else {
+      final localApplciations = data['applications'] as List;
+
+      await GetIt.I<FirebaseAnalytics>().logViewItemList(
+          itemListId: GAParams.applicationMainListId,
+          itemListName: GAParams.applicationMainListName,
+          items: localApplciations
+              .map((item) => AnalyticsEventItem(
+                      itemId: item?['id']?.toString(),
+                      itemName: item?['title'],
+                      itemCategory: item?['category']?['id']?.toString(),
+                      parameters: {
+                        'itemCategoryTitle': item?['category']?['title']
+                      }))
+              .toList(),
+          parameters: {'screen_name': GAParams.mainPage});
     }
   }
 

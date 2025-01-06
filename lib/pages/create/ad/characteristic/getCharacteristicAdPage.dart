@@ -1,5 +1,8 @@
 import 'package:dio/dio.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
+import 'package:gservice5/analytics/event_name.constan.dart';
 import 'package:gservice5/component/button/button.dart';
 import 'package:gservice5/component/dio/dio.dart';
 import 'package:gservice5/component/loader/loaderComponent.dart';
@@ -44,8 +47,30 @@ class _GetCharacteristicAdPageState extends State<GetCharacteristicAdPage> {
       print(response.data);
       if (response.data['success']) {
         data = response.data['data'];
+        print(data);
         loader = false;
         setState(() {});
+
+        var selectFields =
+            data.where((e) => e['field_type'] == 'select').toList();
+
+        if (selectFields.isNotEmpty) {
+          for (int i = 0; i < selectFields.length; i++) {
+            List<dynamic> options = selectFields[i]['options'];
+
+            GetIt.I<FirebaseAnalytics>()
+                .logViewItemList(
+                    itemListId:
+                        '${GAParams.adCharacteristicListId}_${selectFields[i]?['id']?.toString()}',
+                    itemListName: selectFields[i]?['title'],
+                    items: options
+                        .map((j) => AnalyticsEventItem(
+                            itemId: j['id'].toString(),
+                            itemName: j?['title'] ?? ''))
+                        .toList())
+                .catchError((e) => {debugPrint(e)});
+          }
+        }
       } else {
         SnackBarComponent().showResponseErrorMessage(response, context);
       }
@@ -84,6 +109,10 @@ class _GetCharacteristicAdPageState extends State<GetCharacteristicAdPage> {
   }
 
   void verifyData() {
+    GetIt.I<FirebaseAnalytics>()
+        .logEvent(name: GAEventName.buttonClick, parameters: {
+      'button_name': '',
+    });
     for (Map value in data) {
       print(value);
       bool hasKey =

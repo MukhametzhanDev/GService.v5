@@ -45,6 +45,13 @@ class _ApplicationListMainState extends State<ApplicationListMain> {
                   context,
                   MaterialPageRoute(
                       builder: (context) => const ApplicationListPage()));
+
+              GetIt.I<FirebaseAnalytics>().logEvent(
+                  name: GAEventName.buttonClick,
+                  parameters: {
+                    'button_name': GAParams.textButtonPlaceOrder,
+                    'screen_name': GAParams.mainPage
+                  });
             },
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -107,6 +114,11 @@ class ShowMoreApplicaiton extends StatelessWidget {
               context,
               MaterialPageRoute(
                   builder: (context) => const ApplicationListPage()));
+          GetIt.I<FirebaseAnalytics>().logEvent(
+              name: GAEventName.buttonClick,
+              parameters: {
+                'button_name': GAParams.buttonMoreOrder
+              }).catchError((e) => debugPrint(e));
         },
         child: Container(
           margin: const EdgeInsets.symmetric(horizontal: 4),

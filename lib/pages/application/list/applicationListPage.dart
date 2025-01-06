@@ -1,5 +1,8 @@
 import 'package:dio/dio.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
+import 'package:gservice5/analytics/event_name.constan.dart';
 import 'package:gservice5/component/dio/dio.dart';
 import 'package:gservice5/component/loader/loaderComponent.dart';
 import 'package:gservice5/component/loader/paginationLoaderComponent.dart';
@@ -56,10 +59,26 @@ class _ApplicationListPageState extends State<ApplicationListPage> {
       showLoader();
       Response response = await dio.get("/application", queryParameters: param);
       if (response.statusCode == 200 && response.data['success']) {
+        print(response);
         data = response.data['data'];
         loader = false;
         hasNextPage = page != response.data['meta']['last_page'];
         setState(() {});
+
+        await GetIt.I<FirebaseAnalytics>().logViewItemList(
+            itemListId: GAParams.applicationListId,
+            itemListName: 'Заказы',
+            parameters: {'isPagination': 'false'},
+            items: data
+                .map((item) => AnalyticsEventItem(
+                        itemName: item?['title'],
+                        itemId: item?['id']?.toString(),
+                        itemCategory: item?['category']?['id']?.toString(),
+                        parameters: {
+                          'itemCategoryTitle': item?['category']?['title'],
+                          'isPagination': 'false'
+                        }))
+                .toList());
       } else {
         SnackBarComponent().showResponseErrorMessage(response, context);
       }
@@ -84,6 +103,21 @@ class _ApplicationListPageState extends State<ApplicationListPage> {
           hasNextPage = page != response.data['meta']['last_page'];
           isLoadMore = false;
           setState(() {});
+
+          await GetIt.I<FirebaseAnalytics>().logViewItemList(
+              parameters: {'isPagination': 'true'},
+              itemListId: GAParams.applicationListId,
+              itemListName: GAParams.applicationListName,
+              items: data
+                  .map((item) => AnalyticsEventItem(
+                          itemName: item?['title'],
+                          itemId: item?['id']?.toString(),
+                          itemCategory: item?['category']?['id']?.toString(),
+                          parameters: {
+                            'itemCategoryTitle': item?['category']?['title'],
+                            'isPagination': 'true'
+                          }))
+                  .toList());
         } else {
           SnackBarComponent().showResponseErrorMessage(response, context);
         }
@@ -105,9 +139,10 @@ class _ApplicationListPageState extends State<ApplicationListPage> {
 
   void showFilterPage() {
     showMaterialModalBottomSheet(
-        context: context,
-        enableDrag: false,
-        builder: (context) => const FilterApplicationListPage()).then(filteredAds);
+            context: context,
+            enableDrag: false,
+            builder: (context) => const FilterApplicationListPage())
+        .then(filteredAds);
   }
 
   void filteredAds(value) {

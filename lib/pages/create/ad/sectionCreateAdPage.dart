@@ -1,6 +1,9 @@
 import 'package:dio/dio.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get_it/get_it.dart';
+import 'package:gservice5/analytics/event_name.constan.dart';
 import 'package:gservice5/component/button/back/backTitleButton.dart';
 import 'package:gservice5/component/button/back/closeTitleButton.dart';
 import 'package:gservice5/component/button/button.dart';
@@ -49,6 +52,14 @@ class _SectionCreateAdPageState extends State<SectionCreateAdPage> {
         data = response.data['data'];
         loader = false;
         setState(() {});
+
+        await GetIt.I<FirebaseAnalytics>().logViewItemList(
+            itemListId: GAParams.adTypeCategoriesId,
+            itemListName: GAParams.adTypeCategoriesName,
+            items: data
+                .map((e) => AnalyticsEventItem(
+                    itemId: e['id']?.toString(), itemName: e['title'] ?? ''))
+                .toList());
       } else {
         SnackBarComponent().showResponseErrorMessage(response, context);
       }
@@ -73,6 +84,16 @@ class _SectionCreateAdPageState extends State<SectionCreateAdPage> {
       "multiple": false
     });
     showOptionsPage();
+
+    GetIt.I<FirebaseAnalytics>().logSelectItem(
+      items: [
+        AnalyticsEventItem(
+            itemId: data[currentIndex]?['id']?.toString() ?? '',
+            itemName: data[currentIndex]?['title'] ?? '')
+      ],
+      itemListId: GAParams.adTypeCategoriesId,
+      itemListName: GAParams.adTypeCategoriesName,
+    ).catchError((e) => debugPrint(e));
   }
 
   void showOptionsPage() {
@@ -82,6 +103,12 @@ class _SectionCreateAdPageState extends State<SectionCreateAdPage> {
             builder: (context) =>
                 StructureCreateAdPage(data: data[currentIndex])));
     // Navigator.pop(context);
+
+    GetIt.I<FirebaseAnalytics>().logEvent(
+        name: GAEventName.buttonClick,
+        parameters: {
+          'button_name': GAParams.buttonContinueTypeAd
+        }).catchError((e) => debugPrint(e));
   }
 
   Map getParam(index) {
@@ -146,8 +173,8 @@ class _SectionCreateAdPageState extends State<SectionCreateAdPage> {
                               const Divider(indent: 12),
                               Expanded(
                                 child: Text(value['title'],
-                                    style:
-                                        const TextStyle(fontWeight: FontWeight.w500)),
+                                    style: const TextStyle(
+                                        fontWeight: FontWeight.w500)),
                               ),
                               const Divider(indent: 12),
                               SvgPicture.network(value['icon'], width: 24)

@@ -1,6 +1,9 @@
 import 'package:dio/dio.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get_it/get_it.dart';
+import 'package:gservice5/analytics/event_name.constan.dart';
 import 'package:gservice5/component/counter/counterClickStatistic.dart';
 import 'package:gservice5/component/dio/dio.dart';
 import 'package:gservice5/component/functions/token/changedToken.dart';
@@ -35,6 +38,10 @@ class _FavoriteButtonState extends State<FavoriteButton> {
           "Чтобы добавить в избранное, вы должны войти в личный кабинет",
           context);
     }
+
+    await GetIt.I<FirebaseAnalytics>().logEvent(
+        name: GAEventName.buttonClick,
+        parameters: {'button_name': GAParams.iconButtonFavorite});
   }
 
   Future postData() async {
@@ -86,8 +93,9 @@ class _FavoriteButtonState extends State<FavoriteButton> {
         alignment: Alignment.center,
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(4),
-            color:
-                widget.active ? ColorComponent.red['500'] : const Color(0xffD1D5DB)),
+            color: widget.active
+                ? ColorComponent.red['500']
+                : const Color(0xffD1D5DB)),
         child: SvgPicture.asset('assets/icons/heart.svg'),
       ),
     );

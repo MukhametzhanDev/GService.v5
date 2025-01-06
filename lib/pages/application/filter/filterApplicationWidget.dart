@@ -1,5 +1,8 @@
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get_it/get_it.dart';
+import 'package:gservice5/analytics/event_name.constan.dart';
 import 'package:gservice5/component/button/back/backTitleButton.dart';
 import 'package:gservice5/component/formatted/price/priceFormat.dart';
 import 'package:gservice5/component/modal/cities.dart';
@@ -62,9 +65,18 @@ class _FilterApplicationWidgetState extends State<FilterApplicationWidget> {
     showCupertinoModalBottomSheet(
       context: context,
       builder: (context) {
-        return Cities(onPressed: onChangedCity, countryId: 191);
+        return Cities(
+          onPressed: onChangedCity,
+          countryId: 191,
+        );
       },
     );
+
+    GetIt.I<FirebaseAnalytics>().logEvent(
+        name: GAEventName.buttonClick,
+        parameters: {
+          'buttan_name': GAParams.buttonCity
+        }).catchError((e) => debugPrint(e));
   }
 
   void showFilterPrice() {
@@ -129,6 +141,12 @@ class _FilterApplicationWidgetState extends State<FilterApplicationWidget> {
             enableDrag: false,
             builder: (context) => const FilterApplicationListPage())
         .then(filteredAds);
+
+    GetIt.I<FirebaseAnalytics>()
+        .logEvent(name: GAEventName.buttonClick, parameters: {
+      'button_name': GAParams.buttonApplicationFilter,
+      'screen_name': GAParams.applicationPage
+    });
   }
 
   void filteredAds(value) {
@@ -137,7 +155,7 @@ class _FilterApplicationWidgetState extends State<FilterApplicationWidget> {
     }
   }
 
-  // void 
+  // void
 
   @override
   Widget build(BuildContext context) {

@@ -13,6 +13,7 @@ class GAParams {
   static const String tabBottomAd = 'TabBottomAd';
   static const String loginUserPage = 'LoginUserPage';
   static const String loginBusinessPage = 'LoginBusinessPage';
+  static const String applicationPage = 'applicationPage';
 
   //SCREEN
 
@@ -20,20 +21,42 @@ class GAParams {
   static const String searchButton = 'search_button';
   static const String drawerButton = 'drawer_button';
   static const String categoryButton = 'category_button';
-  static const String iconButton = 'icon_button_forgot_password';
+  static const String iconButtonFavorite = 'icont_button_favorite';
   static const String loginButton = 'login_button';
   static const String textButtonRegister = 'text_button_register';
   static const String textButtonForgotPassword = 'text_button_forgot_password';
   static const String textButtonAgreement = 'text_button_agreement';
   static const String textButtonPolicy = 'text_button_policy';
+  static const String textButtonPlaceOrder = 'text_button_place_order';
+  static const String buttonMoreOrder = 'buttonMoreOrder';
+  static const String buttonApplicationFilter = 'buttonApplicationFilter';
+  static const String buttonFilterClose = 'buttonFilterClose';
+  static const String buttonClearFilter = 'buttonClearFilter';
+  static const String buttonCity = 'buttonCity';
+  static const String buttonContinueTypeAd = 'buttonContinueTypeAd';
 
   //BUTTON
 
   //LIST
-  static const String adList = "AdList";
-  static const String adMainIdList = "AdMainIdList";
+  static const String adMainListId = "AdMainListId";
+  static const String adMainListName = "Главная спецтехники по";
+  static const String applicationListId = "applicationList";
+  static const String applicationListName = "Заказы";
+  static const String applicationMainListId = "applicationMainList";
+  static const String applicationMainListName = "Главная Заказы на спецтехнику";
+  static const String cityList = "cityList";
+  static const String adTypeCategoriesId = "adTypeCategoriesId";
+  static const String adTypeCategoriesName = "Тип обьявлении";
+  static const String adSelectListId = "adSelectListId";
+  static const String adWriteDetailListId = "adWriteDetailListId";
+  static const String adWriteDetailListName = "Напишите подробности";
+  static const String adCharacteristicListId = "adCharacteristicListId";
+  static const String adCharacteristicListName = "Характеристика";
+  static const String adCharacteristicChildListId =
+      "adCharacteristicChildListId";
+  static const String adCharacteristicChildListName = "Доп. характеристики";
 
-  static const String applicationList = "applicationList";
+  //LIST
 }
 
 class GAContentType {

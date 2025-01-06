@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:dio/dio.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
@@ -53,8 +55,6 @@ class _ViewAdPageState extends State<ViewAdPage> {
         loader = false;
         addAdFavorite();
         setState(() {});
-
-        // await GetIt.I<FirebaseAnalytics>()
       } else {
         SnackBarComponent().showResponseErrorMessage(response, context);
       }

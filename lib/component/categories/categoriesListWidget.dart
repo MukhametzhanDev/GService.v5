@@ -41,7 +41,7 @@ class _CategoriesListWidgetState extends State<CategoriesListWidget> {
           itemId: value['id'].toString(),
           parameters: {
             'screen_name': GAParams.mainPage,
-            'category_name': value['title']
+            'category_name': value['title'],
           }).catchError((e) {
         debugPrint(e);
       });
