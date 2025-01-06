@@ -33,7 +33,7 @@ class _CurrencyButtonState extends State<CurrencyButton> {
     role = await ChangedToken().getRole();
     print(" `categoryId` $categoryId");
     setState(() {});
-    if (role != "individual" && (categoryId == 1 || categoryId == 4)) {
+    if (role != "customer" && (categoryId == 1 || categoryId == 4)) {
       try {
         Response response = await dio.get("/company-currency",
             queryParameters: {"category_id": categoryId});
@@ -70,7 +70,7 @@ class _CurrencyButtonState extends State<CurrencyButton> {
 
   @override
   Widget build(BuildContext context) {
-    if (role == "individual") {
+    if (role == "customer") {
       return Container();
     } else {
       if (categoryId == 1 && categoryId == 4) {

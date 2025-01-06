@@ -125,7 +125,7 @@ class _ChangeCustomerProfilePageState
           padding: const EdgeInsets.all(15),
           child: Column(children: [
             GetLogoWidget(
-                role: "individual",
+                role: "customer",
                 imageUrl: widget.data['avatar'],
                 onChanged: (path) {
                   imagePath = path;

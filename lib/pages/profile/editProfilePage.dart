@@ -30,7 +30,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
   }
 
   void editProfileDetails() {
-    if (role == "individual") {
+    if (role == "customer") {
       Navigator.push(
               context,
               MaterialPageRoute(
@@ -93,7 +93,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                     onTap: () => editPasswordPage(),
                     title: const Text("Изменить пароль"),
                     trailing: SvgPicture.asset('assets/icons/right.svg'))),
-            role == "individual"
+            role == "customer"
                 ? Container()
                 : Container(
                     decoration: const BoxDecoration(

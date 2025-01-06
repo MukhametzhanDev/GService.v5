@@ -56,7 +56,7 @@
 
 //   void showRegistrationPage() {
 //     Map currentValue = data[currentType];
-//     if (currentValue['type'] == "individual") {
+//     if (currentValue['type'] == "customer") {
 //       if (currentValue['active']) {
 //         // ChangedToken().changeIndividualToken(context);
 //       } else {
@@ -78,7 +78,7 @@
 //   }
 
 //   void showAuthPage(String type) {
-//     if (type == "individual") {
+//     if (type == "customer") {
 //       Navigator.push(
 //           context,
 //           MaterialPageRoute(

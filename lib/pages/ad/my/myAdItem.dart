@@ -221,7 +221,7 @@ class MyAdItem extends StatelessWidget {
                               )),
                         ),
                       ]),
-            role == "individual"
+            role == "customer"
                 ? Container()
                 : Container(
                     height: 36,
