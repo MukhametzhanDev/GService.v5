@@ -9,7 +9,7 @@ import 'package:gservice5/component/select/multi/multiSelect.dart';
 import 'package:gservice5/component/snackBar/snackBarComponent.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
 import 'package:gservice5/component/widgets/bottom/bottomNavigationBarComponent.dart';
-import 'package:gservice5/navigation/contractor/contractorBottomTab.dart';
+import 'package:gservice5/navigation/business/businessBottomTab.dart';
 
 class GetActivityContractorPage extends StatefulWidget {
   const GetActivityContractorPage({super.key});
@@ -41,7 +41,7 @@ class _GetActivityContractorPageState extends State<GetActivityContractorPage> {
       if (response.statusCode == 200) {
         Navigator.pushAndRemoveUntil(
             context,
-            MaterialPageRoute(builder: (_) => const ContractorBottomTab()),
+            MaterialPageRoute(builder: (_) => const BusinessBottomTab()),
             (route) => false);
       } else {
         SnackBarComponent().showResponseErrorMessage(response, context);

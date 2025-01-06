@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:gservice5/component/appBar/leadingLogo.dart';
+import 'package:gservice5/component/button/button.dart';
 import 'package:gservice5/component/categories/data/categoriesData.dart';
 import 'package:gservice5/component/request/getCategories.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
+import 'package:gservice5/component/widgets/bottom/bottomNavigationBarComponent.dart';
 import 'package:gservice5/pages/ad/list/adListPage.dart';
-import 'package:gservice5/pages/auth/accountType/changed/changedAccountTypePage.dart';
 import 'package:gservice5/pages/main/drawer/drawerOptions.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
@@ -41,8 +42,14 @@ class _MainDrawerState extends State<MainDrawer> {
 
   void showChangeTypeModal() {
     Navigator.pop(context);
-    showCupertinoModalBottomSheet(
-        context: context, builder: (context) => const ChangedAccountType());
+    // showCupertinoModalBottomSheet(
+    //     context: context, builder: (context) => const ChangedAccountType());
+  }
+
+  void showCreateCompany() {
+    Navigator.pop(context);
+    // showCupertinoModalBottomSheet(
+    // context: context, builder: (context) => const ChangedAccountType());
   }
 
   void showDrawerPage(Map value) {
@@ -55,78 +62,112 @@ class _MainDrawerState extends State<MainDrawer> {
     return SizedBox(
         width: MediaQuery.of(context).size.width - 75,
         child: Scaffold(
-          appBar: AppBar(
-            leadingWidth: 160,
-            leading: const LeadingLogo(),
-            actions: [
-              GestureDetector(
-                onTap: () => Navigator.pop(context),
-                child: Container(
-                  height: 40,
-                  width: 40,
-                  alignment: Alignment.center,
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(8),
-                      color: ColorComponent.mainColor.withOpacity(.1)),
-                  child: SvgPicture.asset('assets/icons/close.svg',
-                      color: Colors.black),
+            appBar: AppBar(
+              leadingWidth: 160,
+              leading: const LeadingLogo(),
+              actions: [
+                GestureDetector(
+                  onTap: () => Navigator.pop(context),
+                  child: Container(
+                    height: 40,
+                    width: 40,
+                    alignment: Alignment.center,
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(8),
+                        color: ColorComponent.mainColor.withOpacity(.1)),
+                    child: SvgPicture.asset('assets/icons/close.svg',
+                        color: Colors.black),
+                  ),
                 ),
-              ),
-              const Divider(indent: 15)
-            ],
-          ),
-          body: SingleChildScrollView(
-            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: categories.map((value) {
-                      return GestureDetector(
-                          onTap: () => showPage(value),
-                          child: Container(
-                              color: Colors.white,
-                              height: 48,
-                              child: Row(children: [
-                                SvgPicture.network(value['icon'], width: 24),
-                                const Divider(indent: 8),
-                                Text(
-                                  value['title'],
-                                  style: const TextStyle(
-                                      fontWeight: FontWeight.w500,
-                                      fontSize: 15),
-                                ),
-                              ])));
-                    }).toList()),
-                Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: options.map((value) {
-                      return GestureDetector(
-                        onTap: () => showDrawerPage(value),
-                        child: Container(
-                          color: Colors.white,
-                          height: 48,
-                          child: Row(
-                            children: [
-                              SvgPicture.asset("assets/icons/${value['icon']}",
-                                  width: 24),
-                              const Divider(indent: 8),
-                              Text(value['title'],
-                                  style: const TextStyle(
-                                      fontWeight: FontWeight.w500,
-                                      fontSize: 15)),
-                            ],
-                          ),
-                        ),
-                      );
-                    }).toList()),
-              
+                const Divider(indent: 15)
               ],
             ),
-          ),
-          // bottomNavigationBar:
-          //     BottomNavigationBarComponent(child: ChangedAccountWidget()),
-        ));
+            body: SingleChildScrollView(
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: categories.map((value) {
+                        return GestureDetector(
+                            onTap: () => showPage(value),
+                            child: Container(
+                                color: Colors.white,
+                                height: 48,
+                                child: Row(children: [
+                                  SvgPicture.network(value['icon'], width: 24),
+                                  const Divider(indent: 8),
+                                  Text(
+                                    value['title'],
+                                    style: const TextStyle(
+                                        fontWeight: FontWeight.w500,
+                                        fontSize: 15),
+                                  ),
+                                ])));
+                      }).toList()),
+                  Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: options.map((value) {
+                        return GestureDetector(
+                          onTap: () => showDrawerPage(value),
+                          child: Container(
+                            color: Colors.white,
+                            height: 48,
+                            child: Row(
+                              children: [
+                                SvgPicture.asset(
+                                    "assets/icons/${value['icon']}",
+                                    width: 24),
+                                const Divider(indent: 8),
+                                Text(value['title'],
+                                    style: const TextStyle(
+                                        fontWeight: FontWeight.w500,
+                                        fontSize: 15)),
+                              ],
+                            ),
+                          ),
+                        );
+                      }).toList()),
+                ],
+              ),
+            ),
+            bottomNavigationBar: BottomNavigationBarComponent(
+              child:
+                  //     Container(
+                  //   height: 42,
+                  //   margin: EdgeInsets.symmetric(horizontal: 15),
+                  //   padding: EdgeInsets.symmetric(horizontal: 10),
+                  //   decoration: BoxDecoration(
+                  //       borderRadius: BorderRadius.circular(8),
+                  //       color: ColorComponent.mainColor),
+                  //   child: Row(
+                  //     children: [
+                  //       // SvgPicture.asset("assets/icons/users.svg",
+                  //       //     width: 20, color: Colors.black),
+                  //       // Divider(indent: 8),
+                  //       Expanded(
+                  //         child: Text("Стать партнером",
+                  //             style: TextStyle(fontWeight: FontWeight.w600)),
+                  //       ),
+                  //       Text("Подробнее", style: TextStyle(fontSize: 12))
+                  //     ],
+                  //   ),
+                  // )
+                  SizedBox(
+                      height: 42,
+                      child: Row(
+                        children: [
+                          Expanded(
+                            child: Button(
+                                onPressed: () {},
+                                padding: EdgeInsets.symmetric(horizontal: 10),
+                                title: "Стать партнером"),
+                          ),
+                          SvgPicture.asset("assets/icons/questionOutline.svg"),
+                          Divider(indent: 10)
+                        ],
+                      )),
+            )));
   }
 }

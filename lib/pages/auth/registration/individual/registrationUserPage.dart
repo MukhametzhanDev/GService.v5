@@ -17,13 +17,17 @@ import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
 class RegistrationIndividualPage extends StatefulWidget {
   final Map data;
-  const RegistrationIndividualPage({super.key, required this.data});
+  final bool isPhone;
+  const RegistrationIndividualPage(
+      {super.key, required this.data, required this.isPhone});
 
   @override
-  State<RegistrationIndividualPage> createState() => _RegistrationIndividualPageState();
+  State<RegistrationIndividualPage> createState() =>
+      _RegistrationIndividualPageState();
 }
 
-class _RegistrationIndividualPageState extends State<RegistrationIndividualPage> {
+class _RegistrationIndividualPageState
+    extends State<RegistrationIndividualPage> {
   TextEditingController nameEditingController = TextEditingController();
   TextEditingController passwordEditingController = TextEditingController();
   TextEditingController repeatPasswordEditingController =
@@ -33,33 +37,43 @@ class _RegistrationIndividualPageState extends State<RegistrationIndividualPage>
   Future postData() async {
     showModalLoader(context);
     try {
-      Map<String, dynamic> param = {
-        "name": nameEditingController.text,
-        "password": passwordEditingController.text,
-        "city_id": currentCity['id'],
-        "country_id": widget.data['country_id'],
-        "phone": getIntComponent(widget.data['phone']).toString()
-      };
-      Response response = await dio.post("/register", data: param);
+      Response response = await dio.post("/register", data: getParam());
       print(response.data);
       Navigator.pop(context);
-             if (response.statusCode==200) {
-
-        ChangedToken().saveIndividualToken(response.data['data'], context);
+      if (response.statusCode == 200) {
+        ChangedToken().savedToken(response.data['data'], context);
       } else {
         SnackBarComponent().showResponseErrorMessage(response, context);
       }
-    } catch (e) {
-      // print(e)
+    } on DioException catch (e) {
+      print(e);
       SnackBarComponent().showServerErrorMessage(context);
     }
+  }
+
+  Map getParam() {
+    Map<String, dynamic> param = {
+      "name": nameEditingController.text,
+      "password": passwordEditingController.text,
+      "city_id": currentCity['id'],
+      "country_id": widget.data['country_id'],
+    };
+    if (widget.isPhone) {
+      param.addAll({"phone": getIntComponent(widget.data['phone']).toString()});
+    } else {
+      param.addAll({"email": widget.data['email']});
+    }
+    return param;
   }
 
   void verifyData() {
     String name = nameEditingController.text.trim();
     String password = passwordEditingController.text.trim();
     String repeatPassword = repeatPasswordEditingController.text.trim();
-    if (name.isEmpty || password.isEmpty || repeatPassword.isEmpty) {
+    if (name.isEmpty ||
+        password.isEmpty ||
+        repeatPassword.isEmpty ||
+        currentCity.isEmpty) {
       SnackBarComponent().showErrorMessage("Заполните все строки", context);
     } else {
       if (password.length < 5) {
@@ -88,7 +102,8 @@ class _RegistrationIndividualPageState extends State<RegistrationIndividualPage>
     return GestureDetector(
       onTap: () => closeKeyboard(),
       child: Scaffold(
-        appBar: AppBar(title: const Text("Регистрация"), leading: const BackIconButton()),
+        appBar: AppBar(
+            title: const Text("Регистрация"), leading: const BackIconButton()),
         body: SingleChildScrollView(
           padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 7),
           child: Column(
@@ -127,7 +142,7 @@ class _RegistrationIndividualPageState extends State<RegistrationIndividualPage>
         ),
         bottomNavigationBar: BottomNavigationBarComponent(
             child: Button(
-                onPressed: verifyData,
+                onPressed: postData,
                 padding: const EdgeInsets.symmetric(horizontal: 15),
                 title: "Продолжить")),
       ),

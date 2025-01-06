@@ -84,8 +84,8 @@ class _RegistrationContractorPageState
       Response response = await dio.post("/business/register", data: param);
       Navigator.pop(context);
       if (response.statusCode == 200) {
-        ChangedToken()
-            .saveContractorToken(response.data['data'], "register", context);
+        // ChangedToken()
+        //     .saveContractorToken(response.data['data'], "register", context);
       } else {
         SnackBarComponent().showResponseErrorMessage(response, context);
       }
@@ -135,8 +135,9 @@ class _RegistrationContractorPageState
     return GestureDetector(
       onTap: () => closeKeyboard(),
       child: Scaffold(
-        appBar:
-            AppBar(leading: const BackIconButton(), title: const Text("Данные компании")),
+        appBar: AppBar(
+            leading: const BackIconButton(),
+            title: const Text("Данные компании")),
         body: SingleChildScrollView(
           padding: const EdgeInsets.all(15),
           child: Column(children: [
@@ -156,7 +157,8 @@ class _RegistrationContractorPageState
                 controller: nameEditingController,
                 style: const TextStyle(fontSize: 14),
                 keyboardType: TextInputType.text,
-                decoration: const InputDecoration(hintText: "Название компании")),
+                decoration:
+                    const InputDecoration(hintText: "Название компании")),
             const Divider(indent: 8),
             TextField(
                 controller: identifierEditingController,

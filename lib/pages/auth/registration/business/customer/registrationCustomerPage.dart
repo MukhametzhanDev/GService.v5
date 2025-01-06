@@ -81,7 +81,7 @@ class _RegistrationCustomerPageState extends State<RegistrationCustomerPage> {
       print(response.data);
       Navigator.pop(context);
       if (response.statusCode == 200) {
-        ChangedToken().saveCustomerToken(response.data['data'], context);
+        // ChangedToken().saveCustomerToken(response.data['data'], context);
       } else {
         SnackBarComponent().showResponseErrorMessage(response, context);
       }

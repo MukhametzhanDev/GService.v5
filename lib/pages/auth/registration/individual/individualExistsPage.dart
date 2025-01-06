@@ -19,8 +19,7 @@ import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:shimmer/shimmer.dart';
 
 class IndividualExistsPage extends StatefulWidget {
-  final Map data;
-  const IndividualExistsPage({super.key, required this.data});
+  const IndividualExistsPage({super.key});
 
   @override
   State<IndividualExistsPage> createState() => _IndividualExistsPageState();
@@ -141,7 +140,7 @@ class _IndividualExistsPageState extends State<IndividualExistsPage> {
             builder: (context) => VerificationPhonePage(userData: {
                   "country_id": currentCountry['id'],
                   "phone": phoneEditingController.text,
-                  ...widget.data
+                  // ...widget.data
                 })));
   }
 
@@ -154,7 +153,7 @@ class _IndividualExistsPageState extends State<IndividualExistsPage> {
                     userData: {
                       "country_id": currentCountry['id'],
                       "email": emailEditingController.text,
-                      ...widget.data
+                      // ...widget.data
                     })));
   }
 
@@ -163,7 +162,8 @@ class _IndividualExistsPageState extends State<IndividualExistsPage> {
     return GestureDetector(
       onTap: () => closeKeyboard(),
       child: Scaffold(
-        appBar: AppBar(title: const Text("Регистрация"), leading: const BackIconButton()),
+        appBar: AppBar(
+            title: const Text("Регистрация"), leading: const BackIconButton()),
         body: SingleChildScrollView(
           padding: const EdgeInsets.all(15),
           child: Column(
@@ -193,8 +193,8 @@ class _IndividualExistsPageState extends State<IndividualExistsPage> {
                         decoration: BoxDecoration(
                             color: const Color(0xffF9FAFB),
                             borderRadius: BorderRadius.circular(10),
-                            border:
-                                Border.all(width: 1, color: const Color(0xffE5E5EA))),
+                            border: Border.all(
+                                width: 1, color: const Color(0xffE5E5EA))),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [

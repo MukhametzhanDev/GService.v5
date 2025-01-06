@@ -51,7 +51,8 @@ class _GetAccountTypePageState extends State<GetAccountTypePage>
           context,
           MaterialPageRoute(
               builder: (context) => IndividualExistsPage(
-                  data: {"role": data[currentType]['type']})));
+                  // data: {"role": data[currentType]['type']}
+                  )));
     } else {
       Navigator.push(
           context,
@@ -65,7 +66,8 @@ class _GetAccountTypePageState extends State<GetAccountTypePage>
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-          leading: const BackIconButton(), title: const Text("Тип личного кабинета")),
+          leading: const BackIconButton(),
+          title: const Text("Тип личного кабинета")),
       body: loader
           ? const LoaderComponent()
           : SingleChildScrollView(

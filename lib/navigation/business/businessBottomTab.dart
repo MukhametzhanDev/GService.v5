@@ -1,30 +1,33 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:badges/badges.dart' as badges;
 import 'package:gservice5/component/theme/colorComponent.dart';
+import 'package:gservice5/pages/contractor/dashboard/dashboardPage.dart';
+import 'package:gservice5/pages/contractor/marketing/marketingPage.dart';
 import 'package:gservice5/pages/create/createSectionPage.dart';
 import 'package:gservice5/pages/message/messageMainPage.dart';
-import 'package:gservice5/pages/profile/verifyProfilePage.dart';
+import 'package:gservice5/pages/profile/contractor/contractorProfilePage.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
+import 'package:badges/badges.dart' as badges;
 
-class CustomerBottomTab extends StatefulWidget {
-  const CustomerBottomTab({super.key});
+class BusinessBottomTab extends StatefulWidget {
+  const BusinessBottomTab({super.key});
 
   @override
-  State<CustomerBottomTab> createState() => _CustomerBottomTabState();
+  State<BusinessBottomTab> createState() => _BusinessBottomTabState();
 }
 
-class _CustomerBottomTabState extends State<CustomerBottomTab>
-    with SingleTickerProviderStateMixin {
+class _BusinessBottomTabState extends State<BusinessBottomTab> {
   int _selectedIndex = 0;
   static final List<Map> _tabs = <Map>[
-    {"icon": "assets/icons/fileOutline.svg", "label": "Мои заказы"},
+    {"icon": "assets/icons/home.svg", "label": "Главная"},
+    {"icon": "assets/icons/chartOutline.svg", "label": "Маркетинг"},
     {"icon": "assets/icons/plus.svg", "label": "Объявление"},
     {"icon": "assets/icons/messages.svg", "label": "Сообщения"},
     {"icon": "assets/icons/user.svg", "label": "Профиль"},
   ];
   ScrollController scrollController = ScrollController();
 
+  //changed tab and scroll up
   void _onItemTapped(int index) {
     if (_selectedIndex == 0 && index == 0) {
       scrollController.animateTo(0,
@@ -54,11 +57,12 @@ class _CustomerBottomTabState extends State<CustomerBottomTab>
     final ColorTheme = ThemeColorComponent.ColorsTheme(context);
     return Scaffold(
       body: IndexedStack(index: _selectedIndex, children: [
+        DashboardPage(scrollController: scrollController),
+        const MarketingPage(),
         Container(),
-        // MainPage(scrollController: scrollController),
-        Container(),
+        // CreateMainPage(),
         const MessageMainPage(),
-        const VerifyProfilePage(),
+        const ContractorProfilePage(),
       ]),
       bottomNavigationBar: BottomNavigationBar(
           backgroundColor: ColorTheme['white_black'],
@@ -73,7 +77,7 @@ class _CustomerBottomTabState extends State<CustomerBottomTab>
                       badgeColor: Colors.transparent,
                       padding: EdgeInsets.all(6),
                     ),
-                    showBadge: index == 2,
+                    showBadge: index == 3,
                     badgeContent: Container(
                       height: 18,
                       width: 18,
@@ -95,20 +99,20 @@ class _CustomerBottomTabState extends State<CustomerBottomTab>
                           Container(
                               padding: const EdgeInsets.all(2),
                               decoration: BoxDecoration(
-                                  color: index == _selectedIndex && index != 1
+                                  color: index == _selectedIndex && index != 2
                                       ? ColorComponent.mainColor
                                       : Colors.transparent,
                                   borderRadius: BorderRadius.circular(8)),
                               child: SvgPicture.asset(
                                 value['icon'],
-                                width: index == 1 ? 32 : null,
-                                color: index == 1
+                                width: index == 2 ? 32 : null,
+                                color: index == 2
                                     ? null
                                     : index == _selectedIndex
                                         ? Colors.black.withOpacity(.8)
                                         : ColorComponent.gray['500'],
                               )),
-                          index == 1
+                          index == 2
                               ? Container()
                               : Text(value['label'],
                                   style: TextStyle(

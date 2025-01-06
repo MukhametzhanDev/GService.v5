@@ -47,10 +47,10 @@ class _ResetBusinessPasswordPageState extends State<ResetBusinessPasswordPage> {
       print(response.data);
       if (response.statusCode == 200 && response.data['success']) {
         if (widget.data['role'] == "cusomter") {
-          ChangedToken().saveCustomerToken(widget.data, context);
+          // ChangedToken().saveCustomerToken(widget.data, context);
         } else {
-          ChangedToken()
-              .saveContractorToken(widget.data, "login", context);
+         // ChangedToken()
+         //     .saveContractorToken(widget.data, "login", context);
         }
         Navigator.pop(context);
       } else {

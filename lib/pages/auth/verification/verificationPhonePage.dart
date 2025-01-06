@@ -82,8 +82,8 @@ class _VerificationPhonePageState extends State<VerificationPhonePage>
     Navigator.push(
         context,
         MaterialPageRoute(
-            builder: (context) =>
-                RegistrationIndividualPage(data: widget.userData)));
+            builder: (context) => RegistrationIndividualPage(
+                data: widget.userData, isPhone: true)));
   }
 
   @override
