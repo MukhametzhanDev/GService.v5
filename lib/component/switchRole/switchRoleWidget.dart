@@ -19,6 +19,7 @@ class SwitchRoleWidget extends StatefulWidget {
 class _SwitchRoleWidgetState extends State<SwitchRoleWidget> {
   Map data = {};
   bool loader = true;
+  String? role;
 
   @override
   void initState() {
@@ -29,8 +30,10 @@ class _SwitchRoleWidgetState extends State<SwitchRoleWidget> {
   void getData() async {
     bool hasToken = await ChangedToken().getToken() != null;
     if (hasToken) {
+      role = await ChangedToken().getRole();
+      String API = role == "business" ? "/user" : "/my-company";
       try {
-        Response response = await dio.get("/my-company");
+        Response response = await dio.get(API);
         if (response.data['success']) {
           if (response.data['data'] != null) {
             data = response.data['data'];
@@ -43,11 +46,20 @@ class _SwitchRoleWidgetState extends State<SwitchRoleWidget> {
       } catch (e) {
         SnackBarComponent().showNotGoBackServerErrorMessage(context);
       }
+    } else {
+      loader = false;
     }
+    setState(() {});
   }
 
-  void switchRole() async{
-    // await FlutterSecureStorage().
+  void switchRole() async {
+    if (role == "customer") {
+      await const FlutterSecureStorage().write(key: "role", value: "business");
+      Navigator.pushReplacementNamed(context, "BusinessBottomTab");
+    } else if (role == "business") {
+      await const FlutterSecureStorage().write(key: "role", value: "customer");
+      Navigator.pushReplacementNamed(context, "CustomerBottomTab");
+    }
   }
 
   void showCreateCompany() {
@@ -70,7 +82,7 @@ class _SwitchRoleWidgetState extends State<SwitchRoleWidget> {
                     borderRadius: BorderRadius.circular(8))))
         : data.isNotEmpty
             ? GestureDetector(
-                onTap: () {},
+                onTap: switchRole,
                 child: Container(
                   margin: EdgeInsets.symmetric(horizontal: 15),
                   decoration: BoxDecoration(

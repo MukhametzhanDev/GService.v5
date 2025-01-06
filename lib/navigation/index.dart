@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:gservice5/component/theme/darkThemeProvider.dart';
 import 'package:gservice5/component/theme/styles.dart';
+import 'package:gservice5/navigation/business/businessBottomTab.dart';
 import 'package:gservice5/pages/auth/registration/business/registrationBusinessPage.dart';
 import 'package:gservice5/pages/companies/companiesMainPage.dart';
 import 'package:gservice5/pages/payment/transaction/transactionHistoryPage.dart';
@@ -48,6 +49,7 @@ class _IndexState extends State<Index> {
             initialRoute: "SplashScreen",
             routes: {
               "CustomerBottomTab": (context) => const CustomerBottomTab(),
+              "BusinessBottomTab": (context) => const BusinessBottomTab(),
               "SplashScreen": (context) => const SplashScreen(),
               "ReplenishmentWalletPage": (context) =>
                   const ReplenishmentWalletPage(),

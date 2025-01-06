@@ -32,14 +32,14 @@ class _BusinessProfilePageState extends State<BusinessProfilePage> {
 
   void getData() async {
     try {
-      Response response = await dio.get("/company");
+      Response response = await dio.get("/my-company");
       print(response.data);
       if (response.data['success'] && response.statusCode == 200) {
         data = response.data['data'];
         loader = false;
         setState(() {});
       } else if (response.statusCode == 401) {
-        ChangedToken().removeToken(context);
+        // ChangedToken().removeToken(context);
       } else {
         SnackBarComponent().showResponseErrorMessage(response, context);
       }

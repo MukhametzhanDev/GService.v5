@@ -5,20 +5,14 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get_it/get_it.dart';
 import 'package:gservice5/component/loader/modalLoaderComponent.dart';
 import 'package:gservice5/component/snackBar/snackBarComponent.dart';
-import 'package:gservice5/navigation/business/businessBottomTab.dart';
 import 'package:gservice5/navigation/customer/customerBottomTab.dart';
 import 'package:gservice5/component/dio/dio.dart';
 
 class ChangedToken {
   FlutterSecureStorage flutterSecureStorage = const FlutterSecureStorage();
   Future getToken() async {
-    String? role = await flutterSecureStorage.read(key: "role");
-    if (role != null) {
-      String? token = await flutterSecureStorage.read(key: "token_$role");
-      return token;
-    } else {
-      return null;
-    }
+    String? token = await flutterSecureStorage.read(key: "token");
+    return token;
   }
 
   Future getRole() async {
@@ -27,20 +21,24 @@ class ChangedToken {
   }
 
   Future savedToken(value, context) async {
-    await flutterSecureStorage.write(key: "role", value: "individual");
+    await flutterSecureStorage.write(key: "role", value: "customer");
     await flutterSecureStorage.write(key: "token", value: value['user_token']);
     dio.options.headers['authorization'] = "Bearer ${value['user_token']}";
-    if (value['user']['role']['code_type'] == "customer") {
-      Navigator.pushAndRemoveUntil(
-          context,
-          MaterialPageRoute(builder: (_) => const CustomerBottomTab()),
-          (route) => false);
-    } else {
-      Navigator.pushAndRemoveUntil(
-          context,
-          MaterialPageRoute(builder: (_) => const BusinessBottomTab()),
-          (route) => false);
-    }
+    Navigator.pushAndRemoveUntil(
+        context,
+        MaterialPageRoute(builder: (_) => const CustomerBottomTab()),
+        (route) => false);
+    // if (value['role']['code_type'] == "customer") {
+    //   Navigator.pushAndRemoveUntil(
+    //       context,
+    //       MaterialPageRoute(builder: (_) => const CustomerBottomTab()),
+    //       (route) => false);
+    // } else {
+    //   Navigator.pushAndRemoveUntil(
+    //       context,
+    //       MaterialPageRoute(builder: (_) => const BusinessBottomTab()),
+    //       (route) => false);
+    // }
   }
 
   Future removeToken(context) async {
@@ -65,7 +63,7 @@ class ChangedToken {
   }
 
   // Future changeIndividualToken(context) async {
-  //   await flutterSecureStorage.write(key: "role", value: "individual");
+  //   await flutterSecureStorage.write(key: "role", value: "customer");
   //   String? token = await flutterSecureStorage.read(key: "token");
   //   dio.options.baseUrl = "https://dev.gservice-co.kz/api/";
   //   dio.options.headers['authorization'] = "Bearer $token";

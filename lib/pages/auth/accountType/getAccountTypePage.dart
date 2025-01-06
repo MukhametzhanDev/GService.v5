@@ -46,7 +46,7 @@ class _GetAccountTypePageState extends State<GetAccountTypePage>
   }
 
   void showRegistrationPage() {
-    if (data[currentType]['type'] == "individual") {
+    if (data[currentType]['type'] == "customer") {
       Navigator.push(
           context,
           MaterialPageRoute(

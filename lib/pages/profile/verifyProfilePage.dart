@@ -65,7 +65,7 @@ class _VerifyProfilePageState extends State<VerifyProfilePage> {
     //         ? BusinessProfilePage()
     //         : role == "customer"
     //             ? CustomerProfilePage()
-    //             : role == "individual"
+    //             : role == "customer"
     //                 ? const CustomerProfilePage()
     //                 : LoaderComponent()
     //     : const LoginPage(showBackButton: false);

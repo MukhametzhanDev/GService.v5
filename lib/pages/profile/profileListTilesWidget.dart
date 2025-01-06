@@ -103,7 +103,7 @@ class _ProfileListTilesWidgetState extends State<ProfileListTilesWidget> {
         //         leading: SvgPicture.asset('assets/icons/logistic.svg'),
         //         title: Text("Логистика"),
         //         trailing: SvgPicture.asset('assets/icons/right.svg'))),
-        role == "individual"
+        role == "customer"
             ? Container()
             : Container(
                 decoration: BoxDecoration(
@@ -115,7 +115,7 @@ class _ProfileListTilesWidgetState extends State<ProfileListTilesWidget> {
                     title: const Text("Новости"),
                     trailing: SvgPicture.asset('assets/icons/right.svg')),
               ),
-        role == "individual"
+        role == "customer"
             ? Container()
             : Container(
                 decoration: BoxDecoration(
@@ -126,7 +126,7 @@ class _ProfileListTilesWidgetState extends State<ProfileListTilesWidget> {
                     title: const Text("Документы"),
                     trailing: SvgPicture.asset('assets/icons/right.svg')),
               ),
-        role == "individual"
+        role == "customer"
             ? Container()
             : Container(
                 decoration: BoxDecoration(
@@ -138,7 +138,7 @@ class _ProfileListTilesWidgetState extends State<ProfileListTilesWidget> {
                     title: const Text("Моя валюта"),
                     trailing: SvgPicture.asset('assets/icons/right.svg')),
               ),
-        role == "individual"
+        role == "customer"
             ? Container()
             : Container(
                 decoration: BoxDecoration(

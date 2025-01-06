@@ -89,6 +89,7 @@ class _LoginPageState extends State<LoginPage>
       print(response.data);
       Navigator.pop(context);
       if (response.statusCode == 200 && response.data['success']) {
+        print(response.data);
         ChangedToken().savedToken(response.data['data'], context);
 
         await GetIt.I<FirebaseAnalytics>().logLogin(

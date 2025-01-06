@@ -23,10 +23,10 @@ class LeadingLogo extends StatelessWidget {
                           fontSize: 18,
                           fontWeight: FontWeight.w700,
                           height: 1)),
-                          Divider(height: 3),
+                  Divider(height: 2),
                   Text(
                     "мир спецтехники",
-                    style: TextStyle(fontSize: 9.5),
+                    style: TextStyle(fontSize: 12),
                   )
                 ]),
           )
