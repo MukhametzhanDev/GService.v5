@@ -58,17 +58,15 @@ class _GetCharacteristicAdPageState extends State<GetCharacteristicAdPage> {
           for (int i = 0; i < selectFields.length; i++) {
             List<dynamic> options = selectFields[i]['options'];
 
-            GetIt.I<FirebaseAnalytics>()
-                .logViewItemList(
-                    itemListId:
-                        '${GAParams.adCharacteristicListId}_${selectFields[i]?['id']?.toString()}',
-                    itemListName: selectFields[i]?['title'],
-                    items: options
-                        .map((j) => AnalyticsEventItem(
-                            itemId: j['id'].toString(),
-                            itemName: j?['title'] ?? ''))
-                        .toList())
-                .catchError((e) => {debugPrint(e)});
+            await GetIt.I<FirebaseAnalytics>().logViewItemList(
+                itemListId:
+                    '${GAParams.adCharacteristicListId}_${selectFields[i]?['id']?.toString()}',
+                itemListName: selectFields[i]?['title'],
+                items: options
+                    .map((j) => AnalyticsEventItem(
+                        itemId: j['id'].toString(),
+                        itemName: j?['title'] ?? ''))
+                    .toList());
           }
         }
       } else {
@@ -108,32 +106,72 @@ class _GetCharacteristicAdPageState extends State<GetCharacteristicAdPage> {
     }
   }
 
-  void verifyData() {
-    GetIt.I<FirebaseAnalytics>()
+  void verifyData() async {
+    await GetIt.I<FirebaseAnalytics>()
         .logEvent(name: GAEventName.buttonClick, parameters: {
-      'button_name': '',
+      'button_name': 'saveCharacteristic',
     });
-    for (Map value in data) {
-      print(value);
-      bool hasKey =
-          CreateData.characteristic.containsKey(value['id'].toString());
-      if (hasKey) {
-        String title =
-            CreateData.characteristic["${value['id']}"].toString().trim();
-        if (value['is_required'] && title.isEmpty) {
-          SnackBarComponent().showErrorMessage(
-              "Заполните строку '${value['title']}'", context);
-          return;
-        }
-      } else {
-        SnackBarComponent()
-            .showErrorMessage("Заполните строку '${value['title']}'", context);
-        return;
-      }
-    }
-    print(CreateData.characteristic);
 
-    showPage();
+    // for (Map value in data) {
+    //   print(value);
+    //   bool hasKey =
+    //       CreateData.characteristic.containsKey(value['id'].toString());
+    //   if (hasKey) {
+    //     String title =
+    //         CreateData.characteristic["${value['id']}"].toString().trim();
+    //     if (value['is_required'] && title.isEmpty) {
+    //       SnackBarComponent().showErrorMessage(
+    //           "Заполните строку '${value['title']}'", context);
+    //       return;
+    //     }
+    //   } else {
+    //     SnackBarComponent()
+    //         .showErrorMessage("Заполните строку '${value['title']}'", context);
+    //     return;
+    //   }
+    // }
+
+    List<Map<String, dynamic>?> result = data
+        .map((value) {
+          String mainId = value['id'].toString();
+          String? selectedOptionId = CreateData.characteristic[mainId];
+
+          if (selectedOptionId == null) return null;
+
+          var selectedOption = value['options'].firstWhere(
+              (option) => option['id'].toString() == selectedOptionId,
+              orElse: () => null);
+
+          if (selectedOption != null) {
+            return {
+              'id': value['id'],
+              'title': value['title'],
+              'selected_option': selectedOption,
+            };
+          }
+
+          return null;
+        })
+        .where((element) => element != null)
+        .toList();
+
+    print('result ${result}');
+    print('result length ${result.length}');
+
+    for (int i = 0; i < result.length; i++) {
+      await GetIt.I<FirebaseAnalytics>().logViewItemList(
+          parameters: {'listType': 'Характеристика'},
+          itemListId:
+              '${GAParams.adCharacteristicListId}_${result[i]?['id']?.toString()}',
+          itemListName: '${result[i]?['title']?.toString()}',
+          items: [
+            AnalyticsEventItem(
+                itemName: result[i]?['selected_option']?['title'],
+                itemId: result[i]?['selected_option']?['id']?.toString())
+          ]);
+    }
+
+    // showPage();
   }
 
   void showPage() {

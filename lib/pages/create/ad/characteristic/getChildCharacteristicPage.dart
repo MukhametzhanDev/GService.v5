@@ -1,7 +1,4 @@
-import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
-import 'package:get_it/get_it.dart';
-import 'package:gservice5/analytics/event_name.constan.dart';
 import 'package:gservice5/component/button/button.dart';
 import 'package:gservice5/component/snackBar/snackBarComponent.dart';
 import 'package:gservice5/component/textField/closeKeyboard/closeKeyboard.dart';
@@ -38,26 +35,6 @@ class _GetChildCharacteristicPageState
   void initState() {
     data = widget.data;
     super.initState();
-
-    if (data.isNotEmpty) {
-      var selecFileds = data.where((e) => e['field_type'] == 'select').toList();
-
-      if (selecFileds.isNotEmpty) {
-        for (var i = 0; i < selecFileds.length; i++) {
-          List<dynamic> options = selecFileds[i]['options'];
-
-          GetIt.I<FirebaseAnalytics>().logViewItemList(
-              parameters: {'list_type': GAParams.adCharacteristicChildListName},
-              itemListId:
-                  '${GAParams.adCharacteristicChildListId}_${selecFileds[i]?['id'].toString()}',
-              itemListName: selecFileds[i]?['title'] ?? '',
-              items: options
-                  .map((e) => AnalyticsEventItem(
-                      itemName: e?['title'] ?? '', itemId: e?['id'].toString()))
-                  .toList()).catchError((onError) => {debugPrint(onError)});
-        }
-      }
-    }
   }
 
   void verifyData() {
