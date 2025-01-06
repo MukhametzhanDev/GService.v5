@@ -1,5 +1,8 @@
 import 'package:dio/dio.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
+import 'package:gservice5/analytics/event_name.constan.dart';
 import 'package:gservice5/component/button/back/backIconButton.dart';
 import 'package:gservice5/component/button/button.dart';
 import 'package:gservice5/component/dio/dio.dart';
@@ -36,7 +39,11 @@ class _LoginPageState extends State<LoginPage>
     super.dispose();
   }
 
-  void verifyData() {
+  void verifyData() async {
+    await GetIt.I<FirebaseAnalytics>().logEvent(
+        name: GAEventName.buttonClick,
+        parameters: {'button_name': GAParams.loginButton});
+
     String text = textEditingController.text.trim();
     String password = passwordEditingController.text.trim();
     if (text.isEmpty || password.isEmpty) {
@@ -83,6 +90,9 @@ class _LoginPageState extends State<LoginPage>
       Navigator.pop(context);
       if (response.statusCode == 200 && response.data['success']) {
         ChangedToken().savedToken(response.data['data'], context);
+
+        await GetIt.I<FirebaseAnalytics>().logLogin(
+            loginMethod: param.containsKey('email') ? 'email' : 'phone');
       } else {
         SnackBarComponent().showResponseErrorMessage(response, context);
       }
@@ -106,8 +116,8 @@ class _LoginPageState extends State<LoginPage>
     Navigator.push(
         context,
         MaterialPageRoute(
-            builder: (context) => ForgotPasswordCustomerPage(
-                title: textEditingController.text)));
+            builder: (context) =>
+                ForgotPasswordCustomerPage(title: textEditingController.text)));
   }
 
   @override

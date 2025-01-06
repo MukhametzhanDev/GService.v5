@@ -55,6 +55,8 @@ class GAParams {
   static const String adCharacteristicChildListId =
       "adCharacteristicChildListId";
   static const String adCharacteristicChildListName = "Доп. характеристики";
+  static const String countriesId = 'countriesId';
+  static const String countriesName = 'Страна';
 
   //LIST
 }

@@ -1,6 +1,9 @@
 import 'package:dio/dio.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get_it/get_it.dart';
+import 'package:gservice5/analytics/event_name.constan.dart';
 import 'package:gservice5/component/button/back/backIconButton.dart';
 import 'package:gservice5/component/button/button.dart';
 import 'package:gservice5/component/dio/dio.dart';
@@ -46,6 +49,16 @@ class _CusomterExistsPageState extends State<CusomterExistsPage> {
         currentCountry = response.data['data'][0];
         countries = response.data['data'];
         setState(() {});
+
+        await GetIt.I<FirebaseAnalytics>().logViewItemList(
+            parameters: {'screen_name': 'CusomterExistsPage'},
+            itemListName: GAParams.countriesName,
+            itemListId: GAParams.countriesId,
+            items: countries
+                .map((toElement) => AnalyticsEventItem(
+                    itemId: toElement['id'].toString(),
+                    itemName: toElement?['title']))
+                .toList());
       } else {
         SnackBarComponent().showResponseErrorMessage(response, context);
       }
