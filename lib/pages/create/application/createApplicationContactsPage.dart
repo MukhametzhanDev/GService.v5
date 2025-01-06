@@ -81,7 +81,7 @@ class _CreateApplicationContactsPageState
       SnackBarComponent().showErrorMessage("Выберите город", context);
     } else {
       CreateData.data.addAll({
-        "name": nameEditingController.text,
+        "user_name": nameEditingController.text,
         "phone": getIntComponent(phoneEditingController.text).toString(),
         "city_id": city['id'],
         "country_id": 1

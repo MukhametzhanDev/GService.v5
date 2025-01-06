@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:gservice5/component/loader/modalLoaderComponent.dart';
 import 'package:gservice5/component/snackBar/snackBarComponent.dart';
+import 'package:gservice5/navigation/business/businessBottomTab.dart';
 import 'package:gservice5/navigation/customer/customerBottomTab.dart';
 import 'package:gservice5/component/dio/dio.dart';
 
@@ -27,10 +28,17 @@ class ChangedToken {
     await flutterSecureStorage.write(key: "role", value: "individual");
     await flutterSecureStorage.write(key: "token", value: value['user_token']);
     dio.options.headers['authorization'] = "Bearer ${value['user_token']}";
-    Navigator.pushAndRemoveUntil(
-        context,
-        MaterialPageRoute(builder: (_) => const CustomerBottomTab()),
-        (route) => false);
+    if (value['user']['role']['code_type'] == "customer") {
+      Navigator.pushAndRemoveUntil(
+          context,
+          MaterialPageRoute(builder: (_) => const CustomerBottomTab()),
+          (route) => false);
+    } else {
+      Navigator.pushAndRemoveUntil(
+          context,
+          MaterialPageRoute(builder: (_) => const BusinessBottomTab()),
+          (route) => false);
+    }
   }
 
   Future removeToken(context) async {

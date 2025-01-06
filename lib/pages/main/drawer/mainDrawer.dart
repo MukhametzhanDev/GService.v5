@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:gservice5/component/appBar/leadingLogo.dart';
-import 'package:gservice5/component/button/button.dart';
 import 'package:gservice5/component/categories/data/categoriesData.dart';
 import 'package:gservice5/component/request/getCategories.dart';
+import 'package:gservice5/component/switchRole/switchRoleWidget.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
 import 'package:gservice5/component/widgets/bottom/bottomNavigationBarComponent.dart';
 import 'package:gservice5/pages/ad/list/adListPage.dart';
 import 'package:gservice5/pages/main/drawer/drawerOptions.dart';
-import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
 class MainDrawer extends StatefulWidget {
   const MainDrawer({super.key});
@@ -46,12 +45,6 @@ class _MainDrawerState extends State<MainDrawer> {
     //     context: context, builder: (context) => const ChangedAccountType());
   }
 
-  void showCreateCompany() {
-    Navigator.pop(context);
-    // showCupertinoModalBottomSheet(
-    //     context: context, builder: (context) => const ChangedAccountType());
-  }
-
   void showDrawerPage(Map value) {
     Navigator.push(
         context, MaterialPageRoute(builder: (context) => value['page']));
@@ -63,7 +56,7 @@ class _MainDrawerState extends State<MainDrawer> {
         width: MediaQuery.of(context).size.width - 75,
         child: Scaffold(
             appBar: AppBar(
-              leadingWidth: 160,
+              leadingWidth: 180,
               leading: const LeadingLogo(),
               actions: [
                 GestureDetector(
@@ -133,28 +126,7 @@ class _MainDrawerState extends State<MainDrawer> {
               ),
             ),
             bottomNavigationBar: BottomNavigationBarComponent(
-                child: GestureDetector(
-              onTap: showCreateCompany,
-              child: Row(
-                children: [
-                  Expanded(
-                    child: Container(
-                      height: 42,
-                      alignment: Alignment.center,
-                      margin: EdgeInsets.symmetric(horizontal: 15),
-                      padding: EdgeInsets.symmetric(horizontal: 10),
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(8),
-                          color: ColorComponent.mainColor),
-                      child: Text("Стать партнером",
-                          style: TextStyle(fontWeight: FontWeight.w600)),
-                    ),
-                  ),
-                  SvgPicture.asset("assets/icons/questionOutline.svg"),
-                  const Divider(indent: 20)
-                ],
-              ),
-            )
+                child: SwitchRoleWidget()
                 // SizedBox(
                 //     height: 42,
                 //     child: Row(

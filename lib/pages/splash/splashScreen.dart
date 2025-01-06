@@ -38,7 +38,7 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   Future showPage(String? role) async {
-    if (role == "contractor") {
+    if (role == "business") {
       Navigator.of(context).pushAndRemoveUntil(
           MaterialPageRoute(builder: (context) => const BusinessBottomTab()),
           (route) => false);

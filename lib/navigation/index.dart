@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gservice5/component/theme/darkThemeProvider.dart';
 import 'package:gservice5/component/theme/styles.dart';
+import 'package:gservice5/pages/auth/registration/business/registrationBusinessPage.dart';
 import 'package:gservice5/pages/companies/companiesMainPage.dart';
 import 'package:gservice5/pages/payment/transaction/transactionHistoryPage.dart';
 import 'package:gservice5/navigation/customer/customerBottomTab.dart';
@@ -62,6 +63,7 @@ class _IndexState extends State<Index> {
               "AllNewsPage": (context) => const AllNewsPage(),
               "AddContactsPage": (context) => const AddContactsPage(),
               "CompaniesMainPage": (context) => const CompaniesMainPage(),
+              "RegistrationBusinessPage": (context) => const RegistrationBusinessPage(),
             },
           );
         }));

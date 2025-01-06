@@ -38,7 +38,7 @@ class _ResetBusinessPasswordPageState extends State<ResetBusinessPasswordPage> {
         "password": passwordEditingController.text,
         "password_confirmation": repeatPasswordEditingController.text
       };
-      Response response = await dio.post("/business/password-reset",
+      Response response = await dio.post("/password-reset",
           data: param,
           options: Options(headers: {
             "authorization": "Bearer ${widget.data['user_token']}"

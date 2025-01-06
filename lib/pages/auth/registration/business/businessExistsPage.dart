@@ -93,7 +93,7 @@ class _BusinessExistsPageState extends State<BusinessExistsPage> {
   Future accountExists() async {
     showModalLoader(context);
     try {
-      Response response = await dio.get("/business/company-exists",
+      Response response = await dio.get("/company-exists",
           queryParameters: {"email": emailEditingController.text});
       print(response.data);
       Navigator.pop(context);
