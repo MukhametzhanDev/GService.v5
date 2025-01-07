@@ -1,23 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
-import 'package:gservice5/pages/author/filesListPage.dart';
 import 'package:readmore/readmore.dart';
 
-class ViewAboutBusinessPage extends StatefulWidget {
+class ViewAboutBusinessPage extends StatelessWidget {
   final Map data;
   const ViewAboutBusinessPage({super.key, required this.data});
 
-  @override
-  State<ViewAboutBusinessPage> createState() =>
-      _ViewAboutBusinessPageState();
-}
-
-class _ViewAboutBusinessPageState extends State<ViewAboutBusinessPage> {
-  void showFilesPage() {
-    Navigator.push(
-        context, MaterialPageRoute(builder: (context) => const FilesListPage()));
-  }
+  
 
   @override
   Widget build(BuildContext context) {
@@ -26,8 +16,9 @@ class _ViewAboutBusinessPageState extends State<ViewAboutBusinessPage> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          const Divider(height: 6),
           ReadMoreText(
-            "Севало Инжиниринг Машинери Казахстан)» создано в Казахстане (г.Алматы) в Мае, 2012 года.Наша компания в основном реализует продукцию Южной Кореи (экскаватор, погрузчик, дробилка), Шаньдунской компании Линь Гун Китай (погрузчики), Уханьской компании Шань Мао, Китай (Bobcat), Шанхайской компании Хань Юй Китай, (гидромолот) и других известных компаний.Компания предоставляет клиентам комплексное обслуживание как реализация, сервисное обслуживание машин, управление финансирования и страховое агентство. Компания всегда придерживается идеи бизнеса комплексное обслуживание и высокое качество, а также принципов - честность, искренний труд, и непреклонное стремление к совершенству",
+            data['description'],
             trimMode: TrimMode.Line,
             trimLines: 5,
             style: const TextStyle(fontSize: 15, height: 1.5),
@@ -42,28 +33,24 @@ class _ViewAboutBusinessPageState extends State<ViewAboutBusinessPage> {
                 color: ColorComponent.blue['500'],
                 fontWeight: FontWeight.w500),
           ),
-          const Divider(indent: 12),
-          InfoButton(
-              SvgPicture.asset('assets/icons/fileOutline.svg',
-                  width: 18, color: const Color(0xff6b7280)),
-              "Сертификаты",
-              showFilesPage),
-          InfoButton(
-              SvgPicture.asset('assets/icons/pin.svg',
-                  width: 18, color: const Color(0xff6b7280)),
-              widget.data['city']['title'],
-              () {}),
+          const Divider(height: 12),
+          Text("г. ${data['city']['title']}",
+              style: TextStyle(fontSize: 15, height: 1.5)),
+          // InfoButton(
+          //     ,
+          //     widget.data['city']['title'],
+          //     () {}),
           InfoButton(
               Container(
                   width: 8,
                   height: 8,
-                  margin: const EdgeInsets.only(right: 4, left: 5),
+                  margin: const EdgeInsets.only(right: 4),
                   decoration: BoxDecoration(
                       color: ColorComponent.red['500'],
                       borderRadius: BorderRadius.circular(5))),
               "Закрыто до завтра",
               () {}),
-          const Divider(),
+          Divider(height: 8),
           const Text("Контакты",
               style: TextStyle(fontSize: 17, fontWeight: FontWeight.w500)),
           const Divider(height: 10),
@@ -96,10 +83,6 @@ class _ViewAboutBusinessPageState extends State<ViewAboutBusinessPage> {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        decoration: BoxDecoration(
-            border: Border(
-                bottom:
-                    BorderSide(width: 1, color: ColorComponent.gray['100']!))),
         padding: const EdgeInsets.symmetric(vertical: 12),
         child: Row(
           children: [
@@ -108,9 +91,7 @@ class _ViewAboutBusinessPageState extends State<ViewAboutBusinessPage> {
                 children: [
                   leading,
                   const Divider(indent: 10),
-                  Text(title,
-                      style:
-                          const TextStyle(fontSize: 15, fontWeight: FontWeight.w500)),
+                  Text(title, style: TextStyle(fontSize: 15, height: 1.5)),
                 ],
               ),
             ),

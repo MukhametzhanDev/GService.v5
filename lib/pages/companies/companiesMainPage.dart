@@ -2,11 +2,14 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:gservice5/component/button/back/backTitleButton.dart';
 import 'package:gservice5/component/dio/dio.dart';
+import 'package:gservice5/component/loader/loaderComponent.dart';
 import 'package:gservice5/component/loader/paginationLoaderComponent.dart';
 import 'package:gservice5/component/snackBar/snackBarComponent.dart';
 import 'package:gservice5/pages/ad/filter/filterButton.dart';
 import 'package:gservice5/pages/companies/companyItem.dart';
 import 'package:gservice5/pages/companies/createCompanyWidget.dart';
+import 'package:gservice5/pages/companies/filter/filterCompanyAppBarWidget.dart';
+import 'package:gservice5/pages/create/data/createData.dart';
 
 class CompaniesMainPage extends StatefulWidget {
   const CompaniesMainPage({super.key});
@@ -22,6 +25,7 @@ class _CompaniesMainPageState extends State<CompaniesMainPage> {
   bool isLoadMore = false;
   int page = 1;
   ScrollController scrollController = ScrollController();
+  Map<String, dynamic> param = FilterData.data;
 
   @override
   void initState() {
@@ -34,6 +38,7 @@ class _CompaniesMainPageState extends State<CompaniesMainPage> {
 
   @override
   void dispose() {
+    FilterData.data.clear();
     scrollController.dispose();
     super.dispose();
   }
@@ -49,7 +54,7 @@ class _CompaniesMainPageState extends State<CompaniesMainPage> {
     try {
       page = 1;
       showLoader();
-      Response response = await dio.get("/companies");
+      Response response = await dio.get("/companies", queryParameters: param);
       print(response.data);
       if (response.statusCode == 200) {
         data = response.data['data'];
@@ -73,8 +78,8 @@ class _CompaniesMainPageState extends State<CompaniesMainPage> {
         isLoadMore = true;
         page += 1;
         setState(() {});
-        Response response = await dio
-            .get("/companies", queryParameters: {"page": page.toString()});
+        Response response = await dio.get("/companies",
+            queryParameters: {"page": page.toString(), ...param});
         print(response.data);
         if (response.statusCode == 200) {
           data.addAll(response.data['data']);
@@ -93,34 +98,39 @@ class _CompaniesMainPageState extends State<CompaniesMainPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-          actions: [FilterButton(showFilterPage: () {})],
-          leading: const BackTitleButton(title: "Компании"),
-          leadingWidth: 150),
-      body: ListView.builder(
-        controller: scrollController,
-        itemCount: data.length,
-        itemBuilder: (context, index) {
-          Map item = data[index];
-          if (data.length - 1 == index) {
-            return Column(
-              children: [
-                CompanyItem(data: item),
-                const CreateCompanyWidget(),
-                hasNextPage ? const PaginationLoaderComponent() : Container()
-              ],
-            );
-          } else {
-            // if (index > 14 && index % 15 == 0) {
-            //   return Column(
-            //     children: [CreateCompanyWidget(), CompanyItem(data: item)],
-            //   );
-            // } else {
-            return CompanyItem(data: item);
-            // }
-          }
-        },
-      ),
+      appBar: FilterCompanyAppBarWidget(
+          appBar: AppBar(),
+          onChanged: (value) {
+            if (value == "update") getData();
+          }),
+      body: loader
+          ? LoaderComponent()
+          : ListView.builder(
+              controller: scrollController,
+              itemCount: data.length,
+              itemBuilder: (context, index) {
+                Map item = data[index];
+                if (data.length - 1 == index) {
+                  return Column(
+                    children: [
+                      CompanyItem(data: item),
+                      const CreateCompanyWidget(),
+                      hasNextPage
+                          ? const PaginationLoaderComponent()
+                          : Container()
+                    ],
+                  );
+                } else {
+                  // if (index > 14 && index % 15 == 0) {
+                  //   return Column(
+                  //     children: [CreateCompanyWidget(), CompanyItem(data: item)],
+                  //   );
+                  // } else {
+                  return CompanyItem(data: item);
+                  // }
+                }
+              },
+            ),
     );
   }
 }

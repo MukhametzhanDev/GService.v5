@@ -76,7 +76,7 @@ class _SwitchRoleWidgetState extends State<SwitchRoleWidget> {
             period: const Duration(seconds: 1),
             child: Container(
                 height: 42,
-                margin: EdgeInsets.symmetric(horizontal: 15),
+                margin: const EdgeInsets.symmetric(horizontal: 15),
                 decoration: BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.circular(8))))
@@ -84,7 +84,7 @@ class _SwitchRoleWidgetState extends State<SwitchRoleWidget> {
             ? GestureDetector(
                 onTap: switchRole,
                 child: Container(
-                  margin: EdgeInsets.symmetric(horizontal: 15),
+                  margin: const EdgeInsets.symmetric(horizontal: 15),
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(8),
                       color: ColorComponent.gray['100']),
@@ -97,13 +97,13 @@ class _SwitchRoleWidgetState extends State<SwitchRoleWidget> {
                           width: 42,
                           height: 42,
                           borderRadius: 50),
-                      Divider(indent: 12),
+                      const Divider(indent: 12),
                       Expanded(
                           child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(data['name'],
-                              style: TextStyle(
+                              style: const TextStyle(
                                   fontSize: 16, fontWeight: FontWeight.w600)),
                           Text(
                             "ID: ${data['id']}",
@@ -126,12 +126,12 @@ class _SwitchRoleWidgetState extends State<SwitchRoleWidget> {
                       child: Container(
                         height: 42,
                         alignment: Alignment.center,
-                        margin: EdgeInsets.symmetric(horizontal: 15),
-                        padding: EdgeInsets.symmetric(horizontal: 10),
+                        margin: const EdgeInsets.symmetric(horizontal: 15),
+                        padding: const EdgeInsets.symmetric(horizontal: 10),
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(8),
                             color: ColorComponent.mainColor),
-                        child: Text("Стать партнером",
+                        child: const Text("Стать партнером",
                             style: TextStyle(fontWeight: FontWeight.w600)),
                       ),
                     ),

@@ -10,11 +10,13 @@ class MultiSelect extends StatefulWidget {
   final String api;
   final void Function(List data) onChanged;
   final bool pagination;
+  final value;
   const MultiSelect(
       {super.key,
       required this.title,
       required this.onChanged,
       required this.pagination,
+      required this.value,
       required this.api});
 
   @override
@@ -22,7 +24,13 @@ class MultiSelect extends StatefulWidget {
 }
 
 class _MultiSelectState extends State<MultiSelect> {
-  List data = [];
+  var data = [];
+
+  @override
+  void initState() {
+    data = widget.value;
+    super.initState();
+  }
 
   void showModal() {
     if (widget.pagination) {

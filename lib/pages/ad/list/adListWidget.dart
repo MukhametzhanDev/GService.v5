@@ -9,6 +9,7 @@ import 'package:gservice5/pages/ad/filter/filterAdWidget.dart';
 import 'package:gservice5/pages/ad/item/adItem.dart';
 import 'package:gservice5/pages/ad/list/adListLoader.dart';
 import 'package:gservice5/pages/ad/list/emptyAdListPage.dart';
+import 'package:gservice5/pages/application/list/emptyApplicationListPage.dart';
 import 'package:gservice5/pages/create/data/createData.dart';
 
 class AdListWidget extends StatefulWidget {
@@ -143,7 +144,7 @@ class _AdListWidgetState extends State<AdListWidget>
         loader
             ? const AdListLoader()
             : data.isEmpty
-                ? const EmptyAdListPage()
+                ? const EmptyApplicationListPage()
                 : Column(
                     children: [
                       SizedBox(

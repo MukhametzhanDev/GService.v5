@@ -10,9 +10,7 @@ import 'package:gservice5/component/textField/passwordTextField.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
 import 'package:gservice5/pages/auth/password/customer/forgotPasswordCustomerPage.dart';
 import 'package:gservice5/pages/auth/privacyPolicyWidget.dart';
-import 'package:gservice5/pages/auth/accountType/getAccountTypePage.dart';
 import 'package:gservice5/pages/auth/registration/customer/customerExistsPage.dart';
-import 'package:gservice5/pages/auth/registration/customer/customerRegistrationPage.dart';
 
 class LoginPage extends StatefulWidget {
   final bool showBackButton;
@@ -83,7 +81,7 @@ class _LoginPageState extends State<LoginPage>
       Navigator.pop(context);
       if (response.statusCode == 200 && response.data['success']) {
         print(response.data);
-        ChangedToken().savedToken(response.data['data'], "customer", context);
+        ChangedToken().savedToken(response.data['data'], context);
       } else {
         SnackBarComponent().showResponseErrorMessage(response, context);
       }

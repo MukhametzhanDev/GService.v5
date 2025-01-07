@@ -4,6 +4,8 @@ import 'package:gservice5/component/alert/logOutAlert.dart';
 import 'package:gservice5/component/functions/token/changedToken.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
 import 'package:gservice5/pages/application/my/myApplicationListPage.dart';
+import 'package:gservice5/pages/auth/registration/business/changedActivityBusinessPage.dart';
+import 'package:gservice5/pages/auth/registration/business/getActivityBusinessPage.dart';
 import 'package:gservice5/pages/profile/aboutCompany/aboutCompanyPage.dart';
 import 'package:gservice5/pages/profile/currency/currencyMainPage.dart';
 import 'package:gservice5/pages/profile/employees/employeeListPage.dart';
@@ -62,6 +64,13 @@ class _ProfileListTilesWidgetState extends State<ProfileListTilesWidget> {
   void showAboutCompanyPage() {
     Navigator.push(context,
         MaterialPageRoute(builder: (context) => const AboutCompanyPage()));
+  }
+
+  void showChangedActivityBusinessPage() {
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => const ChangedActivityBusinessPage()));
   }
 
   @override
@@ -156,6 +165,15 @@ class _ProfileListTilesWidgetState extends State<ProfileListTilesWidget> {
           child: ListTile(
               leading: SvgPicture.asset('assets/icons/cogOutline.svg'),
               title: const Text("Настройки"),
+              trailing: SvgPicture.asset('assets/icons/right.svg')),
+        ),
+        Container(
+          decoration: BoxDecoration(
+              border: Border.all(width: 1, color: const Color(0xfff4f5f7))),
+          child: ListTile(
+              onTap: showChangedActivityBusinessPage,
+              leading: SvgPicture.asset('assets/icons/cogOutline.svg'),
+              title: const Text("Вид деятельность"),
               trailing: SvgPicture.asset('assets/icons/right.svg')),
         ),
         Container(

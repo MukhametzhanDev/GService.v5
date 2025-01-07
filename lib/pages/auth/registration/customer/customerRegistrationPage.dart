@@ -40,7 +40,7 @@ class _CusomterRegistrationPageState extends State<CusomterRegistrationPage> {
       print(response.data);
       Navigator.pop(context);
       if (response.statusCode == 200) {
-        ChangedToken().savedToken(response.data['data'], "customer", context);
+        ChangedToken().savedToken(response.data['data'], context);
       } else {
         SnackBarComponent().showResponseErrorMessage(response, context);
       }
@@ -109,7 +109,7 @@ class _CusomterRegistrationPageState extends State<CusomterRegistrationPage> {
             children: [
               TextField(
                   autofocus: true,
-                  
+                  textCapitalization: TextCapitalization.sentences,
                   style: const TextStyle(fontSize: 14, height: 1.1),
                   decoration: const InputDecoration(hintText: "ФИО"),
                   controller: nameEditingController),

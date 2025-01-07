@@ -125,7 +125,7 @@ class _MainDrawerState extends State<MainDrawer> {
                 ],
               ),
             ),
-            bottomNavigationBar: BottomNavigationBarComponent(
+            bottomNavigationBar: const BottomNavigationBarComponent(
                 child: SwitchRoleWidget()
                 // SizedBox(
                 //     height: 42,

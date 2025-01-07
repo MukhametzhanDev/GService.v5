@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:gservice5/component/button/back/backIconButton.dart';
+import 'package:gservice5/component/button/back/backTitleButton.dart';
 import 'package:gservice5/component/button/button.dart';
 import 'package:gservice5/component/dio/dio.dart';
 import 'package:gservice5/component/functions/token/changedToken.dart';
@@ -13,6 +14,7 @@ import 'package:gservice5/component/snackBar/snackBarComponent.dart';
 import 'package:gservice5/component/textField/closeKeyboard/closeKeyboard.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
 import 'package:gservice5/component/widgets/bottom/bottomNavigationBarComponent.dart';
+import 'package:gservice5/pages/auth/registration/business/getActivityBusinessPage.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
 class RegistrationBusinessPage extends StatefulWidget {
@@ -71,9 +73,13 @@ class _RegistrationBusinessPageState extends State<RegistrationBusinessPage> {
         "description": descEditingController.text
       };
       Response response = await dio.post("/company", data: param);
+      print(response.data);
       Navigator.pop(context);
       if (response.statusCode == 200) {
-        ChangedToken().savedToken(response.data['data'], "business", context);
+        Navigator.pushAndRemoveUntil(
+            context,
+            MaterialPageRoute(builder: (_) => const GetActivityBusinessPage()),
+            (route) => false);
       } else {
         SnackBarComponent().showResponseErrorMessage(response, context);
       }
@@ -85,18 +91,22 @@ class _RegistrationBusinessPageState extends State<RegistrationBusinessPage> {
   void verifyData() {
     String name = nameEditingController.text.trim();
     String indentifier = identifierEditingController.text.trim();
-    String desc = descEditingController.text.trim();
+    // String desc = descEditingController.text.trim();
     if (imagePath.isEmpty) {
       SnackBarComponent()
           .showErrorMessage("Загрузите логотип компании", context);
     } else {
-      if (currentCity.isEmpty ||
-          name.isEmpty ||
-          indentifier.isEmpty ||
-          desc.isEmpty) {
+      if (name.isEmpty || indentifier.isEmpty
+          // || desc.isEmpty
+          ) {
         SnackBarComponent().showErrorMessage("Заполните все строки", context);
       } else {
-        postImage();
+        if (currentCountry.isEmpty || currentCity.isEmpty) {
+          SnackBarComponent()
+              .showErrorMessage("Заполните страну и город", context);
+        } else {
+          postImage();
+        }
       }
     }
   }
@@ -111,7 +121,8 @@ class _RegistrationBusinessPageState extends State<RegistrationBusinessPage> {
   void showCountryModal() {
     showCupertinoModalBottomSheet(
         context: context,
-        builder: (context) => Countries(onPressed: savedCurrentCity, data: {}));
+        builder: (context) =>
+            Countries(onPressed: savedCurrentCity, data: const {}));
   }
 
   void savedCurrentCity(value) {
@@ -127,8 +138,8 @@ class _RegistrationBusinessPageState extends State<RegistrationBusinessPage> {
       onTap: () => closeKeyboard(),
       child: Scaffold(
         appBar: AppBar(
-            leading: const BackIconButton(),
-            title: const Text("Данные компании")),
+            leading: const BackTitleButton(title: "Данные компании"),
+            leadingWidth: 200),
         body: SingleChildScrollView(
           padding: const EdgeInsets.all(15),
           child: Column(children: [

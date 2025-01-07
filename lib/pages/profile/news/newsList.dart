@@ -5,6 +5,7 @@ import 'package:gservice5/component/loader/paginationLoaderComponent.dart';
 import 'package:gservice5/component/snackBar/snackBarComponent.dart';
 import 'package:gservice5/pages/ad/list/adListLoader.dart';
 import 'package:gservice5/pages/ad/list/emptyAdListPage.dart';
+import 'package:gservice5/pages/application/list/emptyApplicationListPage.dart';
 import 'package:gservice5/pages/create/data/createData.dart';
 import 'package:gservice5/pages/profile/news/newsItem.dart';
 
@@ -52,7 +53,7 @@ class _NewsListState extends State<NewsList>
     try {
       page = 1;
       showLoader();
-      Response response = await dio.get("/ad", data: param);
+      Response response = await dio.get("/news", data: param);
       print(response.data);
       if (response.statusCode == 200) {
         data = response.data['data'];
@@ -77,7 +78,7 @@ class _NewsListState extends State<NewsList>
         page += 1;
         setState(() {});
         Response response =
-            await dio.get("/ad", data: {"page": page.toString(), ...param});
+            await dio.get("/news", data: {"page": page.toString(), ...param});
         print(response.data);
         if (response.statusCode == 200) {
           data.addAll(response.data['data']);
@@ -106,7 +107,7 @@ class _NewsListState extends State<NewsList>
     return loader
         ? const AdListLoader()
         : data.isEmpty
-            ? const EmptyAdListPage()
+            ? const EmptyApplicationListPage()
             : ListView.builder(
                 itemCount: data.length,
                 shrinkWrap: true,

@@ -39,7 +39,7 @@ class _BusinessProfilePageState extends State<BusinessProfilePage> {
         loader = false;
         setState(() {});
       } else if (response.statusCode == 401) {
-        // ChangedToken().removeToken(context);
+        ChangedToken().removeToken(context);
       } else {
         SnackBarComponent().showResponseErrorMessage(response, context);
       }

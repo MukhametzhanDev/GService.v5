@@ -19,11 +19,11 @@ class _MarketingPageState extends State<MarketingPage> {
       backgroundColor: ColorComponent.gray['100'],
       body: SafeArea(
         child: SingleChildScrollView(
-          padding: EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+          padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
           child: Column(
             children: [
               Container(
-                padding: EdgeInsets.all(20),
+                padding: const EdgeInsets.all(20),
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(12),
                     color: Colors.white),
@@ -39,15 +39,15 @@ class _MarketingPageState extends State<MarketingPage> {
                             color: ColorComponent.mainColor.withOpacity(.2)),
                         child: SvgPicture.asset("assets/icons/logoOutline.svg"),
                       ),
-                      Divider(height: 15),
-                      Text("Реклама на GSrevice",
+                      const Divider(height: 15),
+                      const Text("Реклама на GSrevice",
                           style: TextStyle(
                               fontSize: 17, fontWeight: FontWeight.w700)),
-                      Divider(height: 15),
-                      Text(
+                      const Divider(height: 15),
+                      const Text(
                           "Ваш помощник в решении повседневных задач: покупка, продажа и развитие бизнеса. Мы знаем интересы наших пользователей и настраиваем рекламу так, чтобы она приносила результаты",
                           style: TextStyle(height: 1.5, fontSize: 15)),
-                      Divider(height: 20),
+                      const Divider(height: 20),
                       SizedBox(
                           height: 42,
                           child: Button(
@@ -58,39 +58,39 @@ class _MarketingPageState extends State<MarketingPage> {
                           ))
                     ]),
               ),
-              Divider(height: 20),
-              MarketingWidget(
+              const Divider(height: 20),
+              const MarketingWidget(
                   icon: "banner.svg",
                   title: "Баннера на сайте и в мобильном приложение",
                   subTitle:
                       "Универсальное решение, которое позволяет эффективно охватить вашу целевую аудиторию на всех устройствах: от компьютеров до смартфонов."),
-              Divider(height: 20),
-              MarketingWidget(
+              const Divider(height: 20),
+              const MarketingWidget(
                   icon: "pageArtboard.svg",
                   title: "Реклама на списке и последнее фото",
                   subTitle:
                       "Формат онлайн-рекламы, в котором рекламный баннер обрамляет содержимое сайта, заполняя фон и боковые панели вокруг основного контента"),
-              Divider(height: 20),
-              MarketingWidget(
+              const Divider(height: 20),
+              const MarketingWidget(
                   icon: "windowAds.svg",
                   title: "Медийные форматы рекламы на сайте",
                   subTitle:
                       "Формат онлайн-рекламы, в котором рекламный баннер обрамляет содержимое сайта, заполняя фон и боковые панели вокруг основного контента"),
-              Divider(height: 20),
-              MarketingWidget(
+              const Divider(height: 20),
+              const MarketingWidget(
                   icon: "bell.svg",
                   title: "Push",
                   subTitle:
                       "Формат онлайн-рекламы, в котором рекламный баннер обрамляет содержимое сайта, заполняя фон и боковые панели вокруг основного контента"),
-              Divider(height: 20),
-              MarketingWidget(
+              const Divider(height: 20),
+              const MarketingWidget(
                   icon: "christmasGift.svg",
                   title: "Розыгрыш",
                   subTitle:
                       "Формат онлайн-рекламы, в котором рекламный баннер обрамляет содержимое сайта, заполняя фон и боковые панели вокруг основного контента"),
-              Divider(height: 20),
+              const Divider(height: 20),
               Container(
-                padding: EdgeInsets.all(20),
+                padding: const EdgeInsets.all(20),
                 width: MediaQuery.of(context).size.width - 40,
                 decoration: BoxDecoration(
                     border:
@@ -98,12 +98,12 @@ class _MarketingPageState extends State<MarketingPage> {
                     borderRadius: BorderRadius.circular(12),
                     color: Colors.white),
                 child: Column(children: [
-                  Text("Остались вопросы?",
+                  const Text("Остались вопросы?",
                       style:
                           TextStyle(fontSize: 17, fontWeight: FontWeight.w700)),
-                  Divider(),
-                  Text("Позвоним и ответим"),
-                  Divider(),
+                  const Divider(),
+                  const Text("Позвоним и ответим"),
+                  const Divider(),
                   SizedBox(
                     height: 40,
                     child: Button(
@@ -111,7 +111,7 @@ class _MarketingPageState extends State<MarketingPage> {
                   )
                 ]),
               ),
-              Divider(height: 20),
+              const Divider(height: 20),
             ],
           ),
         ),
@@ -134,7 +134,7 @@ class MarketingWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.all(20),
+      padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(12), color: Colors.white),
       child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
@@ -147,17 +147,17 @@ class MarketingWidget extends StatelessWidget {
               color: ColorComponent.mainColor.withOpacity(.2)),
           child: SvgPicture.asset("assets/icons/$icon"),
         ),
-        Divider(height: 15),
+        const Divider(height: 15),
         Text(title,
-            style: TextStyle(fontSize: 17, fontWeight: FontWeight.w700)),
-        Divider(height: 15),
-        Text(subTitle, style: TextStyle(height: 1.5, fontSize: 15)),
-        Divider(height: 20),
+            style: const TextStyle(fontSize: 17, fontWeight: FontWeight.w700)),
+        const Divider(height: 15),
+        Text(subTitle, style: const TextStyle(height: 1.5, fontSize: 15)),
+        const Divider(height: 20),
         SizedBox(
           height: 42,
           child: Row(children: [
             Expanded(child: Button(onPressed: () {}, title: "Оставить заявку")),
-            Divider(indent: 12),
+            const Divider(indent: 12),
             Expanded(
                 child: Button(
               onPressed: () {},

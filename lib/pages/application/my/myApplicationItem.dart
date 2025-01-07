@@ -94,7 +94,7 @@ class _MyApplicationItemState extends State<MyApplicationItem> {
                     onPressed: showRemoveModal,
                     backgroundColor: ColorComponent.red['100'],
                     titleColor: ColorComponent.red['700'],
-                    title: "Удалить"),
+                    title: "Отменить заказ"),
           ),
           const Divider(height: 12),
           Row(children: [

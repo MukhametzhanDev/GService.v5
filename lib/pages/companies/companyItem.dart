@@ -92,7 +92,7 @@ class CompanyItem extends StatelessWidget {
                     decoration: BoxDecoration(
                         color: ColorComponent.mainColor.withOpacity(.2),
                         borderRadius: BorderRadius.circular(4)),
-                    child: const Text("Сельхозтехника",
+                    child: const Text("Продажа",
                         style: TextStyle(
                             height: 1,
                             fontSize: 12,
@@ -118,15 +118,15 @@ class CompanyItem extends StatelessWidget {
                 const Text("88 отзывов")
               ],
             ),
-            data['description'] == null
-                ? Container()
-                : Padding(
-                    padding: const EdgeInsets.only(top: 12.0),
-                    child: Text(data['description'] ?? "",
-                        style: const TextStyle(height: 1.6),
-                        maxLines: 2,
-                        overflow: TextOverflow.ellipsis),
-                  ),
+            // data['description'] == null
+            //     ? Container()
+            //     : Padding(
+            //         padding: const EdgeInsets.only(top: 12.0),
+            //         child: Text(data['description'] ?? "",
+            //             style: const TextStyle(height: 1.6),
+            //             maxLines: 2,
+            //             overflow: TextOverflow.ellipsis),
+            //       ),
           ],
         ),
       ),

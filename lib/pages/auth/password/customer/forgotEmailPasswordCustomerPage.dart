@@ -70,8 +70,7 @@ class _ForgotEmailPasswordCustomerPageState
       Navigator.pop(context);
       print(response.data);
       if (response.statusCode == 200 && response.data['success']) {
-        await ChangedToken()
-            .savedToken(response.data['data'],"customer", context);
+        await ChangedToken().savedToken(response.data['data'], context);
         Navigator.push(
             context,
             MaterialPageRoute(
@@ -111,8 +110,9 @@ class _ForgotEmailPasswordCustomerPageState
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar:
-          AppBar(leading: const BackIconButton(), title: const Text('Код подтверждения')),
+      appBar: AppBar(
+          leading: const BackIconButton(),
+          title: const Text('Код подтверждения')),
       body: loader
           ? const LoaderComponent()
           : SingleChildScrollView(
