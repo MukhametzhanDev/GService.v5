@@ -16,7 +16,8 @@ import 'package:gservice5/pages/ad/list/adListWidget.dart';
 import 'package:gservice5/pages/application/list/applicationListWidget.dart';
 import 'package:gservice5/pages/author/business/viewAboutBusinessPage.dart';
 import 'package:gservice5/pages/author/filesListPage.dart';
-import 'package:gservice5/pages/profile/news/newsList.dart';
+import 'package:gservice5/pages/author/filesListWidget.dart';
+import 'package:gservice5/pages/profile/news/newsListWidget.dart';
 
 class ViewBusinessPage extends StatefulWidget {
   final int id;
@@ -250,10 +251,10 @@ class _ViewBusinessPageState extends State<ViewBusinessPage>
                         "author_id": widget.id,
                         "author_type": "company"
                       }, scrollController: scrollController),
-                      NewsList(
+                      NewsListWidget(
                           param: {"company_id": widget.id},
                           scrollController: scrollController),
-                      const FilesListPage()
+                      const FilesListWidget()
                     ])),
               ),
         bottomNavigationBar: loader

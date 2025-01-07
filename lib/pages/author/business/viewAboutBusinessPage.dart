@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
+import 'package:gservice5/pages/author/business/socialNetworkWidget.dart';
 import 'package:readmore/readmore.dart';
 
 class ViewAboutBusinessPage extends StatelessWidget {
   final Map data;
   const ViewAboutBusinessPage({super.key, required this.data});
-
-  
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +17,7 @@ class ViewAboutBusinessPage extends StatelessWidget {
         children: [
           const Divider(height: 6),
           ReadMoreText(
-            data['description'],
+            data['description'] ?? "",
             trimMode: TrimMode.Line,
             trimLines: 5,
             style: const TextStyle(fontSize: 15, height: 1.5),
@@ -51,29 +50,7 @@ class ViewAboutBusinessPage extends StatelessWidget {
               "Закрыто до завтра",
               () {}),
           Divider(height: 8),
-          const Text("Контакты",
-              style: TextStyle(fontSize: 17, fontWeight: FontWeight.w500)),
-          const Divider(height: 10),
-          GestureDetector(
-            child: const Row(children: [
-              Text("example.com",
-                  style: TextStyle(decoration: TextDecoration.underline))
-            ]),
-          ),
-          const Divider(height: 12),
-          GestureDetector(
-            child: const Row(children: [
-              Text("Написать на whatsapp",
-                  style: TextStyle(decoration: TextDecoration.underline))
-            ]),
-          ),
-          const Divider(height: 12),
-          GestureDetector(
-            child: const Row(children: [
-              Text("@instagramnik",
-                  style: TextStyle(decoration: TextDecoration.underline))
-            ]),
-          ),
+          SocialNetworkWidget(data: data['contacts'])
         ],
       ),
     );

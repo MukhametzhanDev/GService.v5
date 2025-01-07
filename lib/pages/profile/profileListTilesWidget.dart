@@ -51,6 +51,11 @@ class _ProfileListTilesWidgetState extends State<ProfileListTilesWidget> {
         context, MaterialPageRoute(builder: (context) => const NewsMainPage()));
   }
 
+  void showSocialNetworkPage() {
+    Navigator.push(
+        context, MaterialPageRoute(builder: (context) => const NewsMainPage()));
+  }
+
   void showEditCurrencyPage() {
     Navigator.push(context,
         MaterialPageRoute(builder: (context) => const CurrencyMainPage()));
@@ -112,6 +117,19 @@ class _ProfileListTilesWidgetState extends State<ProfileListTilesWidget> {
         //         leading: SvgPicture.asset('assets/icons/logistic.svg'),
         //         title: Text("Логистика"),
         //         trailing: SvgPicture.asset('assets/icons/right.svg'))),
+        role == "customer"
+            ? Container()
+            : Container(
+                decoration: BoxDecoration(
+                    border:
+                        Border.all(width: 1, color: const Color(0xfff4f5f7))),
+                child: ListTile(
+                    onTap: showNewsPage,
+                    leading: SvgPicture.asset('assets/icons/world.svg',
+                        color: ColorComponent.mainColor),
+                    title: const Text("Социальные сети"),
+                    trailing: SvgPicture.asset('assets/icons/right.svg')),
+              ),
         role == "customer"
             ? Container()
             : Container(

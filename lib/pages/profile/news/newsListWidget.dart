@@ -9,17 +9,17 @@ import 'package:gservice5/pages/application/list/emptyApplicationListPage.dart';
 import 'package:gservice5/pages/create/data/createData.dart';
 import 'package:gservice5/pages/profile/news/newsItem.dart';
 
-class NewsList extends StatefulWidget {
+class NewsListWidget extends StatefulWidget {
   final Map<String, dynamic> param;
   final ScrollController scrollController;
-  const NewsList(
+  const NewsListWidget(
       {super.key, required this.param, required this.scrollController});
 
   @override
-  State<NewsList> createState() => _NewsListState();
+  State<NewsListWidget> createState() => _NewsListWidgetState();
 }
 
-class _NewsListState extends State<NewsList>
+class _NewsListWidgetState extends State<NewsListWidget>
     with AutomaticKeepAliveClientMixin {
   List data = [];
   bool loader = true;

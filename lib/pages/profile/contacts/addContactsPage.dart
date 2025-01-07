@@ -157,7 +157,7 @@ class _AddContactsPageState extends State<AddContactsPage> {
         body: loader
             ? const LoaderComponent()
             : SingleChildScrollView(
-                padding: const EdgeInsets.all(15),
+                padding: const EdgeInsets.symmetric(horizontal: 15,vertical: 7),
                 child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [

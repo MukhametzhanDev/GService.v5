@@ -10,6 +10,7 @@ class CompanyItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    List categories = data['categories'];
     return GestureDetector(
       onTap: () {
         Navigator.push(
@@ -20,8 +21,8 @@ class CompanyItem extends StatelessWidget {
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 12),
         decoration: const BoxDecoration(
-            border: Border(
-                bottom: BorderSide(width: 6, color: Color(0xfff4f5f7)))),
+            border:
+                Border(bottom: BorderSide(width: 6, color: Color(0xfff4f5f7)))),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -31,7 +32,7 @@ class CompanyItem extends StatelessWidget {
                     url: data['avatar'],
                     width: 70,
                     height: 52,
-                    borderRadius: 10),
+                    borderRadius: 8),
                 const Divider(indent: 10),
                 Expanded(
                     child: Column(
@@ -82,41 +83,46 @@ class CompanyItem extends StatelessWidget {
                 )),
               ],
             ),
-            const Divider(height: 12),
-            Row(
-              children: [
-                Container(
-                    height: 24,
-                    alignment: Alignment.center,
-                    padding: const EdgeInsets.symmetric(horizontal: 8),
+            categories.isEmpty
+                ? Container()
+                : Padding(
+                    padding: const EdgeInsets.only(top: 12.0),
+                    child: RichText(
+                      text: TextSpan(
+                          style: TextStyle(
+                              color: Colors.black, fontSize: 14, height: 1.4),
+                          children: categories.map((value) {
+                            int index = categories.indexOf(value);
+                            String last =
+                                index == categories.length - 1 ? "" : ", ";
+                            return TextSpan(text: value["title"] + last);
+                          }).toList()),
+                    ),
+                  ),
+            Padding(
+              padding: const EdgeInsets.only(top: 12.0),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Container(
+                    padding: const EdgeInsets.all(4),
                     decoration: BoxDecoration(
                         color: ColorComponent.mainColor.withOpacity(.2),
                         borderRadius: BorderRadius.circular(4)),
-                    child: const Text("Продажа",
-                        style: TextStyle(
-                            height: 1,
-                            fontSize: 12,
-                            fontWeight: FontWeight.w500),
-                        textAlign: TextAlign.center)),
-                Container(
-                  margin: const EdgeInsets.only(left: 10),
-                  padding: const EdgeInsets.all(4),
-                  decoration: BoxDecoration(
-                      color: ColorComponent.mainColor.withOpacity(.2),
-                      borderRadius: BorderRadius.circular(4)),
-                  child: Row(
-                    children: [
-                      SvgPicture.asset('assets/icons/star.svg'),
-                      const Divider(indent: 2),
-                      Text(data['rating'].toString(),
-                          style: const TextStyle(
-                              fontSize: 12, fontWeight: FontWeight.w600))
-                    ],
+                    child: Row(
+                      children: [
+                        SvgPicture.asset('assets/icons/star.svg'),
+                        const Divider(indent: 2),
+                        Text(data['rating'].toString(),
+                            style: const TextStyle(
+                                fontSize: 12, fontWeight: FontWeight.w600))
+                      ],
+                    ),
                   ),
-                ),
-                const Divider(indent: 8),
-                const Text("88 отзывов")
-              ],
+                  const Divider(indent: 8),
+                  const Text("88 отзывов")
+                ],
+              ),
             ),
             // data['description'] == null
             //     ? Container()
