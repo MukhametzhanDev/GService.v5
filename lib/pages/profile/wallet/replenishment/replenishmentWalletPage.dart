@@ -27,9 +27,11 @@ class _ReplenishmentWalletPageState extends State<ReplenishmentWalletPage> {
   List prices = [2000, 5000, 15000, 50000];
   TextEditingController priceController = TextEditingController();
 
+  final analytics = GetIt.I<FirebaseAnalytics>();
+
   @override
   void initState() {
-    GetIt.I<FirebaseAnalytics>()
+    analytics
         .logViewItemList(
             itemListId: GAParams.sumListId,
             itemListName: GAParams.sumListName,
@@ -68,11 +70,9 @@ class _ReplenishmentWalletPageState extends State<ReplenishmentWalletPage> {
       showModal();
     }
 
-    GetIt.I<FirebaseAnalytics>().logEvent(
-        name: GAEventName.buttonClick,
-        parameters: {
-          'button_name': GAParams.btnToUpBalance
-        }).catchError((onError) => debugPrint(onError));
+    analytics.logEvent(name: GAEventName.buttonClick, parameters: {
+      GAKey.buttonName: GAParams.btnToUpBalance
+    }).catchError((onError) => debugPrint(onError));
   }
 
   void showModal() {
@@ -102,7 +102,7 @@ class _ReplenishmentWalletPageState extends State<ReplenishmentWalletPage> {
                 onTap: () {
                   priceController.text = priceFormat(value);
                   percentagePrice();
-                  GetIt.I<FirebaseAnalytics>().logSelectItem(
+                  analytics.logSelectItem(
                       itemListId: GAParams.sumListId,
                       itemListName: GAParams.sumListName,
                       items: [

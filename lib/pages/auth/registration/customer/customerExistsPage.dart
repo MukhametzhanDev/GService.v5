@@ -35,6 +35,8 @@ class _CusomterExistsPageState extends State<CusomterExistsPage> {
   TextEditingController emailEditingController =
       TextEditingController(text: "mukhametzhan.tileubek@gmail.com");
 
+  final analytics = GetIt.I<FirebaseAnalytics>();
+
   @override
   void initState() {
     getCountries();
@@ -50,8 +52,8 @@ class _CusomterExistsPageState extends State<CusomterExistsPage> {
         countries = response.data['data'];
         setState(() {});
 
-        await GetIt.I<FirebaseAnalytics>().logViewItemList(
-            parameters: {'screen_name': 'CusomterExistsPage'},
+        await analytics.logViewItemList(
+            parameters: {GAKey.screenName: GAParams.customerExistsPage},
             itemListName: GAParams.countriesName,
             itemListId: GAParams.countriesId,
             items: countries

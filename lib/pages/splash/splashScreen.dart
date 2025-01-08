@@ -1,10 +1,14 @@
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get_it/get_it.dart';
+import 'package:gservice5/analytics/event_name.constan.dart';
 import 'package:gservice5/component/functions/token/changedToken.dart';
 import 'package:gservice5/component/request/getMainPageData.dart';
 import 'package:gservice5/navigation/business/businessBottomTab.dart';
 import 'package:gservice5/component/dio/dio.dart';
 import 'package:gservice5/navigation/customer/customerBottomTab.dart';
+import 'package:jwt_decoder/jwt_decoder.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -20,6 +24,8 @@ class _SplashScreenState extends State<SplashScreen> {
     getData();
   }
 
+  final analytics = GetIt.I<FirebaseAnalytics>();
+
   void getData() async {
     String? token = await ChangedToken().getToken();
     String? role = await ChangedToken().getRole();
@@ -27,6 +33,16 @@ class _SplashScreenState extends State<SplashScreen> {
     print(role);
     if (token != null) {
       dio.options.headers['authorization'] = "Bearer $token";
+
+      final userID = JwtDecoder.decode(token)['sub'];
+
+      if (userID != null) {
+        await analytics.setUserId(id: userID);
+      }
+
+      if (role != null) {
+        await analytics.setDefaultEventParameters({GAKey.role: role});
+      }
     }
     await getMainData(role);
   }

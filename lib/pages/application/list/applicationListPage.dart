@@ -31,6 +31,8 @@ class _ApplicationListPageState extends State<ApplicationListPage> {
   String title = "";
   Map<String, dynamic> param = {};
 
+  final analytics = GetIt.I<FirebaseAnalytics>();
+
   @override
   void initState() {
     getData();
@@ -65,10 +67,10 @@ class _ApplicationListPageState extends State<ApplicationListPage> {
         hasNextPage = page != response.data['meta']['last_page'];
         setState(() {});
 
-        await GetIt.I<FirebaseAnalytics>().logViewItemList(
+        await analytics.logViewItemList(
             itemListId: GAParams.applicationListId,
             itemListName: 'Заказы',
-            parameters: {'isPagination': 'false'},
+            parameters: {GAKey.isPagination: 'false'},
             items: data
                 .map((item) => AnalyticsEventItem(
                         itemName: item?['title'],
@@ -76,7 +78,7 @@ class _ApplicationListPageState extends State<ApplicationListPage> {
                         itemCategory: item?['category']?['id']?.toString(),
                         parameters: {
                           'itemCategoryTitle': item?['category']?['title'],
-                          'isPagination': 'false'
+                          GAKey.isPagination: 'false'
                         }))
                 .toList());
       } else {
@@ -104,8 +106,8 @@ class _ApplicationListPageState extends State<ApplicationListPage> {
           isLoadMore = false;
           setState(() {});
 
-          await GetIt.I<FirebaseAnalytics>().logViewItemList(
-              parameters: {'isPagination': 'true'},
+          await analytics.logViewItemList(
+              parameters: {GAKey.isPagination: 'true'},
               itemListId: GAParams.applicationListId,
               itemListName: GAParams.applicationListName,
               items: data
@@ -115,7 +117,7 @@ class _ApplicationListPageState extends State<ApplicationListPage> {
                           itemCategory: item?['category']?['id']?.toString(),
                           parameters: {
                             'itemCategoryTitle': item?['category']?['title'],
-                            'isPagination': 'true'
+                            GAKey.isPagination: 'true'
                           }))
                   .toList());
         } else {

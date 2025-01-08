@@ -36,6 +36,8 @@ class _ForgotEmailPasswordCustomerPageState
   String otpCode = '';
   bool loader = true;
 
+  final analytics = GetIt.I<FirebaseAnalytics>();
+
   @override
   void initState() {
     super.initState();
@@ -60,11 +62,9 @@ class _ForgotEmailPasswordCustomerPageState
       SnackBarComponent().showNotGoBackServerErrorMessage(context);
     }
 
-    GetIt.I<FirebaseAnalytics>().logEvent(
-        name: GAEventName.buttonClick,
-        parameters: {
-          'button_name': GAParams.btnForgotReplayEmailOtp
-        }).catchError((onError) => debugPrint(onError));
+    analytics.logEvent(name: GAEventName.buttonClick, parameters: {
+      GAKey.buttonName: GAParams.btnForgotReplayEmailOtp
+    }).catchError((onError) => debugPrint(onError));
   }
 
   void verifyCode() async {
@@ -188,10 +188,10 @@ class _ForgotEmailPasswordCustomerPageState
                 onPressed: () {
                   textEditingController.clear();
                   verifyCode();
-                  GetIt.I<FirebaseAnalytics>().logEvent(
+                  analytics.logEvent(
                       name: GAEventName.buttonClick,
                       parameters: {
-                        'button_name': GAParams.btnForgotConfrimEmail
+                        GAKey.buttonName: GAParams.btnForgotConfrimEmail
                       }).catchError((onError) => debugPrint(onError));
                 },
                 title: "Подтвердить регистрацию",

@@ -13,6 +13,8 @@ class PrivacyPolicyWidget extends StatefulWidget {
 }
 
 class _PrivacyPolicyWidgetState extends State<PrivacyPolicyWidget> {
+  final analytics = GetIt.I<FirebaseAnalytics>();
+
   @override
   Widget build(BuildContext context) {
     return RichText(
@@ -31,11 +33,9 @@ class _PrivacyPolicyWidgetState extends State<PrivacyPolicyWidget> {
                 decoration: TextDecoration.underline),
             recognizer: TapGestureRecognizer()
               ..onTap = () {
-                GetIt.I<FirebaseAnalytics>().logEvent(
-                    name: GAEventName.buttonClick,
-                    parameters: {
-                      'button_name': GAParams.txtBtnAgreement
-                    }).catchError((e) => debugPrint(e));
+                analytics.logEvent(name: GAEventName.buttonClick, parameters: {
+                  GAKey.buttonName: GAParams.txtBtnAgreement
+                }).catchError((e) => debugPrint(e));
                 print('object');
               },
           ),
@@ -48,11 +48,9 @@ class _PrivacyPolicyWidgetState extends State<PrivacyPolicyWidget> {
             ),
             recognizer: TapGestureRecognizer()
               ..onTap = () {
-                GetIt.I<FirebaseAnalytics>().logEvent(
-                    name: GAEventName.buttonClick,
-                    parameters: {
-                      'button_name': GAParams.txtBtnPolicy
-                    }).catchError((e) => debugPrint(e));
+                analytics.logEvent(name: GAEventName.buttonClick, parameters: {
+                  GAKey.buttonName: GAParams.txtBtnPolicy
+                }).catchError((e) => debugPrint(e));
                 print('object');
               },
           ),

@@ -29,6 +29,8 @@ class _GetImageCreateAdPageState extends State<GetImageCreateAdPage> {
   PageControllerIndexedStack pageControllerIndexedStack =
       PageControllerIndexedStack();
 
+  final analytics = GetIt.I<FirebaseAnalytics>();
+
   Future postImage() async {
     showModalImageLoader(context);
     try {
@@ -67,11 +69,9 @@ class _GetImageCreateAdPageState extends State<GetImageCreateAdPage> {
       postImage();
     }
 
-    GetIt.I<FirebaseAnalytics>().logEvent(
-        name: GAEventName.buttonClick,
-        parameters: {
-          'button_name': GAParams.btnImageContinue
-        }).catchError((onError) => debugPrint(onError));
+    analytics.logEvent(name: GAEventName.buttonClick, parameters: {
+      GAKey.buttonName: GAParams.btnImageContinue
+    }).catchError((onError) => debugPrint(onError));
   }
 
   @override

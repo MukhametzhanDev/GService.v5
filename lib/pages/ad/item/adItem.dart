@@ -20,23 +20,31 @@ import 'package:intl/intl.dart';
 class AdItem extends StatefulWidget {
   final Map data;
   final bool showCategory;
-  const AdItem({super.key, required this.data, required this.showCategory});
+  final String? fromPage;
+  const AdItem(
+      {super.key,
+      required this.data,
+      required this.showCategory,
+      this.fromPage});
 
   @override
   State<AdItem> createState() => _AdItemState();
 }
 
 class _AdItemState extends State<AdItem> {
+  final analytics = GetIt.I<FirebaseAnalytics>();
+
   void showAdPage(int id) {
     Navigator.push(context,
             MaterialPageRoute(builder: (context) => ViewAdPage(id: id)))
         .then(verifyFavoriteAd);
 
-    GetIt.I<FirebaseAnalytics>().logSelectContent(
+    analytics.logSelectContent(
         contentType: GAContentType.ad,
         itemId: id.toString(),
         parameters: {
-          'title': widget.data['title'] ?? ''
+          GAKey.title: widget.data['title'] ?? '',
+          GAKey.screenName: widget.fromPage ?? ''
         }).catchError((e) => debugPrint(e));
   }
 

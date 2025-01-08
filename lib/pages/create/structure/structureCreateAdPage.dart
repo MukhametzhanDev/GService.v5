@@ -44,6 +44,8 @@ class _StructureCreateAdPageState extends State<StructureCreateAdPage> {
 
   int? twoStepsBack;
 
+  final analytics = GetIt.I<FirebaseAnalytics>();
+
   @override
   void initState() {
     super.initState();
@@ -191,11 +193,12 @@ class _StructureCreateAdPageState extends State<StructureCreateAdPage> {
                                 builder: (context) =>
                                     const CloseCreateAdAlert());
 
-                            GetIt.I<FirebaseAnalytics>().logEvent(
+                            analytics.logEvent(
                                 name: GAEventName.buttonClick,
                                 parameters: {
-                                  'button_name': GAParams.txtbtnCloseAdStructure
-                                });
+                                  GAKey.buttonName:
+                                      GAParams.txtbtnCloseAdStructure
+                                }).catchError((onError) => debugPrint(onError));
                           },
                           icon: Text("Закрыть",
                               style: TextStyle(
@@ -206,10 +209,10 @@ class _StructureCreateAdPageState extends State<StructureCreateAdPage> {
                         title: "",
                         onPressed: () {
                           previousPage();
-                          GetIt.I<FirebaseAnalytics>().logEvent(
+                          analytics.logEvent(
                               name: GAEventName.buttonClick,
                               parameters: {
-                                'button_name': GAParams.btnBackAdStructure
+                                GAKey.buttonName: GAParams.btnBackAdStructure
                               }).catchError((onError) => debugPrint(onError));
                         }),
                     bottom: PreferredSize(

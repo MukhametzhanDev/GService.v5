@@ -25,6 +25,8 @@ class _CustomerProfilePageState extends State<CustomerProfilePage> {
   Map data = {};
   bool loader = true;
 
+  final analytics = GetIt.I<FirebaseAnalytics>();
+
   @override
   void initState() {
     getData();
@@ -56,11 +58,9 @@ class _CustomerProfilePageState extends State<CustomerProfilePage> {
                 builder: (context) => EditProfilePage(data: data)))
         .then((value) => changedDataUser(value));
 
-    GetIt.I<FirebaseAnalytics>().logEvent(
-        name: GAEventName.buttonClick,
-        parameters: {
-          'button_name': GAParams.rowBtnProfileEdit
-        }).catchError((onError) => debugPrint(onError));
+    analytics.logEvent(name: GAEventName.buttonClick, parameters: {
+      GAKey.buttonName: GAParams.rowBtnProfileEdit
+    }).catchError((onError) => debugPrint(onError));
   }
 
   void changedDataUser(Map? value) {

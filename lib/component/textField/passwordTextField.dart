@@ -21,6 +21,9 @@ class PasswordTextField extends StatefulWidget {
 
 class _PasswordTextFieldState extends State<PasswordTextField> {
   bool showPassword = false;
+
+  final analytics = GetIt.I<FirebaseAnalytics>();
+
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -40,9 +43,10 @@ class _PasswordTextFieldState extends State<PasswordTextField> {
                   setState(() {
                     showPassword = !showPassword;
                   });
-                  GetIt.I<FirebaseAnalytics>()
+
+                  analytics
                       .logEvent(name: GAEventName.buttonClick, parameters: {
-                    'button_name': "ic_btn_show_Pwd",
+                    GAKey.buttonName: GAParams.icBtnShowPwd,
                   }).catchError((e) => debugPrint(e));
                 },
                 iconSize: 20,

@@ -31,14 +31,15 @@ class _CustomerBottomTabState extends State<CustomerBottomTab>
   ];
   ScrollController scrollController = ScrollController();
 
+  final analytics = GetIt.I<FirebaseAnalytics>();
+
   void _onItemTapped(int index) {
     if (_selectedIndex == 0 && index == 0) {
       scrollController.animateTo(0,
           duration: const Duration(milliseconds: 300), curve: Curves.easeInOut);
 
-      GetIt.I<FirebaseAnalytics>()
-          .logEvent(name: GAEventName.screenView, parameters: {
-        'screen_name': GAParams.mainPage,
+      analytics.logEvent(name: GAEventName.screenView, parameters: {
+        GAKey.screenName: GAParams.mainPage,
       }).catchError((e) {
         debugPrint(e);
       });
@@ -53,18 +54,16 @@ class _CustomerBottomTabState extends State<CustomerBottomTab>
         }
       });
 
-      GetIt.I<FirebaseAnalytics>()
-          .logEvent(name: GAEventName.screenView, parameters: {
-        'screen_name': GAParams.tabBottomAd,
+      analytics.logEvent(name: GAEventName.screenView, parameters: {
+        GAKey.screenName: GAParams.tabBottomAd,
       }).catchError((e) {
         debugPrint(e);
       });
     } else {
       _selectedIndex = index;
 
-      GetIt.I<FirebaseAnalytics>()
-          .logEvent(name: GAEventName.screenView, parameters: {
-        'screen_name': index == 1
+      analytics.logEvent(name: GAEventName.screenView, parameters: {
+        GAKey.screenName: index == 1
             ? GAParams.favoriteMainPage
             : index == 3
                 ? GAParams.messageMainPage

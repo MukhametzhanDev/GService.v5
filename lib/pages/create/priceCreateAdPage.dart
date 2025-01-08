@@ -40,6 +40,8 @@ class _PriceCreateAdPageState extends State<PriceCreateAdPage> {
   PageControllerIndexedStack pageControllerIndexedStack =
       PageControllerIndexedStack();
 
+  final analytics = GetIt.I<FirebaseAnalytics>();
+
   @override
   void dispose() {
     priceEditingController.dispose();
@@ -72,11 +74,9 @@ class _PriceCreateAdPageState extends State<PriceCreateAdPage> {
     widget.nextPage();
     pageControllerIndexedStack.nextPage();
 
-    GetIt.I<FirebaseAnalytics>().logEvent(
-        name: GAEventName.buttonClick,
-        parameters: {
-          'button_name': GAParams.btnPriceContinue
-        }).catchError((onError) => debugPrint(onError));
+    analytics.logEvent(name: GAEventName.buttonClick, parameters: {
+      GAKey.buttonName: GAParams.btnPriceContinue
+    }).catchError((onError) => debugPrint(onError));
   }
 
   @override
@@ -166,7 +166,7 @@ class _PriceCreateAdPageState extends State<PriceCreateAdPage> {
                         setState(() {});
                         closeKeyboard();
 
-                        GetIt.I<FirebaseAnalytics>().logEvent(
+                        analytics.logEvent(
                             name: GAEventName.buttonClick,
                             parameters: {
                               'button_name': GAParams.chkNegotiable

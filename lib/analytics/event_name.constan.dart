@@ -8,6 +8,10 @@ class GAParams {
   static const String mainDrawer = 'MainDrawer';
   static const String mainPage = 'MainPage';
   static const String favoriteMainPage = 'FavoriteMainPage';
+  static const String listFavoriteAdPage = 'ListFavoriteAdPage';
+  static const String viewAdPage = 'ViewAdPage';
+  static const String customerExistsPage = 'CustomerExistsPage';
+
   static const String messageMainPage = 'MessageMainPage';
   static const String verifyProfilePage = 'VerifyProfilePage';
   static const String tabBottomAd = 'TabBottomAd';
@@ -45,18 +49,19 @@ class GAParams {
   static const String btnPriceContinue = 'btn_price_continue';
   static const String btnImageContinue = 'btn_image_continue';
 
-
   //BUTTON
 
   //CHECKBOX
   static const String chkNegotiable = 'chk_negotiable';
-  
 
   //CHECKBOX
 
   //ICON_BUTTON
   static const String icBtnFavorite = 'ic_btn_favorite';
   static const String icBtnDrawer = 'ic_btn_drawer';
+  static const String icBtnShare = 'ic_btn_share';
+  static const String icBtnShowPwd = 'ic_btn_show_pwd';
+
   //ICON_BUTTON
 
   //ROW
@@ -103,6 +108,9 @@ class GAParams {
   static const String radioCharacteristicsListId =
       'radio_characteristics_list_id';
 
+  static const String favoriteAdListId = 'favorite_ad_list_id';
+  static const String favoriteAdListName = 'Мои избранные объявления';
+
   //LIST
 }
 
@@ -110,4 +118,18 @@ class GAContentType {
   static const String application = 'application';
   static const String category = 'category';
   static const String ad = 'ad';
+}
+
+class GAKey {
+  static const String buttonName = 'button_name';
+  static const String screenName = 'screen_name';
+  static const String platform = 'platform';
+  static const String version = 'version';
+  static const String build = 'build';
+  static const String installerStore = 'installer_store';
+  static const String role = 'role';
+  static const String categoryName = 'category_name';
+  static const String title = 'title';
+  static const String isPagination = 'isPagination';
+  static const String active = 'active';
 }

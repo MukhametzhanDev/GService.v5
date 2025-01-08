@@ -34,6 +34,8 @@ class _GetCharacteristicAdPageState extends State<GetCharacteristicAdPage> {
   List data = [];
   bool loader = true;
 
+  final analytics = GetIt.I<FirebaseAnalytics>();
+
   @override
   void initState() {
     getData();
@@ -58,7 +60,7 @@ class _GetCharacteristicAdPageState extends State<GetCharacteristicAdPage> {
           for (int i = 0; i < selectFields.length; i++) {
             List<dynamic> options = selectFields[i]['options'];
 
-            await GetIt.I<FirebaseAnalytics>().logViewItemList(
+            await analytics.logViewItemList(
                 itemListId:
                     '${GAParams.adCharacteristicListId}_${selectFields[i]?['id']?.toString()}',
                 itemListName: selectFields[i]?['title'],
@@ -107,8 +109,7 @@ class _GetCharacteristicAdPageState extends State<GetCharacteristicAdPage> {
   }
 
   void verifyData() async {
-    await GetIt.I<FirebaseAnalytics>()
-        .logEvent(name: GAEventName.buttonClick, parameters: {
+    await analytics.logEvent(name: GAEventName.buttonClick, parameters: {
       'button_name': 'saveCharacteristic',
     });
 
@@ -159,7 +160,7 @@ class _GetCharacteristicAdPageState extends State<GetCharacteristicAdPage> {
     print('result length ${result.length}');
 
     for (int i = 0; i < result.length; i++) {
-      await GetIt.I<FirebaseAnalytics>().logViewItemList(
+      await analytics.logViewItemList(
           parameters: {'listType': 'Характеристика'},
           itemListId:
               '${GAParams.adCharacteristicListId}_${result[i]?['id']?.toString()}',

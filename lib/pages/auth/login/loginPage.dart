@@ -32,6 +32,8 @@ class _LoginPageState extends State<LoginPage>
       TextEditingController(text: "mukhametzhan.tileubek@gmail.com");
   TextEditingController passwordEditingController = TextEditingController();
 
+  final analytics = GetIt.I<FirebaseAnalytics>();
+
   @override
   void dispose() {
     textEditingController.dispose();
@@ -40,9 +42,9 @@ class _LoginPageState extends State<LoginPage>
   }
 
   void verifyData() async {
-    await GetIt.I<FirebaseAnalytics>().logEvent(
+    await analytics.logEvent(
         name: GAEventName.buttonClick,
-        parameters: {'button_name': GAParams.btnLogin});
+        parameters: {GAKey.buttonName: GAParams.btnLogin});
 
     String text = textEditingController.text.trim();
     String password = passwordEditingController.text.trim();
@@ -92,13 +94,19 @@ class _LoginPageState extends State<LoginPage>
         print(response.data);
         ChangedToken().savedToken(response.data['data'], context);
 
-        await GetIt.I<FirebaseAnalytics>().logLogin(
+        await analytics.logLogin(
             loginMethod: param.containsKey('email') ? 'email' : 'phone');
 
         print('userID: ${response.data['data']['user']['id'].toString()}');
 
-        await GetIt.I<FirebaseAnalytics>()
-            .setUserId(id: response.data?['data']?['user']?['id'].toString());
+        var user = response.data['data']['user'];
+
+        if (user['id'] != null) {
+          await analytics.setUserId(id: user?['id'].toString());
+        }
+
+        await analytics
+            .setDefaultEventParameters({GAKey.role: user?['role'] ?? ''});
       } else {
         SnackBarComponent().showResponseErrorMessage(response, context);
       }
@@ -117,11 +125,9 @@ class _LoginPageState extends State<LoginPage>
     //   if (value != null) textEditingController.text = value;
     // });
 
-    GetIt.I<FirebaseAnalytics>().logEvent(
-        name: GAEventName.buttonClick,
-        parameters: {
-          'button_name': GAParams.txtBtnRegister
-        }).catchError((onError) => debugPrint(onError));
+    analytics.logEvent(name: GAEventName.buttonClick, parameters: {
+      GAKey.buttonName: GAParams.txtBtnRegister
+    }).catchError((onError) => debugPrint(onError));
   }
 
   void showForgotPasswordCustomerPage() {
@@ -131,11 +137,9 @@ class _LoginPageState extends State<LoginPage>
             builder: (context) =>
                 ForgotPasswordCustomerPage(title: textEditingController.text)));
 
-    GetIt.I<FirebaseAnalytics>().logEvent(
-        name: GAEventName.buttonClick,
-        parameters: {
-          'button_name': GAParams.txtBtnForgotPassword
-        }).catchError((onError) => debugPrint(onError));
+    analytics.logEvent(name: GAEventName.buttonClick, parameters: {
+      GAKey.buttonName: GAParams.txtBtnForgotPassword
+    }).catchError((onError) => debugPrint(onError));
   }
 
   @override

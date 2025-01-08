@@ -53,6 +53,8 @@ class _GetSelectPageState extends State<GetSelectPage> {
   PageControllerIndexedStack pageControllerIndexedStack =
       PageControllerIndexedStack();
 
+  final analytics = GetIt.I<FirebaseAnalytics>();
+
   @override
   void initState() {
     getData();
@@ -74,7 +76,7 @@ class _GetSelectPageState extends State<GetSelectPage> {
         hasNextPage = page != response.data?['meta']?['last_page'];
         setState(() {});
 
-        await GetIt.I<FirebaseAnalytics>().logViewItemList(
+        await analytics.logViewItemList(
             itemListId: "${GAParams.adSelectListId}_${widget.listIndex}",
             itemListName: '${widget.title}',
             items: data
@@ -113,7 +115,7 @@ class _GetSelectPageState extends State<GetSelectPage> {
           isLoadMore = false;
           setState(() {});
 
-          await GetIt.I<FirebaseAnalytics>().logViewItemList(
+          await analytics.logViewItemList(
               parameters: {'isPagination': 'true'},
               itemListId: "${GAParams.adSelectListId}_${widget.listIndex}",
               itemListName: '${widget.title}',
@@ -168,7 +170,7 @@ class _GetSelectPageState extends State<GetSelectPage> {
     }
     setState(() {});
 
-    GetIt.I<FirebaseAnalytics>().logSelectItem(
+    analytics.logSelectItem(
         items: [
           AnalyticsEventItem(
               itemId: value['id']?.toString() ?? '',
@@ -257,7 +259,8 @@ class _GetSelectPageState extends State<GetSelectPage> {
                           const Divider(height: 20),
                           Button(
                               onPressed: showEmptyModal,
-                              padding: const EdgeInsets.symmetric(horizontal: 15),
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 15),
                               title: "Добавить"),
                           const Divider(height: 80),
                         ],

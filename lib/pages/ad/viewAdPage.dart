@@ -5,6 +5,7 @@ import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get_it/get_it.dart';
+import 'package:gservice5/analytics/event_name.constan.dart';
 import 'package:gservice5/component/appBar/fadeOnScroll.dart';
 import 'package:gservice5/component/bar/bottomBar/contactBottomBarWidget.dart';
 import 'package:gservice5/component/button/back/backIconButton.dart';
@@ -41,6 +42,8 @@ class _ViewAdPageState extends State<ViewAdPage> {
   bool loader = true;
   int? statusCode;
 
+  final analytics = GetIt.I<FirebaseAnalytics>();
+
   @override
   void initState() {
     getData();
@@ -56,6 +59,12 @@ class _ViewAdPageState extends State<ViewAdPage> {
         loader = false;
         addAdFavorite();
         setState(() {});
+
+        await analytics.logViewItem(items: [
+          AnalyticsEventItem(
+              itemId: data['id'].toString(),
+              parameters: {GAKey.screenName: GAParams.viewAdPage})
+        ]);
       } else {
         SnackBarComponent().showResponseErrorMessage(response, context);
       }
@@ -90,12 +99,18 @@ class _ViewAdPageState extends State<ViewAdPage> {
                     centerTitle: false,
                     actions: [
                       // FavoriteButtonComponent(iconColor: ColorTheme['black_white']),
-                      ShareButton(id: widget.id, hasAd: true),
+                      ShareButton(
+                        id: widget.id,
+                        hasAd: true,
+                        frompage: GAParams.viewAdPage,
+                      ),
                       const Divider(indent: 10),
                       FavoriteButton(
-                          id: data['id'],
-                          type: "ad",
-                          active: data['is_favorite']),
+                        id: data['id'],
+                        type: "ad",
+                        active: data['is_favorite'],
+                        fromPage: GAParams.viewAdPage,
+                      ),
                       const Divider(indent: 15)
                     ],
                     title: FadeOnScroll(

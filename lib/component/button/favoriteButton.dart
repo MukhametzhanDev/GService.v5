@@ -16,8 +16,13 @@ class FavoriteButton extends StatefulWidget {
   final int id;
   bool active;
   final String type;
+  final String? fromPage;
   FavoriteButton(
-      {super.key, required this.id, required this.active, required this.type});
+      {super.key,
+      required this.id,
+      required this.active,
+      required this.type,
+      this.fromPage});
 
   @override
   State<FavoriteButton> createState() => _FavoriteButtonState();
@@ -25,6 +30,8 @@ class FavoriteButton extends StatefulWidget {
 
 class _FavoriteButtonState extends State<FavoriteButton> {
   bool activeFavourite = false;
+
+  final analytics = GetIt.I<FirebaseAnalytics>();
 
   void verifyToken() async {
     bool havedToken = await ChangedToken().getToken() != null;
@@ -39,9 +46,10 @@ class _FavoriteButtonState extends State<FavoriteButton> {
           context);
     }
 
-    await GetIt.I<FirebaseAnalytics>().logEvent(
-        name: GAEventName.buttonClick,
-        parameters: {'button_name': GAParams.icBtnFavorite});
+    await analytics.logEvent(name: GAEventName.buttonClick, parameters: {
+      GAKey.buttonName: GAParams.icBtnFavorite,
+      GAKey.screenName: widget.fromPage ?? ''
+    });
   }
 
   Future postData() async {

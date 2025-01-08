@@ -145,6 +145,8 @@ class _SelectModalState extends State<SelectModal> {
   List<int> currentIds = [];
   List currentValues = [];
 
+  final analytics = GetIt.I<FirebaseAnalytics>();
+
   @override
   void initState() {
     // checkActive();
@@ -152,7 +154,7 @@ class _SelectModalState extends State<SelectModal> {
     currentValues = widget.values;
     print(widget.values);
 
-    GetIt.I<FirebaseAnalytics>()
+    analytics
         .logViewItemList(
             itemListId:
                 "${GAParams.multiSelectCharacteristicsListEd}_${widget.listId}",
@@ -172,11 +174,9 @@ class _SelectModalState extends State<SelectModal> {
     print(currentIds);
     Navigator.pop(context, param);
 
-    GetIt.I<FirebaseAnalytics>().logEvent(
-        name: GAEventName.buttonClick,
-        parameters: {
-          'button_name': GAParams.btnSaveMultiSelect
-        }).catchError((onError) => debugPrint(onError));
+    analytics.logEvent(name: GAEventName.buttonClick, parameters: {
+      GAKey.buttonName: GAParams.btnSaveMultiSelect
+    }).catchError((onError) => debugPrint(onError));
   }
 
   void onChanged(value) {
@@ -191,12 +191,12 @@ class _SelectModalState extends State<SelectModal> {
     }
     setState(() {});
 
-    GetIt.I<FirebaseAnalytics>().logSelectItem(
+    analytics.logSelectItem(
         itemListId:
             "${GAParams.multiSelectCharacteristicsListEd}_${widget.listId}",
         itemListName: widget.listTitle,
         parameters: {
-          'active': value['active'].toString()
+          GAKey.active: value['active'].toString()
         },
         items: [
           AnalyticsEventItem(

@@ -18,18 +18,20 @@ class ApplicationListMain extends StatefulWidget {
 }
 
 class _ApplicationListMainState extends State<ApplicationListMain> {
+  final analytics = GetIt.I<FirebaseAnalytics>();
+
   void showPage(id) {
     Navigator.push(context,
         MaterialPageRoute(builder: (context) => ViewApplicationPage(id: id)));
 
-    GetIt.I<FirebaseAnalytics>().logSelectContent(
+    analytics.logSelectContent(
         contentType: GAContentType.application,
         itemId: id.toString(),
         parameters: {
-          'title': widget.data.firstWhere((e) => e['id'] == id,
+          GAKey.title: widget.data.firstWhere((e) => e['id'] == id,
                   orElse: () => '')['title'] ??
               '',
-          'screen_name': GAParams.mainPage
+          GAKey.screenName: GAParams.mainPage
         }).catchError((e) => debugPrint(e));
   }
 
@@ -49,14 +51,14 @@ class _ApplicationListMainState extends State<ApplicationListMain> {
                         context,
                         MaterialPageRoute(
                             builder: (context) => const ApplicationListPage()));
-      
-              GetIt.I<FirebaseAnalytics>().logEvent(
-                  name: GAEventName.buttonClick,
-                  parameters: {
-                    'button_name': GAParams.txtBtnPlaceOrder,
-                    'screen_name': GAParams.mainPage
-                  });
-            },
+
+                    analytics.logEvent(
+                        name: GAEventName.buttonClick,
+                        parameters: {
+                          GAKey.buttonName: GAParams.txtBtnPlaceOrder,
+                          GAKey.screenName: GAParams.mainPage
+                        });
+                  },
                   child: const Text("Заказы на спецтехнику",
                       style: TextStyle(
                           fontSize: 16,
@@ -124,17 +126,17 @@ class ShowMoreApplicaiton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final analytics = GetIt.I<FirebaseAnalytics>();
+
     return GestureDetector(
         onTap: () {
           Navigator.push(
               context,
               MaterialPageRoute(
                   builder: (context) => const ApplicationListPage()));
-          GetIt.I<FirebaseAnalytics>().logEvent(
-              name: GAEventName.buttonClick,
-              parameters: {
-                'button_name': GAParams.btnMoreOder
-              }).catchError((e) => debugPrint(e));
+          analytics.logEvent(name: GAEventName.buttonClick, parameters: {
+            GAKey.buttonName: GAParams.btnMoreOder
+          }).catchError((e) => debugPrint(e));
         },
         child: Container(
           margin: const EdgeInsets.symmetric(horizontal: 4),

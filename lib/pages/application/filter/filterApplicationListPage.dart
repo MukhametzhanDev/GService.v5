@@ -20,6 +20,8 @@ class FilterApplicationListPage extends StatefulWidget {
 }
 
 class _FilterApplicationListPageState extends State<FilterApplicationListPage> {
+  final analytics = GetIt.I<FirebaseAnalytics>();
+
   @override
   void initState() {
     print(FilterData.data);
@@ -60,9 +62,9 @@ class _FilterApplicationListPageState extends State<FilterApplicationListPage> {
                 FilterData.data.clear();
                 Navigator.pop(context, "update");
 
-                GetIt.I<FirebaseAnalytics>().logEvent(
+                analytics.logEvent(
                     name: GAEventName.buttonClick,
-                    parameters: {'button_name': GAParams.btnClearFilter});
+                    parameters: {GAKey.buttonName: GAParams.btnClearFilter});
               },
               child: Text("Сбросить",
                   style: TextStyle(

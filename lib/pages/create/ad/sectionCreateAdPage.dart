@@ -27,6 +27,8 @@ class _SectionCreateAdPageState extends State<SectionCreateAdPage> {
   List data = [];
   bool loader = true;
 
+  final analytics = GetIt.I<FirebaseAnalytics>();
+
   @override
   void initState() {
     getData();
@@ -53,7 +55,7 @@ class _SectionCreateAdPageState extends State<SectionCreateAdPage> {
         loader = false;
         setState(() {});
 
-        await GetIt.I<FirebaseAnalytics>().logViewItemList(
+        await analytics.logViewItemList(
             itemListId: GAParams.adTypeCategoriesId,
             itemListName: GAParams.adTypeCategoriesName,
             items: data
@@ -85,7 +87,7 @@ class _SectionCreateAdPageState extends State<SectionCreateAdPage> {
     });
     showOptionsPage();
 
-    GetIt.I<FirebaseAnalytics>().logSelectItem(
+    analytics.logSelectItem(
       items: [
         AnalyticsEventItem(
             itemId: data[currentIndex]?['id']?.toString() ?? '',
@@ -104,11 +106,9 @@ class _SectionCreateAdPageState extends State<SectionCreateAdPage> {
                 StructureCreateAdPage(data: data[currentIndex])));
     // Navigator.pop(context);
 
-    GetIt.I<FirebaseAnalytics>().logEvent(
-        name: GAEventName.buttonClick,
-        parameters: {
-          'button_name': GAParams.btnContinueTypeAd
-        }).catchError((e) => debugPrint(e));
+    analytics.logEvent(name: GAEventName.buttonClick, parameters: {
+      GAKey.buttonName: GAParams.btnContinueTypeAd
+    }).catchError((e) => debugPrint(e));
   }
 
   Map getParam(index) {

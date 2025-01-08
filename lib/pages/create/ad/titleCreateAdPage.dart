@@ -33,6 +33,8 @@ class _TitleCreateAdPageState extends State<TitleCreateAdPage> {
   List tags = [];
   bool loader = true;
 
+  final analytics = GetIt.I<FirebaseAnalytics>();
+
   @override
   void initState() {
     getData();
@@ -58,7 +60,7 @@ class _TitleCreateAdPageState extends State<TitleCreateAdPage> {
         loader = false;
         setState(() {});
 
-        await GetIt.I<FirebaseAnalytics>().logViewItemList(
+        await analytics.logViewItemList(
             itemListId: GAParams.descriptionTagsListId,
             itemListName: GAParams.descriptionTagsListName,
             items: tags
@@ -107,13 +109,15 @@ class _TitleCreateAdPageState extends State<TitleCreateAdPage> {
 
     var selectedTags = tags.where((e) => e?['active'] == true).toList();
 
-    GetIt.I<FirebaseAnalytics>().logSelectItem(
-        itemListId: GAParams.descriptionTagsListId,
-        itemListName: GAParams.descriptionTagsListName,
-        items: selectedTags
-            .map((e) => AnalyticsEventItem(
-                itemName: e['title'] ?? '', itemId: e['id'].toString()))
-            .toList());
+    analytics
+        .logSelectItem(
+            itemListId: GAParams.descriptionTagsListId,
+            itemListName: GAParams.descriptionTagsListName,
+            items: selectedTags
+                .map((e) => AnalyticsEventItem(
+                    itemName: e['title'] ?? '', itemId: e['id'].toString()))
+                .toList())
+        .catchError((onError) => debugPrint(onError));
   }
 
   @override

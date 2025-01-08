@@ -22,6 +22,8 @@ class ShowWalletWidget extends StatefulWidget {
 class _ShowWalletWidgetState extends State<ShowWalletWidget> {
   WalletServices services = WalletServices();
 
+  final analytics = GetIt.I<FirebaseAnalytics>();
+
   @override
   void initState() {
     super.initState();
@@ -30,20 +32,16 @@ class _ShowWalletWidgetState extends State<ShowWalletWidget> {
 
   void showPage() {
     Navigator.pushNamed(context, "ReplenishmentWalletPage");
-    GetIt.I<FirebaseAnalytics>().logEvent(
-        name: GAEventName.buttonClick,
-        parameters: {
-          'button_name': GAParams.btnProfileToUpBalance
-        }).catchError((onError) => debugPrint(onError));
+    analytics.logEvent(name: GAEventName.buttonClick, parameters: {
+      GAKey.buttonName: GAParams.btnProfileToUpBalance
+    }).catchError((onError) => debugPrint(onError));
   }
 
   void showTransactionHistoryPage() {
     Navigator.pushNamed(context, "TransactionHistoryPage");
-    GetIt.I<FirebaseAnalytics>().logEvent(
-        name: GAEventName.buttonClick,
-        parameters: {
-          'button_name': GAParams.txtbtndProfileHistory
-        }).catchError((onError) => debugPrint(onError));
+    analytics.logEvent(name: GAEventName.buttonClick, parameters: {
+      GAKey.buttonName: GAParams.txtbtndProfileHistory
+    }).catchError((onError) => debugPrint(onError));
   }
 
   String formattedPrice(int cost) {

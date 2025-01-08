@@ -21,6 +21,8 @@ class SelectCharactersitic extends StatefulWidget {
 class _SelectCharactersiticState extends State<SelectCharactersitic> {
   Map currentValue = {};
 
+  final analytics = GetIt.I<FirebaseAnalytics>();
+
   @override
   void initState() {
     getData();
@@ -62,7 +64,7 @@ class _SelectCharactersiticState extends State<SelectCharactersitic> {
       currentValue = value;
       setState(() {});
 
-      GetIt.I<FirebaseAnalytics>().logSelectItem(
+      analytics.logSelectItem(
           itemListId:
               "${GAParams.selectCharacteristicsListEd}_${widget.value['id'].toString()}",
           itemListName: getTitle(),
@@ -106,13 +108,15 @@ class SelectModal extends StatefulWidget {
 }
 
 class _SelectModalState extends State<SelectModal> {
+  final analytics = GetIt.I<FirebaseAnalytics>();
+
   void onChanged(value) {
     Navigator.pop(context, value);
   }
 
   @override
   void initState() {
-    GetIt.I<FirebaseAnalytics>()
+    analytics
         .logViewItemList(
             itemListId:
                 '${GAParams.selectCharacteristicsListEd}_${widget.listId}',

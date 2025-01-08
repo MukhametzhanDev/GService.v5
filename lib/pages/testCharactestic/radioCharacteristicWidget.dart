@@ -17,13 +17,15 @@ class RadioCharacteristicWidget extends StatefulWidget {
 class _RadioCharacteristicWidgetState extends State<RadioCharacteristicWidget> {
   int? id;
 
+  final analytics = GetIt.I<FirebaseAnalytics>();
+
   @override
   void initState() {
     getData();
     List options = widget.value['options'];
 
     if (options.isNotEmpty) {
-      GetIt.I<FirebaseAnalytics>().logViewItemList(
+      analytics.logViewItemList(
           itemListId:
               "${GAParams.radioCharacteristicsListId}_${widget.value['id']?.toString()}",
           itemListName: getTitle(),
@@ -58,11 +60,13 @@ class _RadioCharacteristicWidgetState extends State<RadioCharacteristicWidget> {
     CreateData.characteristic["${widget.value['id']}"] = value;
     setState(() {});
 
-    GetIt.I<FirebaseAnalytics>().logSelectItem(
+    analytics.logSelectItem(
         itemListName: getTitle(),
         itemListId:
             "${GAParams.radioCharacteristicsListId}_${widget.value['id']?.toString()}",
-        items: [AnalyticsEventItem(itemId: value.toString(), itemName: title)]);
+        items: [
+          AnalyticsEventItem(itemId: value.toString(), itemName: title)
+        ]).catchError((onError) => debugPrint(onError));
   }
 
   @override

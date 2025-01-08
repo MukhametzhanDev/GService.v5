@@ -27,6 +27,8 @@ class _MainPageState extends State<MainPage> {
   var scaffoldKey = GlobalKey<ScaffoldState>();
   Map data = MainPageData.data;
 
+  final analytics = GetIt.I<FirebaseAnalytics>();
+
   @override
   void initState() {
     getData();
@@ -40,7 +42,7 @@ class _MainPageState extends State<MainPage> {
 
       final localApplciations = data['applications'] as List;
 
-      await GetIt.I<FirebaseAnalytics>().logViewItemList(
+      await analytics.logViewItemList(
           itemListId: GAParams.applicationMainListId,
           itemListName: GAParams.applicationMainListName,
           items: localApplciations
@@ -52,11 +54,11 @@ class _MainPageState extends State<MainPage> {
                         'itemCategoryTitle': item?['category']?['title']
                       }))
               .toList(),
-          parameters: {'screen_name': GAParams.mainPage});
+          parameters: {GAKey.screenName: GAParams.mainPage});
     } else {
       final localApplciations = data['applications'] as List;
 
-      await GetIt.I<FirebaseAnalytics>().logViewItemList(
+      await analytics.logViewItemList(
           itemListId: GAParams.applicationMainListId,
           itemListName: GAParams.applicationMainListName,
           items: localApplciations
@@ -68,7 +70,7 @@ class _MainPageState extends State<MainPage> {
                         'itemCategoryTitle': item?['category']?['title']
                       }))
               .toList(),
-          parameters: {'screen_name': GAParams.mainPage});
+          parameters: {GAKey.screenName: GAParams.mainPage});
     }
   }
 
@@ -79,12 +81,10 @@ class _MainPageState extends State<MainPage> {
             builder: (context) =>
                 const MainSearchPage(showType: "back", title: "")));
 
-    GetIt.I<FirebaseAnalytics>().logEvent(
-        name: GAEventName.buttonClick,
-        parameters: {
-          'button_name': GAParams.btnSearch,
-          'screen_name': GAParams.mainPage
-        }).catchError((e) {
+    analytics.logEvent(name: GAEventName.buttonClick, parameters: {
+      GAKey.buttonName: GAParams.btnSearch,
+      GAKey.screenName: GAParams.mainPage
+    }).catchError((e) {
       debugPrint(e);
     });
   }
@@ -119,10 +119,10 @@ class _MainPageState extends State<MainPage> {
                   GestureDetector(
                     onTap: () {
                       scaffoldKey.currentState?.openDrawer();
-                      GetIt.I<FirebaseAnalytics>()
+                      analytics
                           .logEvent(name: GAEventName.buttonClick, parameters: {
-                        'button_name': GAParams.icBtnDrawer,
-                        'screen_name': GAParams.mainPage,
+                        GAKey.buttonName: GAParams.icBtnDrawer,
+                        GAKey.screenName: GAParams.mainPage,
                       }).catchError((e) {
                         debugPrint(e);
                       });

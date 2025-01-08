@@ -56,7 +56,10 @@ class ChangedToken {
           MaterialPageRoute(builder: (_) => const CustomerBottomTab()),
           (route) => false);
 
-      await GetIt.I<FirebaseAnalytics>().setUserId(id: null);
+      final analytics = GetIt.I<FirebaseAnalytics>();
+
+      await analytics.setUserId(id: null);
+      await analytics.setDefaultEventParameters({'role': null});
     } catch (e) {
       SnackBarComponent().showNotGoBackServerErrorMessage(context);
     }

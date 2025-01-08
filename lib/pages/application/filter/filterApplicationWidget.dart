@@ -32,6 +32,8 @@ class _FilterApplicationWidgetState extends State<FilterApplicationWidget> {
   Map city = {};
   Map price = {};
 
+  final analytics = GetIt.I<FirebaseAnalytics>();
+
   @override
   void initState() {
     addData();
@@ -72,11 +74,9 @@ class _FilterApplicationWidgetState extends State<FilterApplicationWidget> {
       },
     );
 
-    GetIt.I<FirebaseAnalytics>().logEvent(
-        name: GAEventName.buttonClick,
-        parameters: {
-          'buttan_name': GAParams.btnCity
-        }).catchError((e) => debugPrint(e));
+    analytics.logEvent(name: GAEventName.buttonClick, parameters: {
+      GAKey.buttonName: GAParams.btnCity
+    }).catchError((e) => debugPrint(e));
   }
 
   void showFilterPrice() {
@@ -142,10 +142,9 @@ class _FilterApplicationWidgetState extends State<FilterApplicationWidget> {
             builder: (context) => const FilterApplicationListPage())
         .then(filteredAds);
 
-    GetIt.I<FirebaseAnalytics>()
-        .logEvent(name: GAEventName.buttonClick, parameters: {
-      'button_name': GAParams.btnApplicationFilter,
-      'screen_name': GAParams.applicationPage
+    analytics.logEvent(name: GAEventName.buttonClick, parameters: {
+      GAKey.buttonName: GAParams.btnApplicationFilter,
+      GAKey.screenName: GAParams.applicationPage
     });
   }
 

@@ -20,6 +20,8 @@ class _CategoriesListWidgetState extends State<CategoriesListWidget> {
   List data = CategoriesData.categories;
   bool loader = true;
 
+  final analytics = GetIt.I<FirebaseAnalytics>();
+
   @override
   void initState() {
     getData();
@@ -36,12 +38,12 @@ class _CategoriesListWidgetState extends State<CategoriesListWidget> {
 
   void showAdPage(Map value) {
     if (value['id'] == 3) {
-      GetIt.I<FirebaseAnalytics>().logSelectContent(
+      analytics.logSelectContent(
           contentType: GAContentType.category,
           itemId: value['id'].toString(),
           parameters: {
-            'screen_name': GAParams.mainPage,
-            'category_name': value['title'],
+            GAKey.screenName: GAParams.mainPage,
+            GAKey.categoryName: value['title'] ?? '',
           }).catchError((e) {
         debugPrint(e);
       });
@@ -49,12 +51,12 @@ class _CategoriesListWidgetState extends State<CategoriesListWidget> {
       Navigator.push(context,
           MaterialPageRoute(builder: (context) => const ApplicationListPage()));
     } else {
-      GetIt.I<FirebaseAnalytics>().logSelectContent(
+      analytics.logSelectContent(
           contentType: GAContentType.category,
           itemId: value['id'].toString(),
           parameters: {
-            'screen_name': GAParams.mainPage,
-            'category_name': value['title']
+            GAKey.screenName: GAParams.mainPage,
+            GAKey.categoryName: value['title']
           }).catchError((e) {
         debugPrint(e);
       });

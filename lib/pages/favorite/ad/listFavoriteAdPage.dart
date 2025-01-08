@@ -1,5 +1,8 @@
 import 'package:dio/dio.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
+import 'package:gservice5/analytics/event_name.constan.dart';
 import 'package:gservice5/component/dio/dio.dart';
 import 'package:gservice5/component/loader/loaderComponent.dart';
 import 'package:gservice5/component/loader/paginationLoaderComponent.dart';
@@ -24,6 +27,8 @@ class _ListFavoriteAdPageState extends State<ListFavoriteAdPage> {
   bool isLoadMore = false;
   RefreshController refreshController = RefreshController();
   int page = 1;
+
+  final analytics = GetIt.I<FirebaseAnalytics>();
 
   @override
   void initState() {
@@ -52,6 +57,15 @@ class _ListFavoriteAdPageState extends State<ListFavoriteAdPage> {
         loader = false;
         hasNextPage = page != response.data['meta']['last_page'];
         setState(() {});
+
+        await analytics.logViewItemList(
+            itemListId: GAParams.favoriteAdListId,
+            itemListName: GAParams.favoriteAdListName,
+            items: data
+                .map((toElement) => AnalyticsEventItem(
+                    itemId: toElement['id'].toString(),
+                    itemName: toElement?['favoritable']?['title']))
+                .toList());
       } else {
         SnackBarComponent().showResponseErrorMessage(response, context);
       }
@@ -117,8 +131,10 @@ class _ListFavoriteAdPageState extends State<ListFavoriteAdPage> {
                               if (data.length - 1 == index) {
                                 return Column(children: [
                                   AdItem(
-                                      data: value['favoritable'],
-                                      showCategory: false),
+                                    data: value['favoritable'],
+                                    showCategory: false,
+                                    fromPage: GAParams.listFavoriteAdPage,
+                                  ),
                                   hasNextPage
                                       ? const PaginationLoaderComponent()
                                       : Container()

@@ -1,20 +1,27 @@
 // ShareButton
 
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get_it/get_it.dart';
+import 'package:gservice5/analytics/event_name.constan.dart';
 import 'package:gservice5/component/counter/counterClickStatistic.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
 
 class ShareButton extends StatefulWidget {
   final int id;
   final bool hasAd;
-  const ShareButton({super.key, required this.id, required this.hasAd});
+  final String? frompage;
+  const ShareButton(
+      {super.key, required this.id, required this.hasAd, this.frompage});
 
   @override
   State<ShareButton> createState() => _ShareButtonState();
 }
 
 class _ShareButtonState extends State<ShareButton> {
+  final analytics = GetIt.I<FirebaseAnalytics>();
+
   void shared() async {
     print(widget.hasAd);
     if (widget.hasAd) {
@@ -22,6 +29,11 @@ class _ShareButtonState extends State<ShareButton> {
       await getCountClickApplication(widget.id, "share");
     }
     // await GetCountClick().postData(widget.id, widget.hasAd, "share");
+
+    await analytics.logEvent(name: GAEventName.buttonClick, parameters: {
+      GAKey.buttonName: GAParams.icBtnShare,
+      GAKey.screenName: widget.frompage ?? ''
+    });
   }
 
   @override

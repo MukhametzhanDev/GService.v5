@@ -41,21 +41,21 @@ class _ProfileListTilesWidgetState extends State<ProfileListTilesWidget> {
     Navigator.push(context,
         MaterialPageRoute(builder: (context) => const MyApplicationListPage()));
     analytics.logEvent(name: GAEventName.buttonClick, parameters: {
-      'button_name': GAParams.rowBtnProfileMyApplication
+      GAKey.buttonName: GAParams.rowBtnProfileMyApplication
     }).catchError((onError) => debugPrint(onError));
   }
 
   void showMyAdPage() {
     Navigator.pushNamed(context, "MyAdListPage");
     analytics.logEvent(name: GAEventName.buttonClick, parameters: {
-      'button_name': GAParams.rowBtnProfileMyAd
+      GAKey.buttonName: GAParams.rowBtnProfileMyAd
     }).catchError((onError) => debugPrint(onError));
   }
 
   void showContactsPage() {
     Navigator.pushNamed(context, "AddContactsPage");
     analytics.logEvent(name: GAEventName.buttonClick, parameters: {
-      'button_name': GAParams.rowBtnProfileContacts
+      GAKey.buttonName: GAParams.rowBtnProfileContacts
     }).catchError((onError) => debugPrint(onError));
   }
 
@@ -63,7 +63,7 @@ class _ProfileListTilesWidgetState extends State<ProfileListTilesWidget> {
     Navigator.push(
         context, MaterialPageRoute(builder: (context) => const NewsMainPage()));
     analytics.logEvent(name: GAEventName.buttonClick, parameters: {
-      'button_name': GAParams.rowBtnProfileNews
+      GAKey.buttonName: GAParams.rowBtnProfileNews
     }).catchError((onError) => debugPrint(onError));
   }
 
@@ -71,7 +71,7 @@ class _ProfileListTilesWidgetState extends State<ProfileListTilesWidget> {
     Navigator.push(context,
         MaterialPageRoute(builder: (context) => const CurrencyMainPage()));
     analytics.logEvent(name: GAEventName.buttonClick, parameters: {
-      'button_name': GAParams.rowBtnProfileEditCurrency
+      GAKey.buttonName: GAParams.rowBtnProfileEditCurrency
     }).catchError((onError) => debugPrint(onError));
   }
 
@@ -79,7 +79,7 @@ class _ProfileListTilesWidgetState extends State<ProfileListTilesWidget> {
     Navigator.push(context,
         MaterialPageRoute(builder: (context) => const EmployeeListPage()));
     analytics.logEvent(name: GAEventName.buttonClick, parameters: {
-      'button_name': GAParams.rowBtnProfileEmployee
+      GAKey.buttonName: GAParams.rowBtnProfileEmployee
     }).catchError((onError) => debugPrint(onError));
   }
 
@@ -87,7 +87,7 @@ class _ProfileListTilesWidgetState extends State<ProfileListTilesWidget> {
     Navigator.push(context,
         MaterialPageRoute(builder: (context) => const AboutCompanyPage()));
     analytics.logEvent(name: GAEventName.buttonClick, parameters: {
-      'button_name': GAParams.rowBtnProfileAbout
+      GAKey.buttonName: GAParams.rowBtnProfileAbout
     }).catchError((onError) => debugPrint(onError));
   }
 
@@ -210,7 +210,7 @@ class _ProfileListTilesWidgetState extends State<ProfileListTilesWidget> {
                       }));
 
               analytics.logEvent(name: GAEventName.buttonClick, parameters: {
-                'button_name': GAParams.rowBtnProfileExit
+                GAKey.buttonName: GAParams.rowBtnProfileExit
               }).catchError((onError) => debugPrint(onError));
             },
             leading: SvgPicture.asset('assets/icons/exit.svg'),

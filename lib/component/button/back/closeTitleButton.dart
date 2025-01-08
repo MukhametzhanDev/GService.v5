@@ -11,6 +11,8 @@ class CloseTitleButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final analytics = GetIt.I<FirebaseAnalytics>();
+
     return IconButton(
         padding: EdgeInsets.zero,
         constraints: const BoxConstraints(),
@@ -18,11 +20,9 @@ class CloseTitleButton extends StatelessWidget {
         onPressed: () {
           onPressed == null ? Navigator.pop(context) : onPressed();
 
-          GetIt.I<FirebaseAnalytics>().logEvent(
-              name: GAEventName.buttonClick,
-              parameters: {
-                'button_name': GAParams.btnFilterClose
-              }).catchError((e) => debugPrint(e));
+          analytics.logEvent(name: GAEventName.buttonClick, parameters: {
+            GAKey.buttonName: GAParams.btnFilterClose
+          }).catchError((e) => debugPrint(e));
         },
         icon: Row(
           children: [

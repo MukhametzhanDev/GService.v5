@@ -26,6 +26,8 @@ class _AdListMainState extends State<AdListMain> {
   bool isLoadMore = false;
   int page = 1;
 
+  final analytics = GetIt.I<FirebaseAnalytics>();
+
   @override
   void initState() {
     getData();
@@ -60,7 +62,7 @@ class _AdListMainState extends State<AdListMain> {
         hasNextPage = page != response.data['meta']['last_page'];
         setState(() {});
 
-        await GetIt.I<FirebaseAnalytics>().logViewItemList(
+        await analytics.logViewItemList(
             items: data
                 .map((item) => AnalyticsEventItem(
                         itemId: item?['id']?.toString(),
@@ -72,7 +74,7 @@ class _AdListMainState extends State<AdListMain> {
                 .toList(),
             itemListId: GAParams.adMainListId,
             itemListName: GAParams.adMainListName,
-            parameters: {'screen_name': GAParams.mainPage});
+            parameters: {GAKey.screenName: GAParams.mainPage});
       } else {
         SnackBarComponent().showResponseErrorMessage(response, context);
       }

@@ -22,6 +22,8 @@ class _ForgotPasswordCustomerPageState
     extends State<ForgotPasswordCustomerPage> {
   TextEditingController textEditingController = TextEditingController();
 
+  final analytics = GetIt.I<FirebaseAnalytics>();
+
   @override
   void initState() {
     textEditingController.text = widget.title;
@@ -58,11 +60,9 @@ class _ForgotPasswordCustomerPageState
       }
     }
 
-    GetIt.I<FirebaseAnalytics>().logEvent(
-        name: GAEventName.buttonClick,
-        parameters: {
-          'button_name': GAParams.btnSendForgotPwd
-        }).catchError((onError) => debugPrint(onError));
+    analytics.logEvent(name: GAEventName.buttonClick, parameters: {
+      GAKey.buttonName: GAParams.btnSendForgotPwd
+    }).catchError((onError) => debugPrint(onError));
   }
 
   void showForgotEmailPasswordCustomerPage() {
