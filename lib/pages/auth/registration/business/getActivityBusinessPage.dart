@@ -1,10 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:gservice5/component/button/back/backTitleButton.dart';
 import 'package:gservice5/component/button/button.dart';
 import 'package:gservice5/component/dio/dio.dart';
-import 'package:gservice5/component/functions/token/changedToken.dart';
-import 'package:gservice5/component/loader/loaderComponent.dart';
 import 'package:gservice5/component/loader/modalLoaderComponent.dart';
 import 'package:gservice5/component/message/explanatoryMessage.dart';
 import 'package:gservice5/component/select/multi/multiSelect.dart';
@@ -90,16 +87,16 @@ class _GetActivityBusinessPageState extends State<GetActivityBusinessPage> {
               setState(() {});
             },
           ),
-          // MultiSelect(
-          //   title: "Тип техники",
-          //   api: "/transport-types",
-          //   pagination: true,
-          //   value: transportTypes,
-          //   onChanged: (value) {
-          //     transportTypes = value;
-          //     setState(() {});
-          //   },
-          // ),
+          MultiSelect(
+            title: "Тип техники",
+            api: "/transport-types",
+            pagination: true,
+            value: transportTypes,
+            onChanged: (value) {
+              transportTypes = value;
+              setState(() {});
+            },
+          ),
           MultiSelect(
             title: "Официальное диллерство",
             api: "/transport-brands",

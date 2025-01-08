@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:gservice5/component/button/button.dart';
-import 'package:gservice5/component/formatted/number/numberFormatted.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
-import 'package:gservice5/pages/contractor/dashboard/dashboardPage.dart';
+import 'package:gservice5/component/widgets/bottom/bottomNavigationBarComponent.dart';
 
 class MarketingPage extends StatefulWidget {
   const MarketingPage({super.key});
@@ -79,15 +78,15 @@ class _MarketingPageState extends State<MarketingPage> {
               const Divider(height: 20),
               const MarketingWidget(
                   icon: "bell.svg",
-                  title: "Push",
+                  title: "Push-уведомления",
                   subTitle:
-                      "Формат онлайн-рекламы, в котором рекламный баннер обрамляет содержимое сайта, заполняя фон и боковые панели вокруг основного контента"),
+                      "Вы получите возможность отправлять push-уведомления всем пользователям о ваших акциях и объявлениях. Это отличный способ достучаться до аудитории, заинтересованной только в спецтехнике, что повысит шансы на успешные продажи."),
               const Divider(height: 20),
               const MarketingWidget(
                   icon: "christmasGift.svg",
                   title: "Розыгрыш",
                   subTitle:
-                      "Формат онлайн-рекламы, в котором рекламный баннер обрамляет содержимое сайта, заполняя фон и боковые панели вокруг основного контента"),
+                      "Хотите провести розыгрыш на нашей платформе? Мы можем помочь вам организовать его! Наши пользователи заинтересованы в спецтехнике, что позволяет вам охватить именно эту аудиторию"),
               const Divider(height: 20),
               Container(
                 padding: const EdgeInsets.all(20),
@@ -116,6 +115,11 @@ class _MarketingPageState extends State<MarketingPage> {
           ),
         ),
       ),
+      bottomNavigationBar: BottomNavigationBarComponent(
+          child: Button(
+              onPressed: () {},
+              title: "Оставить заявку",
+              padding: EdgeInsets.symmetric(horizontal: 15))),
     );
   }
 }
@@ -156,8 +160,8 @@ class MarketingWidget extends StatelessWidget {
         SizedBox(
           height: 42,
           child: Row(children: [
-            Expanded(child: Button(onPressed: () {}, title: "Оставить заявку")),
-            const Divider(indent: 12),
+            // Expanded(child: Button(onPressed: () {}, title: "Оставить заявку")),
+            // const Divider(indent: 12),
             Expanded(
                 child: Button(
               onPressed: () {},

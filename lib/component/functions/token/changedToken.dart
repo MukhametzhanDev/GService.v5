@@ -37,10 +37,6 @@ class ChangedToken {
       Navigator.pop(context);
       await flutterSecureStorage.deleteAll();
       dio.options.headers['authorization'] = "";
-      Navigator.pushAndRemoveUntil(
-          context,
-          MaterialPageRoute(builder: (_) => const CustomerBottomTab()),
-          (route) => false);
     } catch (e) {
       SnackBarComponent().showNotGoBackServerErrorMessage(context);
     }

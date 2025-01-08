@@ -3,9 +3,9 @@ import 'package:flutter_svg/svg.dart';
 import 'package:gservice5/component/alert/logOutAlert.dart';
 import 'package:gservice5/component/functions/token/changedToken.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
+import 'package:gservice5/navigation/customer/customerBottomTab.dart';
 import 'package:gservice5/pages/application/my/myApplicationListPage.dart';
 import 'package:gservice5/pages/auth/registration/business/changedActivityBusinessPage.dart';
-import 'package:gservice5/pages/auth/registration/business/getActivityBusinessPage.dart';
 import 'package:gservice5/pages/profile/aboutCompany/aboutCompanyPage.dart';
 import 'package:gservice5/pages/profile/currency/currencyMainPage.dart';
 import 'package:gservice5/pages/profile/employees/employeeListPage.dart';
@@ -76,6 +76,16 @@ class _ProfileListTilesWidgetState extends State<ProfileListTilesWidget> {
         context,
         MaterialPageRoute(
             builder: (context) => const ChangedActivityBusinessPage()));
+  }
+
+  void exitAccount() async {
+    await ChangedToken().removeToken(context);
+    if (mounted) {
+      Navigator.pushAndRemoveUntil(
+          context,
+          MaterialPageRoute(builder: (_) => const CustomerBottomTab()),
+          (route) => false);
+    }
   }
 
   @override
@@ -177,21 +187,24 @@ class _ProfileListTilesWidgetState extends State<ProfileListTilesWidget> {
                     title: const Text("Сотрудники"),
                     trailing: SvgPicture.asset('assets/icons/right.svg')),
               ),
+        role == "customer"
+            ? Container()
+            : Container(
+                decoration: BoxDecoration(
+                    border:
+                        Border.all(width: 1, color: const Color(0xfff4f5f7))),
+                child: ListTile(
+                    onTap: showChangedActivityBusinessPage,
+                    leading: SvgPicture.asset('assets/icons/cogOutline.svg'),
+                    title: const Text("Вид деятельность"),
+                    trailing: SvgPicture.asset('assets/icons/right.svg')),
+              ),
         Container(
           decoration: BoxDecoration(
               border: Border.all(width: 1, color: const Color(0xfff4f5f7))),
           child: ListTile(
               leading: SvgPicture.asset('assets/icons/cogOutline.svg'),
               title: const Text("Настройки"),
-              trailing: SvgPicture.asset('assets/icons/right.svg')),
-        ),
-        Container(
-          decoration: BoxDecoration(
-              border: Border.all(width: 1, color: const Color(0xfff4f5f7))),
-          child: ListTile(
-              onTap: showChangedActivityBusinessPage,
-              leading: SvgPicture.asset('assets/icons/cogOutline.svg'),
-              title: const Text("Вид деятельность"),
               trailing: SvgPicture.asset('assets/icons/right.svg')),
         ),
         Container(
@@ -214,9 +227,7 @@ class _ProfileListTilesWidgetState extends State<ProfileListTilesWidget> {
             onTap: () {
               showCupertinoModalBottomSheet(
                   context: context,
-                  builder: (context) => LogOutAlert(onPressed: () async {
-                        await ChangedToken().removeToken(context);
-                      }));
+                  builder: (context) => LogOutAlert(onPressed: exitAccount));
             },
             leading: SvgPicture.asset('assets/icons/exit.svg'),
             title: const Text("Выход"),

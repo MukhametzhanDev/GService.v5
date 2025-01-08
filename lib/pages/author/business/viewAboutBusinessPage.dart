@@ -15,24 +15,27 @@ class ViewAboutBusinessPage extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Divider(height: 6),
-          ReadMoreText(
-            data['description'] ?? "",
-            trimMode: TrimMode.Line,
-            trimLines: 5,
-            style: const TextStyle(fontSize: 15, height: 1.5),
-            trimCollapsedText: ' читать дальше',
-            trimExpandedText: ' cкрыть',
-            lessStyle: TextStyle(
-                fontSize: 14,
-                color: ColorComponent.blue['500'],
-                fontWeight: FontWeight.w500),
-            moreStyle: TextStyle(
-                fontSize: 14,
-                color: ColorComponent.blue['500'],
-                fontWeight: FontWeight.w500),
-          ),
-          const Divider(height: 12),
+          data['description'] == "" || data['description'] == null
+              ? SizedBox(height: 8)
+              : Padding(
+                  padding: const EdgeInsets.only(top: 6, bottom: 12),
+                  child: ReadMoreText(
+                    data['description'] ?? "",
+                    trimMode: TrimMode.Line,
+                    trimLines: 5,
+                    style: const TextStyle(fontSize: 15, height: 1.5),
+                    trimCollapsedText: ' читать дальше',
+                    trimExpandedText: ' cкрыть',
+                    lessStyle: TextStyle(
+                        fontSize: 14,
+                        color: ColorComponent.blue['500'],
+                        fontWeight: FontWeight.w500),
+                    moreStyle: TextStyle(
+                        fontSize: 14,
+                        color: ColorComponent.blue['500'],
+                        fontWeight: FontWeight.w500),
+                  ),
+                ),
           Text("г. ${data['city']['title']}",
               style: TextStyle(fontSize: 15, height: 1.5)),
           // InfoButton(

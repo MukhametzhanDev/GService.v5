@@ -56,7 +56,9 @@ class _GetImageWidgetState extends State<GetImageWidget> {
   Future<void> _pickImage(ImageSource source) async {
     try {
       showModalLoader(context);
-      final XFile? pickedFile = await _picker.pickImage(source: source);
+      final XFile? pickedFile =
+          await _picker.pickImage(source: source, imageQuality: 50);
+      print(pickedFile!.path);
       if (pickedFile != null) {
         setState(() {
           _images.add(XFile(pickedFile.path));

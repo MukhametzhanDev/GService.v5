@@ -93,7 +93,7 @@ class _LoginPageState extends State<LoginPage>
 
   void showRegistrationPage() {
     Navigator.push(context,
-        MaterialPageRoute(builder: (context) => const CusomterExistsPage()));
+        MaterialPageRoute(builder: (context) => const CustomerExistsPage()));
     // Navigator.push(context,
     //         MaterialPageRoute(builder: (context) => const GetAccountTypePage()))
     //     .then((value) {

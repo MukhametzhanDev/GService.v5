@@ -44,38 +44,40 @@ class _RadioCharacteristicWidgetState extends State<RadioCharacteristicWidget> {
 
   @override
   Widget build(BuildContext context) {
-    List options = widget.value['options'];
+    bool active = false;
+    // List options = widget.value['options'];
     return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-      Text(getTitle(), style: const TextStyle(fontSize: 13)),
-      const SizedBox(height: 8),
-      Column(
-          children: options.map((value) {
-        bool active = value['id'] == id;
-        return GestureDetector(
-          onTap: () => onChanged(value['id']),
-          child: Padding(
-            padding: const EdgeInsets.symmetric(vertical: 8),
-            child: Row(children: [
-              Container(
-                width: 24,
-                margin: const EdgeInsets.only(right: 12),
-                height: 24,
-                decoration: BoxDecoration(
-                    color: ColorComponent.gray['50'],
-                    borderRadius: BorderRadius.circular(12),
-                    border: Border.all(
-                        width: active ? 5 : 1,
-                        color: active
-                            ? ColorComponent.blue['500']!
-                            : ColorComponent.gray['300']!)),
-              ),
-              Expanded(
-                  child: Text(value['title'],
-                      style: const TextStyle(fontWeight: FontWeight.w500)))
-            ]),
-          ),
-        );
-      }).toList()),
+      // Text(getTitle(), style: const TextStyle(fontSize: 13)),
+      // const SizedBox(height: 8),
+      // Column(
+      //     children: options.map((value) {
+      //   bool active = value['id'] == id;
+      // return
+      GestureDetector(
+        // onTap: () => onChanged(value['id']),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(vertical: 8),
+          child: Row(children: [
+            Container(
+              width: 24,
+              margin: const EdgeInsets.only(right: 12),
+              height: 24,
+              decoration: BoxDecoration(
+                  color: ColorComponent.gray['50'],
+                  borderRadius: BorderRadius.circular(12),
+                  border: Border.all(
+                      width: active ? 5 : 1,
+                      color: active
+                          ? ColorComponent.blue['500']!
+                          : ColorComponent.gray['300']!)),
+            ),
+            Expanded(
+                child: Text(widget.value['title'],
+                    style: const TextStyle(fontWeight: FontWeight.w500)))
+          ]),
+        ),
+      ),
+      // }).toList()),
       const Divider(height: 16)
     ]);
   }

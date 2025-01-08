@@ -5,6 +5,7 @@ import 'package:gservice5/component/modal/cities.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
 import 'package:gservice5/pages/ad/filter/filterButton.dart';
 import 'package:gservice5/pages/companies/filter/filterActivityCompanyModal.dart';
+import 'package:gservice5/pages/companies/filter/filterCompanyPage.dart';
 import 'package:gservice5/pages/create/data/createData.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
@@ -80,12 +81,10 @@ class _FilterCompanyAppBarWidgetState extends State<FilterCompanyAppBarWidget> {
   }
 
   void showFilterPage() {
-    // showCupertinoModalBottomSheet(
-    //         context: context,
-    //         enableDrag: false,
-    //         builder: (context) => FilterAdListPage(
-    //             data: widget.category['options']['necessary_inputs']))
-    //     .then(filteredAds);
+    showCupertinoModalBottomSheet(
+        context: context,
+        enableDrag: false,
+        builder: (context) => FilterCompanyPage()).then(filteredAds);
   }
 
   void filteredAds(value) {

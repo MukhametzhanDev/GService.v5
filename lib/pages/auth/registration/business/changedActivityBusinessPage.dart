@@ -11,7 +11,6 @@ import 'package:gservice5/component/select/multi/multiSelect.dart';
 import 'package:gservice5/component/snackBar/snackBarComponent.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
 import 'package:gservice5/component/widgets/bottom/bottomNavigationBarComponent.dart';
-import 'package:gservice5/navigation/business/businessBottomTab.dart';
 
 class ChangedActivityBusinessPage extends StatefulWidget {
   const ChangedActivityBusinessPage({super.key});
@@ -121,16 +120,16 @@ class _ChangedActivityBusinessPageState
                     setState(() {});
                   },
                 ),
-                // MultiSelect(
-                //   title: "Тип техники",
-                //   api: "/transport-types",
-                //   pagination: true,
-                //   value: transportTypes,
-                //   onChanged: (value) {
-                //     transportTypes = value;
-                //     setState(() {});
-                //   },
-                // ),
+                MultiSelect(
+                  title: "Тип техники",
+                  api: "/transport-types",
+                  pagination: true,
+                  value: transportTypes,
+                  onChanged: (value) {
+                    transportTypes = value;
+                    setState(() {});
+                  },
+                ),
                 MultiSelect(
                   title: "Официальное диллерство",
                   api: "/transport-brands",

@@ -7,6 +7,7 @@ import 'package:gservice5/component/image/cacheImage.dart';
 import 'package:gservice5/component/loader/loaderComponent.dart';
 import 'package:gservice5/component/snackBar/snackBarComponent.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
+import 'package:gservice5/navigation/customer/customerBottomTab.dart';
 import 'package:gservice5/pages/payment/wallet/showWalletWidget.dart';
 import 'package:gservice5/pages/profile/editProfilePage.dart';
 import 'package:gservice5/pages/profile/profileListTilesWidget.dart';
@@ -37,7 +38,13 @@ class _CustomerProfilePageState extends State<CustomerProfilePage> {
         loader = false;
         setState(() {});
       } else if (response.statusCode == 401) {
-        ChangedToken().removeToken(context);
+        await ChangedToken().removeToken(context);
+        if (mounted) {
+          Navigator.pushAndRemoveUntil(
+              context,
+              MaterialPageRoute(builder: (_) => const CustomerBottomTab()),
+              (route) => false);
+        }
       } else {
         SnackBarComponent().showResponseErrorMessage(response, context);
       }
