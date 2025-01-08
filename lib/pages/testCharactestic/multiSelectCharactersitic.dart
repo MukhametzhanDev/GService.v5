@@ -1,5 +1,8 @@
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get_it/get_it.dart';
+import 'package:gservice5/analytics/event_name.constan.dart';
 import 'package:gservice5/component/button/back/closeIconButton.dart';
 import 'package:gservice5/component/button/button.dart';
 import 'package:gservice5/component/modal/modalBottomSheetWrapper.dart';
@@ -51,9 +54,12 @@ class _MultiSelectCharactersiticState extends State<MultiSelectCharactersitic> {
     showCupertinoModalBottomSheet(
         context: context,
         builder: (context) => SelectModal(
-            data: widget.value['options'],
-            ids: currentIds,
-            values: currentValues)).then(onChanged);
+              data: widget.value['options'],
+              ids: currentIds,
+              values: currentValues,
+              listId: widget.value['id']?.toString(),
+              listTitle: getTitle(),
+            )).then(onChanged);
   }
 
   void onChanged(value) {
@@ -120,8 +126,16 @@ class SelectModal extends StatefulWidget {
   final List data;
   final List values;
   final List<int> ids;
+  final String? listTitle;
+  final String? listId;
+
   const SelectModal(
-      {super.key, required this.data, required this.values, required this.ids});
+      {super.key,
+      required this.data,
+      required this.values,
+      required this.ids,
+      this.listTitle,
+      this.listId});
 
   @override
   State<SelectModal> createState() => _SelectModalState();
@@ -137,6 +151,19 @@ class _SelectModalState extends State<SelectModal> {
     currentIds = widget.ids;
     currentValues = widget.values;
     print(widget.values);
+
+    GetIt.I<FirebaseAnalytics>()
+        .logViewItemList(
+            itemListId:
+                "${GAParams.multiSelectCharacteristicsListEd}_${widget.listId}",
+            itemListName: widget.listTitle,
+            items: widget.data
+                .map((toElement) => AnalyticsEventItem(
+                    itemName: toElement['title'],
+                    itemId: toElement['id'].toString()))
+                .toList())
+        .catchError((onError) => debugPrint(onError));
+
     super.initState();
   }
 
@@ -144,6 +171,12 @@ class _SelectModalState extends State<SelectModal> {
     Map param = {"values": currentValues, "ids": currentIds};
     print(currentIds);
     Navigator.pop(context, param);
+
+    GetIt.I<FirebaseAnalytics>().logEvent(
+        name: GAEventName.buttonClick,
+        parameters: {
+          'button_name': GAParams.btnSaveMultiSelect
+        }).catchError((onError) => debugPrint(onError));
   }
 
   void onChanged(value) {
@@ -157,6 +190,20 @@ class _SelectModalState extends State<SelectModal> {
       currentValues.add(value);
     }
     setState(() {});
+
+    GetIt.I<FirebaseAnalytics>().logSelectItem(
+        itemListId:
+            "${GAParams.multiSelectCharacteristicsListEd}_${widget.listId}",
+        itemListName: widget.listTitle,
+        parameters: {
+          'active': value['active'].toString()
+        },
+        items: [
+          AnalyticsEventItem(
+            itemName: value['title'],
+            itemId: value['id']?.toString(),
+          )
+        ]);
   }
 
   // void checkActive() {

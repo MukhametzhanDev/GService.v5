@@ -63,7 +63,7 @@ class _ForgotEmailPasswordCustomerPageState
     GetIt.I<FirebaseAnalytics>().logEvent(
         name: GAEventName.buttonClick,
         parameters: {
-          'button_name': GAParams.buttonForgotReplayEmailOtp
+          'button_name': GAParams.btnForgotReplayEmailOtp
         }).catchError((onError) => debugPrint(onError));
   }
 
@@ -191,7 +191,7 @@ class _ForgotEmailPasswordCustomerPageState
                   GetIt.I<FirebaseAnalytics>().logEvent(
                       name: GAEventName.buttonClick,
                       parameters: {
-                        'button_name': GAParams.buttonForgotConfrimEmail
+                        'button_name': GAParams.btnForgotConfrimEmail
                       }).catchError((onError) => debugPrint(onError));
                 },
                 title: "Подтвердить регистрацию",

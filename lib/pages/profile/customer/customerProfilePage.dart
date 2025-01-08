@@ -1,6 +1,9 @@
 import 'package:dio/dio.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get_it/get_it.dart';
+import 'package:gservice5/analytics/event_name.constan.dart';
 import 'package:gservice5/component/dio/dio.dart';
 import 'package:gservice5/component/functions/token/changedToken.dart';
 import 'package:gservice5/component/image/cacheImage.dart';
@@ -52,6 +55,12 @@ class _CustomerProfilePageState extends State<CustomerProfilePage> {
             MaterialPageRoute(
                 builder: (context) => EditProfilePage(data: data)))
         .then((value) => changedDataUser(value));
+
+    GetIt.I<FirebaseAnalytics>().logEvent(
+        name: GAEventName.buttonClick,
+        parameters: {
+          'button_name': GAParams.rowBtnProfileEdit
+        }).catchError((onError) => debugPrint(onError));
   }
 
   void changedDataUser(Map? value) {

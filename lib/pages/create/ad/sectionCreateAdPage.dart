@@ -107,7 +107,7 @@ class _SectionCreateAdPageState extends State<SectionCreateAdPage> {
     GetIt.I<FirebaseAnalytics>().logEvent(
         name: GAEventName.buttonClick,
         parameters: {
-          'button_name': GAParams.buttonContinueTypeAd
+          'button_name': GAParams.btnContinueTypeAd
         }).catchError((e) => debugPrint(e));
   }
 

@@ -194,11 +194,10 @@ class _StructureCreateAdPageState extends State<StructureCreateAdPage> {
                             GetIt.I<FirebaseAnalytics>().logEvent(
                                 name: GAEventName.buttonClick,
                                 parameters: {
-                                  'button_name':
-                                      GAParams.textbuttonCloseAdStructure
+                                  'button_name': GAParams.txtbtnCloseAdStructure
                                 });
                           },
-                          icon: Text("Закрыть  ",
+                          icon: Text("Закрыть",
                               style: TextStyle(
                                   fontWeight: FontWeight.w500,
                                   color: ColorComponent.blue['700'])))
@@ -210,7 +209,7 @@ class _StructureCreateAdPageState extends State<StructureCreateAdPage> {
                           GetIt.I<FirebaseAnalytics>().logEvent(
                               name: GAEventName.buttonClick,
                               parameters: {
-                                'button_name': GAParams.buttonBackAdStructure
+                                'button_name': GAParams.btnBackAdStructure
                               }).catchError((onError) => debugPrint(onError));
                         }),
                     bottom: PreferredSize(

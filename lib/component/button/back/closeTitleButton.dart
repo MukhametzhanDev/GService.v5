@@ -21,7 +21,7 @@ class CloseTitleButton extends StatelessWidget {
           GetIt.I<FirebaseAnalytics>().logEvent(
               name: GAEventName.buttonClick,
               parameters: {
-                'button_name': GAParams.buttonFilterClose
+                'button_name': GAParams.btnFilterClose
               }).catchError((e) => debugPrint(e));
         },
         icon: Row(

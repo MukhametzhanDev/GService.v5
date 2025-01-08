@@ -62,7 +62,7 @@ class _FilterApplicationListPageState extends State<FilterApplicationListPage> {
 
                 GetIt.I<FirebaseAnalytics>().logEvent(
                     name: GAEventName.buttonClick,
-                    parameters: {'button_name': GAParams.buttonClearFilter});
+                    parameters: {'button_name': GAParams.btnClearFilter});
               },
               child: Text("Сбросить",
                   style: TextStyle(

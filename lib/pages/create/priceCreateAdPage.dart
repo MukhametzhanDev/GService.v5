@@ -1,6 +1,9 @@
 import 'package:currency_text_input_formatter/currency_text_input_formatter.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get_it/get_it.dart';
+import 'package:gservice5/analytics/event_name.constan.dart';
 import 'package:gservice5/component/button/button.dart';
 import 'package:gservice5/component/functions/number/getIntNumber.dart';
 import 'package:gservice5/component/message/explanatoryMessage.dart';
@@ -68,6 +71,12 @@ class _PriceCreateAdPageState extends State<PriceCreateAdPage> {
     savedData();
     widget.nextPage();
     pageControllerIndexedStack.nextPage();
+
+    GetIt.I<FirebaseAnalytics>().logEvent(
+        name: GAEventName.buttonClick,
+        parameters: {
+          'button_name': GAParams.btnPriceContinue
+        }).catchError((onError) => debugPrint(onError));
   }
 
   @override
@@ -156,6 +165,12 @@ class _PriceCreateAdPageState extends State<PriceCreateAdPage> {
                         negotiablePrice = !negotiablePrice;
                         setState(() {});
                         closeKeyboard();
+
+                        GetIt.I<FirebaseAnalytics>().logEvent(
+                            name: GAEventName.buttonClick,
+                            parameters: {
+                              'button_name': GAParams.chkNegotiable
+                            }).catchError((onError) => debugPrint(onError));
                       },
                       contentPadding: EdgeInsets.zero,
                       leading: Container(
@@ -163,7 +178,9 @@ class _PriceCreateAdPageState extends State<PriceCreateAdPage> {
                         height: 20,
                         alignment: Alignment.center,
                         decoration: BoxDecoration(
-                            color: negotiablePrice ? const Color(0xff1A56DB) : null,
+                            color: negotiablePrice
+                                ? const Color(0xff1A56DB)
+                                : null,
                             borderRadius: BorderRadius.circular(4),
                             border: Border.all(
                                 width: 1,

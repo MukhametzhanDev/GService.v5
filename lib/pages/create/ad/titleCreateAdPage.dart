@@ -59,8 +59,8 @@ class _TitleCreateAdPageState extends State<TitleCreateAdPage> {
         setState(() {});
 
         await GetIt.I<FirebaseAnalytics>().logViewItemList(
-            itemListId: GAParams.adWriteDetailListId,
-            itemListName: GAParams.adWriteDetailListName,
+            itemListId: GAParams.descriptionTagsListId,
+            itemListName: GAParams.descriptionTagsListName,
             items: tags
                 .map((e) => AnalyticsEventItem(
                     itemName: e['title'] ?? '', itemId: e['id']?.toString()))
@@ -108,8 +108,8 @@ class _TitleCreateAdPageState extends State<TitleCreateAdPage> {
     var selectedTags = tags.where((e) => e?['active'] == true).toList();
 
     GetIt.I<FirebaseAnalytics>().logSelectItem(
-        itemListId: GAParams.adWriteDetailListId,
-        itemListName: GAParams.adWriteDetailListName,
+        itemListId: GAParams.descriptionTagsListId,
+        itemListName: GAParams.descriptionTagsListName,
         items: selectedTags
             .map((e) => AnalyticsEventItem(
                 itemName: e['title'] ?? '', itemId: e['id'].toString()))

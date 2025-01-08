@@ -53,7 +53,7 @@ class _ApplicationListMainState extends State<ApplicationListMain> {
               GetIt.I<FirebaseAnalytics>().logEvent(
                   name: GAEventName.buttonClick,
                   parameters: {
-                    'button_name': GAParams.textButtonPlaceOrder,
+                    'button_name': GAParams.txtBtnPlaceOrder,
                     'screen_name': GAParams.mainPage
                   });
             },
@@ -133,7 +133,7 @@ class ShowMoreApplicaiton extends StatelessWidget {
           GetIt.I<FirebaseAnalytics>().logEvent(
               name: GAEventName.buttonClick,
               parameters: {
-                'button_name': GAParams.buttonMoreOrder
+                'button_name': GAParams.btnMoreOder
               }).catchError((e) => debugPrint(e));
         },
         child: Container(

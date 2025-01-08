@@ -1,5 +1,8 @@
 import 'package:currency_text_input_formatter/currency_text_input_formatter.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
+import 'package:gservice5/analytics/event_name.constan.dart';
 import 'package:gservice5/component/button/back/backTitleButton.dart';
 import 'package:gservice5/component/button/button.dart';
 import 'package:gservice5/component/formatted/price/priceFormat.dart';
@@ -23,6 +26,21 @@ class ReplenishmentWalletPage extends StatefulWidget {
 class _ReplenishmentWalletPageState extends State<ReplenishmentWalletPage> {
   List prices = [2000, 5000, 15000, 50000];
   TextEditingController priceController = TextEditingController();
+
+  @override
+  void initState() {
+    GetIt.I<FirebaseAnalytics>()
+        .logViewItemList(
+            itemListId: GAParams.sumListId,
+            itemListName: GAParams.sumListName,
+            items: prices
+                .map((toElement) =>
+                    AnalyticsEventItem(itemName: toElement.toString()))
+                .toList())
+        .catchError((onError) => debugPrint(onError));
+
+    super.initState();
+  }
 
   @override
   void dispose() {
@@ -49,6 +67,12 @@ class _ReplenishmentWalletPageState extends State<ReplenishmentWalletPage> {
     } else {
       showModal();
     }
+
+    GetIt.I<FirebaseAnalytics>().logEvent(
+        name: GAEventName.buttonClick,
+        parameters: {
+          'button_name': GAParams.btnToUpBalance
+        }).catchError((onError) => debugPrint(onError));
   }
 
   void showModal() {
@@ -78,6 +102,12 @@ class _ReplenishmentWalletPageState extends State<ReplenishmentWalletPage> {
                 onTap: () {
                   priceController.text = priceFormat(value);
                   percentagePrice();
+                  GetIt.I<FirebaseAnalytics>().logSelectItem(
+                      itemListId: GAParams.sumListId,
+                      itemListName: GAParams.sumListName,
+                      items: [
+                        AnalyticsEventItem(itemName: value.toString())
+                      ]).catchError((onError) => debugPrint(onError));
                 },
                 child: Container(
                     padding:

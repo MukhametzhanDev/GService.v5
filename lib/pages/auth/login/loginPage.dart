@@ -42,7 +42,7 @@ class _LoginPageState extends State<LoginPage>
   void verifyData() async {
     await GetIt.I<FirebaseAnalytics>().logEvent(
         name: GAEventName.buttonClick,
-        parameters: {'button_name': GAParams.loginButton});
+        parameters: {'button_name': GAParams.btnLogin});
 
     String text = textEditingController.text.trim();
     String password = passwordEditingController.text.trim();
@@ -95,8 +95,10 @@ class _LoginPageState extends State<LoginPage>
         await GetIt.I<FirebaseAnalytics>().logLogin(
             loginMethod: param.containsKey('email') ? 'email' : 'phone');
 
+        print('userID: ${response.data['data']['user']['id'].toString()}');
+
         await GetIt.I<FirebaseAnalytics>()
-            .setUserId(id: response.data['user']?['id'].toString());
+            .setUserId(id: response.data?['data']?['user']?['id'].toString());
       } else {
         SnackBarComponent().showResponseErrorMessage(response, context);
       }
@@ -118,7 +120,7 @@ class _LoginPageState extends State<LoginPage>
     GetIt.I<FirebaseAnalytics>().logEvent(
         name: GAEventName.buttonClick,
         parameters: {
-          'button_name': GAParams.textButtonRegister
+          'button_name': GAParams.txtBtnRegister
         }).catchError((onError) => debugPrint(onError));
   }
 
@@ -132,7 +134,7 @@ class _LoginPageState extends State<LoginPage>
     GetIt.I<FirebaseAnalytics>().logEvent(
         name: GAEventName.buttonClick,
         parameters: {
-          'button_name': GAParams.textButtonForgotPassword
+          'button_name': GAParams.txtBtnForgotPassword
         }).catchError((onError) => debugPrint(onError));
   }
 

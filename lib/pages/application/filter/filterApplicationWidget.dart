@@ -75,7 +75,7 @@ class _FilterApplicationWidgetState extends State<FilterApplicationWidget> {
     GetIt.I<FirebaseAnalytics>().logEvent(
         name: GAEventName.buttonClick,
         parameters: {
-          'buttan_name': GAParams.buttonCity
+          'buttan_name': GAParams.btnCity
         }).catchError((e) => debugPrint(e));
   }
 
@@ -144,7 +144,7 @@ class _FilterApplicationWidgetState extends State<FilterApplicationWidget> {
 
     GetIt.I<FirebaseAnalytics>()
         .logEvent(name: GAEventName.buttonClick, parameters: {
-      'button_name': GAParams.buttonApplicationFilter,
+      'button_name': GAParams.btnApplicationFilter,
       'screen_name': GAParams.applicationPage
     });
   }

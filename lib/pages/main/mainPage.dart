@@ -82,7 +82,7 @@ class _MainPageState extends State<MainPage> {
     GetIt.I<FirebaseAnalytics>().logEvent(
         name: GAEventName.buttonClick,
         parameters: {
-          'button_name': GAParams.searchButton,
+          'button_name': GAParams.btnSearch,
           'screen_name': GAParams.mainPage
         }).catchError((e) {
       debugPrint(e);
@@ -121,7 +121,7 @@ class _MainPageState extends State<MainPage> {
                       scaffoldKey.currentState?.openDrawer();
                       GetIt.I<FirebaseAnalytics>()
                           .logEvent(name: GAEventName.buttonClick, parameters: {
-                        'button_name': GAParams.searchButton,
+                        'button_name': GAParams.icBtnDrawer,
                         'screen_name': GAParams.mainPage,
                       }).catchError((e) {
                         debugPrint(e);

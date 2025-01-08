@@ -51,12 +51,12 @@ class ChangedToken {
       dio.options.headers['authorization'] = "";
       dio.options.baseUrl = "https://dev.gservice-co.kz/api";
 
-      await GetIt.I<FirebaseAnalytics>().setUserId(id: null);
-
       Navigator.pushAndRemoveUntil(
           context,
           MaterialPageRoute(builder: (_) => const CustomerBottomTab()),
           (route) => false);
+
+      await GetIt.I<FirebaseAnalytics>().setUserId(id: null);
     } catch (e) {
       SnackBarComponent().showNotGoBackServerErrorMessage(context);
     }

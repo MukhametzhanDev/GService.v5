@@ -1,4 +1,7 @@
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
+import 'package:gservice5/analytics/event_name.constan.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
 import 'package:gservice5/pages/create/data/createData.dart';
 
@@ -17,6 +20,20 @@ class _RadioCharacteristicWidgetState extends State<RadioCharacteristicWidget> {
   @override
   void initState() {
     getData();
+    List options = widget.value['options'];
+
+    if (options.isNotEmpty) {
+      GetIt.I<FirebaseAnalytics>().logViewItemList(
+          itemListId:
+              "${GAParams.radioCharacteristicsListId}_${widget.value['id']?.toString()}",
+          itemListName: getTitle(),
+          items: options
+              .map((toElement) => AnalyticsEventItem(
+                  itemName: toElement['title'],
+                  itemId: toElement['id']?.toString()))
+              .toList());
+    }
+
     super.initState();
   }
 
@@ -36,10 +53,16 @@ class _RadioCharacteristicWidgetState extends State<RadioCharacteristicWidget> {
     return title;
   }
 
-  void onChanged(value) {
+  void onChanged(value, String? title) {
     id = value;
     CreateData.characteristic["${widget.value['id']}"] = value;
     setState(() {});
+
+    GetIt.I<FirebaseAnalytics>().logSelectItem(
+        itemListName: getTitle(),
+        itemListId:
+            "${GAParams.radioCharacteristicsListId}_${widget.value['id']?.toString()}",
+        items: [AnalyticsEventItem(itemId: value.toString(), itemName: title)]);
   }
 
   @override
@@ -52,7 +75,7 @@ class _RadioCharacteristicWidgetState extends State<RadioCharacteristicWidget> {
           children: options.map((value) {
         bool active = value['id'] == id;
         return GestureDetector(
-          onTap: () => onChanged(value['id']),
+          onTap: () => onChanged(value['id'], value?['title']?.toString()),
           child: Padding(
             padding: const EdgeInsets.symmetric(vertical: 8),
             child: Row(children: [

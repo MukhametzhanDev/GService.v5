@@ -1,5 +1,8 @@
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get_it/get_it.dart';
+import 'package:gservice5/analytics/event_name.constan.dart';
 import 'package:gservice5/component/button/back/closeIconButton.dart';
 import 'package:gservice5/component/modal/modalBottomSheetWrapper.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
@@ -44,10 +47,13 @@ class _SelectCharactersiticState extends State<SelectCharactersitic> {
 
   void showModal() {
     showCupertinoModalBottomSheet(
-            context: context,
-            builder: (context) =>
-                SelectModal(data: widget.value['options'], value: currentValue))
-        .then(onChanged);
+        context: context,
+        builder: (context) => SelectModal(
+              data: widget.value['options'],
+              value: currentValue,
+              listTitle: getTitle(),
+              listId: widget.value['id']?.toString(),
+            )).then(onChanged);
   }
 
   void onChanged(value) {
@@ -55,6 +61,15 @@ class _SelectCharactersiticState extends State<SelectCharactersitic> {
       CreateData.characteristic["${widget.value['id']}"] = value['id'];
       currentValue = value;
       setState(() {});
+
+      GetIt.I<FirebaseAnalytics>().logSelectItem(
+          itemListId:
+              "${GAParams.selectCharacteristicsListEd}_${widget.value['id'].toString()}",
+          itemListName: getTitle(),
+          items: [
+            AnalyticsEventItem(
+                itemName: value?['title'], itemId: value?['id'].toString())
+          ]).catchError((onError) => debugPrint(onError));
     }
   }
 
@@ -76,7 +91,15 @@ class _SelectCharactersiticState extends State<SelectCharactersitic> {
 class SelectModal extends StatefulWidget {
   final List data;
   final Map value;
-  const SelectModal({super.key, required this.data, required this.value});
+  final String? listTitle;
+  final String? listId;
+
+  const SelectModal(
+      {super.key,
+      required this.data,
+      required this.value,
+      this.listTitle,
+      this.listId});
 
   @override
   State<SelectModal> createState() => _SelectModalState();
@@ -85,6 +108,23 @@ class SelectModal extends StatefulWidget {
 class _SelectModalState extends State<SelectModal> {
   void onChanged(value) {
     Navigator.pop(context, value);
+  }
+
+  @override
+  void initState() {
+    GetIt.I<FirebaseAnalytics>()
+        .logViewItemList(
+            itemListId:
+                '${GAParams.selectCharacteristicsListEd}_${widget.listId}',
+            itemListName: widget.listTitle ?? '',
+            items: widget.data
+                .map((toElement) => AnalyticsEventItem(
+                    itemName: toElement?['title'],
+                    itemId: toElement?['id'].toString()))
+                .toList())
+        .catchError((onError) => debugPrint(onError));
+
+    super.initState();
   }
 
   bool checkActive(value) {

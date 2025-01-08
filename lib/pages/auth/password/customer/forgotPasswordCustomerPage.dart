@@ -61,7 +61,7 @@ class _ForgotPasswordCustomerPageState
     GetIt.I<FirebaseAnalytics>().logEvent(
         name: GAEventName.buttonClick,
         parameters: {
-          'button_name': GAParams.buttonSendForgotPwd
+          'button_name': GAParams.btnSendForgotPwd
         }).catchError((onError) => debugPrint(onError));
   }
 

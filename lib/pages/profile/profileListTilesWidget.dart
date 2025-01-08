@@ -1,5 +1,9 @@
+import 'package:firebase_analytics/firebase_analytics.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get_it/get_it.dart';
+import 'package:gservice5/analytics/event_name.constan.dart';
 import 'package:gservice5/component/alert/logOutAlert.dart';
 import 'package:gservice5/component/functions/token/changedToken.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
@@ -20,6 +24,8 @@ class ProfileListTilesWidget extends StatefulWidget {
 class _ProfileListTilesWidgetState extends State<ProfileListTilesWidget> {
   String role = "";
 
+  final analytics = GetIt.I<FirebaseAnalytics>();
+
   @override
   void initState() {
     getRole();
@@ -34,34 +40,55 @@ class _ProfileListTilesWidgetState extends State<ProfileListTilesWidget> {
   void showMyApplicationPage() {
     Navigator.push(context,
         MaterialPageRoute(builder: (context) => const MyApplicationListPage()));
+    analytics.logEvent(name: GAEventName.buttonClick, parameters: {
+      'button_name': GAParams.rowBtnProfileMyApplication
+    }).catchError((onError) => debugPrint(onError));
   }
 
   void showMyAdPage() {
     Navigator.pushNamed(context, "MyAdListPage");
+    analytics.logEvent(name: GAEventName.buttonClick, parameters: {
+      'button_name': GAParams.rowBtnProfileMyAd
+    }).catchError((onError) => debugPrint(onError));
   }
 
   void showContactsPage() {
     Navigator.pushNamed(context, "AddContactsPage");
+    analytics.logEvent(name: GAEventName.buttonClick, parameters: {
+      'button_name': GAParams.rowBtnProfileContacts
+    }).catchError((onError) => debugPrint(onError));
   }
 
   void showNewsPage() {
     Navigator.push(
         context, MaterialPageRoute(builder: (context) => const NewsMainPage()));
+    analytics.logEvent(name: GAEventName.buttonClick, parameters: {
+      'button_name': GAParams.rowBtnProfileNews
+    }).catchError((onError) => debugPrint(onError));
   }
 
   void showEditCurrencyPage() {
     Navigator.push(context,
         MaterialPageRoute(builder: (context) => const CurrencyMainPage()));
+    analytics.logEvent(name: GAEventName.buttonClick, parameters: {
+      'button_name': GAParams.rowBtnProfileEditCurrency
+    }).catchError((onError) => debugPrint(onError));
   }
 
   void showEmployeesPage() {
     Navigator.push(context,
         MaterialPageRoute(builder: (context) => const EmployeeListPage()));
+    analytics.logEvent(name: GAEventName.buttonClick, parameters: {
+      'button_name': GAParams.rowBtnProfileEmployee
+    }).catchError((onError) => debugPrint(onError));
   }
 
   void showAboutCompanyPage() {
     Navigator.push(context,
         MaterialPageRoute(builder: (context) => const AboutCompanyPage()));
+    analytics.logEvent(name: GAEventName.buttonClick, parameters: {
+      'button_name': GAParams.rowBtnProfileAbout
+    }).catchError((onError) => debugPrint(onError));
   }
 
   @override
@@ -181,6 +208,10 @@ class _ProfileListTilesWidgetState extends State<ProfileListTilesWidget> {
                   builder: (context) => LogOutAlert(onPressed: () async {
                         await ChangedToken().removeToken(context);
                       }));
+
+              analytics.logEvent(name: GAEventName.buttonClick, parameters: {
+                'button_name': GAParams.rowBtnProfileExit
+              }).catchError((onError) => debugPrint(onError));
             },
             leading: SvgPicture.asset('assets/icons/exit.svg'),
             title: const Text("Выход"),

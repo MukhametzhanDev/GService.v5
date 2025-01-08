@@ -41,7 +41,7 @@ class _FavoriteButtonState extends State<FavoriteButton> {
 
     await GetIt.I<FirebaseAnalytics>().logEvent(
         name: GAEventName.buttonClick,
-        parameters: {'button_name': GAParams.iconButtonFavorite});
+        parameters: {'button_name': GAParams.icBtnFavorite});
   }
 
   Future postData() async {

@@ -1,5 +1,8 @@
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get_it/get_it.dart';
+import 'package:gservice5/analytics/event_name.constan.dart';
 import 'package:gservice5/component/button/button.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
 import 'package:gservice5/pages/payment/wallet/request/walletService.dart';
@@ -27,10 +30,20 @@ class _ShowWalletWidgetState extends State<ShowWalletWidget> {
 
   void showPage() {
     Navigator.pushNamed(context, "ReplenishmentWalletPage");
+    GetIt.I<FirebaseAnalytics>().logEvent(
+        name: GAEventName.buttonClick,
+        parameters: {
+          'button_name': GAParams.btnProfileToUpBalance
+        }).catchError((onError) => debugPrint(onError));
   }
 
   void showTransactionHistoryPage() {
     Navigator.pushNamed(context, "TransactionHistoryPage");
+    GetIt.I<FirebaseAnalytics>().logEvent(
+        name: GAEventName.buttonClick,
+        parameters: {
+          'button_name': GAParams.txtbtndProfileHistory
+        }).catchError((onError) => debugPrint(onError));
   }
 
   String formattedPrice(int cost) {

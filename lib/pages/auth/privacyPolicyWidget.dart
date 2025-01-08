@@ -34,7 +34,7 @@ class _PrivacyPolicyWidgetState extends State<PrivacyPolicyWidget> {
                 GetIt.I<FirebaseAnalytics>().logEvent(
                     name: GAEventName.buttonClick,
                     parameters: {
-                      'button_name': GAParams.textButtonAgreement
+                      'button_name': GAParams.txtBtnAgreement
                     }).catchError((e) => debugPrint(e));
                 print('object');
               },
@@ -51,7 +51,7 @@ class _PrivacyPolicyWidgetState extends State<PrivacyPolicyWidget> {
                 GetIt.I<FirebaseAnalytics>().logEvent(
                     name: GAEventName.buttonClick,
                     parameters: {
-                      'button_name': GAParams.textButtonPolicy
+                      'button_name': GAParams.txtBtnPolicy
                     }).catchError((e) => debugPrint(e));
                 print('object');
               },
