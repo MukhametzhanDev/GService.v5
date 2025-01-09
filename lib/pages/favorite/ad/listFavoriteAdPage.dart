@@ -59,6 +59,7 @@ class _ListFavoriteAdPageState extends State<ListFavoriteAdPage> {
         setState(() {});
 
         await analytics.logViewItemList(
+            parameters: {GAKey.isPagination: 'false'},
             itemListId: GAParams.favoriteAdListId,
             itemListName: GAParams.favoriteAdListName,
             items: data
@@ -93,6 +94,18 @@ class _ListFavoriteAdPageState extends State<ListFavoriteAdPage> {
           hasNextPage = page != response.data['meta']['last_page'];
           isLoadMore = false;
           setState(() {});
+
+          List pagData = response.data['data'];
+
+          await analytics.logViewItemList(
+              parameters: {GAKey.isPagination: 'true'},
+              itemListId: GAParams.favoriteAdListId,
+              itemListName: GAParams.favoriteAdListName,
+              items: pagData
+                  .map((toElement) => AnalyticsEventItem(
+                      itemId: toElement['id'].toString(),
+                      itemName: toElement?['favoritable']?['title']))
+                  .toList());
         } else {
           SnackBarComponent().showResponseErrorMessage(response, context);
         }

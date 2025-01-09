@@ -227,6 +227,7 @@ class _ViewAdPageState extends State<ViewAdPage> {
                           ),
                         ),
                         AuthorAdWidget(
+                            fromPage: GAParams.viewAdPage,
                             title: "О владельце объявления",
                             data: data['author'],
                             showOtherAd: true),
