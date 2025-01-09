@@ -67,8 +67,7 @@ class _ForgotPhonePasswordCustomerPageState
       print(response.data);
       Navigator.pop(context);
       if (response.statusCode == 200 && response.data['success']) {
-        await ChangedToken()
-            .savedToken(response.data['data'], context);
+        await ChangedToken().savedToken(response.data['data'], context);
         Navigator.push(
             context,
             MaterialPageRoute(

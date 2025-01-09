@@ -16,6 +16,8 @@ import 'package:gservice5/pages/ad/list/adListWidget.dart';
 import 'package:gservice5/pages/application/list/applicationListWidget.dart';
 import 'package:gservice5/pages/author/business/viewAboutBusinessPage.dart';
 import 'package:gservice5/pages/author/filesListPage.dart';
+import 'package:gservice5/pages/author/filesListWidget.dart';
+import 'package:gservice5/pages/profile/news/newsListWidget.dart';
 
 class ViewBusinessPage extends StatefulWidget {
   final int id;
@@ -39,6 +41,7 @@ class _ViewBusinessPageState extends State<ViewBusinessPage>
     {"title": "Объявления"},
     {"title": "Заказы"},
     {"title": "Новости"},
+    {"title": "Сертфикаты"},
   ];
   List categories = CategoriesData.categories;
   ScrollController scrollController = ScrollController();
@@ -82,6 +85,22 @@ class _ViewBusinessPageState extends State<ViewBusinessPage>
 
   void changedAdTab() {
     tabController!.animateTo(1);
+  }
+
+  String daysBetween() {
+    DateTime from = DateTime.parse(data['created_at']);
+    DateTime to = DateTime.now();
+    int days = to.difference(from).inDays;
+    if (days < 27) {
+      days = days == 0 ? 1 : days;
+      return "$days дней на GService.kz";
+    } else if (days > 27 && days < 365) {
+      int month = (days / 27).round();
+      return "$month месяцев на GService.kz";
+    } else {
+      int year = (days / 365).round();
+      return "$year лет на GService.kz";
+    }
   }
 
   @override
@@ -164,7 +183,13 @@ class _ViewBusinessPageState extends State<ViewBusinessPage>
                                     ],
                                   ),
                                 ),
-                                const Divider(height: 10),
+                                const Divider(height: 7),
+                                Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 15),
+                                  child: Text(daysBetween()),
+                                ),
+                                const Divider(height: 15),
                                 Container(
                                   padding: const EdgeInsets.symmetric(
                                       horizontal: 15),
@@ -226,7 +251,10 @@ class _ViewBusinessPageState extends State<ViewBusinessPage>
                         "author_id": widget.id,
                         "author_type": "company"
                       }, scrollController: scrollController),
-                      const FilesListPage()
+                      NewsListWidget(
+                          param: {"company_id": widget.id},
+                          scrollController: scrollController),
+                      const FilesListWidget()
                     ])),
               ),
         bottomNavigationBar: loader

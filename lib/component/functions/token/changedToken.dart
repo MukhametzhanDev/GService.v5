@@ -28,17 +28,6 @@ class ChangedToken {
         context,
         MaterialPageRoute(builder: (_) => const CustomerBottomTab()),
         (route) => false);
-    // if (value['role']['code_type'] == "customer") {
-    //   Navigator.pushAndRemoveUntil(
-    //       context,
-    //       MaterialPageRoute(builder: (_) => const CustomerBottomTab()),
-    //       (route) => false);
-    // } else {
-    //   Navigator.pushAndRemoveUntil(
-    //       context,
-    //       MaterialPageRoute(builder: (_) => const BusinessBottomTab()),
-    //       (route) => false);
-    // }
   }
 
   Future removeToken(context) async {
@@ -49,6 +38,7 @@ class ChangedToken {
       Navigator.pop(context);
       await flutterSecureStorage.deleteAll();
       dio.options.headers['authorization'] = "";
+<<<<<<< HEAD
       dio.options.baseUrl = "https://dev.gservice-co.kz/api";
 
       Navigator.pushAndRemoveUntil(
@@ -60,6 +50,8 @@ class ChangedToken {
 
       await analytics.setUserId(id: null);
       await analytics.setDefaultEventParameters({'role': null});
+=======
+>>>>>>> f159a2d5d707abf3b9cd959aa379b9fc20e99410
     } catch (e) {
       SnackBarComponent().showNotGoBackServerErrorMessage(context);
     }

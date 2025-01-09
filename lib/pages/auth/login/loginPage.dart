@@ -13,9 +13,7 @@ import 'package:gservice5/component/textField/passwordTextField.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
 import 'package:gservice5/pages/auth/password/customer/forgotPasswordCustomerPage.dart';
 import 'package:gservice5/pages/auth/privacyPolicyWidget.dart';
-import 'package:gservice5/pages/auth/accountType/getAccountTypePage.dart';
 import 'package:gservice5/pages/auth/registration/customer/customerExistsPage.dart';
-import 'package:gservice5/pages/auth/registration/customer/customerRegistrationPage.dart';
 
 class LoginPage extends StatefulWidget {
   final bool showBackButton;
@@ -118,7 +116,7 @@ class _LoginPageState extends State<LoginPage>
 
   void showRegistrationPage() {
     Navigator.push(context,
-        MaterialPageRoute(builder: (context) => const CusomterExistsPage()));
+        MaterialPageRoute(builder: (context) => const CustomerExistsPage()));
     // Navigator.push(context,
     //         MaterialPageRoute(builder: (context) => const GetAccountTypePage()))
     //     .then((value) {
@@ -146,7 +144,7 @@ class _LoginPageState extends State<LoginPage>
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-          title: const Text("Войти в GService"),
+          title: const Text("Войти в GService.kz"),
           leading:
               widget.showBackButton ? const BackIconButton() : Container()),
       body: SingleChildScrollView(

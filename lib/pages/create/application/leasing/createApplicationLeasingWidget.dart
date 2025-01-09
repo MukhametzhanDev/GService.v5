@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
 import 'package:gservice5/pages/create/application/leasing/createApplicationLeasingModal.dart';
-import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
 class CreateApplicationLeasingWidget extends StatefulWidget {
   final Map data;
@@ -14,10 +13,12 @@ class CreateApplicationLeasingWidget extends StatefulWidget {
 
 class _CreateApplicationLeasingWidgetState
     extends State<CreateApplicationLeasingWidget> {
-  void showModal() {
-    showCupertinoModalBottomSheet(
-        context: context,
-        builder: (context) => CreateApplicationLeasingModal(data: widget.data));
+  void showPage() {
+    Navigator.push(context, MaterialPageRoute(
+      builder: (context) {
+        return CreateApplicationLeasingModal(data: widget.data);
+      },
+    ));
   }
 
   @override
@@ -31,7 +32,7 @@ class _CreateApplicationLeasingWidgetState
         SizedBox(
           height: 46,
           child: TextButton(
-              onPressed: showModal,
+              onPressed: showPage,
               style: TextButton.styleFrom(
                   backgroundColor: ColorComponent.red2,
                   shape: RoundedRectangleBorder(

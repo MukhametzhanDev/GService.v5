@@ -50,7 +50,7 @@ class _GetAccountTypePageState extends State<GetAccountTypePage>
       Navigator.push(
           context,
           MaterialPageRoute(
-              builder: (context) => const CusomterExistsPage(
+              builder: (context) => const CustomerExistsPage(
                   // data: {"role": data[currentType]['type']}
                   )));
     } else {

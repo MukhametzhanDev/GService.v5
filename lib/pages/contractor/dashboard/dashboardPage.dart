@@ -18,7 +18,7 @@ class _DashboardPageState extends State<DashboardPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("GService Business")),
+      appBar: AppBar(title: const Text("GService Business")),
       backgroundColor: const Color(0xfff4f4f4),
       body: SafeArea(
         child: SingleChildScrollView(
@@ -27,7 +27,7 @@ class _DashboardPageState extends State<DashboardPage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              SwitchRoleWidget(),
+              const SwitchRoleWidget(),
               // ContainerWidget(
               //   Column(
               //     children: [

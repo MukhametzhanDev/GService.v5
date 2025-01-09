@@ -7,7 +7,9 @@ import 'package:gservice5/analytics/event_name.constan.dart';
 import 'package:gservice5/component/alert/logOutAlert.dart';
 import 'package:gservice5/component/functions/token/changedToken.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
+import 'package:gservice5/navigation/customer/customerBottomTab.dart';
 import 'package:gservice5/pages/application/my/myApplicationListPage.dart';
+import 'package:gservice5/pages/auth/registration/business/changedActivityBusinessPage.dart';
 import 'package:gservice5/pages/profile/aboutCompany/aboutCompanyPage.dart';
 import 'package:gservice5/pages/profile/currency/currencyMainPage.dart';
 import 'package:gservice5/pages/profile/employees/employeeListPage.dart';
@@ -60,6 +62,14 @@ class _ProfileListTilesWidgetState extends State<ProfileListTilesWidget> {
   }
 
   void showNewsPage() {
+    Navigator.push(
+        context, MaterialPageRoute(builder: (context) => const NewsMainPage()));
+    analytics.logEvent(name: GAEventName.buttonClick, parameters: {
+      GAKey.buttonName: GAParams.rowBtnProfileNews
+    }).catchError((onError) => debugPrint(onError));
+  }
+
+  void showSocialNetworkPage() {
     Navigator.push(
         context, MaterialPageRoute(builder: (context) => const NewsMainPage()));
     analytics.logEvent(name: GAEventName.buttonClick, parameters: {
@@ -138,6 +148,19 @@ class _ProfileListTilesWidgetState extends State<ProfileListTilesWidget> {
                         Border.all(width: 1, color: const Color(0xfff4f5f7))),
                 child: ListTile(
                     onTap: showNewsPage,
+                    leading: SvgPicture.asset('assets/icons/world.svg',
+                        color: ColorComponent.mainColor),
+                    title: const Text("Социальные сети"),
+                    trailing: SvgPicture.asset('assets/icons/right.svg')),
+              ),
+        role == "customer"
+            ? Container()
+            : Container(
+                decoration: BoxDecoration(
+                    border:
+                        Border.all(width: 1, color: const Color(0xfff4f5f7))),
+                child: ListTile(
+                    onTap: showNewsPage,
                     leading: SvgPicture.asset('assets/icons/bullhorn.svg'),
                     title: const Text("Новости"),
                     trailing: SvgPicture.asset('assets/icons/right.svg')),
@@ -177,6 +200,18 @@ class _ProfileListTilesWidgetState extends State<ProfileListTilesWidget> {
                     title: const Text("Сотрудники"),
                     trailing: SvgPicture.asset('assets/icons/right.svg')),
               ),
+        role == "customer"
+            ? Container()
+            : Container(
+                decoration: BoxDecoration(
+                    border:
+                        Border.all(width: 1, color: const Color(0xfff4f5f7))),
+                child: ListTile(
+                    onTap: showChangedActivityBusinessPage,
+                    leading: SvgPicture.asset('assets/icons/cogOutline.svg'),
+                    title: const Text("Вид деятельность"),
+                    trailing: SvgPicture.asset('assets/icons/right.svg')),
+              ),
         Container(
           decoration: BoxDecoration(
               border: Border.all(width: 1, color: const Color(0xfff4f5f7))),
@@ -205,9 +240,7 @@ class _ProfileListTilesWidgetState extends State<ProfileListTilesWidget> {
             onTap: () {
               showCupertinoModalBottomSheet(
                   context: context,
-                  builder: (context) => LogOutAlert(onPressed: () async {
-                        await ChangedToken().removeToken(context);
-                      }));
+                  builder: (context) => LogOutAlert(onPressed: exitAccount));
 
               analytics.logEvent(name: GAEventName.buttonClick, parameters: {
                 GAKey.buttonName: GAParams.rowBtnProfileExit

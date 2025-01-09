@@ -105,21 +105,27 @@ class _MainPageState extends State<MainPage> {
           ),
         ),
         body: SafeArea(
-          bottom: false,
-          child:
-              CustomScrollView(controller: widget.scrollController, slivers: [
-            SliverAppBar(
-              pinned: !true,
-              snap: true,
-              floating: true,
-              leadingWidth: 55,
-              leading: Row(
-                children: [
-                  const Divider(indent: 15),
-                  GestureDetector(
-                    onTap: () {
-                      scaffoldKey.currentState?.openDrawer();
-                      analytics
+            bottom: false,
+            child: RefreshIndicator(
+              onRefresh: () async {
+                await GetMainPageData().getData(context);
+              },
+              // color: ColorComponent.mainColor,
+              child: CustomScrollView(
+                   controller: widget.scrollController,
+                  slivers: [
+                    SliverAppBar(
+                      pinned: !true,
+                      snap: true,
+                      floating: true,
+                      leadingWidth: 55,
+                      leading: Row(
+                        children: [
+                          const Divider(indent: 15),
+                          GestureDetector(
+                            onTap: () {
+                              scaffoldKey.currentState?.openDrawer();
+                              analytics
                           .logEvent(name: GAEventName.buttonClick, parameters: {
                         GAKey.buttonName: GAParams.icBtnDrawer,
                         GAKey.screenName: GAParams.mainPage,
@@ -127,46 +133,52 @@ class _MainPageState extends State<MainPage> {
                         debugPrint(e);
                       });
                     },
-                    child: Container(
-                      height: 40,
-                      width: 40,
-                      alignment: Alignment.center,
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(8),
-                          color: ColorComponent.mainColor),
-                      child: SvgPicture.asset('assets/icons/burger.svg'),
+                            child: Container(
+                              height: 40,
+                              width: 40,
+                              alignment: Alignment.center,
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(8),
+                                  color: ColorComponent.mainColor),
+                              child:
+                                  SvgPicture.asset('assets/icons/burger.svg'),
+                            ),
+                          ),
+                        ],
+                      ),
+                      title: SearchButton(
+                          title: "Поиск по GService",
+                          onPressed: showMainSearchPage),
+                      bottom: PreferredSize(
+                          preferredSize:
+                              Size(MediaQuery.of(context).size.width, 40),
+                          child: const CategoriesListWidget()),
                     ),
-                  ),
-                ],
-              ),
-              title: SearchButton(
-                  title: "Поиск по GService", onPressed: showMainSearchPage),
-              bottom: PreferredSize(
-                  preferredSize: Size(MediaQuery.of(context).size.width, 40),
-                  child: const CategoriesListWidget()),
-            ),
-            SliverToBoxAdapter(
-                child: Column(children: [
-              const Divider(height: 10),
-              const BannersList(),
-              const Divider(height: 20),
-              ApplicationListMain(data: data['applications']),
-              const Divider(height: 24),
-            ])),
-            const SliverToBoxAdapter(
-              child: Padding(
-                  padding: EdgeInsets.only(left: 15, right: 15, bottom: 15),
-                  child: Text("Спецтехники по Казахстану",
-                      style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.w600,
-                          height: 1))),
-            ),
-            AdListMain(
-                scrollController: widget.scrollController, param: const {})
-          ]),
-        ),
+                    SliverToBoxAdapter(
+                        child: Column(children: [
+                      const Divider(height: 10),
+                      const BannersList(),
+                      const Divider(height: 20),
+                      ApplicationListMain(data: data['applications']),
+                      const Divider(height: 24),
+                    ])),
+                    const SliverToBoxAdapter(
+                      child: Padding(
+                          padding:
+                              EdgeInsets.only(left: 15, right: 15, bottom: 15),
+                          child: Text("Спецтехники по Казахстану",
+                              style: TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w600,
+                                  height: 1))),
+                    ),
+                    AdListMain(
+                        scrollController: widget.scrollController,
+                        param: const {})
+                  ]),
+            )),
         drawer: const MainDrawer(),
         drawerScrimColor: Colors.black.withOpacity(.25));
   }
 }
+

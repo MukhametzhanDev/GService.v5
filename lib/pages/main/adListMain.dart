@@ -32,15 +32,9 @@ class _AdListMainState extends State<AdListMain> {
   void initState() {
     getData();
     widget.scrollController.addListener(() {
-      loadMoreAd();
+      if (mounted) loadMoreAd();
     });
     super.initState();
-  }
-
-  @override
-  void dispose() {
-    widget.scrollController.dispose();
-    super.dispose();
   }
 
   void showLoader() {

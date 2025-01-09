@@ -21,7 +21,17 @@ class AdItemCharacteristic extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    List characteristics = data['characteristics'];
+    List characteristics = [
+      {
+        "characteristic": {"title": ""},
+        "values": {
+          "value": "",
+          "title": data['category']['title'],
+          "measurement_unit": null
+        }
+      },
+      ...data['characteristics']
+    ];
     double lineHeight = 15.0;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -40,20 +50,8 @@ class AdItemCharacteristic extends StatelessWidget {
               bool last = index == characteristics.length - 1;
               String title = getTitle(value);
               if (title.length > 3) {
-                return RichText(
-                  text:
-                      TextSpan(style: const TextStyle(fontSize: 13), children: [
-                    TextSpan(
-                        text: title,
-                        style: TextStyle(color: ColorComponent.gray['700'])),
-                    TextSpan(
-                        text: last ? "." : " | ",
-                        style: TextStyle(
-                            color: last
-                                ? Colors.black
-                                : ColorComponent.gray['300']))
-                  ]),
-                );
+                // if(index==0){}
+                return richTextItem(title, last);
               } else {
                 return Container();
               }
@@ -74,6 +72,19 @@ class AdItemCharacteristic extends StatelessWidget {
           }),
         )
       ],
+    );
+  }
+
+  RichText richTextItem(title, last) {
+    return RichText(
+      text: TextSpan(style: const TextStyle(fontSize: 13), children: [
+        TextSpan(
+            text: title, style: TextStyle(color: ColorComponent.gray['700'])),
+        TextSpan(
+            text: last ? "." : " | ",
+            style: TextStyle(
+                color: last ? Colors.black : ColorComponent.gray['300']))
+      ]),
     );
   }
 }

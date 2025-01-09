@@ -26,8 +26,7 @@ class CusomterRegistrationPage extends StatefulWidget {
       _CusomterRegistrationPageState();
 }
 
-class _CusomterRegistrationPageState
-    extends State<CusomterRegistrationPage> {
+class _CusomterRegistrationPageState extends State<CusomterRegistrationPage> {
   TextEditingController nameEditingController = TextEditingController();
   TextEditingController passwordEditingController = TextEditingController();
   TextEditingController repeatPasswordEditingController =
@@ -110,6 +109,7 @@ class _CusomterRegistrationPageState
             children: [
               TextField(
                   autofocus: true,
+                  textCapitalization: TextCapitalization.sentences,
                   style: const TextStyle(fontSize: 14, height: 1.1),
                   decoration: const InputDecoration(hintText: "ФИО"),
                   controller: nameEditingController),

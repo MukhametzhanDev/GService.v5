@@ -185,39 +185,41 @@ class _CreateAdContactsPageState extends State<CreateAdContactsPage> {
             const Text("Телефоны",
                 style: TextStyle(fontSize: 15, fontWeight: FontWeight.w500)),
             const Divider(height: 12),
-            Column(
-                children: contacts.map((value) {
-              bool active = value['active'] ?? false;
-              return GestureDetector(
-                onTap: () => onChangedPhone(value),
-                child: Container(
-                  height: 52,
-                  decoration: const BoxDecoration(
-                      color: Colors.white,
-                      border: Border(
-                          bottom:
-                              BorderSide(width: 1, color: Color(0xfff4f5f7)))),
-                  child: Row(
-                    children: [
-                      CheckBoxWidget(active: active),
-                      const Divider(indent: 16),
-                      Text(
-                          "+${value['country']['phone_code']}${value['phone']}")
-                    ],
-                  ),
-                ),
-              );
-              // return ListTile(
-              //     leading: CheckBoxWidget(active: false),
-              //     onTap: () {
-              //       Navigator.push(
-              //           context,
-              //           MaterialPageRoute(
-              //               builder: (context) => CreateAdContactsPage()));
-              //     },
-              //     title: const Text("+7 747 265 23 38",
-              //         style: TextStyle(fontSize: 14)));
-            }).toList()),
+            contacts.isEmpty
+                ? Container()
+                : Column(
+                    children: contacts.map((value) {
+                    bool active = value['active'] ?? false;
+                    return GestureDetector(
+                      onTap: () => onChangedPhone(value),
+                      child: Container(
+                        height: 52,
+                        decoration: const BoxDecoration(
+                            color: Colors.white,
+                            border: Border(
+                                bottom: BorderSide(
+                                    width: 1, color: Color(0xfff4f5f7)))),
+                        child: Row(
+                          children: [
+                            CheckBoxWidget(active: active),
+                            const Divider(indent: 16),
+                            Text(
+                                "+${value['country']['phone_code']}${value['phone']}")
+                          ],
+                        ),
+                      ),
+                    );
+                    // return ListTile(
+                    //     leading: CheckBoxWidget(active: false),
+                    //     onTap: () {
+                    //       Navigator.push(
+                    //           context,
+                    //           MaterialPageRoute(
+                    //               builder: (context) => CreateAdContactsPage()));
+                    //     },
+                    //     title: const Text("+7 747 265 23 38",
+                    //         style: TextStyle(fontSize: 14)));
+                  }).toList()),
             const Divider(height: 8),
             TextButton(
                 onPressed: showContactPage,

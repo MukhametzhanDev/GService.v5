@@ -75,7 +75,7 @@ class _CreateApplicationContactsPageState
   void verifyData() {
     if (nameEditingController.text.trim().isEmpty) {
       SnackBarComponent().showErrorMessage("Введите имя", context);
-    } else if (phoneEditingController.text.length < 18) {
+    } else if (phoneEditingController.text.trim().isEmpty) {
       SnackBarComponent().showErrorMessage("Введите номер телефона", context);
     } else if (city.isEmpty) {
       SnackBarComponent().showErrorMessage("Выберите город", context);

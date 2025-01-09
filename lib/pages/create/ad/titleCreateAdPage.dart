@@ -164,9 +164,9 @@ class _TitleCreateAdPageState extends State<TitleCreateAdPage> {
                       changeTag(value);
                     },
                     child: Container(
-                        padding: const EdgeInsets.only(
-                            left: 12, right: 12, bottom: 8, top: 8),
-                        margin: const EdgeInsets.only(bottom: 12, right: 12),
+                        padding: const EdgeInsets.symmetric(
+                            vertical: 4, horizontal: 8),
+                        margin: const EdgeInsets.only(bottom: 15, right: 15),
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(8),
                             color: value['active'] ?? false

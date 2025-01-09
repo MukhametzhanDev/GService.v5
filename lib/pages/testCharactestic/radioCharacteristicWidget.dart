@@ -7,7 +7,13 @@ import 'package:gservice5/pages/create/data/createData.dart';
 
 class RadioCharacteristicWidget extends StatefulWidget {
   final Map value;
-  const RadioCharacteristicWidget({super.key, required this.value});
+  final bool active;
+  final void Function(int id) onChanged;
+  const RadioCharacteristicWidget(
+      {super.key,
+      required this.value,
+      required this.active,
+      required this.onChanged});
 
   @override
   State<RadioCharacteristicWidget> createState() =>
@@ -55,55 +61,42 @@ class _RadioCharacteristicWidgetState extends State<RadioCharacteristicWidget> {
     return title;
   }
 
-  void onChanged(value, String? title) {
-    id = value;
-    CreateData.characteristic["${widget.value['id']}"] = value;
-    setState(() {});
-
-    analytics.logSelectItem(
-        itemListName: getTitle(),
-        itemListId:
-            "${GAParams.radioCharacteristicsListId}_${widget.value['id']?.toString()}",
-        items: [
-          AnalyticsEventItem(itemId: value.toString(), itemName: title)
-        ]).catchError((onError) => debugPrint(onError));
-  }
-
   @override
   Widget build(BuildContext context) {
-    List options = widget.value['options'];
+    // List options = widget.value['options'];
     return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-      Text(getTitle(), style: const TextStyle(fontSize: 13)),
-      const SizedBox(height: 8),
-      Column(
-          children: options.map((value) {
-        bool active = value['id'] == id;
-        return GestureDetector(
-          onTap: () => onChanged(value['id'], value?['title']?.toString()),
-          child: Padding(
-            padding: const EdgeInsets.symmetric(vertical: 8),
-            child: Row(children: [
-              Container(
-                width: 24,
-                margin: const EdgeInsets.only(right: 12),
-                height: 24,
-                decoration: BoxDecoration(
-                    color: ColorComponent.gray['50'],
-                    borderRadius: BorderRadius.circular(12),
-                    border: Border.all(
-                        width: active ? 5 : 1,
-                        color: active
-                            ? ColorComponent.blue['500']!
-                            : ColorComponent.gray['300']!)),
-              ),
-              Expanded(
-                  child: Text(value['title'],
-                      style: const TextStyle(fontWeight: FontWeight.w500)))
-            ]),
-          ),
-        );
-      }).toList()),
-      const Divider(height: 16)
+      // Text(getTitle(), style: const TextStyle(fontSize: 13)),
+      // const SizedBox(height: 8),
+      // Column(
+      //     children: options.map((value) {
+      //   bool active = value['id'] == id;
+      // return
+      GestureDetector(
+        onTap: () => widget.onChanged(widget.value['id']),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(vertical: 8),
+          child: Row(children: [
+            Container(
+              width: 24,
+              margin: const EdgeInsets.only(right: 12),
+              height: 24,
+              decoration: BoxDecoration(
+                  color: ColorComponent.gray['50'],
+                  borderRadius: BorderRadius.circular(12),
+                  border: Border.all(
+                      width: widget.active ? 5 : 1,
+                      color: widget.active
+                          ? ColorComponent.blue['500']!
+                          : ColorComponent.gray['300']!)),
+            ),
+            Expanded(
+                child: Text(widget.value['title'],
+                    style: const TextStyle(fontWeight: FontWeight.w500)))
+          ]),
+        ),
+      ),
+      // }).toList()),
+      // const Divider(height: 16)
     ]);
   }
 }
