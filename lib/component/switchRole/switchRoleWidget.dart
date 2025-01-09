@@ -6,7 +6,9 @@ import 'package:gservice5/component/dio/dio.dart';
 import 'package:gservice5/component/functions/token/changedToken.dart';
 import 'package:gservice5/component/image/cacheImage.dart';
 import 'package:gservice5/component/snackBar/snackBarComponent.dart';
+import 'package:gservice5/component/switchRole/listRolesModal.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:shimmer/shimmer.dart';
 
 class SwitchRoleWidget extends StatefulWidget {
@@ -18,6 +20,7 @@ class SwitchRoleWidget extends StatefulWidget {
 
 class _SwitchRoleWidgetState extends State<SwitchRoleWidget> {
   Map data = {};
+  Map userData = {};
   bool loader = true;
   String? role;
 
@@ -32,12 +35,16 @@ class _SwitchRoleWidgetState extends State<SwitchRoleWidget> {
     if (hasToken) {
       role = await ChangedToken().getRole();
       print("role $role");
-      String API = role == "business" ? "/user" : "/my-company";
       try {
-        Response response = await dio.get(API);
+        Response response = await dio.get("/user");
         if (response.data['success']) {
           if (response.data['data'] != null) {
             data = response.data['data'];
+            if (role == "customer") {
+              userData = response.data['data']['company'];
+            } else {
+              userData = response.data['data'];
+            }
           }
           loader = false;
         } else {
@@ -52,19 +59,14 @@ class _SwitchRoleWidgetState extends State<SwitchRoleWidget> {
     setState(() {});
   }
 
-  void switchRole() async {
-    if (role == "customer") {
-      await const FlutterSecureStorage().write(key: "role", value: "business");
-      Navigator.pushReplacementNamed(context, "BusinessBottomTab");
-    } else if (role == "business") {
-      await const FlutterSecureStorage().write(key: "role", value: "customer");
-      Navigator.pushReplacementNamed(context, "CustomerBottomTab");
-    }
-  }
-
   void showCreateCompany() {
     Navigator.pop(context);
     Navigator.pushNamed(context, "RegistrationBusinessPage");
+  }
+
+  void onChangedRole() {
+    showModalBottomSheet(
+        context: context, builder: (context) => ListRolesModal(role: role!));
   }
 
   @override
@@ -82,7 +84,7 @@ class _SwitchRoleWidgetState extends State<SwitchRoleWidget> {
                     borderRadius: BorderRadius.circular(8))))
         : data.isNotEmpty
             ? GestureDetector(
-                onTap: switchRole,
+                onTap: onChangedRole,
                 child: Container(
                   margin: const EdgeInsets.symmetric(horizontal: 15),
                   decoration: BoxDecoration(
@@ -93,7 +95,7 @@ class _SwitchRoleWidgetState extends State<SwitchRoleWidget> {
                   child: Row(
                     children: [
                       CacheImage(
-                          url: data['avatar'],
+                          url: userData['avatar'],
                           width: 42,
                           height: 42,
                           borderRadius: 50),
@@ -102,11 +104,11 @@ class _SwitchRoleWidgetState extends State<SwitchRoleWidget> {
                           child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(data['name'],
+                          Text(userData['name'],
                               style: const TextStyle(
                                   fontSize: 16, fontWeight: FontWeight.w600)),
                           Text(
-                            "ID: ${data['id']}",
+                            "ID: ${userData['id']}",
                             style: TextStyle(
                                 fontSize: 13,
                                 color: ColorComponent.gray['500']),
