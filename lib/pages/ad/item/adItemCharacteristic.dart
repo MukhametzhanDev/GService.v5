@@ -63,10 +63,8 @@ class AdItemCharacteristic extends StatelessWidget {
             }
 
             return Text(data['description'] ?? "",
-                style: TextStyle(
-                    fontSize: 13,
-                    height: lineHeight / 10,
-                    color: ColorComponent.gray['700']),
+                style:
+                    TextStyle(fontSize: 13, color: ColorComponent.gray['700']),
                 maxLines: calculateMaxLines(constraints),
                 overflow: TextOverflow.ellipsis);
           }),

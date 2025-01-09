@@ -6,7 +6,6 @@ import 'package:gservice5/component/loader/loaderComponent.dart';
 import 'package:gservice5/component/modal/modalBottomSheetWrapper.dart';
 import 'package:gservice5/component/snackBar/snackBarComponent.dart';
 import 'package:gservice5/component/textField/searchTextField.dart';
-import 'package:gservice5/component/theme/colorComponent.dart';
 
 class Cities extends StatefulWidget {
   final void Function(Map value) onPressed;
@@ -22,85 +21,74 @@ class _CitiesState extends State<Cities> with SingleTickerProviderStateMixin {
   List data = [];
   List filterData = [];
   bool loader = true;
-  bool _showScrollToTopButton = false;
-  late AnimationController _animationController;
-  late Animation<double> _fadeAnimation;
+  bool hasNextPage = false;
+  bool isLoadMore = false;
+  int page = 1;
+  String title = "";
 
   @override
   void initState() {
     super.initState();
     getData();
-    scrollController.addListener(() => _scrollListener());
-    _animationController = AnimationController(
-      vsync: this,
-      duration: const Duration(milliseconds: 300),
-    );
-
-    _fadeAnimation = CurvedAnimation(
-      parent: _animationController,
-      curve: Curves.easeInOut,
-    );
+    scrollController.addListener(() => loadMoreAd());
   }
 
   Future getData() async {
     try {
-      Response response = await dio
-          .get("/cities", queryParameters: {"country_id": widget.countryId});
+      page = 1;
+      Response response = await dio.get("/cities", queryParameters: {
+        "country_id": widget.countryId,
+        "title": title,
+        "page": page
+      });
       print(response.data);
       if (response.statusCode == 200) {
-        filterData = response.data['data'];
         data = response.data['data'];
+        filterData = response.data['data'];
         loader = false;
+        hasNextPage = page != response.data['meta']['last_page'];
         setState(() {});
       } else {
         SnackBarComponent().showResponseErrorMessage(response, context);
       }
-    } on DioException catch (e) {
-      print(e);
+    } catch (e) {
       SnackBarComponent().showNotGoBackServerErrorMessage(context);
     }
   }
 
-  void addTitle(String value) {
-    if (value.isNotEmpty) {
-      filterData = data
-          .where((element) =>
-              element['title'].toLowerCase().contains(value.toLowerCase()))
-          .toList();
-    } else {
-      filterData = data;
-    }
-    setState(() {});
-  }
-
-  void _scrollListener() {
-    if (scrollController.offset > 0 && !_showScrollToTopButton) {
-      setState(() {
-        _showScrollToTopButton = true;
-      });
-      _animationController.forward();
-    } else if (scrollController.offset <= 0 && _showScrollToTopButton) {
-      _animationController.reverse().then((_) {
-        setState(() {
-          _showScrollToTopButton = false;
+  void loadMoreAd() async {
+    if (scrollController.position.extentAfter < 200 &&
+        hasNextPage &&
+        !isLoadMore) {
+      try {
+        isLoadMore = true;
+        page += 1;
+        setState(() {});
+        Response response = await dio.get("/cities", queryParameters: {
+          "country_id": widget.countryId,
+          "title": title,
+          "page": page
         });
-      });
+        print(response.data);
+        if (response.statusCode == 200) {
+          data.addAll(response.data['data']);
+          filterData.addAll(response.data['data']);
+          hasNextPage = page != response.data['meta']['last_page'];
+          isLoadMore = false;
+          setState(() {});
+        } else {
+          SnackBarComponent().showResponseErrorMessage(response, context);
+        }
+      } catch (e) {
+        SnackBarComponent().showNotGoBackServerErrorMessage(context);
+      }
     }
   }
 
   @override
   void dispose() {
     scrollController.dispose();
-    _animationController.dispose();
     super.dispose();
-  }
-
-  void _scrollToTop() {
-    scrollController.animateTo(
-      0.0,
-      duration: const Duration(milliseconds: 400),
-      curve: Curves.easeInOut,
-    );
   }
 
   void savedData(Map value) {
@@ -125,7 +113,12 @@ class _CitiesState extends State<Cities> with SingleTickerProviderStateMixin {
                 padding:
                     const EdgeInsets.symmetric(horizontal: 15, vertical: 7),
                 child: SearchTextField(
-                    title: "Поиск город", onChanged: addTitle),
+                    title: "Поиск город",
+                    onChanged: (value) {
+                      title = value;
+                      setState(() {});
+                      getData();
+                    }),
               )),
         ),
         body: loader
@@ -136,35 +129,34 @@ class _CitiesState extends State<Cities> with SingleTickerProviderStateMixin {
                 itemCount: filterData.length,
                 itemBuilder: (context, index) {
                   Map item = filterData[index];
-                  return Container(
-                    decoration: const BoxDecoration(
-                        border: Border(
-                            bottom: BorderSide(
-                                width: 1, color: Color(0xfff4f5f7)))),
-                    child: ListTile(
-                        onTap: () {
-                          savedData(item);
-                        },
-                        title: Text(item['title'],
-                            style: const TextStyle(
-                                fontSize: 16, fontWeight: FontWeight.w500))),
-                  );
+                  if (index == filterData.length - 1) {
+                    return Column(children: [
+                      Item(item),
+                      isLoadMore
+                          ? const LoaderPaginationComponent()
+                          : Container()
+                    ]);
+                  } else {
+                    return Item(item);
+                  }
                 },
               ),
-        floatingActionButton: FadeTransition(
-          opacity: _fadeAnimation,
-          child: FloatingActionButton(
-            onPressed: () {
-              _scrollToTop();
-            },
-            shape:
-                RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
-            elevation: 1.5,
-            backgroundColor: ColorComponent.mainColor,
-            child: const Icon(Icons.navigation),
-          ),
-        ),
       );
     });
+  }
+
+  Widget Item(Map item) {
+    return Container(
+      decoration: const BoxDecoration(
+          border:
+              Border(bottom: BorderSide(width: 1, color: Color(0xfff4f5f7)))),
+      child: ListTile(
+          onTap: () {
+            savedData(item);
+          },
+          title: Text(item['title'],
+              style:
+                  const TextStyle(fontSize: 16, fontWeight: FontWeight.w500))),
+    );
   }
 }
