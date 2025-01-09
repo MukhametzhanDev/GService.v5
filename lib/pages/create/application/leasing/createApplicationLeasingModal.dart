@@ -1,17 +1,18 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:gservice5/component/button/back/backTitleButton.dart';
-import 'package:gservice5/component/button/back/closeIconButton.dart';
 import 'package:gservice5/component/button/button.dart';
 import 'package:gservice5/component/button/radio/radioButton.dart';
 import 'package:gservice5/component/dio/dio.dart';
+import 'package:gservice5/component/functions/number/getIntNumber.dart';
 import 'package:gservice5/component/loader/modalLoaderComponent.dart';
 import 'package:gservice5/component/modal/modalBottomSheetWrapper.dart';
+import 'package:gservice5/component/select/edit/editSelectModal.dart';
 import 'package:gservice5/component/select/selectVerifyData.dart';
 import 'package:gservice5/component/snackBar/snackBarComponent.dart';
 import 'package:gservice5/component/textField/closeKeyboard/closeKeyboard.dart';
 import 'package:gservice5/component/widgets/bottom/bottomNavigationBarComponent.dart';
-import 'package:gservice5/pages/ad/filter/filterSelectModal.dart';
+import 'package:gservice5/pages/create/data/createData.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 import 'package:shimmer/shimmer.dart';
 
@@ -42,6 +43,12 @@ class _CreateApplicationLeasingModalState
     super.initState();
   }
 
+  @override
+  void dispose() {
+    EditData.data.clear();
+    super.dispose();
+  }
+
   Future getUserData() async {
     try {
       Response response = await dio.get("/user");
@@ -59,8 +66,19 @@ class _CreateApplicationLeasingModalState
   Future postData() async {
     try {
       showModalLoader(context);
+      Map<String, dynamic> param = {
+        "category_id": 7,
+        "can_lease": 1,
+        "user_name": nameEditingController.text,
+        "phone": getIntComponent(phoneEditingController.text),
+        "city_id": city['id'],
+        "country_id": 191,
+        "description": "123",
+        ...EditData.data,
+      };
+      print(param);
       Response response =
-          await dio.post("/ad-to-application/${widget.data['id']}");
+          await dio.post("/application", queryParameters: param);
       print(response.data);
       Navigator.pop(context);
       if (response.data['success'] && response.statusCode == 200) {
@@ -71,7 +89,8 @@ class _CreateApplicationLeasingModalState
       } else {
         SnackBarComponent().showResponseErrorMessage(response, context);
       }
-    } catch (e) {
+    } on DioException catch (e) {
+      print(e.response);
       SnackBarComponent().showServerErrorMessage(context);
     }
     loaderUser = false;
@@ -108,23 +127,20 @@ class _CreateApplicationLeasingModalState
                     style:
                         TextStyle(fontSize: 15, fontWeight: FontWeight.w500)),
                 const Divider(height: 16),
-                FilterSelectModal(
+                EditSelectModal(
                     title: "Тип транспорта",
                     option: const {"name": "transport_type_id"},
                     api: "/transport-types",
-                    param: (value) => {},
                     value: widget.data['transport_type']),
-                FilterSelectModal(
+                EditSelectModal(
                     title: "Марка",
                     option: const {"name": "transport_brand_id"},
                     api: "/transport-brands",
-                    param: (value) => {},
                     value: widget.data['transport_brand']),
-                FilterSelectModal(
+                EditSelectModal(
                     title: "Марка",
                     option: const {"name": "transport_model_id"},
                     api: "/transport-models",
-                    param: (value) => {},
                     value: widget.data['transport_model']),
                 const Divider(height: 12),
                 const Text("Вид организации",
@@ -134,18 +150,18 @@ class _CreateApplicationLeasingModalState
                 Row(children: [
                   RadioButtonWidget(
                       onChanged: (value) {
-                        legalEntity = true;
-                        setState(() {});
-                      },
-                      active: legalEntity,
-                      title: "ИП"),
-                  const Divider(indent: 24),
-                  RadioButtonWidget(
-                      onChanged: (value) {
                         legalEntity = false;
                         setState(() {});
                       },
                       active: !legalEntity,
+                      title: "ИП"),
+                  const Divider(indent: 24),
+                  RadioButtonWidget(
+                      onChanged: (value) {
+                        legalEntity = true;
+                        setState(() {});
+                      },
+                      active: legalEntity,
                       title: "ТОО"),
                 ]),
                 // ShowCharacteristicWidget(

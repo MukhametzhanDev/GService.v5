@@ -4,7 +4,13 @@ import 'package:gservice5/pages/create/data/createData.dart';
 
 class RadioCharacteristicWidget extends StatefulWidget {
   final Map value;
-  const RadioCharacteristicWidget({super.key, required this.value});
+  final bool active;
+  final void Function(int id) onChanged;
+  const RadioCharacteristicWidget(
+      {super.key,
+      required this.value,
+      required this.active,
+      required this.onChanged});
 
   @override
   State<RadioCharacteristicWidget> createState() =>
@@ -36,15 +42,8 @@ class _RadioCharacteristicWidgetState extends State<RadioCharacteristicWidget> {
     return title;
   }
 
-  void onChanged(value) {
-    id = value;
-    CreateData.characteristic["${widget.value['id']}"] = value;
-    setState(() {});
-  }
-
   @override
   Widget build(BuildContext context) {
-    bool active = false;
     // List options = widget.value['options'];
     return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
       // Text(getTitle(), style: const TextStyle(fontSize: 13)),
@@ -54,7 +53,7 @@ class _RadioCharacteristicWidgetState extends State<RadioCharacteristicWidget> {
       //   bool active = value['id'] == id;
       // return
       GestureDetector(
-        // onTap: () => onChanged(value['id']),
+        onTap: () => widget.onChanged(widget.value['id']),
         child: Padding(
           padding: const EdgeInsets.symmetric(vertical: 8),
           child: Row(children: [
@@ -66,8 +65,8 @@ class _RadioCharacteristicWidgetState extends State<RadioCharacteristicWidget> {
                   color: ColorComponent.gray['50'],
                   borderRadius: BorderRadius.circular(12),
                   border: Border.all(
-                      width: active ? 5 : 1,
-                      color: active
+                      width: widget.active ? 5 : 1,
+                      color: widget.active
                           ? ColorComponent.blue['500']!
                           : ColorComponent.gray['300']!)),
             ),
@@ -78,7 +77,7 @@ class _RadioCharacteristicWidgetState extends State<RadioCharacteristicWidget> {
         ),
       ),
       // }).toList()),
-      const Divider(height: 16)
+      // const Divider(height: 16)
     ]);
   }
 }
