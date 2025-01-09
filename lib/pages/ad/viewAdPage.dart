@@ -60,10 +60,14 @@ class _ViewAdPageState extends State<ViewAdPage> {
         addAdFavorite();
         setState(() {});
 
-        await analytics.logViewItem(items: [
-          AnalyticsEventItem(
-              itemId: data['id'].toString(),
-              parameters: {GAKey.screenName: GAParams.viewAdPage})
+        await analytics.logViewItem(parameters: {
+          GAKey.screenName: GAParams.viewAdPage,
+          GAKey.title: data['title']
+        }, items: [
+          AnalyticsEventItem(itemId: data['id']?.toString(), parameters: {
+            GAKey.screenName: GAParams.viewAdPage,
+            GAKey.title: data['title']
+          })
         ]);
       } else {
         SnackBarComponent().showResponseErrorMessage(response, context);

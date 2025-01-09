@@ -1,5 +1,8 @@
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get_it/get_it.dart';
+import 'package:gservice5/analytics/event_name.constan.dart';
 import 'package:gservice5/component/button/button.dart';
 import 'package:gservice5/component/image/cacheImage.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
@@ -11,17 +14,22 @@ class AuthorAdWidget extends StatefulWidget {
   final String title;
   final Map data;
   final bool showOtherAd;
+  final String? fromPage;
+
   const AuthorAdWidget(
       {super.key,
       required this.title,
       required this.data,
-      required this.showOtherAd});
+      required this.showOtherAd,
+      this.fromPage});
 
   @override
   State<AuthorAdWidget> createState() => _AuthorAdWidgetState();
 }
 
 class _AuthorAdWidgetState extends State<AuthorAdWidget> {
+  final analytics = GetIt.I<FirebaseAnalytics>();
+
   void showPage() {
     if (widget.data['is_company']) {
       showViewCompanyPage();
@@ -35,6 +43,12 @@ class _AuthorAdWidgetState extends State<AuthorAdWidget> {
         context,
         MaterialPageRoute(
             builder: (context) => ViewBusinessPage(id: widget.data['id'])));
+
+    analytics.logEvent(name: GAEventName.buttonClick, parameters: {
+      GAKey.buttonName: GAParams.btnOwnerAd,
+      GAKey.authorId: widget.data['id'].toString(),
+      GAKey.isCompany: widget.data['is_company']
+    }).catchError((onError) => debugPrint(onError));
   }
 
   void showViewCustomerPage() {

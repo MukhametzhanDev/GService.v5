@@ -48,7 +48,7 @@ class GAParams {
   static const String btnSaveMultiSelect = 'btn_save_multi_select';
   static const String btnPriceContinue = 'btn_price_continue';
   static const String btnImageContinue = 'btn_image_continue';
-
+  static const String btnOwnerAd = 'btn_owner_ad';
   //BUTTON
 
   //CHECKBOX
@@ -132,4 +132,6 @@ class GAKey {
   static const String title = 'title';
   static const String isPagination = 'isPagination';
   static const String active = 'active';
+  static const String authorId = 'author_id';
+  static const String isCompany = 'is_company';
 }
