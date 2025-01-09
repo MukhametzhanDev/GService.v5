@@ -7,3 +7,4 @@ void main() async {
   await initializeDateFormatting('ru_RU', null);
   runApp(const Index());
 }
+

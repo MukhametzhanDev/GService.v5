@@ -3,6 +3,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:gservice5/component/button/button.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
 import 'package:gservice5/component/widgets/bottom/bottomNavigationBarComponent.dart';
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
 class MarketingPage extends StatefulWidget {
   const MarketingPage({super.key});
@@ -12,6 +13,12 @@ class MarketingPage extends StatefulWidget {
 }
 
 class _MarketingPageState extends State<MarketingPage> {
+  void showInfoMarketing() {
+    print('object');
+    showCupertinoModalBottomSheet(
+        context: context, builder: (context) => const Placeholder());
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -58,31 +65,36 @@ class _MarketingPageState extends State<MarketingPage> {
                     ]),
               ),
               const Divider(height: 20),
-              const MarketingWidget(
+              MarketingWidget(
+                  onTap: () => showInfoMarketing(),
                   icon: "banner.svg",
                   title: "Баннера на сайте и в мобильном приложение",
                   subTitle:
                       "Универсальное решение, которое позволяет эффективно охватить вашу целевую аудиторию на всех устройствах: от компьютеров до смартфонов."),
               const Divider(height: 20),
-              const MarketingWidget(
+              MarketingWidget(
+                  onTap: () => showInfoMarketing(),
                   icon: "pageArtboard.svg",
                   title: "Реклама на списке и последнее фото",
                   subTitle:
                       "Формат онлайн-рекламы, в котором рекламный баннер обрамляет содержимое сайта, заполняя фон и боковые панели вокруг основного контента"),
               const Divider(height: 20),
-              const MarketingWidget(
+              MarketingWidget(
+                  onTap: () => showInfoMarketing(),
                   icon: "windowAds.svg",
                   title: "Медийные форматы рекламы на сайте",
                   subTitle:
                       "Формат онлайн-рекламы, в котором рекламный баннер обрамляет содержимое сайта, заполняя фон и боковые панели вокруг основного контента"),
               const Divider(height: 20),
-              const MarketingWidget(
+              MarketingWidget(
+                  onTap: () => showInfoMarketing(),
                   icon: "bell.svg",
                   title: "Push-уведомления",
                   subTitle:
                       "Вы получите возможность отправлять push-уведомления всем пользователям о ваших акциях и объявлениях. Это отличный способ достучаться до аудитории, заинтересованной только в спецтехнике, что повысит шансы на успешные продажи."),
               const Divider(height: 20),
-              const MarketingWidget(
+              MarketingWidget(
+                  onTap: () => showInfoMarketing(),
                   icon: "christmasGift.svg",
                   title: "Розыгрыш",
                   subTitle:
@@ -119,7 +131,7 @@ class _MarketingPageState extends State<MarketingPage> {
           child: Button(
               onPressed: () {},
               title: "Оставить заявку",
-              padding: EdgeInsets.symmetric(horizontal: 15))),
+              padding: const EdgeInsets.symmetric(horizontal: 15))),
     );
   }
 }
@@ -129,48 +141,54 @@ class MarketingWidget extends StatelessWidget {
       {super.key,
       required this.icon,
       required this.title,
-      required this.subTitle});
+      required this.subTitle,
+      required this.onTap});
 
   final String icon;
   final String title;
   final String subTitle;
+  final VoidCallback onTap;
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(20),
-      decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(12), color: Colors.white),
-      child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-        Container(
-          width: 40,
-          height: 40,
-          alignment: Alignment.center,
-          decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(30),
-              color: ColorComponent.mainColor.withOpacity(.2)),
-          child: SvgPicture.asset("assets/icons/$icon"),
-        ),
-        const Divider(height: 15),
-        Text(title,
-            style: const TextStyle(fontSize: 17, fontWeight: FontWeight.w700)),
-        const Divider(height: 15),
-        Text(subTitle, style: const TextStyle(height: 1.5, fontSize: 15)),
-        const Divider(height: 20),
-        SizedBox(
-          height: 42,
-          child: Row(children: [
-            // Expanded(child: Button(onPressed: () {}, title: "Оставить заявку")),
-            // const Divider(indent: 12),
-            Expanded(
-                child: Button(
-              onPressed: () {},
-              title: "Подробнее",
-              backgroundColor: ColorComponent.mainColor.withOpacity(.1),
-            ))
-          ]),
-        )
-      ]),
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        padding: const EdgeInsets.all(20),
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(12), color: Colors.white),
+        child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+          Container(
+            width: 40,
+            height: 40,
+            alignment: Alignment.center,
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(30),
+                color: ColorComponent.mainColor.withOpacity(.2)),
+            child: SvgPicture.asset("assets/icons/$icon"),
+          ),
+          const Divider(height: 15),
+          Text(title,
+              style:
+                  const TextStyle(fontSize: 17, fontWeight: FontWeight.w700)),
+          const Divider(height: 15),
+          Text(subTitle, style: const TextStyle(height: 1.5, fontSize: 15)),
+          const Divider(height: 20),
+          SizedBox(
+            height: 42,
+            child: Row(children: [
+              // Expanded(child: Button(onPressed: () {}, title: "Оставить заявку")),
+              // const Divider(indent: 12),
+              Expanded(
+                  child: Button(
+                onPressed: () {},
+                title: "Подробнее",
+                backgroundColor: ColorComponent.mainColor.withOpacity(.1),
+              ))
+            ]),
+          )
+        ]),
+      ),
     );
   }
 }

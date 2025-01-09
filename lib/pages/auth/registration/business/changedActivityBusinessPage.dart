@@ -97,10 +97,10 @@ class _ChangedActivityBusinessPageState
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-          leading: BackTitleButton(title: "Описание деятельности"),
+          leading: const BackTitleButton(title: "Описание деятельности"),
           leadingWidth: 300),
       body: loader
-          ? LoaderComponent()
+          ? const LoaderComponent()
           : SingleChildScrollView(
               padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 8),
               child: Column(children: [

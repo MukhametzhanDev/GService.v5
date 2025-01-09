@@ -80,7 +80,7 @@ class CharacteristicWidget extends StatelessWidget {
                 ],
               );
             default:
-              return SizedBox.shrink();
+              return const SizedBox.shrink();
           }
         }).toList());
   }

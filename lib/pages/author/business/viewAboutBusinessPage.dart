@@ -16,7 +16,7 @@ class ViewAboutBusinessPage extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           data['description'] == "" || data['description'] == null
-              ? SizedBox(height: 8)
+              ? const SizedBox(height: 8)
               : Padding(
                   padding: const EdgeInsets.only(top: 6, bottom: 12),
                   child: ReadMoreText(
@@ -37,7 +37,7 @@ class ViewAboutBusinessPage extends StatelessWidget {
                   ),
                 ),
           Text("г. ${data['city']['title']}",
-              style: TextStyle(fontSize: 15, height: 1.5)),
+              style: const TextStyle(fontSize: 15, height: 1.5)),
           // InfoButton(
           //     ,
           //     widget.data['city']['title'],
@@ -52,7 +52,7 @@ class ViewAboutBusinessPage extends StatelessWidget {
                       borderRadius: BorderRadius.circular(5))),
               "Закрыто до завтра",
               () {}),
-          Divider(height: 8),
+          const Divider(height: 8),
           SocialNetworkWidget(data: data['contacts'])
         ],
       ),
@@ -71,7 +71,7 @@ class ViewAboutBusinessPage extends StatelessWidget {
                 children: [
                   leading,
                   const Divider(indent: 10),
-                  Text(title, style: TextStyle(fontSize: 15, height: 1.5)),
+                  Text(title, style: const TextStyle(fontSize: 15, height: 1.5)),
                 ],
               ),
             ),

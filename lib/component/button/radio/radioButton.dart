@@ -4,13 +4,17 @@ import 'package:gservice5/component/theme/colorComponent.dart';
 class RadioButtonWidget extends StatelessWidget {
   final bool active;
   final String title;
+  final void Function(bool value) onChanged;
   const RadioButtonWidget(
-      {super.key, required this.active, required this.title});
+      {super.key,
+      required this.active,
+      required this.title,
+      required this.onChanged});
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      // onTap: () => onChanged(value['id']),
+      onTap: () => onChanged(active),
       child: Padding(
         padding: const EdgeInsets.symmetric(vertical: 8),
         child: Row(children: [
@@ -27,9 +31,7 @@ class RadioButtonWidget extends StatelessWidget {
                         ? ColorComponent.blue['500']!
                         : ColorComponent.gray['300']!)),
           ),
-          Expanded(
-              child: Text(title,
-                  style: const TextStyle(fontWeight: FontWeight.w500)))
+          Text(title, style: const TextStyle(fontWeight: FontWeight.w500))
         ]),
       ),
     );

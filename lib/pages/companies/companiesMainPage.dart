@@ -104,7 +104,7 @@ class _CompaniesMainPageState extends State<CompaniesMainPage> {
             if (value == "update") getData();
           }),
       body: loader
-          ? LoaderComponent()
+          ? const LoaderComponent()
           : ListView.builder(
               controller: scrollController,
               itemCount: data.length,

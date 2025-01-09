@@ -67,7 +67,7 @@ class _GetActivityBusinessPageState extends State<GetActivityBusinessPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("Описание деятельности")),
+      appBar: AppBar(title: const Text("Описание деятельности")),
       body: SingleChildScrollView(
         padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 8),
         child: Column(children: [

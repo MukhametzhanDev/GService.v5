@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:gservice5/component/button/back/backTitleButton.dart';
 import 'package:gservice5/component/button/back/closeIconButton.dart';
 import 'package:gservice5/component/button/button.dart';
 import 'package:gservice5/component/button/radio/radioButton.dart';
@@ -10,7 +11,6 @@ import 'package:gservice5/component/select/selectVerifyData.dart';
 import 'package:gservice5/component/snackBar/snackBarComponent.dart';
 import 'package:gservice5/component/textField/closeKeyboard/closeKeyboard.dart';
 import 'package:gservice5/component/widgets/bottom/bottomNavigationBarComponent.dart';
-import 'package:gservice5/component/widgets/characteristic/showCharacteristicWidget.dart';
 import 'package:gservice5/pages/ad/filter/filterSelectModal.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 import 'package:shimmer/shimmer.dart';
@@ -34,7 +34,7 @@ class _CreateApplicationLeasingModalState
       mask: '+7 (###) ###-##-##',
       filter: {"#": RegExp(r'[0-9]')},
       type: MaskAutoCompletionType.lazy);
-  bool typeCompany = false;
+  bool legalEntity = false;
 
   @override
   void initState() {
@@ -95,9 +95,8 @@ class _CreateApplicationLeasingModalState
         onTap: () => closeKeyboard(),
         child: Scaffold(
           appBar: AppBar(
-            title: const Text("Заявка на лизинг"),
-            automaticallyImplyLeading: false,
-            actions: const [CloseIconButton(iconColor: null, padding: true)],
+            leadingWidth: 200,
+            leading: const BackTitleButton(title: "Заявка на лизинг"),
           ),
           body: SingleChildScrollView(
             physics: physics,
@@ -127,8 +126,27 @@ class _CreateApplicationLeasingModalState
                     api: "/transport-models",
                     param: (value) => {},
                     value: widget.data['transport_model']),
+                const Divider(height: 12),
+                const Text("Вид организации",
+                    style:
+                        TextStyle(fontSize: 15, fontWeight: FontWeight.w500)),
+                const Divider(height: 12),
                 Row(children: [
-                  RadioButtonWidget(active: false, title: "Юр. лицо")
+                  RadioButtonWidget(
+                      onChanged: (value) {
+                        legalEntity = true;
+                        setState(() {});
+                      },
+                      active: legalEntity,
+                      title: "ИП"),
+                  const Divider(indent: 24),
+                  RadioButtonWidget(
+                      onChanged: (value) {
+                        legalEntity = false;
+                        setState(() {});
+                      },
+                      active: !legalEntity,
+                      title: "ТОО"),
                 ]),
                 // ShowCharacteristicWidget(
                 //     title: "Тип", subTitle: widget.data['transport_type']),
@@ -146,7 +164,7 @@ class _CreateApplicationLeasingModalState
                 //           color: ColorComponent.blue['500'],
                 //           fontWeight: FontWeight.w500)),
                 // ),
-                // const Divider(height: 24),
+                const Divider(height: 24),
                 const Text("Контактная информация",
                     style:
                         TextStyle(fontSize: 15, fontWeight: FontWeight.w500)),

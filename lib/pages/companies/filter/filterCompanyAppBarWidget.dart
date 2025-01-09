@@ -59,7 +59,7 @@ class _FilterCompanyAppBarWidgetState extends State<FilterCompanyAppBarWidget> {
     showCupertinoModalBottomSheet(
       context: context,
       builder: (context) {
-        return FilterActivityCompanyModal();
+        return const FilterActivityCompanyModal();
       },
     );
   }
@@ -84,7 +84,7 @@ class _FilterCompanyAppBarWidgetState extends State<FilterCompanyAppBarWidget> {
     showCupertinoModalBottomSheet(
         context: context,
         enableDrag: false,
-        builder: (context) => FilterCompanyPage()).then(filteredAds);
+        builder: (context) => const FilterCompanyPage()).then(filteredAds);
   }
 
   void filteredAds(value) {

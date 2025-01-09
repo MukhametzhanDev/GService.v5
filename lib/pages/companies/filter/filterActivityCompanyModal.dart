@@ -69,7 +69,7 @@ class _FilterActivityCompanyModalState
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-          leading: CloseTitleButton(title: "Описание деятельности"),
+          leading: const CloseTitleButton(title: "Описание деятельности"),
           leadingWidth: 300),
       body: SingleChildScrollView(
         padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 8),

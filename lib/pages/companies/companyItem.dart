@@ -89,7 +89,7 @@ class CompanyItem extends StatelessWidget {
                     padding: const EdgeInsets.only(top: 12.0),
                     child: RichText(
                       text: TextSpan(
-                          style: TextStyle(
+                          style: const TextStyle(
                               color: Colors.black, fontSize: 14, height: 1.4),
                           children: categories.map((value) {
                             int index = categories.indexOf(value);

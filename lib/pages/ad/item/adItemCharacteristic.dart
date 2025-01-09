@@ -3,7 +3,7 @@ import 'package:gservice5/component/theme/colorComponent.dart';
 
 class AdItemCharacteristic extends StatelessWidget {
   final Map data;
-  AdItemCharacteristic({super.key, required this.data});
+  const AdItemCharacteristic({super.key, required this.data});
 
   String getTitle(value) {
     if (value['values']['title'].runtimeType == String) {

@@ -59,12 +59,10 @@ class _GetImageWidgetState extends State<GetImageWidget> {
       final XFile? pickedFile =
           await _picker.pickImage(source: source, imageQuality: 50);
       print(pickedFile!.path);
-      if (pickedFile != null) {
-        setState(() {
-          _images.add(XFile(pickedFile.path));
-        });
-      }
-      widget.onImagesSelected(_images);
+      setState(() {
+        _images.add(XFile(pickedFile.path));
+      });
+          widget.onImagesSelected(_images);
       Navigator.pop(context);
       Navigator.pop(context);
     } on PlatformException catch (e) {
