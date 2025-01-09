@@ -80,7 +80,7 @@ class _PreviewItemWidgetState extends State<PreviewItemWidget> {
             child: Container(
               padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 12),
               decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(12),
+                  // borderRadius: BorderRadius.circular(12),
                   color: getColor(),
                   border: Border.all(width: 1, color: const Color(0xffeeeeee))),
               // padding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
