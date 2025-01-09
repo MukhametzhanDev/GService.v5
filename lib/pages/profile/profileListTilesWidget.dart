@@ -101,6 +101,23 @@ class _ProfileListTilesWidgetState extends State<ProfileListTilesWidget> {
     }).catchError((onError) => debugPrint(onError));
   }
 
+  void showChangedActivityBusinessPage() {
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => const ChangedActivityBusinessPage()));
+  }
+
+  void exitAccount() async {
+    await ChangedToken().removeToken(context);
+    if (mounted) {
+      Navigator.pushAndRemoveUntil(
+          context,
+          MaterialPageRoute(builder: (_) => const CustomerBottomTab()),
+          (route) => false);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
