@@ -31,9 +31,7 @@ class _AdListMainState extends State<AdListMain> {
   @override
   void initState() {
     getData();
-    widget.scrollController.addListener(() {
-      if (mounted) loadMoreAd();
-    });
+    widget.scrollController.addListener(() => loadMoreAd());
     super.initState();
   }
 
@@ -85,7 +83,6 @@ class _AdListMainState extends State<AdListMain> {
       try {
         isLoadMore = true;
         page += 1;
-        setState(() {});
         Response response = await dio.get("/ad",
             queryParameters: {"page": page.toString(), ...widget.param});
         print(response.data);

@@ -10,7 +10,7 @@ import 'package:gservice5/component/snackBar/snackBarComponent.dart';
 import 'package:gservice5/pages/application/item/applicationItem.dart';
 import 'package:gservice5/pages/application/filter/filterApplicationListPage.dart';
 import 'package:gservice5/pages/application/filter/filterApplicationWidget.dart';
-import 'package:gservice5/pages/application/list/emptyApplicationListPage.dart';
+import 'package:gservice5/pages/application/list/customer/emptyApplicationListPage.dart';
 import 'package:gservice5/pages/create/data/createData.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 

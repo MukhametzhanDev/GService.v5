@@ -18,7 +18,7 @@ import 'package:gservice5/component/widgets/404/notFoundpage.dart';
 import 'package:gservice5/pages/author/authorAdWidget.dart';
 import 'package:gservice5/component/widgets/characteristic/showCharacteristicWidget.dart';
 import 'package:gservice5/pages/application/document/sliderApplicationSmallImageWidget.dart';
-import 'package:gservice5/pages/application/list/recommendationApplicationList.dart';
+import 'package:gservice5/pages/application/list/customer/recommendationApplicationList.dart';
 
 class ViewApplicationPage extends StatefulWidget {
   final int id;

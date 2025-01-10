@@ -1,4 +1,5 @@
 import 'package:firebase_analytics/firebase_analytics.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
@@ -7,9 +8,13 @@ import 'package:gservice5/analytics/event_name.constan.dart';
 import 'package:gservice5/component/banner/bannersList.dart';
 import 'package:gservice5/component/button/searchButton.dart';
 import 'package:gservice5/component/categories/data/mainPageData.dart';
+import 'package:gservice5/component/dio/dio.dart';
+import 'package:gservice5/component/loader/paginationLoaderComponent.dart';
 import 'package:gservice5/component/request/getMainPageData.dart';
+import 'package:gservice5/component/snackBar/snackBarComponent.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
-import 'package:gservice5/pages/main/adListMain.dart';
+import 'package:gservice5/pages/ad/item/adItem.dart';
+import 'package:gservice5/pages/ad/list/adListLoader.dart';
 import 'package:gservice5/pages/main/applicationListMain.dart';
 import 'package:gservice5/component/categories/categoriesListWidget.dart';
 import 'package:gservice5/pages/main/drawer/mainDrawer.dart';
@@ -28,10 +33,17 @@ class _MainPageState extends State<MainPage> {
   Map data = MainPageData.data;
 
   final analytics = GetIt.I<FirebaseAnalytics>();
+  List adList = [];
+  bool loader = true;
+  bool hasNextPage = false;
+  bool isLoadMore = false;
+  int page = 1;
 
   @override
   void initState() {
     getData();
+    getAdList();
+    widget.scrollController.addListener(() => loadMoreAd());
     super.initState();
   }
 
@@ -74,6 +86,57 @@ class _MainPageState extends State<MainPage> {
     }
   }
 
+  void showLoader() {
+    if (!loader) {
+      loader = true;
+      setState(() {});
+    }
+  }
+
+  Future getAdList() async {
+    print('object');
+    try {
+      page = 1;
+      Response response = await dio.get("/ad");
+      print(response.data);
+      if (response.statusCode == 200) {
+        adList = response.data['data'];
+        loader = false;
+        hasNextPage = page != response.data['meta']['last_page'];
+        setState(() {});
+      } else {
+        SnackBarComponent().showResponseErrorMessage(response, context);
+      }
+    } on DioException catch (e) {
+      print(e);
+      SnackBarComponent().showNotGoBackServerErrorMessage(context);
+    }
+  }
+
+  void loadMoreAd() async {
+    if (widget.scrollController.position.extentAfter < 100 &&
+        hasNextPage &&
+        !isLoadMore) {
+      try {
+        isLoadMore = true;
+        page += 1;
+        Response response =
+            await dio.get("/ad", queryParameters: {"page": page.toString()});
+        print(response.data);
+        if (response.statusCode == 200) {
+          adList.addAll(response.data['data']);
+          hasNextPage = page != response.data['meta']['last_page'];
+          isLoadMore = false;
+          setState(() {});
+        } else {
+          SnackBarComponent().showResponseErrorMessage(response, context);
+        }
+      } catch (e) {
+        SnackBarComponent().showNotGoBackServerErrorMessage(context);
+      }
+    }
+  }
+
   void showMainSearchPage() {
     Navigator.push(
         context,
@@ -109,10 +172,12 @@ class _MainPageState extends State<MainPage> {
             child: RefreshIndicator(
               onRefresh: () async {
                 await GetMainPageData().getData(context);
+                await getAdList();
               },
               // color: ColorComponent.mainColor,
               child: CustomScrollView(
-                   controller: widget.scrollController,
+                  controller: widget.scrollController,
+                  physics: ClampingScrollPhysics(),
                   slivers: [
                     SliverAppBar(
                       pinned: !true,
@@ -172,13 +237,26 @@ class _MainPageState extends State<MainPage> {
                                   fontWeight: FontWeight.w600,
                                   height: 1))),
                     ),
-                    AdListMain(
-                        scrollController: widget.scrollController,
-                        param: const {})
+                    loader
+                        ? const SliverToBoxAdapter(child: AdListLoader())
+                        : SliverList(
+                            delegate:
+                                SliverChildBuilderDelegate((context, index) {
+                            Map value = adList[index];
+                            if (adList.length - 1 == index) {
+                              return Column(children: [
+                                AdItem(data: value, showCategory: false),
+                                hasNextPage
+                                    ? const PaginationLoaderComponent()
+                                    : Container()
+                              ]);
+                            } else {
+                              return AdItem(data: value, showCategory: false);
+                            }
+                          }, childCount: adList.length))
                   ]),
             )),
         drawer: const MainDrawer(),
         drawerScrimColor: Colors.black.withOpacity(.25));
   }
 }
-

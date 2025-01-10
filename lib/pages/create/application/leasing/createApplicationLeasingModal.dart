@@ -73,7 +73,7 @@ class _CreateApplicationLeasingModalState
         "phone": getIntComponent(phoneEditingController.text),
         "city_id": city['id'],
         "country_id": 191,
-        "description": "123",
+        "individual_entrepreneur": legalEntity,
         ...EditData.data,
       };
       print(param);

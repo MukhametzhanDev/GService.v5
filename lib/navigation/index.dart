@@ -9,7 +9,7 @@ import 'package:gservice5/pages/companies/companiesMainPage.dart';
 import 'package:gservice5/pages/payment/transaction/transactionHistoryPage.dart';
 import 'package:gservice5/navigation/customer/customerBottomTab.dart';
 import 'package:gservice5/pages/ad/my/myAdListPage.dart';
-import 'package:gservice5/pages/application/list/applicationListPage.dart';
+import 'package:gservice5/pages/application/list/customer/applicationListPage.dart';
 import 'package:gservice5/pages/application/my/myApplicationListPage.dart';
 import 'package:gservice5/pages/auth/accountType/getAccountTypePage.dart';
 import 'package:gservice5/pages/auth/password/customer/resetCustomerPasswordPage.dart';

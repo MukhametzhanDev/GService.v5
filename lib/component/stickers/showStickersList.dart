@@ -20,16 +20,16 @@ class _ShowStickersListState extends State<ShowStickersList> {
                 runSpacing: 8,
                 children: widget.data.map((value) {
                   return Container(
-                    height: 24,
+                    height: 22,
                     margin: const EdgeInsets.only(right: 8),
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 8, vertical: 5.5),
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 6, vertical: 5),
                     decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(6),
+                        borderRadius: BorderRadius.circular(4),
                         color: ColorComponent.mainColor.withOpacity(.4)),
                     child: Text(value['title'],
                         style: const TextStyle(
-                            fontSize: 12,
+                            fontSize: 11.5,
                             fontWeight: FontWeight.w500,
                             height: 1)),
                   );

@@ -1,6 +1,5 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:gservice5/component/dio/dio.dart';
 import 'package:gservice5/component/functions/token/changedToken.dart';
@@ -8,7 +7,6 @@ import 'package:gservice5/component/image/cacheImage.dart';
 import 'package:gservice5/component/snackBar/snackBarComponent.dart';
 import 'package:gservice5/component/switchRole/listRolesModal.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
-import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:shimmer/shimmer.dart';
 
 class SwitchRoleWidget extends StatefulWidget {
@@ -19,7 +17,6 @@ class SwitchRoleWidget extends StatefulWidget {
 }
 
 class _SwitchRoleWidgetState extends State<SwitchRoleWidget> {
-  Map data = {};
   Map userData = {};
   bool loader = true;
   String? role;
@@ -38,19 +35,20 @@ class _SwitchRoleWidgetState extends State<SwitchRoleWidget> {
       try {
         Response response = await dio.get("/user");
         if (response.data['success']) {
-          if (response.data['data'] != null) {
-            data = response.data['data'];
-            if (role == "customer") {
+          Map data = response.data['data'];
+          if (role == "customer") {
+            if (data.containsKey("company")) {
               userData = response.data['data']['company'];
-            } else {
-              userData = response.data['data'];
             }
+          } else {
+            userData = response.data['data'];
           }
           loader = false;
         } else {
           SnackBarComponent().showResponseErrorMessage(response, context);
         }
-      } catch (e) {
+      } on DioException catch (e) {
+        print(e);
         SnackBarComponent().showNotGoBackServerErrorMessage(context);
       }
     } else {
@@ -82,7 +80,7 @@ class _SwitchRoleWidgetState extends State<SwitchRoleWidget> {
                 decoration: BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.circular(8))))
-        : data.isNotEmpty
+        : userData.isNotEmpty
             ? GestureDetector(
                 onTap: onChangedRole,
                 child: Container(

@@ -4,7 +4,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get_it/get_it.dart';
 import 'package:gservice5/analytics/event_name.constan.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
-import 'package:gservice5/pages/application/list/applicationListPage.dart';
+import 'package:gservice5/pages/application/list/customer/applicationListPage.dart';
 import 'package:gservice5/pages/application/item/smallApplicationItem.dart';
 import 'package:gservice5/pages/application/viewApplicationPage.dart';
 import 'package:gservice5/pages/create/application/sectionCreateApplicationPage.dart';

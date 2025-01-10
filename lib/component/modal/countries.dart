@@ -26,24 +26,12 @@ class _CountriesState extends State<Countries>
   List data = [];
   List filterData = [];
   bool loader = true;
-  bool _showScrollToTopButton = false;
-  late AnimationController _animationController;
-  late Animation<double> _fadeAnimation;
 
   @override
   void initState() {
     super.initState();
     getData();
-    scrollController.addListener(() => _scrollListener());
-    _animationController = AnimationController(
-      vsync: this,
-      duration: const Duration(milliseconds: 300),
-    );
-
-    _fadeAnimation = CurvedAnimation(
-      parent: _animationController,
-      curve: Curves.easeInOut,
-    );
+    // scrollController.addListener(() => _scrollListener());
   }
 
   Future getData() async {
@@ -76,34 +64,10 @@ class _CountriesState extends State<Countries>
     setState(() {});
   }
 
-  void _scrollListener() {
-    if (scrollController.offset > 0 && !_showScrollToTopButton) {
-      setState(() {
-        _showScrollToTopButton = true;
-      });
-      _animationController.forward();
-    } else if (scrollController.offset <= 0 && _showScrollToTopButton) {
-      _animationController.reverse().then((_) {
-        setState(() {
-          _showScrollToTopButton = false;
-        });
-      });
-    }
-  }
-
   @override
   void dispose() {
     scrollController.dispose();
-    _animationController.dispose();
     super.dispose();
-  }
-
-  void _scrollToTop() {
-    scrollController.animateTo(
-      0.0,
-      duration: const Duration(milliseconds: 400),
-      curve: Curves.easeInOut,
-    );
   }
 
   void savedData(Map value) {
@@ -189,19 +153,6 @@ class _CountriesState extends State<Countries>
                   );
                 },
               ),
-        floatingActionButton: FadeTransition(
-          opacity: _fadeAnimation,
-          child: FloatingActionButton(
-            onPressed: () {
-              _scrollToTop();
-            },
-            shape:
-                RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
-            elevation: 1.5,
-            backgroundColor: ColorComponent.mainColor,
-            child: const Icon(Icons.navigation),
-          ),
-        ),
       );
     });
   }

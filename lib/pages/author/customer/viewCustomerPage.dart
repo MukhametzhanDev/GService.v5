@@ -11,7 +11,7 @@ import 'package:gservice5/component/loader/loaderComponent.dart';
 import 'package:gservice5/component/snackBar/snackBarComponent.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
 import 'package:gservice5/pages/ad/list/adListWidget.dart';
-import 'package:gservice5/pages/application/list/applicationListWidget.dart';
+import 'package:gservice5/pages/application/list/customer/applicationListWidget.dart';
 
 class ViewCustomerPage extends StatefulWidget {
   final int id;

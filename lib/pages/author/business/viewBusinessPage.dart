@@ -13,7 +13,7 @@ import 'package:gservice5/component/request/getCategories.dart';
 import 'package:gservice5/component/snackBar/snackBarComponent.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
 import 'package:gservice5/pages/ad/list/adListWidget.dart';
-import 'package:gservice5/pages/application/list/applicationListWidget.dart';
+import 'package:gservice5/pages/application/list/customer/applicationListWidget.dart';
 import 'package:gservice5/pages/author/business/viewAboutBusinessPage.dart';
 import 'package:gservice5/pages/author/filesListPage.dart';
 import 'package:gservice5/pages/author/filesListWidget.dart';

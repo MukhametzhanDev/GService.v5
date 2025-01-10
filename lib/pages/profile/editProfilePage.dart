@@ -4,7 +4,7 @@ import 'package:gservice5/component/button/back/backTitleButton.dart';
 import 'package:gservice5/component/functions/token/changedToken.dart';
 import 'package:gservice5/pages/profile/changePasswordPage.dart';
 import 'package:gservice5/pages/profile/business/changeBusinessProfilePage.dart';
-import 'package:gservice5/pages/profile/customer/changeCusomterProfilePage.dart';
+import 'package:gservice5/pages/profile/customer/changeCustomerProfilePage.dart';
 
 class EditProfilePage extends StatefulWidget {
   final Map data;
