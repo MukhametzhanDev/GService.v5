@@ -113,7 +113,9 @@ class _AdItemState extends State<AdItem> {
                       : FavoriteButton(
                           id: widget.data['id'],
                           type: "ad",
-                          active: widget.data['is_favorite']),
+                          active: widget.data['is_favorite'],
+                          fromPage: GAParams.favoriteMainPage,
+                        ),
                   // Row(
                   // children: [
                   // Divider(indent: 8),

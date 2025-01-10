@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:gservice5/analytics/event_name.constan.dart';
 import 'package:gservice5/component/appBar/fadeOnScroll.dart';
 import 'package:gservice5/component/bar/bottomBar/contactBottomBarWidget.dart';
 import 'package:gservice5/component/button/back/backIconButton.dart';
@@ -78,9 +79,11 @@ class _ViewApplicationPageState extends State<ViewApplicationPage> {
                       ShareButton(id: widget.id, hasAd: true),
                       const Divider(indent: 10),
                       FavoriteButton(
-                          id: widget.id,
-                          active: data['is_favorite'],
-                          type: "application"),
+                        id: widget.id,
+                        active: data['is_favorite'],
+                        type: "application",
+                        fromPage: GAParams.viewApplicationPage,
+                      ),
                       const Divider(indent: 15)
                     ],
                     title: FadeOnScroll(
@@ -226,7 +229,10 @@ class _ViewApplicationPageState extends State<ViewApplicationPage> {
                             ],
                           ),
                         ),
-                        AuthorAdWidget(title: "Заказчик", data: data['author'],showOtherAd: true),
+                        AuthorAdWidget(
+                            title: "Заказчик",
+                            data: data['author'],
+                            showOtherAd: true),
                         const Divider(height: 1, color: Color(0xfff4f5f7)),
                         const Divider(height: 12),
                         const RecommendationApplicationList(),
@@ -236,7 +242,8 @@ class _ViewApplicationPageState extends State<ViewApplicationPage> {
                 ]),
           bottomNavigationBar: data.isEmpty
               ? null
-              : ContactBottomBarWidget(hasAd: false, id: data['id'], phones: const [])),
+              : ContactBottomBarWidget(
+                  hasAd: false, id: data['id'], phones: const [])),
     );
   }
 }

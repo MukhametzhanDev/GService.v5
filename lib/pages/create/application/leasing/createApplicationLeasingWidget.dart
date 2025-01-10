@@ -1,4 +1,7 @@
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
+import 'package:gservice5/analytics/event_name.constan.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
 import 'package:gservice5/pages/create/application/leasing/createApplicationLeasingModal.dart';
 
@@ -13,12 +16,19 @@ class CreateApplicationLeasingWidget extends StatefulWidget {
 
 class _CreateApplicationLeasingWidgetState
     extends State<CreateApplicationLeasingWidget> {
+  final analytics = GetIt.I<FirebaseAnalytics>();
+
   void showPage() {
     Navigator.push(context, MaterialPageRoute(
       builder: (context) {
         return CreateApplicationLeasingModal(data: widget.data);
       },
     ));
+
+    analytics.logEvent(name: GAEventName.buttonClick, parameters: {
+      GAKey.buttonName: GAParams.btnLeaveRequestForLeasing,
+      GAKey.screenName: GAParams.viewAdPage
+    }).catchError((onError) => debugPrint(onError));
   }
 
   @override

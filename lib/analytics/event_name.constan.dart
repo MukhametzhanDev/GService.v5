@@ -18,6 +18,7 @@ class GAParams {
   static const String loginUserPage = 'LoginUserPage';
   static const String loginBusinessPage = 'LoginBusinessPage';
   static const String applicationPage = 'applicationPage';
+  static const String viewApplicationPage = 'ViewApplicationPage';
   //SCREEN
 
   //TEXT_BUTTON
@@ -49,6 +50,8 @@ class GAParams {
   static const String btnPriceContinue = 'btn_price_continue';
   static const String btnImageContinue = 'btn_image_continue';
   static const String btnOwnerAd = 'btn_owner_ad';
+  static const String btnLeaveRequestForLeasing =
+      'btn_leave_request_for_leasing';
   //BUTTON
 
   //CHECKBOX
