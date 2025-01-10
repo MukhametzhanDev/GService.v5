@@ -1,16 +1,22 @@
 import 'package:currency_text_input_formatter/currency_text_input_formatter.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:gservice5/component/button/back/backTitleButton.dart';
 import 'package:gservice5/component/button/button.dart';
+import 'package:gservice5/component/dio/dio.dart';
 import 'package:gservice5/component/formatted/price/priceFormat.dart';
 import 'package:gservice5/component/functions/number/getIntNumber.dart';
+import 'package:gservice5/component/loader/modalLoaderComponent.dart';
 import 'package:gservice5/component/snackBar/snackBarComponent.dart';
 import 'package:gservice5/component/textField/closeKeyboard/closeKeyboard.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
 import 'package:gservice5/component/widgets/bottom/bottomNavigationBarComponent.dart';
+import 'package:gservice5/pages/payment/paymentMethodModal.dart';
 import 'package:gservice5/pages/profile/wallet/replenishment/successfulPaymentPage.dart';
+import 'package:gservice5/provider/walletAmountProvider.dart';
 import 'package:intl/intl.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
+import 'package:provider/provider.dart';
 
 class ReplenishmentWalletPage extends StatefulWidget {
   const ReplenishmentWalletPage({super.key});
@@ -23,11 +29,53 @@ class ReplenishmentWalletPage extends StatefulWidget {
 class _ReplenishmentWalletPageState extends State<ReplenishmentWalletPage> {
   List prices = [2000, 5000, 15000, 50000];
   TextEditingController priceController = TextEditingController();
+  Map data = {};
+
+  @override
+  void initState() {
+    super.initState();
+  }
 
   @override
   void dispose() {
     priceController.dispose();
     super.dispose();
+  }
+
+  Future postData(int walletId) async {
+    try {
+      showModalLoader(context);
+      Response response = await dio.post("/order/wallet", queryParameters: {
+        "wallet_id": walletId,
+        "amount": getIntComponent(priceController.text)
+      });
+      Navigator.pop(context);
+      print(response.data);
+      if (response.data['success'] && response.statusCode == 200) {
+        showModalBottomSheet(
+            context: context,
+            builder: (context) => PaymentMethodModal(
+                orderId: response.data['data'],
+                typePurchase: "wallet",
+                data: const {"type": "wallet"})).then((value) async {
+          print("VALUE------> $value");
+          if (value != null) await updateWallet();
+        });
+      } else {
+        SnackBarComponent().showResponseErrorMessage(response, context);
+      }
+    } on DioException catch (e) {
+      print(e.response);
+      SnackBarComponent().showServerErrorMessage(context);
+    }
+  }
+
+  Future updateWallet() async {
+    showModalLoader(context);
+    Provider.of<WalletAmountProvider>(context, listen: false).getData(context);
+    print("UPDATE");
+    Navigator.pop(context);
+    Navigator.pop(context);
   }
 
   int percentagePrice() {
@@ -42,12 +90,13 @@ class _ReplenishmentWalletPageState extends State<ReplenishmentWalletPage> {
     return price;
   }
 
-  void verifyData() {
+  void verifyData(int walletId) {
     String price = priceController.text.trim();
     if (price.isEmpty) {
       SnackBarComponent().showErrorMessage("Заполните все строки", context);
     } else {
-      showModal();
+      // showModal();
+      postData(walletId);
     }
   }
 
@@ -58,6 +107,7 @@ class _ReplenishmentWalletPageState extends State<ReplenishmentWalletPage> {
 
   @override
   Widget build(BuildContext context) {
+    final walletAmount = Provider.of<WalletAmountProvider>(context);
     return GestureDetector(
       onTap: () => closeKeyboard(),
       child: Scaffold(
@@ -143,7 +193,7 @@ class _ReplenishmentWalletPageState extends State<ReplenishmentWalletPage> {
         ),
         bottomNavigationBar: BottomNavigationBarComponent(
             child: Button(
-                onPressed: verifyData,
+                onPressed: () => verifyData(walletAmount.data.walletId!),
                 padding: const EdgeInsets.symmetric(horizontal: 15),
                 title: "Пополнить баланс")),
       ),

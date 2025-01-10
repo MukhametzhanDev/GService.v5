@@ -10,7 +10,9 @@ import 'package:gservice5/pages/profile/aboutCompany/aboutCompanyPage.dart';
 import 'package:gservice5/pages/profile/currency/currencyMainPage.dart';
 import 'package:gservice5/pages/profile/employees/employeeListPage.dart';
 import 'package:gservice5/pages/profile/news/newsMainPage.dart';
+import 'package:gservice5/provider/walletAmountProvider.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
+import 'package:provider/provider.dart';
 
 class ProfileListTilesWidget extends StatefulWidget {
   const ProfileListTilesWidget({super.key});
@@ -159,6 +161,7 @@ class _ProfileListTilesWidgetState extends State<ProfileListTilesWidget> {
                     border:
                         Border.all(width: 1, color: const Color(0xfff4f5f7))),
                 child: ListTile(
+                    onTap: () {},
                     leading: SvgPicture.asset('assets/icons/fileOutline.svg'),
                     title: const Text("Документы"),
                     trailing: SvgPicture.asset('assets/icons/right.svg')),

@@ -72,9 +72,11 @@ class MyAdItem extends StatelessWidget {
   }
 
   String formattedDate(String dateString) {
-    DateTime date = DateTime.parse(dateString);
+    DateTime date;
     if (dateString.isEmpty) {
       date = DateTime.now();
+    } else {
+      date = DateTime.parse(dateString);
     }
     final String formattedDate = DateFormat('d MMMM', 'ru').format(date);
     return formattedDate;

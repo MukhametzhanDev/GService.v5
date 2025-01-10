@@ -59,12 +59,14 @@ class AdItemCharacteristic extends StatelessWidget {
         Expanded(
           child: LayoutBuilder(builder: (context, constraints) {
             int calculateMaxLines(BoxConstraints constraints) {
-              return (constraints.maxHeight / (lineHeight + 5)).floor();
+              return (constraints.maxHeight / (lineHeight )).floor();
             }
 
             return Text(data['description'] ?? "",
-                style:
-                    TextStyle(fontSize: 13, color: ColorComponent.gray['700']),
+                style: TextStyle(
+                  fontSize: 13,
+                  color: ColorComponent.gray['700'],
+                ),
                 maxLines: calculateMaxLines(constraints),
                 overflow: TextOverflow.ellipsis);
           }),

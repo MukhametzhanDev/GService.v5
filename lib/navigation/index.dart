@@ -14,6 +14,7 @@ import 'package:gservice5/pages/auth/password/customer/resetCustomerPasswordPage
 import 'package:gservice5/pages/create/ad/sectionCreateAdPage.dart';
 import 'package:gservice5/pages/create/application/createApplication.dart';
 import 'package:gservice5/pages/profile/contacts/addContactsPage.dart';
+import 'package:gservice5/pages/profile/customer/customerProfilePage.dart';
 import 'package:gservice5/pages/profile/news/allNewsPage.dart';
 import 'package:gservice5/pages/profile/wallet/replenishment/replenishmentWalletPage.dart';
 import 'package:gservice5/pages/splash/splashScreen.dart';
@@ -35,7 +36,7 @@ class _IndexState extends State<Index> {
     return MultiProvider(
         providers: [
           ChangeNotifierProvider(create: (_) => themeChangeProvider),
-          ChangeNotifierProvider.value(value: WalletAmountProvider()),
+          ChangeNotifierProvider(create: (_) => WalletAmountProvider()),
         ],
         child: Consumer<DarkThemeProvider>(
             builder: (BuildContext context, value, child) {
@@ -66,6 +67,7 @@ class _IndexState extends State<Index> {
               "AddContactsPage": (context) => const AddContactsPage(),
               "CompaniesMainPage": (context) => const CompaniesMainPage(),
               "RegistrationBusinessPage": (context) => const RegistrationBusinessPage(),
+              "CustomerProfilePage": (context) => const CustomerProfilePage(),
             },
           );
         }));

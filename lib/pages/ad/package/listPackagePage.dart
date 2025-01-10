@@ -75,7 +75,9 @@ class _ListPackagePageState extends State<ListPackagePage> {
         showModalBottomSheet(
                 context: context,
                 builder: (context) => PaymentMethodModal(
-                    orderId: response.data['data'], data: getProduct()))
+                    orderId: response.data['data'],
+                    data: getProduct(),
+                    typePurchase: "package"))
             .then((value) => Navigator.pop(context, value));
       } else {
         SnackBarComponent().showResponseErrorMessage(response, context);
@@ -309,14 +311,14 @@ class _ListPackagePageState extends State<ListPackagePage> {
                       const SizedBox(height: 12),
                       Button(
                           onPressed: validateData,
-                          padding: EdgeInsets.symmetric(horizontal: 16),
+                          padding: const EdgeInsets.symmetric(horizontal: 16),
                           title:
                               "Подать за ${totalPrice + (currentPackage?['price'] ?? 0)} ₸"),
                       const SizedBox(height: 12),
                       Button(
                           onPressed: showSuccessfullyPage,
                           title: "Подать без рекламы",
-                          padding: EdgeInsets.symmetric(horizontal: 16),
+                          padding: const EdgeInsets.symmetric(horizontal: 16),
                           backgroundColor: Colors.white,
                           titleColor: Colors.black),
                       SizedBox(

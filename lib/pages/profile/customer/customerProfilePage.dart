@@ -11,6 +11,7 @@ import 'package:gservice5/navigation/customer/customerBottomTab.dart';
 import 'package:gservice5/pages/payment/wallet/showWalletWidget.dart';
 import 'package:gservice5/pages/profile/editProfilePage.dart';
 import 'package:gservice5/pages/profile/profileListTilesWidget.dart';
+import 'package:gservice5/pages/profile/wallet/replenishment/replenishmentWalletPage.dart';
 
 class CustomerProfilePage extends StatefulWidget {
   const CustomerProfilePage({super.key});
