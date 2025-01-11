@@ -68,7 +68,7 @@ class _MyAdListBusinessState extends State<MyAdListBusiness> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
+    return const Column(
       children: [
        
       ],

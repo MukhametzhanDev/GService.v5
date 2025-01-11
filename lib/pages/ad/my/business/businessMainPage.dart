@@ -9,16 +9,18 @@ import 'package:gservice5/component/widgets/badge/badgeWidget.dart';
 import 'package:badges/badges.dart' as badges;
 import 'package:gservice5/pages/ad/my/business/fixedAdBusinessFilterAppBar.dart';
 import 'package:gservice5/pages/ad/my/business/myAdListBusiness.dart';
+import 'package:gservice5/pages/ad/my/myAdListPage.dart';
+import 'package:gservice5/pages/ad/my/myAdListWidget.dart';
 
-class MyAdBusinessMainPage extends StatefulWidget {
+class BusinessMainPage extends StatefulWidget {
   final ScrollController scrollController;
-  const MyAdBusinessMainPage({super.key, required this.scrollController});
+  const BusinessMainPage({super.key, required this.scrollController});
 
   @override
-  State<MyAdBusinessMainPage> createState() => _MyAdBusinessMainPageState();
+  State<BusinessMainPage> createState() => _BusinessMainPageState();
 }
 
-class _MyAdBusinessMainPageState extends State<MyAdBusinessMainPage> {
+class _BusinessMainPageState extends State<BusinessMainPage> {
   List categories = [];
   bool loader = true;
 
@@ -54,7 +56,7 @@ class _MyAdBusinessMainPageState extends State<MyAdBusinessMainPage> {
     return DefaultTabController(
         length: categories.length,
         child: loader
-            ? Scaffold(body: LoaderComponent())
+            ? const Scaffold(body: LoaderComponent())
             : Scaffold(
                 appBar: AppBar(
                     centerTitle: false,
@@ -86,9 +88,9 @@ class _MyAdBusinessMainPageState extends State<MyAdBusinessMainPage> {
                               tabAlignment: TabAlignment.start,
                               labelColor: Colors.black,
                               unselectedLabelStyle:
-                                  TextStyle(fontWeight: FontWeight.w400),
+                                  const TextStyle(fontWeight: FontWeight.w400),
                               labelStyle:
-                                  TextStyle(fontWeight: FontWeight.w500),
+                                  const TextStyle(fontWeight: FontWeight.w500),
                               unselectedLabelColor: ColorComponent.gray['500'],
                               tabs: categories.map((value) {
                                 return Tab(
@@ -108,7 +110,7 @@ class _MyAdBusinessMainPageState extends State<MyAdBusinessMainPage> {
                                                 .withOpacity(.1)),
                                         child: Text(
                                           value['count'].toString(),
-                                          style: TextStyle(
+                                          style: const TextStyle(
                                               fontSize: 12,
                                               fontWeight: FontWeight.w500,
                                               color: Colors.black),
@@ -121,10 +123,10 @@ class _MyAdBusinessMainPageState extends State<MyAdBusinessMainPage> {
                         ))),
                 body: TabBarView(
                     children: categories.map((value) {
-                  return Column(
+                  return const Column(
                     children: [
                       FixedAdBusinessFilterAppBar(),
-                      Expanded(child: MyAdListBusiness()),
+                      Expanded(child: MyAdListWidget()),
                     ],
                   );
                 }).toList()),

@@ -101,7 +101,7 @@ class _MainApplicationsBusinessPageState
                         ]),
                   ))),
           body: TabBarView(children: [
-            Column(
+            const Column(
               children: [SwitchRoleWidget()],
             ),
             Container()

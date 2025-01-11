@@ -131,7 +131,7 @@ class _OptionsMyAdModalState extends State<OptionsMyAdModal> {
       //     style: TextStyle(
       //         fontSize: 17, fontWeight: FontWeight.w700)),
       // Divider(height: 10),
-      Divider(height: 10),
+      const Divider(height: 10),
       Padding(
         padding: const EdgeInsets.symmetric(horizontal: 15),
         child: Text(
@@ -139,10 +139,10 @@ class _OptionsMyAdModalState extends State<OptionsMyAdModal> {
               ? "При удалении объявления все платные услуги, такие как пакеты поднятия и стикеры, будут потеряны и не подлежат возврату."
               : "При архивировании объявления срок действия пакетов продолжает сокращаться.",
           textAlign: TextAlign.center,
-          style: TextStyle(fontSize: 15, height: 1.5),
+          style: const TextStyle(fontSize: 15, height: 1.5),
         ),
       ),
-      Divider(height: 10),
+      const Divider(height: 10),
       Column(
         children: [
           warningPackageType == "delete"

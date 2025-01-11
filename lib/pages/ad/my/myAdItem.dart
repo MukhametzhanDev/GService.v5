@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:gservice5/component/button/button.dart';
 import 'package:gservice5/component/image/cacheImage.dart';
+import 'package:gservice5/component/statistic/analyticAdItemWidget.dart';
 import 'package:gservice5/component/stickers/showStickersList.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
 import 'package:gservice5/component/widgets/price/priceTextWidget.dart';
@@ -223,27 +224,14 @@ class MyAdItem extends StatelessWidget {
                               )),
                         ),
                       ]),
-            role == "customer"
-                ? Container()
-                : Container(
-                    height: 36,
-                    margin: const EdgeInsets.only(top: 12),
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
-                        border: Border.all(
-                            width: 1, color: ColorComponent.mainColor)),
-                    child: Button(
-                        onPressed: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) =>
-                                      StatisticAdPage(id: data['id'])));
-                        },
-                        title: "Статистика",
-                        icon: "charTmixeDoutline.svg",
-                        backgroundColor: Colors.white),
-                  ),
+            const Divider(height: 14),
+            const AnalyticAdItemWidget(data: {
+              "viewed": 1380,
+              "called": 0,
+              "favorites": 15,
+              "shared": 0,
+              "wrote": 0
+            }),
             // const SizedBox(height: 14),
             // Divider(height: 1, color: ColorComponent.gray['200']),
             // const SizedBox(height: 12),

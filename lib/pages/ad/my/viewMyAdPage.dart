@@ -18,6 +18,7 @@ import 'package:gservice5/component/widgets/characteristic/showCharacteristicWid
 import 'package:gservice5/component/widgets/price/priceTextWidget.dart';
 import 'package:gservice5/pages/ad/my/optionsMyAdModal.dart';
 import 'package:gservice5/pages/ad/my/request/myAdRequest.dart';
+import 'package:gservice5/pages/ad/my/statistic/statisticAdPage.dart';
 import 'package:gservice5/pages/ad/package/listPackagePage.dart';
 import 'package:gservice5/pages/ad/widget/viewCharacteristicWidget.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
@@ -96,6 +97,11 @@ class _ViewMyAdPageState extends State<ViewMyAdPage> {
         Navigator.pop(context, value);
       }
     });
+  }
+
+  void showStatisticPage() {
+    Navigator.push(context,
+        MaterialPageRoute(builder: (context) => StatisticAdPage(data: data)));
   }
 
   @override
@@ -208,6 +214,21 @@ class _ViewMyAdPageState extends State<ViewMyAdPage> {
                                     fontSize: 18, fontWeight: FontWeight.w600)),
                             const Divider(height: 10),
                             AnalyticAdWidget(data: data['statistics']),
+                            const Divider(height: 10),
+                            Container(
+                              height: 36,
+                              margin: const EdgeInsets.only(top: 12),
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(10),
+                                  border: Border.all(
+                                      width: 1,
+                                      color: ColorComponent.mainColor)),
+                              child: Button(
+                                  onPressed: showStatisticPage,
+                                  title: "Статистика",
+                                  icon: "charTmixeDoutline.svg",
+                                  backgroundColor: Colors.white),
+                            ),
                             const Divider(height: 16),
                             Divider(
                                 height: 1, color: ColorComponent.gray['100']),

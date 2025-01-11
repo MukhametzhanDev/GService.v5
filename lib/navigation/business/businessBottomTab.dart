@@ -1,15 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
-import 'package:gservice5/pages/ad/my/business/myAdBusinessMainPage.dart';
+import 'package:gservice5/pages/ad/my/business/businessMainPage.dart';
 import 'package:gservice5/pages/application/list/business/mainApplicationsBusinessPage.dart';
-import 'package:gservice5/pages/contractor/dashboard/dashboardPage.dart';
 import 'package:gservice5/pages/contractor/marketing/marketingPage.dart';
 import 'package:gservice5/pages/create/createSectionPage.dart';
-import 'package:gservice5/pages/message/messageMainPage.dart';
 import 'package:gservice5/pages/profile/business/businessProfilePage.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
-import 'package:badges/badges.dart' as badges;
 
 class BusinessBottomTab extends StatefulWidget {
   const BusinessBottomTab({super.key});
@@ -59,7 +56,7 @@ class _BusinessBottomTabState extends State<BusinessBottomTab> {
     final ColorTheme = ThemeColorComponent.ColorsTheme(context);
     return Scaffold(
       body: IndexedStack(index: _selectedIndex, children: [
-        MyAdBusinessMainPage(scrollController: scrollController),
+        BusinessMainPage(scrollController: scrollController),
         MainApplicationsBusinessPage(scrollController: scrollController),
         Container(),
         // CreateMainPage(),

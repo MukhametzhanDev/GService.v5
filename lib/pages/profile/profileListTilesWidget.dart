@@ -10,9 +10,7 @@ import 'package:gservice5/pages/profile/aboutCompany/aboutCompanyPage.dart';
 import 'package:gservice5/pages/profile/currency/currencyMainPage.dart';
 import 'package:gservice5/pages/profile/employees/employeeListPage.dart';
 import 'package:gservice5/pages/profile/news/newsMainPage.dart';
-import 'package:gservice5/provider/walletAmountProvider.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
-import 'package:provider/provider.dart';
 
 class ProfileListTilesWidget extends StatefulWidget {
   const ProfileListTilesWidget({super.key});
