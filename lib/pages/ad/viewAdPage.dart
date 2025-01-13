@@ -62,12 +62,13 @@ class _ViewAdPageState extends State<ViewAdPage> {
 
         await analytics.logViewItem(parameters: {
           GAKey.screenName: GAParams.viewAdPage,
-          GAKey.title: data['title']
         }, items: [
-          AnalyticsEventItem(itemId: data['id']?.toString(), parameters: {
-            GAKey.screenName: GAParams.viewAdPage,
-            GAKey.title: data['title']
-          })
+          AnalyticsEventItem(
+            itemId: data['id']?.toString(),
+            itemName: data['title'],
+            itemListId: GAParams.listFavoriteAdPageListId,
+            itemListName: GAParams.listFavoriteAdPageListName,
+          )
         ]);
       } else {
         SnackBarComponent().showResponseErrorMessage(response, context);
@@ -175,7 +176,10 @@ class _ViewAdPageState extends State<ViewAdPage> {
                             ],
                           ),
                         ),
-                        SliderImageWidget(images: data['images']),
+                        SliderImageWidget(
+                          images: data['images'],
+                          fromPage: GAParams.viewAdPage,
+                        ),
                         Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 16),
                           child: Column(
@@ -241,7 +245,18 @@ class _ViewAdPageState extends State<ViewAdPage> {
                               SizedBox(
                                   height: 41,
                                   child: Button(
-                                      onPressed: () {},
+                                      onPressed: () {
+                                        analytics.logEvent(
+                                            name: GAEventName.buttonClick,
+                                            parameters: {
+                                              GAKey.buttonName:
+                                                  GAParams.btnComplain,
+                                              GAKey.screenName:
+                                                  GAParams.viewAdPage,
+                                              GAKey.itemId: widget.id.toString()
+                                            }).catchError(
+                                            (onError) => debugPrint(onError));
+                                      },
                                       backgroundColor: ColorComponent.mainColor
                                           .withOpacity(.1),
                                       icon: "alert.svg",
@@ -293,7 +308,11 @@ class _ViewAdPageState extends State<ViewAdPage> {
           bottomNavigationBar: loader
               ? null
               : ContactBottomBarWidget(
-                  id: data['id'], hasAd: true, phones: data['phones'])),
+                  id: data['id'],
+                  hasAd: true,
+                  phones: data['phones'],
+                  fromPage: GAParams.viewAdPage,
+                )),
     );
   }
 }

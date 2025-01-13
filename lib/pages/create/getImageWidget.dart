@@ -1,9 +1,12 @@
 import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:dotted_border/dotted_border.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get_it/get_it.dart';
+import 'package:gservice5/analytics/event_name.constan.dart';
 import 'package:gservice5/component/button/back/closeIconButton.dart';
 import 'package:gservice5/component/button/button.dart';
 import 'package:gservice5/component/denied/galleryDeniedModal.dart';
@@ -20,7 +23,9 @@ import 'package:reorderables/reorderables.dart';
 
 class GetImageWidget extends StatefulWidget {
   final Function(List<XFile>) onImagesSelected;
-  const GetImageWidget({super.key, required this.onImagesSelected});
+  final String? fromPage;
+  const GetImageWidget(
+      {super.key, required this.onImagesSelected, this.fromPage});
 
   @override
   State<GetImageWidget> createState() => _GetImageWidgetState();
@@ -30,6 +35,8 @@ class _GetImageWidgetState extends State<GetImageWidget> {
   final List<XFile> _images = CreateData.images;
   List imagesUrl = EditData.data['images'] ?? [];
   final ImagePicker _picker = ImagePicker();
+
+  final analytics = GetIt.I<FirebaseAnalytics>();
 
   Future<void> _pickImages() async {
     try {
@@ -62,7 +69,7 @@ class _GetImageWidgetState extends State<GetImageWidget> {
       setState(() {
         _images.add(XFile(pickedFile.path));
       });
-          widget.onImagesSelected(_images);
+      widget.onImagesSelected(_images);
       Navigator.pop(context);
       Navigator.pop(context);
     } on PlatformException catch (e) {
@@ -123,12 +130,23 @@ class _GetImageWidgetState extends State<GetImageWidget> {
                 Button(
                     onPressed: () {
                       _pickImages();
+
+                      analytics
+                          .logEvent(name: GAEventName.buttonClick, parameters: {
+                        GAKey.buttonName: GAParams.btnSelectGalery,
+                        GAKey.screenName: widget.fromPage ?? ''
+                      }).catchError((onError) => debugPrint(onError));
                     },
                     title: "Выбрать с галереи"),
                 const SizedBox(height: 16),
                 Button(
                     onPressed: () {
                       _pickImage(ImageSource.camera);
+                      analytics
+                          .logEvent(name: GAEventName.buttonClick, parameters: {
+                        GAKey.buttonName: GAParams.btnSelectCamera,
+                        GAKey.screenName: widget.fromPage ?? ''
+                      }).catchError((onError) => debugPrint(onError));
                     },
                     title: "Сделать снимок",
                     backgroundColor: ColorComponent.mainColor),
@@ -286,6 +304,13 @@ class _GetImageWidgetState extends State<GetImageWidget> {
                       showCupertinoModalBottomSheet(
                           context: context,
                           builder: (context) => GetAvatarOptionModal());
+
+                      analytics.logEvent(
+                          name: GAEventName.buttonClick,
+                          parameters: {
+                            GAKey.screenName: widget.fromPage ?? '',
+                            GAKey.buttonName: GAParams.btnCreateImg
+                          }).catchError((onError) => debugPrint(onError));
                     },
                     style: TextButton.styleFrom(
                         backgroundColor: Colors.transparent),

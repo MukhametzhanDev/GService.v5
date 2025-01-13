@@ -1,9 +1,12 @@
 import 'package:dio/dio.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_switch/flutter_switch.dart';
+import 'package:get_it/get_it.dart';
 import 'package:gservice5/component/button/back/backTitleButton.dart';
 import 'package:gservice5/component/button/button.dart';
 import 'package:gservice5/component/dio/dio.dart';
+import 'package:gservice5/component/loader/loaderComponent.dart';
 import 'package:gservice5/component/loader/modalLoaderComponent.dart';
 import 'package:gservice5/component/snackBar/snackBarComponent.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
@@ -32,6 +35,8 @@ class ViewWalletPage extends StatefulWidget {
 class _ViewWalletPageState extends State<ViewWalletPage> {
   bool bonus = false;
   int totalPrice = 0;
+
+  final analytics = GetIt.I<FirebaseAnalytics>();
 
   @override
   void initState() {
@@ -96,210 +101,244 @@ class _ViewWalletPageState extends State<ViewWalletPage> {
   Widget build(BuildContext context) {
     List stickers = widget.data['stickers'];
     Map package = widget.data['package'];
-    final walletAmount = Provider.of<WalletAmountProvider>(context);
+    // final walletAmount = Provider.of<WalletAmountProvider>(context);
+
     return Scaffold(
       appBar: AppBar(
           leading: BackTitleButton(title: widget.title), leadingWidth: 220),
-      body: SingleChildScrollView(
-        child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-          Container(
-            color: ColorComponent.gray['100'],
-            width: double.infinity,
-            padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
-            child: const Text("Баланс",
-                style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600)),
-          ),
-          const ShowWalletWidget(showButton: false),
-          Container(
-            color: ColorComponent.gray['100'],
-            width: double.infinity,
-            padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
-            child: const Text("Покупка",
-                style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600)),
-          ),
-          Container(
-            decoration: BoxDecoration(
-                border: Border(
-                    bottom: BorderSide(
-                        width: 1, color: ColorComponent.gray['100']!),
-                    top: BorderSide(
-                        width: 1, color: ColorComponent.gray['100']!))),
-            child: ListTile(
-              title: Text(package['title'],
-                  style: const TextStyle(
-                      fontSize: 15, fontWeight: FontWeight.w400)),
-              trailing: Text(
-                "${formattedPrice(package['price'])} ₸",
-                style:
-                    const TextStyle(fontSize: 15, fontWeight: FontWeight.w600),
-              ),
-            ),
-          ),
-          Column(
-              children: stickers.map((value) {
-            return Container(
-              decoration: BoxDecoration(
-                  border: Border(
-                      bottom: BorderSide(
-                          width: 1, color: ColorComponent.gray['100']!),
-                      top: BorderSide(
-                          width: 1, color: ColorComponent.gray['100']!))),
-              child: ListTile(
-                title: Text("Стикер «${value['title']}»",
-                    style: const TextStyle(
-                        fontSize: 15, fontWeight: FontWeight.w400)),
-                trailing: const Text("100 ₸",
-                    style:
-                        TextStyle(fontSize: 15, fontWeight: FontWeight.w600)),
-              ),
-            );
-          }).toList()),
-          Container(
-            color: ColorComponent.gray['100'],
-            width: double.infinity,
-            padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
-            child: const Text("Бонус",
-                style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600)),
-          ),
-          Container(
-              padding: const EdgeInsets.all(15),
-              decoration: BoxDecoration(
-                  border: Border(
-                      bottom: BorderSide(
-                          width: 2, color: ColorComponent.gray['100']!))),
-              child: Row(
-                children: [
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        RichText(
-                          text: TextSpan(
+      body: Consumer<WalletAmountProvider>(builder: (context, data, child) {
+        return data.loading
+            ? LoaderComponent()
+            : SingleChildScrollView(
+                child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Container(
+                        color: ColorComponent.gray['100'],
+                        width: double.infinity,
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 15, vertical: 10),
+                        child: const Text("Баланс",
+                            style: TextStyle(
+                                fontSize: 14, fontWeight: FontWeight.w600)),
+                      ),
+                      const ShowWalletWidget(showButton: false),
+                      Container(
+                        color: ColorComponent.gray['100'],
+                        width: double.infinity,
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 15, vertical: 10),
+                        child: const Text("Покупка",
+                            style: TextStyle(
+                                fontSize: 14, fontWeight: FontWeight.w600)),
+                      ),
+                      Container(
+                        decoration: BoxDecoration(
+                            border: Border(
+                                bottom: BorderSide(
+                                    width: 1,
+                                    color: ColorComponent.gray['100']!),
+                                top: BorderSide(
+                                    width: 1,
+                                    color: ColorComponent.gray['100']!))),
+                        child: ListTile(
+                          title: Text(package['title'],
+                              style: const TextStyle(
+                                  fontSize: 15, fontWeight: FontWeight.w400)),
+                          trailing: Text(
+                            "${formattedPrice(package['price'])} ₸",
                             style: const TextStyle(
-                                fontSize: 17, color: Colors.black),
-                            children: <TextSpan>[
-                              const TextSpan(text: "Накоплено "),
-                              TextSpan(
-                                  text:
-                                      "${formattedPrice(walletAmount.data.bonus ?? 0)} Б",
-                                  style: const TextStyle(
-                                      fontWeight: FontWeight.w700)),
-                            ],
+                                fontSize: 15, fontWeight: FontWeight.w600),
                           ),
                         ),
-                        const SizedBox(height: 5),
-                        Text("Потратить бонусы",
-                            style: TextStyle(
-                                fontSize: 13,
-                                color: ColorComponent.gray['500']))
-                      ],
-                    ),
-                  ),
-                  FlutterSwitch(
-                    value: bonus,
-                    width: 51,
-                    height: 31,
-                    borderRadius: 30,
-                    activeColor: ColorComponent.mainColor,
-                    inactiveColor: const Color.fromRGBO(120, 120, 128, 0.33),
-                    onToggle: (value) {
-                      setState(() => bonus = !bonus);
-                      // changedColorStatusBar(themeChange.darkTheme);
-                    },
-                  ),
-                ],
-              )),
-          AnimatedOpacity(
-            opacity: bonus ? 1 : 0,
-            curve: Curves.linear,
-            duration: const Duration(milliseconds: 200),
-            child: bonus
-                ? Container(
-                    padding: const EdgeInsets.all(20),
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        const Text("Будет списано",
-                            style: TextStyle(fontSize: 15)),
-                        debitWallet(walletAmount.data.bonus ?? 0) == 0
-                            ? Container()
-                            : Row(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Padding(
-                                    padding: const EdgeInsets.only(left: 15),
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.center,
-                                      children: [
-                                        Container(
-                                          padding: const EdgeInsets.symmetric(
-                                              vertical: 4, horizontal: 8),
-                                          decoration: BoxDecoration(
-                                              borderRadius:
-                                                  BorderRadius.circular(13),
-                                              color:
-                                                  ColorComponent.gray['100']),
-                                          child: Text(
-                                            "${formattedPrice(debitWallet(walletAmount.data.bonus ?? 0))} ₸",
-                                            style: const TextStyle(
-                                                fontSize: 16,
-                                                fontWeight: FontWeight.bold,
-                                                color: Colors.black),
-                                          ),
-                                        ),
-                                        const SizedBox(height: 2),
-                                        Text("С кошелька",
-                                            style: TextStyle(
-                                                fontSize: 13,
-                                                color:
-                                                    ColorComponent.gray['500']))
-                                      ],
-                                    ),
-                                  ),
-                                  const Padding(
-                                    padding: EdgeInsets.only(left: 15, top: 2),
-                                    child: Text("+",
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.w400,
-                                            fontSize: 17)),
-                                  ),
-                                ],
-                              ),
-                        Padding(
-                          padding: const EdgeInsets.only(left: 15),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Container(
-                                padding: const EdgeInsets.symmetric(
-                                    vertical: 4, horizontal: 8),
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(13),
-                                    color: ColorComponent.blue['500']),
-                                child: Text(
-                                    "${debitBonus(walletAmount.data.bonus ?? 0)} Б",
-                                    style: const TextStyle(
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.bold,
-                                        color: Colors.white)),
-                              ),
-                              const SizedBox(height: 2),
-                              Text("Бонусов",
-                                  style: TextStyle(
-                                      fontSize: 13,
-                                      color: ColorComponent.gray['500']))
-                            ],
+                      ),
+                      Column(
+                          children: stickers.map((value) {
+                        return Container(
+                          decoration: BoxDecoration(
+                              border: Border(
+                                  bottom: BorderSide(
+                                      width: 1,
+                                      color: ColorComponent.gray['100']!),
+                                  top: BorderSide(
+                                      width: 1,
+                                      color: ColorComponent.gray['100']!))),
+                          child: ListTile(
+                            title: Text("Стикер «${value['title']}»",
+                                style: const TextStyle(
+                                    fontSize: 15, fontWeight: FontWeight.w400)),
+                            trailing: const Text("100 ₸",
+                                style: TextStyle(
+                                    fontSize: 15, fontWeight: FontWeight.w600)),
                           ),
-                        )
-                      ],
-                    ),
-                  )
-                : Container(),
-          )
-        ]),
-      ),
+                        );
+                      }).toList()),
+                      Container(
+                        color: ColorComponent.gray['100'],
+                        width: double.infinity,
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 15, vertical: 10),
+                        child: const Text("Бонус",
+                            style: TextStyle(
+                                fontSize: 14, fontWeight: FontWeight.w600)),
+                      ),
+                      Container(
+                          padding: const EdgeInsets.all(15),
+                          decoration: BoxDecoration(
+                              border: Border(
+                                  bottom: BorderSide(
+                                      width: 2,
+                                      color: ColorComponent.gray['100']!))),
+                          child: Row(
+                            children: [
+                              Expanded(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    RichText(
+                                      text: TextSpan(
+                                        style: const TextStyle(
+                                            fontSize: 17, color: Colors.black),
+                                        children: <TextSpan>[
+                                          const TextSpan(text: "Накоплено "),
+                                          TextSpan(
+                                              text:
+                                                  "${formattedPrice(data.data.bonus ?? 0)} Б",
+                                              style: const TextStyle(
+                                                  fontWeight: FontWeight.w700)),
+                                        ],
+                                      ),
+                                    ),
+                                    const SizedBox(height: 5),
+                                    Text("Потратить бонусы",
+                                        style: TextStyle(
+                                            fontSize: 13,
+                                            color: ColorComponent.gray['500']))
+                                  ],
+                                ),
+                              ),
+                              FlutterSwitch(
+                                value: bonus,
+                                width: 51,
+                                height: 31,
+                                borderRadius: 30,
+                                activeColor: ColorComponent.mainColor,
+                                inactiveColor:
+                                    const Color.fromRGBO(120, 120, 128, 0.33),
+                                onToggle: (value) {
+                                  setState(() => bonus = !bonus);
+                                  // changedColorStatusBar(themeChange.darkTheme);
+                                },
+                              ),
+                            ],
+                          )),
+                      AnimatedOpacity(
+                        opacity: bonus ? 1 : 0,
+                        curve: Curves.linear,
+                        duration: const Duration(milliseconds: 200),
+                        child: bonus
+                            ? Container(
+                                padding: const EdgeInsets.all(20),
+                                child: Row(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    const Text("Будет списано",
+                                        style: TextStyle(fontSize: 15)),
+                                    debitWallet(data.data.bonus ?? 0) == 0
+                                        ? Container()
+                                        : Row(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              Padding(
+                                                padding: const EdgeInsets.only(
+                                                    left: 15),
+                                                child: Column(
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.center,
+                                                  children: [
+                                                    Container(
+                                                      padding: const EdgeInsets
+                                                          .symmetric(
+                                                          vertical: 4,
+                                                          horizontal: 8),
+                                                      decoration: BoxDecoration(
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(13),
+                                                          color: ColorComponent
+                                                              .gray['100']),
+                                                      child: Text(
+                                                        "${formattedPrice(debitWallet(data.data.bonus ?? 0))} ₸",
+                                                        style: const TextStyle(
+                                                            fontSize: 16,
+                                                            fontWeight:
+                                                                FontWeight.bold,
+                                                            color:
+                                                                Colors.black),
+                                                      ),
+                                                    ),
+                                                    const SizedBox(height: 2),
+                                                    Text("С кошелька",
+                                                        style: TextStyle(
+                                                            fontSize: 13,
+                                                            color:
+                                                                ColorComponent
+                                                                        .gray[
+                                                                    '500']))
+                                                  ],
+                                                ),
+                                              ),
+                                              const Padding(
+                                                padding: EdgeInsets.only(
+                                                    left: 15, top: 2),
+                                                child: Text("+",
+                                                    style: TextStyle(
+                                                        fontWeight:
+                                                            FontWeight.w400,
+                                                        fontSize: 17)),
+                                              ),
+                                            ],
+                                          ),
+                                    Padding(
+                                      padding: const EdgeInsets.only(left: 15),
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.center,
+                                        children: [
+                                          Container(
+                                            padding: const EdgeInsets.symmetric(
+                                                vertical: 4, horizontal: 8),
+                                            decoration: BoxDecoration(
+                                                borderRadius:
+                                                    BorderRadius.circular(13),
+                                                color:
+                                                    ColorComponent.blue['500']),
+                                            child: Text(
+                                                "${debitBonus(data.data.bonus ?? 0)} Б",
+                                                style: const TextStyle(
+                                                    fontSize: 16,
+                                                    fontWeight: FontWeight.bold,
+                                                    color: Colors.white)),
+                                          ),
+                                          const SizedBox(height: 2),
+                                          Text("Бонусов",
+                                              style: TextStyle(
+                                                  fontSize: 13,
+                                                  color: ColorComponent
+                                                      .gray['500']))
+                                        ],
+                                      ),
+                                    )
+                                  ],
+                                ),
+                              )
+                            : Container(),
+                      )
+                    ]),
+              );
+      }),
       bottomNavigationBar: BottomNavigationBarComponent(
           child: Button(
               onPressed: () {

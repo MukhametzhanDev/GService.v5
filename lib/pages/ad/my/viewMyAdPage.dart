@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:gservice5/analytics/event_name.constan.dart';
 import 'package:gservice5/component/appBar/fadeOnScroll.dart';
 import 'package:gservice5/component/button/back/backIconButton.dart';
 import 'package:gservice5/component/button/button.dart';
@@ -196,7 +197,10 @@ class _ViewMyAdPageState extends State<ViewMyAdPage> {
                           ],
                         ),
                       ),
-                      SliderImageWidget(images: data['images']),
+                      SliderImageWidget(
+                        images: data['images'],
+                        fromPage: GAParams.viewMyAdPage,
+                      ),
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 16),
                         child: Column(

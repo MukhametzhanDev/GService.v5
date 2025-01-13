@@ -1,6 +1,9 @@
 import 'package:dio/dio.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get_it/get_it.dart';
+import 'package:gservice5/analytics/event_name.constan.dart';
 import 'package:gservice5/component/button/button.dart';
 import 'package:gservice5/component/dio/dio.dart';
 import 'package:gservice5/component/loader/modalLoaderComponent.dart';
@@ -27,6 +30,8 @@ class _CreateAdContactsPageState extends State<CreateAdContactsPage> {
   List contacts = [];
   bool loader = true;
   bool loaderUser = true;
+
+  final analytics = GetIt.I<FirebaseAnalytics>();
 
   @override
   void initState() {
@@ -95,6 +100,11 @@ class _CreateAdContactsPageState extends State<CreateAdContactsPage> {
                     categoryId: response.data['data']['category']['id'],
                     adId: response.data['data']['id'],
                     goBack: false)));
+
+        await analytics.logEvent(name: GAEventName.buttonClick, parameters: {
+          GAKey.screenName: GAParams.createAdContactsPage,
+          GAKey.buttonName: GAParams.btnSubmitAnAd
+        });
       } else {
         Navigator.pop(context);
         SnackBarComponent().showResponseErrorMessage(response, context);
@@ -140,6 +150,11 @@ class _CreateAdContactsPageState extends State<CreateAdContactsPage> {
         setState(() {});
       }
     });
+
+    analytics.logEvent(name: GAEventName.buttonClick, parameters: {
+      GAKey.buttonName: GAParams.txtbtndAddContact,
+      GAKey.screenName: GAParams.createAdContactsPage
+    }).catchError((onError) => debugPrint(onError));
   }
 
   void onChangedPhone(Map value) {

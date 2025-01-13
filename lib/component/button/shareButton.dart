@@ -31,6 +31,7 @@ class _ShareButtonState extends State<ShareButton> {
     // await GetCountClick().postData(widget.id, widget.hasAd, "share");
 
     await analytics.logEvent(name: GAEventName.buttonClick, parameters: {
+      GAKey.itemId: widget.id.toString(),
       GAKey.buttonName: GAParams.icBtnShare,
       GAKey.screenName: widget.frompage ?? ''
     });

@@ -1,5 +1,8 @@
 import 'package:dio/dio.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
+import 'package:gservice5/analytics/event_name.constan.dart';
 import 'package:gservice5/component/button/back/backIconButton.dart';
 import 'package:gservice5/component/button/button.dart';
 import 'package:gservice5/component/dio/dio.dart';
@@ -33,6 +36,8 @@ class _ListPackagePageState extends State<ListPackagePage> {
   List stickers = [];
   int totalPrice = 0;
 
+  final analytics = GetIt.I<FirebaseAnalytics>();
+
   @override
   void initState() {
     getPackagesData();
@@ -50,6 +55,24 @@ class _ListPackagePageState extends State<ListPackagePage> {
         // promotions = response.data['data']['ad_promotions'];
         stickers = response.data['data']['stickers'];
         setState(() {});
+
+        await analytics.logViewItemList(
+            itemListId: GAParams.listPackagePageId,
+            itemListName: GAParams.listPackagePageName,
+            items: packages
+                .map((toElement) => AnalyticsEventItem(
+                    itemName: toElement['title'],
+                    itemId: toElement['id'].toString()))
+                .toList());
+
+        await analytics.logViewItemList(
+            itemListId: GAParams.listPackagePageStickersId,
+            itemListName: GAParams.listPackagePageStickersName,
+            items: stickers
+                .map((toElement) => AnalyticsEventItem(
+                    itemName: toElement['title'],
+                    itemId: toElement['id'].toString()))
+                .toList());
       } else {
         SnackBarComponent().showErrorMessage(response.data['message'], context);
       }
@@ -75,8 +98,14 @@ class _ListPackagePageState extends State<ListPackagePage> {
         showModalBottomSheet(
                 context: context,
                 builder: (context) => PaymentMethodModal(
-                    orderId: response.data['data'], data: getProduct()))
+                    totalPrice: totalPrice,
+                    orderId: response.data['data'],
+                    data: getProduct()))
             .then((value) => Navigator.pop(context, value));
+
+        analytics.logEvent(name: GAEventName.buttonClick, parameters: {
+          GAKey.buttonName: GAParams.btnSubmitForPackage
+        }).catchError((onError) => debugPrint(onError));
       } else {
         SnackBarComponent().showResponseErrorMessage(response, context);
       }
@@ -103,6 +132,10 @@ class _ListPackagePageState extends State<ListPackagePage> {
     CreateData.images.clear();
     Navigator.pop(context, "ad");
     Navigator.pop(context, "ad");
+
+    analytics.logEvent(name: GAEventName.buttonClick, parameters: {
+      GAKey.buttonName: GAParams.btnSubmitWithoutAds
+    }).catchError((e) => debugPrint(e));
     // Navigator.push(
     //     context,
     //     MaterialPageRoute(
@@ -112,8 +145,28 @@ class _ListPackagePageState extends State<ListPackagePage> {
   void onChangedPackage(Map value) {
     if (value['id'] == currentPackage?['id']) {
       currentPackage = null;
+      analytics.logSelectItem(
+          itemListId: GAParams.listPackagePageId,
+          itemListName: GAParams.listPackagePageName,
+          parameters: {
+            'active': 'false'
+          },
+          items: [
+            AnalyticsEventItem(
+                itemId: value['id'].toString(), itemName: value['title'])
+          ]);
     } else {
       currentPackage = value;
+      analytics.logSelectItem(
+          itemListId: GAParams.listPackagePageId,
+          itemListName: GAParams.listPackagePageName,
+          parameters: {
+            'active': 'true'
+          },
+          items: [
+            AnalyticsEventItem(
+                itemId: value['id'].toString(), itemName: value['title'])
+          ]);
     }
     setState(() {});
   }
@@ -137,6 +190,16 @@ class _ListPackagePageState extends State<ListPackagePage> {
       }
     }
     setState(() {});
+
+    analytics.logSelectItem(
+        items: [
+          AnalyticsEventItem(
+              itemId: value['id'].toString(), itemName: value['title'])
+        ],
+        itemListId: GAParams.listPackagePageStickersId,
+        itemListName:
+            GAParams.listPackagePageStickersName).catchError(
+        (onError) => debugPrint(onError));
   }
 
   void onChangedPromotions(Map value) {

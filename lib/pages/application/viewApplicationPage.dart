@@ -243,7 +243,11 @@ class _ViewApplicationPageState extends State<ViewApplicationPage> {
           bottomNavigationBar: data.isEmpty
               ? null
               : ContactBottomBarWidget(
-                  hasAd: false, id: data['id'], phones: const [])),
+                  hasAd: false,
+                  id: data['id'],
+                  phones: const [],
+                  fromPage: GAParams.viewApplicationPage,
+                )),
     );
   }
 }

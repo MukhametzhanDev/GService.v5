@@ -16,8 +16,12 @@ import 'package:image_picker/image_picker.dart';
 class GetImageCreateAdPage extends StatefulWidget {
   final void Function() previousPage;
   final void Function() nextPage;
-  const GetImageCreateAdPage(
-      {super.key, required this.previousPage, required this.nextPage});
+
+  const GetImageCreateAdPage({
+    super.key,
+    required this.previousPage,
+    required this.nextPage,
+  });
 
   @override
   State<GetImageCreateAdPage> createState() => _GetImageCreateAdPageState();
@@ -70,7 +74,8 @@ class _GetImageCreateAdPageState extends State<GetImageCreateAdPage> {
     }
 
     analytics.logEvent(name: GAEventName.buttonClick, parameters: {
-      GAKey.buttonName: GAParams.btnImageContinue
+      GAKey.buttonName: GAParams.btnImageContinue,
+      GAKey.screenName: GAParams.getImageCreateAdPage
     }).catchError((onError) => debugPrint(onError));
   }
 
@@ -87,10 +92,13 @@ class _GetImageCreateAdPageState extends State<GetImageCreateAdPage> {
                 child: Text("Загрузите изображение",
                     style:
                         TextStyle(fontSize: 20, fontWeight: FontWeight.w600))),
-            GetImageWidget(onImagesSelected: (value) {
-              imagesPath = value;
-              setState(() {});
-            })
+            GetImageWidget(
+              onImagesSelected: (value) {
+                imagesPath = value;
+                setState(() {});
+              },
+              fromPage: GAParams.getImageCreateAdPage,
+            )
           ],
         ),
       ),

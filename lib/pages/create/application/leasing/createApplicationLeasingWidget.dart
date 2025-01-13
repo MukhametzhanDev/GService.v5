@@ -27,7 +27,8 @@ class _CreateApplicationLeasingWidgetState
 
     analytics.logEvent(name: GAEventName.buttonClick, parameters: {
       GAKey.buttonName: GAParams.btnLeaveRequestForLeasing,
-      GAKey.screenName: GAParams.viewAdPage
+      GAKey.screenName: GAParams.viewAdPage,
+      GAKey.itemAdId: widget.data['id'].toString()
     }).catchError((onError) => debugPrint(onError));
   }
 

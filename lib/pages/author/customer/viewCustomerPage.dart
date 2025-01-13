@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:gservice5/analytics/event_name.constan.dart';
 import 'package:gservice5/component/appBar/fadeOnScroll.dart';
 import 'package:gservice5/component/bar/bottomBar/contactBottomBarWidget.dart';
 import 'package:gservice5/component/button/back/backIconButton.dart';
@@ -182,9 +183,13 @@ class _ViewCustomerPageState extends State<ViewCustomerPage>
                         "author_type": "user"
                       }, scrollController: scrollController)
                     ])),
-            ),
+              ),
         bottomNavigationBar: ContactBottomBarWidget(
-            hasAd: false, id: 1, phones: [data['phone']]));
+          hasAd: false,
+          id: 1,
+          phones: [data['phone']],
+          fromPage: GAParams.viewCustomerPage,
+        ));
   }
 
   Widget ButtonInfo(

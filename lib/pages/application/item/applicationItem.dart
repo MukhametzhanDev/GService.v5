@@ -1,5 +1,8 @@
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get_it/get_it.dart';
+import 'package:gservice5/analytics/event_name.constan.dart';
 import 'package:gservice5/component/button/favoriteButton.dart';
 import 'package:gservice5/component/date/formattedDate.dart';
 import 'package:gservice5/component/formatted/price/priceFormat.dart';
@@ -18,6 +21,8 @@ class ApplicationItem extends StatefulWidget {
 }
 
 class _ApplicationItemState extends State<ApplicationItem> {
+  final analytics = GetIt.I<FirebaseAnalytics>();
+
   void showPage() {
     Navigator.push(
             context,
@@ -25,6 +30,12 @@ class _ApplicationItemState extends State<ApplicationItem> {
                 builder: (context) =>
                     ViewApplicationPage(id: widget.data['id'])))
         .then(verifyFavoriteApplication);
+
+    analytics.logSelectContent(
+        parameters: {GAKey.title: widget.data['title'].toString()},
+        contentType: GAContentType.application,
+        itemId: widget.data['id']
+            .toString()).catchError((onError) => debugPrint(onError));
   }
 
   void verifyFavoriteApplication(value) {
@@ -67,7 +78,8 @@ class _ApplicationItemState extends State<ApplicationItem> {
           ),
           const Divider(height: 8),
           Text(priceFormatted(widget.data['price']?['price']),
-              style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w600)),
+              style:
+                  const TextStyle(fontSize: 16, fontWeight: FontWeight.w600)),
           // Row(
           //   children: [
           //     Expanded(

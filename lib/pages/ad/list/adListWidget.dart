@@ -1,7 +1,10 @@
 //
 
 import 'package:dio/dio.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
+import 'package:gservice5/analytics/event_name.constan.dart';
 import 'package:gservice5/component/dio/dio.dart';
 import 'package:gservice5/component/loader/paginationLoaderComponent.dart';
 import 'package:gservice5/component/snackBar/snackBarComponent.dart';
@@ -14,8 +17,12 @@ import 'package:gservice5/pages/create/data/createData.dart';
 class AdListWidget extends StatefulWidget {
   final Map<String, dynamic> param;
   final ScrollController scrollController;
+  final String? fromPage;
   const AdListWidget(
-      {super.key, required this.param, required this.scrollController});
+      {super.key,
+      required this.param,
+      required this.scrollController,
+      this.fromPage});
 
   @override
   State<AdListWidget> createState() => _AdListWidgetState();
@@ -30,6 +37,8 @@ class _AdListWidgetState extends State<AdListWidget>
   int page = 1;
   String title = "";
   Map<String, dynamic> param = {};
+
+  final analytics = GetIt.I<FirebaseAnalytics>();
 
   @override
   void initState() {
@@ -62,6 +71,19 @@ class _AdListWidgetState extends State<AdListWidget>
         loader = false;
         hasNextPage = page != response.data['meta']['last_page'];
         setState(() {});
+
+        await analytics.logViewItemList(
+            items: data
+                .map((toElement) => AnalyticsEventItem(
+                    itemName: toElement['title'],
+                    itemId: toElement['id'].toString()))
+                .toList(),
+            itemListName: 'Объявление владельца',
+            itemListId: GAParams.adListWidgetId,
+            parameters: {
+              GAKey.screenName: widget.fromPage ?? '',
+              GAKey.isPagination: 'false'
+            });
       } else {
         SnackBarComponent().showResponseErrorMessage(response, context);
       }
@@ -87,6 +109,19 @@ class _AdListWidgetState extends State<AdListWidget>
           hasNextPage = page != response.data['meta']['last_page'];
           isLoadMore = false;
           setState(() {});
+
+          await analytics.logViewItemList(
+              items: data
+                  .map((toElement) => AnalyticsEventItem(
+                      itemName: toElement['title'],
+                      itemId: toElement['id'].toString()))
+                  .toList(),
+              itemListName: 'Объявление владельца',
+              itemListId: GAParams.adListWidgetId,
+              parameters: {
+                GAKey.screenName: widget.fromPage ?? '',
+                GAKey.isPagination: 'true'
+              });
         } else {
           SnackBarComponent().showResponseErrorMessage(response, context);
         }
@@ -160,13 +195,21 @@ class _AdListWidgetState extends State<AdListWidget>
                               Map value = data[index];
                               if (data.length - 1 == index) {
                                 return Column(children: [
-                                  AdItem(data: value, showCategory: true),
+                                  AdItem(
+                                    data: value,
+                                    showCategory: true,
+                                    fromPage: widget.fromPage,
+                                  ),
                                   hasNextPage
                                       ? const PaginationLoaderComponent()
                                       : Container()
                                 ]);
                               } else {
-                                return AdItem(data: value, showCategory: true);
+                                return AdItem(
+                                  data: value,
+                                  showCategory: true,
+                                  fromPage: widget.fromPage,
+                                );
                               }
                             }),
                       ),

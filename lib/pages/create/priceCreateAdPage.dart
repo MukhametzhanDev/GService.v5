@@ -75,7 +75,8 @@ class _PriceCreateAdPageState extends State<PriceCreateAdPage> {
     pageControllerIndexedStack.nextPage();
 
     analytics.logEvent(name: GAEventName.buttonClick, parameters: {
-      GAKey.buttonName: GAParams.btnPriceContinue
+      GAKey.buttonName: GAParams.btnPriceContinue,
+      GAKey.screenName: GAParams.priceCreateAdPage
     }).catchError((onError) => debugPrint(onError));
   }
 

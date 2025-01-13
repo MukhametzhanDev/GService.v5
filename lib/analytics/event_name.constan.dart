@@ -1,6 +1,7 @@
 class GAEventName {
   static const String screenView = 'screen_view';
   static const String buttonClick = 'btn_click';
+  static const String tolem = 'tolem';
 }
 
 class GAParams {
@@ -9,8 +10,13 @@ class GAParams {
   static const String mainPage = 'MainPage';
   static const String favoriteMainPage = 'FavoriteMainPage';
   static const String listFavoriteAdPage = 'ListFavoriteAdPage';
+  static const String listFavoriteApplicationPage =
+      'ListFavoriteApplicationPage';
+  static const String viewBusinessPage = 'viewBusinessPage';
+
   static const String viewAdPage = 'ViewAdPage';
   static const String customerExistsPage = 'CustomerExistsPage';
+  static const String viewCustomerPage = 'ViewCustomerPage';
 
   static const String messageMainPage = 'MessageMainPage';
   static const String verifyProfilePage = 'VerifyProfilePage';
@@ -19,6 +25,11 @@ class GAParams {
   static const String loginBusinessPage = 'LoginBusinessPage';
   static const String applicationPage = 'applicationPage';
   static const String viewApplicationPage = 'ViewApplicationPage';
+  static const String viewMyAdPage = 'ViewMyAdPage';
+  static const String priceCreateAdPage = 'PriceCreateAdPage';
+  static const String getImageCreateAdPage = 'GetImageCreateAdPage';
+  static const String createAdContactsPage = 'CreateAdContactsPage';
+
   //SCREEN
 
   //TEXT_BUTTON
@@ -29,6 +40,8 @@ class GAParams {
   static const String txtBtnPlaceOrder = 'txt_btn_place_order';
   static const String txtbtnCloseAdStructure = 'txt_btn_close_ad_structure';
   static const String txtbtndProfileHistory = 'txt_btn_profile_history';
+  static const String txtbtndAddContact = 'txt_btn_add_contact';
+
   //TEXT_BUTTON
 
 //BUTTON
@@ -52,6 +65,16 @@ class GAParams {
   static const String btnOwnerAd = 'btn_owner_ad';
   static const String btnLeaveRequestForLeasing =
       'btn_leave_request_for_leasing';
+  static const String btnWrite = 'btn_write';
+  static const String btnCall = 'btn_call';
+  static const String btnComplain = 'btn_complain';
+  static const String btnSelectGalery = 'btn_select_galery';
+  static const String btnSelectCamera = 'btn_select_camera';
+  static const String btnContactConfirm = 'btn_contact_confirm';
+  static const String btnSubmitAnAd = 'btn_submit_an_ad';
+  static const String btnSubmitForPackage = 'btn_submit_for_package';
+  static const String btnSubmitWithoutAds = 'btn_submit_without_ads';
+
   //BUTTON
 
   //CHECKBOX
@@ -67,6 +90,12 @@ class GAParams {
 
   //ICON_BUTTON
 
+  //IMAGE_BUTTON
+  static const String imgBtn = 'img_btn';
+  static const String btnCreateImg = 'btn_create_img';
+
+  //IMAGE_BUTTON
+
   //ROW
   static const String rowBtnProfileEdit = 'row_btn_profile_edit';
   static const String rowBtnProfileMyAd = 'row_btn_profile_my_ad';
@@ -79,15 +108,17 @@ class GAParams {
   static const String rowBtnProfileEmployee = 'row_btn_profile_employee';
   static const String rowBtnProfileAbout = 'row_btn_profile_about';
   static const String rowBtnProfileExit = 'row_btn_profile_exit';
+  static const String rowBtnWhatsapp = 'row_btn_whatsapp';
+  static const String rowBtnCall = 'row_btn_call';
 
   //ROW
 
   //LIST
   static const String adMainListId = "ad_main_list_id";
   static const String adMainListName = "Главная спецтехники по";
-  static const String applicationListId = "application_list";
+  static const String applicationListId = "application_list_id";
   static const String applicationListName = "Заказы";
-  static const String applicationMainListId = "application_main_list";
+  static const String applicationMainListId = "application_main_list_id";
   static const String applicationMainListName = "Главная Заказы на спецтехнику";
   static const String adTypeCategoriesId = "ad_type_categories_id";
   static const String adTypeCategoriesName = "Тип обьявлении";
@@ -111,8 +142,21 @@ class GAParams {
   static const String radioCharacteristicsListId =
       'radio_characteristics_list_id';
 
-  static const String favoriteAdListId = 'favorite_ad_list_id';
-  static const String favoriteAdListName = 'Мои избранные объявления';
+  static const String listFavoriteAdPageListId =
+      'list_favorite_ad_page_list_id';
+  static const String listFavoriteAdPageListName = 'Мои избранные объявления';
+
+  static const String listFavoriteApplicationPageId =
+      'list_favorite_application_page_id';
+
+  static const String adListWidgetId = 'adListWidgetId';
+  static const String listPackagePageId = "list_package_page_id";
+  static const String listPackagePageName = "Пакеты объявлений";
+  static const String listPackagePageStickersId =
+      "list_package_page_stickers_id";
+  static const String listPackagePageStickersName = 'Стикеры';
+  static const String listPaymentMethodId = 'list_payment_method_id';
+  static const String listPaymentMethodName = 'Способ оплаты';
 
   //LIST
 }
@@ -137,4 +181,7 @@ class GAKey {
   static const String active = 'active';
   static const String authorId = 'author_id';
   static const String isCompany = 'is_company';
+  static const String itemId = 'item_id';
+  static const String itemAdId = 'item_ad_id';
+  static const String type = 'type';
 }

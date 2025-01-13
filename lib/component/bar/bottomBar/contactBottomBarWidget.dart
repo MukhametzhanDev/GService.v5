@@ -1,5 +1,8 @@
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get_it/get_it.dart';
+import 'package:gservice5/analytics/event_name.constan.dart';
 import 'package:gservice5/component/bar/bottomBar/bottomNavigationWidget.dart';
 import 'package:gservice5/component/button/back/closeIconButton.dart';
 import 'package:gservice5/component/button/button.dart';
@@ -14,25 +17,40 @@ class ContactBottomBarWidget extends StatefulWidget {
   final bool hasAd;
   final int id;
   final List phones;
+  final String? fromPage;
   const ContactBottomBarWidget(
-      {super.key, required this.hasAd, required this.id, required this.phones});
+      {super.key,
+      required this.hasAd,
+      required this.id,
+      required this.phones,
+      this.fromPage});
 
   @override
   State<ContactBottomBarWidget> createState() => _ContactBottomBarWidgetState();
 }
 
 class _ContactBottomBarWidgetState extends State<ContactBottomBarWidget> {
+  final analytics = GetIt.I<FirebaseAnalytics>();
+
   void writed() async {
-    if (widget.hasAd) {
-    } else {
-      await getCountClickApplication(widget.id, "write");
+    try {
+      if (widget.hasAd) {
+      } else {
+        await getCountClickApplication(widget.id, "write");
+      }
+    } catch (e) {
+      debugPrint(e.toString());
     }
   }
 
   void called() async {
-    if (widget.hasAd) {
-    } else {
-      await getCountClickApplication(widget.id, "call");
+    try {
+      if (widget.hasAd) {
+      } else {
+        await getCountClickApplication(widget.id, "call");
+      }
+    } catch (e) {
+      debugPrint(e.toString());
     }
   }
 
@@ -48,9 +66,18 @@ class _ContactBottomBarWidgetState extends State<ContactBottomBarWidget> {
                   onPressed: () {
                     showCupertinoModalBottomSheet(
                       context: context,
-                      builder: (context) =>
-                          WhatsAppListModal(phones: widget.phones),
+                      builder: (context) => WhatsAppListModal(
+                        phones: widget.phones,
+                        fromPage: widget.fromPage,
+                      ),
                     );
+
+                    analytics
+                        .logEvent(name: GAEventName.buttonClick, parameters: {
+                      GAKey.buttonName: GAParams.btnWrite,
+                      GAKey.screenName: widget.fromPage ?? '',
+                      GAKey.itemAdId: widget.id.toString(),
+                    }).catchError((onError) => debugPrint(onError));
                   },
                   widthIcon: 20,
                   icon: "chat.svg",
@@ -61,8 +88,16 @@ class _ContactBottomBarWidgetState extends State<ContactBottomBarWidget> {
             onPressed: () {
               showCupertinoModalBottomSheet(
                 context: context,
-                builder: (context) => ContactstListModal(phones: widget.phones),
+                builder: (context) => ContactstListModal(
+                  phones: widget.phones,
+                  fromPage: widget.fromPage,
+                ),
               );
+              analytics.logEvent(name: GAEventName.buttonClick, parameters: {
+                GAKey.buttonName: GAParams.btnCall,
+                GAKey.screenName: widget.fromPage ?? '',
+                GAKey.itemAdId: widget.id.toString(),
+              }).catchError((onError) => debugPrint(onError));
             },
             icon: "phone.svg",
             title: "Позвонить",
@@ -77,7 +112,8 @@ class _ContactBottomBarWidgetState extends State<ContactBottomBarWidget> {
 
 class ContactstListModal extends StatefulWidget {
   final List phones;
-  const ContactstListModal({super.key, required this.phones});
+  final String? fromPage;
+  const ContactstListModal({super.key, required this.phones, this.fromPage});
 
   @override
   State<ContactstListModal> createState() => _ContactstListModalState();
@@ -89,8 +125,19 @@ class _ContactstListModalState extends State<ContactstListModal> {
       filter: {"#": RegExp(r'[0-9]')},
       type: MaskAutoCompletionType.lazy);
 
+  final analytics = GetIt.I<FirebaseAnalytics>();
+
   void showCall(String phone) async {
-    await launchUrl(Uri(scheme: "tel", path: "+$phone"));
+    try {
+      await launchUrl(Uri(scheme: "tel", path: "+$phone"));
+
+      await analytics.logEvent(name: GAEventName.buttonClick, parameters: {
+        GAKey.buttonName: GAParams.rowBtnCall,
+        GAKey.screenName: widget.fromPage ?? ''
+      });
+    } catch (e) {
+      debugPrint(e.toString());
+    }
   }
 
   @override
@@ -140,16 +187,28 @@ class _ContactstListModalState extends State<ContactstListModal> {
 
 class WhatsAppListModal extends StatefulWidget {
   final List phones;
-  const WhatsAppListModal({super.key, required this.phones});
+  final String? fromPage;
+  const WhatsAppListModal({super.key, required this.phones, this.fromPage});
 
   @override
   State<WhatsAppListModal> createState() => _WhatsAppListModalState();
 }
 
 class _WhatsAppListModalState extends State<WhatsAppListModal> {
+  final analytics = GetIt.I<FirebaseAnalytics>();
+
   void showWhatsApp(String phone) async {
-    await launchUrl(Uri.parse('https://wa.me/+$phone'),
-        mode: LaunchMode.externalApplication);
+    try {
+      await launchUrl(Uri.parse('https://wa.me/+$phone'),
+          mode: LaunchMode.externalApplication);
+
+      await analytics.logEvent(name: GAEventName.buttonClick, parameters: {
+        GAKey.buttonName: GAParams.rowBtnWhatsapp,
+        GAKey.screenName: widget.fromPage ?? ''
+      });
+    } catch (e) {
+      debugPrint(e.toString());
+    }
   }
 
   @override

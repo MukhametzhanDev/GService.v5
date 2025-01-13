@@ -1,6 +1,9 @@
 import 'package:dio/dio.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get_it/get_it.dart';
+import 'package:gservice5/analytics/event_name.constan.dart';
 import 'package:gservice5/component/button/back/closeIconButton.dart';
 import 'package:gservice5/component/dio/dio.dart';
 import 'package:gservice5/component/loader/loaderComponent.dart';
@@ -12,8 +15,12 @@ import 'package:gservice5/pages/payment/wallet/viewWalletPage.dart';
 class PaymentMethodModal extends StatefulWidget {
   final String orderId;
   final Map data;
+  final int totalPrice;
   const PaymentMethodModal(
-      {super.key, required this.orderId, required this.data});
+      {super.key,
+      required this.orderId,
+      required this.data,
+      required this.totalPrice});
 
   @override
   State<PaymentMethodModal> createState() => _PaymentMethodModalState();
@@ -22,6 +29,8 @@ class PaymentMethodModal extends StatefulWidget {
 class _PaymentMethodModalState extends State<PaymentMethodModal> {
   List data = [];
   bool loader = true;
+
+  final analytics = GetIt.I<FirebaseAnalytics>();
 
   @override
   void initState() {
@@ -36,6 +45,15 @@ class _PaymentMethodModalState extends State<PaymentMethodModal> {
         data = response.data['data'];
         loader = false;
         setState(() {});
+
+        await analytics.logViewItemList(
+            itemListName: GAParams.listPaymentMethodId,
+            itemListId: GAParams.listPackagePageName,
+            items: data
+                .map(((toElement) => AnalyticsEventItem(
+                    itemName: toElement['title'],
+                    itemId: toElement['id'].toString())))
+                .toList());
       } else {
         SnackBarComponent().showResponseErrorMessage(response, context);
       }
@@ -55,17 +73,42 @@ class _PaymentMethodModalState extends State<PaymentMethodModal> {
                   methodId: value['id'],
                   data: widget.data))).then((value) {
         if (value == "success") Navigator.pop(context, widget.data);
+
+        analytics.logSelectItem(
+            itemListName: GAParams.listPaymentMethodId,
+            itemListId: GAParams.listPaymentMethodName,
+            parameters: {
+              'orderId': widget.orderId.toString(),
+              'is_wallet': "true"
+            },
+            items: [
+              AnalyticsEventItem(
+                  itemId: value['id']?.toString(), itemName: value['title'])
+            ]).catchError((onError) => debugPrint(onError));
       });
     } else {
       Navigator.push(
           context,
           MaterialPageRoute(
               builder: (context) => ViewPaymentPage(
+                  totalPrice: widget.totalPrice,
                   title: value['title'],
                   orderId: widget.orderId,
                   methodId: value['id']))).then((value) {
         if (value == "success") Navigator.pop(context, widget.data);
       });
+
+      analytics.logSelectItem(
+          itemListName: GAParams.listPaymentMethodId,
+          itemListId: GAParams.listPaymentMethodName,
+          parameters: {
+            'orderId': widget.orderId.toString(),
+            'is_wallet': "false"
+          },
+          items: [
+            AnalyticsEventItem(
+                itemId: value['id']?.toString(), itemName: value['title'])
+          ]).catchError((onError) => debugPrint(onError));
     }
   }
 

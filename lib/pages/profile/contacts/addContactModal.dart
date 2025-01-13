@@ -1,6 +1,9 @@
 import 'package:dio/dio.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get_it/get_it.dart';
+import 'package:gservice5/analytics/event_name.constan.dart';
 import 'package:gservice5/component/button/back/closeIconButton.dart';
 import 'package:gservice5/component/button/button.dart';
 import 'package:gservice5/component/dio/dio.dart';
@@ -14,7 +17,8 @@ import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
 class AddContactModal extends StatefulWidget {
   final List data;
-  const AddContactModal({super.key, required this.data});
+  final String? fromPage;
+  const AddContactModal({super.key, required this.data, this.fromPage});
 
   @override
   State<AddContactModal> createState() => _AddContactModalState();
@@ -25,6 +29,8 @@ class _AddContactModalState extends State<AddContactModal> {
   Map currentCountry = {};
   List countriesData = [];
   bool loader = true;
+
+  final analytics = GetIt.I<FirebaseAnalytics>();
 
   @override
   void initState() {
@@ -46,6 +52,10 @@ class _AddContactModalState extends State<AddContactModal> {
       SnackBarComponent()
           .showErrorMessage("Неправильный номер телефона", context);
     }
+
+    analytics.logEvent(name: GAEventName.buttonClick, parameters: {
+      GAKey.buttonName: GAParams.btnContactConfirm
+    }).catchError((onError) => debugPrint(onError));
   }
 
   Future postData() async {

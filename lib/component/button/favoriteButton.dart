@@ -47,6 +47,7 @@ class _FavoriteButtonState extends State<FavoriteButton> {
     }
 
     await analytics.logEvent(name: GAEventName.buttonClick, parameters: {
+      GAKey.itemId: widget.id.toString(),
       GAKey.buttonName: GAParams.icBtnFavorite,
       GAKey.screenName: widget.fromPage ?? ''
     });

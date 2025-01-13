@@ -1,6 +1,9 @@
 import 'package:dio/dio.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
+import 'package:get_it/get_it.dart';
+import 'package:gservice5/analytics/event_name.constan.dart';
 import 'package:gservice5/component/button/back/backTitleButton.dart';
 import 'package:gservice5/component/dio/dio.dart';
 import 'package:gservice5/component/loader/loaderComponent.dart';
@@ -10,11 +13,13 @@ class ViewPaymentPage extends StatefulWidget {
   final String orderId;
   final String title;
   final int methodId;
+  final int totalPrice;
   const ViewPaymentPage(
       {super.key,
       required this.orderId,
       required this.methodId,
-      required this.title});
+      required this.title,
+      required this.totalPrice});
 
   @override
   State<ViewPaymentPage> createState() => _ViewPaymentPageState();
@@ -24,6 +29,8 @@ class _ViewPaymentPageState extends State<ViewPaymentPage> {
   String url = "";
   bool loader = true;
   bool webLoader = true;
+
+  final analytics = GetIt.I<FirebaseAnalytics>();
 
   @override
   void initState() {
@@ -56,8 +63,20 @@ class _ViewPaymentPageState extends State<ViewPaymentPage> {
     bool failed = url.contains("failure");
     if (failed) {
       Navigator.pop(context);
+
+      analytics.logEvent(name: GAEventName.tolem, parameters: {
+        'type': "package",
+        'status': "failure",
+        'price': widget.totalPrice.toString()
+      }).catchError((onError) => debugPrint(onError));
     } else if (success) {
       Navigator.pop(context, "success");
+
+      analytics.logEvent(name: GAEventName.tolem, parameters: {
+        'type': "package",
+        'status': "success",
+        'price': widget.totalPrice.toString()
+      }).catchError((onError) => debugPrint(onError));
     }
   }
 

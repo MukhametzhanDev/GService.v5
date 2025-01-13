@@ -1,12 +1,16 @@
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get_it/get_it.dart';
+import 'package:gservice5/analytics/event_name.constan.dart';
 import 'package:gservice5/component/image/cacheImage.dart';
 import 'package:gservice5/component/image/slider/viewImageModal.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
 class SliderImageWidget extends StatefulWidget {
   final List images;
-  const SliderImageWidget({super.key, required this.images});
+  final String? fromPage;
+  const SliderImageWidget({super.key, required this.images, this.fromPage});
 
   @override
   State<SliderImageWidget> createState() => _SliderImageWidgetState();
@@ -16,6 +20,8 @@ class _SliderImageWidgetState extends State<SliderImageWidget> {
   int currentIndex = 0;
   PageController pageController = PageController();
   // ScrollController scrollController = ScrollController();
+
+  final analytics = GetIt.I<FirebaseAnalytics>();
 
   @override
   void dispose() {
@@ -58,6 +64,13 @@ class _SliderImageWidgetState extends State<SliderImageWidget> {
                               context: context,
                               builder: (context) => ViewImageModal(
                                   data: widget.images, index: index));
+
+                          analytics.logEvent(
+                              name: GAEventName.buttonClick,
+                              parameters: {
+                                GAKey.buttonName: GAParams.imgBtn,
+                                GAKey.screenName: widget.fromPage ?? ''
+                              }).catchError((onError) => debugPrint(onError));
                         },
                         style: TextButton.styleFrom(
                             padding: EdgeInsets.zero,
@@ -75,11 +88,11 @@ class _SliderImageWidgetState extends State<SliderImageWidget> {
                               child: Container(
                                 decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(20),
-                                    color:
-                                        const Color(0xff9a9a9abf).withOpacity(.75)),
+                                    color: const Color(0xff9a9a9abf)
+                                        .withOpacity(.75)),
                                 margin: const EdgeInsets.only(bottom: 12),
-                                constraints:
-                                    const BoxConstraints(minHeight: 23, minWidth: 42),
+                                constraints: const BoxConstraints(
+                                    minHeight: 23, minWidth: 42),
                                 padding: const EdgeInsets.symmetric(
                                     horizontal: 12, vertical: 4),
                                 child: Text(

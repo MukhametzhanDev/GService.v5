@@ -60,8 +60,8 @@ class _ListFavoriteAdPageState extends State<ListFavoriteAdPage> {
 
         await analytics.logViewItemList(
             parameters: {GAKey.isPagination: 'false'},
-            itemListId: GAParams.favoriteAdListId,
-            itemListName: GAParams.favoriteAdListName,
+            itemListId: GAParams.listFavoriteAdPageListId,
+            itemListName: GAParams.listFavoriteAdPageListName,
             items: data
                 .map((toElement) => AnalyticsEventItem(
                     itemId: toElement['id'].toString(),
@@ -99,8 +99,8 @@ class _ListFavoriteAdPageState extends State<ListFavoriteAdPage> {
 
           await analytics.logViewItemList(
               parameters: {GAKey.isPagination: 'true'},
-              itemListId: GAParams.favoriteAdListId,
-              itemListName: GAParams.favoriteAdListName,
+              itemListId: GAParams.listFavoriteAdPageListId,
+              itemListName: GAParams.listFavoriteAdPageListName,
               items: pagData
                   .map((toElement) => AnalyticsEventItem(
                       itemId: toElement['id'].toString(),
@@ -154,6 +154,7 @@ class _ListFavoriteAdPageState extends State<ListFavoriteAdPage> {
                                 ]);
                               } else {
                                 return AdItem(
+                                    fromPage: GAParams.listFavoriteAdPage,
                                     data: value['favoritable'],
                                     showCategory: false);
                               }

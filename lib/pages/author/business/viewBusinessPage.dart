@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:gservice5/analytics/event_name.constan.dart';
 import 'package:gservice5/component/bar/bottomBar/contactBottomBarWidget.dart';
 import 'package:gservice5/component/button/button.dart';
 import 'package:gservice5/component/button/shareButton.dart';
@@ -259,7 +260,12 @@ class _ViewBusinessPageState extends State<ViewBusinessPage>
               ),
         bottomNavigationBar: loader
             ? const SizedBox.shrink()
-            : const ContactBottomBarWidget(hasAd: false, id: 1, phones: []));
+            : const ContactBottomBarWidget(
+                hasAd: false,
+                id: 1,
+                phones: [],
+                fromPage: GAParams.viewBusinessPage,
+              ));
   }
 
   Widget ButtonInfo(
