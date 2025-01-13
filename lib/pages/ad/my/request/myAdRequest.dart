@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:gservice5/component/dio/dio.dart';
 import 'package:gservice5/component/loader/modalLoaderComponent.dart';
 import 'package:gservice5/component/snackBar/snackBarComponent.dart';
+import 'package:gservice5/provider/statusMyAdCountProvider.dart';
+import 'package:provider/provider.dart';
 
 class MyAdRequest {
   Future<bool> archivedAd(int adId, BuildContext context) async {
@@ -12,6 +14,8 @@ class MyAdRequest {
       print(response.data);
       Navigator.pop(context);
       if (response.data['success']) {
+        Provider.of<StatusMyAdCountProvider>(context, listen: false)
+            .plusArichvedCount();
         return true;
       } else {
         SnackBarComponent().showErrorMessage(response.data['message'], context);
@@ -29,6 +33,8 @@ class MyAdRequest {
       Response response = await dio.delete('/ad/$adId');
       Navigator.pop(context);
       if (response.data['success']) {
+        Provider.of<StatusMyAdCountProvider>(context, listen: false)
+            .plusRemovedCount();
         return true;
       } else {
         SnackBarComponent().showErrorMessage(response.data['message'], context);
@@ -46,6 +52,8 @@ class MyAdRequest {
       Response response = await dio.post('/restore-ad/$adId');
       Navigator.pop(context);
       if (response.data['success']) {
+        Provider.of<StatusMyAdCountProvider>(context, listen: false)
+            .minusRemovedCount();
         return true;
       } else {
         SnackBarComponent().showErrorMessage(response.data['message'], context);
@@ -64,6 +72,8 @@ class MyAdRequest {
       print(response.data);
       Navigator.pop(context);
       if (response.data['success']) {
+        Provider.of<StatusMyAdCountProvider>(context, listen: false)
+            .minusArichvedCount();
         return true;
       } else {
         SnackBarComponent().showErrorMessage(response.data['message'], context);
@@ -73,5 +83,21 @@ class MyAdRequest {
       SnackBarComponent().showServerErrorMessage(context);
       return false;
     }
+  }
+
+  Future myAds(Map<String, dynamic> param) async {
+    List data = [];
+    print("PARAM $param");
+    try {
+      Response response = await dio.get("/my-ads", queryParameters: param);
+      // print(response.data);
+      if (response.data['success']) {
+        data = response.data['data'];
+      }
+    } catch (e) {
+    } finally {
+      return data;
+    }
+    // refreshController.refreshCompleted();
   }
 }

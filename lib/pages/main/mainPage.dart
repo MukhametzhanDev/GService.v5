@@ -177,7 +177,7 @@ class _MainPageState extends State<MainPage> {
               // color: ColorComponent.mainColor,
               child: CustomScrollView(
                   controller: widget.scrollController,
-                  physics: ClampingScrollPhysics(),
+                  physics: const ClampingScrollPhysics(),
                   slivers: [
                     SliverAppBar(
                       pinned: !true,

@@ -13,6 +13,11 @@ class CheckBoxWidget extends StatelessWidget {
       height: 24,
       alignment: Alignment.center,
       decoration: BoxDecoration(
+          border: Border.all(
+              width: 1,
+              color: active
+                  ? ColorComponent.blue['500']!
+                  : ColorComponent.gray['300']!),
           color:
               active ? ColorComponent.blue['700'] : ColorComponent.gray['200'],
           borderRadius: BorderRadius.circular(4)),

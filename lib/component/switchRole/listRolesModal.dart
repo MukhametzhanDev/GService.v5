@@ -87,7 +87,7 @@ class _ListRolesModalState extends State<ListRolesModal> {
   @override
   Widget build(BuildContext context) {
     return ClipRRect(
-      borderRadius: BorderRadius.vertical(top: Radius.circular(8)),
+      borderRadius: const BorderRadius.vertical(top: Radius.circular(8)),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
@@ -95,7 +95,7 @@ class _ListRolesModalState extends State<ListRolesModal> {
               title: Text(loader ? "Загрузка данных" : "Роли"),
               automaticallyImplyLeading: false),
           loader
-              ? SizedBox(height: 80, child: LoaderComponent())
+              ? const SizedBox(height: 80, child: LoaderComponent())
               : Column(
                   children: roles.map((value) {
                   return ListTile(

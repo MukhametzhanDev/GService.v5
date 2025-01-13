@@ -64,7 +64,17 @@ class _TestChildCharactesticPageState extends State<TestChildCharactesticPage> {
       child: Scaffold(
         body: SingleChildScrollView(
             padding: const EdgeInsets.all(15),
-            child: CharacteristicWidget(data: data)),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Padding(
+                    padding: const EdgeInsets.only(bottom: 15),
+                    child: Text("Характеристики",
+                        style: const TextStyle(
+                            fontSize: 20, fontWeight: FontWeight.w600))),
+                CharacteristicWidget(data: data),
+              ],
+            )),
         bottomNavigationBar: BottomNavigationBarComponent(
             child: Button(
                 onPressed: () {

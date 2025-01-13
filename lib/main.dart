@@ -32,4 +32,3 @@ void main() async {
 
   runApp(const Index());
 }
-

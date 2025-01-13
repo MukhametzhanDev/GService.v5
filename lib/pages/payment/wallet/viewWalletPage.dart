@@ -52,7 +52,7 @@ class _ViewWalletPageState extends State<ViewWalletPage> {
         "payment_method_id": widget.methodId,
         "with_bonus": bonus
       });
-      await WalletAmountProvider().getData(context);
+      // await WalletAmountProvider().getData(context);
       Navigator.pop(context);
       if (response.data['success'] && response.statusCode == 200) {
         Navigator.pop(context, "success");

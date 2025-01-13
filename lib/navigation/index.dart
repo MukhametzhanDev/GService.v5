@@ -16,9 +16,12 @@ import 'package:gservice5/pages/auth/password/customer/resetCustomerPasswordPage
 import 'package:gservice5/pages/create/ad/sectionCreateAdPage.dart';
 import 'package:gservice5/pages/create/application/createApplication.dart';
 import 'package:gservice5/pages/profile/contacts/addContactsPage.dart';
+import 'package:gservice5/pages/profile/customer/customerProfilePage.dart';
 import 'package:gservice5/pages/profile/news/allNewsPage.dart';
 import 'package:gservice5/pages/profile/wallet/replenishment/replenishmentWalletPage.dart';
 import 'package:gservice5/pages/splash/splashScreen.dart';
+import 'package:gservice5/provider/myAdFilterProvider.dart';
+import 'package:gservice5/provider/statusMyAdCountProvider.dart';
 import 'package:gservice5/provider/walletAmountProvider.dart';
 import 'package:provider/provider.dart';
 
@@ -37,7 +40,9 @@ class _IndexState extends State<Index> {
     return MultiProvider(
         providers: [
           ChangeNotifierProvider(create: (_) => themeChangeProvider),
-          ChangeNotifierProvider.value(value: WalletAmountProvider()),
+          ChangeNotifierProvider(create: (_) => WalletAmountProvider()),
+          ChangeNotifierProvider(create: (_) => StatusMyAdCountProvider()),
+          ChangeNotifierProvider(create: (_) => MyAdFilterProvider()),
         ],
         child: Consumer<DarkThemeProvider>(
             builder: (BuildContext context, value, child) {
@@ -67,7 +72,9 @@ class _IndexState extends State<Index> {
               "AllNewsPage": (context) => const AllNewsPage(),
               "AddContactsPage": (context) => const AddContactsPage(),
               "CompaniesMainPage": (context) => const CompaniesMainPage(),
-              "RegistrationBusinessPage": (context) => const RegistrationBusinessPage(),
+              "RegistrationBusinessPage": (context) =>
+                  const RegistrationBusinessPage(),
+              "CustomerProfilePage": (context) => const CustomerProfilePage(),
             },
             navigatorObservers: [
               FirebaseAnalyticsObserver(analytics: GetIt.I<FirebaseAnalytics>())

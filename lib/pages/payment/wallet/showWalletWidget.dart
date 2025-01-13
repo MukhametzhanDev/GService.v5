@@ -54,113 +54,116 @@ class _ShowWalletWidgetState extends State<ShowWalletWidget> {
 
   @override
   Widget build(BuildContext context) {
-    final walletAmount = Provider.of<WalletAmountProvider>(context);
-    return Container(
-      decoration: const BoxDecoration(
-          border:
-              Border(bottom: BorderSide(width: 1, color: Color(0xffeeeeee)))),
-      padding: const EdgeInsets.all(16),
-      child: Row(
-        children: [
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                widget.showButton
-                    ? const Padding(
-                        padding: EdgeInsets.only(bottom: 6),
-                        child: Text("Баланс",
-                            style: TextStyle(
-                                fontSize: 16, fontWeight: FontWeight.w600)),
-                      )
-                    : Container(),
-                walletAmount.loading
-                    ? Shimmer.fromColors(
-                        baseColor: const Color(0xffD1D5DB),
-                        highlightColor: const Color(0xfff4f5f7),
-                        period: const Duration(seconds: 1),
-                        child: Container(
-                            width: 100,
-                            height: 29,
-                            decoration: BoxDecoration(
-                                color: Colors.white,
-                                borderRadius: BorderRadius.circular(10))),
-                      )
-                    : Text(formattedPrice(walletAmount.data.amount as int),
-                        style: const TextStyle(
-                            fontSize: 20, fontWeight: FontWeight.w600)),
-                const Divider(height: 6),
-                walletAmount.loading
-                    ? Shimmer.fromColors(
-                        baseColor: const Color(0xffD1D5DB),
-                        highlightColor: const Color(0xfff4f5f7),
-                        period: const Duration(seconds: 1),
-                        child: Container(
-                            width: 70,
-                            height: 17,
-                            decoration: BoxDecoration(
-                                color: Colors.white,
-                                borderRadius: BorderRadius.circular(6))),
-                      )
-                    : Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 4),
-                        decoration: BoxDecoration(
-                            color: ColorComponent.mainColor.withOpacity(.2),
-                            borderRadius: BorderRadius.circular(112)),
-                        child: Text(
-                          "${formattedPrice(walletAmount.data.bonus as int)} Б",
+    // final walletAmount = Provider.of<WalletAmountProvider>(context);
+    return Consumer<WalletAmountProvider>(
+        builder: (context, walletAmount, child) {
+      return Container(
+        decoration: const BoxDecoration(
+            border:
+                Border(bottom: BorderSide(width: 1, color: Color(0xffeeeeee)))),
+        padding: const EdgeInsets.all(16),
+        child: Row(
+          children: [
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  widget.showButton
+                      ? const Padding(
+                          padding: EdgeInsets.only(bottom: 6),
+                          child: Text("Баланс",
+                              style: TextStyle(
+                                  fontSize: 16, fontWeight: FontWeight.w600)),
+                        )
+                      : Container(),
+                  walletAmount.loading
+                      ? Shimmer.fromColors(
+                          baseColor: const Color(0xffD1D5DB),
+                          highlightColor: const Color(0xfff4f5f7),
+                          period: const Duration(seconds: 1),
+                          child: Container(
+                              width: 100,
+                              height: 29,
+                              decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(10))),
+                        )
+                      : Text(formattedPrice(walletAmount.data.amount as int),
                           style: const TextStyle(
-                              fontSize: 12, fontWeight: FontWeight.w600),
+                              fontSize: 20, fontWeight: FontWeight.w600)),
+                  const Divider(height: 6),
+                  walletAmount.loading
+                      ? Shimmer.fromColors(
+                          baseColor: const Color(0xffD1D5DB),
+                          highlightColor: const Color(0xfff4f5f7),
+                          period: const Duration(seconds: 1),
+                          child: Container(
+                              width: 70,
+                              height: 17,
+                              decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(6))),
+                        )
+                      : Container(
+                          padding: const EdgeInsets.symmetric(horizontal: 4),
+                          decoration: BoxDecoration(
+                              color: ColorComponent.mainColor.withOpacity(.2),
+                              borderRadius: BorderRadius.circular(112)),
+                          child: Text(
+                            "${formattedPrice(walletAmount.data.bonus as int)} Б",
+                            style: const TextStyle(
+                                fontSize: 12, fontWeight: FontWeight.w600),
+                          ),
                         ),
-                      ),
-                widget.showButton
-                    ? Container(
-                        margin: const EdgeInsets.only(top: 12),
-                        height: 42,
-                        child: Row(
-                          children: [
-                            Expanded(
-                                child: Button(
-                                    onPressed: showPage,
-                                    title: "Пополнить баланс")),
-                            const Divider(indent: 8),
-                            GestureDetector(
-                              onTap: showTransactionHistoryPage,
-                              child: Container(
-                                padding:
-                                    const EdgeInsets.symmetric(horizontal: 8),
-                                child: Row(
-                                  children: [
-                                    Text("История",
-                                        style: TextStyle(
-                                          color: ColorComponent.gray['500'],
-                                          fontWeight: FontWeight.w500,
-                                        )),
-                                    const Divider(indent: 8),
-                                    SvgPicture.asset(
-                                        'assets/icons/arrowRight.svg')
-                                  ],
+                  widget.showButton
+                      ? Container(
+                          margin: const EdgeInsets.only(top: 12),
+                          height: 42,
+                          child: Row(
+                            children: [
+                              Expanded(
+                                  child: Button(
+                                      onPressed: showPage,
+                                      title: "Пополнить баланс")),
+                              const Divider(indent: 8),
+                              GestureDetector(
+                                onTap: showTransactionHistoryPage,
+                                child: Container(
+                                  padding:
+                                      const EdgeInsets.symmetric(horizontal: 8),
+                                  child: Row(
+                                    children: [
+                                      Text("История",
+                                          style: TextStyle(
+                                            color: ColorComponent.gray['500'],
+                                            fontWeight: FontWeight.w500,
+                                          )),
+                                      const Divider(indent: 8),
+                                      SvgPicture.asset(
+                                          'assets/icons/arrowRight.svg')
+                                    ],
+                                  ),
                                 ),
-                              ),
-                            )
-                          ],
-                        ))
-                    : Container(),
-              ],
+                              )
+                            ],
+                          ))
+                      : Container(),
+                ],
+              ),
             ),
-          ),
-          widget.showButton
-              ? Container()
-              : CircleAvatar(
-                  backgroundColor: ColorComponent.mainColor,
-                  radius: 25,
-                  child: IconButton(
-                      onPressed: showPage,
-                      color: ColorComponent.mainColor,
-                      icon: SvgPicture.asset("assets/icons/plusOutline.svg")),
-                )
-        ],
-      ),
-    );
+            widget.showButton
+                ? Container()
+                : CircleAvatar(
+                    backgroundColor: ColorComponent.mainColor,
+                    radius: 25,
+                    child: IconButton(
+                        onPressed: showPage,
+                        color: ColorComponent.mainColor,
+                        icon: SvgPicture.asset("assets/icons/plusOutline.svg")),
+                  )
+          ],
+        ),
+      );
+    });
   }
 }

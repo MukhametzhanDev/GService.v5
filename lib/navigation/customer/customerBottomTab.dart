@@ -5,6 +5,7 @@ import 'package:badges/badges.dart' as badges;
 import 'package:get_it/get_it.dart';
 import 'package:gservice5/analytics/event_name.constan.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
+import 'package:gservice5/component/widgets/badge/badgeWidget.dart';
 import 'package:gservice5/pages/create/ad/sectionCreateAdPage.dart';
 import 'package:gservice5/pages/favorite/favoriteMainPage.dart';
 import 'package:gservice5/pages/main/mainPage.dart';
@@ -104,28 +105,10 @@ class _CustomerBottomTabState extends State<CustomerBottomTab>
           items: _tabs.map((value) {
             int index = _tabs.indexOf(value);
             return BottomNavigationBarItem(
-                icon: badges.Badge(
-                    badgeAnimation: const badges.BadgeAnimation.fade(),
+                icon: BadgeWidget(
                     position: badges.BadgePosition.topEnd(top: -8, end: -6),
-                    badgeStyle: const badges.BadgeStyle(
-                      badgeColor: Colors.transparent,
-                      padding: EdgeInsets.all(6),
-                    ),
                     showBadge: index == 3,
-                    badgeContent: Container(
-                      height: 18,
-                      width: 18,
-                      alignment: Alignment.center,
-                      decoration: BoxDecoration(
-                          color: ColorComponent.red['500'],
-                          borderRadius: BorderRadius.circular(20)),
-                      child: const Text("99",
-                          style: TextStyle(
-                              fontSize: 10,
-                              fontWeight: FontWeight.w500,
-                              color: Colors.white)),
-                    ),
-                    child: Wrap(
+                    body: Wrap(
                         alignment: WrapAlignment.center,
                         crossAxisAlignment: WrapCrossAlignment.center,
                         direction: Axis.vertical,

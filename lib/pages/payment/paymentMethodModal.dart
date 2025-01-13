@@ -7,18 +7,25 @@ import 'package:gservice5/analytics/event_name.constan.dart';
 import 'package:gservice5/component/button/back/closeIconButton.dart';
 import 'package:gservice5/component/dio/dio.dart';
 import 'package:gservice5/component/loader/loaderComponent.dart';
+import 'package:gservice5/component/loader/modalLoaderComponent.dart';
 import 'package:gservice5/component/snackBar/snackBarComponent.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
 import 'package:gservice5/pages/payment/viewPaymentPage.dart';
 import 'package:gservice5/pages/payment/wallet/viewWalletPage.dart';
+import 'package:gservice5/provider/walletAmountProvider.dart';
+import 'package:provider/provider.dart';
 
 class PaymentMethodModal extends StatefulWidget {
   final String orderId;
+  final String typePurchase;
   final Map data;
   final int totalPrice;
   const PaymentMethodModal(
       {super.key,
+     
       required this.orderId,
+      required this.typePurchase,
+     
       required this.data,
       required this.totalPrice});
 
@@ -42,7 +49,7 @@ class _PaymentMethodModalState extends State<PaymentMethodModal> {
     try {
       Response response = await dio.get("/payment-methods");
       if (response.data['success'] && response.statusCode == 200) {
-        data = response.data['data'];
+        data = await formattedMethods(response.data['data']);
         loader = false;
         setState(() {});
 
@@ -62,6 +69,12 @@ class _PaymentMethodModalState extends State<PaymentMethodModal> {
     }
   }
 
+  Future<List> formattedMethods(List value) async {
+    value.removeWhere(
+        (value) => widget.typePurchase == "wallet" && value['is_wallet']);
+    return value;
+  }
+
   void showPaymentPage(Map value) {
     if (value['is_wallet']) {
       Navigator.push(
@@ -71,8 +84,8 @@ class _PaymentMethodModalState extends State<PaymentMethodModal> {
                   title: value['title'],
                   orderId: widget.orderId,
                   methodId: value['id'],
-                  data: widget.data))).then((value) {
-        if (value == "success") Navigator.pop(context, widget.data);
+                  data: widget.data))).then((value) async {
+        if (value == "success") await updateWallet();
 
         analytics.logSelectItem(
             itemListName: GAParams.listPaymentMethodId,
@@ -112,6 +125,14 @@ class _PaymentMethodModalState extends State<PaymentMethodModal> {
     }
   }
 
+  Future updateWallet() async {
+    showModalLoader(context);
+    Provider.of<WalletAmountProvider>(context, listen: false).getData(context);
+    print("UPDATE");
+    Navigator.pop(context);
+    Navigator.pop(context, widget.data);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -119,7 +140,7 @@ class _PaymentMethodModalState extends State<PaymentMethodModal> {
       children: [
         Container(
           child: loader
-              ? const SizedBox(height: 300, child: LoaderComponent())
+              ? const SizedBox(height: 200, child: LoaderComponent())
               : ClipRRect(
                   borderRadius:
                       const BorderRadius.vertical(top: Radius.circular(10)),
@@ -134,6 +155,10 @@ class _PaymentMethodModalState extends State<PaymentMethodModal> {
                     Column(
                         mainAxisSize: MainAxisSize.min,
                         children: data.map((value) {
+                          // if (widget.typePurchase == "wallet" &&
+                          //     value['is_wallet']) {
+                          //   return Container();
+                          // }
                           return Container(
                             decoration: BoxDecoration(
                                 border: Border(
