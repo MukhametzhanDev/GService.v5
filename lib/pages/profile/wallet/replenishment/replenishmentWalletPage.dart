@@ -34,11 +34,6 @@ class _ReplenishmentWalletPageState extends State<ReplenishmentWalletPage> {
   TextEditingController priceController = TextEditingController();
   Map data = {};
 
-  @override
-  void initState() {
-    super.initState();
-  }
-
   final analytics = GetIt.I<FirebaseAnalytics>();
 
   @override
@@ -75,6 +70,7 @@ class _ReplenishmentWalletPageState extends State<ReplenishmentWalletPage> {
         showModalBottomSheet(
             context: context,
             builder: (context) => PaymentMethodModal(
+                totalPrice: 0,
                 orderId: response.data['data'],
                 typePurchase: "wallet",
                 data: const {"type": "wallet"})).then((value) async {
