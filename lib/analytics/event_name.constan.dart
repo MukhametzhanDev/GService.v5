@@ -29,6 +29,7 @@ class GAParams {
   static const String priceCreateAdPage = 'PriceCreateAdPage';
   static const String getImageCreateAdPage = 'GetImageCreateAdPage';
   static const String createAdContactsPage = 'CreateAdContactsPage';
+  static const String ViewWalletPage = 'viewWalletPage';
 
   //SCREEN
 
@@ -76,6 +77,10 @@ class GAParams {
   static const String btnSubmitWithoutAds = 'btn_submit_without_ads';
 
   //BUTTON
+
+  //SWITCH_BUTTON
+  static const String btnSwitchBonus = 'btn_switch_bonus';
+  //SWITCH_BUTTON
 
   //CHECKBOX
   static const String chkNegotiable = 'chk_negotiable';

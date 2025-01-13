@@ -3,6 +3,7 @@ import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_switch/flutter_switch.dart';
 import 'package:get_it/get_it.dart';
+import 'package:gservice5/analytics/event_name.constan.dart';
 import 'package:gservice5/component/button/back/backTitleButton.dart';
 import 'package:gservice5/component/button/button.dart';
 import 'package:gservice5/component/dio/dio.dart';
@@ -56,6 +57,12 @@ class _ViewWalletPageState extends State<ViewWalletPage> {
       Navigator.pop(context);
       if (response.data['success'] && response.statusCode == 200) {
         Navigator.pop(context, "success");
+
+        await analytics.logEvent(name: GAEventName.tolem, parameters: {
+          'price': totalPrice.toString(),
+          'status': "success",
+          'type': "package",
+        });
       } else {
         Navigator.pop(context);
         SnackBarComponent().showResponseErrorMessage(response, context);
@@ -122,7 +129,10 @@ class _ViewWalletPageState extends State<ViewWalletPage> {
                             style: TextStyle(
                                 fontSize: 14, fontWeight: FontWeight.w600)),
                       ),
-                      const ShowWalletWidget(showButton: false),
+                      const ShowWalletWidget(
+                        showButton: false,
+                        fromPage: GAParams.ViewWalletPage,
+                      ),
                       Container(
                         color: ColorComponent.gray['100'],
                         width: double.infinity,
@@ -228,6 +238,12 @@ class _ViewWalletPageState extends State<ViewWalletPage> {
                                     const Color.fromRGBO(120, 120, 128, 0.33),
                                 onToggle: (value) {
                                   setState(() => bonus = !bonus);
+                                  analytics.logEvent(
+                                      name: GAEventName.buttonClick,
+                                      parameters: {
+                                        GAKey.buttonName:
+                                            GAParams.btnSwitchBonus
+                                      }).catchError((e) => debugPrint(e));
                                   // changedColorStatusBar(themeChange.darkTheme);
                                 },
                               ),

@@ -13,7 +13,8 @@ import 'package:shimmer/shimmer.dart';
 
 class ShowWalletWidget extends StatefulWidget {
   final bool showButton;
-  const ShowWalletWidget({super.key, required this.showButton});
+  final String? fromPage;
+  const ShowWalletWidget({super.key, required this.showButton, this.fromPage});
 
   @override
   State<ShowWalletWidget> createState() => _ShowWalletWidgetState();
@@ -33,7 +34,8 @@ class _ShowWalletWidgetState extends State<ShowWalletWidget> {
   void showPage() {
     Navigator.pushNamed(context, "ReplenishmentWalletPage");
     analytics.logEvent(name: GAEventName.buttonClick, parameters: {
-      GAKey.buttonName: GAParams.btnProfileToUpBalance
+      GAKey.buttonName: GAParams.btnProfileToUpBalance,
+      GAKey.screenName: widget.fromPage ?? ''
     }).catchError((onError) => debugPrint(onError));
   }
 
