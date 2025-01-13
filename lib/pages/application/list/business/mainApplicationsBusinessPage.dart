@@ -4,6 +4,7 @@ import 'package:gservice5/component/switchRole/switchRoleWidget.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
 import 'package:gservice5/component/widgets/badge/badgeWidget.dart';
 import 'package:badges/badges.dart' as badges;
+import 'package:gservice5/pages/application/list/customer/applicationListWidget.dart';
 
 class MainApplicationsBusinessPage extends StatefulWidget {
   final ScrollController scrollController;
@@ -104,7 +105,8 @@ class _MainApplicationsBusinessPageState
             const Column(
               children: [SwitchRoleWidget()],
             ),
-            Container()
+            ApplicationListWidget(
+                param: {}, scrollController: ScrollController())
           ])),
     );
   }

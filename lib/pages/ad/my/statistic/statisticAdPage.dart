@@ -62,8 +62,10 @@ class _StatisticAdPageState extends State<StatisticAdPage> {
           body: Column(
             children: [
               Container(
-                margin: const EdgeInsets.only(top: 15, left: 15, right: 15),
-                padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
+                margin: const EdgeInsets.only(
+                    top: 15, left: 15, right: 15, bottom: 7.5),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
                 decoration: BoxDecoration(
                     color: ColorComponent.gray['100'],
                     borderRadius: BorderRadius.circular(8)),
@@ -79,7 +81,7 @@ class _StatisticAdPageState extends State<StatisticAdPage> {
                         child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text( 
+                        Text(
                           widget.data['title'],
                           // data['title'],
                           style: const TextStyle(
@@ -102,7 +104,6 @@ class _StatisticAdPageState extends State<StatisticAdPage> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        // const Divider(height: 20),
                         RichText(
                             textAlign: TextAlign.start,
                             text: TextSpan(

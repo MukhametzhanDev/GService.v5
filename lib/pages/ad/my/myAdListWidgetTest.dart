@@ -12,17 +12,19 @@ import 'package:gservice5/pages/ad/my/request/myAdRequest.dart';
 import 'package:gservice5/pages/ad/my/viewMyAdPage.dart';
 import 'package:gservice5/pages/ad/package/listPackagePage.dart';
 import 'package:gservice5/pages/application/my/viewMyApplicationPage.dart';
+import 'package:gservice5/provider/myAdFilterProvider.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
+import 'package:provider/provider.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
-class MyAdListWidget extends StatefulWidget {
-  const MyAdListWidget({super.key});
+class MyAdListWidgetTest extends StatefulWidget {
+  const MyAdListWidgetTest({super.key});
 
   @override
-  State<MyAdListWidget> createState() => _MyAdListWidgetState();
+  State<MyAdListWidgetTest> createState() => _MyAdListWidgetTestState();
 }
 
-class _MyAdListWidgetState extends State<MyAdListWidget>
+class _MyAdListWidgetTestState extends State<MyAdListWidgetTest>
     with AutomaticKeepAliveClientMixin {
   int tabIndex = 1;
   List data = [];
@@ -36,11 +38,17 @@ class _MyAdListWidgetState extends State<MyAdListWidget>
 
   @override
   void initState() {
-    getData();
-    checkFilteredAd();
+    Provider.of<MyAdFilterProvider>(context, listen: false).getData();
     super.initState();
-    scrollController.addListener(() => loadMoreAd());
   }
+
+  // @override
+  // void initState() {
+  //   getData();
+  //   checkFilteredAd();
+  //   super.initState();
+  //   scrollController.addListener(() => loadMoreAd());
+  // }
 
   void checkFilteredAd() {
     UpdateAds.valueStream.listen((value) {
@@ -157,27 +165,44 @@ class _MyAdListWidgetState extends State<MyAdListWidget>
   @override
   Widget build(BuildContext context) {
     super.build(context);
-    return loader
-        ? const LoaderComponent()
-        : data.isEmpty
-            ? const MyAdEmptyPage()
-            : ListView.builder(
-                padding: EdgeInsets.only(
-                    bottom: MediaQuery.of(context).padding.bottom),
-                controller: scrollController,
-                itemCount: data.length,
-                itemBuilder: (context, index) {
-                  Map<String, dynamic> item = data[index];
-                  return MyAdItem(
-                      data: item,
-                      onPressed: showPage,
-                      role: "business",
-                      showOptions: showOptions,
-                      showListPromotionPage: showListPromotionPage);
-                },
-                // )
-              );
+    return Consumer<MyAdFilterProvider>(builder: (context, data, child) {
+      print("LOADING ${data.loading}");
+      if (data.loading) {
+        return LoaderComponent();
+      } else {
+        return ListView.builder(
+            padding:
+                EdgeInsets.only(bottom: MediaQuery.of(context).padding.bottom),
+            controller: scrollController,
+            itemCount: data.ads.length,
+            itemBuilder: (context, index) {
+              Map<String, dynamic> item = data.ads[index];
+              return MyAdItem(
+                  data: item,
+                  onPressed: showPage,
+                  role: "business",
+                  showOptions: showOptions,
+                  showListPromotionPage: showListPromotionPage);
+            });
+      }
+    });
   }
+  // ListView.builder(
+  //               padding: EdgeInsets.only(
+  //                   bottom: MediaQuery.of(context).padding.bottom),
+  //               controller: scrollController,
+  //               itemCount: data.length,
+  //               itemBuilder: (context, index) {
+  //                 Map<String, dynamic> item = data[index];
+  //                 return MyAdItem(
+  //                     data: item,
+  //                     onPressed: showPage,
+  //                     role: "business",
+  //                     showOptions: showOptions,
+  //                     showListPromotionPage: showListPromotionPage);
+  //               },
+  //               // )
+  //             );
 
   void showPage(int id) {
     Navigator.push(context,

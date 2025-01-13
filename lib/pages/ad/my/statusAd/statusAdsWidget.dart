@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
 import 'package:gservice5/pages/ad/my/business/updateAds.dart';
+import 'package:gservice5/provider/myAdFilterProvider.dart';
 import 'package:gservice5/provider/statusMyAdCountProvider.dart';
 import 'package:provider/provider.dart';
 
@@ -20,7 +21,6 @@ class _StatusAdsWidgetState extends State<StatusAdsWidget> {
   ];
   int currentIndex = 0;
 
-
   @override
   void initState() {
     getCount();
@@ -33,7 +33,11 @@ class _StatusAdsWidgetState extends State<StatusAdsWidget> {
   }
 
   void changeType(Map value, index) {
-    UpdateAds.value = {...UpdateAds.value, "status": value['type']};
+    print(value);
+    Provider.of<MyAdFilterProvider>(context, listen: false).addFilter = {
+      "status": value['type']
+    };
+    // UpdateAds.addValue = {"status": value['type']};
     currentIndex = index;
     setState(() {});
   }

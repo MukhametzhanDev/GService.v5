@@ -9,6 +9,7 @@ import 'package:gservice5/component/widgets/badge/badgeWidget.dart';
 import 'package:badges/badges.dart' as badges;
 import 'package:gservice5/pages/ad/my/business/fixedAdBusinessFilterAppBar.dart';
 import 'package:gservice5/pages/ad/my/business/updateAds.dart';
+import 'package:gservice5/pages/ad/my/myAdListWidgetTest.dart';
 import 'package:gservice5/pages/ad/my/statusAd/statusAdsWidget.dart';
 import 'package:gservice5/pages/ad/my/myAdListWidget.dart';
 
@@ -31,6 +32,7 @@ class _BusinessMainPageState extends State<BusinessMainPage>
   @override
   void initState() {
     getCategories();
+    addFilterValue();
     super.initState();
   }
 
@@ -59,14 +61,18 @@ class _BusinessMainPageState extends State<BusinessMainPage>
 
   void updateFilterValue() {
     currentCategory = tabController.index;
-    Map<String, dynamic> param =
-        categories[currentCategory]?['filter'] ?? {"status": "pending"};
-    UpdateAds.value = param;
+    // Map value = categories[currentCategory];
+    // Map<String, dynamic> param = {"status": "pending", "package": false};
+    // if (value.containsKey("filter")) {
+    //   param = categories[currentCategory]['filter'];
+    // }
+    // UpdateAds.addValue = param;
   }
 
   List verifyTabs(List values) {
     List data = values.where((value) => value['count'] != 0).toList();
-    print(data);
+    List filters = [];
+    data.forEach((value) {});
     return data;
   }
 
@@ -150,8 +156,8 @@ class _BusinessMainPageState extends State<BusinessMainPage>
                         children: [
                           const Divider(height: 10),
                           StatusAdsWidget(data: value),
-                          const FixedAdBusinessFilterAppBar(),
-                          const Expanded(child: MyAdListWidget()),
+                          FixedAdBusinessFilterAppBar(),
+                          const Expanded(child: MyAdListWidgetTest()),
                         ],
                       );
                     }).toList()),

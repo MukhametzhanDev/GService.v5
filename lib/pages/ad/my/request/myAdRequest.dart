@@ -84,4 +84,20 @@ class MyAdRequest {
       return false;
     }
   }
+
+  Future myAds(Map<String, dynamic> param) async {
+    List data = [];
+    print("PARAM $param");
+    try {
+      Response response = await dio.get("/my-ads", queryParameters: param);
+      // print(response.data);
+      if (response.data['success']) {
+        data = response.data['data'];
+      }
+    } catch (e) {
+    } finally {
+      return data;
+    }
+    // refreshController.refreshCompleted();
+  }
 }
