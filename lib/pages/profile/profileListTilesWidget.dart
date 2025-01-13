@@ -4,6 +4,7 @@ import 'package:gservice5/component/alert/logOutAlert.dart';
 import 'package:gservice5/component/functions/token/changedToken.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
 import 'package:gservice5/navigation/customer/customerBottomTab.dart';
+import 'package:gservice5/pages/ad/my/myAdListPage.dart';
 import 'package:gservice5/pages/application/my/myApplicationListPage.dart';
 import 'package:gservice5/pages/auth/registration/business/changedActivityBusinessPage.dart';
 import 'package:gservice5/pages/profile/aboutCompany/aboutCompanyPage.dart';
@@ -39,7 +40,8 @@ class _ProfileListTilesWidgetState extends State<ProfileListTilesWidget> {
   }
 
   void showMyAdPage() {
-    Navigator.pushNamed(context, "MyAdListPage");
+    Navigator.push(context,
+        MaterialPageRoute(builder: (context) => const MyAdListPage()));
   }
 
   void showContactsPage() {

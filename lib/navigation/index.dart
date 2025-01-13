@@ -18,6 +18,7 @@ import 'package:gservice5/pages/profile/customer/customerProfilePage.dart';
 import 'package:gservice5/pages/profile/news/allNewsPage.dart';
 import 'package:gservice5/pages/profile/wallet/replenishment/replenishmentWalletPage.dart';
 import 'package:gservice5/pages/splash/splashScreen.dart';
+import 'package:gservice5/provider/statusMyAdCountProvider.dart';
 import 'package:gservice5/provider/walletAmountProvider.dart';
 import 'package:provider/provider.dart';
 
@@ -37,6 +38,7 @@ class _IndexState extends State<Index> {
         providers: [
           ChangeNotifierProvider(create: (_) => themeChangeProvider),
           ChangeNotifierProvider(create: (_) => WalletAmountProvider()),
+          ChangeNotifierProvider(create: (_) => StatusMyAdCountProvider()),
         ],
         child: Consumer<DarkThemeProvider>(
             builder: (BuildContext context, value, child) {
@@ -66,7 +68,8 @@ class _IndexState extends State<Index> {
               "AllNewsPage": (context) => const AllNewsPage(),
               "AddContactsPage": (context) => const AddContactsPage(),
               "CompaniesMainPage": (context) => const CompaniesMainPage(),
-              "RegistrationBusinessPage": (context) => const RegistrationBusinessPage(),
+              "RegistrationBusinessPage": (context) =>
+                  const RegistrationBusinessPage(),
               "CustomerProfilePage": (context) => const CustomerProfilePage(),
             },
           );

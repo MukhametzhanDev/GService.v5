@@ -6,7 +6,6 @@ import 'package:gservice5/component/statistic/analyticAdItemWidget.dart';
 import 'package:gservice5/component/stickers/showStickersList.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
 import 'package:gservice5/component/widgets/price/priceTextWidget.dart';
-import 'package:gservice5/pages/ad/my/statistic/statisticAdPage.dart';
 import 'package:gservice5/pages/ad/package/showPackageIcons.dart';
 import 'package:intl/intl.dart';
 
@@ -147,26 +146,6 @@ class MyAdItem extends StatelessWidget {
               ],
             ),
             const SizedBox(height: 10),
-            // Row(
-            //   children: [
-            //     Container(
-            //       padding: EdgeInsets.symmetric(horizontal: 8, vertical: 2),
-            //       decoration: BoxDecoration(
-            //           borderRadius: BorderRadius.circular(6),
-            //           color: ColorComponent.blue['500']),
-            //       child: Text("PREMIUM",
-            //           style: TextStyle(
-            //               color: Colors.white,
-            //               fontWeight: FontWeight.w600,
-            //               fontSize: 12)),
-            //     ),
-            //     Divider(indent: 12),
-            //     Text("Активен с 12 Октября",
-            //         style: TextStyle(
-            //             color: ColorComponent.gray['500'], fontSize: 13))
-            //   ],
-            // ),
-            // const SizedBox(height: 16),
             getExpires(),
             Padding(
               padding:
@@ -224,7 +203,7 @@ class MyAdItem extends StatelessWidget {
                               )),
                         ),
                       ]),
-            const Divider(height: 14),
+            const Divider(height: 18),
             const AnalyticAdItemWidget(data: {
               "viewed": 1380,
               "called": 0,
@@ -232,56 +211,6 @@ class MyAdItem extends StatelessWidget {
               "shared": 0,
               "wrote": 0
             }),
-            // const SizedBox(height: 14),
-            // Divider(height: 1, color: ColorComponent.gray['200']),
-            // const SizedBox(height: 12),
-            // Row(
-            //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            //   children: [
-            //     Row(
-            //       children: [
-            //         SvgPicture.asset('assets/icons/pinOutline.svg'),
-            //         const SizedBox(width: 4),
-            //         Text(data['city']['title'],
-            //             style: TextStyle(
-            //                 color: ColorComponent.gray['500'],
-            //                 fontSize: 12,
-            //                 fontWeight: FontWeight.w500)),
-            //       ],
-            //     ),
-            //     Text(formattedDate(data['created_at'], "dd MMMM HH:mm"),
-            //         // data['city']['title'],
-            //         style: TextStyle(
-            //             color: ColorComponent.gray['500'],
-            //             fontSize: 12,
-            //             fontWeight: FontWeight.w500)),
-            //     Row(
-            //       children: [
-            //         SvgPicture.asset('assets/icons/eye.svg'),
-            //         const SizedBox(width: 4),
-            //         Text(data['statistics']['viewed'].toString(),
-            //             // data['city']['title'],
-            //             style: TextStyle(
-            //                 color: ColorComponent.gray['500'],
-            //                 fontSize: 12,
-            //                 fontWeight: FontWeight.w500)),
-            //       ],
-            //     ),
-            //     Row(
-            //       children: [
-            //         SvgPicture.asset('assets/icons/phoneOutline.svg',
-            //             width: 16, color: ColorComponent.gray['500']),
-            //         const SizedBox(width: 4),
-            //         Text(data['statistics']['called'].toString(),
-            //             // data['city']['title'],
-            //             style: TextStyle(
-            //                 color: ColorComponent.gray['500'],
-            //                 fontSize: 12,
-            //                 fontWeight: FontWeight.w500)),
-            //       ],
-            //     ),
-            //   ],
-            // )
           ])),
     );
   }

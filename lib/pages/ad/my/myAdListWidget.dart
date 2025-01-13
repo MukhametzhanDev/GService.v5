@@ -1,10 +1,10 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:gservice5/component/dio/dio.dart';
-import 'package:gservice5/component/functions/token/changedToken.dart';
 import 'package:gservice5/component/loader/loaderComponent.dart';
 import 'package:gservice5/component/snackBar/snackBarComponent.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
+import 'package:gservice5/pages/ad/my/business/updateAds.dart';
 import 'package:gservice5/pages/ad/my/myAdEmptyPage.dart';
 import 'package:gservice5/pages/ad/my/myAdItem.dart';
 import 'package:gservice5/pages/ad/my/optionsMyAdModal.dart';
@@ -27,18 +27,26 @@ class _MyAdListWidgetState extends State<MyAdListWidget>
   int tabIndex = 1;
   List data = [];
   bool loader = true;
-  String currentStatusAd = "pending";
   ScrollController scrollController = ScrollController();
   bool hasNextPage = false;
   bool isLoadMore = false;
   int page = 1;
   RefreshController refreshController = RefreshController();
+  Map<String, dynamic> param = UpdateAds.value;
 
   @override
   void initState() {
     getData();
+    checkFilteredAd();
     super.initState();
     scrollController.addListener(() => loadMoreAd());
+  }
+
+  void checkFilteredAd() {
+    UpdateAds.valueStream.listen((value) {
+      param = value.cast<String, dynamic>();
+      getData();
+    });
   }
 
   @override
@@ -48,12 +56,18 @@ class _MyAdListWidgetState extends State<MyAdListWidget>
     refreshController.dispose();
   }
 
+  void showLoader() {
+    if (!loader) {
+      loader = true;
+      setState(() {});
+    }
+  }
+
   Future getData() async {
     try {
       page = 1;
-      setState(() {});
-      Response response = await dio
-          .get("/my-ads", queryParameters: {"status": currentStatusAd});
+      showLoader();
+      Response response = await dio.get("/my-ads", queryParameters: param);
       if (response.data['success']) {
         data = response.data['data'];
         hasNextPage = page != response.data['meta']['last_page'];
@@ -76,10 +90,7 @@ class _MyAdListWidgetState extends State<MyAdListWidget>
         isLoadMore = true;
         page += 1;
         setState(() {});
-        Map<String, dynamic> parameter = {
-          "page": page,
-          "status": currentStatusAd
-        };
+        Map<String, dynamic> parameter = {"page": page, ...param};
         Response response =
             await dio.get("/my-ads", queryParameters: parameter);
         if (response.data['success']) {

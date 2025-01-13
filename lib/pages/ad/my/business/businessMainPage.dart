@@ -8,8 +8,8 @@ import 'package:gservice5/component/theme/colorComponent.dart';
 import 'package:gservice5/component/widgets/badge/badgeWidget.dart';
 import 'package:badges/badges.dart' as badges;
 import 'package:gservice5/pages/ad/my/business/fixedAdBusinessFilterAppBar.dart';
-import 'package:gservice5/pages/ad/my/business/myAdListBusiness.dart';
-import 'package:gservice5/pages/ad/my/myAdListPage.dart';
+import 'package:gservice5/pages/ad/my/business/updateAds.dart';
+import 'package:gservice5/pages/ad/my/statusAd/statusAdsWidget.dart';
 import 'package:gservice5/pages/ad/my/myAdListWidget.dart';
 
 class BusinessMainPage extends StatefulWidget {
@@ -20,9 +20,13 @@ class BusinessMainPage extends StatefulWidget {
   State<BusinessMainPage> createState() => _BusinessMainPageState();
 }
 
-class _BusinessMainPageState extends State<BusinessMainPage> {
+class _BusinessMainPageState extends State<BusinessMainPage>
+    with SingleTickerProviderStateMixin {
   List categories = [];
+  int currentCategory = 0;
   bool loader = true;
+  late TabController tabController;
+  late UpdateAds updateAds;
 
   @override
   void initState() {
@@ -35,6 +39,8 @@ class _BusinessMainPageState extends State<BusinessMainPage> {
       Response response = await dio.get("/my-ads-category-count");
       if (response.data['success']) {
         categories = verifyTabs(response.data['data']);
+        tabController = TabController(length: categories.length, vsync: this);
+        tabController.addListener(() => updateFilterValue());
         loader = false;
         setState(() {});
       } else {
@@ -43,6 +49,19 @@ class _BusinessMainPageState extends State<BusinessMainPage> {
     } catch (e) {
       SnackBarComponent().showNotGoBackServerErrorMessage(context);
     }
+  }
+
+  void addFilterValue() {
+    UpdateAds.valueStream.listen((value) {
+      categories[currentCategory]['filter'] = value;
+    });
+  }
+
+  void updateFilterValue() {
+    currentCategory = tabController.index;
+    Map<String, dynamic> param =
+        categories[currentCategory]?['filter'] ?? {"status": "pending"};
+    UpdateAds.value = param;
   }
 
   List verifyTabs(List values) {
@@ -67,7 +86,9 @@ class _BusinessMainPageState extends State<BusinessMainPage> {
                               badges.BadgePosition.topEnd(top: -4, end: -8),
                           showBadge: true,
                           body: IconButton(
-                              onPressed: () {},
+                              onPressed: () {
+                                print(categories);
+                              },
                               icon: SvgPicture.asset("assets/icons/message.svg",
                                   color: Colors.black))),
                       const Divider(indent: 15)
@@ -82,6 +103,7 @@ class _BusinessMainPageState extends State<BusinessMainPage> {
                                       width: 2,
                                       color: ColorComponent.gray['100']!))),
                           child: TabBar(
+                              controller: tabController,
                               indicatorWeight: 2,
                               indicatorSize: TabBarIndicatorSize.label,
                               isScrollable: true,
@@ -122,14 +144,17 @@ class _BusinessMainPageState extends State<BusinessMainPage> {
                               }).toList()),
                         ))),
                 body: TabBarView(
+                    controller: tabController,
                     children: categories.map((value) {
-                  return const Column(
-                    children: [
-                      FixedAdBusinessFilterAppBar(),
-                      Expanded(child: MyAdListWidget()),
-                    ],
-                  );
-                }).toList()),
+                      return Column(
+                        children: [
+                          const Divider(height: 10),
+                          StatusAdsWidget(data: value),
+                          const FixedAdBusinessFilterAppBar(),
+                          const Expanded(child: MyAdListWidget()),
+                        ],
+                      );
+                    }).toList()),
               ));
   }
 }
