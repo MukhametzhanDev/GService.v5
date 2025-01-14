@@ -28,6 +28,8 @@ class _SmallAdItemState extends State<SmallAdItem> {
   @override
   Widget build(BuildContext context) {
     double itemWidth = MediaQuery.of(context).size.width / 2;
+    List promotions = widget.data['ad_promotions'];
+    print(promotions);
     return GestureDetector(
       onTap: () => showPage(),
       onLongPress: () => onLongPressShowNumber(widget.data, context),
@@ -67,28 +69,40 @@ class _SmallAdItemState extends State<SmallAdItem> {
                   //             fontWeight: FontWeight.w500)),
                   //   ),
                   // ),
-                  Positioned(
-                      bottom: 0,
-                      child: Container(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 6, vertical: 4),
-                        decoration: const BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.only(
-                                topRight: Radius.circular(8))),
-                        child: Row(
-                          children: [
-                            SvgPicture.asset('assets/icons/fire.svg',
-                                width: 16),
-                            const Divider(indent: 2),
-                            SvgPicture.asset('assets/icons/star.svg',
-                                width: 16, color: ColorComponent.mainColor),
-                            const Divider(indent: 2),
-                            SvgPicture.asset('assets/icons/badgeCheck.svg',
-                                width: 16),
-                          ],
-                        ),
-                      ))
+                  promotions.isEmpty
+                      ? Container()
+                      : Positioned(
+                          bottom: 0,
+                          child: Container(
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 3, vertical: 4),
+                              decoration: const BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.only(
+                                      topRight: Radius.circular(8))),
+                              child: Row(
+                                  children: promotions.map((value) {
+                                if (value['icon'] == null) return Container();
+                                return Padding(
+                                  padding:
+                                      const EdgeInsets.symmetric(horizontal: 3),
+                                  child: SvgPicture.network(value['icon'] ?? "",
+                                      width: 13),
+                                );
+                              }).toList())
+                              // Row(
+                              //   children: [
+                              //     SvgPicture.asset('assets/icons/fire.svg',
+                              //         width: 16),
+                              //     const Divider(indent: 2),
+                              //     SvgPicture.asset('assets/icons/star.svg',
+                              //         width: 16, color: ColorComponent.mainColor),
+                              //     const Divider(indent: 2),
+                              //     SvgPicture.asset('assets/icons/badgeCheck.svg',
+                              //         width: 16),
+                              //   ],
+                              // ),
+                              ))
                 ],
               ),
             ),
@@ -115,7 +129,7 @@ class _SmallAdItemState extends State<SmallAdItem> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                          Text("Алматы",
+                          Text(widget.data['city']['title'],
                               style: TextStyle(
                                   fontSize: 12,
                                   color: ColorComponent.gray['500'])),
@@ -128,7 +142,9 @@ class _SmallAdItemState extends State<SmallAdItem> {
                                 color: ColorComponent.gray["400"],
                               ),
                               const Divider(indent: 4),
-                              Text(numberFormat(120),
+                              Text(
+                                  numberFormat(
+                                      widget.data['statistics']['viewed']),
                                   style: TextStyle(
                                       fontSize: 12,
                                       color: ColorComponent.gray["500"])),

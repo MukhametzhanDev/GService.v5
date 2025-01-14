@@ -203,7 +203,9 @@ class _ViewAdPageState extends State<ViewAdPage> {
                             title: "О владельце объявления",
                             data: data['author'],
                             showOtherAd: true,
-                            adId: data['id']),
+                            id: data['id'],
+                            subTitle: "Другие объявления продавца",
+                            type: "ad"),
                         const Divider(height: 6),
                         const Divider(height: 1, color: Color(0xfff4f5f7)),
                         const Divider(height: 14),
@@ -256,12 +258,11 @@ class _ViewAdPageState extends State<ViewAdPage> {
                           ),
                         ),
                         const Divider(height: 14),
-                        const Divider(height: 1, color: Color(0xfff4f5f7)),
-                        const Divider(indent: 16),
-                        RecommendationAdList(id: data['id']),
                       ],
                     ),
                   ),
+                  RecommendationAdList(id: data['id']),
+                 
                 ]),
           bottomNavigationBar: loader
               ? null

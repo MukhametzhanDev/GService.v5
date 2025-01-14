@@ -243,7 +243,7 @@ class _ViewNewsPageState extends State<ViewNewsPage> {
                       title: "Автор",
                       data: data['author'],
                       showOtherAd: false,
-                      adId: data['id']),
+                      id: data['id']),
                   Divider(height: MediaQuery.of(context).padding.bottom + 15),
                 ],
               ),

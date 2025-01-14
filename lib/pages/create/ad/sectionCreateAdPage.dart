@@ -145,8 +145,8 @@ class _SectionCreateAdPageState extends State<SectionCreateAdPage> {
                               const Divider(indent: 12),
                               Expanded(
                                 child: Text(value['title'],
-                                    style:
-                                        const TextStyle(fontWeight: FontWeight.w500)),
+                                    style: const TextStyle(
+                                        fontWeight: FontWeight.w500)),
                               ),
                               const Divider(indent: 12),
                               SvgPicture.network(value['icon'], width: 24)

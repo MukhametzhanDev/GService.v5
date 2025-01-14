@@ -8,7 +8,7 @@ class GetCategories {
     try {
       Response response = await dio.get("/ad-categories");
       if (response.data['success']) {
-        CategoriesData.categories.addAll(response.data['data']);
+        CategoriesData.categories = response.data['data'];
         return response.data['data'];
       } else {
         SnackBarComponent().showResponseErrorMessage(response, context);
