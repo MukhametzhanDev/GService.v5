@@ -55,14 +55,14 @@ class _SmallApplicationItemState extends State<SmallApplicationItem> {
             Row(
               children: [
                 Expanded(
-                  child: Text(widget.data['title'],
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                      style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.w400,
-                          color: ColorComponent.blue['700'])),
-                ),
+                    child: Text(widget.data['title'],
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w400,
+                            color: ColorComponent.blue['700']))),
+                const Divider(indent: 15),
                 widget.position == "main"
                     ? Container()
                     : FavoriteButton(

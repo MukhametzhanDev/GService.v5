@@ -30,7 +30,7 @@ class _SortAdsModalState extends State<SortAdsModal> {
         mainAxisSize: MainAxisSize.min,
         children: [
           AppBar(
-            leading: CloseTitleButton(title: "Сортировка"),
+            leading: const CloseTitleButton(title: "Сортировка"),
             leadingWidth: 200,
             actions: [
               IconButton(
@@ -41,7 +41,7 @@ class _SortAdsModalState extends State<SortAdsModal> {
                         fontWeight: FontWeight.w500,
                         color: ColorComponent.blue['500']),
                   )),
-              Divider(indent: 10)
+              const Divider(indent: 10)
             ],
           ),
           Column(
@@ -49,7 +49,7 @@ class _SortAdsModalState extends State<SortAdsModal> {
             return ListTile(
                 onTap: () {},
                 title: Text(value['title']),
-                trailing: CheckBoxWidget(active: false));
+                trailing: const CheckBoxWidget(active: false));
           }).toList()),
           SizedBox(height: MediaQuery.of(context).padding.bottom),
         ],

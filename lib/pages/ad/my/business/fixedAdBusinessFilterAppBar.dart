@@ -33,7 +33,7 @@ class _FixedAdBusinessFilterAppBarState
 
   void showSortModal() {
     showModalBottomSheet(
-        context: context, builder: (context) => SortAdsModal());
+        context: context, builder: (context) => const SortAdsModal());
   }
 
   void showFilterModal() {

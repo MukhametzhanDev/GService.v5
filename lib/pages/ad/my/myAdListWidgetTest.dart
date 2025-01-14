@@ -4,6 +4,7 @@ import 'package:gservice5/component/dio/dio.dart';
 import 'package:gservice5/component/loader/loaderComponent.dart';
 import 'package:gservice5/component/snackBar/snackBarComponent.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
+import 'package:gservice5/pages/ad/list/emptyAdListPage.dart';
 import 'package:gservice5/pages/ad/my/business/updateAds.dart';
 import 'package:gservice5/pages/ad/my/myAdEmptyPage.dart';
 import 'package:gservice5/pages/ad/my/myAdItem.dart';
@@ -166,9 +167,10 @@ class _MyAdListWidgetTestState extends State<MyAdListWidgetTest>
   Widget build(BuildContext context) {
     super.build(context);
     return Consumer<MyAdFilterProvider>(builder: (context, data, child) {
-      print("LOADING ${data.loading}");
       if (data.loading) {
-        return LoaderComponent();
+        return const LoaderComponent();
+      } else if (data.ads.isEmpty) {
+        return const MyAdEmptyPage();
       } else {
         return ListView.builder(
             padding:

@@ -87,17 +87,36 @@ class MyAdRequest {
 
   Future myAds(Map<String, dynamic> param) async {
     List data = [];
-    print("PARAM $param");
+    print("UPDATE");
     try {
       Response response = await dio.get("/my-ads", queryParameters: param);
       // print(response.data);
       if (response.data['success']) {
         data = response.data['data'];
       }
-    } catch (e) {
     } finally {
       return data;
     }
     // refreshController.refreshCompleted();
+  }
+
+  Future<Map> getCount(int categoryId) async {
+    Map data = {
+      "pending": 0,
+      "confirmed": 0,
+      "canceled": 0,
+      "archived": 0,
+      "deleted": 0
+    };
+    Map<String, dynamic> param = {"category_id": categoryId};
+    try {
+      Response response =
+          await dio.get("/my-ads-status-count", queryParameters: param);
+      if (response.data['success']) {
+        data = response.data['data'];
+      }
+    } finally {
+      return data;
+    }
   }
 }

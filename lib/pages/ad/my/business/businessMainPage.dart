@@ -12,6 +12,9 @@ import 'package:gservice5/pages/ad/my/business/updateAds.dart';
 import 'package:gservice5/pages/ad/my/myAdListWidgetTest.dart';
 import 'package:gservice5/pages/ad/my/statusAd/statusAdsWidget.dart';
 import 'package:gservice5/pages/ad/my/myAdListWidget.dart';
+import 'package:gservice5/provider/myAdFilterProvider.dart';
+import 'package:gservice5/provider/statusMyAdCountProvider.dart';
+import 'package:provider/provider.dart';
 
 class BusinessMainPage extends StatefulWidget {
   final ScrollController scrollController;
@@ -60,7 +63,16 @@ class _BusinessMainPageState extends State<BusinessMainPage>
   }
 
   void updateFilterValue() {
-    currentCategory = tabController.index;
+    if (categories.isNotEmpty) {
+      if (!tabController.indexIsChanging) {
+        currentCategory = tabController.index;
+        Provider.of<MyAdFilterProvider>(context, listen: false).changedIndex =
+            currentCategory;
+        Provider.of<StatusMyAdCountProvider>(context, listen: false)
+            .getData(categories[currentCategory]['id']);
+      }
+    }
+
     // Map value = categories[currentCategory];
     // Map<String, dynamic> param = {"status": "pending", "package": false};
     // if (value.containsKey("filter")) {
@@ -71,8 +83,8 @@ class _BusinessMainPageState extends State<BusinessMainPage>
 
   List verifyTabs(List values) {
     List data = values.where((value) => value['count'] != 0).toList();
-    List filters = [];
-    data.forEach((value) {});
+    Provider.of<MyAdFilterProvider>(context, listen: false)
+        .addDefaultDataFilter(data);
     return data;
   }
 
@@ -93,7 +105,9 @@ class _BusinessMainPageState extends State<BusinessMainPage>
                           showBadge: true,
                           body: IconButton(
                               onPressed: () {
-                                print(categories);
+                                Provider.of<MyAdFilterProvider>(context,
+                                        listen: false)
+                                    .testFun = 1;
                               },
                               icon: SvgPicture.asset("assets/icons/message.svg",
                                   color: Colors.black))),
@@ -156,7 +170,7 @@ class _BusinessMainPageState extends State<BusinessMainPage>
                         children: [
                           const Divider(height: 10),
                           StatusAdsWidget(data: value),
-                          FixedAdBusinessFilterAppBar(),
+                          const FixedAdBusinessFilterAppBar(),
                           const Expanded(child: MyAdListWidgetTest()),
                         ],
                       );

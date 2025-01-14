@@ -226,7 +226,11 @@ class _ViewApplicationPageState extends State<ViewApplicationPage> {
                             ],
                           ),
                         ),
-                        AuthorAdWidget(title: "Заказчик", data: data['author'],showOtherAd: true),
+                        AuthorAdWidget(
+                            title: "Заказчик",
+                            data: data['author'],
+                            showOtherAd: true,
+                            adId: data['id']),
                         const Divider(height: 1, color: Color(0xfff4f5f7)),
                         const Divider(height: 12),
                         const RecommendationApplicationList(),
@@ -236,7 +240,8 @@ class _ViewApplicationPageState extends State<ViewApplicationPage> {
                 ]),
           bottomNavigationBar: data.isEmpty
               ? null
-              : ContactBottomBarWidget(hasAd: false, id: data['id'], phones: const [])),
+              : ContactBottomBarWidget(
+                  hasAd: false, id: data['id'], phones: const [])),
     );
   }
 }

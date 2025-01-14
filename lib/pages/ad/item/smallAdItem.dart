@@ -4,23 +4,33 @@ import 'package:gservice5/component/formatted/number/numberFormatted.dart';
 import 'package:gservice5/component/image/cacheImage.dart';
 import 'package:gservice5/component/modal/contact/shortContactModal.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
+import 'package:gservice5/component/widgets/price/priceTextWidget.dart';
+import 'package:gservice5/pages/ad/viewAdPage.dart';
 
 class SmallAdItem extends StatefulWidget {
-  final int index;
+  final Map data;
   final bool showFullInfo;
   const SmallAdItem(
-      {super.key, required this.index, required this.showFullInfo});
+      {super.key, required this.data, required this.showFullInfo});
 
   @override
   State<SmallAdItem> createState() => _SmallAdItemState();
 }
 
 class _SmallAdItemState extends State<SmallAdItem> {
+  void showPage() {
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => ViewAdPage(id: widget.data['id'])));
+  }
+
   @override
   Widget build(BuildContext context) {
     double itemWidth = MediaQuery.of(context).size.width / 2;
     return GestureDetector(
-      onLongPress: () => onLongPressShowNumber({}, context),
+      onTap: () => showPage(),
+      onLongPress: () => onLongPressShowNumber(widget.data, context),
       child: Container(
         width: itemWidth - 24,
         height: itemWidth - 2,
@@ -34,8 +44,7 @@ class _SmallAdItemState extends State<SmallAdItem> {
               child: Stack(
                 children: [
                   CacheImage(
-                      url:
-                          "https://images.unsplash.com/photo-1583024011792-b165975b52f5?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MjZ8fGV4Y2F2YXRvcnxlbnwwfHwwfHx8MA%3D%3D",
+                      url: widget.data['images'][0],
                       width: itemWidth - 24,
                       height: itemWidth / 1.7,
                       borderRadius: 10),
@@ -84,46 +93,15 @@ class _SmallAdItemState extends State<SmallAdItem> {
               ),
             ),
             const Divider(height: 8),
-            Text(widget.index == 1 ? "SDLG 3CX" : "Экскаватор погрузчик ",
+            Text(widget.data['title'],
                 style: TextStyle(
                     fontSize: 15,
                     fontWeight: FontWeight.w500,
-                    color: ColorComponent.blue['700'])),
+                    color: ColorComponent.blue['700']),
+                overflow: TextOverflow.ellipsis,
+                maxLines: 1),
             const Divider(height: 2),
-            widget.index == 1
-                ? const Text("Договорная",
-                    // "${priceFormat(15000000)} ₸",
-                    style: TextStyle(fontWeight: FontWeight.w600, fontSize: 12))
-                : Row(crossAxisAlignment: CrossAxisAlignment.center, children: [
-                    RichText(
-                        text: const TextSpan(
-                            style: TextStyle(
-                                fontWeight: FontWeight.w600,
-                                color: Colors.black),
-                            children: [
-                          TextSpan(
-                              text: "3 000 ", style: TextStyle(fontSize: 12)),
-                          TextSpan(
-                              text: "₸/час",
-                              style: TextStyle(
-                                  fontWeight: FontWeight.w400, fontSize: 11)),
-                        ])),
-                    Text(" | ",
-                        style: TextStyle(color: ColorComponent.gray['400'])),
-                    RichText(
-                        text: const TextSpan(
-                            style: TextStyle(
-                                fontWeight: FontWeight.w500,
-                                color: Colors.black),
-                            children: [
-                          TextSpan(
-                              text: "25 000 ", style: TextStyle(fontSize: 12)),
-                          TextSpan(
-                              text: "₸/смена",
-                              style: TextStyle(
-                                  fontWeight: FontWeight.w400, fontSize: 11)),
-                        ])),
-                  ]),
+            PriceTextWidget(prices: widget.data['prices'], fontSize: 14),
             // Text("${priceFormat(15000000)} ₸",
             //     style: TextStyle(
             //         fontSize: 13,

@@ -119,10 +119,10 @@ class _TestCharactesticPageState extends State<TestCharactesticPage> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Padding(
-                        padding: const EdgeInsets.only(bottom: 15),
+                    const Padding(
+                        padding: EdgeInsets.only(bottom: 15),
                         child: Text("Общие данные",
-                            style: const TextStyle(
+                            style: TextStyle(
                                 fontSize: 20, fontWeight: FontWeight.w600))),
                     CharacteristicWidget(data: data),
                   ],

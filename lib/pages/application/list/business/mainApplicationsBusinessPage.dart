@@ -106,7 +106,7 @@ class _MainApplicationsBusinessPageState
               children: [SwitchRoleWidget()],
             ),
             ApplicationListWidget(
-                param: {}, scrollController: ScrollController())
+                param: const {}, scrollController: ScrollController())
           ])),
     );
   }
