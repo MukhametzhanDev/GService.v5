@@ -1,6 +1,9 @@
 import 'package:dio/dio.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get_it/get_it.dart';
+import 'package:gservice5/analytics/event_name.constan.dart';
 import 'package:gservice5/component/button/back/closeTitleButton.dart';
 import 'package:gservice5/component/button/button.dart';
 import 'package:gservice5/component/dio/dio.dart';
@@ -25,6 +28,8 @@ class _SectionCreateApplicationPageState
   List data = [];
   bool loader = true;
 
+  final analytics = GetIt.I<FirebaseAnalytics>();
+
   @override
   void initState() {
     getData();
@@ -44,6 +49,15 @@ class _SectionCreateApplicationPageState
         data = response.data['data'];
         loader = false;
         setState(() {});
+
+        await analytics.logViewItemList(
+            items: data
+                .map((toElement) => AnalyticsEventItem(
+                    itemId: toElement['id']?.toString(),
+                    itemName: toElement['title']))
+                .toList(),
+            itemListId: GAParams.listApplicationTaskId,
+            itemListName: GAParams.listApplicationTaskName);
       } else {
         SnackBarComponent().showResponseErrorMessage(response, context);
       }
@@ -55,6 +69,18 @@ class _SectionCreateApplicationPageState
   void changedCurrentSection(index) {
     currentIndex = index;
     setState(() {});
+
+    print('${data[index]}');
+
+    analytics.logSelectItem(
+        items: [
+          AnalyticsEventItem(
+              itemId: data[index]?['id']?.toString(),
+              itemName: data[index]?['title'])
+        ],
+        itemListName: GAParams.listApplicationTaskName,
+        itemListId:
+            GAParams.listApplicationTaskId).catchError((e) => debugPrint(e));
   }
 
   void showPage() {
@@ -66,6 +92,10 @@ class _SectionCreateApplicationPageState
         MaterialPageRoute(
             builder: (context) =>
                 CreateApplication2(data: data[currentIndex])));
+
+    analytics.logEvent(name: GAEventName.buttonClick, parameters: {
+      GAKey.buttonName: GAParams.btnApplcationContinue
+    }).catchError((onError) => debugPrint(onError));
   }
 
   @override

@@ -77,6 +77,12 @@ class _ApplicationListMainState extends State<ApplicationListMain> {
                         Navigator.pushNamed(context, "MyApplicationListPage");
                       }
                     });
+
+                    analytics.logEvent(
+                        name: GAEventName.buttonClick,
+                        parameters: {
+                          GAKey.buttonName: GAParams.btnMainOrderApplication
+                        }).catchError((e) => debugPrint(e));
                   },
                   child: Container(
                     padding:

@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:gservice5/analytics/event_name.constan.dart';
 import 'package:gservice5/component/button/back/backTitleButton.dart';
 import 'package:gservice5/component/button/shareButton.dart';
 import 'package:gservice5/component/date/formattedDate.dart';
@@ -72,7 +73,11 @@ class _ViewNewsPageState extends State<ViewNewsPage> {
           leading: BackTitleButton(
               title: "Новость", onPressed: () => Navigator.pop(context)),
           actions: const [
-            ShareButton(id: 0, hasAd: false),
+            ShareButton(
+              id: 0,
+              hasAd: false,
+              frompage: GAParams.viewNewsPage,
+            ),
             Divider(indent: 16)
           ]),
       body: loader

@@ -1,6 +1,9 @@
 import 'package:currency_text_input_formatter/currency_text_input_formatter.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get_it/get_it.dart';
+import 'package:gservice5/analytics/event_name.constan.dart';
 import 'package:gservice5/component/button/button.dart';
 import 'package:gservice5/component/functions/number/getIntNumber.dart';
 import 'package:gservice5/component/message/explanatoryMessage.dart';
@@ -32,6 +35,8 @@ class _PriceCreateApplicationPageState
   PageControllerIndexedStack pageControllerIndexedStack =
       PageControllerIndexedStack();
 
+  final analytics = GetIt.I<FirebaseAnalytics>();
+
   void verifyData() {
     String fromPrice = priceEditingController.text.trim();
     if (!negotiablePrice) {
@@ -43,6 +48,11 @@ class _PriceCreateApplicationPageState
     } else {
       showPage();
     }
+
+    analytics.logEvent(name: GAEventName.buttonClick, parameters: {
+      GAKey.buttonName: GAParams.btnApplicationPriceContinue,
+      GAKey.screenName: GAParams.priceCreateApplicationPage
+    }).catchError((e) => debugPrint(e));
   }
 
   @override
@@ -101,6 +111,10 @@ class _PriceCreateApplicationPageState
             onTap: () {
               negotiablePrice = !negotiablePrice;
               setState(() {});
+              analytics.logEvent(name: GAEventName.buttonClick, parameters: {
+                GAKey.buttonName: GAParams.btnApplicationNegotiablePrice,
+                GAKey.screenName: GAParams.priceCreateApplicationPage
+              }).catchError((onError) => debugPrint(onError));
             },
             contentPadding: EdgeInsets.zero,
             leading: Container(

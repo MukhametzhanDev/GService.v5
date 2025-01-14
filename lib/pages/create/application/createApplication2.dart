@@ -1,4 +1,8 @@
+import 'package:firebase_analytics/firebase_analytics.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
+import 'package:gservice5/analytics/event_name.constan.dart';
 import 'package:gservice5/component/alert/closeCreateAdAlert.dart';
 import 'package:gservice5/component/button/back/backTitleButton.dart';
 import 'package:gservice5/component/textField/closeKeyboard/closeKeyboard.dart';
@@ -39,6 +43,8 @@ class _CreateApplication2State extends State<CreateApplication2> {
       PageControllerIndexedStack();
 
   int? twoStepsBack;
+
+  final analytics = GetIt.I<FirebaseAnalytics>();
 
   @override
   void initState() {
@@ -113,6 +119,8 @@ class _CreateApplication2State extends State<CreateApplication2> {
     int index = pageControllerIndexedStack.getIndex();
     closeKeyboard();
     pages.add(GetSelectPage(
+        listIndex: index.toString(),
+        gaListId: GAParams.listApplicationSelectId,
         value: data[index],
         nextPage: formattedPages,
         previousPage: previousPage,
@@ -170,6 +178,13 @@ class _CreateApplication2State extends State<CreateApplication2> {
                                 context: context,
                                 builder: (context) =>
                                     const CloseCreateAdAlert());
+
+                            analytics.logEvent(
+                                name: GAEventName.buttonClick,
+                                parameters: {
+                                  GAKey.buttonName:
+                                      GAParams.txtbtnCloseApplication
+                                }).catchError((onError) => debugPrint(onError));
                           },
                           icon: Text("Закрыть  ",
                               style: TextStyle(

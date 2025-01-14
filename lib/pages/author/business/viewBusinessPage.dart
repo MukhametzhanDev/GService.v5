@@ -142,7 +142,8 @@ class _ViewBusinessPageState extends State<ViewBusinessPage>
                   ),
           ),
           actions: const [
-            ShareButton(id: 0, hasAd: false),
+            ShareButton(
+                id: 0, hasAd: false, frompage: GAParams.viewBusinessPage),
             Divider(indent: 15)
           ],
         ),

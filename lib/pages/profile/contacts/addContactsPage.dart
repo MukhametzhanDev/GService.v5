@@ -1,6 +1,9 @@
 import 'package:dio/dio.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get_it/get_it.dart';
+import 'package:gservice5/analytics/event_name.constan.dart';
 import 'package:gservice5/component/button/back/backIconButton.dart';
 import 'package:gservice5/component/button/button.dart';
 import 'package:gservice5/component/dio/dio.dart';
@@ -26,6 +29,8 @@ class _AddContactsPageState extends State<AddContactsPage> {
   List phoneNumber = [];
   bool loader = true;
   List<TextEditingController> controllers = [];
+
+  final analytics = GetIt.I<FirebaseAnalytics>();
 
   @override
   void initState() {
@@ -114,6 +119,11 @@ class _AddContactsPageState extends State<AddContactsPage> {
       }
     }
     postData();
+
+    analytics.logEvent(name: GAEventName.buttonClick, parameters: {
+      GAKey.screenName: GAParams.addContactsPage,
+      GAKey.buttonName: GAParams.btnMyContactSave
+    }).catchError((onError) => debugPrint(onError));
   }
 
   List<Map<String, String>> formattedPhoneParams() {
@@ -157,7 +167,8 @@ class _AddContactsPageState extends State<AddContactsPage> {
         body: loader
             ? const LoaderComponent()
             : SingleChildScrollView(
-                padding: const EdgeInsets.symmetric(horizontal: 15,vertical: 7),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 15, vertical: 7),
                 child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -297,6 +308,15 @@ class _AddContactsPageState extends State<AddContactsPage> {
                               onPressed: () {
                                 addNewPhoneData();
                                 setState(() {});
+                                analytics.logEvent(
+                                    name: GAEventName.buttonClick,
+                                    parameters: {
+                                      GAKey.screenName:
+                                          GAParams.addContactsPage,
+                                      GAKey.buttonName:
+                                          GAParams.txtbtnMyContact,
+                                    }).catchError(
+                                    (onError) => debugPrint(onError));
                               },
                               style: TextButton.styleFrom(
                                   backgroundColor: Colors.white),

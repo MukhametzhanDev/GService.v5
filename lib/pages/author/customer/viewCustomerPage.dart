@@ -99,7 +99,11 @@ class _ViewCustomerPageState extends State<ViewCustomerPage>
                       maxLines: 1),
                 ),
           actions: const [
-            ShareButton(id: 0, hasAd: false),
+            ShareButton(
+              id: 0,
+              hasAd: false,
+              frompage: GAParams.viewCustomerPage,
+            ),
             Divider(indent: 15)
           ],
         ),

@@ -1,6 +1,8 @@
 import 'package:dio/dio.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get_it/get_it.dart';
 import 'package:gservice5/analytics/event_name.constan.dart';
 import 'package:gservice5/component/appBar/fadeOnScroll.dart';
 import 'package:gservice5/component/button/back/backIconButton.dart';
@@ -37,6 +39,8 @@ class _ViewMyAdPageState extends State<ViewMyAdPage> {
   Map<String, dynamic> data = {};
   bool loader = true;
 
+  final analytics = GetIt.I<FirebaseAnalytics>();
+
   @override
   void initState() {
     super.initState();
@@ -57,6 +61,14 @@ class _ViewMyAdPageState extends State<ViewMyAdPage> {
         data = response.data['data'];
         loader = false;
         setState(() {});
+
+        analytics.logViewItem(items: [
+          AnalyticsEventItem(
+              itemListId: GAParams.listMyAdListId,
+              itemListName: GAParams.listMyAdListName,
+              itemId: widget.id.toString(),
+              itemName: data['title'])
+        ]).catchError((onError) => debugPrint(onError));
       } else {
         SnackBarComponent().showErrorMessage(response.data['message'], context);
       }
@@ -117,7 +129,11 @@ class _ViewMyAdPageState extends State<ViewMyAdPage> {
                   centerTitle: false,
                   actions: [
                     // FavoriteButton(iconColor: ColorTheme['black_white']),
-                    ShareButton(id: widget.id, hasAd: true),
+                    ShareButton(
+                      id: widget.id,
+                      hasAd: true,
+                      frompage: GAParams.viewMyAdPage,
+                    ),
                     const Divider(indent: 15)
                   ],
                   title: FadeOnScroll(

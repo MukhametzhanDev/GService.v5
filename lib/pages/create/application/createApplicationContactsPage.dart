@@ -1,5 +1,8 @@
 import 'package:dio/dio.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
+import 'package:gservice5/analytics/event_name.constan.dart';
 import 'package:gservice5/component/button/button.dart';
 import 'package:gservice5/component/dio/dio.dart';
 import 'package:gservice5/component/functions/number/getIntNumber.dart';
@@ -29,6 +32,8 @@ class _CreateApplicationContactsPageState
       mask: '+7 (###) ###-##-##',
       filter: {"#": RegExp(r'[0-9]')},
       type: MaskAutoCompletionType.lazy);
+
+  final analytics = GetIt.I<FirebaseAnalytics>();
 
   @override
   void initState() {
@@ -88,6 +93,11 @@ class _CreateApplicationContactsPageState
       });
       postData();
     }
+
+    analytics.logEvent(name: GAEventName.buttonClick, parameters: {
+      GAKey.buttonName: GAParams.btnApplicationSubmitOrder,
+      GAKey.screenName: GAParams.createApplicationContactsPage
+    }).catchError((onError) => debugPrint(onError));
   }
 
   @override

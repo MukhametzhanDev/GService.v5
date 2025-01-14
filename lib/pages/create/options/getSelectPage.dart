@@ -24,6 +24,7 @@ class GetSelectPage extends StatefulWidget {
   final void Function() previousPage;
   final String? title;
   final String? listIndex;
+  final String? gaListId;
   // final void Function() hasNextRemovedPage;
   const GetSelectPage(
       {super.key,
@@ -34,7 +35,8 @@ class GetSelectPage extends StatefulWidget {
       // required this.hasNextRemovedPage,
       required this.pageController,
       this.title,
-      this.listIndex});
+      this.listIndex,
+      this.gaListId});
 
   @override
   State<GetSelectPage> createState() => _GetSelectPageState();
@@ -77,7 +79,7 @@ class _GetSelectPageState extends State<GetSelectPage> {
         setState(() {});
 
         await analytics.logViewItemList(
-            itemListId: "${GAParams.adSelectListId}_${widget.listIndex}",
+            itemListId: "${widget.gaListId}_${widget.listIndex}",
             itemListName: '${widget.title}',
             items: data
                 .map((e) => AnalyticsEventItem(
@@ -117,7 +119,7 @@ class _GetSelectPageState extends State<GetSelectPage> {
 
           await analytics.logViewItemList(
               parameters: {'isPagination': 'true'},
-              itemListId: "${GAParams.adSelectListId}_${widget.listIndex}",
+              itemListId: "${widget.gaListId}_${widget.listIndex}",
               itemListName: '${widget.title}',
               items: data
                   .map((e) => AnalyticsEventItem(

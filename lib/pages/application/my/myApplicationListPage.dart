@@ -1,5 +1,8 @@
 import 'package:dio/dio.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
+import 'package:gservice5/analytics/event_name.constan.dart';
 import 'package:gservice5/component/button/back/backIconButton.dart';
 import 'package:gservice5/component/dio/dio.dart';
 import 'package:gservice5/component/functions/token/changedToken.dart';
@@ -34,6 +37,8 @@ class _MyApplicationListPageState extends State<MyApplicationListPage> {
   bool isLoadMore = false;
   int page = 1;
   RefreshController refreshController = RefreshController();
+
+  final analytics = GetIt.I<FirebaseAnalytics>();
 
   @override
   void initState() {
@@ -86,6 +91,16 @@ class _MyApplicationListPageState extends State<MyApplicationListPage> {
         hasNextPage = page != response.data['meta']['last_page'];
         loader = false;
         setState(() {});
+
+        analytics.logViewItemList(
+            parameters: {GAKey.isPagination: 'false'},
+            itemListId: GAParams.listMyApplicationId,
+            itemListName: GAParams.listMyApplicationName,
+            items: data
+                .map((toElement) => AnalyticsEventItem(
+                    itemId: toElement['id']?.toString(),
+                    itemName: toElement['title']))
+                .toList()).catchError((e) => debugPrint(e));
       } else {
         SnackBarComponent().showErrorMessage(response.data['message'], context);
       }
@@ -116,6 +131,16 @@ class _MyApplicationListPageState extends State<MyApplicationListPage> {
           hasNextPage = page != response.data['meta']['last_page'];
           isLoadMore = false;
           setState(() {});
+
+          analytics.logViewItemList(
+              parameters: {GAKey.isPagination: 'true'},
+              itemListId: GAParams.listMyApplicationId,
+              itemListName: GAParams.listMyApplicationName,
+              items: data
+                  .map((toElement) => AnalyticsEventItem(
+                      itemId: toElement['id']?.toString(),
+                      itemName: toElement['title']))
+                  .toList()).catchError((e) => debugPrint(e));
         } else {
           SnackBarComponent()
               .showErrorMessage(response.data['message'], context);
@@ -135,6 +160,13 @@ class _MyApplicationListPageState extends State<MyApplicationListPage> {
         updateData(id);
       }
     });
+
+    analytics.logSelectContent(
+        contentType: GAContentType.myApplication,
+        itemId: id.toString(),
+        parameters: {
+          GAKey.screenName: GAParams.myApplicationListPage
+        }).catchError((e) => debugPrint(e));
   }
 
   void updateData(int id) {

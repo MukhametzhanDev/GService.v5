@@ -131,7 +131,7 @@ class _ViewWalletPageState extends State<ViewWalletPage> {
                       ),
                       const ShowWalletWidget(
                         showButton: false,
-                        fromPage: GAParams.ViewWalletPage,
+                        fromPage: GAParams.viewWalletPage,
                       ),
                       Container(
                         color: ColorComponent.gray['100'],

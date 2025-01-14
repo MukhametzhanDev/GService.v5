@@ -76,7 +76,11 @@ class _ViewApplicationPageState extends State<ViewApplicationPage> {
                     centerTitle: false,
                     actions: [
                       // FavoriteButtonComponent(iconColor: ColorTheme['black_white']),
-                      ShareButton(id: widget.id, hasAd: true),
+                      ShareButton(
+                        id: widget.id,
+                        hasAd: true,
+                        frompage: GAParams.viewApplicationPage,
+                      ),
                       const Divider(indent: 10),
                       FavoriteButton(
                         id: widget.id,

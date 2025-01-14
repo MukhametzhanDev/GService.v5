@@ -1,5 +1,8 @@
 import 'package:dio/dio.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
+import 'package:gservice5/analytics/event_name.constan.dart';
 import 'package:gservice5/component/dio/dio.dart';
 import 'package:gservice5/component/loader/loaderComponent.dart';
 import 'package:gservice5/component/snackBar/snackBarComponent.dart';
@@ -33,6 +36,8 @@ class _MyAdListWidgetState extends State<MyAdListWidget>
   int page = 1;
   // RefreshController refreshController = RefreshController();
   Map<String, dynamic> param = UpdateAds.value;
+
+  final analytics = GetIt.I<FirebaseAnalytics>();
 
   @override
   void initState() {
@@ -76,6 +81,12 @@ class _MyAdListWidgetState extends State<MyAdListWidget>
           hasNextPage = page != response.data['meta']['last_page'];
           loader = false;
           setState(() {});
+
+          await analytics.logViewItemList(
+              parameters: {GAKey.isPagination: 'false'},
+              itemListId: GAParams.listMyAdListId,
+              itemListName: GAParams.listMyAdListName,
+              items: data.map((toElement) => AnalyticsEventItem()).toList());
         } else {
           SnackBarComponent()
               .showErrorMessage(response.data['message'], context);
@@ -103,6 +114,12 @@ class _MyAdListWidgetState extends State<MyAdListWidget>
           hasNextPage = page != response.data['meta']['last_page'];
           isLoadMore = false;
           setState(() {});
+
+          await analytics.logViewItemList(
+              parameters: {GAKey.isPagination: 'true'},
+              itemListId: GAParams.listMyAdListId,
+              itemListName: GAParams.listMyAdListName,
+              items: data.map((toElement) => AnalyticsEventItem()).toList());
         } else {
           SnackBarComponent()
               .showErrorMessage(response.data['message'], context);
@@ -187,6 +204,11 @@ class _MyAdListWidgetState extends State<MyAdListWidget>
         updateData(id);
       }
     });
+
+    analytics.logSelectContent(
+        parameters: {GAKey.screenName: GAParams.myAdListPage},
+        contentType: GAContentType.myAd,
+        itemId: id.toString()).catchError((e) => debugPrint(e));
   }
 
   void showListPromotionPage(Map value) {

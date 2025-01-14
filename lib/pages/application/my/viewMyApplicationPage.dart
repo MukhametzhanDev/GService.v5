@@ -1,6 +1,9 @@
 import 'package:dio/dio.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get_it/get_it.dart';
+import 'package:gservice5/analytics/event_name.constan.dart';
 import 'package:gservice5/component/appBar/fadeOnScroll.dart';
 import 'package:gservice5/component/button/back/backIconButton.dart';
 import 'package:gservice5/component/button/button.dart';
@@ -30,6 +33,8 @@ class _ViewMyApplicationPageState extends State<ViewMyApplicationPage> {
   bool loader = true;
   List images = [];
 
+  final analytics = GetIt.I<FirebaseAnalytics>();
+
   @override
   void initState() {
     getData();
@@ -44,6 +49,13 @@ class _ViewMyApplicationPageState extends State<ViewMyApplicationPage> {
         data = response.data['data'];
         loader = false;
         setState(() {});
+
+        analytics.logViewItem(items: [
+          AnalyticsEventItem(
+              itemListId: GAParams.listMyApplicationId,
+              itemId: widget.id.toString(),
+              itemName: data['title'])
+        ]).catchError((onError) => debugPrint(onError));
       } else {
         SnackBarComponent().showResponseErrorMessage(response, context);
       }
@@ -65,6 +77,11 @@ class _ViewMyApplicationPageState extends State<ViewMyApplicationPage> {
     } catch (e) {
       SnackBarComponent().showServerErrorMessage(context);
     }
+
+    analytics.logEvent(name: GAEventName.buttonClick, parameters: {
+      GAKey.buttonName: GAParams.btnMyApplicationOrderCancel,
+      GAKey.screenName: GAParams.viewMyApplicationPage
+    }).catchError((onError) => debugPrint(onError));
   }
 
   @override
@@ -85,7 +102,11 @@ class _ViewMyApplicationPageState extends State<ViewMyApplicationPage> {
                   centerTitle: false,
                   actions: [
                     // FavoriteButtonComponent(iconColor: ColorTheme['black_white']),
-                    ShareButton(id: widget.id, hasAd: true),
+                    ShareButton(
+                      id: widget.id,
+                      hasAd: true,
+                      frompage: GAParams.viewMyApplicationPage,
+                    ),
                     const Divider(indent: 15)
                   ],
                   title: FadeOnScroll(

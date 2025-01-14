@@ -1,5 +1,8 @@
 import 'package:dio/dio.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
+import 'package:gservice5/analytics/event_name.constan.dart';
 import 'package:gservice5/component/button/button.dart';
 import 'package:gservice5/component/dio/dio.dart';
 import 'package:gservice5/component/loader/modalLoaderComponent.dart';
@@ -25,6 +28,8 @@ class _GetImageCreateApplicaitonPageState
   List imagesUrl = [];
   PageControllerIndexedStack pageControllerIndexedStack =
       PageControllerIndexedStack();
+
+  final analytics = GetIt.I<FirebaseAnalytics>();
 
   Future postImage() async {
     showModalImageLoader(context);
@@ -58,11 +63,21 @@ class _GetImageCreateApplicaitonPageState
     } else {
       postImage();
     }
+
+    analytics.logEvent(name: GAEventName.buttonClick, parameters: {
+      GAKey.buttonName: GAParams.btnApplicationImageContinue,
+      GAKey.screenName: GAParams.getImageCreateApplicaitonPage
+    }).catchError((onError) => debugPrint(onError));
   }
 
   void nextPage() {
     pageControllerIndexedStack.nextPage();
     widget.nextPage();
+
+    analytics.logEvent(name: GAEventName.buttonClick, parameters: {
+      GAKey.buttonName: GAParams.btnApplicationImageSkip,
+      GAKey.screenName: GAParams.getImageCreateApplicaitonPage
+    }).catchError((onError) => debugPrint(onError));
   }
 
   @override
@@ -72,10 +87,13 @@ class _GetImageCreateApplicaitonPageState
         padding: const EdgeInsets.symmetric(vertical: 15),
         child: Column(
           children: [
-            GetImageWidget(onImagesSelected: (value) {
-              imagesPath = value;
-              setState(() {});
-            })
+            GetImageWidget(
+              onImagesSelected: (value) {
+                imagesPath = value;
+                setState(() {});
+              },
+              fromPage: GAParams.getImageCreateApplicaitonPage,
+            )
           ],
         ),
       ),

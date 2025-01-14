@@ -29,7 +29,19 @@ class GAParams {
   static const String priceCreateAdPage = 'PriceCreateAdPage';
   static const String getImageCreateAdPage = 'GetImageCreateAdPage';
   static const String createAdContactsPage = 'CreateAdContactsPage';
-  static const String ViewWalletPage = 'viewWalletPage';
+  static const String viewWalletPage = 'viewWalletPage';
+  static const String getImageCreateApplicaitonPage =
+      'GetImageCreateApplicaitonPage';
+  static const String createApplicationContactsPage =
+      'CreateApplicationContactsPage';
+  static const String priceCreateApplicationPage = 'PriceCreateApplicationPage';
+  static const String descriptionCreateApplicationPage =
+      'DescriptionCreateApplicationPage';
+  static const String myApplicationListPage = 'MyApplicationListPage';
+  static const String viewMyApplicationPage = 'ViewMyApplicationPage';
+  static const String myAdListPage = 'MyAdListPage';
+  static const String addContactsPage = 'AddContactsPage';
+  static const String viewNewsPage = 'ViewNewsPage';
 
   //SCREEN
 
@@ -42,6 +54,8 @@ class GAParams {
   static const String txtbtnCloseAdStructure = 'txt_btn_close_ad_structure';
   static const String txtbtndProfileHistory = 'txt_btn_profile_history';
   static const String txtbtndAddContact = 'txt_btn_add_contact';
+  static const String txtbtnCloseApplication = 'txt_btn_close_application';
+  static const String txtbtnMyContact = 'txt_btn_my_contact';
 
   //TEXT_BUTTON
 
@@ -75,7 +89,26 @@ class GAParams {
   static const String btnSubmitAnAd = 'btn_submit_an_ad';
   static const String btnSubmitForPackage = 'btn_submit_for_package';
   static const String btnSubmitWithoutAds = 'btn_submit_without_ads';
+  static const String btnMainOrderApplication = 'btn_main_order_application';
+  static const String btnApplcationContinue = 'btn_applcation_continue';
+  static const String btnApplcationDescriptionContinue =
+      'btn_applcation_description_continue';
+  static const String btnApplicationPriceContinue =
+      'btn_application_price_continue';
+  static const String btnApplicationNegotiablePrice =
+      'btn_application_negotiable_price';
+  static const String btnApplicationImageContinue =
+      'btn_application_image_continue';
 
+  static const String btnApplicationImageSkip = 'btn_application_image_skip';
+
+  static const String btnApplicationSubmitOrder =
+      'btn_application_submit_order';
+
+  static const String btnMyApplicationOrderCancel =
+      'btn_my_application_order_cancel';
+
+  static const String btnMyContactSave = 'btnMyContactSave';
   //BUTTON
 
   //SWITCH_BUTTON
@@ -162,6 +195,13 @@ class GAParams {
   static const String listPackagePageStickersName = 'Стикеры';
   static const String listPaymentMethodId = 'list_payment_method_id';
   static const String listPaymentMethodName = 'Способ оплаты';
+  static const String listApplicationTaskId = 'list_application_task_id';
+  static const String listApplicationTaskName = 'Какая у вас задача?';
+  static const String listApplicationSelectId = 'list_application_select_id';
+  static const String listMyApplicationId = 'list_my_application_id';
+  static const String listMyApplicationName = 'Мои заказы';
+  static const String listMyAdListId = 'list_my_ad_list_id';
+  static const String listMyAdListName = 'Мои обьявление';
 
   //LIST
 }
@@ -170,6 +210,8 @@ class GAContentType {
   static const String application = 'application';
   static const String category = 'category';
   static const String ad = 'ad';
+  static const String myAd = 'myAd';
+  static const String myApplication = 'myApplication';
 }
 
 class GAKey {

@@ -1,4 +1,7 @@
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
+import 'package:gservice5/analytics/event_name.constan.dart';
 import 'package:gservice5/component/button/button.dart';
 import 'package:gservice5/component/snackBar/snackBarComponent.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
@@ -28,7 +31,9 @@ class _DescriptionCreateApplicationPageState
   TextEditingController descEditingController = TextEditingController();
   PageControllerIndexedStack pageControllerIndexedStack =
       PageControllerIndexedStack();
-      
+
+  final analytics = GetIt.I<FirebaseAnalytics>();
+
   @override
   void dispose() {
     descEditingController.dispose();
@@ -42,6 +47,11 @@ class _DescriptionCreateApplicationPageState
     } else {
       savedData();
     }
+
+    analytics.logEvent(name: GAEventName.buttonClick, parameters: {
+      GAKey.buttonName: GAParams.btnApplcationDescriptionContinue,
+      GAKey.screenName: GAParams.descriptionCreateApplicationPage
+    }).catchError((onError) => debugPrint(onError));
   }
 
   void savedData() {

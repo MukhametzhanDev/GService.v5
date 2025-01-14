@@ -140,6 +140,7 @@ class _StructureCreateAdPageState extends State<StructureCreateAdPage> {
       pageController: pageController,
       title: data[index]['title']?['title_ru'] ?? '',
       listIndex: index.toString(),
+      gaListId: GAParams.adSelectListId,
     ));
   }
 
