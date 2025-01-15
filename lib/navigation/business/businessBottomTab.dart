@@ -1,5 +1,8 @@
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get_it/get_it.dart';
+import 'package:gservice5/analytics/event_name.constan.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
 import 'package:gservice5/pages/ad/my/business/businessMainPage.dart';
 import 'package:gservice5/pages/application/list/business/mainApplicationsBusinessPage.dart';
@@ -26,11 +29,19 @@ class _BusinessBottomTabState extends State<BusinessBottomTab> {
   ];
   ScrollController scrollController = ScrollController();
 
+  final analytics = GetIt.I<FirebaseAnalytics>();
+
   //changed tab and scroll up
   void _onItemTapped(int index) {
     if (_selectedIndex == 0 && index == 0) {
       scrollController.animateTo(0,
           duration: const Duration(milliseconds: 300), curve: Curves.easeInOut);
+
+      analytics.logEvent(name: GAEventName.screenView, parameters: {
+        GAKey.screenName: GAParams.businessMainPage,
+      }).catchError((e) {
+        debugPrint(e);
+      });
     } else if (index == 2) {
       showMaterialModalBottomSheet(
           context: context,
@@ -38,6 +49,13 @@ class _BusinessBottomTabState extends State<BusinessBottomTab> {
         if (value == "ad") {
           Navigator.pushNamed(context, "MyAdListPage");
         }
+      });
+
+      analytics.logEvent(name: GAEventName.buttonClick, parameters: {
+        GAKey.screenName: GAParams.businessMainPage,
+        GAKey.buttonName: GAParams.btnTabPlusBusiness
+      }).catchError((e) {
+        debugPrint(e);
       });
     } else {
       _selectedIndex = index;

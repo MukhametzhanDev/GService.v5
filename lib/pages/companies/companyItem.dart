@@ -1,5 +1,8 @@
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get_it/get_it.dart';
+import 'package:gservice5/analytics/event_name.constan.dart';
 import 'package:gservice5/component/image/cacheImage.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
 import 'package:gservice5/pages/author/business/viewBusinessPage.dart';
@@ -10,6 +13,8 @@ class CompanyItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final analytics = GetIt.I<FirebaseAnalytics>();
+
     List categories = data['categories'];
     return GestureDetector(
       onTap: () {
@@ -17,6 +22,12 @@ class CompanyItem extends StatelessWidget {
             context,
             MaterialPageRoute(
                 builder: (context) => ViewBusinessPage(id: data['id'])));
+
+        analytics
+            .logSelectContent(
+                contentType: GAContentType.company,
+                itemId: data['id'].toString())
+            .catchError((onError) => debugPrint(onError));
       },
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 12),

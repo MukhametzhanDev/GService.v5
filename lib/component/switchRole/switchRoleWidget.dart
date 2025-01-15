@@ -1,6 +1,9 @@
 import 'package:dio/dio.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get_it/get_it.dart';
+import 'package:gservice5/analytics/event_name.constan.dart';
 import 'package:gservice5/component/dio/dio.dart';
 import 'package:gservice5/component/functions/token/changedToken.dart';
 import 'package:gservice5/component/image/cacheImage.dart';
@@ -20,6 +23,8 @@ class _SwitchRoleWidgetState extends State<SwitchRoleWidget> {
   Map userData = {};
   bool loader = true;
   String? role;
+
+  final analytics = GetIt.I<FirebaseAnalytics>();
 
   @override
   void initState() {
@@ -60,6 +65,9 @@ class _SwitchRoleWidgetState extends State<SwitchRoleWidget> {
   void showCreateCompany() {
     Navigator.pop(context);
     Navigator.pushNamed(context, "RegistrationBusinessPage");
+    analytics
+        .logEvent(name: GAEventName.becomePartner)
+        .catchError((onError) => debugPrint(onError));
   }
 
   void onChangedRole() {

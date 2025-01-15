@@ -1,5 +1,8 @@
 import 'package:dio/dio.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
+import 'package:gservice5/analytics/event_name.constan.dart';
 import 'package:gservice5/component/button/back/backTitleButton.dart';
 import 'package:gservice5/component/button/button.dart';
 import 'package:gservice5/component/dio/dio.dart';
@@ -30,6 +33,8 @@ class _RegistrationBusinessPageState extends State<RegistrationBusinessPage> {
   TextEditingController identifierEditingController = TextEditingController();
   TextEditingController descEditingController = TextEditingController();
   String imagePath = "";
+
+  final analytics = GetIt.I<FirebaseAnalytics>();
 
   @override
   void dispose() {
@@ -78,6 +83,10 @@ class _RegistrationBusinessPageState extends State<RegistrationBusinessPage> {
             context,
             MaterialPageRoute(builder: (_) => const GetActivityBusinessPage()),
             (route) => false);
+
+        analytics.logEvent(
+            name: GAEventName.registerBussiness,
+            parameters: {GAKey.screenName: GAParams.registrationBusinessPage});
       } else {
         SnackBarComponent().showResponseErrorMessage(response, context);
       }
@@ -119,8 +128,11 @@ class _RegistrationBusinessPageState extends State<RegistrationBusinessPage> {
   void showCountryModal() {
     showCupertinoModalBottomSheet(
         context: context,
-        builder: (context) =>
-            Countries(onPressed: savedCurrentCity, data: const {}));
+        builder: (context) => Countries(
+              onPressed: savedCurrentCity,
+              data: const {},
+              fromPage: GAParams.registrationBusinessPage,
+            ));
   }
 
   void savedCurrentCity(value) {

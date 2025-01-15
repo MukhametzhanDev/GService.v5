@@ -1,6 +1,9 @@
 import 'package:dio/dio.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get_it/get_it.dart';
+import 'package:gservice5/analytics/event_name.constan.dart';
 import 'package:gservice5/component/button/back/closeIconButton.dart';
 import 'package:gservice5/component/dio/dio.dart';
 import 'package:gservice5/component/loader/loaderComponent.dart';
@@ -14,7 +17,9 @@ import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 class Countries extends StatefulWidget {
   final void Function(Map value) onPressed;
   final Map data;
-  const Countries({super.key, required this.onPressed, required this.data});
+  final String? fromPage;
+  const Countries(
+      {super.key, required this.onPressed, required this.data, this.fromPage});
 
   @override
   State<Countries> createState() => _CountriesState();
@@ -26,6 +31,8 @@ class _CountriesState extends State<Countries>
   List data = [];
   List filterData = [];
   bool loader = true;
+
+  final analytics = GetIt.I<FirebaseAnalytics>();
 
   @override
   void initState() {
@@ -43,6 +50,16 @@ class _CountriesState extends State<Countries>
         filterData = response.data['data'];
         loader = false;
         setState(() {});
+
+        await analytics.logViewItemList(
+            itemListId: GAParams.listCountriesId,
+            itemListName: GAParams.listCountriesName,
+            parameters: {GAKey.screenName: widget.fromPage ?? ''},
+            items: data
+                .map((toElement) => AnalyticsEventItem(
+                    itemName: toElement['title'],
+                    itemId: toElement['id'].toString()))
+                .toList());
       } else {
         SnackBarComponent().showResponseErrorMessage(response, context);
       }
@@ -79,6 +96,14 @@ class _CountriesState extends State<Countries>
               getCity(value, city);
             },
             countryId: value['id']));
+
+    analytics.logSelectItem(
+        itemListId: GAParams.listCountriesId,
+        itemListName: GAParams.listCountriesName,
+        items: [
+          AnalyticsEventItem(
+              itemId: value['id']?.toString(), itemName: value['title'])
+        ]).catchError((e) => debugPrint(e));
   }
 
   void getCity(country, city) {

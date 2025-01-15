@@ -9,7 +9,8 @@ import 'package:gservice5/pages/ad/filter/priceFilterModal.dart';
 import 'package:gservice5/pages/create/data/createData.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
-class FilterAdAppBarWidget extends StatefulWidget implements PreferredSizeWidget {
+class FilterAdAppBarWidget extends StatefulWidget
+    implements PreferredSizeWidget {
   final Map category;
   final AppBar appBar;
   final void Function(String value) onChanged;
@@ -23,8 +24,7 @@ class FilterAdAppBarWidget extends StatefulWidget implements PreferredSizeWidget
   State<FilterAdAppBarWidget> createState() => _FilterAdAppBarWidgetState();
 
   @override
-  Size get preferredSize =>
-      Size.fromHeight(appBar.preferredSize.height + 46);
+  Size get preferredSize => Size.fromHeight(appBar.preferredSize.height + 46);
 }
 
 class _FilterAdAppBarWidgetState extends State<FilterAdAppBarWidget> {
@@ -146,7 +146,10 @@ class _FilterAdAppBarWidgetState extends State<FilterAdAppBarWidget> {
     return AppBar(
       leadingWidth: MediaQuery.of(context).size.width - 100,
       actions: [
-        FilterButton(showFilterPage: showFilterPage)
+        FilterButton(
+          showFilterPage: showFilterPage,
+          fromPage: '',
+        )
         // GestureDetector(
         //   onTap: () => showFilterPage(),
         //   child: Container(

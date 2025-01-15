@@ -1,5 +1,8 @@
 import 'package:dio/dio.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
+import 'package:gservice5/analytics/event_name.constan.dart';
 import 'package:gservice5/component/button/back/closeIconButton.dart';
 import 'package:gservice5/component/dio/dio.dart';
 import 'package:gservice5/component/loader/loaderComponent.dart';
@@ -10,7 +13,12 @@ import 'package:gservice5/component/textField/searchTextField.dart';
 class Cities extends StatefulWidget {
   final void Function(Map value) onPressed;
   final int countryId;
-  const Cities({super.key, required this.onPressed, required this.countryId});
+  final String? fromPage;
+  const Cities(
+      {super.key,
+      required this.onPressed,
+      required this.countryId,
+      this.fromPage});
 
   @override
   State<Cities> createState() => _CitiesState();
@@ -25,6 +33,8 @@ class _CitiesState extends State<Cities> with SingleTickerProviderStateMixin {
   bool isLoadMore = false;
   int page = 1;
   String title = "";
+
+  final analytics = GetIt.I<FirebaseAnalytics>();
 
   @override
   void initState() {
@@ -48,6 +58,19 @@ class _CitiesState extends State<Cities> with SingleTickerProviderStateMixin {
         loader = false;
         hasNextPage = page != response.data['meta']['last_page'];
         setState(() {});
+
+        await analytics.logViewItemList(
+            itemListId: GAParams.listCitiesId,
+            itemListName: GAParams.listCitiesName,
+            parameters: {
+              GAKey.screenName: widget.fromPage ?? '',
+              GAKey.isPagination: 'false'
+            },
+            items: data
+                .map((toElement) => AnalyticsEventItem(
+                    itemName: toElement['title'],
+                    itemId: toElement['id'].toString()))
+                .toList());
       } else {
         SnackBarComponent().showResponseErrorMessage(response, context);
       }
@@ -76,6 +99,19 @@ class _CitiesState extends State<Cities> with SingleTickerProviderStateMixin {
           hasNextPage = page != response.data['meta']['last_page'];
           isLoadMore = false;
           setState(() {});
+
+          await analytics.logViewItemList(
+              itemListId: GAParams.listCitiesId,
+              itemListName: GAParams.listCitiesName,
+              parameters: {
+                GAKey.screenName: widget.fromPage ?? '',
+                GAKey.isPagination: 'true'
+              },
+              items: data
+                  .map((toElement) => AnalyticsEventItem(
+                      itemName: toElement['title'],
+                      itemId: toElement['id'].toString()))
+                  .toList());
         } else {
           SnackBarComponent().showResponseErrorMessage(response, context);
         }
@@ -94,6 +130,13 @@ class _CitiesState extends State<Cities> with SingleTickerProviderStateMixin {
   void savedData(Map value) {
     widget.onPressed(value);
     Navigator.pop(context);
+    analytics.logSelectItem(
+        itemListId: GAParams.listCitiesId,
+        itemListName: GAParams.listCitiesName,
+        items: [
+          AnalyticsEventItem(
+              itemId: value['id']?.toString(), itemName: value['title'])
+        ]).catchError((e) => debugPrint(e));
   }
 
   @override

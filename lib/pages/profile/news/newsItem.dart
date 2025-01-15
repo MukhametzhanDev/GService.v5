@@ -1,5 +1,8 @@
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get_it/get_it.dart';
+import 'package:gservice5/analytics/event_name.constan.dart';
 import 'package:gservice5/component/date/formattedDate.dart';
 import 'package:gservice5/component/image/cacheImage.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
@@ -11,12 +14,21 @@ class NewsItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final analytics = GetIt.I<FirebaseAnalytics>();
+
     return GestureDetector(
       onTap: () {
         Navigator.push(
             context,
             MaterialPageRoute(
                 builder: (context) => ViewNewsPage(id: data['id'])));
+
+        analytics.logSelectContent(
+            contentType: GAContentType.news,
+            itemId: data['id'].toString(),
+            parameters: {
+              GAKey.screenName: GAParams.allNewsPage
+            }).catchError((onError) => debugPrint(onError));
       },
       child: Container(
         decoration: BoxDecoration(

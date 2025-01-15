@@ -1,6 +1,9 @@
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get_it/get_it.dart';
+import 'package:gservice5/analytics/event_name.constan.dart';
 import 'package:gservice5/component/dio/dio.dart';
 import 'package:gservice5/component/formatted/number/numberFormatted.dart';
 import 'package:gservice5/component/functions/token/changedToken.dart';
@@ -24,6 +27,8 @@ class BusinessProfilePage extends StatefulWidget {
 class _BusinessProfilePageState extends State<BusinessProfilePage> {
   Map data = {};
   bool loader = true;
+
+  final analytics = GetIt.I<FirebaseAnalytics>();
 
   @override
   void initState() {
@@ -61,6 +66,11 @@ class _BusinessProfilePageState extends State<BusinessProfilePage> {
             MaterialPageRoute(
                 builder: (context) => ChangeBusinessProfilePage(data: data)))
         .then((value) => changedDataUser(value));
+
+    analytics.logEvent(name: GAEventName.buttonClick, parameters: {
+      GAKey.screenName: GAParams.businessProfilePage,
+      GAKey.buttonName: GAParams.btnEditBusinessProfile
+    }).catchError((onError) => debugPrint(onError));
   }
 
   void changedDataUser(Map? value) {
@@ -187,7 +197,17 @@ class _BusinessProfilePageState extends State<BusinessProfilePage> {
                             const Divider(indent: 8),
                             Expanded(
                               child: GestureDetector(
-                                onTap: () {},
+                                onTap: () {
+                                  analytics.logEvent(
+                                      name: GAEventName.buttonClick,
+                                      parameters: {
+                                        GAKey.screenName:
+                                            GAParams.businessProfilePage,
+                                        GAKey.buttonName:
+                                            GAParams.btnShareBusinessProfile
+                                      }).catchError(
+                                      (onError) => debugPrint(onError));
+                                },
                                 child: Container(
                                   alignment: Alignment.center,
                                   padding: const EdgeInsets.symmetric(
@@ -211,7 +231,10 @@ class _BusinessProfilePageState extends State<BusinessProfilePage> {
                       ),
                     ),
                     Divider(height: 1, color: ColorComponent.gray['100']),
-                    const ShowWalletWidget(showButton: true),
+                    const ShowWalletWidget(
+                      showButton: true,
+                      fromPage: GAParams.businessProfilePage,
+                    ),
                     const ProfileListTilesWidget()
                   ],
                 ),

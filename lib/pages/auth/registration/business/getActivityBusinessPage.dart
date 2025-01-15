@@ -1,5 +1,8 @@
 import 'package:dio/dio.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
+import 'package:gservice5/analytics/event_name.constan.dart';
 import 'package:gservice5/component/button/button.dart';
 import 'package:gservice5/component/dio/dio.dart';
 import 'package:gservice5/component/loader/modalLoaderComponent.dart';
@@ -23,6 +26,8 @@ class _GetActivityBusinessPageState extends State<GetActivityBusinessPage> {
   List transportTypes = [];
   List transportBrands = [];
 
+  final analytics = GetIt.I<FirebaseAnalytics>();
+
   void postData() async {
     showModalLoader(context);
     try {
@@ -38,6 +43,10 @@ class _GetActivityBusinessPageState extends State<GetActivityBusinessPage> {
             context,
             MaterialPageRoute(builder: (_) => const BusinessBottomTab()),
             (route) => false);
+
+        await analytics.logEvent(
+            name: GAEventName.companyActivity,
+            parameters: {GAKey.screenName: GAParams.getActivityBusinessPage});
       } else {
         SnackBarComponent().showResponseErrorMessage(response, context);
       }

@@ -55,6 +55,7 @@ class _MainDrawerState extends State<MainDrawer> {
         context, MaterialPageRoute(builder: (context) => value['page']));
 
     analytics.logEvent(name: GAEventName.buttonClick, parameters: {
+      GAKey.buttonName: GAParams.btnItemDrawer,
       GAKey.screenName: GAParams.mainDrawer
     }).catchError((onError) => debugPrint(onError));
   }

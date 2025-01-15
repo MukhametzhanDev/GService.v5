@@ -13,6 +13,12 @@ class GAEventName {
   static const String startApplication = 'start_application';
   static const String endingApplication = 'ending_application';
   //APPLICATION
+
+  //BUSSINESS
+  static const String becomePartner = 'become_a_partner';
+  static const String registerBussiness = 'register_business';
+  static const String companyActivity = 'company_activity';
+  //BUSSINESS
 }
 
 class GAParams {
@@ -55,6 +61,12 @@ class GAParams {
   static const String viewNewsPage = 'ViewNewsPage';
   static const String adListPage = 'adListPage';
   static const String listPackagePage = 'ListPackagePage';
+  static const String registrationBusinessPage = 'RegistrationBusinessPage';
+  static const String businessProfilePage = 'BusinessProfilePage';
+  static const String businessMainPage = 'BusinessMainPage';
+  static const String getActivityBusinessPage = 'GetActivityBusinessPage';
+  static const String allNewsPage = 'allNewsPage';
+  static const String companiesMainPage = 'CompaniesMainPage';
 
   //SCREEN
 
@@ -121,7 +133,11 @@ class GAParams {
   static const String btnMyApplicationOrderCancel =
       'btn_my_application_order_cancel';
 
-  static const String btnMyContactSave = 'btnMyContactSave';
+  static const String btnMyContactSave = 'btn_my_contactSave';
+  static const String btnEditBusinessProfile = 'btn_edit_business_profile';
+  static const String btnShareBusinessProfile = 'btn_share_business_profile';
+  static const String btnTabPlusBusiness = 'btn_tab_plus_business';
+  static const String btnItemDrawer = 'btn_item_drawer';
   //BUTTON
 
   //SWITCH_BUTTON
@@ -138,7 +154,7 @@ class GAParams {
   static const String icBtnDrawer = 'ic_btn_drawer';
   static const String icBtnShare = 'ic_btn_share';
   static const String icBtnShowPwd = 'ic_btn_show_pwd';
-
+  static const String icBtnFilter = 'ic_btn_filter';
   //ICON_BUTTON
 
   //IMAGE_BUTTON
@@ -215,6 +231,14 @@ class GAParams {
   static const String listMyApplicationName = 'Мои заказы';
   static const String listMyAdListId = 'list_my_ad_list_id';
   static const String listMyAdListName = 'Мои обьявление';
+  static const String listCountriesId = 'list_countries_id';
+  static const String listCountriesName = 'Страны';
+  static const String listCitiesId = 'list_cities_id';
+  static const String listCitiesName = 'Города';
+  static const String listAllNewsId = 'list_all_news_id';
+  static const String listAllNewsName = 'Новости';
+  static const String listCompanyId = 'list_company_id';
+  static const String listCompanyName = 'Компании';
 
   //LIST
 }
@@ -225,6 +249,8 @@ class GAContentType {
   static const String ad = 'ad';
   static const String myAd = 'myAd';
   static const String myApplication = 'myApplication';
+  static const String news = 'news';
+  static const String company = 'company';
 }
 
 class GAKey {

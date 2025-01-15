@@ -1,18 +1,24 @@
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get_it/get_it.dart';
+import 'package:gservice5/analytics/event_name.constan.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
 import 'package:badges/badges.dart' as badges;
 import 'package:gservice5/pages/create/data/createData.dart';
 
 class FilterButton extends StatefulWidget {
   final VoidCallback showFilterPage;
-  const FilterButton({super.key, required this.showFilterPage});
+  final String? fromPage;
+  const FilterButton({super.key, required this.showFilterPage, this.fromPage});
 
   @override
   State<FilterButton> createState() => _FilterButtonState();
 }
 
 class _FilterButtonState extends State<FilterButton> {
+  final analytics = GetIt.I<FirebaseAnalytics>();
+
   @override
   Widget build(BuildContext context) {
     return badges.Badge(
@@ -32,7 +38,13 @@ class _FilterButtonState extends State<FilterButton> {
             borderRadius: BorderRadius.circular(20)),
       ),
       child: GestureDetector(
-          onTap: widget.showFilterPage,
+          onTap: () {
+            widget.showFilterPage();
+            analytics.logEvent(name: GAEventName.buttonClick, parameters: {
+              GAKey.buttonName: GAParams.icBtnFilter,
+              GAKey.screenName: widget.fromPage ?? ''
+            }).catchError((e) => debugPrint(e));
+          },
           child: Container(
             width: 36,
             height: 36,
