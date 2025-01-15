@@ -96,6 +96,12 @@ class _SectionCreateAdPageState extends State<SectionCreateAdPage> {
       itemListId: GAParams.adTypeCategoriesId,
       itemListName: GAParams.adTypeCategoriesName,
     ).catchError((e) => debugPrint(e));
+
+    analytics
+        .logEvent(
+          name: GAEventName.startAddingAd,
+        )
+        .catchError((onError) => debugPrint(onError));
   }
 
   void showOptionsPage() {

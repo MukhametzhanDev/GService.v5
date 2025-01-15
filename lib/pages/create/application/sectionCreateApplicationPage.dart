@@ -96,6 +96,10 @@ class _SectionCreateApplicationPageState
     analytics.logEvent(name: GAEventName.buttonClick, parameters: {
       GAKey.buttonName: GAParams.btnApplcationContinue
     }).catchError((onError) => debugPrint(onError));
+
+    analytics
+        .logEvent(name: GAEventName.startApplication)
+        .catchError((onError) => debugPrint(onError));
   }
 
   @override

@@ -68,6 +68,10 @@ class _CreateApplicationContactsPageState
         CreateData.images.clear();
         Navigator.pop(context, "application");
         Navigator.pop(context, "application");
+
+        analytics
+            .logEvent(name: GAEventName.endingApplication)
+            .catchError((onError) => debugPrint(onError));
       } else {
         SnackBarComponent().showResponseErrorMessage(response, context);
       }

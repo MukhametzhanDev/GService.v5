@@ -1,5 +1,8 @@
 import 'package:dio/dio.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
+import 'package:gservice5/analytics/event_name.constan.dart';
 import 'package:gservice5/component/dio/dio.dart';
 import 'package:gservice5/component/loader/paginationLoaderComponent.dart';
 import 'package:gservice5/component/snackBar/snackBarComponent.dart';
@@ -27,6 +30,8 @@ class _AdListPageState extends State<AdListPage> {
   int page = 1;
   String title = "";
   Map<String, dynamic> param = {};
+
+  final analytics = GetIt.I<FirebaseAnalytics>();
 
   @override
   void initState() {
@@ -64,6 +69,20 @@ class _AdListPageState extends State<AdListPage> {
         loader = false;
         hasNextPage = page != response.data['meta']['last_page'];
         setState(() {});
+
+        await analytics.logViewItemList(
+            parameters: {
+              GAKey.isPagination: 'true',
+              GAKey.screenName: GAParams.adListPage
+            },
+            itemListName: widget.category['title'],
+            itemListId: widget.category['id']?.toString(),
+            items: data
+                .map((toElement) => AnalyticsEventItem(
+                      itemId: toElement?['id']?.toString(),
+                      itemName: toElement?['title'],
+                    ))
+                .toList());
       } else {
         SnackBarComponent().showResponseErrorMessage(response, context);
       }
@@ -92,6 +111,20 @@ class _AdListPageState extends State<AdListPage> {
           hasNextPage = page != response.data['meta']['last_page'];
           isLoadMore = false;
           setState(() {});
+
+          await analytics.logViewItemList(
+              parameters: {
+                GAKey.isPagination: 'true',
+                GAKey.screenName: GAParams.adListPage
+              },
+              itemListName: widget.category['title'],
+              itemListId: widget.category['id']?.toString(),
+              items: data
+                  .map((toElement) => AnalyticsEventItem(
+                        itemId: toElement?['id']?.toString(),
+                        itemName: toElement?['title'],
+                      ))
+                  .toList());
         } else {
           SnackBarComponent().showResponseErrorMessage(response, context);
         }
@@ -155,12 +188,19 @@ class _AdListPageState extends State<AdListPage> {
                     Map value = data[index];
                     if (index % 20 == 0 && index > 19) {
                       return Column(children: [
-                        AdItem(data: value, showCategory: false),
+                        AdItem(
+                          data: value,
+                          showCategory: false,
+                          fromPage: GAParams.adListPage,
+                        ),
                         const CreateApplicationWidgetAdList()
                       ]);
                     } else if (data.length - 1 == index) {
                       return Column(children: [
-                        AdItem(data: value, showCategory: false),
+                        AdItem(
+                            data: value,
+                            showCategory: false,
+                            fromPage: GAParams.adListPage),
                         hasNextPage
                             ? const PaginationLoaderComponent()
                             : Container()
@@ -168,7 +208,10 @@ class _AdListPageState extends State<AdListPage> {
                     } else {
                       return Column(
                         children: [
-                          AdItem(data: value, showCategory: false),
+                          AdItem(
+                              data: value,
+                              showCategory: false,
+                              fromPage: GAParams.adListPage),
                         ],
                       );
                     }

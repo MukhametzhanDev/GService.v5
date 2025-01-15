@@ -100,14 +100,13 @@ class _ListPackagePageState extends State<ListPackagePage> {
                 builder: (context) => PaymentMethodModal(
                     totalPrice: totalPrice,
                     orderId: response.data['data'],
-                   
                     data: getProduct(),
                     typePurchase: "package"))
             .then((value) => Navigator.pop(context, value));
 
-        analytics.logEvent(name: GAEventName.buttonClick, parameters: {
-          GAKey.buttonName: GAParams.btnSubmitForPackage
-        }).catchError((onError) => debugPrint(onError));
+        analytics.logEvent(
+            name: GAEventName.selectedPackageAd,
+            parameters: {GAKey.screenName: GAParams.listPackagePage});
       } else {
         SnackBarComponent().showResponseErrorMessage(response, context);
       }
@@ -220,6 +219,11 @@ class _ListPackagePageState extends State<ListPackagePage> {
     } else {
       postData();
     }
+
+    analytics.logEvent(name: GAEventName.buttonClick, parameters: {
+      GAKey.buttonName: GAParams.btnSubmitForPackage,
+      GAKey.screenName: GAParams.listPackagePage
+    }).catchError((onError) => debugPrint(onError));
   }
 
   List getStickers() {

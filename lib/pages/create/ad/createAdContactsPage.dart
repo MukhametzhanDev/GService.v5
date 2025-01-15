@@ -101,10 +101,9 @@ class _CreateAdContactsPageState extends State<CreateAdContactsPage> {
                     adId: response.data['data']['id'],
                     goBack: false)));
 
-        await analytics.logEvent(name: GAEventName.buttonClick, parameters: {
-          GAKey.screenName: GAParams.createAdContactsPage,
-          GAKey.buttonName: GAParams.btnSubmitAnAd
-        });
+        await analytics.logEvent(
+            name: GAEventName.endingAddingAd,
+            parameters: {GAKey.screenName: GAParams.createAdContactsPage});
       } else {
         Navigator.pop(context);
         SnackBarComponent().showResponseErrorMessage(response, context);
@@ -132,6 +131,11 @@ class _CreateAdContactsPageState extends State<CreateAdContactsPage> {
     } else {
       postData();
     }
+
+    analytics.logEvent(name: GAEventName.buttonClick, parameters: {
+      GAKey.screenName: GAParams.createAdContactsPage,
+      GAKey.buttonName: GAParams.btnSubmitAnAd
+    }).catchError((onError) => debugPrint(onError));
   }
 
   List allActived(List data) {

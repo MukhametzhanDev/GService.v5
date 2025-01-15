@@ -1,5 +1,8 @@
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get_it/get_it.dart';
+import 'package:gservice5/analytics/event_name.constan.dart';
 import 'package:gservice5/component/appBar/leadingLogo.dart';
 import 'package:gservice5/component/categories/data/categoriesData.dart';
 import 'package:gservice5/component/request/getCategories.dart';
@@ -19,6 +22,8 @@ class MainDrawer extends StatefulWidget {
 class _MainDrawerState extends State<MainDrawer> {
   List categories = CategoriesData.categories;
   List options = DrawerOptions.options;
+
+  final analytics = GetIt.I<FirebaseAnalytics>();
 
   @override
   void initState() {
@@ -48,6 +53,10 @@ class _MainDrawerState extends State<MainDrawer> {
   void showDrawerPage(Map value) {
     Navigator.push(
         context, MaterialPageRoute(builder: (context) => value['page']));
+
+    analytics.logEvent(name: GAEventName.buttonClick, parameters: {
+      GAKey.screenName: GAParams.mainDrawer
+    }).catchError((onError) => debugPrint(onError));
   }
 
   @override

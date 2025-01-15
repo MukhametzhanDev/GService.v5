@@ -1,7 +1,18 @@
 class GAEventName {
   static const String screenView = 'screen_view';
   static const String buttonClick = 'btn_click';
+
+  //AD
   static const String tolem = 'tolem';
+  static const String startAddingAd = 'start_adding_ad';
+  static const String endingAddingAd = 'ending_adding_ad';
+  static const String selectedPackageAd = 'selected_package_ad';
+  //AD
+
+  //APPLICATION
+  static const String startApplication = 'start_application';
+  static const String endingApplication = 'ending_application';
+  //APPLICATION
 }
 
 class GAParams {
@@ -42,6 +53,8 @@ class GAParams {
   static const String myAdListPage = 'MyAdListPage';
   static const String addContactsPage = 'AddContactsPage';
   static const String viewNewsPage = 'ViewNewsPage';
+  static const String adListPage = 'adListPage';
+  static const String listPackagePage = 'ListPackagePage';
 
   //SCREEN
 
