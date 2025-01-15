@@ -7,6 +7,7 @@ import 'package:gservice5/component/functions/token/changedToken.dart';
 import 'package:gservice5/component/image/cacheImage.dart';
 import 'package:gservice5/component/loader/loaderComponent.dart';
 import 'package:gservice5/component/snackBar/snackBarComponent.dart';
+import 'package:gservice5/component/switchRole/switchRoleWidget.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
 import 'package:gservice5/navigation/customer/customerBottomTab.dart';
 import 'package:gservice5/pages/payment/wallet/showWalletWidget.dart';
@@ -212,6 +213,9 @@ class _BusinessProfilePageState extends State<BusinessProfilePage> {
                     ),
                     Divider(height: 1, color: ColorComponent.gray['100']),
                     const ShowWalletWidget(showButton: true),
+                    const Padding(
+                        padding: EdgeInsets.symmetric(vertical: 15),
+                        child: SwitchRoleWidget()),
                     const ProfileListTilesWidget()
                   ],
                 ),

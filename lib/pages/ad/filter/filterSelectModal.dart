@@ -10,7 +10,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
 import 'package:gservice5/pages/create/data/createData.dart';
+import 'package:gservice5/provider/adFilterProvider.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
+import 'package:provider/provider.dart';
 
 class FilterSelectModal extends StatefulWidget {
   final String title;
@@ -36,16 +38,17 @@ class _FilterSelectModalState extends State<FilterSelectModal> {
   @override
   void initState() {
     currentData = widget.value;
-    addData();
+    // addData();
     super.initState();
   }
 
-  void addData() {
-    if (widget.value.containsKey("id")) {
-      FilterData.data.addAll({widget.option['name']: widget.value['id']});
-      setState(() {});
-    }
-  }
+  // void addData() {
+  //   if (widget.value.containsKey("id")) {
+  //     Provider.of<AdFilterProvider>(context, listen: false).filterData = {
+  //       widget.option['name']: widget.value['id']
+  //     };
+  //   }
+  // }
 
   void showModal() {
     showCupertinoModalBottomSheet(
@@ -59,10 +62,10 @@ class _FilterSelectModalState extends State<FilterSelectModal> {
       if (value != null) {
         print(value);
         currentData = value;
-        setState(() {
-          FilterData.data[widget.option['name']] = value['id'];
-          FilterData.data["${widget.option['name']}_value"] = value;
-        });
+        Provider.of<AdFilterProvider>(context, listen: false).filterData = {
+          widget.option['name']: value['id'],
+          "${widget.option['name']}_value": value
+        };
       }
     });
   }
@@ -75,7 +78,8 @@ class _FilterSelectModalState extends State<FilterSelectModal> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(widget.title,
-              style: const TextStyle(fontSize: 13, fontWeight: FontWeight.w500)),
+              style:
+                  const TextStyle(fontSize: 13, fontWeight: FontWeight.w500)),
           const Divider(height: 6),
           Container(
             height: 48,
@@ -215,7 +219,8 @@ class _SelectModalState extends State<SelectModal> {
           bottom: PreferredSize(
               preferredSize: Size(MediaQuery.of(context).size.width, 50),
               child: Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 2),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 15, vertical: 2),
                   child: SearchTextField(
                       title: "Поиск",
                       onChanged: (value) {
@@ -236,7 +241,9 @@ class _SelectModalState extends State<SelectModal> {
                   if (data.length - 1 == index) {
                     return Column(children: [
                       ListItem(value, active),
-                      hasNextPage ? const PaginationLoaderComponent() : Container()
+                      hasNextPage
+                          ? const PaginationLoaderComponent()
+                          : Container()
                     ]);
                   } else {
                     return ListItem(value, active);

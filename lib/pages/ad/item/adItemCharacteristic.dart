@@ -59,7 +59,7 @@ class AdItemCharacteristic extends StatelessWidget {
         Expanded(
           child: LayoutBuilder(builder: (context, constraints) {
             int calculateMaxLines(BoxConstraints constraints) {
-              return (constraints.maxHeight / (lineHeight )).floor();
+              return (constraints.maxHeight / (lineHeight)).floor();
             }
 
             return Text(data['description'] ?? "",
@@ -79,7 +79,11 @@ class AdItemCharacteristic extends StatelessWidget {
     return RichText(
       text: TextSpan(style: const TextStyle(fontSize: 13), children: [
         TextSpan(
-            text: title, style: TextStyle(color: ColorComponent.gray['700'])),
+            text: title,
+            style: TextStyle(
+                color: data['category']['title'] == title
+                    ? Colors.black
+                    : ColorComponent.gray['700'])),
         TextSpan(
             text: last ? "." : " | ",
             style: TextStyle(

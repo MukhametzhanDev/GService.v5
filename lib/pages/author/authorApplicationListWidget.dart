@@ -5,23 +5,26 @@ import 'package:gservice5/component/dio/dio.dart';
 import 'package:gservice5/component/snackBar/snackBarComponent.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
 import 'package:gservice5/pages/ad/item/smallAdItem.dart';
+import 'package:gservice5/pages/application/item/smallApplicationItem.dart';
 import 'package:shimmer/shimmer.dart';
 
-class AuthorAdsListWidget extends StatefulWidget {
+class AuthorApplicationListWidget extends StatefulWidget {
   final int id;
   final String subTitle;
   final VoidCallback showPage;
-  const AuthorAdsListWidget(
+  const AuthorApplicationListWidget(
       {super.key,
       required this.id,
       required this.subTitle,
       required this.showPage});
 
   @override
-  State<AuthorAdsListWidget> createState() => _AuthorAdsListWidgetState();
+  State<AuthorApplicationListWidget> createState() =>
+      _AuthorApplicationListWidgetState();
 }
 
-class _AuthorAdsListWidgetState extends State<AuthorAdsListWidget> {
+class _AuthorApplicationListWidgetState
+    extends State<AuthorApplicationListWidget> {
   List data = [];
   bool loading = true;
 
@@ -33,7 +36,8 @@ class _AuthorAdsListWidgetState extends State<AuthorAdsListWidget> {
 
   Future getData() async {
     try {
-      Response response = await dio.get("/other-author-ads/${widget.id}");
+      Response response =
+          await dio.get("/other-author-applications/${widget.id}");
       if (response.data['success']) {
         data = response.data['data'];
         loading = false;
@@ -62,8 +66,8 @@ class _AuthorAdsListWidgetState extends State<AuthorAdsListWidget> {
                         style: const TextStyle(
                             fontSize: 16, fontWeight: FontWeight.w600))),
                 const Divider(height: 12),
-                SizedBox(
-                  height: MediaQuery.of(context).size.width / 2.3,
+                Container(
+                  padding: const EdgeInsets.symmetric(vertical: 15),
                   child: SingleChildScrollView(
                     padding: const EdgeInsets.symmetric(horizontal: 8),
                     scrollDirection: Axis.horizontal,
@@ -104,7 +108,6 @@ class _AuthorAdsListWidgetState extends State<AuthorAdsListWidget> {
                                             onTap: () => widget.showPage(),
                                             child: Container(
                                               width: 140,
-                                              height: itemWidth / 1.7,
                                               decoration: BoxDecoration(
                                                   borderRadius:
                                                       BorderRadius.circular(10),
@@ -129,8 +132,12 @@ class _AuthorAdsListWidgetState extends State<AuthorAdsListWidget> {
                                             ),
                                           )
                                         ])
-                                  : SmallAdItem(
-                                      data: value, showFullInfo: false),
+                                  : SizedBox(
+                                      child: SmallApplicationItem(
+                                          onPressed: (int id) {},
+                                          data: value,
+                                          position: "main"),
+                                    ),
                             );
                           }).toList()),
                   ),

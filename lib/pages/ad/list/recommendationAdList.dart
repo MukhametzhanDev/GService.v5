@@ -50,9 +50,9 @@ class _RecommendationAdListState extends State<RecommendationAdList> {
   @override
   Widget build(BuildContext context) {
     return data.isEmpty
-        ? SliverToBoxAdapter()
+        ? const SliverToBoxAdapter()
         : SliverPadding(
-            padding: EdgeInsets.symmetric(horizontal: 7.5),
+            padding: const EdgeInsets.symmetric(horizontal: 7.5),
             sliver: SliverList.builder(
               itemCount: data.length,
               itemBuilder: (BuildContext context, int index) {
@@ -64,8 +64,8 @@ class _RecommendationAdListState extends State<RecommendationAdList> {
                       children: [
                         const Divider(height: 1, color: Color(0xfff4f5f7)),
                         const Divider(indent: 16),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 7.5),
+                        const Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 7.5),
                           child: Text("Вам могут понравится",
                               style: TextStyle(
                                   fontSize: 18, fontWeight: FontWeight.w600)),

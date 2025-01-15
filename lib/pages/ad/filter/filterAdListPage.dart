@@ -6,12 +6,18 @@ import 'package:gservice5/component/textField/closeKeyboard/closeKeyboard.dart';
 import 'package:gservice5/component/textField/priceTextField.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
 import 'package:gservice5/component/widgets/bottom/bottomNavigationBarComponent.dart';
+import 'package:gservice5/pages/ad/filter/additionallFilterWidget.dart';
+import 'package:gservice5/pages/ad/filter/filterResultButton.dart';
 import 'package:gservice5/pages/ad/filter/filterSelectModal.dart';
 import 'package:gservice5/pages/create/data/createData.dart';
+import 'package:gservice5/provider/adFilterProvider.dart';
+import 'package:provider/provider.dart';
 
 class FilterAdListPage extends StatefulWidget {
   final List data;
-  const FilterAdListPage({super.key, required this.data});
+  final int categoryId;
+  const FilterAdListPage(
+      {super.key, required this.data, required this.categoryId});
 
   @override
   State<FilterAdListPage> createState() => _FilterAdListPageState();
@@ -31,7 +37,7 @@ class _FilterAdListPageState extends State<FilterAdListPage> {
   }
 
   TextEditingController getPrice(String key) {
-    Map data = FilterData.data;
+    Map data = AdFilterProvider().value;
     if (data.containsKey(key)) {
       return TextEditingController(text: "${data[key]}");
     } else {
@@ -41,97 +47,103 @@ class _FilterAdListPageState extends State<FilterAdListPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        leading: const CloseTitleButton(title: "Фильтр"),
-        leadingWidth: 200,
-        actions: [
-          GestureDetector(
-              onTap: () {
-                FilterData.data.clear();
-                Navigator.pop(context, "update");
-              },
-              child: Text("Сбросить",
-                  style: TextStyle(
-                      color: ColorComponent.blue['500'],
-                      fontWeight: FontWeight.w500))),
-          const Divider(indent: 15)
-        ],
-      ),
-      body: GestureDetector(
-        onTap: () => closeKeyboard(),
-        child: SingleChildScrollView(
-            padding: EdgeInsets.only(
-                top: 10,
-                left: 15,
-                right: 15,
-                bottom: MediaQuery.of(context).padding.bottom),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Column(
-                  children: widget.data.map((value) {
-                    return FilterSelectModal(
-                        title: value['title']['title_ru'],
-                        option: value,
-                        api: value['url'],
-                        param: getParam,
-                        value: FilterData.data["${value['name']}_value"] ?? {});
-                  }).toList(),
-                ),
-                FilterSelectModal(
-                    title: "Город",
-                    option: const {"name": "city_id"},
-                    api: "/cities",
-                    param: getParam,
-                    value: FilterData.data["city_id_value"] ?? {}),
-                const Text("Цена"),
-                const Divider(height: 6),
-                Row(children: [
-                  Expanded(
-                      child: PriceTextField(
-                          textEditingController: getPrice("price_from"),
-                          autofocus: false,
-                          onChanged: (value) {
-                            if (value.isEmpty) {
-                              FilterData.data.remove("price_from");
-                            } else {
-                              FilterData.data['price_from'] =
-                                  getIntComponent(value);
-                            }
-                          },
-                          title: "От",
-                          onSubmitted: () {})),
-                  const Divider(indent: 12),
-                  Expanded(
-                      child: PriceTextField(
-                          textEditingController: getPrice("price_to"),
-                          autofocus: false,
-                          onChanged: (value) {
-                            if (value.isEmpty) {
-                              FilterData.data.remove("price_to");
-                            } else {
-                              FilterData.data['price_to'] =
-                                  getIntComponent(value);
-                            }
-                          },
-                          title: "До",
-                          onSubmitted: () {}))
-                ]),
-              ],
-            )),
-      ),
-      bottomNavigationBar: BottomNavigationBarComponent(
-          child: Button(
-        onPressed: () {
-          Navigator.pop(context, "update");
-        },
-        title: "Поиск",
-        padding: const EdgeInsets.symmetric(horizontal: 15),
-      )),
-    );
+    var filter = Provider.of<AdFilterProvider>(context, listen: false);
+    return Consumer<AdFilterProvider>(builder: (context, data, child) {
+      return Scaffold(
+        appBar: AppBar(
+          leading: const CloseTitleButton(title: "Фильтр"),
+          leadingWidth: 200,
+          actions: [
+            GestureDetector(
+                onTap: () {
+                  filter.clearData();
+                  Navigator.pop(context, "update");
+                },
+                child: Text("Сбросить",
+                    style: TextStyle(
+                        color: ColorComponent.blue['500'],
+                        fontWeight: FontWeight.w500))),
+            const Divider(indent: 15)
+          ],
+        ),
+        body: GestureDetector(
+          onTap: () => closeKeyboard(),
+          child: SingleChildScrollView(
+              padding: EdgeInsets.only(
+                  top: 10,
+                  left: 15,
+                  right: 15,
+                  bottom: MediaQuery.of(context).padding.bottom),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Column(
+                    children: widget.data.map((value) {
+                      return FilterSelectModal(
+                          title: value['title']['title_ru'],
+                          option: value,
+                          api: value['url'],
+                          param: getParam,
+                          value: filter.value["${value['name']}_value"] ?? {});
+                    }).toList(),
+                  ),
+                  FilterSelectModal(
+                      title: "Город",
+                      option: const {"name": "city_id"},
+                      api: "/cities",
+                      param: getParam,
+                      value: data.value["city_id_value"] ?? {}),
+                  const Text("Цена"),
+                  const Divider(height: 6),
+                  Row(children: [
+                    Expanded(
+                        child: PriceTextField(
+                            textEditingController: TextEditingController(
+                                text:
+                                    (data.data['price_from'] ?? "").toString()),
+                            autofocus: false,
+                            onChanged: (value) {
+                              if (value.isEmpty) {
+                                filter.removeData = "price_from";
+                              } else {
+                                filter.filterData = {
+                                  "price_from": getIntComponent(value)
+                                };
+                              }
+                            },
+                            title: "От",
+                            onSubmitted: () {})),
+                    const Divider(indent: 12),
+                    Expanded(
+                        child: PriceTextField(
+                            textEditingController: TextEditingController(
+                                text: (data.data['price_to'] ?? "").toString()),
+                            autofocus: false,
+                            onChanged: (value) {
+                              if (value.isEmpty) {
+                                filter.removeData = "price_to";
+                              } else {
+                                filter.filterData = {
+                                  "price_to": getIntComponent(value)
+                                };
+                              }
+                            },
+                            title: "До",
+                            onSubmitted: () {}))
+                  ]),
+                  AdditionallFilterWidget(
+                      categoryId: widget.categoryId, data: data.data)
+                ],
+              )),
+        ),
+        bottomNavigationBar: BottomNavigationBarComponent(
+            child: FilterResultButton(categoryId: widget.categoryId)),
+      );
+    });
   }
 }
+
+
 
 
 // Scaffold(

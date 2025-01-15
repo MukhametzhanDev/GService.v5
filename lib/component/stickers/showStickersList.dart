@@ -16,24 +16,27 @@ class _ShowStickersListState extends State<ShowStickersList> {
         ? Container()
         : Padding(
             padding: const EdgeInsets.only(top: 6),
-            child: Wrap(
-                runSpacing: 8,
-                children: widget.data.map((value) {
-                  return Container(
-                    height: 22,
-                    margin: const EdgeInsets.only(right: 8),
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: 6, vertical: 5),
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(4),
-                        color: ColorComponent.mainColor.withOpacity(.4)),
-                    child: Text(value['title'],
-                        style: const TextStyle(
-                            fontSize: 11.5,
-                            fontWeight: FontWeight.w500,
-                            height: 1)),
-                  );
-                }).toList()),
+            child: SingleChildScrollView(
+              padding: EdgeInsets.symmetric(horizontal: 11),
+              scrollDirection: Axis.horizontal,
+              child: Row(
+                  children: widget.data.map((value) {
+                return Container(
+                  // height: 26,
+                  margin: const EdgeInsets.symmetric(horizontal: 4),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 6, vertical: 6),
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(4),
+                      color: ColorComponent.mainColor.withOpacity(.4)),
+                  child: Text(value['title'],
+                      style: const TextStyle(
+                          fontSize: 11.5,
+                          fontWeight: FontWeight.w500,
+                          height: 1)),
+                );
+              }).toList()),
+            ),
           );
   }
 }

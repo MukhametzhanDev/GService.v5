@@ -9,7 +9,8 @@ class MyAdFilterProvider with ChangeNotifier {
   List ads = [];
   int currentIndex = 0;
 
-  int get currentCategoryId => filters[currentIndex]['category_id'] ?? 0;
+  int get currentCategoryId =>
+      filters.isEmpty ? 0 : filters[currentIndex]['category_id'];
 
   set addFilters(List<Map<String, dynamic>> value) {
     filters = value;

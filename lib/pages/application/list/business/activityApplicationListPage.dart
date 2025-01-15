@@ -1,5 +1,7 @@
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:dio/dio.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:gservice5/component/button/button.dart';
 import 'package:gservice5/component/dio/dio.dart';
 import 'package:gservice5/component/loader/paginationLoaderComponent.dart';
 import 'package:gservice5/component/snackBar/snackBarComponent.dart';
@@ -7,40 +9,41 @@ import 'package:gservice5/component/theme/colorComponent.dart';
 import 'package:gservice5/pages/ad/list/adListLoader.dart';
 import 'package:gservice5/pages/application/item/applicationItem.dart';
 import 'package:gservice5/pages/application/list/customer/emptyApplicationListPage.dart';
+import 'package:gservice5/pages/auth/registration/business/changedActivityBusinessPage.dart';
 import 'package:gservice5/pages/create/data/createData.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
-class ApplicationListWidget extends StatefulWidget {
-  final Map<String, dynamic> param;
-  final ScrollController scrollController;
-  const ApplicationListWidget(
-      {super.key, required this.param, required this.scrollController});
+class ActivityApplicationListPage extends StatefulWidget {
+  const ActivityApplicationListPage({super.key});
 
   @override
-  State<ApplicationListWidget> createState() => _AdListWidgetState();
+  State<ActivityApplicationListPage> createState() =>
+      _ActivityApplicationListPageState();
 }
 
-class _AdListWidgetState extends State<ApplicationListWidget>
+class _ActivityApplicationListPageState
+    extends State<ActivityApplicationListPage>
     with AutomaticKeepAliveClientMixin {
   List data = [];
   bool loader = true;
   bool hasNextPage = false;
   bool isLoadMore = false;
   int page = 1;
-  String title = "";
-  Map<String, dynamic> param = {};
   RefreshController refreshController = RefreshController();
+  ScrollController scrollController = ScrollController();
+  bool filledActivity = false;
 
   @override
   void initState() {
     getData();
-    param.addAll(widget.param);
+    scrollController.addListener(() => loadMoreAd());
     super.initState();
   }
 
   @override
   void dispose() {
     FilterData.data.clear();
+    scrollController.dispose();
     refreshController.dispose();
     super.dispose();
   }
@@ -55,10 +58,11 @@ class _AdListWidgetState extends State<ApplicationListWidget>
   Future getData() async {
     try {
       page = 1;
-      Response response = await dio.get("/application", data: param);
+      Response response = await dio.get("/activity-applications");
       print(response.data);
       if (response.statusCode == 200) {
         data = response.data['data'];
+        filledActivity = response.data['filled_activity'];
         loader = false;
         hasNextPage = page != response.data['meta']['last_page'];
         setState(() {});
@@ -68,13 +72,12 @@ class _AdListWidgetState extends State<ApplicationListWidget>
     } on DioException catch (e) {
       print(e);
       SnackBarComponent().showNotGoBackServerErrorMessage(context);
-    } finally {
-      refreshController.refreshCompleted();
     }
+    refreshController.refreshCompleted();
   }
 
   void loadMoreAd() async {
-    if (widget.scrollController.position.extentAfter < 100 &&
+    if (scrollController.position.extentAfter < 100 &&
         hasNextPage &&
         !isLoadMore) {
       try {
@@ -82,7 +85,7 @@ class _AdListWidgetState extends State<ApplicationListWidget>
         page += 1;
         setState(() {});
         Response response = await dio
-            .get("/application", data: {"page": page.toString(), ...param});
+            .get("/activity-applications", data: {"page": page.toString()});
         print(response.data);
         if (response.statusCode == 200) {
           data.addAll(response.data['data']);
@@ -100,64 +103,43 @@ class _AdListWidgetState extends State<ApplicationListWidget>
 
   void filteredAds(value) {
     if (value != null) {
-      param = FilterData.data;
+      // param = FilterData.data;
       getData();
     }
+  }
+
+  void showPage() {
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => const ChangedActivityBusinessPage())).then((value) {
+      if (value == "update") getData();
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     super.build(context);
-    return
-        // appBar: FilterAdWidget(
-        //     category: widget.category, appBar: AppBar(), onChanged: filteredAds),
-        // AppBar(
-        //   leadingWidth: MediaQuery.of(context).size.width - 100,
-        //   actions: [
-        //     FilterButton(showFilterPage: showFilterPage)
-        //     // GestureDetector(
-        //     //   onTap: () => showFilterPage(),
-        //     //   child: Container(
-        //     //     width: 36,
-        //     //     height: 36,
-        //     //     alignment: Alignment.center,
-        //     //     margin: EdgeInsets.only(right: 15),
-        //     //     decoration: BoxDecoration(
-        //     //         borderRadius: BorderRadius.circular(8),
-        //     //         color: ColorComponent.mainColor),
-        //     //     child: SvgPicture.asset("assets/icons/filter.svg", width: 20),
-        //     //   ),
-        //     // )
-        //   ],
-        //   leading: BackTitleButton(
-        //       title: widget.category['title'],
-        //       onPressed: () => Navigator.pop(context)),
-        //   bottom: PreferredSize(
-        //       preferredSize: Size(double.infinity, 46),
-        //       child: Container(
-        //           decoration: BoxDecoration(
-        //               border: Border(
-        //                   bottom:
-        //                       BorderSide(width: 2, color: Color(0xfff4f5f7)))),
-        //           padding: const EdgeInsets.only(left: 15, right: 15, bottom: 8),
-        //           child: SortAdWidget(onChanged: onChanged))),
-        // ),
-        loader
-            ? const AdListLoader()
-            : SmartRefresher(
-                onRefresh: () async => await getData(),
-                enablePullDown: true,
-                enablePullUp: false,
-                controller: refreshController,
-                header: MaterialClassicHeader(
-                    color: ColorComponent.mainColor,
-                    backgroundColor: Colors.white),
-                child: data.isEmpty
+    return loader
+        ? const AdListLoader()
+        : SmartRefresher(
+            onRefresh: () async {
+              await getData();
+            },
+            enablePullDown: true,
+            enablePullUp: false,
+            controller: refreshController,
+            header: MaterialClassicHeader(
+                color: ColorComponent.mainColor, backgroundColor: Colors.white),
+            child: !filledActivity
+                ? EmptyActivityPage(showPage: showPage)
+                : data.isEmpty
                     ? const EmptyApplicationListPage()
                     : ListView.builder(
                         itemCount: data.length,
                         shrinkWrap: true,
-                        // controller: scrollController,
+                        physics: const NeverScrollableScrollPhysics(),
+                        controller: scrollController,
                         itemBuilder: (context, int index) {
                           Map value = data[index];
                           if (data.length - 1 == index) {
@@ -177,4 +159,31 @@ class _AdListWidgetState extends State<ApplicationListWidget>
   @override
   // TODO: implement wantKeepAlive
   bool get wantKeepAlive => true;
+}
+
+class EmptyActivityPage extends StatelessWidget {
+  final VoidCallback showPage;
+  const EmptyActivityPage({super.key, required this.showPage});
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        SvgPicture.asset("assets/icons/portfolio.svg",
+            width: 120, color: ColorComponent.gray['500']),
+        const Divider(indent: 12),
+        const Text("Деятельность толтырыныз",
+            textAlign: TextAlign.center,
+            style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600)),
+        const Divider(height: 20),
+        Button(
+            onPressed: showPage,
+            padding: const EdgeInsets.symmetric(horizontal: 15),
+            title: "Заполнить вид деятельности"),
+        const Divider(height: 100),
+      ],
+    );
+  }
 }

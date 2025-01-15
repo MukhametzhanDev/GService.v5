@@ -36,6 +36,7 @@ class _CustomerBottomTabState extends State<CustomerBottomTab>
     } else if (index == 2) {
       showMaterialModalBottomSheet(
           context: context,
+          enableDrag: false,
           builder: (context) => const SectionCreateAdPage()).then((value) {
         if (value == "ad") {
           Navigator.pushNamed(context, "MyAdListPage");

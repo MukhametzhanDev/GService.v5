@@ -4,7 +4,7 @@ import 'package:gservice5/component/theme/colorComponent.dart';
 import 'package:gservice5/pages/ad/my/business/businessMainPage.dart';
 import 'package:gservice5/pages/application/list/business/mainApplicationsBusinessPage.dart';
 import 'package:gservice5/pages/contractor/marketing/marketingPage.dart';
-import 'package:gservice5/pages/create/createSectionPage.dart';
+import 'package:gservice5/pages/create/ad/sectionCreateAdPage.dart';
 import 'package:gservice5/pages/profile/business/businessProfilePage.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
@@ -34,7 +34,8 @@ class _BusinessBottomTabState extends State<BusinessBottomTab> {
     } else if (index == 2) {
       showMaterialModalBottomSheet(
           context: context,
-          builder: (context) => const CreateSectionPage()).then((value) {
+          enableDrag: false,
+          builder: (context) => const SectionCreateAdPage()).then((value) {
         if (value == "ad") {
           Navigator.pushNamed(context, "MyAdListPage");
         }

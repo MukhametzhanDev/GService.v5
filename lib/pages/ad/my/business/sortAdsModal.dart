@@ -1,7 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:gservice5/component/button/back/backTitleButton.dart';
-import 'package:gservice5/component/button/back/closeIconButton.dart';
 import 'package:gservice5/component/button/back/closeTitleButton.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
 import 'package:gservice5/component/widgets/checkBox/checkBoxWidget.dart';

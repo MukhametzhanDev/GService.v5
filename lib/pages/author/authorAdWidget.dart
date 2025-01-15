@@ -6,11 +6,10 @@ import 'package:gservice5/component/dio/dio.dart';
 import 'package:gservice5/component/image/cacheImage.dart';
 import 'package:gservice5/component/snackBar/snackBarComponent.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
-import 'package:gservice5/pages/ad/item/smallAdItem.dart';
 import 'package:gservice5/pages/author/authorAdsListWidget.dart';
+import 'package:gservice5/pages/author/authorApplicationListWidget.dart';
 import 'package:gservice5/pages/author/business/viewBusinessPage.dart';
 import 'package:gservice5/pages/author/customer/viewCustomerPage.dart';
-import 'package:shimmer/shimmer.dart';
 
 class AuthorAdWidget extends StatefulWidget {
   final String title;
@@ -97,7 +96,6 @@ class _AuthorAdWidgetState extends State<AuthorAdWidget> {
 
   @override
   Widget build(BuildContext context) {
-    double itemWidth = MediaQuery.of(context).size.width / 2;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -263,8 +261,15 @@ class _AuthorAdWidgetState extends State<AuthorAdWidget> {
           ),
         ),
         widget.showOtherAd
-            ? AuthorAdsListWidget(
-                id: widget.id, subTitle: widget.subTitle, showPage: showPage)
+            ? widget.type == "ad"
+                ? AuthorAdsListWidget(
+                    id: widget.id,
+                    subTitle: widget.subTitle,
+                    showPage: showPage)
+                : AuthorApplicationListWidget(
+                    id: widget.id,
+                    subTitle: widget.subTitle,
+                    showPage: showPage)
             : Container(),
       ],
     );
