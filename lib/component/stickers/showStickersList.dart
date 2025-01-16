@@ -17,7 +17,7 @@ class _ShowStickersListState extends State<ShowStickersList> {
         : Padding(
             padding: const EdgeInsets.only(top: 6),
             child: SingleChildScrollView(
-              padding: EdgeInsets.symmetric(horizontal: 11),
+              padding: const EdgeInsets.symmetric(horizontal: 11),
               scrollDirection: Axis.horizontal,
               child: Row(
                   children: widget.data.map((value) {

@@ -5,13 +5,13 @@ import 'package:gservice5/component/button/button.dart';
 import 'package:gservice5/component/functions/number/getIntNumber.dart';
 import 'package:gservice5/component/snackBar/snackBarComponent.dart';
 import 'package:gservice5/component/textField/priceTextField.dart';
+import 'package:gservice5/provider/adFilterProvider.dart';
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 
 class PriceFilterModal extends StatefulWidget {
   final void Function(Map<String, dynamic> data) onChangedPrice;
-  final Map value;
-  const PriceFilterModal(
-      {super.key, required this.onChangedPrice, required this.value});
+  const PriceFilterModal({super.key, required this.onChangedPrice});
 
   @override
   State<PriceFilterModal> createState() => _PriceFilterModalState();
@@ -31,13 +31,14 @@ class _PriceFilterModalState extends State<PriceFilterModal> {
   }
 
   void addPrice() {
-    if (widget.value.containsKey("price_from")) {
+    Map data = Provider.of<AdFilterProvider>(context, listen: false).value;
+    if (data.containsKey("price_from")) {
       fromPrice.text = currencyTextInputFormatter
-          .formatString(widget.value['price_from'].toString());
+          .formatString(data['price_from'].toString());
     }
-    if (widget.value.containsKey("price_to")) {
-      toPrice.text = currencyTextInputFormatter
-          .formatString(widget.value['price_to'].toString());
+    if (data.containsKey("price_to")) {
+      toPrice.text =
+          currencyTextInputFormatter.formatString(data['price_to'].toString());
     }
   }
 
@@ -65,7 +66,8 @@ class _PriceFilterModalState extends State<PriceFilterModal> {
 
   void updateAdList() {
     Map<String, dynamic> data = formattedData();
-    widget.onChangedPrice(data);
+    Provider.of<AdFilterProvider>(context, listen: false).filterData = data;
+    widget.onChangedPrice({});
     Navigator.pop(context);
   }
 
@@ -81,7 +83,7 @@ class _PriceFilterModalState extends State<PriceFilterModal> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 180 + MediaQuery.of(context).viewInsets.bottom,
+      height: 210 + MediaQuery.of(context).viewInsets.bottom,
       child: Scaffold(
         appBar: AppBar(
           automaticallyImplyLeading: false,
@@ -100,14 +102,14 @@ class _PriceFilterModalState extends State<PriceFilterModal> {
                         textEditingController: fromPrice,
                         autofocus: true,
                         title: "От",
-                        onSubmitted: () {})),
+                        onSubmitted: (value) {})),
                 const Divider(indent: 12),
                 Expanded(
                     child: PriceTextField(
                         textEditingController: toPrice,
                         autofocus: false,
                         title: "До",
-                        onSubmitted: () {}))
+                        onSubmitted: (value) {}))
               ]),
               const Divider(height: 15),
               SizedBox(

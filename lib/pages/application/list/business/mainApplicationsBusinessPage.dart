@@ -8,7 +8,6 @@ import 'package:gservice5/component/widgets/badge/badgeWidget.dart';
 import 'package:badges/badges.dart' as badges;
 import 'package:gservice5/pages/application/list/business/activityApplicationListPage.dart';
 import 'package:gservice5/pages/application/list/customer/applicationListWidget.dart';
-import 'package:gservice5/pages/create/application/createApplication2.dart';
 import 'package:gservice5/pages/create/application/sectionCreateApplicationPage.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 

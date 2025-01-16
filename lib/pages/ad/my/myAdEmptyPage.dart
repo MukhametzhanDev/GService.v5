@@ -15,8 +15,8 @@ class MyAdEmptyPage extends StatelessWidget {
         children: [
           SvgPicture.asset("assets/icons/clipboardOutline.svg", width: 80),
           const Divider(indent: 12),
-          const Text("У вас пока нет опубликованных объявлении",
-              style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600)),
+          const Text("У вас пока нет\nопубликованных объявлении",
+              style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),textAlign: TextAlign.center,),
           const Divider(indent: 12),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 15),

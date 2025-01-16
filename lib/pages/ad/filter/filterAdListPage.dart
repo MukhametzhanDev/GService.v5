@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:gservice5/component/button/back/closeTitleButton.dart';
-import 'package:gservice5/component/button/button.dart';
 import 'package:gservice5/component/functions/number/getIntNumber.dart';
 import 'package:gservice5/component/textField/closeKeyboard/closeKeyboard.dart';
 import 'package:gservice5/component/textField/priceTextField.dart';
@@ -25,7 +24,6 @@ class FilterAdListPage extends StatefulWidget {
 
 class _FilterAdListPageState extends State<FilterAdListPage> {
   Map getParam(Map value) {
-    print(FilterData.data);
     int index = widget.data.indexOf(value);
     if (index <= 0 || index == widget.data.length - 1) {
       return {};
@@ -98,26 +96,23 @@ class _FilterAdListPageState extends State<FilterAdListPage> {
                   Row(children: [
                     Expanded(
                         child: PriceTextField(
-                            textEditingController: TextEditingController(
-                                text:
-                                    (data.data['price_from'] ?? "").toString()),
+                            textEditingController: TextEditingController(),
                             autofocus: false,
-                            onChanged: (value) {
-                              if (value.isEmpty) {
+                            onChanged: (value) {},
+                            title: "От",
+                            onSubmitted: (value) {
+                              if (value!.isEmpty) {
                                 filter.removeData = "price_from";
                               } else {
                                 filter.filterData = {
                                   "price_from": getIntComponent(value)
                                 };
                               }
-                            },
-                            title: "От",
-                            onSubmitted: () {})),
+                            })),
                     const Divider(indent: 12),
                     Expanded(
                         child: PriceTextField(
-                            textEditingController: TextEditingController(
-                                text: (data.data['price_to'] ?? "").toString()),
+                            textEditingController: TextEditingController(),
                             autofocus: false,
                             onChanged: (value) {
                               if (value.isEmpty) {
@@ -129,7 +124,7 @@ class _FilterAdListPageState extends State<FilterAdListPage> {
                               }
                             },
                             title: "До",
-                            onSubmitted: () {}))
+                            onSubmitted: (value) {}))
                   ]),
                   AdditionallFilterWidget(
                       categoryId: widget.categoryId, data: data.data)

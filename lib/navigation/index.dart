@@ -20,6 +20,7 @@ import 'package:gservice5/pages/profile/wallet/replenishment/replenishmentWallet
 import 'package:gservice5/pages/splash/splashScreen.dart';
 import 'package:gservice5/provider/adFilterProvider.dart';
 import 'package:gservice5/provider/myAdFilterProvider.dart';
+import 'package:gservice5/provider/nameCompanyProvider.dart';
 import 'package:gservice5/provider/statusMyAdCountProvider.dart';
 import 'package:gservice5/provider/walletAmountProvider.dart';
 import 'package:provider/provider.dart';
@@ -43,6 +44,7 @@ class _IndexState extends State<Index> {
           ChangeNotifierProvider(create: (_) => StatusMyAdCountProvider()),
           ChangeNotifierProvider(create: (_) => MyAdFilterProvider()),
           ChangeNotifierProvider(create: (_) => AdFilterProvider()),
+          ChangeNotifierProvider(create: (_) => NameCompanyProvider()),
         ],
         child: Consumer<DarkThemeProvider>(
             builder: (BuildContext context, value, child) {

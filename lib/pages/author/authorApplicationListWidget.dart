@@ -4,7 +4,6 @@ import 'package:flutter_svg/svg.dart';
 import 'package:gservice5/component/dio/dio.dart';
 import 'package:gservice5/component/snackBar/snackBarComponent.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
-import 'package:gservice5/pages/ad/item/smallAdItem.dart';
 import 'package:gservice5/pages/application/item/smallApplicationItem.dart';
 import 'package:shimmer/shimmer.dart';
 
@@ -101,13 +100,16 @@ class _AuthorApplicationListWidgetState
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
                                       children: [
-                                          SmallAdItem(
-                                              data: value, showFullInfo: false),
+                                          SmallApplicationItem(
+                                              onPressed: (int id) {},
+                                              data: value,
+                                              position: "main"),
                                           const Divider(indent: 15),
                                           GestureDetector(
                                             onTap: () => widget.showPage(),
                                             child: Container(
                                               width: 140,
+                                              height: 110,
                                               decoration: BoxDecoration(
                                                   borderRadius:
                                                       BorderRadius.circular(10),

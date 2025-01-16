@@ -7,7 +7,6 @@ import 'package:gservice5/component/theme/colorComponent.dart';
 import 'package:gservice5/pages/ad/filter/filterAdListPage.dart';
 import 'package:gservice5/pages/ad/filter/filterButton.dart';
 import 'package:gservice5/pages/ad/filter/priceFilterModal.dart';
-import 'package:gservice5/pages/create/data/createData.dart';
 import 'package:gservice5/provider/adFilterProvider.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:provider/provider.dart';
@@ -31,35 +30,6 @@ class FilterAdAppBarWidget extends StatefulWidget
 }
 
 class _FilterAdAppBarWidgetState extends State<FilterAdAppBarWidget> {
-  Map price = {};
-
-  @override
-  void initState() {
-    // addData();
-    super.initState();
-  }
-
-  // void addData() {
-  //   bool hasCity = FilterData.data.containsKey("city_id_value");
-  //   bool hasPriceTo = FilterData.data.containsKey("price_to");
-  //   bool hasPriceFrom = FilterData.data.containsKey("price_from");
-  //   if (hasCity) {
-  //     // city = FilterData.data['city_id_value'] ?? {};
-  //   } else {}
-  //   if (hasPriceTo) {
-  //     price['price_to'] = FilterData.data['price_to'];
-  //   } else {
-  //     FilterData.data.remove("price_to");
-  //   }
-  //   if (hasPriceFrom) {
-  //     price['price_from'] = FilterData.data['price_from'];
-  //   } else {
-  //     FilterData.data.remove("price_from");
-  //   }
-  //   setState(() {});
-  //   widget.onChanged("update");
-  // }
-
   void showCityList() {
     showCupertinoModalBottomSheet(
       context: context,
@@ -73,15 +43,12 @@ class _FilterAdAppBarWidgetState extends State<FilterAdAppBarWidget> {
     showCupertinoModalBottomSheet(
       context: context,
       builder: (context) {
-        return PriceFilterModal(onChangedPrice: onChangedPrice, value: price);
+        return PriceFilterModal(onChangedPrice: onChangedPrice);
       },
     );
   }
 
   void onChangedPrice(Map value) {
-    price = value;
-    // FilterData.data.addAll(Map<String, dynamic>.from(value));
-    setState(() {});
     widget.onChanged("update");
   }
 
@@ -91,25 +58,16 @@ class _FilterAdAppBarWidgetState extends State<FilterAdAppBarWidget> {
     widget.onChanged("update");
   }
 
-  void onClearPrice() {
-    price.clear();
-    FilterData.data.remove("price_from");
-    FilterData.data.remove("price_to");
-    setState(() {});
-    widget.onChanged("update");
-  }
-
-  Widget PriceWidget() {
-    Map price = FilterData.data;
-    if (price.containsKey("price_from") && price.containsKey("price_to")) {
+  Widget PriceWidget(Map data) {
+    if (data.containsKey("price_from") && data.containsKey("price_to")) {
       return Row(children: [
         Text(
-            "${priceFormat(price['price_from'])} ₸ - ${priceFormat(price['price_to'])} ₸"),
+            "${priceFormat(data['price_from'])} ₸ - ${priceFormat(data['price_to'])} ₸"),
       ]);
-    } else if (price.containsKey("price_from")) {
-      return Text("от ${priceFormat(price['price_from'])} ₸");
-    } else if (price.containsKey("price_to")) {
-      return Text("до ${priceFormat(price['price_to'])} ₸");
+    } else if (data.containsKey("price_from")) {
+      return Text("от ${priceFormat(data['price_from'])} ₸");
+    } else if (data.containsKey("price_to")) {
+      return Text("до ${priceFormat(data['price_to'])} ₸");
     } else {
       return const Text("Цена");
     }
@@ -134,6 +92,9 @@ class _FilterAdAppBarWidgetState extends State<FilterAdAppBarWidget> {
     final filterData = Provider.of<AdFilterProvider>(context, listen: false);
     return Consumer<AdFilterProvider>(builder: (context, data, child) {
       bool activeCity = data.data.containsKey("city_id");
+      bool price = data.data.containsKey("price_from") ||
+          data.data.containsKey("price_to");
+      print(data.data);
       return AppBar(
         leadingWidth: MediaQuery.of(context).size.width - 100,
         actions: [
@@ -217,22 +178,26 @@ class _FilterAdAppBarWidgetState extends State<FilterAdAppBarWidget> {
                           height: 36,
                           alignment: Alignment.center,
                           margin: const EdgeInsets.only(bottom: 2),
-                          padding: EdgeInsets.only(
-                              left: 12, right: price.isNotEmpty ? 6 : 12),
+                          padding:
+                              EdgeInsets.only(left: 12, right: price ? 6 : 12),
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(8),
                               border: Border.all(
                                   width: 1,
-                                  color: price.isEmpty
+                                  color: !price
                                       ? const Color(0xffD1D5DB)
                                       : ColorComponent.mainColor),
                               color: ColorComponent.gray['50']),
-                          child: price.isNotEmpty
+                          child: price
                               ? Row(children: [
-                                  PriceWidget(),
+                                  PriceWidget(data.value),
                                   const Divider(indent: 6),
                                   GestureDetector(
-                                      onTap: onClearPrice,
+                                      onTap: () {
+                                        filterData.removeData = "price_from";
+                                        filterData.removeData = "price_to";
+                                        widget.onChanged("update");
+                                      },
                                       child: Container(
                                           width: 24,
                                           alignment: Alignment.center,

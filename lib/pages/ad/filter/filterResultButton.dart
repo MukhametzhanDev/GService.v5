@@ -1,10 +1,6 @@
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:gservice5/component/button/button.dart';
-import 'package:gservice5/component/dio/dio.dart';
-import 'package:gservice5/component/snackBar/snackBarComponent.dart';
 import 'package:gservice5/provider/adFilterProvider.dart';
-import 'package:gservice5/provider/myAdFilterProvider.dart';
 import 'package:provider/provider.dart';
 
 class FilterResultButton extends StatefulWidget {

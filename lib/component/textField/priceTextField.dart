@@ -4,15 +4,17 @@ import 'package:intl/intl.dart';
 
 class PriceTextField extends StatefulWidget {
   final String? title;
+  final value;
   final TextEditingController textEditingController;
   final bool? autofocus;
   final void Function(String value)? onChanged;
-  final void Function() onSubmitted;
+  final void Function(String? value) onSubmitted;
 
   const PriceTextField(
       {super.key,
       required this.textEditingController,
       @required this.autofocus,
+      this.value,
       @required this.title,
       required this.onSubmitted,
       @required this.onChanged});
@@ -32,8 +34,9 @@ class _PriceTextFieldState extends State<PriceTextField> {
       child: TextField(
         onChanged: widget.onChanged,
         onSubmitted: (value) {
-          widget.onSubmitted();
+          widget.onSubmitted(value);
         },
+        // initialValue: widget.value ?? "",
         inputFormatters: [currencyTextInputFormatter],
         autofocus: widget.autofocus ?? false,
         keyboardType: TextInputType.number,
