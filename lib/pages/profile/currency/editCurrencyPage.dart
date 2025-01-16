@@ -79,7 +79,7 @@ class _EditCurrencyPageState extends State<EditCurrencyPage> {
         appBar: AppBar(
             leadingWidth: 200,
             leading: BackTitleButton(
-                title: "Моя валюта", onPressed: () => Navigator.pop(context))),
+                title: "Конвертор валют", onPressed: () => Navigator.pop(context))),
         body: loader
             ? const LoaderComponent()
             : Column(

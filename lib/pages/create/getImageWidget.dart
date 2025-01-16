@@ -34,8 +34,10 @@ class _GetImageWidgetState extends State<GetImageWidget> {
   Future<void> _pickImages() async {
     try {
       showModalLoader(context);
-      final List<XFile> pickedFiles = await _picker.pickMultiImage();
+      final List<XFile> pickedFiles = await _picker.pickMultiImage(
+          imageQuality: 80, maxHeight: 1024, maxWidth: 1024);
       if (pickedFiles.isNotEmpty) {
+        print(pickedFiles.first.path);
         setState(() {
           _images.addAll(pickedFiles.map((file) => XFile(file.path)).toList());
           widget.onImagesSelected(_images);
@@ -56,13 +58,13 @@ class _GetImageWidgetState extends State<GetImageWidget> {
   Future<void> _pickImage(ImageSource source) async {
     try {
       showModalLoader(context);
-      final XFile? pickedFile =
-          await _picker.pickImage(source: source, imageQuality: 50);
+      final XFile? pickedFile = await _picker.pickImage(
+          source: source, imageQuality: 80, maxHeight: 1024, maxWidth: 1024);
       print(pickedFile!.path);
       setState(() {
         _images.add(XFile(pickedFile.path));
       });
-          widget.onImagesSelected(_images);
+      widget.onImagesSelected(_images);
       Navigator.pop(context);
       Navigator.pop(context);
     } on PlatformException catch (e) {

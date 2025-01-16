@@ -14,8 +14,8 @@ class TransactionItem extends StatelessWidget {
     bool replenishment = data['is_replenishment'];
     return GestureDetector(
       onTap: () {
-        Navigator.push(
-            context, MaterialPageRoute(builder: (context) => ViewReceiptPage()));
+        Navigator.push(context,
+            MaterialPageRoute(builder: (context) => ViewReceiptPage()));
       },
       child: Container(
           padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 12),
@@ -26,18 +26,19 @@ class TransactionItem extends StatelessWidget {
               Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
             Row(
               children: [
-                Text(data['title'], style: const TextStyle(fontSize: 15)),
                 Expanded(
-                  child: Text(
-                      "${replenishment ? "+" : "-"} ${numberFormat(data['total_price'])} ₸",
-                      textAlign: TextAlign.end,
-                      style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.w600,
-                          color: replenishment
-                              ? const Color(0xff057A55)
-                              : Colors.red)),
-                ),
+                    child: Text(data['title'],
+                        style: TextStyle(
+                            fontSize: 15, fontWeight: FontWeight.w500))),
+                Text(
+                    "${replenishment ? "+" : "-"} ${numberFormat(data['total_price'])} ₸",
+                    textAlign: TextAlign.end,
+                    style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w600,
+                        color: replenishment
+                            ? const Color(0xff057A55)
+                            : Colors.red)),
               ],
             ),
             const Divider(height: 6),
@@ -64,7 +65,7 @@ class TransactionItem extends StatelessWidget {
                     Text("Показать чек",
                         style: TextStyle(
                             fontSize: 14,
-                            fontWeight: FontWeight.w500,
+                            // fontWeight: FontWeight.w500,
                             color: ColorComponent.blue['500'])),
                     const Divider(indent: 4),
                     SvgPicture.asset('assets/icons/receiptOutline.svg')

@@ -21,7 +21,7 @@ class _CurrencyMainPageState extends State<CurrencyMainPage> {
             centerTitle: false,
             automaticallyImplyLeading: false,
             leading: const BackIconButton(),
-            title: const Text("Моя валюта"),
+            title: const Text("Конвертор валют"),
             bottom: PreferredSize(
                 preferredSize: Size(MediaQuery.of(context).size.width, 50),
                 child: Container(

@@ -44,7 +44,7 @@ class _GetCurrencyModalState extends State<GetCurrencyModal> {
         return Scaffold(
           appBar: AppBar(
               automaticallyImplyLeading: false,
-              title: const Text("Моя валюта"),
+              title: const Text("Конвертор валют"),
               actions: const [CloseIconButton(iconColor: null, padding: true)]),
           body: SingleChildScrollView(
               child: Column(

@@ -118,6 +118,7 @@ class _ShowWalletWidgetState extends State<ShowWalletWidget> {
                               GestureDetector(
                                 onTap: showTransactionHistoryPage,
                                 child: Container(
+                                  height: 42,
                                   padding:
                                       const EdgeInsets.symmetric(horizontal: 8),
                                   child: Row(
