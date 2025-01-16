@@ -6,6 +6,7 @@ import 'package:gservice5/component/dio/dio.dart';
 import 'package:gservice5/component/loader/loaderComponent.dart';
 import 'package:gservice5/component/snackBar/snackBarComponent.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
+import 'package:gservice5/pages/payment/transaction/emptyTransactionPage.dart';
 import 'package:gservice5/pages/payment/transaction/transactionItem.dart';
 import 'package:intl/intl.dart';
 import 'package:sticky_headers/sticky_headers.dart';
@@ -19,7 +20,24 @@ class TransactionHistoryPage extends StatefulWidget {
 
 class TransactionHistoryPageState extends State<TransactionHistoryPage>
     with SingleTickerProviderStateMixin {
-  final List _tabs = ["Все", "Ожидает", "Пополнения", "Оплата"];
+  final List _tabs = [
+    {
+      "title": "Все",
+      "param": {"": ""}
+    },
+    {
+      "title": "Ожидает",
+      "param": {"status": "pending"}
+    },
+    {
+      "title": "Пополнения",
+      "param": {"is_replenishment": true}
+    },
+    {
+      "title": "Оплата",
+      "param": {"is_replenishment": false}
+    }
+  ];
   List<Map> sortData = [
     {"title": "За неделю"},
     {"title": "За месяц"},
@@ -28,7 +46,7 @@ class TransactionHistoryPageState extends State<TransactionHistoryPage>
     {"title": "За год"},
     {"title": "За все время"},
   ];
-  Map sortValue = {"title": "По умолчанию"};
+  // Map sortValue = {"title": "По умолчанию"};
   List data = [];
   ScrollController scrollController = ScrollController();
   late TabController tabController;
@@ -36,19 +54,18 @@ class TransactionHistoryPageState extends State<TransactionHistoryPage>
   bool isLoadMore = false;
   int page = 1;
   bool loader = true;
-  String status = "";
+  int currentIndex = 0;
 
   @override
   void initState() {
     tabController = TabController(length: 4, vsync: this);
-    // tabController.addListener(() {
-    //   // canceled/pending/success
-    //   if (tabController.index == 1) {
-    //     status = "pending";
-    //   } else if (tabController.index == 2) {
-
-    //   }
-    // });
+    tabController.addListener(() {
+      if (!tabController.indexIsChanging) {
+        showLoader();
+        currentIndex = tabController.index;
+        getData();
+      }
+    });
     getData();
     super.initState();
   }
@@ -56,8 +73,8 @@ class TransactionHistoryPageState extends State<TransactionHistoryPage>
   Future getData() async {
     try {
       page = 1;
-      Response response = await dio
-          .get("/payment-transactions", queryParameters: {"status": status});
+      Map<String, dynamic> param = _tabs[currentIndex]['param'];
+      Response response = await dio.get("/payment-transactions", data: param);
       print(response.data);
       if (response.statusCode == 200) {
         data = response.data['data'];
@@ -80,8 +97,9 @@ class TransactionHistoryPageState extends State<TransactionHistoryPage>
       try {
         isLoadMore = true;
         page += 1;
+        Map<String, dynamic> param = _tabs[currentIndex]['param'];
         Response response = await dio.get("/payment-transactions",
-            queryParameters: {"page": page.toString(), "status": status});
+            data: {"page": page.toString(), ...param});
         print(response.data);
         if (response.statusCode == 200) {
           data.addAll(response.data['data']);
@@ -94,6 +112,13 @@ class TransactionHistoryPageState extends State<TransactionHistoryPage>
       } catch (e) {
         SnackBarComponent().showNotGoBackServerErrorMessage(context);
       }
+    }
+  }
+
+  void showLoader() {
+    if (!loader) {
+      loader = true;
+      setState(() {});
     }
   }
 
@@ -117,12 +142,13 @@ class TransactionHistoryPageState extends State<TransactionHistoryPage>
                                 width: 2, color: Color(0xfff4f5f7)))),
                     child: TabBar(
                         isScrollable: true,
+                        controller: tabController,
                         tabAlignment: TabAlignment.start,
                         indicatorSize: TabBarIndicatorSize.tab,
                         labelColor: Colors.black,
                         unselectedLabelColor: ColorComponent.gray['500'],
                         tabs: _tabs.map((value) {
-                          return Tab(child: Text(value));
+                          return Tab(child: Text(value['title']));
                         }).toList()),
                   )),
               // actions: <Widget>[
@@ -154,34 +180,39 @@ class TransactionHistoryPageState extends State<TransactionHistoryPage>
               // ]
             ),
             body: TabBarView(
+                controller: tabController,
                 children: _tabs.map((element) {
-              return loader
-                  ? const LoaderComponent()
-                  : ListView.builder(
-                      itemCount: data.length,
-                      itemBuilder: (context, index) {
-                        Map value = data[index];
-                        List payments = value['payments'];
-                        return StickyHeader(
-                            header: Container(
-                                width: MediaQuery.of(context).size.width,
-                                decoration: const BoxDecoration(
-                                    color: Colors.white,
-                                    border: Border(
-                                        bottom: BorderSide(
-                                            width: 1,
-                                            color: Color(0xfff4f5f7)))),
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 15, vertical: 10),
-                                child: Text(formattedISODate(value['date']),
-                                    style: const TextStyle(
-                                        fontWeight: FontWeight.w600))),
-                            content: Column(
-                                children: payments.map((paymentData) {
-                              return TransactionItem(data: paymentData);
-                            }).toList()));
-                      });
-            }).toList())));
+                  return loader || tabController.indexIsChanging
+                      ? const LoaderComponent()
+                      : data.isEmpty
+                          ? const EmptyTransactionPage()
+                          : ListView.builder(
+                              itemCount: data.length,
+                              itemBuilder: (context, index) {
+                                Map value = data[index];
+                                List payments = value['payments'];
+                                return StickyHeader(
+                                    header: Container(
+                                        width:
+                                            MediaQuery.of(context).size.width,
+                                        decoration: const BoxDecoration(
+                                            color: Colors.white,
+                                            border: Border(
+                                                bottom: BorderSide(
+                                                    width: 1,
+                                                    color: Color(0xfff4f5f7)))),
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 15, vertical: 10),
+                                        child: Text(
+                                            formattedISODate(value['date']),
+                                            style: const TextStyle(
+                                                fontWeight: FontWeight.w600))),
+                                    content: Column(
+                                        children: payments.map((paymentData) {
+                                      return TransactionItem(data: paymentData);
+                                    }).toList()));
+                              });
+                }).toList())));
   }
 }
 
