@@ -75,7 +75,7 @@ class _CompaniesMainPageState extends State<CompaniesMainPage> {
             items: data
                 .map((toElement) => AnalyticsEventItem(
                     itemId: toElement['id'].toString(),
-                    itemName: toElement('title')))
+                    itemName: toElement['name']))
                 .toList());
       } else {
         SnackBarComponent().showResponseErrorMessage(response, context);
@@ -113,7 +113,7 @@ class _CompaniesMainPageState extends State<CompaniesMainPage> {
               items: data
                   .map((toElement) => AnalyticsEventItem(
                       itemId: toElement['id'].toString(),
-                      itemName: toElement('title')))
+                      itemName: toElement('name')))
                   .toList());
         } else {
           SnackBarComponent().showResponseErrorMessage(response, context);
