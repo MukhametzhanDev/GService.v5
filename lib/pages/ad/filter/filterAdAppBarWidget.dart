@@ -12,7 +12,6 @@ import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:provider/provider.dart';
 
 class FilterAdAppBarWidget extends StatefulWidget
-   
     implements PreferredSizeWidget {
   final Map category;
   final AppBar appBar;
@@ -27,7 +26,6 @@ class FilterAdAppBarWidget extends StatefulWidget
   State<FilterAdAppBarWidget> createState() => _FilterAdAppBarWidgetState();
 
   @override
-  Size get preferredSize => Size.fromHeight(appBar.preferredSize.height + 46);
   Size get preferredSize => Size.fromHeight(appBar.preferredSize.height + 46);
 }
 
@@ -101,9 +99,9 @@ class _FilterAdAppBarWidgetState extends State<FilterAdAppBarWidget> {
         leadingWidth: MediaQuery.of(context).size.width - 100,
         actions: [
           FilterButton(
-          showFilterPage: showFilterPage,
-          fromPage: '',
-        )
+            showFilterPage: showFilterPage,
+            fromPage: '',
+          )
           // GestureDetector(
           //   onTap: () => showFilterPage(),
           //   child: Container(
