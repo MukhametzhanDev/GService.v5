@@ -133,7 +133,6 @@ class _AddContactModalState extends State<AddContactModal> {
                           phoneNumber = value;
                         });
                       },
-                      autofillHints: const [AutofillHints.telephoneNumber],
                       keyboardType: TextInputType.number,
                       maxLength: currentCountry['phone_length'],
                       autofocus: true,

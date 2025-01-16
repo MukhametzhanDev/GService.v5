@@ -66,7 +66,7 @@ class _ChangedActivityBusinessPageState
       print(response.data);
       Navigator.pop(context);
       if (response.statusCode == 200) {
-        Navigator.pop(context);
+        Navigator.pop(context, "update");
       } else {
         SnackBarComponent().showResponseErrorMessage(response, context);
       }

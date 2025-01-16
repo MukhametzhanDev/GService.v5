@@ -38,10 +38,10 @@ class _ViewBusinessPageState extends State<ViewBusinessPage>
     {"page": const FilesListPage(), "title": "Файлы"},
   ];
   List pages = [
-    {"title": "О компании"},
     {"title": "Объявления"},
     {"title": "Заказы"},
     {"title": "Новости"},
+    {"title": "О компании"},
     {"title": "Сертфикаты"},
   ];
   List categories = CategoriesData.categories;
@@ -244,7 +244,6 @@ class _ViewBusinessPageState extends State<ViewBusinessPage>
                       ];
                     },
                     body: TabBarView(controller: tabController, children: [
-                      ViewAboutBusinessPage(data: data),
                       AdListWidget(param: {
                         "author_id": widget.id,
                         "author_type": "company"
@@ -256,6 +255,7 @@ class _ViewBusinessPageState extends State<ViewBusinessPage>
                       NewsListWidget(
                           param: {"company_id": widget.id},
                           scrollController: scrollController),
+                      ViewAboutBusinessPage(data: data),
                       const FilesListWidget()
                     ])),
               ),

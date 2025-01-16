@@ -10,6 +10,7 @@ import 'package:gservice5/component/image/cacheImage.dart';
 import 'package:gservice5/component/snackBar/snackBarComponent.dart';
 import 'package:gservice5/component/switchRole/listRolesModal.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
+import 'package:gservice5/pages/auth/login/loginPage.dart';
 import 'package:shimmer/shimmer.dart';
 
 class SwitchRoleWidget extends StatefulWidget {
@@ -23,6 +24,7 @@ class _SwitchRoleWidgetState extends State<SwitchRoleWidget> {
   Map userData = {};
   bool loader = true;
   String? role;
+  bool hasToken = false;
 
   final analytics = GetIt.I<FirebaseAnalytics>();
 
@@ -33,8 +35,9 @@ class _SwitchRoleWidgetState extends State<SwitchRoleWidget> {
   }
 
   void getData() async {
-    bool hasToken = await ChangedToken().getToken() != null;
-    if (hasToken) {
+    bool valueToken = await ChangedToken().getToken() != null;
+    hasToken = valueToken;
+    if (valueToken) {
       role = await ChangedToken().getRole();
       print("role $role");
       try {
@@ -64,7 +67,14 @@ class _SwitchRoleWidgetState extends State<SwitchRoleWidget> {
 
   void showCreateCompany() {
     Navigator.pop(context);
-    Navigator.pushNamed(context, "RegistrationBusinessPage");
+    if (hasToken) {
+      Navigator.pushNamed(context, "RegistrationBusinessPage");
+    } else {
+      Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) => const LoginPage(showBackButton: true)));
+    }
     analytics
         .logEvent(name: GAEventName.becomePartner)
         .catchError((onError) => debugPrint(onError));

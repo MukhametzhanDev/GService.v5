@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:gservice5/component/dio/dio.dart';
 import 'package:gservice5/component/snackBar/snackBarComponent.dart';
 import 'package:gservice5/pages/application/item/smallApplicationItem.dart';
+import 'package:gservice5/pages/application/viewApplicationPage.dart';
 import 'package:shimmer/shimmer.dart';
 
 class RecommendationApplicationList extends StatefulWidget {
@@ -39,7 +40,11 @@ class _RecommendationApplicationListState
     }
   }
 
-  void showPage(int id) {}
+  void showPage(int id) {
+    print('object');
+    Navigator.push(context,
+        MaterialPageRoute(builder: (context) => ViewApplicationPage(id: id)));
+  }
 
   @override
   Widget build(BuildContext context) {

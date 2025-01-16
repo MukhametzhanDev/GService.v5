@@ -1,12 +1,16 @@
+import 'package:dio/dio.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get_it/get_it.dart';
 import 'package:gservice5/analytics/event_name.constan.dart';
 import 'package:gservice5/component/button/button.dart';
+import 'package:gservice5/component/dio/dio.dart';
 import 'package:gservice5/component/image/cacheImage.dart';
+import 'package:gservice5/component/snackBar/snackBarComponent.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
-import 'package:gservice5/pages/ad/item/smallAdItem.dart';
+import 'package:gservice5/pages/author/authorAdsListWidget.dart';
+import 'package:gservice5/pages/author/authorApplicationListWidget.dart';
 import 'package:gservice5/pages/author/business/viewBusinessPage.dart';
 import 'package:gservice5/pages/author/customer/viewCustomerPage.dart';
 
@@ -16,10 +20,16 @@ class AuthorAdWidget extends StatefulWidget {
   final bool showOtherAd;
   final String? fromPage;
 
+  final int id;
+  final type;
+  final subTitle;
   const AuthorAdWidget(
       {super.key,
       required this.title,
       required this.data,
+      required this.id,
+      this.type,
+      this.subTitle,
       required this.showOtherAd,
       this.fromPage});
 
@@ -29,6 +39,31 @@ class AuthorAdWidget extends StatefulWidget {
 
 class _AuthorAdWidgetState extends State<AuthorAdWidget> {
   final analytics = GetIt.I<FirebaseAnalytics>();
+
+  List data = [];
+  bool loading = true;
+
+  @override
+  void initState() {
+    getData();
+    super.initState();
+  }
+
+  Future getData() async {
+    print("DATA ${widget.data}");
+    try {
+      Response response = await dio.get("/other-author-ads/${widget.id}");
+      if (response.data['success']) {
+        data = response.data['data'];
+        loading = false;
+        setState(() {});
+      } else {
+        SnackBarComponent().showResponseErrorMessage(response, context);
+      }
+    } catch (e) {
+      SnackBarComponent().showNotGoBackServerErrorMessage(context);
+    }
+  }
 
   void showPage() {
     if (widget.data['is_company']) {
@@ -240,32 +275,15 @@ class _AuthorAdWidgetState extends State<AuthorAdWidget> {
           ),
         ),
         widget.showOtherAd
-            ? Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const Divider(height: 16),
-                  const Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 16),
-                      child: Text("Другие объявления продавца",
-                          style: TextStyle(
-                              fontSize: 16, fontWeight: FontWeight.w600))),
-                  const Divider(height: 12),
-                  SizedBox(
-                    height: MediaQuery.of(context).size.width / 2.3,
-                    child: SingleChildScrollView(
-                      padding: const EdgeInsets.symmetric(horizontal: 8),
-                      scrollDirection: Axis.horizontal,
-                      child: Row(
-                          children: [1, 2, 3].map((value) {
-                        return Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 6),
-                          child: SmallAdItem(index: value, showFullInfo: false),
-                        );
-                      }).toList()),
-                    ),
-                  )
-                ],
-              )
+            ? widget.type == "ad"
+                ? AuthorAdsListWidget(
+                    id: widget.id,
+                    subTitle: widget.subTitle,
+                    showPage: showPage)
+                : AuthorApplicationListWidget(
+                    id: widget.id,
+                    subTitle: widget.subTitle,
+                    showPage: showPage)
             : Container(),
       ],
     );

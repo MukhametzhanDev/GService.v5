@@ -15,7 +15,6 @@ import 'package:gservice5/pages/application/my/viewMyApplicationPage.dart';
 import 'package:gservice5/provider/myAdFilterProvider.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:provider/provider.dart';
-import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 class MyAdListWidgetTest extends StatefulWidget {
   const MyAdListWidgetTest({super.key});
@@ -166,9 +165,10 @@ class _MyAdListWidgetTestState extends State<MyAdListWidgetTest>
   Widget build(BuildContext context) {
     super.build(context);
     return Consumer<MyAdFilterProvider>(builder: (context, data, child) {
-      print("LOADING ${data.loading}");
       if (data.loading) {
-        return LoaderComponent();
+        return const LoaderComponent();
+      } else if (data.ads.isEmpty) {
+        return const MyAdEmptyPage();
       } else {
         return ListView.builder(
             padding:

@@ -157,10 +157,7 @@ class ShowMoreApplicaiton extends StatelessWidget {
             children: [
               SvgPicture.asset("assets/icons/searchOutline.svg", width: 32),
               const Divider(height: 4),
-              const Text(
-                "еще 12 000\nзаявок",
-                textAlign: TextAlign.center,
-              )
+              const Text("еще 12 000\nзаявок", textAlign: TextAlign.center)
             ],
           ),
         ));

@@ -245,7 +245,10 @@ class _ViewNewsPageState extends State<ViewNewsPage> {
                     ),
                   ),
                   AuthorAdWidget(
-                      title: "Автор", data: data['author'], showOtherAd: false),
+                      title: "Автор",
+                      data: data['author'],
+                      showOtherAd: false,
+                      id: data['id']),
                   Divider(height: MediaQuery.of(context).padding.bottom + 15),
                 ],
               ),

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
-import 'package:gservice5/pages/ad/my/business/updateAds.dart';
 import 'package:gservice5/provider/myAdFilterProvider.dart';
 import 'package:gservice5/provider/statusMyAdCountProvider.dart';
 import 'package:provider/provider.dart';
@@ -28,8 +27,9 @@ class _StatusAdsWidgetState extends State<StatusAdsWidget> {
   }
 
   void getCount() {
-    Provider.of<StatusMyAdCountProvider>(context, listen: false)
-        .getData(widget.data);
+    int id = Provider.of<MyAdFilterProvider>(context, listen: false)
+        .currentCategoryId;
+    Provider.of<StatusMyAdCountProvider>(context, listen: false).getData(id);
   }
 
   void changeType(Map value, index) {

@@ -12,6 +12,8 @@ import 'package:gservice5/pages/ad/list/adListLoader.dart';
 import 'package:gservice5/pages/ad/list/emptyAdListPage.dart';
 import 'package:gservice5/pages/create/application/createApplicationWidgetAdList.dart';
 import 'package:gservice5/pages/create/data/createData.dart';
+import 'package:gservice5/provider/adFilterProvider.dart';
+import 'package:provider/provider.dart';
 
 class AdListPage extends StatefulWidget {
   final Map category;
@@ -29,7 +31,6 @@ class _AdListPageState extends State<AdListPage> {
   bool isLoadMore = false;
   int page = 1;
   String title = "";
-  Map<String, dynamic> param = {};
 
   final analytics = GetIt.I<FirebaseAnalytics>();
 
@@ -57,12 +58,15 @@ class _AdListPageState extends State<AdListPage> {
   }
 
   Future getData() async {
+    Provider.of<AdFilterProvider>(context, listen: false)
+        .changedCategory(widget.category['id']);
     try {
       page = 1;
       showLoader();
-      print(param);
-      Response response = await dio.get("/ad",
-          queryParameters: {...param, "category_id": widget.category['id']});
+      Map<String, dynamic> param =
+          Provider.of<AdFilterProvider>(context, listen: false).value;
+      print("PARAM $param");
+      Response response = await dio.get("/ad", queryParameters: param);
       print(response.data);
       if (response.statusCode == 200) {
         data = response.data['data'];
@@ -99,12 +103,10 @@ class _AdListPageState extends State<AdListPage> {
       try {
         isLoadMore = true;
         page += 1;
-        setState(() {});
-        Response response = await dio.get("/ad", queryParameters: {
-          "page": page.toString(),
-          ...param,
-          "category_id": widget.category['id']
-        });
+        Map<String, dynamic> param =
+            Provider.of<AdFilterProvider>(context, listen: false).value;
+        Response response = await dio
+            .get("/ad", queryParameters: {"page": page.toString(), ...param});
         print(response.data);
         if (response.statusCode == 200) {
           data.addAll(response.data['data']);
@@ -136,7 +138,6 @@ class _AdListPageState extends State<AdListPage> {
 
   void filteredAds(value) {
     if (value != null) {
-      param = FilterData.data;
       getData();
     }
   }

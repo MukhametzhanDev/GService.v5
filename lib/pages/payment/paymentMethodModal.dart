@@ -128,7 +128,6 @@ class _PaymentMethodModalState extends State<PaymentMethodModal> {
   Future updateWallet() async {
     showModalLoader(context);
     Provider.of<WalletAmountProvider>(context, listen: false).getData(context);
-    print("UPDATE");
     Navigator.pop(context);
     Navigator.pop(context, widget.data);
   }

@@ -10,11 +10,14 @@ import 'package:gservice5/component/functions/token/changedToken.dart';
 import 'package:gservice5/component/image/cacheImage.dart';
 import 'package:gservice5/component/loader/loaderComponent.dart';
 import 'package:gservice5/component/snackBar/snackBarComponent.dart';
+import 'package:gservice5/component/switchRole/switchRoleWidget.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
 import 'package:gservice5/navigation/customer/customerBottomTab.dart';
 import 'package:gservice5/pages/payment/wallet/showWalletWidget.dart';
 import 'package:gservice5/pages/profile/business/changeBusinessProfilePage.dart';
 import 'package:gservice5/pages/profile/profileListTilesWidget.dart';
+import 'package:gservice5/provider/nameCompanyProvider.dart';
+import 'package:provider/provider.dart';
 import 'package:readmore/readmore.dart';
 
 class BusinessProfilePage extends StatefulWidget {
@@ -42,6 +45,10 @@ class _BusinessProfilePageState extends State<BusinessProfilePage> {
       print(response.data);
       if (response.data['success'] && response.statusCode == 200) {
         data = response.data['data'];
+        Provider.of<NameCompanyProvider>(context, listen: false).changedName =
+            data['name'].toString();
+        Provider.of<NameCompanyProvider>(context, listen: false)
+            .changedHasDealer = true;
         loader = false;
         setState(() {});
       } else if (response.statusCode == 401) {
@@ -235,6 +242,9 @@ class _BusinessProfilePageState extends State<BusinessProfilePage> {
                       showButton: true,
                       fromPage: GAParams.businessProfilePage,
                     ),
+                    const Padding(
+                        padding: EdgeInsets.symmetric(vertical: 15),
+                        child: SwitchRoleWidget()),
                     const ProfileListTilesWidget()
                   ],
                 ),

@@ -5,11 +5,12 @@ Map<String, dynamic> defaultFilterData = {"status": "pending", "package": true};
 
 class MyAdFilterProvider with ChangeNotifier {
   List<Map<String, dynamic>> filters = [];
-  bool loading = true;
+  bool loading = false;
   List ads = [];
   int currentIndex = 0;
 
-  // Map get filterValue => filters.isEmpty ? {} : filters[currentIndex];
+  int get currentCategoryId =>
+      filters.isEmpty ? 0 : filters[currentIndex]['category_id'];
 
   set addFilters(List<Map<String, dynamic>> value) {
     filters = value;
@@ -21,11 +22,19 @@ class MyAdFilterProvider with ChangeNotifier {
     getData();
   }
 
-  getData() async {
+  set changedIndex(int index) {
+    currentIndex = index;
+    getData();
+  }
+
+  void getData() async {
+    if (loading) return;
     loading = true;
     Map<String, dynamic> filterValue =
         filters.isEmpty ? {} : filters[currentIndex];
+
     ads = await MyAdRequest().myAds(filterValue);
+
     loading = false;
     notifyListeners();
   }
@@ -36,5 +45,9 @@ class MyAdFilterProvider with ChangeNotifier {
         filters.add({...defaultFilterData, "category_id": value['id']});
       }
     }
+  }
+
+  set testFun(int index) {
+    changedIndex = index;
   }
 }

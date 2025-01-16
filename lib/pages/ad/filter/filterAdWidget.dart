@@ -62,7 +62,7 @@ class _FilterAdWidgetState extends State<FilterAdWidget> {
     showCupertinoModalBottomSheet(
       context: context,
       builder: (context) {
-        return PriceFilterModal(onChangedPrice: onChangedPrice, value: price);
+        return PriceFilterModal(onChangedPrice: onChangedPrice);
       },
     );
   }

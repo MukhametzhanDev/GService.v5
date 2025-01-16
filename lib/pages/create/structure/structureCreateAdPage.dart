@@ -185,7 +185,7 @@ class _StructureCreateAdPageState extends State<StructureCreateAdPage> {
               bool showTitle = data.length - 1 > pageIndex;
               return Scaffold(
                   appBar: AppBar(
-                    // leadingWidth: MediaQuery.of(context).size.width - 100,
+                    leadingWidth: MediaQuery.of(context).size.width - 100,
                     actions: [
                       IconButton(
                           onPressed: () {
@@ -207,7 +207,8 @@ class _StructureCreateAdPageState extends State<StructureCreateAdPage> {
                                   color: ColorComponent.blue['700'])))
                     ],
                     leading: BackTitleButton(
-                        title: "",
+                        title: widget.data['title'],
+                       
                         onPressed: () {
                           previousPage();
                           analytics.logEvent(

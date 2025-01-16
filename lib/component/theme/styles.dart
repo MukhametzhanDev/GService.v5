@@ -144,7 +144,7 @@ class Styles {
         tabBarTheme: TabBarTheme(
           dividerColor: Colors.transparent,
           indicatorColor: ColorComponent.mainColor,
-          overlayColor: WidgetStatePropertyAll(Colors.transparent),
+          overlayColor: const WidgetStatePropertyAll(Colors.transparent),
           labelColor: Colors.black,
           unselectedLabelColor:
               isDarkTheme ? Colors.white : ColorComponent.gray['500'],

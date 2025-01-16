@@ -14,6 +14,8 @@ import 'package:gservice5/navigation/customer/customerBottomTab.dart';
 import 'package:gservice5/pages/payment/wallet/showWalletWidget.dart';
 import 'package:gservice5/pages/profile/editProfilePage.dart';
 import 'package:gservice5/pages/profile/profileListTilesWidget.dart';
+import 'package:gservice5/provider/walletAmountProvider.dart';
+import 'package:provider/provider.dart';
 
 class CustomerProfilePage extends StatefulWidget {
   const CustomerProfilePage({super.key});
@@ -34,7 +36,7 @@ class _CustomerProfilePageState extends State<CustomerProfilePage> {
     super.initState();
   }
 
-  void getData() async {
+  Future getData() async {
     try {
       Response response = await dio.get("/user");
       print(response.data);
@@ -86,48 +88,57 @@ class _CustomerProfilePageState extends State<CustomerProfilePage> {
           title: const Text("Профиль")),
       body: loader
           ? const LoaderComponent()
-          : SingleChildScrollView(
-              child: Column(
-                children: [
-                  GestureDetector(
-                    onTap: () => showChangeCustomerProfilePage(),
-                    child: Container(
-                      padding: const EdgeInsets.only(
-                          left: 15, right: 15, bottom: 15),
-                      decoration: const BoxDecoration(
-                          border: Border(
-                              bottom: BorderSide(
-                                  width: 1, color: Color(0xffeeeeee)))),
-                      child: Row(
-                        children: [
-                          CacheImage(
-                              url: data['avatar'],
-                              width: 48,
-                              height: 48,
-                              borderRadius: 24),
-                          const Divider(indent: 12),
-                          Expanded(
-                              child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(data['name'],
-                                  style: const TextStyle(
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.w600)),
-                              Text("ID: ${data['id']}",
-                                  style: TextStyle(
-                                      color: ColorComponent.gray['500']))
-                            ],
-                          )),
-                          SvgPicture.asset('assets/icons/right.svg',
-                              color: Colors.black)
-                        ],
+          : RefreshIndicator(
+              onRefresh: () async {
+                await Provider.of<WalletAmountProvider>(context, listen: false)
+                    .getData(context);
+              },
+              color: ColorComponent.mainColor,
+              child: SingleChildScrollView(
+                physics: const AlwaysScrollableScrollPhysics(),
+                child: Column(
+                  children: [
+                    GestureDetector(
+                      onTap: () => showChangeCustomerProfilePage(),
+                      child: Container(
+                        padding: const EdgeInsets.only(
+                            left: 15, right: 15, bottom: 15),
+                        decoration: const BoxDecoration(
+                            border: Border(
+                                bottom: BorderSide(
+                                    width: 1, color: Color(0xffeeeeee)))),
+                        child: Row(
+                          children: [
+                            CacheImage(
+                                url: data['avatar'],
+                                width: 48,
+                                height: 48,
+                                borderRadius: 24),
+                            const Divider(indent: 12),
+                            Expanded(
+                                child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(data['name'],
+                                    style: const TextStyle(
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.w600)),
+                                Text("ID: ${data['id']}",
+                                    style: TextStyle(
+                                        color: ColorComponent.gray['500']))
+                              ],
+                            )),
+                            SvgPicture.asset('assets/icons/right.svg',
+                                color: Colors.black)
+                          ],
+                        ),
                       ),
                     ),
-                  ),
-                  const ShowWalletWidget(showButton: true),
-                  const ProfileListTilesWidget()
-                ],
+                    const ShowWalletWidget(showButton: true),
+                    const ProfileListTilesWidget(),
+                    SizedBox(height: MediaQuery.of(context).size.height / 6)
+                  ],
+                ),
               ),
             ),
     );

@@ -223,10 +223,6 @@ class _ViewAdPageState extends State<ViewAdPage> {
                                   height: 1, color: Color(0xfff4f5f7)),
                               const Divider(height: 12),
                               CreateApplicationLeasingWidget(data: data),
-                              const Divider(height: 12),
-                              const Divider(
-                                  height: 1, color: Color(0xfff4f5f7)),
-                              const Divider(height: 12),
                             ],
                           ),
                         ),
@@ -234,7 +230,10 @@ class _ViewAdPageState extends State<ViewAdPage> {
                             fromPage: GAParams.viewAdPage,
                             title: "О владельце объявления",
                             data: data['author'],
-                            showOtherAd: true),
+                            showOtherAd: true,
+                            id: data['id'],
+                            subTitle: "Другие объявления продавца",
+                            type: "ad"),
                         const Divider(height: 6),
                         const Divider(height: 1, color: Color(0xfff4f5f7)),
                         const Divider(height: 14),
@@ -298,12 +297,11 @@ class _ViewAdPageState extends State<ViewAdPage> {
                           ),
                         ),
                         const Divider(height: 14),
-                        const Divider(height: 1, color: Color(0xfff4f5f7)),
-                        const Divider(indent: 16),
-                        const RecommendationAdList(),
                       ],
                     ),
                   ),
+                  RecommendationAdList(id: data['id']),
+                 
                 ]),
           bottomNavigationBar: loader
               ? null

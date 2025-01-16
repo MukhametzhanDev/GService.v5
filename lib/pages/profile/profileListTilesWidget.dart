@@ -49,8 +49,8 @@ class _ProfileListTilesWidgetState extends State<ProfileListTilesWidget> {
   }
 
   void showMyAdPage() {
-    Navigator.push(context,
-        MaterialPageRoute(builder: (context) => const MyAdListPage()));
+    Navigator.push(
+        context, MaterialPageRoute(builder: (context) => const MyAdListPage()));
     analytics.logEvent(name: GAEventName.buttonClick, parameters: {
       GAKey.buttonName: GAParams.rowBtnProfileMyAd
     }).catchError((onError) => debugPrint(onError));
@@ -228,7 +228,8 @@ class _ProfileListTilesWidgetState extends State<ProfileListTilesWidget> {
                         Border.all(width: 1, color: const Color(0xfff4f5f7))),
                 child: ListTile(
                     onTap: showChangedActivityBusinessPage,
-                    leading: SvgPicture.asset('assets/icons/cogOutline.svg'),
+                    leading: SvgPicture.asset('assets/icons/portfolio.svg',
+                        color: ColorComponent.mainColor),
                     title: const Text("Вид деятельность"),
                     trailing: SvgPicture.asset('assets/icons/right.svg')),
               ),

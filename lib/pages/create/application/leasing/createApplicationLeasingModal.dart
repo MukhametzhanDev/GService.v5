@@ -70,7 +70,7 @@ class _CreateApplicationLeasingModalState
         "category_id": 7,
         "can_lease": 1,
         "user_name": nameEditingController.text,
-        "phone": getIntComponent(phoneEditingController.text),
+        "phone": getIntComponent(phoneEditingController.text).toString(),
         "city_id": city['id'],
         "country_id": 191,
         "individual_entrepreneur": legalEntity,
@@ -78,7 +78,7 @@ class _CreateApplicationLeasingModalState
       };
       print(param);
       Response response =
-          await dio.post("/application", queryParameters: param);
+          await dio.post("/application", data: param);
       print(response.data);
       Navigator.pop(context);
       if (response.data['success'] && response.statusCode == 200) {

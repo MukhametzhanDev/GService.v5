@@ -106,7 +106,7 @@ class _FilterApplicationListPageState extends State<FilterApplicationListPage> {
                         }
                       },
                       title: "От",
-                      onSubmitted: () {})),
+                      onSubmitted: (value) {})),
               const Divider(indent: 12),
               Expanded(
                   child: PriceTextField(
@@ -120,7 +120,7 @@ class _FilterApplicationListPageState extends State<FilterApplicationListPage> {
                         }
                       },
                       title: "До",
-                      onSubmitted: () {}))
+                      onSubmitted: (value) {}))
             ]),
           ],
         ),
