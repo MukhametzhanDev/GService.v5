@@ -30,6 +30,8 @@ class ContactBottomBarWidget extends StatefulWidget {
 }
 
 class _ContactBottomBarWidgetState extends State<ContactBottomBarWidget> {
+  final analytics = FirebaseAnalytics.instance;
+
   @override
   Widget build(BuildContext context) {
     return BottomNavigationBarWidget(
@@ -69,8 +71,9 @@ class _ContactBottomBarWidgetState extends State<ContactBottomBarWidget> {
               showCupertinoModalBottomSheet(
                 context: context,
                 builder: (context) => ContactstListModal(
-                    
-                  phones: widget.phones, id: widget.id, hasAd: widget.hasAd,
+                  phones: widget.phones,
+                  id: widget.id,
+                  hasAd: widget.hasAd,
                   fromPage: widget.fromPage,
                 ),
               );
@@ -92,7 +95,11 @@ class ContactstListModal extends StatefulWidget {
   final bool hasAd;
   final String? fromPage;
   const ContactstListModal(
-      {super.key, required this.phones, required this.id, required this.hasAd, this.fromPage});
+      {super.key,
+      required this.phones,
+      required this.id,
+      required this.hasAd,
+      this.fromPage});
 
   @override
   State<ContactstListModal> createState() => _ContactstListModalState();
