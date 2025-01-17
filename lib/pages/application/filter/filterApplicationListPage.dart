@@ -20,7 +20,7 @@ class FilterApplicationListPage extends StatefulWidget {
 }
 
 class _FilterApplicationListPageState extends State<FilterApplicationListPage> {
-  final analytics = GetIt.I<FirebaseAnalytics>();
+  final analytics = FirebaseAnalytics.instance;
 
   @override
   void initState() {

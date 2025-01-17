@@ -28,7 +28,7 @@ class ProfileListTilesWidget extends StatefulWidget {
 class _ProfileListTilesWidgetState extends State<ProfileListTilesWidget> {
   String role = "";
 
-  final analytics = GetIt.I<FirebaseAnalytics>();
+  final analytics = FirebaseAnalytics.instance;
 
   @override
   void initState() {

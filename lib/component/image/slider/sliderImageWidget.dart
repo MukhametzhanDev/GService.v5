@@ -22,7 +22,7 @@ class _SliderImageWidgetState extends State<SliderImageWidget> {
   PageController pageController = PageController();
   // ScrollController scrollController = ScrollController();
 
-  final analytics = GetIt.I<FirebaseAnalytics>();
+  final analytics = FirebaseAnalytics.instance;
 
   @override
   void dispose() {

@@ -26,7 +26,7 @@ class _GetActivityBusinessPageState extends State<GetActivityBusinessPage> {
   List transportTypes = [];
   List transportBrands = [];
 
-  final analytics = GetIt.I<FirebaseAnalytics>();
+  final analytics = FirebaseAnalytics.instance;
 
   void postData() async {
     showModalLoader(context);

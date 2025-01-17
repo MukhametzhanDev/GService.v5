@@ -12,7 +12,7 @@ class CloseTitleButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final analytics = GetIt.I<FirebaseAnalytics>();
+    final analytics = FirebaseAnalytics.instance;
 
     return IconButton(
         padding: EdgeInsets.zero,

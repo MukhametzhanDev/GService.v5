@@ -30,7 +30,7 @@ class _GetImageCreateApplicaitonPageState
   PageControllerIndexedStack pageControllerIndexedStack =
       PageControllerIndexedStack();
 
-  final analytics = GetIt.I<FirebaseAnalytics>();
+  final analytics = FirebaseAnalytics.instance;
 
   Future postImage() async {
     showModalImageLoader(context);

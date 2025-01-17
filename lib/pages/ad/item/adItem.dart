@@ -33,7 +33,7 @@ class AdItem extends StatefulWidget {
 }
 
 class _AdItemState extends State<AdItem> {
-  final analytics = GetIt.I<FirebaseAnalytics>();
+  final analytics = FirebaseAnalytics.instance;
 
   void showAdPage(int id) {
     Navigator.push(context,

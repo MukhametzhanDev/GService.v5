@@ -33,7 +33,7 @@ class _CustomerBottomTabState extends State<CustomerBottomTab>
   ];
   ScrollController scrollController = ScrollController();
 
-  final analytics = GetIt.I<FirebaseAnalytics>();
+  final analytics = FirebaseAnalytics.instance;
 
   void _onItemTapped(int index) {
     if (_selectedIndex == 0 && index == 0) {

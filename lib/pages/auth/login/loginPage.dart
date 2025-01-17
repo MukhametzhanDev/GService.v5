@@ -31,7 +31,7 @@ class _LoginPageState extends State<LoginPage>
       TextEditingController(text: "mukhametzhan.tileubek@gmail.com");
   TextEditingController passwordEditingController = TextEditingController();
 
-  final analytics = GetIt.I<FirebaseAnalytics>();
+  final analytics = FirebaseAnalytics.instance;
 
   @override
   void dispose() {

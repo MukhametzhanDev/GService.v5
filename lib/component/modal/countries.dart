@@ -33,7 +33,7 @@ class _CountriesState extends State<Countries>
   List filterData = [];
   bool loader = true;
 
-  final analytics = GetIt.I<FirebaseAnalytics>();
+  final analytics = FirebaseAnalytics.instance;
 
   @override
   void initState() {

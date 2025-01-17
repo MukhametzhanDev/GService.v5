@@ -24,7 +24,7 @@ class _MainDrawerState extends State<MainDrawer> {
   List categories = CategoriesData.categories;
   List options = DrawerOptions.options;
 
-  final analytics = GetIt.I<FirebaseAnalytics>();
+  final analytics = FirebaseAnalytics.instance;
 
   @override
   void initState() {

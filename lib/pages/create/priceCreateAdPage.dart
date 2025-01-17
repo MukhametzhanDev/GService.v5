@@ -41,7 +41,7 @@ class _PriceCreateAdPageState extends State<PriceCreateAdPage> {
   PageControllerIndexedStack pageControllerIndexedStack =
       PageControllerIndexedStack();
 
-  final analytics = GetIt.I<FirebaseAnalytics>();
+  final analytics = FirebaseAnalytics.instance;
 
   @override
   void dispose() {

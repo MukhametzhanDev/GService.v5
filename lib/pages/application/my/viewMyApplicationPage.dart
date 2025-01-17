@@ -34,7 +34,7 @@ class _ViewMyApplicationPageState extends State<ViewMyApplicationPage> {
   bool loader = true;
   List images = [];
 
-  final analytics = GetIt.I<FirebaseAnalytics>();
+  final analytics = FirebaseAnalytics.instance;
 
   @override
   void initState() {

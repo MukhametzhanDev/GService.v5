@@ -31,7 +31,7 @@ class _AddContactModalState extends State<AddContactModal> {
   List countriesData = [];
   bool loader = true;
 
-  final analytics = GetIt.I<FirebaseAnalytics>();
+  final analytics = FirebaseAnalytics.instance;
 
   @override
   void initState() {

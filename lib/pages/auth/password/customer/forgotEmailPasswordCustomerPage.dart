@@ -37,7 +37,7 @@ class _ForgotEmailPasswordCustomerPageState
   String otpCode = '';
   bool loader = true;
 
-  final analytics = GetIt.I<FirebaseAnalytics>();
+  final analytics = FirebaseAnalytics.instance;
 
   @override
   void initState() {

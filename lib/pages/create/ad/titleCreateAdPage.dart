@@ -34,7 +34,7 @@ class _TitleCreateAdPageState extends State<TitleCreateAdPage> {
   List tags = [];
   bool loader = true;
 
-  final analytics = GetIt.I<FirebaseAnalytics>();
+  final analytics = FirebaseAnalytics.instance;
 
   @override
   void initState() {

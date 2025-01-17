@@ -39,7 +39,7 @@ class AuthorAdWidget extends StatefulWidget {
 }
 
 class _AuthorAdWidgetState extends State<AuthorAdWidget> {
-  final analytics = GetIt.I<FirebaseAnalytics>();
+  final analytics = FirebaseAnalytics.instance;
 
   List data = [];
   bool loading = true;

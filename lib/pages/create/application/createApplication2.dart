@@ -45,7 +45,7 @@ class _CreateApplication2State extends State<CreateApplication2> {
 
   int? twoStepsBack;
 
-  final analytics = GetIt.I<FirebaseAnalytics>();
+  final analytics = FirebaseAnalytics.instance;
 
   @override
   void initState() {

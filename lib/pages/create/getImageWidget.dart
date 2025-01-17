@@ -37,7 +37,7 @@ class _GetImageWidgetState extends State<GetImageWidget> {
   List imagesUrl = EditData.data['images'] ?? [];
   final ImagePicker _picker = ImagePicker();
 
-  final analytics = GetIt.I<FirebaseAnalytics>();
+  final analytics = FirebaseAnalytics.instance;
 
   Future<void> _pickImages() async {
     try {

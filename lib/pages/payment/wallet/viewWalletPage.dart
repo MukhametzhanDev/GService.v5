@@ -38,7 +38,7 @@ class _ViewWalletPageState extends State<ViewWalletPage> {
   bool bonus = false;
   int totalPrice = 0;
 
-  final analytics = GetIt.I<FirebaseAnalytics>();
+  final analytics = FirebaseAnalytics.instance;
 
   @override
   void initState() {

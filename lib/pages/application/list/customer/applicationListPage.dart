@@ -31,7 +31,7 @@ class _ApplicationListPageState extends State<ApplicationListPage> {
   String title = "";
   Map<String, dynamic> param = {};
 
-  final analytics = GetIt.I<FirebaseAnalytics>();
+  final analytics = FirebaseAnalytics.instance;
 
   @override
   void initState() {

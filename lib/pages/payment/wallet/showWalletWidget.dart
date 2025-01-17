@@ -24,7 +24,7 @@ class ShowWalletWidget extends StatefulWidget {
 class _ShowWalletWidgetState extends State<ShowWalletWidget> {
   WalletServices services = WalletServices();
 
-  final analytics = GetIt.I<FirebaseAnalytics>();
+  final analytics = FirebaseAnalytics.instance;
 
   @override
   void initState() {

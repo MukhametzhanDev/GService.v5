@@ -19,7 +19,7 @@ class ApplicationListMain extends StatefulWidget {
 }
 
 class _ApplicationListMainState extends State<ApplicationListMain> {
-  final analytics = GetIt.I<FirebaseAnalytics>();
+  final analytics = FirebaseAnalytics.instance;
 
   void showPage(id) {
     Navigator.push(context,
@@ -141,7 +141,7 @@ class ShowMoreApplicaiton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final analytics = GetIt.I<FirebaseAnalytics>();
+    final analytics = FirebaseAnalytics.instance;
 
     return GestureDetector(
         onTap: () {

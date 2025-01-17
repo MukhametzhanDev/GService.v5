@@ -33,7 +33,7 @@ class _FilterApplicationWidgetState extends State<FilterApplicationWidget> {
   Map city = {};
   Map price = {};
 
-  final analytics = GetIt.I<FirebaseAnalytics>();
+  final analytics = FirebaseAnalytics.instance;
 
   @override
   void initState() {

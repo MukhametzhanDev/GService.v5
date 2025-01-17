@@ -32,7 +32,7 @@ class _CreateAdContactsPageState extends State<CreateAdContactsPage> {
   bool loader = true;
   bool loaderUser = true;
 
-  final analytics = GetIt.I<FirebaseAnalytics>();
+  final analytics = FirebaseAnalytics.instance;
 
   @override
   void initState() {

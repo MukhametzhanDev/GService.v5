@@ -30,7 +30,7 @@ class _ListFavoriteApplicationPageState
   RefreshController refreshController = RefreshController();
   int page = 1;
 
-  final analytics = GetIt.I<FirebaseAnalytics>();
+  final analytics = FirebaseAnalytics.instance;
 
   @override
   void initState() {

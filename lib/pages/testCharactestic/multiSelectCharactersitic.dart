@@ -146,7 +146,7 @@ class _SelectModalState extends State<SelectModal> {
   List<int> currentIds = [];
   List currentValues = [];
 
-  final analytics = GetIt.I<FirebaseAnalytics>();
+  final analytics = FirebaseAnalytics.instance;
 
   @override
   void initState() {

@@ -31,7 +31,7 @@ class FavoriteButton extends StatefulWidget {
 class _FavoriteButtonState extends State<FavoriteButton> {
   bool activeFavourite = false;
 
-  final analytics = GetIt.I<FirebaseAnalytics>();
+  final analytics = FirebaseAnalytics.instance;
 
   void verifyToken() async {
     bool havedToken = await ChangedToken().getToken() != null;

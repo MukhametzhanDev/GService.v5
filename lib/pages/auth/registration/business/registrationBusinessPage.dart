@@ -34,7 +34,7 @@ class _RegistrationBusinessPageState extends State<RegistrationBusinessPage> {
   TextEditingController descEditingController = TextEditingController();
   String imagePath = "";
 
-  final analytics = GetIt.I<FirebaseAnalytics>();
+  final analytics = FirebaseAnalytics.instance;
 
   @override
   void dispose() {

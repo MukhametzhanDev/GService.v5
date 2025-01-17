@@ -23,7 +23,7 @@ class _ForgotPasswordCustomerPageState
     extends State<ForgotPasswordCustomerPage> {
   TextEditingController textEditingController = TextEditingController();
 
-  final analytics = GetIt.I<FirebaseAnalytics>();
+  final analytics = FirebaseAnalytics.instance;
 
   @override
   void initState() {

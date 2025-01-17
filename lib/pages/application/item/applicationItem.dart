@@ -22,7 +22,7 @@ class ApplicationItem extends StatefulWidget {
 }
 
 class _ApplicationItemState extends State<ApplicationItem> {
-  final analytics = GetIt.I<FirebaseAnalytics>();
+  final analytics = FirebaseAnalytics.instance;
 
   void showPage() {
     Navigator.push(

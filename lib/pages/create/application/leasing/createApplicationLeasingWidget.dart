@@ -17,7 +17,7 @@ class CreateApplicationLeasingWidget extends StatefulWidget {
 
 class _CreateApplicationLeasingWidgetState
     extends State<CreateApplicationLeasingWidget> {
-  final analytics = GetIt.I<FirebaseAnalytics>();
+  final analytics = FirebaseAnalytics.instance;
 
   void showPage() {
     Navigator.push(context, MaterialPageRoute(

@@ -30,7 +30,7 @@ class _BusinessBottomTabState extends State<BusinessBottomTab> {
   ];
   ScrollController scrollController = ScrollController();
 
-  final analytics = GetIt.I<FirebaseAnalytics>();
+  final analytics = FirebaseAnalytics.instance;
 
   //changed tab and scroll up
   void _onItemTapped(int index) {

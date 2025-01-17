@@ -35,7 +35,7 @@ class _ReplenishmentWalletPageState extends State<ReplenishmentWalletPage> {
   TextEditingController priceController = TextEditingController();
   Map data = {};
 
-  final analytics = GetIt.I<FirebaseAnalytics>();
+  final analytics = FirebaseAnalytics.instance;
 
   @override
   void initState() {

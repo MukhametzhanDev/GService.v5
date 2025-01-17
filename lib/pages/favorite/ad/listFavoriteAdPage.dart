@@ -28,7 +28,7 @@ class _ListFavoriteAdPageState extends State<ListFavoriteAdPage> {
   RefreshController refreshController = RefreshController();
   int page = 1;
 
-  final analytics = GetIt.I<FirebaseAnalytics>();
+  final analytics = FirebaseAnalytics.instance;
 
   @override
   void initState() {

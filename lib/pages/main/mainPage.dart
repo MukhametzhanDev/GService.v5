@@ -33,7 +33,7 @@ class _MainPageState extends State<MainPage> {
   var scaffoldKey = GlobalKey<ScaffoldState>();
   Map data = MainPageData.data;
 
-  final analytics = GetIt.I<FirebaseAnalytics>();
+  final analytics = FirebaseAnalytics.instance;
   List adList = [];
   bool loader = true;
   bool hasNextPage = false;

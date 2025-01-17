@@ -20,7 +20,7 @@ class ShareButton extends StatefulWidget {
 }
 
 class _ShareButtonState extends State<ShareButton> {
-  final analytics = GetIt.I<FirebaseAnalytics>();
+  final analytics = FirebaseAnalytics.instance;
 
   void shared() async {
     print(widget.hasAd);

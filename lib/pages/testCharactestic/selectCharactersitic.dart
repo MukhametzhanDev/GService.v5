@@ -22,7 +22,7 @@ class SelectCharactersitic extends StatefulWidget {
 class _SelectCharactersiticState extends State<SelectCharactersitic> {
   Map currentValue = {};
 
-  final analytics = GetIt.I<FirebaseAnalytics>();
+  final analytics = FirebaseAnalytics.instance;
 
   @override
   void initState() {
@@ -113,7 +113,7 @@ class SelectModal extends StatefulWidget {
 }
 
 class _SelectModalState extends State<SelectModal> {
-  final analytics = GetIt.I<FirebaseAnalytics>();
+  final analytics = FirebaseAnalytics.instance;
 
   void onChanged(value) {
     Navigator.pop(context, value);

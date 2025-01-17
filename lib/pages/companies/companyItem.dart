@@ -14,7 +14,7 @@ class CompanyItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final analytics = GetIt.I<FirebaseAnalytics>();
+    final analytics = FirebaseAnalytics.instance;
 
     List categories = data['categories'];
     return GestureDetector(

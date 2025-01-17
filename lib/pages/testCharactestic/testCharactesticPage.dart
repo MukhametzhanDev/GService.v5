@@ -58,7 +58,7 @@ class _TestCharactesticPageState extends State<TestCharactesticPage> {
 
         //   if (data[i]['field_type'] == 'select') {
         //     print('+++ select');
-        //     await GetIt.I<FirebaseAnalytics>().logViewItemList(
+        //     await FirebaseAnalytics.instance.logViewItemList(
         //         parameters: {'step': 'Характеристика', 'field_type': fieldType},
         //         itemListId:
         //             '${GAParams.adCharacteristicChildListId}_${idList.toString()}',

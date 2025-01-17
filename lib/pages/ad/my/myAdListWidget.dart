@@ -37,7 +37,7 @@ class _MyAdListWidgetState extends State<MyAdListWidget>
   // RefreshController refreshController = RefreshController();
   Map<String, dynamic> param = UpdateAds.value;
 
-  final analytics = GetIt.I<FirebaseAnalytics>();
+  final analytics = FirebaseAnalytics.instance;
 
   @override
   void initState() {

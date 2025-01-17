@@ -31,7 +31,7 @@ class ContactBottomBarWidget extends StatefulWidget {
 }
 
 class _ContactBottomBarWidgetState extends State<ContactBottomBarWidget> {
-  final analytics = GetIt.I<FirebaseAnalytics>();
+  final analytics = FirebaseAnalytics.instance;
 
   void writed() async {
     try {
@@ -134,7 +134,7 @@ class _ContactstListModalState extends State<ContactstListModal> {
       filter: {"#": RegExp(r'[0-9]')},
       type: MaskAutoCompletionType.lazy);
 
-  final analytics = GetIt.I<FirebaseAnalytics>();
+  final analytics = FirebaseAnalytics.instance;
 
   void showCall(String phone) async {
     try {
@@ -204,7 +204,7 @@ class WhatsAppListModal extends StatefulWidget {
 }
 
 class _WhatsAppListModalState extends State<WhatsAppListModal> {
-  final analytics = GetIt.I<FirebaseAnalytics>();
+  final analytics = FirebaseAnalytics.instance;
 
   void showWhatsApp(String phone) async {
     try {

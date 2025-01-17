@@ -26,7 +26,7 @@ class _AdListMainState extends State<AdListMain> {
   bool isLoadMore = false;
   int page = 1;
 
-  final analytics = GetIt.I<FirebaseAnalytics>();
+  final analytics = FirebaseAnalytics.instance;
 
   @override
   void initState() {

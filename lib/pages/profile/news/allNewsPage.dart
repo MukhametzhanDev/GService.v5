@@ -29,7 +29,7 @@ class _AllNewsPageState extends State<AllNewsPage> {
   RefreshController refreshController = RefreshController();
   int page = 1;
 
-  final analytics = GetIt.I<FirebaseAnalytics>();
+  final analytics = FirebaseAnalytics.instance;
 
   @override
   void initState() {

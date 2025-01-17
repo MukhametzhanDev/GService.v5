@@ -23,7 +23,7 @@ class RadioCharacteristicWidget extends StatefulWidget {
 class _RadioCharacteristicWidgetState extends State<RadioCharacteristicWidget> {
   int? id;
 
-  final analytics = GetIt.I<FirebaseAnalytics>();
+  final analytics = FirebaseAnalytics.instance;
 
   @override
   void initState() {

@@ -36,7 +36,7 @@ class _PriceCreateApplicationPageState
   PageControllerIndexedStack pageControllerIndexedStack =
       PageControllerIndexedStack();
 
-  final analytics = GetIt.I<FirebaseAnalytics>();
+  final analytics = FirebaseAnalytics.instance;
 
   void verifyData() {
     String fromPrice = priceEditingController.text.trim();

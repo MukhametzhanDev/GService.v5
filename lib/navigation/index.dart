@@ -97,7 +97,7 @@ class _IndexState extends State<Index> {
               "CustomerProfilePage": (context) => const CustomerProfilePage(),
             },
             navigatorObservers: [
-              FirebaseAnalyticsObserver(analytics: GetIt.I<FirebaseAnalytics>())
+              FirebaseAnalyticsObserver(analytics: FirebaseAnalytics.instance)
             ],
           );
         }));

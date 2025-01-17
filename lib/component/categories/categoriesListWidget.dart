@@ -21,7 +21,7 @@ class _CategoriesListWidgetState extends State<CategoriesListWidget> {
   List data = CategoriesData.categories;
   bool loader = true;
 
-  final analytics = GetIt.I<FirebaseAnalytics>();
+  final analytics = FirebaseAnalytics.instance;
 
   @override
   void initState() {

@@ -35,7 +35,7 @@ class _CitiesState extends State<Cities> with SingleTickerProviderStateMixin {
   int page = 1;
   String title = "";
 
-  final analytics = GetIt.I<FirebaseAnalytics>();
+  final analytics = FirebaseAnalytics.instance;
 
   @override
   void initState() {

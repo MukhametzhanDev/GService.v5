@@ -14,7 +14,7 @@ class PrivacyPolicyWidget extends StatefulWidget {
 }
 
 class _PrivacyPolicyWidgetState extends State<PrivacyPolicyWidget> {
-  final analytics = GetIt.I<FirebaseAnalytics>();
+  final analytics = FirebaseAnalytics.instance;
 
   @override
   Widget build(BuildContext context) {

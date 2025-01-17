@@ -43,7 +43,7 @@ class _ViewAdPageState extends State<ViewAdPage> {
   bool loader = true;
   int? statusCode;
 
-  final analytics = GetIt.I<FirebaseAnalytics>();
+  final analytics = FirebaseAnalytics.instance;
 
   @override
   void initState() {

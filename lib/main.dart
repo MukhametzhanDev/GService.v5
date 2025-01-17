@@ -3,7 +3,6 @@ import 'dart:io';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:get_it/get_it.dart';
 import 'package:gservice5/analytics/event_name.constan.dart';
 import 'package:gservice5/firebase_options.dart';
 import 'package:gservice5/navigation/index.dart';
@@ -22,9 +21,7 @@ void main() async {
   //Аналитика Google Analytics
   FirebaseAnalytics analytics = FirebaseAnalytics.instance;
 
-  GetIt.I.registerSingleton(analytics);
-
-  await GetIt.I<FirebaseAnalytics>().setDefaultEventParameters({
+  await analytics.setDefaultEventParameters({
     GAKey.platform: Platform.operatingSystem,
     GAKey.version: packageInfo.version,
     GAKey.build: packageInfo.buildNumber,
@@ -32,4 +29,4 @@ void main() async {
   });
 
   runApp(const Index());
-} 
+}

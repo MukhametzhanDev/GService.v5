@@ -39,7 +39,7 @@ class _MyApplicationListPageState extends State<MyApplicationListPage> {
   int page = 1;
   RefreshController refreshController = RefreshController();
 
-  final analytics = GetIt.I<FirebaseAnalytics>();
+  final analytics = FirebaseAnalytics.instance;
 
   @override
   void initState() {

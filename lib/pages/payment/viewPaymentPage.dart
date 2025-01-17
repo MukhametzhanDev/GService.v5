@@ -31,7 +31,7 @@ class _ViewPaymentPageState extends State<ViewPaymentPage> {
   bool loader = true;
   bool webLoader = true;
 
-  final analytics = GetIt.I<FirebaseAnalytics>();
+  final analytics = FirebaseAnalytics.instance;
 
   @override
   void initState() {

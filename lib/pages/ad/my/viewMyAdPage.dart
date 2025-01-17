@@ -40,7 +40,7 @@ class _ViewMyAdPageState extends State<ViewMyAdPage> {
   Map<String, dynamic> data = {};
   bool loader = true;
 
-  final analytics = GetIt.I<FirebaseAnalytics>();
+  final analytics = FirebaseAnalytics.instance;
 
   @override
   void initState() {

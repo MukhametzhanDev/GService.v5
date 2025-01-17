@@ -31,7 +31,7 @@ class _AddContactsPageState extends State<AddContactsPage> {
   bool loader = true;
   List<TextEditingController> controllers = [];
 
-  final analytics = GetIt.I<FirebaseAnalytics>();
+  final analytics = FirebaseAnalytics.instance;
 
   @override
   void initState() {

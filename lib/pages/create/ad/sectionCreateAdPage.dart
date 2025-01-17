@@ -31,7 +31,7 @@ class _SectionCreateAdPageState extends State<SectionCreateAdPage> {
   bool loader = true;
   bool verifyToken = false;
 
-  final analytics = GetIt.I<FirebaseAnalytics>();
+  final analytics = FirebaseAnalytics.instance;
 
   @override
   void initState() {

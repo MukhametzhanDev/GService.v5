@@ -27,7 +27,7 @@ class _SwitchRoleWidgetState extends State<SwitchRoleWidget> {
   String? role;
   bool hasToken = false;
 
-  final analytics = GetIt.I<FirebaseAnalytics>();
+  final analytics = FirebaseAnalytics.instance;
 
   @override
   void initState() {

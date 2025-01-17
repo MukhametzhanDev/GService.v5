@@ -45,7 +45,7 @@ class _StructureCreateAdPageState extends State<StructureCreateAdPage> {
 
   int? twoStepsBack;
 
-  final analytics = GetIt.I<FirebaseAnalytics>();
+  final analytics = FirebaseAnalytics.instance;
 
   @override
   void initState() {

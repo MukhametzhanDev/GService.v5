@@ -28,7 +28,7 @@ class _CompaniesMainPageState extends State<CompaniesMainPage> {
   ScrollController scrollController = ScrollController();
   Map<String, dynamic> param = FilterData.data;
 
-  final analytics = GetIt.I<FirebaseAnalytics>();
+  final analytics = FirebaseAnalytics.instance;
 
   @override
   void initState() {

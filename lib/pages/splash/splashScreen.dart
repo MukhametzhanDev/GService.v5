@@ -24,7 +24,7 @@ class _SplashScreenState extends State<SplashScreen> {
     getData();
   }
 
-  final analytics = GetIt.I<FirebaseAnalytics>();
+  final analytics = FirebaseAnalytics.instance;
 
   void getData() async {
     String? token = await ChangedToken().getToken();

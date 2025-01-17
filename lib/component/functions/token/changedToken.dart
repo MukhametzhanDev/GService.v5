@@ -39,7 +39,7 @@ class ChangedToken {
       await flutterSecureStorage.deleteAll();
       dio.options.headers['authorization'] = "";
 
-      final analytics = GetIt.I<FirebaseAnalytics>();
+      final analytics = FirebaseAnalytics.instance;
 
       await analytics.setUserId(id: null);
       await analytics.setDefaultEventParameters({'role': null});

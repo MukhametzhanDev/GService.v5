@@ -32,7 +32,7 @@ class _AdListPageState extends State<AdListPage> {
   int page = 1;
   String title = "";
 
-  final analytics = GetIt.I<FirebaseAnalytics>();
+  final analytics = FirebaseAnalytics.instance;
 
   @override
   void initState() {
