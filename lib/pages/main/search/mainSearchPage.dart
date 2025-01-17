@@ -1,5 +1,8 @@
+import 'package:firebase_analytics/firebase_analytics.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:gservice5/analytics/event_name.constan.dart';
 import 'package:gservice5/data/cache/cacheSearchTitleData.dart';
 import 'package:gservice5/pages/main/search/historySearchWidget.dart';
 import 'package:gservice5/pages/main/search/recommendationSearchTitleWidget.dart';
@@ -18,6 +21,8 @@ class MainSearchPage extends StatefulWidget {
 class _MainSearchPageState extends State<MainSearchPage> {
   TextEditingController textEditingController = TextEditingController();
 
+  final analytics = FirebaseAnalytics.instance;
+
   @override
   void initState() {
     if (widget.title.isNotEmpty) textEditingController.text = widget.title;
@@ -31,7 +36,16 @@ class _MainSearchPageState extends State<MainSearchPage> {
   // }
 
   void getResult(String value) {
+    
     CacheSearchTitleData.incrementHistoryData(value);
+    analytics.logSelectContent(
+        parameters: {GAKey.screenName: GAParams.mainSearchPage},
+        contentType: GAContentType.searchRecomendation,
+        itemId: value).catchError((e) {
+      if (kDebugMode) {
+        debugPrint(e);
+      }
+    });
     showPage();
   }
 

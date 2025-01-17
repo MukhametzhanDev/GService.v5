@@ -1,6 +1,8 @@
 import 'package:dio/dio.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:gservice5/analytics/event_name.constan.dart';
 import 'package:gservice5/component/dio/dio.dart';
 import 'package:gservice5/component/formatted/number/numberFormatted.dart';
 import 'package:gservice5/component/loader/loaderComponent.dart';
@@ -27,6 +29,8 @@ class _ResultSearchPageState extends State<ResultSearchPage> {
   int currentIndex = 0;
   RefreshController refreshController = RefreshController();
   List data = [];
+
+  final analytics = FirebaseAnalytics.instance;
 
   @override
   void initState() {
@@ -73,6 +77,16 @@ class _ResultSearchPageState extends State<ResultSearchPage> {
           data = response.data['data'];
           loaderAd = false;
           setState(() {});
+
+          await analytics.logViewItemList(
+              parameters: {GAKey.isPagination: "false"},
+              itemListId: GAParams.listSeachMainId,
+              itemListName: GAParams.listSeachMainName,
+              items: data
+                  .map((toElement) => AnalyticsEventItem(
+                      itemId: toElement['id'].toString(),
+                      itemName: toElement['title']))
+                  .toList());
         } else {
           SnackBarComponent().showResponseErrorMessage(response, context);
         }
@@ -190,8 +204,8 @@ class _ResultSearchPageState extends State<ResultSearchPage> {
                                             margin:
                                                 const EdgeInsets.only(left: 6),
                                             height: 18,
-                                            constraints:
-                                                const BoxConstraints(minWidth: 18),
+                                            constraints: const BoxConstraints(
+                                                minWidth: 18),
                                             alignment: Alignment.center,
                                             padding: const EdgeInsets.symmetric(
                                                 horizontal: 4),

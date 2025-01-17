@@ -1,5 +1,7 @@
 import 'package:dio/dio.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
+import 'package:gservice5/analytics/event_name.constan.dart';
 import 'package:gservice5/component/dio/dio.dart';
 import 'package:gservice5/component/loader/paginationLoaderComponent.dart';
 import 'package:gservice5/component/snackBar/snackBarComponent.dart';
@@ -21,6 +23,8 @@ class _ResultListPageState extends State<ResultListPage> {
   bool isLoadMore = false;
   int page = 1;
   ScrollController scrollController = ScrollController();
+
+  final analytics = FirebaseAnalytics.instance;
 
   @override
   void initState() {
@@ -56,6 +60,16 @@ class _ResultListPageState extends State<ResultListPage> {
           hasNextPage = page != response.data['meta']['last_page'];
           isLoadMore = false;
           setState(() {});
+
+          await analytics.logViewItemList(
+              parameters: {GAKey.isPagination: "true"},
+              itemListId: GAParams.listSeachMainId,
+              itemListName: GAParams.listSeachMainName,
+              items: data
+                  .map((toElement) => AnalyticsEventItem(
+                      itemId: toElement['id'].toString(),
+                      itemName: toElement['title']))
+                  .toList());
         } else {
           SnackBarComponent().showResponseErrorMessage(response, context);
         }
@@ -69,7 +83,11 @@ class _ResultListPageState extends State<ResultListPage> {
     if (widget.param['category_id'] == 3) {
       return ApplicationItem(data: value, showCategory: true);
     } else {
-      return AdItem(data: value, showCategory: false);
+      return AdItem(
+        data: value,
+        showCategory: false,
+        fromPage: GAParams.resultListPage,
+      );
     }
   }
 

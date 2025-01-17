@@ -67,8 +67,8 @@ class _ViewAdPageState extends State<ViewAdPage> {
           AnalyticsEventItem(
             itemId: data['id']?.toString(),
             itemName: data['title'],
-            itemListId: GAParams.listFavoriteAdPageListId,
-            itemListName: GAParams.listFavoriteAdPageListName,
+            itemListId: GAParams.listViewAdPageId,
+            itemListName: GAParams.listViewAdPageName,
           )
         ]);
       } else {

@@ -1,6 +1,8 @@
 import 'package:dio/dio.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:gservice5/analytics/event_name.constan.dart';
 import 'package:gservice5/component/dio/dio.dart';
 import 'package:gservice5/component/snackBar/snackBarComponent.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
@@ -19,6 +21,8 @@ class RecommendationSearchTitleWidget extends StatefulWidget {
 class _RecommendationSearchTitleWidgetState
     extends State<RecommendationSearchTitleWidget> {
   List data = [];
+
+  final analytics = FirebaseAnalytics.instance;
 
   @override
   void initState() {
@@ -41,6 +45,17 @@ class _RecommendationSearchTitleWidgetState
         if (response.statusCode == 200) {
           data = response.data['data'];
           setState(() {});
+
+          await analytics.logViewItemList(
+              parameters: {
+                GAKey.screenName: GAParams.recommendationSearchTitleWidget
+              },
+              itemListId: GAParams.listSeachMainRecomendationId,
+              items: data
+                  .map((toElement) => AnalyticsEventItem(
+                        itemName: toElement['title'],
+                      ))
+                  .toList());
         } else {
           SnackBarComponent().showResponseErrorMessage(response, context);
         }

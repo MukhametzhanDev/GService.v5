@@ -67,6 +67,10 @@ class GAParams {
   static const String getActivityBusinessPage = 'GetActivityBusinessPage';
   static const String allNewsPage = 'allNewsPage';
   static const String companiesMainPage = 'CompaniesMainPage';
+  static const String recommendationSearchTitleWidget =
+      'RecommendationSearchTitleWidget';
+  static const String mainSearchPage = 'MainSearchPage';
+  static const String resultListPage = 'ResultListPage';
 
   //SCREEN
 
@@ -239,6 +243,12 @@ class GAParams {
   static const String listAllNewsName = 'Новости';
   static const String listCompanyId = 'list_company_id';
   static const String listCompanyName = 'Компании';
+  static const String listSeachMainId = 'list_search_main_id';
+  static const String listSeachMainName = 'Поиск по GService';
+  static const String listSeachMainRecomendationId =
+      'list_seach_main_recomendation_id';
+  static const String listViewAdPageId = 'list_view_ad_page_id';
+  static const String listViewAdPageName = 'Детали объявление';
 
   //LIST
 }
@@ -251,6 +261,7 @@ class GAContentType {
   static const String myApplication = 'myApplication';
   static const String news = 'news';
   static const String company = 'company';
+  static const String searchRecomendation = 'searchRecomendation';
 }
 
 class GAKey {
