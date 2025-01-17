@@ -240,7 +240,7 @@ class _ViewMyAdPageState extends State<ViewMyAdPage> {
                             AnalyticAdWidget(data: data['statistics']),
                             const Divider(height: 10),
                             Container(
-                              height: 36,
+                              height: 40,
                               margin: const EdgeInsets.only(top: 12),
                               decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(10),

@@ -30,30 +30,6 @@ class ContactBottomBarWidget extends StatefulWidget {
 }
 
 class _ContactBottomBarWidgetState extends State<ContactBottomBarWidget> {
-  final analytics = FirebaseAnalytics.instance;
-
-  void writed() async {
-    try {
-      if (widget.hasAd) {
-      } else {
-        await getCountClickApplication(widget.id, "write");
-      }
-    } catch (e) {
-      debugPrint(e.toString());
-    }
-  }
-
-  void called() async {
-    try {
-      if (widget.hasAd) {
-      } else {
-        await getCountClickApplication(widget.id, "call");
-      }
-    } catch (e) {
-      debugPrint(e.toString());
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     return BottomNavigationBarWidget(
@@ -93,19 +69,11 @@ class _ContactBottomBarWidgetState extends State<ContactBottomBarWidget> {
               showCupertinoModalBottomSheet(
                 context: context,
                 builder: (context) => ContactstListModal(
-                  phones: widget.phones,
+                    
+                  phones: widget.phones, id: widget.id, hasAd: widget.hasAd,
                   fromPage: widget.fromPage,
                 ),
               );
-              analytics.logEvent(name: GAEventName.buttonClick, parameters: {
-                GAKey.buttonName: GAParams.btnCall,
-                GAKey.screenName: widget.fromPage ?? '',
-                GAKey.itemAdId: widget.id.toString(),
-              }).catchError((e) {
-                if (kDebugMode) {
-                  debugPrint(e);
-                }
-              });
             },
             icon: "phone.svg",
             title: "Позвонить",
@@ -120,8 +88,11 @@ class _ContactBottomBarWidgetState extends State<ContactBottomBarWidget> {
 
 class ContactstListModal extends StatefulWidget {
   final List phones;
+  final int id;
+  final bool hasAd;
   final String? fromPage;
-  const ContactstListModal({super.key, required this.phones, this.fromPage});
+  const ContactstListModal(
+      {super.key, required this.phones, required this.id, required this.hasAd, this.fromPage});
 
   @override
   State<ContactstListModal> createState() => _ContactstListModalState();
@@ -136,6 +107,7 @@ class _ContactstListModalState extends State<ContactstListModal> {
   final analytics = FirebaseAnalytics.instance;
 
   void showCall(String phone) async {
+    await getCountClick(widget.id, "call", widget.hasAd);
     try {
       await launchUrl(Uri(scheme: "tel", path: "+$phone"));
 

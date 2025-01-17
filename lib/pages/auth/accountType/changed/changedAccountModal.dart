@@ -1,15 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:gservice5/component/button/back/closeIconButton.dart';
 import 'package:gservice5/component/switchRole/switchRoleWidget.dart';
+import 'package:gservice5/component/theme/colorComponent.dart';
 
-class ChangedAccountModal extends StatefulWidget {
-  const ChangedAccountModal({super.key});
+class ChangedAccountRoleModal extends StatefulWidget {
+  const ChangedAccountRoleModal({super.key});
 
   @override
-  State<ChangedAccountModal> createState() => _ChangedAccountModalState();
+  State<ChangedAccountRoleModal> createState() =>
+      _ChangedAccountRoleModalState();
 }
 
-class _ChangedAccountModalState extends State<ChangedAccountModal> {
+class _ChangedAccountRoleModalState extends State<ChangedAccountRoleModal> {
   // void onChangedRole() {
   //   Navigator.pop(context);
   //   showModalBottomSheet(
@@ -20,16 +23,33 @@ class _ChangedAccountModalState extends State<ChangedAccountModal> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-        height: 200,
+        height: 190 + MediaQuery.of(context).padding.bottom,
         child: Scaffold(
             appBar: AppBar(
                 automaticallyImplyLeading: false,
                 title: const Text("Переключить аккаунт?"),
+                centerTitle: false,
                 actions: const [
                   CloseIconButton(iconColor: null, padding: true)
                 ]),
             body: Column(
-              children: [Divider(indent: 14), SwitchRoleWidget()],
+              children: [
+                ListTile(
+                  title: const Text("Mservice"),
+                  trailing: SvgPicture.asset("assets/icons/check.svg",
+                      color: ColorComponent.blue['500']),
+                ),
+                ListTile(
+                    title: const Text("Mukhametzhan"),
+                    subtitle: Text("GService",
+                        style: TextStyle(
+                            fontSize: 12,
+                            fontWeight: FontWeight.w500,
+                            color: ColorComponent.gray['500']))
+                    // trailing: SvgPicture.asset("assets/icons/check.svg",
+                    //     color: ColorComponent.blue['500']),
+                    )
+              ],
             )));
   }
 }

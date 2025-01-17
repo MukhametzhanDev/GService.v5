@@ -22,6 +22,7 @@ class Styles {
           titleMedium:
               TextStyle(color: isDarkTheme ? Colors.white : Colors.black),
         ),
+
         textButtonTheme: TextButtonThemeData(
           style: TextButton.styleFrom(
               overlayColor: Colors.transparent,
@@ -74,7 +75,8 @@ class Styles {
                   color: isDarkTheme
                       ? const Color(0xffD1D5DB)
                       : const Color(0xffE5E5EA))),
-          labelStyle:  TextStyle(color: ColorComponent.gray['500'],fontSize: 14),
+          labelStyle:
+              TextStyle(color: ColorComponent.gray['500'], fontSize: 14),
         ),
         indicatorColor:
             isDarkTheme ? const Color(0xff0E1D36) : const Color(0xffCBDCF8),

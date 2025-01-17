@@ -66,8 +66,6 @@ class _PreviewItemWidgetState extends State<PreviewItemWidget> {
     }
   }
 
-  
-
   @override
   Widget build(BuildContext context) {
     print("widget.stickers ${widget.stickers}");
@@ -78,129 +76,140 @@ class _PreviewItemWidgetState extends State<PreviewItemWidget> {
         : GestureDetector(
             onTap: () {},
             child: Container(
-              padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 12),
               decoration: BoxDecoration(
                   // borderRadius: BorderRadius.circular(12),
                   color: getColor(),
                   border: Border.all(width: 1, color: const Color(0xffeeeeee))),
               // padding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const SizedBox(height: 4),
-                  Row(
-                    children: [
-                      Expanded(
-                        child: Text(
-                          data['title'] ?? "",
-                          style: TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.w400,
-                              color: ColorComponent.blue['700']),
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
-                        ),
-                      ),
-                      const SizedBox(width: 16),
-                      Container(
-                          height: 24,
-                          padding: const EdgeInsets.symmetric(horizontal: 8),
-                          alignment: Alignment.center,
-                          decoration: BoxDecoration(
-                              color: ColorComponent.mainColor,
-                              borderRadius: BorderRadius.circular(4)),
-                          child: Text(data['category']['title'],
-                              style: const TextStyle(
-                                  height: 1,
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.w500)))
-                      // Row(
-                      // children: [
-                      // Divider(indent: 8),
-                      // FavoriteButton()
-                      //  ],
-                      //  )
-                    ],
-                  ),
-                  const Divider(height: 8),
-                  PriceTextWidget(prices: data['prices'], fontSize: 15),
-                  const Divider(height: 12),
-                  SizedBox(
-                    height: imageHeight,
-                    child: Row(
+                  Padding(
+                    padding: const EdgeInsets.only(top: 6, left: 12, right: 12),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
+                        const SizedBox(height: 4),
+                        Row(
+                          children: [
+                            Expanded(
+                              child: Text(
+                                data['title'] ?? "",
+                                style: TextStyle(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.w400,
+                                    color: ColorComponent.blue['700']),
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                            ),
+                            const SizedBox(width: 16),
+                            Container(
+                                height: 24,
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 8),
+                                alignment: Alignment.center,
+                                decoration: BoxDecoration(
+                                    color: ColorComponent.mainColor,
+                                    borderRadius: BorderRadius.circular(4)),
+                                child: Text(data['category']['title'],
+                                    style: const TextStyle(
+                                        height: 1,
+                                        fontSize: 12,
+                                        fontWeight: FontWeight.w500)))
+                            // Row(
+                            // children: [
+                            // Divider(indent: 8),
+                            // FavoriteButton()
+                            //  ],
+                            //  )
+                          ],
+                        ),
+                        const Divider(height: 8),
+                        PriceTextWidget(prices: data['prices'], fontSize: 15),
+                        const Divider(height: 12),
                         SizedBox(
-                          width: MediaQuery.of(context).size.width / 2.2,
                           height: imageHeight,
-                          child: Stack(
+                          child: Row(
                             children: [
-                              CacheImage(
-                                  url: data['images'][0],
-                                  width:
-                                      MediaQuery.of(context).size.width / 2.2,
-                                  height: imageHeight,
-                                  borderRadius: 8),
-                              Positioned(
-                                top: 8,
-                                left: 8,
-                                child: ClipRRect(
-                                  child: BackdropFilter(
-                                    filter: ImageFilter.blur(
-                                        sigmaX: 4.0, sigmaY: 4.0),
-                                    child: Container(
-                                      decoration: BoxDecoration(
-                                          color: Colors.white.withOpacity(.7),
-                                          borderRadius:
-                                              BorderRadius.circular(4)),
-                                      padding: const EdgeInsets.symmetric(
-                                          vertical: 3, horizontal: 8),
-                                      child: Row(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.center,
-                                        children: [
-                                          SvgPicture.asset(
-                                              'assets/icons/badgeCheck.svg',
-                                              width: 16),
-                                          const Divider(indent: 4),
-                                          Text("От диллера",
-                                              style: TextStyle(
-                                                  fontSize: 12,
-                                                  fontWeight: FontWeight.w600,
-                                                  color: ColorComponent
-                                                      .blue['500']))
-                                        ],
+                              SizedBox(
+                                width: MediaQuery.of(context).size.width / 2.2,
+                                height: imageHeight,
+                                child: Stack(
+                                  children: [
+                                    CacheImage(
+                                        url: data['images'][0],
+                                        width:
+                                            MediaQuery.of(context).size.width /
+                                                2.2,
+                                        height: imageHeight,
+                                        borderRadius: 8),
+                                    Positioned(
+                                      top: 8,
+                                      left: 8,
+                                      child: ClipRRect(
+                                        child: BackdropFilter(
+                                          filter: ImageFilter.blur(
+                                              sigmaX: 4.0, sigmaY: 4.0),
+                                          child: Container(
+                                            decoration: BoxDecoration(
+                                                color: Colors.white
+                                                    .withOpacity(.7),
+                                                borderRadius:
+                                                    BorderRadius.circular(4)),
+                                            padding: const EdgeInsets.symmetric(
+                                                vertical: 3, horizontal: 8),
+                                            child: Row(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.center,
+                                              children: [
+                                                SvgPicture.asset(
+                                                    'assets/icons/badgeCheck.svg',
+                                                    width: 16),
+                                                const Divider(indent: 4),
+                                                Text("От диллера",
+                                                    style: TextStyle(
+                                                        fontSize: 12,
+                                                        fontWeight:
+                                                            FontWeight.w600,
+                                                        color: ColorComponent
+                                                            .blue['500']))
+                                              ],
+                                            ),
+                                          ),
+                                        ),
                                       ),
-                                    ),
-                                  ),
+                                    )
+                                  ],
                                 ),
-                              )
+                              ),
+                              const Divider(indent: 12),
+                              Expanded(
+                                  child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                // mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                children: [
+                                  Text(data['sub_title'],
+                                      style: const TextStyle(
+                                          fontSize: 15,
+                                          fontWeight: FontWeight.w500,
+                                          height: 1.3),
+                                      maxLines: 2,
+                                      overflow: TextOverflow.ellipsis),
+                                  const Divider(height: 8),
+                                  Expanded(
+                                      child: AdItemCharacteristic(data: data)),
+                                  // Text(
+                                  //     "На заказы от 3-х смен мы предоставляем скидку. Вся техника находится у нас в собственности, работают опытные операторы и качественно",
+                                  //     maxLines: 3,
+                                  //     overflow: TextOverflow.ellipsis,
+                                  //     style: TextStyle(
+                                  //         color: ColorComponent.gray['600'],
+                                  //         fontSize: 13))
+                                ],
+                              ))
                             ],
                           ),
                         ),
-                        const Divider(indent: 12),
-                        Expanded(
-                            child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          // mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          children: [
-                            Text(data['sub_title'],
-                                style: const TextStyle(
-                                    fontSize: 15,
-                                    fontWeight: FontWeight.w500,
-                                    height: 1.3),
-                                maxLines: 2,
-                                overflow: TextOverflow.ellipsis),
-                            const Divider(height: 8),
-                            Expanded(child: AdItemCharacteristic(data: data)),
-                            // Text(
-                            //     "На заказы от 3-х смен мы предоставляем скидку. Вся техника находится у нас в собственности, работают опытные операторы и качественно",
-                            //     maxLines: 3,
-                            //     overflow: TextOverflow.ellipsis,
-                            //     style: TextStyle(
-                            //         color: ColorComponent.gray['600'],
-                            //         fontSize: 13))
-                          ],
-                        ))
                       ],
                     ),
                   ),
@@ -209,7 +218,8 @@ class _PreviewItemWidgetState extends State<PreviewItemWidget> {
                   const Divider(height: 10),
                   Divider(height: 1, color: ColorComponent.gray['100']),
                   const Divider(height: 10),
-                  SizedBox(
+                  Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 15),
                     height: 24,
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,

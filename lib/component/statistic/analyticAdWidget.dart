@@ -17,7 +17,7 @@ class AnalyticAdWidget extends StatelessWidget {
         StatisticWidget(
             "message.svg", data['wrote'], "Сообщения от покупателей"),
         const SizedBox(height: 16),
-        StatisticWidget("phoneOutline.svg", data['called'], "Просмотр контактов"),
+        StatisticWidget("phoneOutline.svg", data['called'], "Звонок от покупателей"),
         const SizedBox(height: 16),
         StatisticWidget("heartOutline.svg", data['favorites'], "В избранные"),
         const SizedBox(height: 16),

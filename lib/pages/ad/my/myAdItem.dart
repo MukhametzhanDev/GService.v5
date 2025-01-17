@@ -93,125 +93,140 @@ class MyAdItem extends StatelessWidget {
       //   showOptions(data);
       // },
       child: Container(
-          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+          // padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
           decoration: const BoxDecoration(
-              // color: getColor(),
               border: Border(
                   bottom: BorderSide(width: 6, color: Color(0xfff4f5f7)))),
-          child:
-              Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-            const SizedBox(height: 2),
-            Row(
-              children: [
-                data['images'].isEmpty
-                    ? Container()
-                    : Padding(
-                        padding: const EdgeInsets.only(right: 12.0),
-                        child: CacheImage(
-                            url: data['images'][0],
-                            // url: data['images'][0]['url'],
-                            width: 96,
-                            height: 96,
-                            borderRadius: 8),
-                      ),
-                Expanded(
-                  child: SizedBox(
-                      height: 96,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(left: 16, right: 16, top: 14),
+                child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const SizedBox(height: 2),
+                      Row(
                         children: [
-                          // Divider(height: 8),
-                          Text(
-                            data['title'],
-                            // data['title'],
-                            style: TextStyle(
-                                color: ColorComponent.blue['500'],
-                                fontSize: 15,
-                                fontWeight: FontWeight.w500),
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                          // const SizedBox(height: 8),
-                          PriceTextWidget(prices: data['prices']),
-                          Text(
-                            data['city']['title'],
-                            // data['title'],
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
+                          data['images'].isEmpty
+                              ? Container()
+                              : Padding(
+                                  padding: const EdgeInsets.only(right: 12.0),
+                                  child: CacheImage(
+                                      url: data['images'][0],
+                                      width: 96,
+                                      height: 96,
+                                      borderRadius: 8),
+                                ),
+                          Expanded(
+                            child: SizedBox(
+                                height: 96,
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceAround,
+                                  children: [
+                                    // Divider(height: 8),
+                                    Text(
+                                      data['title'],
+                                      // data['title'],
+                                      style: TextStyle(
+                                          color: ColorComponent.blue['500'],
+                                          fontSize: 15,
+                                          fontWeight: FontWeight.w500),
+                                      maxLines: 1,
+                                      overflow: TextOverflow.ellipsis,
+                                    ),
+                                    // const SizedBox(height: 8),
+                                    PriceTextWidget(prices: data['prices']),
+                                    Text(
+                                      data['city']['title'],
+                                      // data['title'],
+                                      maxLines: 1,
+                                      overflow: TextOverflow.ellipsis,
+                                    ),
+                                  ],
+                                )),
                           ),
                         ],
-                      )),
-                ),
-              ],
-            ),
-            const SizedBox(height: 10),
-            getExpires(),
-            Padding(
-              padding:
-                  EdgeInsets.only(bottom: data['stickers'].isEmpty ? 0 : 12.0),
-              child: ShowStickersList(data: data['stickers']),
-            ),
-            data['status'] == "archived"
-                ? SizedBox(
-                    height: 36,
-                    child: Button(
-                        onPressed: () {
-                          showOptions(data);
-                        },
-                        title: "Разархивировать"),
-                  )
-                : data['status'] == "deleted"
+                      ),
+                      const SizedBox(height: 10),
+                      getExpires(),
+                    ]),
+              ),
+              Padding(
+                padding: EdgeInsets.only(
+                    bottom: data['stickers'].isEmpty ? 0 : 12.0),
+                child: ShowStickersList(data: data['stickers']),
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 15),
+                child: data['status'] == "archived"
                     ? SizedBox(
                         height: 36,
                         child: Button(
                             onPressed: () {
                               showOptions(data);
                             },
-                            title: "Восстановить"),
+                            title: "Разархивировать"),
                       )
-                    : Row(children: [
-                        Expanded(
-                            child: SizedBox(
-                                height: 36,
-                                child: Button(
-                                    onPressed: () {
-                                      showListPromotionPage(data);
-                                    },
-                                    title: promotions.isNotEmpty
-                                        ? "Продлить пакет"
-                                        : "Поднять в ТОП"))),
-                        const SizedBox(width: 12),
-                        GestureDetector(
-                          onTap: () {
-                            showOptions(data);
-                          },
-                          child: Container(
-                              height: 32,
-                              alignment: Alignment.center,
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 8),
-                              child: Row(
-                                children: [
-                                  Text("Править",
-                                      style: TextStyle(
-                                          color: ColorComponent.gray['700'])),
-                                  const Divider(indent: 12),
-                                  SvgPicture.asset(
-                                      'assets/icons/dotsHorizontal.svg')
-                                ],
-                              )),
-                        ),
-                      ]),
-            const Divider(height: 18),
-            const AnalyticAdItemWidget(data: {
-              "viewed": 1380,
-              "called": 0,
-              "favorites": 15,
-              "shared": 0,
-              "wrote": 0
-            }),
-          ])),
+                    : data['status'] == "deleted"
+                        ? SizedBox(
+                            height: 36,
+                            child: Button(
+                                onPressed: () {
+                                  showOptions(data);
+                                },
+                                title: "Восстановить"),
+                          )
+                        : Row(children: [
+                            Expanded(
+                                child: SizedBox(
+                                    height: 36,
+                                    child: Button(
+                                        onPressed: () {
+                                          showListPromotionPage(data);
+                                        },
+                                        title: promotions.isNotEmpty
+                                            ? "Продлить пакет"
+                                            : "Поднять в ТОП"))),
+                            const SizedBox(width: 12),
+                            GestureDetector(
+                              onTap: () {
+                                showOptions(data);
+                              },
+                              child: Container(
+                                  height: 32,
+                                  alignment: Alignment.center,
+                                  padding:
+                                      const EdgeInsets.symmetric(horizontal: 8),
+                                  child: Row(
+                                    children: [
+                                      Text("Править",
+                                          style: TextStyle(
+                                              color:
+                                                  ColorComponent.gray['700'])),
+                                      const Divider(indent: 12),
+                                      SvgPicture.asset(
+                                          'assets/icons/dotsHorizontal.svg')
+                                    ],
+                                  )),
+                            ),
+                          ]),
+              ),
+              const Divider(height: 18),
+              const Padding(
+                padding: EdgeInsets.only(left: 15, right: 15, bottom: 12),
+                child: AnalyticAdItemWidget(data: {
+                  "viewed": 1380,
+                  "called": 0,
+                  "favorites": 15,
+                  "shared": 0,
+                  "wrote": 0
+                }),
+              ),
+            ],
+          )),
     );
   }
 }

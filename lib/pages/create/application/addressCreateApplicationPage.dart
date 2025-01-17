@@ -32,19 +32,19 @@ class _AddressCreateApplicationPageState
   }
 
   void showGetAddressPage() {
-    if (city.isEmpty) {
-      SnackBarComponent().showErrorMessage("Заполните строку 'Город'", context);
-    } else {
-      Navigator.push(
-          context,
-          MaterialPageRoute(
-              builder: (context) => GetMapAddressPage(
-                  onSavedData: (value) {
-                    address = value;
-                    setState(() {});
-                  },
-                  cityData: city)));
-    }
+    // if (city.isEmpty) {
+    //   SnackBarComponent().showErrorMessage("Заполните строку 'Город'", context);
+    // } else {
+    //   Navigator.push(
+    //       context,
+    //       MaterialPageRoute(
+    //           builder: (context) => GetMapAddressPage(
+    //               onSavedData: (value) {
+    //                 address = value;
+    //                 setState(() {});
+    //               },
+    //               cityData: city)));
+    // }
   }
 
   void savedData() {

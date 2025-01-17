@@ -7,7 +7,9 @@ import 'package:gservice5/pages/ad/filter/filterButton.dart';
 import 'package:gservice5/pages/companies/filter/filterActivityCompanyModal.dart';
 import 'package:gservice5/pages/companies/filter/filterCompanyPage.dart';
 import 'package:gservice5/pages/create/data/createData.dart';
+import 'package:gservice5/provider/adFilterProvider.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
+import 'package:provider/provider.dart';
 
 class FilterCompanyAppBarWidget extends StatefulWidget
     implements PreferredSizeWidget {
@@ -28,21 +30,9 @@ class _FilterCompanyAppBarWidgetState extends State<FilterCompanyAppBarWidget> {
   Map city = {};
   Map activity = {};
 
-  @override
-  void initState() {
-    addData();
-    super.initState();
-  }
-
-  void addData() {
-    bool hasCity = FilterData.data.containsKey("city_id_value");
-    if (hasCity) {
-      city = FilterData.data['city_id_value'] ?? {};
-    } else {
-      onClearCity();
-    }
-
-    setState(() {});
+  void onChangedCity(Map value) {
+    final filterData = Provider.of<AdFilterProvider>(context, listen: false);
+    filterData.filterData = {"city_id_value": value, "city_id": value['id']};
     widget.onChanged("update");
   }
 
@@ -64,22 +54,6 @@ class _FilterCompanyAppBarWidgetState extends State<FilterCompanyAppBarWidget> {
     );
   }
 
-  void onChangedCity(Map value) {
-    city = value;
-    FilterData.data['city_id_value'] = value;
-    FilterData.data['city_id'] = value['id'];
-    setState(() {});
-    widget.onChanged("update");
-  }
-
-  void onClearCity() {
-    city.clear();
-    FilterData.data.remove("city_id");
-    FilterData.data.remove("city_id_value");
-    setState(() {});
-    widget.onChanged("update");
-  }
-
   void showFilterPage() {
     showCupertinoModalBottomSheet(
         context: context,
@@ -89,12 +63,13 @@ class _FilterCompanyAppBarWidgetState extends State<FilterCompanyAppBarWidget> {
 
   void filteredAds(value) {
     if (value != null) {
-      addData();
+      widget.onChanged("update");
     }
   }
 
   @override
   Widget build(BuildContext context) {
+    final filterData = Provider.of<AdFilterProvider>(context, listen: false);
     return AppBar(
       leadingWidth: MediaQuery.of(context).size.width - 100,
       actions: [
@@ -125,47 +100,54 @@ class _FilterCompanyAppBarWidgetState extends State<FilterCompanyAppBarWidget> {
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  GestureDetector(
-                    onTap: showCityList,
-                    child: Container(
-                        height: 36,
-                        alignment: Alignment.center,
-                        margin: const EdgeInsets.only(right: 12),
-                        padding: EdgeInsets.only(
-                            left: 12, right: city.isNotEmpty ? 6 : 12),
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(8),
-                            border: Border.all(
-                                width: 1,
-                                color: city.isNotEmpty
-                                    ? ColorComponent.mainColor
-                                    : const Color(0xffD1D5DB)),
-                            color: ColorComponent.gray['50']),
-                        child: Row(
-                          children: [
-                            Text(
-                                city.isNotEmpty
-                                    ? FilterData.data['city_id_value']['title']
-                                    : "Все города",
-                                style: TextStyle(
-                                    color: city.isNotEmpty
-                                        ? Colors.black
-                                        : ColorComponent.gray['500'])),
-                            const Divider(indent: 6),
-                            city.isNotEmpty
-                                ? GestureDetector(
-                                    onTap: onClearCity,
-                                    child: Container(
-                                        width: 24,
-                                        alignment: Alignment.center,
-                                        child: SvgPicture.asset(
-                                            'assets/icons/close.svg',
-                                            color: Colors.black)),
-                                  )
-                                : SvgPicture.asset('assets/icons/down.svg')
-                          ],
-                        )),
-                  ),
+                  Consumer<AdFilterProvider>(builder: (context, data, child) {
+                    bool activeCity = data.data.containsKey("city_id");
+                    return GestureDetector(
+                      onTap: showCityList,
+                      child: Container(
+                          height: 36,
+                          alignment: Alignment.center,
+                          margin: const EdgeInsets.only(right: 12),
+                          padding: EdgeInsets.only(
+                              left: 12, right: activeCity ? 6 : 12),
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(8),
+                              border: Border.all(
+                                  width: 1,
+                                  color: activeCity
+                                      ? ColorComponent.mainColor
+                                      : const Color(0xffD1D5DB)),
+                              color: ColorComponent.gray['50']),
+                          child: Row(
+                            children: [
+                              Text(
+                                  activeCity
+                                      ? data.data['city_id_value']['title']
+                                      : "Все города",
+                                  style: TextStyle(
+                                      color: activeCity
+                                          ? Colors.black
+                                          : ColorComponent.gray['500'])),
+                              const Divider(indent: 6),
+                              activeCity
+                                  ? GestureDetector(
+                                      onTap: () {
+                                        filterData.removeData = "city_id";
+                                        filterData.removeData = "city_id_value";
+                                        widget.onChanged("update");
+                                      },
+                                      child: Container(
+                                          width: 24,
+                                          alignment: Alignment.center,
+                                          child: SvgPicture.asset(
+                                              'assets/icons/close.svg',
+                                              color: Colors.black)),
+                                    )
+                                  : SvgPicture.asset('assets/icons/down.svg')
+                            ],
+                          )),
+                    );
+                  }),
                 ],
               ))),
     );

@@ -36,7 +36,7 @@ class _ChangeBusinessProfilePageState extends State<ChangeBusinessProfilePage> {
     currentCity = widget.data['city'];
     nameEditingController.text = widget.data['name'];
     identifierEditingController.text = widget.data['identifier'];
-    descEditingController.text = widget.data['description'];
+    descEditingController.text = widget.data['description'] ?? "";
     super.initState();
   }
 
@@ -157,7 +157,8 @@ class _ChangeBusinessProfilePageState extends State<ChangeBusinessProfilePage> {
                 controller: nameEditingController,
                 style: const TextStyle(fontSize: 14),
                 keyboardType: TextInputType.text,
-                decoration: const InputDecoration(hintText: "Название компании")),
+                decoration:
+                    const InputDecoration(hintText: "Название компании")),
             const Divider(indent: 8),
             TextField(
                 controller: identifierEditingController,

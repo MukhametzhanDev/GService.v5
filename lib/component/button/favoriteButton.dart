@@ -66,7 +66,6 @@ class _FavoriteButtonState extends State<FavoriteButton> {
           "favoritable_id": widget.id,
           "favoritable_type": widget.type
         });
-        await getCountClickApplication(widget.id, "favorite");
       }
     } catch (e) {
       print(e);

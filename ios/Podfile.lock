@@ -187,10 +187,6 @@ PODS:
   - webview_flutter_wkwebview (0.0.1):
     - Flutter
     - FlutterMacOS
-  - yandex_mapkit (0.0.1):
-    - Flutter
-    - YandexMapsMobile (= 4.6.1-full)
-  - YandexMapsMobile (4.6.1-full)
 
 DEPENDENCIES:
   - app_settings (from `.symlinks/plugins/app_settings/ios`)
@@ -217,7 +213,6 @@ DEPENDENCIES:
   - video_player_avfoundation (from `.symlinks/plugins/video_player_avfoundation/darwin`)
   - wakelock_plus (from `.symlinks/plugins/wakelock_plus/ios`)
   - webview_flutter_wkwebview (from `.symlinks/plugins/webview_flutter_wkwebview/darwin`)
-  - yandex_mapkit (from `.symlinks/plugins/yandex_mapkit/ios`)
 
 SPEC REPOS:
   trunk:
@@ -236,7 +231,6 @@ SPEC REPOS:
     - SDWebImage
     - SwiftyGif
     - TOCropViewController
-    - YandexMapsMobile
 
 EXTERNAL SOURCES:
   app_settings:
@@ -287,8 +281,6 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/wakelock_plus/ios"
   webview_flutter_wkwebview:
     :path: ".symlinks/plugins/webview_flutter_wkwebview/darwin"
-  yandex_mapkit:
-    :path: ".symlinks/plugins/yandex_mapkit/ios"
 
 SPEC CHECKSUMS:
   app_settings: 017320c6a680cdc94c799949d95b84cb69389ebc
@@ -330,8 +322,6 @@ SPEC CHECKSUMS:
   video_player_avfoundation: 7c6c11d8470e1675df7397027218274b6d2360b3
   wakelock_plus: 78ec7c5b202cab7761af8e2b2b3d0671be6c4ae1
   webview_flutter_wkwebview: 0982481e3d9c78fd5c6f62a002fcd24fc791f1e4
-  yandex_mapkit: dbed94b27b44a3945a93209721e92f6b846dafde
-  YandexMapsMobile: b5f4dfeb8d1fe324dc18afb33d772b04d04d34f6
 
 PODFILE CHECKSUM: 334c55681354c6d0dc69e6fd3c90f64114c649c2
 

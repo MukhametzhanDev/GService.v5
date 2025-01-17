@@ -15,7 +15,7 @@ class TransactionItem extends StatelessWidget {
     return GestureDetector(
       onTap: () {
         Navigator.push(context,
-            MaterialPageRoute(builder: (context) => ViewReceiptPage()));
+            MaterialPageRoute(builder: (context) => const ViewReceiptPage()));
       },
       child: Container(
           padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 12),
@@ -28,7 +28,7 @@ class TransactionItem extends StatelessWidget {
               children: [
                 Expanded(
                     child: Text(data['title'],
-                        style: TextStyle(
+                        style: const TextStyle(
                             fontSize: 15, fontWeight: FontWeight.w500))),
                 Text(
                     "${replenishment ? "+" : "-"} ${numberFormat(data['total_price'])} ₸",

@@ -4,6 +4,8 @@ import 'package:flutter_svg/svg.dart';
 import 'package:gservice5/component/dio/dio.dart';
 import 'package:gservice5/component/loader/loaderComponent.dart';
 import 'package:gservice5/component/snackBar/snackBarComponent.dart';
+import 'package:gservice5/component/switchRole/changeRoleBusinessModal.dart';
+import 'package:gservice5/component/switchRole/listRolesModal.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
 import 'package:gservice5/component/widgets/badge/badgeWidget.dart';
 import 'package:badges/badges.dart' as badges;
@@ -11,11 +13,9 @@ import 'package:gservice5/pages/ad/my/business/fixedAdBusinessFilterAppBar.dart'
 import 'package:gservice5/pages/ad/my/business/updateAds.dart';
 import 'package:gservice5/pages/ad/my/myAdListWidgetTest.dart';
 import 'package:gservice5/pages/ad/my/statusAd/statusAdsWidget.dart';
-import 'package:gservice5/pages/auth/accountType/changed/changedAccountModal.dart';
 import 'package:gservice5/provider/myAdFilterProvider.dart';
 import 'package:gservice5/provider/nameCompanyProvider.dart';
 import 'package:gservice5/provider/statusMyAdCountProvider.dart';
-import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:provider/provider.dart';
 
 class BusinessMainPage extends StatefulWidget {
@@ -91,8 +91,9 @@ class _BusinessMainPageState extends State<BusinessMainPage>
   }
 
   void showSwitchAccountModal() {
-    showCupertinoModalBottomSheet(
-        context: context, builder: (context) => const ChangedAccountModal());
+    showModalBottomSheet(
+        context: context,
+        builder: (context) => const ChangeRoleBusinessModal());
   }
 
   @override

@@ -1,6 +1,5 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:gservice5/component/button/back/backTitleButton.dart';
 import 'package:gservice5/component/dio/dio.dart';
 import 'package:gservice5/component/loader/loaderComponent.dart';
@@ -218,6 +217,6 @@ class TransactionHistoryPageState extends State<TransactionHistoryPage>
 
 String formattedISODate(String isoDate) {
   DateTime parsedDate = DateTime.parse(isoDate);
-  String formattedDate = DateFormat('dd MMMM yyyy', 'ru').format(parsedDate);
+  String formattedDate = DateFormat('d MMMM', 'ru').format(parsedDate);
   return formattedDate;
 }
