@@ -4,6 +4,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter/foundation.dart';
+import 'package:gservice5/firebase_options.dart';
 
 class PushNotificationManager {
   static final PushNotificationManager _instance =
@@ -282,7 +283,8 @@ class PushNotificationManager {
   Future<void> _ensureFirebaseInitialized() async {
     try {
       if (Firebase.apps.isEmpty) {
-        await Firebase.initializeApp();
+        await Firebase.initializeApp(
+            options: DefaultFirebaseOptions.currentPlatform);
         if (kDebugMode) {
           debugPrint('[PushNotificationManager] Firebase initialized');
         }
