@@ -1,3 +1,6 @@
+import 'dart:async';
+
+import 'package:currency_text_input_formatter/currency_text_input_formatter.dart';
 import 'package:flutter/material.dart';
 import 'package:gservice5/component/button/back/closeTitleButton.dart';
 import 'package:gservice5/component/functions/number/getIntNumber.dart';
@@ -10,6 +13,7 @@ import 'package:gservice5/pages/ad/filter/filterResultButton.dart';
 import 'package:gservice5/pages/ad/filter/filterSelectModal.dart';
 import 'package:gservice5/pages/create/data/createData.dart';
 import 'package:gservice5/provider/adFilterProvider.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
 class FilterAdListPage extends StatefulWidget {
@@ -23,6 +27,11 @@ class FilterAdListPage extends StatefulWidget {
 }
 
 class _FilterAdListPageState extends State<FilterAdListPage> {
+  Timer? _debounceTimer;
+  CurrencyTextInputFormatter currencyTextInputFormatter =
+      CurrencyTextInputFormatter(
+          NumberFormat.currency(decimalDigits: 0, symbol: "", locale: 'kk'));
+
   Map getParam(Map value) {
     int index = widget.data.indexOf(value);
     if (index <= 0 || index == widget.data.length - 1) {
@@ -44,9 +53,39 @@ class _FilterAdListPageState extends State<FilterAdListPage> {
   }
 
   @override
+  void dispose() {
+    _debounceTimer?.cancel();
+    super.dispose();
+  }
+
+  void onAddPrice(value, String key) {
+    int price = getIntComponent(value);
+    var filter = Provider.of<AdFilterProvider>(context, listen: false);
+    if (_debounceTimer?.isActive ?? false) {
+      _debounceTimer!.cancel();
+    }
+    _debounceTimer = Timer(const Duration(seconds: 1), () {
+      if (value!.isEmpty) {
+        filter.removeData = key;
+      } else {
+        filter.filterData = {key: price};
+      }
+    });
+  }
+
+  String getValuePrice(String key) {
+    var filter = Provider.of<AdFilterProvider>(context, listen: false);
+    String price = (filter.value[key] ?? "").toString();
+    if (price.isEmpty) return "";
+    String value = currencyTextInputFormatter.formatString(price);
+    return value;
+  }
+
+  @override
   Widget build(BuildContext context) {
     var filter = Provider.of<AdFilterProvider>(context, listen: false);
     return Consumer<AdFilterProvider>(builder: (context, data, child) {
+      print("213412342");
       return Scaffold(
         appBar: AppBar(
           leading: const CloseTitleButton(title: "Фильтр"),
@@ -95,36 +134,41 @@ class _FilterAdListPageState extends State<FilterAdListPage> {
                   const Divider(height: 6),
                   Row(children: [
                     Expanded(
-                        child: PriceTextField(
-                            textEditingController: TextEditingController(),
-                            autofocus: false,
-                            onChanged: (value) {},
-                            title: "От",
-                            onSubmitted: (value) {
-                              if (value!.isEmpty) {
-                                filter.removeData = "price_from";
-                              } else {
-                                filter.filterData = {
-                                  "price_from": getIntComponent(value)
-                                };
-                              }
-                            })),
+                        child:
+                            // PriceTextField(
+                            //     textEditingController: TextEditingController(
+                            //         text: (filter.value['price_from'] ?? "")
+                            //             .toString()),
+                            //     autofocus: false,
+                            //     onChanged: (value) {
+                            //       onAddPrice(value, "price_from");
+                            //     },
+                            //     title: "От",
+                            //     onSubmitted: (value) {})
+
+                            SizedBox(
+                      height: 48,
+                      child: TextFormField(
+                        onChanged: (value) => onAddPrice(value, "price_from"),
+                        inputFormatters: [currencyTextInputFormatter],
+                        initialValue: getValuePrice("price_from"),
+                        keyboardType: TextInputType.number,
+                        style: const TextStyle(fontSize: 14, height: 1.1),
+                        decoration: InputDecoration(hintText: 'Введите цену'),
+                      ),
+                    )),
                     const Divider(indent: 12),
                     Expanded(
-                        child: PriceTextField(
-                            textEditingController: TextEditingController(),
-                            autofocus: false,
-                            onChanged: (value) {
-                              if (value.isEmpty) {
-                                filter.removeData = "price_to";
-                              } else {
-                                filter.filterData = {
-                                  "price_to": getIntComponent(value)
-                                };
-                              }
-                            },
-                            title: "До",
-                            onSubmitted: (value) {}))
+                        child: SizedBox(
+                      height: 48,
+                      child: TextFormField(
+                        onChanged: (value) => onAddPrice(value, "price_to"),
+                        inputFormatters: [currencyTextInputFormatter],
+                        initialValue: getValuePrice("price_to"),
+                        style: const TextStyle(fontSize: 14, height: 1.1),
+                        decoration: InputDecoration(hintText: 'Введите цену'),
+                      ),
+                    ))
                   ]),
                   AdditionallFilterWidget(
                       categoryId: widget.categoryId, data: data.data)

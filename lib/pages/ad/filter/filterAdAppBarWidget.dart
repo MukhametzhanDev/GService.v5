@@ -74,7 +74,7 @@ class _FilterAdAppBarWidgetState extends State<FilterAdAppBarWidget> {
   }
 
   void showFilterPage() {
-    showCupertinoModalBottomSheet(
+    showMaterialModalBottomSheet(
             context: context,
             enableDrag: false,
             builder: (context) => FilterAdListPage(

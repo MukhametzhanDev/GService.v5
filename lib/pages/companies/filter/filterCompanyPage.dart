@@ -6,6 +6,8 @@ import 'package:gservice5/component/theme/colorComponent.dart';
 import 'package:gservice5/component/widgets/bottom/bottomNavigationBarComponent.dart';
 import 'package:gservice5/pages/ad/filter/filterSelectModal.dart';
 import 'package:gservice5/pages/create/data/createData.dart';
+import 'package:gservice5/provider/adFilterProvider.dart';
+import 'package:provider/provider.dart';
 
 class FilterCompanyPage extends StatefulWidget {
   const FilterCompanyPage({super.key});
@@ -38,6 +40,7 @@ class _FilterCompanyPageState extends State<FilterCompanyPage> {
 
   @override
   Widget build(BuildContext context) {
+    final filterData = Provider.of<AdFilterProvider>(context, listen: false);
     return Scaffold(
       appBar: AppBar(
         leading: const CloseTitleButton(title: "Фильтр"),
@@ -45,7 +48,7 @@ class _FilterCompanyPageState extends State<FilterCompanyPage> {
         actions: [
           GestureDetector(
               onTap: () {
-                FilterData.data.clear();
+                filterData.clearData();
                 Navigator.pop(context, "update");
               },
               child: Text("Сбросить",
@@ -63,35 +66,37 @@ class _FilterCompanyPageState extends State<FilterCompanyPage> {
                 left: 15,
                 right: 15,
                 bottom: MediaQuery.of(context).padding.bottom),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                FilterSelectModal(
-                    title: "Город",
-                    option: const {"name": "city_id"},
-                    api: "/cities",
-                    param: (value) {
-                      return {};
-                    },
-                    value: FilterData.data["city_id_value"] ?? {}),
-                FilterSelectModal(
-                    title: "Вид деятольности",
-                    option: const {"name": "category_id"},
-                    api: "/categories",
-                    param: (value) {
-                      return {};
-                    },
-                    value: FilterData.data["category_id_value"] ?? {}),
-                FilterSelectModal(
-                    title: "Официальное диллерство",
-                    option: const {"name": "transport_brand_id"},
-                    api: "/transport-brands",
-                    param: (value) {
-                      return {};
-                    },
-                    value: FilterData.data["transport_brand_id_value"] ?? {}),
-              ],
-            )),
+            child: Consumer<AdFilterProvider>(builder: (context, data, child) {
+              return Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  FilterSelectModal(
+                      title: "Город",
+                      option: const {"name": "city_id"},
+                      api: "/cities",
+                      param: (value) {
+                        return {};
+                      },
+                      value: data.data["city_id_value"] ?? {}),
+                  FilterSelectModal(
+                      title: "Категория и вид деятельности",
+                      option: const {"name": "category_id"},
+                      api: "/categories",
+                      param: (value) {
+                        return {};
+                      },
+                      value: data.data["category_id_value"] ?? {}),
+                  FilterSelectModal(
+                      title: "Тип техники",
+                      option: const {"name": "transport_brand_id"},
+                      api: "/transport-brands",
+                      param: (value) {
+                        return {};
+                      },
+                      value: data.data["transport_brand_id_value"] ?? {}),
+                ],
+              );
+            })),
       ),
       bottomNavigationBar: BottomNavigationBarComponent(
           child: Button(

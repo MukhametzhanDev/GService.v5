@@ -158,19 +158,33 @@ class _BusinessProfilePageState extends State<BusinessProfilePage> {
                           //     style: TextStyle(
                           //         fontWeight: FontWeight.w500, fontSize: 16)),
                           const Divider(height: 8),
-                          ReadMoreText(
-                            data['description'] ??
-                                "Вниманию всех потенциальных клиентов и заинтересованных лиц в Республике Казахстан: ТОО ZOOMLION Central Asia является исключительным правообладателем товарного знака ZOOMLION на территории Республики",
-                            trimMode: TrimMode.Line,
-                            trimLines: 3,
-                            trimCollapsedText: 'еще',
-                            trimExpandedText: '',
-                            moreStyle: TextStyle(
-                                fontSize: 14,
-                                color: ColorComponent.gray['500'],
-                                fontWeight: FontWeight.w500),
-                          ),
-                          const Divider(height: 12),
+                          data['description'] == "" ||
+                                  data['description'] == null
+                              ? GestureDetector(
+                                  onTap: () => showChangeCustomerProfilePage(),
+                                  child: Container(
+                                      height: 32,
+                                      margin: EdgeInsets.only(bottom: 8),
+                                      alignment: Alignment.centerLeft,
+                                      child: Text("Написать описание компании",
+                                          style: TextStyle(
+                                              color:
+                                                  ColorComponent.blue['700']))),
+                                )
+                              : Padding(
+                                  padding: const EdgeInsets.only(bottom: 12),
+                                  child: ReadMoreText(
+                                    data['description'] ?? "",
+                                    trimMode: TrimMode.Line,
+                                    trimLines: 3,
+                                    trimCollapsedText: 'еще',
+                                    trimExpandedText: '',
+                                    moreStyle: TextStyle(
+                                        fontSize: 14,
+                                        color: ColorComponent.gray['500'],
+                                        fontWeight: FontWeight.w500),
+                                  ),
+                                ),
                           Row(children: [
                             Expanded(
                               child: GestureDetector(

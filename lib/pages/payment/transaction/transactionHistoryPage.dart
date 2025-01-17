@@ -217,6 +217,6 @@ class TransactionHistoryPageState extends State<TransactionHistoryPage>
 
 String formattedISODate(String isoDate) {
   DateTime parsedDate = DateTime.parse(isoDate);
-  String formattedDate = DateFormat('dd MMMM yyyy', 'ru').format(parsedDate);
+  String formattedDate = DateFormat('d MMMM', 'ru').format(parsedDate);
   return formattedDate;
 }

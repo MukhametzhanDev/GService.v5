@@ -41,7 +41,6 @@ class _AdListPageState extends State<AdListPage> {
   @override
   void dispose() {
     scrollController.dispose();
-    FilterData.data.clear();
     super.dispose();
   }
 

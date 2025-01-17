@@ -4,6 +4,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:gservice5/component/dio/dio.dart';
 import 'package:gservice5/component/loader/loaderComponent.dart';
 import 'package:gservice5/component/snackBar/snackBarComponent.dart';
+import 'package:gservice5/component/switchRole/changeRoleBusinessModal.dart';
 import 'package:gservice5/component/switchRole/listRolesModal.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
 import 'package:gservice5/component/widgets/badge/badgeWidget.dart';
@@ -92,7 +93,7 @@ class _BusinessMainPageState extends State<BusinessMainPage>
   void showSwitchAccountModal() {
     showModalBottomSheet(
         context: context,
-        builder: (context) => const ListRolesModal(role: "business"));
+        builder: (context) => const ChangeRoleBusinessModal());
   }
 
   @override

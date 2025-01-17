@@ -8,6 +8,8 @@ import 'package:gservice5/pages/companies/companyItem.dart';
 import 'package:gservice5/pages/companies/createCompanyWidget.dart';
 import 'package:gservice5/pages/companies/filter/filterCompanyAppBarWidget.dart';
 import 'package:gservice5/pages/create/data/createData.dart';
+import 'package:gservice5/provider/adFilterProvider.dart';
+import 'package:provider/provider.dart';
 
 class CompaniesMainPage extends StatefulWidget {
   const CompaniesMainPage({super.key});
@@ -23,7 +25,6 @@ class _CompaniesMainPageState extends State<CompaniesMainPage> {
   bool isLoadMore = false;
   int page = 1;
   ScrollController scrollController = ScrollController();
-  Map<String, dynamic> param = FilterData.data;
 
   @override
   void initState() {
@@ -52,8 +53,10 @@ class _CompaniesMainPageState extends State<CompaniesMainPage> {
     try {
       page = 1;
       showLoader();
+      Map<String, dynamic> param =
+          Provider.of<AdFilterProvider>(context, listen: false).value;
+          print(param);
       Response response = await dio.get("/companies", queryParameters: param);
-      print(response.data);
       if (response.statusCode == 200) {
         data = response.data['data'];
         loader = false;
@@ -75,7 +78,8 @@ class _CompaniesMainPageState extends State<CompaniesMainPage> {
       try {
         isLoadMore = true;
         page += 1;
-        setState(() {});
+        Map<String, dynamic> param =
+            Provider.of<AdFilterProvider>(context, listen: false).value;
         Response response = await dio.get("/companies",
             queryParameters: {"page": page.toString(), ...param});
         print(response.data);

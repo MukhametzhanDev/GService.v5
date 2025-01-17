@@ -1,9 +1,12 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
+import 'package:intl/intl.dart';
 
 class ChartWidget extends StatefulWidget {
-  const ChartWidget({super.key});
+  final List data;
+  final String type;
+  const ChartWidget({super.key, required this.data, required this.type});
 
   @override
   State<ChartWidget> createState() => _ChartWidgetState();
@@ -11,13 +14,21 @@ class ChartWidget extends StatefulWidget {
 
 class _ChartWidgetState extends State<ChartWidget> {
   ScrollController scrollController = ScrollController();
-  List data = List.generate(10, (index) => index * Random().nextInt(1000));
+  List data = [];
   int max = 0;
 
   @override
   void initState() {
-    max = data.reduce((a, b) => a > b ? a : b);
+    formattedData();
     super.initState();
+  }
+
+  void formattedData() {
+    widget.data.forEach((value) {
+      data.add(value[widget.type]);
+    });
+    print(data);
+    max = data.reduce((a, b) => a > b ? a : b);
   }
 
   @override
@@ -34,6 +45,12 @@ class _ChartWidgetState extends State<ChartWidget> {
     return percentHeight;
   }
 
+  String formattedISODate(String isoDate) {
+    DateTime parsedDate = DateTime.parse(isoDate);
+    String formattedDate = DateFormat('d MMM', 'ru').format(parsedDate);
+    return formattedDate;
+  }
+
   @override
   Widget build(BuildContext context) {
     double chartMaxHeight = MediaQuery.of(context).size.height / 3 - 15;
@@ -45,30 +62,33 @@ class _ChartWidgetState extends State<ChartWidget> {
           border: Border.all(width: 1, color: const Color(0xffe5e7eb))),
       child: ListView.builder(
         controller: scrollController,
-        reverse: true,
+        // reverse: true,
         scrollDirection: Axis.horizontal,
-        itemCount: data.length,
+        itemCount: widget.data.length,
         itemBuilder: (context, index) {
-          int value = data[index];
+          Map value = widget.data.reversed.toList()[index];
+          int heightValue = value[widget.type];
           return SizedBox(
             width: 70,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
-                Text(value.toString(), textAlign: TextAlign.center),
+                Text(heightValue.toString(), textAlign: TextAlign.center),
                 const Divider(height: 8),
                 AnimatedContainer(
                     duration: const Duration(milliseconds: 400),
                     padding: const EdgeInsets.only(top: 12),
-                    height: getHeight(value, chartMaxHeight),
+                    height: heightValue == 0
+                        ? 1
+                        : getHeight(heightValue, chartMaxHeight),
                     decoration: BoxDecoration(
                         color: ColorComponent.mainColor,
-                        borderRadius:
-                            const BorderRadius.vertical(top: Radius.circular(8))),
+                        borderRadius: const BorderRadius.vertical(
+                            top: Radius.circular(8))),
                     margin: const EdgeInsets.symmetric(horizontal: 12),
                     constraints: BoxConstraints(maxHeight: chartMaxHeight)),
                 const Divider(height: 10),
-                Text("17 Окт",
+                Text(formattedISODate(value['date']),
                     style: TextStyle(
                         color: ColorComponent.gray['500'], fontSize: 12)),
                 const Divider(height: 8),

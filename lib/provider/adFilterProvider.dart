@@ -39,10 +39,17 @@ class AdFilterProvider extends ChangeNotifier {
 
   clearData() {
     // data = newValue;
-    data.removeWhere((key, value) => key != "category_id");
+    data.clear();
     notifyListeners();
 
     getCountAd();
+  }
+
+  disposeProvider() {
+    // data = newValue;
+    data.removeWhere(
+        (key, value) => key != "city_id" || key != "city_id_value");
+    notifyListeners();
   }
 }
 

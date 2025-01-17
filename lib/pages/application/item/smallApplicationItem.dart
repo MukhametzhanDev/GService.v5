@@ -27,7 +27,6 @@ class _SmallApplicationItemState extends State<SmallApplicationItem> {
       onTap: () {
         widget.onPressed(widget.data['id']);
       },
-      onLongPress: () => onLongPressShowNumber({}, context),
       child: Container(
         height: 110,
         margin: const EdgeInsets.symmetric(horizontal: 4),
