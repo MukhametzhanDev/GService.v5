@@ -129,13 +129,13 @@ class _ListPackagePageState extends State<ListPackagePage> {
       stickerCount -= 1;
       value['active'] = false;
     } else {
-      if (stickerCount < 3) {
+      if (stickerCount < 6) {
         totalPrice += price;
         stickerCount += 1;
         value['active'] = true;
       } else {
         SnackBarComponent().showErrorMessage(
-            "Вы можете прикрепить не более 3 стикеров", context);
+            "Вы можете прикрепить не более 6 стикеров", context);
       }
     }
     setState(() {});
@@ -279,7 +279,7 @@ class _ListPackagePageState extends State<ListPackagePage> {
                                         margin: const EdgeInsets.only(
                                             right: 10, bottom: 10),
                                         padding: const EdgeInsets.symmetric(
-                                            horizontal: 10, vertical: 6),
+                                            horizontal: 8, vertical: 4),
                                         decoration: BoxDecoration(
                                             color: active
                                                 ? ColorComponent.mainColor

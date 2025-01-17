@@ -32,7 +32,7 @@ class _ListRolesModalState extends State<ListRolesModal> {
       print(response.data);
       if (response.data['success'] && response.statusCode == 200) {
         roles = response.data['data'];
-        if (roles.length == 1) {
+        if (roles.length == 1 && widget.role == "customer") {
           await postData(roles[0]['id']);
         } else {
           loader = false;

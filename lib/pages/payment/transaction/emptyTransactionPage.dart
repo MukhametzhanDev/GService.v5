@@ -24,7 +24,7 @@ class EmptyTransactionPage extends StatelessWidget {
               textAlign: TextAlign.center,
               style: TextStyle(color: Colors.black, fontSize: 15, height: 1.5),
             )),
-        Divider(height: 100)
+        const Divider(height: 100)
       ],
     );
   }

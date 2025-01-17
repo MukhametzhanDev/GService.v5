@@ -21,14 +21,14 @@ class _ViewReceiptPageState extends State<ViewReceiptPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: BackIconButton(),
+        leading: const BackIconButton(),
         actions: [
           IconButton(
               onPressed: () async => shareFile(),
               icon: SvgPicture.asset("assets/icons/share.svg"))
         ],
       ),
-      body: PDF().fromUrl(
+      body: const PDF().fromUrl(
         "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf",
         placeholder: (double progress) => Center(child: Text('$progress %')),
         errorWidget: (dynamic error) => Center(child: Text(error.toString())),
