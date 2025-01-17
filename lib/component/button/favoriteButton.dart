@@ -51,7 +51,6 @@ class _FavoriteButtonState extends State<FavoriteButton> {
           "favoritable_id": widget.id,
           "favoritable_type": widget.type
         });
-        await getCountClickApplication(widget.id, "favorite");
       }
     } catch (e) {
       print(e);
@@ -86,8 +85,9 @@ class _FavoriteButtonState extends State<FavoriteButton> {
         alignment: Alignment.center,
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(4),
-            color:
-                widget.active ? ColorComponent.red['500'] : const Color(0xffD1D5DB)),
+            color: widget.active
+                ? ColorComponent.red['500']
+                : const Color(0xffD1D5DB)),
         child: SvgPicture.asset('assets/icons/heart.svg'),
       ),
     );

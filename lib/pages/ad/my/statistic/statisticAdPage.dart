@@ -25,11 +25,27 @@ class StatisticAdPage extends StatefulWidget {
 
 class _StatisticAdPageState extends State<StatisticAdPage> {
   final List _tabs = [
-    {"type": "viewed", "title": "Просмотры"},
-    {"type": "call", "title": "Контакты"},
-    {"type": "write", "title": "Написали"},
-    {"type": "favorite", "title": "Избранное"},
-    {"type": "share", "title": "Поделились"}
+    {
+      "type": "viewed",
+      "title": "Просмотры",
+      "sub_title": "Просмотры объявления"
+    },
+    {
+      "type": "call",
+      "title": "Позвонили",
+      "sub_title": "Звонок от покупателей"
+    },
+    {
+      "type": "write",
+      "title": "Написали",
+      "sub_title": "Сообщения от покупателей"
+    },
+    {"type": "favorite", "title": "Избранное", "sub_title": "В избранные"},
+    {
+      "type": "share",
+      "title": "Поделились",
+      "sub_title": "Поделились объявлениями"
+    },
   ];
   List data = [];
   bool loader = true;
@@ -55,7 +71,14 @@ class _StatisticAdPageState extends State<StatisticAdPage> {
     }
   }
 
-  
+  String getAllCountStatistic(List value, String type) {
+    int count = 0;
+    value.forEach((element) {
+      int typeCount = element[type];
+      count += typeCount;
+    });
+    return numberFormat(count);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -146,7 +169,9 @@ class _StatisticAdPageState extends State<StatisticAdPage> {
                                             style: TextStyle(
                                                 color: ColorComponent
                                                     .gray['500'])),
-                                        TextSpan(text: numberFormat(32000)),
+                                        TextSpan(
+                                            text: getAllCountStatistic(
+                                                data, tabValue['type'])),
                                       ])),
                               const Divider(height: 20),
                               ChartWidget(data: data, type: tabValue['type']),
@@ -155,7 +180,11 @@ class _StatisticAdPageState extends State<StatisticAdPage> {
                               //     title: currentPeriod['title'],
                               //     active: currentPeriod.isNotEmpty,
                               //     onPressed: showModalPeriod),
-                              const Divider(height: 20),
+                              Text(tabValue['sub_title'],
+                                  style: TextStyle(
+                                      fontSize: 15,
+                                      fontWeight: FontWeight.w500)),
+                              Divider(height: 12),
                               Column(
                                   children: data.reversed.map((value) {
                                 return Container(

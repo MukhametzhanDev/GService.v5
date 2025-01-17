@@ -22,20 +22,6 @@ class ContactBottomBarWidget extends StatefulWidget {
 }
 
 class _ContactBottomBarWidgetState extends State<ContactBottomBarWidget> {
-  void writed() async {
-    if (widget.hasAd) {
-    } else {
-      await getCountClickApplication(widget.id, "write");
-    }
-  }
-
-  void called() async {
-    if (widget.hasAd) {
-    } else {
-      await getCountClickApplication(widget.id, "call");
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     return BottomNavigationBarWidget(
@@ -61,7 +47,8 @@ class _ContactBottomBarWidgetState extends State<ContactBottomBarWidget> {
             onPressed: () {
               showCupertinoModalBottomSheet(
                 context: context,
-                builder: (context) => ContactstListModal(phones: widget.phones),
+                builder: (context) => ContactstListModal(
+                    phones: widget.phones, id: widget.id, hasAd: widget.hasAd),
               );
             },
             icon: "phone.svg",
@@ -77,7 +64,10 @@ class _ContactBottomBarWidgetState extends State<ContactBottomBarWidget> {
 
 class ContactstListModal extends StatefulWidget {
   final List phones;
-  const ContactstListModal({super.key, required this.phones});
+  final int id;
+  final bool hasAd;
+  const ContactstListModal(
+      {super.key, required this.phones, required this.id, required this.hasAd});
 
   @override
   State<ContactstListModal> createState() => _ContactstListModalState();
@@ -90,6 +80,7 @@ class _ContactstListModalState extends State<ContactstListModal> {
       type: MaskAutoCompletionType.lazy);
 
   void showCall(String phone) async {
+    await getCountClick(widget.id, "call", widget.hasAd);
     await launchUrl(Uri(scheme: "tel", path: "+$phone"));
   }
 

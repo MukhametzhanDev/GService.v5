@@ -19,7 +19,7 @@ class _ShareButtonState extends State<ShareButton> {
     print(widget.hasAd);
     if (widget.hasAd) {
     } else {
-      await getCountClickApplication(widget.id, "share");
+      await getCountClick(widget.id, "share", true);
     }
     // await GetCountClick().postData(widget.id, widget.hasAd, "share");
   }

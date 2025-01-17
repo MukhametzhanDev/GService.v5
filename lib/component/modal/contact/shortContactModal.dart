@@ -9,7 +9,8 @@ void onLongPressShowNumber(Map data, BuildContext context) {
     context: context,
     barrierColor: Colors.black.withOpacity(.3),
     builder: (context) {
-      return ContactstListModal(phones: data['phones']);
+      return ContactstListModal(
+          phones: data['phones'], id: data['id'], hasAd: true);
     },
   );
 }

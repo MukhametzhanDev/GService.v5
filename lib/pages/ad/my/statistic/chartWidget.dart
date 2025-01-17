@@ -53,56 +53,67 @@ class _ChartWidgetState extends State<ChartWidget> {
 
   @override
   Widget build(BuildContext context) {
+    double chartWidgetHeight = (MediaQuery.of(context).size.height / 2.5) + 50;
     double chartMaxHeight = MediaQuery.of(context).size.height / 3 - 15;
-    return Container(
-      height: MediaQuery.of(context).size.height / 2.5,
-      width: MediaQuery.of(context).size.width - 30,
-      decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(10),
-          border: Border.all(width: 1, color: const Color(0xffe5e7eb))),
-      child: ListView.builder(
-        controller: scrollController,
-        // reverse: true,
-        scrollDirection: Axis.horizontal,
-        itemCount: widget.data.length,
-        itemBuilder: (context, index) {
-          Map value = widget.data.reversed.toList()[index];
-          int heightValue = value[widget.type];
-          return SizedBox(
-            width: 70,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                Text(heightValue.toString(), textAlign: TextAlign.center),
-                const Divider(height: 8),
-                AnimatedContainer(
-                    duration: const Duration(milliseconds: 400),
-                    padding: const EdgeInsets.only(top: 12),
-                    height: heightValue == 0
-                        ? 1
-                        : getHeight(heightValue, chartMaxHeight),
-                    decoration: BoxDecoration(
-                        color: ColorComponent.mainColor,
-                        borderRadius: const BorderRadius.vertical(
-                            top: Radius.circular(8))),
-                    margin: const EdgeInsets.symmetric(horizontal: 12),
-                    constraints: BoxConstraints(maxHeight: chartMaxHeight)),
-                const Divider(height: 10),
-                Text(formattedISODate(value['date']),
-                    style: TextStyle(
-                        color: ColorComponent.gray['500'], fontSize: 12)),
-                const Divider(height: 8),
-                // Scrollbar(
-                //     thumbVisibility: true,
-                //     controller: scrollController,
-                //     radius: const Radius.circular(8.0),
-                //     thickness: 5,
-                //     child: Container())
-              ],
+    return Column(
+      children: [
+        Scrollbar(
+          thumbVisibility: true,
+          thickness: 6,
+          controller: scrollController,
+          radius: Radius.circular(12),
+          child: SizedBox(
+            height: chartWidgetHeight,
+            child: Container(
+              margin: EdgeInsets.only(bottom: 25),
+              height: MediaQuery.of(context).size.height / 2.5,
+              width: MediaQuery.of(context).size.width - 30,
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  border: Border.all(width: 1, color: const Color(0xffe5e7eb))),
+              child: ListView.builder(
+                controller: scrollController,
+                scrollDirection: Axis.horizontal,
+                itemCount: widget.data.length,
+                itemBuilder: (context, index) {
+                  Map value = widget.data.reversed.toList()[index];
+                  int heightValue = value[widget.type];
+                  return SizedBox(
+                    width: 70,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        Text(heightValue.toString(),
+                            textAlign: TextAlign.center),
+                        const Divider(height: 8),
+                        AnimatedContainer(
+                            duration: const Duration(milliseconds: 400),
+                            padding: const EdgeInsets.only(top: 12),
+                            height: heightValue == 0
+                                ? 1
+                                : getHeight(heightValue, chartMaxHeight),
+                            decoration: BoxDecoration(
+                                color: ColorComponent.mainColor,
+                                borderRadius: const BorderRadius.vertical(
+                                    top: Radius.circular(8))),
+                            margin: const EdgeInsets.symmetric(horizontal: 12),
+                            constraints:
+                                BoxConstraints(maxHeight: chartMaxHeight)),
+                        const Divider(height: 10),
+                        Text(formattedISODate(value['date']),
+                            style: TextStyle(
+                                color: ColorComponent.gray['500'],
+                                fontSize: 12)),
+                        const Divider(height: 30),
+                      ],
+                    ),
+                  );
+                },
+              ),
             ),
-          );
-        },
-      ),
+          ),
+        ),
+      ],
     );
   }
 }
