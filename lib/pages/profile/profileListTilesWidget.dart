@@ -205,7 +205,7 @@ class _ProfileListTilesWidgetState extends State<ProfileListTilesWidget> {
                 child: ListTile(
                     onTap: showEditCurrencyPage,
                     leading: SvgPicture.asset('assets/icons/dollarOutline.svg'),
-                    title: const Text("Моя валюта"),
+                    title: const Text("Конвертор валют"),
                     trailing: SvgPicture.asset('assets/icons/right.svg')),
               ),
         role == "customer"

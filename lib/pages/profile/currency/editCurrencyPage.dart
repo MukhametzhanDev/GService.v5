@@ -79,13 +79,13 @@ class _EditCurrencyPageState extends State<EditCurrencyPage> {
         appBar: AppBar(
             leadingWidth: 200,
             leading: BackTitleButton(
-                title: "Моя валюта", onPressed: () => Navigator.pop(context))),
+                title: "Конвертор валют", onPressed: () => Navigator.pop(context))),
         body: loader
             ? const LoaderComponent()
             : Column(
                 children: [
                   const ExplanatoryMessage(
-                      title: "Если цена озгертсен, букыл объявление цена озгереды братка",
+                      title: "Конвертер валют создан для удобного расчета цен при покупках за границей. Курсы произвольные и не являются официальными. Все цены в объявлениях отображаются в тенге.",
                       padding: EdgeInsets.symmetric(horizontal: 16),
                       type: "my_currency"),
                   Expanded(
