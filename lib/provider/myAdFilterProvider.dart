@@ -18,8 +18,17 @@ class MyAdFilterProvider with ChangeNotifier {
   }
 
   set addFilter(Map<String, dynamic> value) {
-    filters[currentIndex].addAll(value);
+    if (filters.isEmpty) {
+      filters.add(value);
+    } else {
+      filters[currentIndex].addAll(value);
+    }
     getData();
+  }
+
+  clearData() {
+    filters.clear();
+    changedIndex = 0;
   }
 
   set changedIndex(int index) {
@@ -45,9 +54,5 @@ class MyAdFilterProvider with ChangeNotifier {
         filters.add({...defaultFilterData, "category_id": value['id']});
       }
     }
-  }
-
-  set testFun(int index) {
-    changedIndex = index;
   }
 }

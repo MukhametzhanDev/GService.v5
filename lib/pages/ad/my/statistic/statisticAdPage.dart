@@ -59,6 +59,7 @@ class _StatisticAdPageState extends State<StatisticAdPage> {
   void getData() async {
     try {
       Response response = await dio.get("/ad-statistic/${widget.data['id']}");
+      print(response.data);
       if (response.data['success']) {
         data = response.data['data'];
         loader = false;
@@ -66,7 +67,8 @@ class _StatisticAdPageState extends State<StatisticAdPage> {
       } else {
         SnackBarComponent().showResponseErrorMessage(response, context);
       }
-    } catch (e) {
+    }on DioException catch (e) {
+      print(e);
       SnackBarComponent().showNotGoBackServerErrorMessage(context);
     }
   }
