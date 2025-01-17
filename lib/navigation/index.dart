@@ -43,9 +43,7 @@ class _IndexState extends State<Index> {
   @override
   void initState() {
     super.initState();
-    pushManager.init().then((onValue) {
-      pushManager.getToken();
-    });
+    pushManager.init();
   }
 
   void _handleMessage(RemoteMessage message) {
