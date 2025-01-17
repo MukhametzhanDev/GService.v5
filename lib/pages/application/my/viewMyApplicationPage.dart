@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get_it/get_it.dart';
@@ -55,7 +56,11 @@ class _ViewMyApplicationPageState extends State<ViewMyApplicationPage> {
               itemListId: GAParams.listMyApplicationId,
               itemId: widget.id.toString(),
               itemName: data['title'])
-        ]).catchError((onError) => debugPrint(onError));
+        ]).catchError((e) {
+          if (kDebugMode) {
+            debugPrint(e.toString());
+          }
+        });
       } else {
         SnackBarComponent().showResponseErrorMessage(response, context);
       }
@@ -81,7 +86,11 @@ class _ViewMyApplicationPageState extends State<ViewMyApplicationPage> {
     analytics.logEvent(name: GAEventName.buttonClick, parameters: {
       GAKey.buttonName: GAParams.btnMyApplicationOrderCancel,
       GAKey.screenName: GAParams.viewMyApplicationPage
-    }).catchError((onError) => debugPrint(onError));
+    }).catchError((e) {
+      if (kDebugMode) {
+        debugPrint(e.toString());
+      }
+    });
   }
 
   @override

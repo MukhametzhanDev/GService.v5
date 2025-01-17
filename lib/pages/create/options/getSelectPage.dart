@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get_it/get_it.dart';
@@ -179,7 +180,11 @@ class _GetSelectPageState extends State<GetSelectPage> {
               itemName: value['title'] ?? '')
         ],
         itemListId: '${GAParams.adSelectListId}_${widget.listIndex}',
-        itemListName: widget.title).catchError((e) => debugPrint(e));
+        itemListName: widget.title).catchError((e) {
+      if (kDebugMode) {
+        debugPrint(e);
+      }
+    });
   }
 
   // void verifyNextPage(value) {

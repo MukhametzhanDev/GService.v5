@@ -1,4 +1,5 @@
 import 'package:firebase_analytics/firebase_analytics.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:gservice5/analytics/event_name.constan.dart';
@@ -51,7 +52,11 @@ class _DescriptionCreateApplicationPageState
     analytics.logEvent(name: GAEventName.buttonClick, parameters: {
       GAKey.buttonName: GAParams.btnApplcationDescriptionContinue,
       GAKey.screenName: GAParams.descriptionCreateApplicationPage
-    }).catchError((onError) => debugPrint(onError));
+    }).catchError((e) {
+      if (kDebugMode) {
+        debugPrint(e);
+      }
+    });
   }
 
   void savedData() {

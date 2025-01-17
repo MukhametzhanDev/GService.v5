@@ -1,4 +1,5 @@
 import 'package:firebase_analytics/firebase_analytics.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get_it/get_it.dart';
@@ -32,7 +33,11 @@ class _ApplicationListMainState extends State<ApplicationListMain> {
                   orElse: () => '')['title'] ??
               '',
           GAKey.screenName: GAParams.mainPage
-        }).catchError((e) => debugPrint(e));
+        }).catchError((e) {
+      if (kDebugMode) {
+        debugPrint(e);
+      }
+    });
   }
 
   @override
@@ -82,7 +87,11 @@ class _ApplicationListMainState extends State<ApplicationListMain> {
                         name: GAEventName.buttonClick,
                         parameters: {
                           GAKey.buttonName: GAParams.btnMainOrderApplication
-                        }).catchError((e) => debugPrint(e));
+                        }).catchError((e) {
+                      if (kDebugMode) {
+                        debugPrint(e);
+                      }
+                    });
                   },
                   child: Container(
                     padding:
@@ -142,7 +151,11 @@ class ShowMoreApplicaiton extends StatelessWidget {
                   builder: (context) => const ApplicationListPage()));
           analytics.logEvent(name: GAEventName.buttonClick, parameters: {
             GAKey.buttonName: GAParams.btnMoreOder
-          }).catchError((e) => debugPrint(e));
+          }).catchError((e) {
+            if (kDebugMode) {
+              debugPrint(e);
+            }
+          });
         },
         child: Container(
           margin: const EdgeInsets.symmetric(horizontal: 4),

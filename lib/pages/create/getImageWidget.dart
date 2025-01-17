@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
@@ -137,7 +138,11 @@ class _GetImageWidgetState extends State<GetImageWidget> {
                           .logEvent(name: GAEventName.buttonClick, parameters: {
                         GAKey.buttonName: GAParams.btnSelectGalery,
                         GAKey.screenName: widget.fromPage ?? ''
-                      }).catchError((onError) => debugPrint(onError));
+                      }).catchError((e) {
+                        if (kDebugMode) {
+                          debugPrint(e);
+                        }
+                      });
                     },
                     title: "Выбрать с галереи"),
                 const SizedBox(height: 16),
@@ -148,7 +153,11 @@ class _GetImageWidgetState extends State<GetImageWidget> {
                           .logEvent(name: GAEventName.buttonClick, parameters: {
                         GAKey.buttonName: GAParams.btnSelectCamera,
                         GAKey.screenName: widget.fromPage ?? ''
-                      }).catchError((onError) => debugPrint(onError));
+                      }).catchError((e) {
+                        if (kDebugMode) {
+                          debugPrint(e);
+                        }
+                      });
                     },
                     title: "Сделать снимок",
                     backgroundColor: ColorComponent.mainColor),
@@ -312,7 +321,11 @@ class _GetImageWidgetState extends State<GetImageWidget> {
                           parameters: {
                             GAKey.screenName: widget.fromPage ?? '',
                             GAKey.buttonName: GAParams.btnCreateImg
-                          }).catchError((onError) => debugPrint(onError));
+                          }).catchError((e) {
+                        if (kDebugMode) {
+                          debugPrint(e);
+                        }
+                      });
                     },
                     style: TextButton.styleFrom(
                         backgroundColor: Colors.transparent),

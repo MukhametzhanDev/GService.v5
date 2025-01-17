@@ -1,4 +1,5 @@
 import 'package:firebase_analytics/firebase_analytics.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get_it/get_it.dart';
@@ -28,7 +29,11 @@ class NewsItem extends StatelessWidget {
             itemId: data['id'].toString(),
             parameters: {
               GAKey.screenName: GAParams.allNewsPage
-            }).catchError((onError) => debugPrint(onError));
+            }).catchError((e) {
+          if (kDebugMode) {
+            debugPrint(e);
+          }
+        });
       },
       child: Container(
         decoration: BoxDecoration(

@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:gservice5/analytics/event_name.constan.dart';
@@ -136,7 +137,11 @@ class _ListPackagePageState extends State<ListPackagePage> {
 
     analytics.logEvent(name: GAEventName.buttonClick, parameters: {
       GAKey.buttonName: GAParams.btnSubmitWithoutAds
-    }).catchError((e) => debugPrint(e));
+    }).catchError((e) {
+      if (kDebugMode) {
+        debugPrint(e);
+      }
+    });
     // Navigator.push(
     //     context,
     //     MaterialPageRoute(
@@ -198,9 +203,11 @@ class _ListPackagePageState extends State<ListPackagePage> {
               itemId: value['id'].toString(), itemName: value['title'])
         ],
         itemListId: GAParams.listPackagePageStickersId,
-        itemListName:
-            GAParams.listPackagePageStickersName).catchError(
-        (onError) => debugPrint(onError));
+        itemListName: GAParams.listPackagePageStickersName).catchError((e) {
+      if (kDebugMode) {
+        debugPrint(e.toString());
+      }
+    });
   }
 
   void onChangedPromotions(Map value) {
@@ -223,7 +230,11 @@ class _ListPackagePageState extends State<ListPackagePage> {
     analytics.logEvent(name: GAEventName.buttonClick, parameters: {
       GAKey.buttonName: GAParams.btnSubmitForPackage,
       GAKey.screenName: GAParams.listPackagePage
-    }).catchError((onError) => debugPrint(onError));
+    }).catchError((e) {
+      if (kDebugMode) {
+        debugPrint(e.toString());
+      }
+    });
   }
 
   List getStickers() {

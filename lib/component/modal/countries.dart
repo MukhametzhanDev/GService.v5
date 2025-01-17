@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get_it/get_it.dart';
@@ -103,7 +104,11 @@ class _CountriesState extends State<Countries>
         items: [
           AnalyticsEventItem(
               itemId: value['id']?.toString(), itemName: value['title'])
-        ]).catchError((e) => debugPrint(e));
+        ]).catchError((e) {
+      if (kDebugMode) {
+        debugPrint(e);
+      }
+    });
   }
 
   void getCity(country, city) {

@@ -1,4 +1,5 @@
 import 'package:firebase_analytics/firebase_analytics.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
@@ -35,7 +36,11 @@ class _PrivacyPolicyWidgetState extends State<PrivacyPolicyWidget> {
               ..onTap = () {
                 analytics.logEvent(name: GAEventName.buttonClick, parameters: {
                   GAKey.buttonName: GAParams.txtBtnAgreement
-                }).catchError((e) => debugPrint(e));
+                }).catchError((e) {
+                  if (kDebugMode) {
+                    debugPrint(e);
+                  }
+                });
                 print('object');
               },
           ),
@@ -50,7 +55,11 @@ class _PrivacyPolicyWidgetState extends State<PrivacyPolicyWidget> {
               ..onTap = () {
                 analytics.logEvent(name: GAEventName.buttonClick, parameters: {
                   GAKey.buttonName: GAParams.txtBtnPolicy
-                }).catchError((e) => debugPrint(e));
+                }).catchError((e) {
+                  if (kDebugMode) {
+                    debugPrint(e);
+                  }
+                });
                 print('object');
               },
           ),

@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_switch/flutter_switch.dart';
 import 'package:get_it/get_it.dart';
@@ -243,7 +244,11 @@ class _ViewWalletPageState extends State<ViewWalletPage> {
                                       parameters: {
                                         GAKey.buttonName:
                                             GAParams.btnSwitchBonus
-                                      }).catchError((e) => debugPrint(e));
+                                      }).catchError((e) {
+                                    if (kDebugMode) {
+                                      debugPrint(e);
+                                    }
+                                  });
                                   // changedColorStatusBar(themeChange.darkTheme);
                                 },
                               ),

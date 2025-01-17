@@ -1,4 +1,5 @@
 import 'package:firebase_analytics/firebase_analytics.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get_it/get_it.dart';
@@ -77,7 +78,11 @@ class _ContactBottomBarWidgetState extends State<ContactBottomBarWidget> {
                       GAKey.buttonName: GAParams.btnWrite,
                       GAKey.screenName: widget.fromPage ?? '',
                       GAKey.itemAdId: widget.id.toString(),
-                    }).catchError((onError) => debugPrint(onError));
+                    }).catchError((e) {
+                      if (kDebugMode) {
+                        debugPrint(e);
+                      }
+                    });
                   },
                   widthIcon: 20,
                   icon: "chat.svg",
@@ -97,7 +102,11 @@ class _ContactBottomBarWidgetState extends State<ContactBottomBarWidget> {
                 GAKey.buttonName: GAParams.btnCall,
                 GAKey.screenName: widget.fromPage ?? '',
                 GAKey.itemAdId: widget.id.toString(),
-              }).catchError((onError) => debugPrint(onError));
+              }).catchError((e) {
+                if (kDebugMode) {
+                  debugPrint(e);
+                }
+              });
             },
             icon: "phone.svg",
             title: "Позвонить",

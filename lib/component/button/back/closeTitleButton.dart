@@ -1,4 +1,5 @@
 import 'package:firebase_analytics/firebase_analytics.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get_it/get_it.dart';
@@ -22,7 +23,11 @@ class CloseTitleButton extends StatelessWidget {
 
           analytics.logEvent(name: GAEventName.buttonClick, parameters: {
             GAKey.buttonName: GAParams.btnFilterClose
-          }).catchError((e) => debugPrint(e));
+          }).catchError((e) {
+            if (kDebugMode) {
+              debugPrint(e);
+            }
+          });
         },
         icon: Row(
           children: [

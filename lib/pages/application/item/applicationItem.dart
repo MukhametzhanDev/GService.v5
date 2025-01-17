@@ -1,4 +1,5 @@
 import 'package:firebase_analytics/firebase_analytics.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get_it/get_it.dart';
@@ -34,8 +35,11 @@ class _ApplicationItemState extends State<ApplicationItem> {
     analytics.logSelectContent(
         parameters: {GAKey.title: widget.data['title'].toString()},
         contentType: GAContentType.application,
-        itemId: widget.data['id']
-            .toString()).catchError((onError) => debugPrint(onError));
+        itemId: widget.data['id'].toString()).catchError((e) {
+      if (kDebugMode) {
+        debugPrint(e.toString());
+      }
+    });
   }
 
   void verifyFavoriteApplication(value) {

@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:dio/dio.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -64,7 +65,11 @@ class _ForgotEmailPasswordCustomerPageState
 
     analytics.logEvent(name: GAEventName.buttonClick, parameters: {
       GAKey.buttonName: GAParams.btnForgotReplayEmailOtp
-    }).catchError((onError) => debugPrint(onError));
+    }).catchError((e) {
+      if (kDebugMode) {
+        debugPrint(e.toString());
+      }
+    });
   }
 
   void verifyCode() async {
@@ -192,7 +197,11 @@ class _ForgotEmailPasswordCustomerPageState
                       name: GAEventName.buttonClick,
                       parameters: {
                         GAKey.buttonName: GAParams.btnForgotConfrimEmail
-                      }).catchError((onError) => debugPrint(onError));
+                      }).catchError((e) {
+                    if (kDebugMode) {
+                      debugPrint(e.toString());
+                    }
+                  });
                 },
                 title: "Подтвердить регистрацию",
                 padding: const EdgeInsets.only(left: 16, right: 16),

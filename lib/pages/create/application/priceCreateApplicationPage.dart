@@ -1,5 +1,6 @@
 import 'package:currency_text_input_formatter/currency_text_input_formatter.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get_it/get_it.dart';
@@ -52,7 +53,11 @@ class _PriceCreateApplicationPageState
     analytics.logEvent(name: GAEventName.buttonClick, parameters: {
       GAKey.buttonName: GAParams.btnApplicationPriceContinue,
       GAKey.screenName: GAParams.priceCreateApplicationPage
-    }).catchError((e) => debugPrint(e));
+    }).catchError((e) {
+      if (kDebugMode) {
+        debugPrint(e);
+      }
+    });
   }
 
   @override
@@ -114,7 +119,11 @@ class _PriceCreateApplicationPageState
               analytics.logEvent(name: GAEventName.buttonClick, parameters: {
                 GAKey.buttonName: GAParams.btnApplicationNegotiablePrice,
                 GAKey.screenName: GAParams.priceCreateApplicationPage
-              }).catchError((onError) => debugPrint(onError));
+              }).catchError((e) {
+                if (kDebugMode) {
+                  debugPrint(e);
+                }
+              });
             },
             contentPadding: EdgeInsets.zero,
             leading: Container(

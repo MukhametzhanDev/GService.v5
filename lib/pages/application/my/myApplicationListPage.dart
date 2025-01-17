@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:gservice5/analytics/event_name.constan.dart';
@@ -100,7 +101,11 @@ class _MyApplicationListPageState extends State<MyApplicationListPage> {
                 .map((toElement) => AnalyticsEventItem(
                     itemId: toElement['id']?.toString(),
                     itemName: toElement['title']))
-                .toList()).catchError((e) => debugPrint(e));
+                .toList()).catchError((e) {
+          if (kDebugMode) {
+            debugPrint(e);
+          }
+        });
       } else {
         SnackBarComponent().showErrorMessage(response.data['message'], context);
       }
@@ -140,7 +145,11 @@ class _MyApplicationListPageState extends State<MyApplicationListPage> {
                   .map((toElement) => AnalyticsEventItem(
                       itemId: toElement['id']?.toString(),
                       itemName: toElement['title']))
-                  .toList()).catchError((e) => debugPrint(e));
+                  .toList()).catchError((e) {
+            if (kDebugMode) {
+              debugPrint(e);
+            }
+          });
         } else {
           SnackBarComponent()
               .showErrorMessage(response.data['message'], context);
@@ -166,7 +175,11 @@ class _MyApplicationListPageState extends State<MyApplicationListPage> {
         itemId: id.toString(),
         parameters: {
           GAKey.screenName: GAParams.myApplicationListPage
-        }).catchError((e) => debugPrint(e));
+        }).catchError((e) {
+      if (kDebugMode) {
+        debugPrint(e);
+      }
+    });
   }
 
   void updateData(int id) {

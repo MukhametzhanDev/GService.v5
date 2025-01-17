@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get_it/get_it.dart';
@@ -123,7 +124,11 @@ class _AddContactsPageState extends State<AddContactsPage> {
     analytics.logEvent(name: GAEventName.buttonClick, parameters: {
       GAKey.screenName: GAParams.addContactsPage,
       GAKey.buttonName: GAParams.btnMyContactSave
-    }).catchError((onError) => debugPrint(onError));
+    }).catchError((e) {
+      if (kDebugMode) {
+        debugPrint(e);
+      }
+    });
   }
 
   List<Map<String, String>> formattedPhoneParams() {
@@ -315,8 +320,11 @@ class _AddContactsPageState extends State<AddContactsPage> {
                                           GAParams.addContactsPage,
                                       GAKey.buttonName:
                                           GAParams.txtbtnMyContact,
-                                    }).catchError(
-                                    (onError) => debugPrint(onError));
+                                    }).catchError((e) {
+                                  if (kDebugMode) {
+                                    debugPrint(e);
+                                  }
+                                });
                               },
                               style: TextButton.styleFrom(
                                   backgroundColor: Colors.white),

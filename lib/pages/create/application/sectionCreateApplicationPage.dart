@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get_it/get_it.dart';
@@ -79,8 +80,11 @@ class _SectionCreateApplicationPageState
               itemName: data[index]?['title'])
         ],
         itemListName: GAParams.listApplicationTaskName,
-        itemListId:
-            GAParams.listApplicationTaskId).catchError((e) => debugPrint(e));
+        itemListId: GAParams.listApplicationTaskId).catchError((e) {
+      if (kDebugMode) {
+        debugPrint(e);
+      }
+    });
   }
 
   void showPage() {
@@ -95,11 +99,17 @@ class _SectionCreateApplicationPageState
 
     analytics.logEvent(name: GAEventName.buttonClick, parameters: {
       GAKey.buttonName: GAParams.btnApplcationContinue
-    }).catchError((onError) => debugPrint(onError));
+    }).catchError((e) {
+      if (kDebugMode) {
+        debugPrint(e);
+      }
+    });
 
-    analytics
-        .logEvent(name: GAEventName.startApplication)
-        .catchError((onError) => debugPrint(onError));
+    analytics.logEvent(name: GAEventName.startApplication).catchError((e) {
+      if (kDebugMode) {
+        debugPrint(e);
+      }
+    });
   }
 
   @override

@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:gservice5/analytics/event_name.constan.dart';
@@ -207,7 +208,11 @@ class _MyAdListWidgetState extends State<MyAdListWidget>
     analytics.logSelectContent(
         parameters: {GAKey.screenName: GAParams.myAdListPage},
         contentType: GAContentType.myAd,
-        itemId: id.toString()).catchError((e) => debugPrint(e));
+        itemId: id.toString()).catchError((e) {
+      if (kDebugMode) {
+        debugPrint(e);
+      }
+    });
   }
 
   void showListPromotionPage(Map value) {

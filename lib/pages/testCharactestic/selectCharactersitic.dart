@@ -1,4 +1,5 @@
 import 'package:firebase_analytics/firebase_analytics.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get_it/get_it.dart';
@@ -71,7 +72,11 @@ class _SelectCharactersiticState extends State<SelectCharactersitic> {
           items: [
             AnalyticsEventItem(
                 itemName: value?['title'], itemId: value?['id'].toString())
-          ]).catchError((onError) => debugPrint(onError));
+          ]).catchError((e) {
+        if (kDebugMode) {
+          debugPrint(e);
+        }
+      });
     }
   }
 
@@ -126,7 +131,11 @@ class _SelectModalState extends State<SelectModal> {
                     itemName: toElement?['title'],
                     itemId: toElement?['id'].toString()))
                 .toList())
-        .catchError((onError) => debugPrint(onError));
+        .catchError((e) {
+      if (kDebugMode) {
+        debugPrint(e);
+      }
+    });
 
     super.initState();
   }

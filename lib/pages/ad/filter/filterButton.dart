@@ -1,4 +1,5 @@
 import 'package:firebase_analytics/firebase_analytics.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get_it/get_it.dart';
@@ -42,12 +43,16 @@ class _FilterButtonState extends State<FilterButton> {
         ),
         child: GestureDetector(
             onTap: () {
-            widget.showFilterPage();
-            analytics.logEvent(name: GAEventName.buttonClick, parameters: {
-              GAKey.buttonName: GAParams.icBtnFilter,
-              GAKey.screenName: widget.fromPage ?? ''
-            }).catchError((e) => debugPrint(e));
-          },
+              widget.showFilterPage();
+              analytics.logEvent(name: GAEventName.buttonClick, parameters: {
+                GAKey.buttonName: GAParams.icBtnFilter,
+                GAKey.screenName: widget.fromPage ?? ''
+              }).catchError((e) {
+                if (kDebugMode) {
+                  debugPrint(e);
+                }
+              });
+            },
             child: Container(
               width: 36,
               height: 36,

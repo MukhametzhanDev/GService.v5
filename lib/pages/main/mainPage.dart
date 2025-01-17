@@ -1,5 +1,6 @@
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:dio/dio.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
@@ -148,7 +149,9 @@ class _MainPageState extends State<MainPage> {
       GAKey.buttonName: GAParams.btnSearch,
       GAKey.screenName: GAParams.mainPage
     }).catchError((e) {
-      debugPrint(e);
+      if (kDebugMode) {
+        debugPrint(e);
+      }
     });
   }
 
@@ -190,14 +193,17 @@ class _MainPageState extends State<MainPage> {
                           GestureDetector(
                             onTap: () {
                               scaffoldKey.currentState?.openDrawer();
-                              analytics
-                          .logEvent(name: GAEventName.buttonClick, parameters: {
-                        GAKey.buttonName: GAParams.icBtnDrawer,
-                        GAKey.screenName: GAParams.mainPage,
-                      }).catchError((e) {
-                        debugPrint(e);
-                      });
-                    },
+                              analytics.logEvent(
+                                  name: GAEventName.buttonClick,
+                                  parameters: {
+                                    GAKey.buttonName: GAParams.icBtnDrawer,
+                                    GAKey.screenName: GAParams.mainPage,
+                                  }).catchError((e) {
+                                if (kDebugMode) {
+                                  debugPrint(e);
+                                }
+                              });
+                            },
                             child: Container(
                               height: 40,
                               width: 40,

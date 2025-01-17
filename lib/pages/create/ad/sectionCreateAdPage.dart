@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get_it/get_it.dart';
@@ -59,15 +60,15 @@ class _SectionCreateAdPageState extends State<SectionCreateAdPage> {
           data = response.data['data'];
           loader = false;
           setState(() {});
-  
-        await analytics.logViewItemList(
-            itemListId: GAParams.adTypeCategoriesId,
-            itemListName: GAParams.adTypeCategoriesName,
-            items: data
-                .map((e) => AnalyticsEventItem(
-                    itemId: e['id']?.toString(), itemName: e['title'] ?? ''))
-                .toList());
-      } else {
+
+          await analytics.logViewItemList(
+              itemListId: GAParams.adTypeCategoriesId,
+              itemListName: GAParams.adTypeCategoriesName,
+              items: data
+                  .map((e) => AnalyticsEventItem(
+                      itemId: e['id']?.toString(), itemName: e['title'] ?? ''))
+                  .toList());
+        } else {
           SnackBarComponent().showResponseErrorMessage(response, context);
         }
       } catch (e) {
@@ -104,13 +105,21 @@ class _SectionCreateAdPageState extends State<SectionCreateAdPage> {
       ],
       itemListId: GAParams.adTypeCategoriesId,
       itemListName: GAParams.adTypeCategoriesName,
-    ).catchError((e) => debugPrint(e));
+    ).catchError((e) {
+      if (kDebugMode) {
+        debugPrint(e);
+      }
+    });
 
     analytics
         .logEvent(
-          name: GAEventName.startAddingAd,
-        )
-        .catchError((onError) => debugPrint(onError));
+      name: GAEventName.startAddingAd,
+    )
+        .catchError((e) {
+      if (kDebugMode) {
+        debugPrint(e);
+      }
+    });
   }
 
   void showOptionsPage() {
@@ -123,7 +132,11 @@ class _SectionCreateAdPageState extends State<SectionCreateAdPage> {
 
     analytics.logEvent(name: GAEventName.buttonClick, parameters: {
       GAKey.buttonName: GAParams.btnContinueTypeAd
-    }).catchError((e) => debugPrint(e));
+    }).catchError((e) {
+      if (kDebugMode) {
+        debugPrint(e);
+      }
+    });
   }
 
   Map getParam(index) {

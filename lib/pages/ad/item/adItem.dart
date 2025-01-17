@@ -1,5 +1,6 @@
 import 'dart:ui';
 import 'package:firebase_analytics/firebase_analytics.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get_it/get_it.dart';
@@ -45,7 +46,11 @@ class _AdItemState extends State<AdItem> {
         parameters: {
           GAKey.title: widget.data['title'] ?? '',
           GAKey.screenName: widget.fromPage ?? ''
-        }).catchError((e) => debugPrint(e));
+        }).catchError((e) {
+      if (kDebugMode) {
+        debugPrint(e);
+      }
+    });
   }
 
   void verifyFavoriteAd(value) {
@@ -120,8 +125,8 @@ class _AdItemState extends State<AdItem> {
                                 id: widget.data['id'],
                                 type: "ad",
                                 active: widget.data['is_favorite'],
-                          fromPage: GAParams.favoriteMainPage,
-                        ),
+                                fromPage: GAParams.favoriteMainPage,
+                              ),
                       ],
                     ),
                     const Divider(height: 8),

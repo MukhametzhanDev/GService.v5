@@ -1,5 +1,6 @@
 import 'package:currency_text_input_formatter/currency_text_input_formatter.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get_it/get_it.dart';
@@ -77,7 +78,11 @@ class _PriceCreateAdPageState extends State<PriceCreateAdPage> {
     analytics.logEvent(name: GAEventName.buttonClick, parameters: {
       GAKey.buttonName: GAParams.btnPriceContinue,
       GAKey.screenName: GAParams.priceCreateAdPage
-    }).catchError((onError) => debugPrint(onError));
+    }).catchError((e) {
+      if (kDebugMode) {
+        debugPrint(e);
+      }
+    });
   }
 
   @override
@@ -171,7 +176,11 @@ class _PriceCreateAdPageState extends State<PriceCreateAdPage> {
                             name: GAEventName.buttonClick,
                             parameters: {
                               'button_name': GAParams.chkNegotiable
-                            }).catchError((onError) => debugPrint(onError));
+                            }).catchError((e) {
+                          if (kDebugMode) {
+                            debugPrint(e);
+                          }
+                        });
                       },
                       contentPadding: EdgeInsets.zero,
                       leading: Container(

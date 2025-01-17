@@ -1,4 +1,5 @@
 import 'package:firebase_analytics/firebase_analytics.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:gservice5/analytics/event_name.constan.dart';
@@ -45,7 +46,9 @@ class _CategoriesListWidgetState extends State<CategoriesListWidget> {
             GAKey.screenName: GAParams.mainPage,
             GAKey.categoryName: value['title'] ?? '',
           }).catchError((e) {
-        debugPrint(e);
+        if (kDebugMode) {
+          debugPrint(e);
+        }
       });
 
       Navigator.push(context,
@@ -58,7 +61,9 @@ class _CategoriesListWidgetState extends State<CategoriesListWidget> {
             GAKey.screenName: GAParams.mainPage,
             GAKey.categoryName: value['title']
           }).catchError((e) {
-        debugPrint(e);
+        if (kDebugMode) {
+          debugPrint(e);
+        }
       });
 
       Navigator.push(context,

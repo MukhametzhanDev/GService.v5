@@ -1,5 +1,6 @@
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get_it/get_it.dart';
@@ -45,7 +46,11 @@ class _ProfileListTilesWidgetState extends State<ProfileListTilesWidget> {
         MaterialPageRoute(builder: (context) => const MyApplicationListPage()));
     analytics.logEvent(name: GAEventName.buttonClick, parameters: {
       GAKey.buttonName: GAParams.rowBtnProfileMyApplication
-    }).catchError((onError) => debugPrint(onError));
+    }).catchError((e) {
+      if (kDebugMode) {
+        debugPrint(e);
+      }
+    });
   }
 
   void showMyAdPage() {
@@ -53,14 +58,22 @@ class _ProfileListTilesWidgetState extends State<ProfileListTilesWidget> {
         context, MaterialPageRoute(builder: (context) => const MyAdListPage()));
     analytics.logEvent(name: GAEventName.buttonClick, parameters: {
       GAKey.buttonName: GAParams.rowBtnProfileMyAd
-    }).catchError((onError) => debugPrint(onError));
+    }).catchError((e) {
+      if (kDebugMode) {
+        debugPrint(e);
+      }
+    });
   }
 
   void showContactsPage() {
     Navigator.pushNamed(context, "AddContactsPage");
     analytics.logEvent(name: GAEventName.buttonClick, parameters: {
       GAKey.buttonName: GAParams.rowBtnProfileContacts
-    }).catchError((onError) => debugPrint(onError));
+    }).catchError((e) {
+      if (kDebugMode) {
+        debugPrint(e);
+      }
+    });
   }
 
   void showNewsPage() {
@@ -68,7 +81,11 @@ class _ProfileListTilesWidgetState extends State<ProfileListTilesWidget> {
         context, MaterialPageRoute(builder: (context) => const NewsMainPage()));
     analytics.logEvent(name: GAEventName.buttonClick, parameters: {
       GAKey.buttonName: GAParams.rowBtnProfileNews
-    }).catchError((onError) => debugPrint(onError));
+    }).catchError((e) {
+      if (kDebugMode) {
+        debugPrint(e);
+      }
+    });
   }
 
   void showSocialNetworkPage() {
@@ -76,7 +93,11 @@ class _ProfileListTilesWidgetState extends State<ProfileListTilesWidget> {
         context, MaterialPageRoute(builder: (context) => const NewsMainPage()));
     analytics.logEvent(name: GAEventName.buttonClick, parameters: {
       GAKey.buttonName: GAParams.rowBtnProfileNews
-    }).catchError((onError) => debugPrint(onError));
+    }).catchError((e) {
+      if (kDebugMode) {
+        debugPrint(e);
+      }
+    });
   }
 
   void showEditCurrencyPage() {
@@ -84,7 +105,11 @@ class _ProfileListTilesWidgetState extends State<ProfileListTilesWidget> {
         MaterialPageRoute(builder: (context) => const CurrencyMainPage()));
     analytics.logEvent(name: GAEventName.buttonClick, parameters: {
       GAKey.buttonName: GAParams.rowBtnProfileEditCurrency
-    }).catchError((onError) => debugPrint(onError));
+    }).catchError((e) {
+      if (kDebugMode) {
+        debugPrint(e);
+      }
+    });
   }
 
   void showEmployeesPage() {
@@ -92,7 +117,11 @@ class _ProfileListTilesWidgetState extends State<ProfileListTilesWidget> {
         MaterialPageRoute(builder: (context) => const EmployeeListPage()));
     analytics.logEvent(name: GAEventName.buttonClick, parameters: {
       GAKey.buttonName: GAParams.rowBtnProfileEmployee
-    }).catchError((onError) => debugPrint(onError));
+    }).catchError((e) {
+      if (kDebugMode) {
+        debugPrint(e);
+      }
+    });
   }
 
   void showAboutCompanyPage() {
@@ -100,7 +129,11 @@ class _ProfileListTilesWidgetState extends State<ProfileListTilesWidget> {
         MaterialPageRoute(builder: (context) => const AboutCompanyPage()));
     analytics.logEvent(name: GAEventName.buttonClick, parameters: {
       GAKey.buttonName: GAParams.rowBtnProfileAbout
-    }).catchError((onError) => debugPrint(onError));
+    }).catchError((e) {
+      if (kDebugMode) {
+        debugPrint(e);
+      }
+    });
   }
 
   void showChangedActivityBusinessPage() {
@@ -265,7 +298,11 @@ class _ProfileListTilesWidgetState extends State<ProfileListTilesWidget> {
 
               analytics.logEvent(name: GAEventName.buttonClick, parameters: {
                 GAKey.buttonName: GAParams.rowBtnProfileExit
-              }).catchError((onError) => debugPrint(onError));
+              }).catchError((e) {
+                if (kDebugMode) {
+                  debugPrint(e);
+                }
+              });
             },
             leading: SvgPicture.asset('assets/icons/exit.svg'),
             title: const Text("Выход"),

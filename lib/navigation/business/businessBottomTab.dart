@@ -1,4 +1,5 @@
 import 'package:firebase_analytics/firebase_analytics.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get_it/get_it.dart';
@@ -40,7 +41,9 @@ class _BusinessBottomTabState extends State<BusinessBottomTab> {
       analytics.logEvent(name: GAEventName.screenView, parameters: {
         GAKey.screenName: GAParams.businessMainPage,
       }).catchError((e) {
-        debugPrint(e);
+        if (kDebugMode) {
+          debugPrint(e);
+        }
       });
     } else if (index == 2) {
       showMaterialModalBottomSheet(
@@ -56,7 +59,9 @@ class _BusinessBottomTabState extends State<BusinessBottomTab> {
         GAKey.screenName: GAParams.businessMainPage,
         GAKey.buttonName: GAParams.btnTabPlusBusiness
       }).catchError((e) {
-        debugPrint(e);
+        if (kDebugMode) {
+          debugPrint(e);
+        }
       });
     } else {
       _selectedIndex = index;

@@ -1,4 +1,5 @@
 import 'package:firebase_analytics/firebase_analytics.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter_svg/svg.dart';
@@ -77,7 +78,11 @@ class _BusinessProfilePageState extends State<BusinessProfilePage> {
     analytics.logEvent(name: GAEventName.buttonClick, parameters: {
       GAKey.screenName: GAParams.businessProfilePage,
       GAKey.buttonName: GAParams.btnEditBusinessProfile
-    }).catchError((onError) => debugPrint(onError));
+    }).catchError((e) {
+      if (kDebugMode) {
+        debugPrint(e);
+      }
+    });
   }
 
   void changedDataUser(Map? value) {
@@ -212,8 +217,11 @@ class _BusinessProfilePageState extends State<BusinessProfilePage> {
                                             GAParams.businessProfilePage,
                                         GAKey.buttonName:
                                             GAParams.btnShareBusinessProfile
-                                      }).catchError(
-                                      (onError) => debugPrint(onError));
+                                      }).catchError((e) {
+                                    if (kDebugMode) {
+                                      debugPrint(e);
+                                    }
+                                  });
                                 },
                                 child: Container(
                                   alignment: Alignment.center,

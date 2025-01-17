@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get_it/get_it.dart';
@@ -83,7 +84,11 @@ class _AuthorAdWidgetState extends State<AuthorAdWidget> {
       GAKey.buttonName: GAParams.btnOwnerAd,
       GAKey.authorId: widget.data['id'].toString(),
       GAKey.isCompany: widget.data['is_company']
-    }).catchError((onError) => debugPrint(onError));
+    }).catchError((e) {
+      if (kDebugMode) {
+        debugPrint(e.toString());
+      }
+    });
   }
 
   void showViewCustomerPage() {

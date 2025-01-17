@@ -1,4 +1,5 @@
 import 'package:firebase_analytics/firebase_analytics.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get_it/get_it.dart';
@@ -164,7 +165,11 @@ class _SelectModalState extends State<SelectModal> {
                     itemName: toElement['title'],
                     itemId: toElement['id'].toString()))
                 .toList())
-        .catchError((onError) => debugPrint(onError));
+        .catchError((e) {
+      if (kDebugMode) {
+        debugPrint(e);
+      }
+    });
 
     super.initState();
   }
@@ -176,7 +181,11 @@ class _SelectModalState extends State<SelectModal> {
 
     analytics.logEvent(name: GAEventName.buttonClick, parameters: {
       GAKey.buttonName: GAParams.btnSaveMultiSelect
-    }).catchError((onError) => debugPrint(onError));
+    }).catchError((e) {
+      if (kDebugMode) {
+        debugPrint(e);
+      }
+    });
   }
 
   void onChanged(value) {

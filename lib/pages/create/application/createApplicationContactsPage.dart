@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:gservice5/analytics/event_name.constan.dart';
@@ -69,9 +70,11 @@ class _CreateApplicationContactsPageState
         Navigator.pop(context, "application");
         Navigator.pop(context, "application");
 
-        analytics
-            .logEvent(name: GAEventName.endingApplication)
-            .catchError((onError) => debugPrint(onError));
+        analytics.logEvent(name: GAEventName.endingApplication).catchError((e) {
+          if (kDebugMode) {
+            debugPrint(e);
+          }
+        });
       } else {
         SnackBarComponent().showResponseErrorMessage(response, context);
       }
@@ -101,7 +104,11 @@ class _CreateApplicationContactsPageState
     analytics.logEvent(name: GAEventName.buttonClick, parameters: {
       GAKey.buttonName: GAParams.btnApplicationSubmitOrder,
       GAKey.screenName: GAParams.createApplicationContactsPage
-    }).catchError((onError) => debugPrint(onError));
+    }).catchError((e) {
+      if (kDebugMode) {
+        debugPrint(e);
+      }
+    });
   }
 
   @override

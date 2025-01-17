@@ -1,4 +1,5 @@
 import 'package:firebase_analytics/firebase_analytics.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get_it/get_it.dart';
@@ -74,9 +75,13 @@ class _FilterApplicationWidgetState extends State<FilterApplicationWidget> {
       },
     );
 
-    analytics.logEvent(name: GAEventName.buttonClick, parameters: {
-      GAKey.buttonName: GAParams.btnCity
-    }).catchError((e) => debugPrint(e));
+    analytics.logEvent(
+        name: GAEventName.buttonClick,
+        parameters: {GAKey.buttonName: GAParams.btnCity}).catchError((e) {
+      if (kDebugMode) {
+        debugPrint(e);
+      }
+    });
   }
 
   void showFilterPrice() {

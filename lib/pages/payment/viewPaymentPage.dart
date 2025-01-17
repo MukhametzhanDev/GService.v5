@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:get_it/get_it.dart';
@@ -68,7 +69,11 @@ class _ViewPaymentPageState extends State<ViewPaymentPage> {
         'type': "package",
         'status': "failure",
         'price': widget.totalPrice.toString()
-      }).catchError((onError) => debugPrint(onError));
+      }).catchError((e) {
+        if (kDebugMode) {
+          debugPrint(e);
+        }
+      });
     } else if (success) {
       Navigator.pop(context, "success");
 
@@ -76,7 +81,11 @@ class _ViewPaymentPageState extends State<ViewPaymentPage> {
         'type': "package",
         'status': "success",
         'price': widget.totalPrice.toString()
-      }).catchError((onError) => debugPrint(onError));
+      }).catchError((e) {
+        if (kDebugMode) {
+          debugPrint(e);
+        }
+      });
     }
   }
 

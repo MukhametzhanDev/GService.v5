@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get_it/get_it.dart';
@@ -68,7 +69,11 @@ class _ViewMyAdPageState extends State<ViewMyAdPage> {
               itemListName: GAParams.listMyAdListName,
               itemId: widget.id.toString(),
               itemName: data['title'])
-        ]).catchError((onError) => debugPrint(onError));
+        ]).catchError((e) {
+          if (kDebugMode) {
+            debugPrint(e.toString());
+          }
+        });
       } else {
         SnackBarComponent().showErrorMessage(response.data['message'], context);
       }

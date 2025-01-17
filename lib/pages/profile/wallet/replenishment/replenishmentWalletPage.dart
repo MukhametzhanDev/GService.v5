@@ -1,6 +1,7 @@
 import 'package:currency_text_input_formatter/currency_text_input_formatter.dart';
 import 'package:dio/dio.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:gservice5/analytics/event_name.constan.dart';
@@ -46,7 +47,11 @@ class _ReplenishmentWalletPageState extends State<ReplenishmentWalletPage> {
                 .map((toElement) =>
                     AnalyticsEventItem(itemName: toElement.toString()))
                 .toList())
-        .catchError((onError) => debugPrint(onError));
+        .catchError((e) {
+      if (kDebugMode) {
+        debugPrint(e);
+      }
+    });
 
     super.initState();
   }
@@ -116,7 +121,11 @@ class _ReplenishmentWalletPageState extends State<ReplenishmentWalletPage> {
 
     analytics.logEvent(name: GAEventName.buttonClick, parameters: {
       GAKey.buttonName: GAParams.btnToUpBalance
-    }).catchError((onError) => debugPrint(onError));
+    }).catchError((e) {
+      if (kDebugMode) {
+        debugPrint(e);
+      }
+    });
   }
 
   void showModal() {
@@ -152,7 +161,11 @@ class _ReplenishmentWalletPageState extends State<ReplenishmentWalletPage> {
                       itemListName: GAParams.sumListName,
                       items: [
                         AnalyticsEventItem(itemName: value.toString())
-                      ]).catchError((onError) => debugPrint(onError));
+                      ]).catchError((e) {
+                    if (kDebugMode) {
+                      debugPrint(e);
+                    }
+                  });
                 },
                 child: Container(
                     padding:

@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get_it/get_it.dart';
@@ -22,10 +23,8 @@ class PaymentMethodModal extends StatefulWidget {
   final int totalPrice;
   const PaymentMethodModal(
       {super.key,
-     
       required this.orderId,
       required this.typePurchase,
-     
       required this.data,
       required this.totalPrice});
 
@@ -97,7 +96,11 @@ class _PaymentMethodModalState extends State<PaymentMethodModal> {
             items: [
               AnalyticsEventItem(
                   itemId: value['id']?.toString(), itemName: value['title'])
-            ]).catchError((onError) => debugPrint(onError));
+            ]).catchError((e) {
+          if (kDebugMode) {
+            debugPrint(e);
+          }
+        });
       });
     } else {
       Navigator.push(
@@ -121,7 +124,11 @@ class _PaymentMethodModalState extends State<PaymentMethodModal> {
           items: [
             AnalyticsEventItem(
                 itemId: value['id']?.toString(), itemName: value['title'])
-          ]).catchError((onError) => debugPrint(onError));
+          ]).catchError((e) {
+        if (kDebugMode) {
+          debugPrint(e);
+        }
+      });
     }
   }
 

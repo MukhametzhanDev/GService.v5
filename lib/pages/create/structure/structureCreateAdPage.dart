@@ -1,4 +1,5 @@
 import 'package:firebase_analytics/firebase_analytics.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:gservice5/analytics/event_name.constan.dart';
@@ -199,7 +200,11 @@ class _StructureCreateAdPageState extends State<StructureCreateAdPage> {
                                 parameters: {
                                   GAKey.buttonName:
                                       GAParams.txtbtnCloseAdStructure
-                                }).catchError((onError) => debugPrint(onError));
+                                }).catchError((e) {
+                              if (kDebugMode) {
+                                debugPrint(e);
+                              }
+                            });
                           },
                           icon: Text("Закрыть",
                               style: TextStyle(
@@ -208,14 +213,17 @@ class _StructureCreateAdPageState extends State<StructureCreateAdPage> {
                     ],
                     leading: BackTitleButton(
                         title: widget.data['title'],
-                       
                         onPressed: () {
                           previousPage();
                           analytics.logEvent(
                               name: GAEventName.buttonClick,
                               parameters: {
                                 GAKey.buttonName: GAParams.btnBackAdStructure
-                              }).catchError((onError) => debugPrint(onError));
+                              }).catchError((e) {
+                            if (kDebugMode) {
+                              debugPrint(e);
+                            }
+                          });
                         }),
                     bottom: PreferredSize(
                         preferredSize:

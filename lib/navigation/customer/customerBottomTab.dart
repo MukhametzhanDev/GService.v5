@@ -1,4 +1,5 @@
 import 'package:firebase_analytics/firebase_analytics.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:badges/badges.dart' as badges;
@@ -42,7 +43,9 @@ class _CustomerBottomTabState extends State<CustomerBottomTab>
       analytics.logEvent(name: GAEventName.screenView, parameters: {
         GAKey.screenName: GAParams.mainPage,
       }).catchError((e) {
-        debugPrint(e);
+        if (kDebugMode) {
+          debugPrint(e);
+        }
       });
     } else if (index == 2) {
       showMaterialModalBottomSheet(
@@ -59,7 +62,9 @@ class _CustomerBottomTabState extends State<CustomerBottomTab>
       analytics.logEvent(name: GAEventName.screenView, parameters: {
         GAKey.screenName: GAParams.tabBottomAd,
       }).catchError((e) {
-        debugPrint(e);
+        if (kDebugMode) {
+          debugPrint(e);
+        }
       });
     } else {
       _selectedIndex = index;
@@ -73,7 +78,9 @@ class _CustomerBottomTabState extends State<CustomerBottomTab>
                     ? GAParams.verifyProfilePage
                     : GAParams.mainPage,
       }).catchError((e) {
-        debugPrint(e);
+        if (kDebugMode) {
+          debugPrint(e);
+        }
       });
 
       setState(() {});
