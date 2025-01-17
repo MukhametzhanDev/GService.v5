@@ -1,7 +1,6 @@
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
-import 'package:get_it/get_it.dart';
 import 'package:gservice5/component/dio/dio.dart';
 import 'package:gservice5/component/theme/darkThemeProvider.dart';
 import 'package:gservice5/component/theme/styles.dart';

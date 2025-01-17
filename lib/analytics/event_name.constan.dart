@@ -71,6 +71,7 @@ class GAParams {
       'RecommendationSearchTitleWidget';
   static const String mainSearchPage = 'MainSearchPage';
   static const String resultListPage = 'ResultListPage';
+  static const String customerProfilePage = 'CustomerProfilePage';
 
   //SCREEN
 
