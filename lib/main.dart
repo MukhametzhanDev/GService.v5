@@ -19,6 +19,7 @@ void main() async {
 
   PackageInfo packageInfo = await PackageInfo.fromPlatform();
 
+  //Аналитика Google Analytics
   FirebaseAnalytics analytics = FirebaseAnalytics.instance;
 
   GetIt.I.registerSingleton(analytics);

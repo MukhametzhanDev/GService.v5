@@ -77,6 +77,9 @@ dependencies:
   package_info_plus: ^8.1.2
   flutter_switch: ^0.3.2
   jwt_decoder: ^2.0.1
+  firebase_messaging: ^15.2.0
+  flutter_local_notifications: ^18.0.1
+  device_info_plus: ^11.2.1
 
 dev_dependencies:
   flutter_test:

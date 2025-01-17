@@ -1,9 +1,12 @@
 import 'package:firebase_analytics/firebase_analytics.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
+import 'package:gservice5/component/dio/dio.dart';
 import 'package:gservice5/component/theme/darkThemeProvider.dart';
 import 'package:gservice5/component/theme/styles.dart';
 import 'package:gservice5/navigation/business/businessBottomTab.dart';
+import 'package:gservice5/notification/PushNoficationManager.dart';
 import 'package:gservice5/pages/auth/registration/business/registrationBusinessPage.dart';
 import 'package:gservice5/pages/companies/companiesMainPage.dart';
 import 'package:gservice5/pages/payment/transaction/transactionHistoryPage.dart';
@@ -36,6 +39,19 @@ class Index extends StatefulWidget {
 
 class _IndexState extends State<Index> {
   DarkThemeProvider themeChangeProvider = DarkThemeProvider();
+  final pushManager = PushNotificationManager();
+
+  @override
+  void initState() {
+    super.initState();
+    pushManager.init().then((onValue) {
+      pushManager.getToken();
+    });
+  }
+
+  void _handleMessage(RemoteMessage message) {
+    if (message.data['type'] == 'news') {}
+  }
 
   @override
   Widget build(BuildContext context) {
