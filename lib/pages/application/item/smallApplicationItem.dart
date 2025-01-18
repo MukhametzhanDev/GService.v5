@@ -3,7 +3,6 @@ import 'package:flutter_svg/svg.dart';
 import 'package:gservice5/component/button/favoriteButton.dart';
 import 'package:gservice5/component/date/formattedDate.dart';
 import 'package:gservice5/component/formatted/price/priceFormat.dart';
-import 'package:gservice5/component/modal/contact/shortContactModal.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
 
 class SmallApplicationItem extends StatefulWidget {

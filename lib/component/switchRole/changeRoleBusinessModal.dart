@@ -97,15 +97,15 @@ class _ChangeRoleBusinessModalState extends State<ChangeRoleBusinessModal> {
             mainAxisSize: MainAxisSize.min,
             children: [
               AppBar(
-                  title: Text("Переключить аккаунт?"),
+                  title: const Text("Переключить аккаунт?"),
                   centerTitle: false,
-                  actions: [CloseIconButton(iconColor: null, padding: true)],
+                  actions: const [CloseIconButton(iconColor: null, padding: true)],
                   automaticallyImplyLeading: false),
               loader
                   ? Container(
                       height: 100,
                       alignment: Alignment.center,
-                      child: LoaderComponent())
+                      child: const LoaderComponent())
                   : Column(
                       children: [
                         ListTile(

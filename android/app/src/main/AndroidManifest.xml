@@ -34,6 +34,9 @@
                     android:host="com.bg.gservice" />
                 <data
                     android:scheme="https"/>
+                <data
+                    android:scheme="gservice.kz"
+                    android:host="invite" />
             </intent-filter>
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>

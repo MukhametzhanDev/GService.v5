@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:gservice5/component/button/button.dart';
-import 'package:gservice5/component/map/getMapAddressPage.dart';
 import 'package:gservice5/component/select/select.dart';
 import 'package:gservice5/component/select/selectButton.dart';
 import 'package:gservice5/component/select/selectVerifyData.dart';

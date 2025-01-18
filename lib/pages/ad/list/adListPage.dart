@@ -8,7 +8,6 @@ import 'package:gservice5/pages/ad/item/adItem.dart';
 import 'package:gservice5/pages/ad/list/adListLoader.dart';
 import 'package:gservice5/pages/ad/list/emptyAdListPage.dart';
 import 'package:gservice5/pages/create/application/createApplicationWidgetAdList.dart';
-import 'package:gservice5/pages/create/data/createData.dart';
 import 'package:gservice5/provider/adFilterProvider.dart';
 import 'package:provider/provider.dart';
 

@@ -154,7 +154,7 @@ class _FilterAdListPageState extends State<FilterAdListPage> {
                         initialValue: getValuePrice("price_from"),
                         keyboardType: TextInputType.number,
                         style: const TextStyle(fontSize: 14, height: 1.1),
-                        decoration: InputDecoration(hintText: 'Введите цену'),
+                        decoration: const InputDecoration(hintText: 'Введите цену'),
                       ),
                     )),
                     const Divider(indent: 12),
@@ -166,7 +166,7 @@ class _FilterAdListPageState extends State<FilterAdListPage> {
                         inputFormatters: [currencyTextInputFormatter],
                         initialValue: getValuePrice("price_to"),
                         style: const TextStyle(fontSize: 14, height: 1.1),
-                        decoration: InputDecoration(hintText: 'Введите цену'),
+                        decoration: const InputDecoration(hintText: 'Введите цену'),
                       ),
                     ))
                   ]),

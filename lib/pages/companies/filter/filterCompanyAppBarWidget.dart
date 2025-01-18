@@ -6,7 +6,6 @@ import 'package:gservice5/component/theme/colorComponent.dart';
 import 'package:gservice5/pages/ad/filter/filterButton.dart';
 import 'package:gservice5/pages/companies/filter/filterActivityCompanyModal.dart';
 import 'package:gservice5/pages/companies/filter/filterCompanyPage.dart';
-import 'package:gservice5/pages/create/data/createData.dart';
 import 'package:gservice5/provider/adFilterProvider.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:provider/provider.dart';

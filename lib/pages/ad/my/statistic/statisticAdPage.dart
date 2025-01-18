@@ -75,10 +75,10 @@ class _StatisticAdPageState extends State<StatisticAdPage> {
 
   String getAllCountStatistic(List value, String type) {
     int count = 0;
-    value.forEach((element) {
+    for (var element in value) {
       int typeCount = element[type];
       count += typeCount;
-    });
+    }
     return numberFormat(count);
   }
 
@@ -86,7 +86,7 @@ class _StatisticAdPageState extends State<StatisticAdPage> {
   Widget build(BuildContext context) {
     return loader
         ? Scaffold(
-            appBar: AppBar(leading: BackIconButton()), body: LoaderComponent())
+            appBar: AppBar(leading: const BackIconButton()), body: const LoaderComponent())
         : DefaultTabController(
             length: _tabs.length,
             child: Scaffold(
@@ -183,10 +183,10 @@ class _StatisticAdPageState extends State<StatisticAdPage> {
                               //     active: currentPeriod.isNotEmpty,
                               //     onPressed: showModalPeriod),
                               Text(tabValue['sub_title'],
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                       fontSize: 15,
                                       fontWeight: FontWeight.w500)),
-                              Divider(height: 12),
+                              const Divider(height: 12),
                               Column(
                                   children: data.reversed.map((value) {
                                 return Container(
