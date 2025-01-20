@@ -73,12 +73,13 @@ class _ListPackagePageState extends State<ListPackagePage> {
       Navigator.pop(context);
       if (response.data['success']) {
         showModalBottomSheet(
-                context: context,
-                builder: (context) => PaymentMethodModal(
-                    orderId: response.data['data'],
-                    data: getProduct(),
-                    typePurchase: "package"))
-            .then((value) => Navigator.pop(context, value));
+            context: context,
+            builder: (context) => PaymentMethodModal(
+                orderId: response.data['data'],
+                data: getProduct(),
+                typePurchase: "package")).then((value) {
+          if (value != null) Navigator.pop(context, value);
+        });
       } else {
         SnackBarComponent().showResponseErrorMessage(response, context);
       }

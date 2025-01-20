@@ -35,8 +35,8 @@
                 <data
                     android:scheme="https"/>
                 <data
-                    android:scheme="gservice.kz"
-                    android:host="invite" />
+                    android:scheme="https"
+                    android:host="v4.gservice.kz" />
             </intent-filter>
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>

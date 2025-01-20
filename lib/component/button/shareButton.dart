@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:gservice5/component/counter/counterClickStatistic.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
+import 'package:share_plus/share_plus.dart';
 
 class ShareButton extends StatefulWidget {
   final int id;
@@ -18,10 +19,21 @@ class _ShareButtonState extends State<ShareButton> {
   void shared() async {
     print(widget.hasAd);
     if (widget.hasAd) {
-    } else {
-      await getCountClick(widget.id, "share", true);
-    }
-    // await GetCountClick().postData(widget.id, widget.hasAd, "share");
+      shareAd();
+    } else {}
+    await getCountClick(widget.id, "share", true);
+  }
+
+  void shareAd() {
+    final uri = Uri(
+      scheme: 'https',
+      host: 'v4.gservice.kz',
+      path: "raffle",
+      // queryParameters: {'ad': widget.id.toString()},
+    );
+    final deepLink = uri.toString(); 
+
+    Share.share(deepLink, subject: 'Ссылка на объявлении');
   }
 
   @override

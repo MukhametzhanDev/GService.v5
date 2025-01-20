@@ -60,14 +60,19 @@ class _GetImageWidgetState extends State<GetImageWidget> {
       showModalLoader(context);
       final XFile? pickedFile = await _picker.pickImage(
           source: source, imageQuality: 80, maxHeight: 1024, maxWidth: 1024);
-      print(pickedFile!.path);
-      setState(() {
-        _images.add(XFile(pickedFile.path));
-      });
-      widget.onImagesSelected(_images);
-      Navigator.pop(context);
-      Navigator.pop(context);
+      if (pickedFile != null) {
+        print(pickedFile.path);
+        setState(() {
+          _images.add(XFile(pickedFile.path));
+        });
+        widget.onImagesSelected(_images);
+        Navigator.pop(context);
+        Navigator.pop(context);
+      } else {
+        Navigator.pop(context);
+      }
     } on PlatformException catch (e) {
+      Navigator.pop(context);
       if (e.code == "photo_access_denied") {
         showCupertinoModalBottomSheet(
           context: context,

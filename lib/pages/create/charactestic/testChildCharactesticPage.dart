@@ -5,7 +5,7 @@ import 'package:gservice5/component/textField/closeKeyboard/closeKeyboard.dart';
 import 'package:gservice5/component/widgets/bottom/bottomNavigationBarComponent.dart';
 import 'package:gservice5/pages/create/data/createData.dart';
 import 'package:gservice5/pages/create/structure/controllerPage/pageControllerIndexedStack.dart';
-import 'package:gservice5/pages/testCharactestic/characteristicWidgets.dart';
+import 'package:gservice5/pages/create/charactestic/characteristicWidgets.dart';
 
 class TestChildCharactesticPage extends StatefulWidget {
   final List data;

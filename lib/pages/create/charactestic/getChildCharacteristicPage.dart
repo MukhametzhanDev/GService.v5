@@ -4,10 +4,10 @@ import 'package:gservice5/component/snackBar/snackBarComponent.dart';
 import 'package:gservice5/component/textField/closeKeyboard/closeKeyboard.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
 import 'package:gservice5/component/widgets/bottom/bottomNavigationBarComponent.dart';
-import 'package:gservice5/pages/create/ad/characteristic/dataModal.dart';
-import 'package:gservice5/pages/create/ad/characteristic/multipleDataModal.dart';
 import 'package:gservice5/pages/create/data/createData.dart';
 import 'package:gservice5/pages/create/structure/controllerPage/pageControllerIndexedStack.dart';
+import 'package:gservice5/pages/create/charactestic/dataModal.dart';
+import 'package:gservice5/pages/create/charactestic/multipleDataModal.dart';
 
 class GetChildCharacteristicPage extends StatefulWidget {
   final List data;

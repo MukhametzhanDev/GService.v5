@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:gservice5/component/button/back/closeIconButton.dart';
 import 'package:gservice5/component/textField/closeKeyboard/closeKeyboard.dart';
 import 'package:gservice5/component/textField/searchTextField.dart';
-import 'package:gservice5/pages/create/ad/characteristic/getCharacteristicAdPage.dart';
-import 'package:gservice5/pages/create/ad/characteristic/modalButtonComponent.dart';
+import 'package:gservice5/pages/create/charactestic/getChildCharacteristicPage.dart';
+import 'package:gservice5/pages/create/charactestic/modalButtonComponent.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
 class DataModal extends StatefulWidget {

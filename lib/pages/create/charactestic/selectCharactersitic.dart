@@ -3,8 +3,8 @@ import 'package:flutter_svg/svg.dart';
 import 'package:gservice5/component/button/back/closeIconButton.dart';
 import 'package:gservice5/component/modal/modalBottomSheetWrapper.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
-import 'package:gservice5/pages/create/ad/characteristic/modalButtonComponent.dart';
 import 'package:gservice5/pages/create/data/createData.dart';
+import 'package:gservice5/pages/create/charactestic/modalButtonComponent.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
 class SelectCharactersitic extends StatefulWidget {

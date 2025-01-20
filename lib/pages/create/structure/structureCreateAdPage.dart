@@ -3,7 +3,6 @@ import 'package:gservice5/component/alert/closeCreateAdAlert.dart';
 import 'package:gservice5/component/button/back/backTitleButton.dart';
 import 'package:gservice5/component/textField/closeKeyboard/closeKeyboard.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
-import 'package:gservice5/pages/create/ad/characteristic/getImageCreateAdPage.dart';
 import 'package:gservice5/pages/create/ad/stepCreateAdWidget.dart';
 import 'package:gservice5/pages/create/ad/titleCreateAdPage.dart';
 import 'package:gservice5/pages/create/ad/createAdContactsPage.dart';
@@ -11,8 +10,9 @@ import 'package:gservice5/pages/create/data/createData.dart';
 import 'package:gservice5/pages/create/options/getSelectPage.dart';
 import 'package:gservice5/pages/create/priceCreateAdPage.dart';
 import 'package:gservice5/pages/create/structure/controllerPage/pageControllerIndexedStack.dart';
-import 'package:gservice5/pages/testCharactestic/testCharactesticPage.dart';
-import 'package:gservice5/pages/testCharactestic/testChildCharactesticPage.dart';
+import 'package:gservice5/pages/create/charactestic/getImageCreateAdPage.dart';
+import 'package:gservice5/pages/create/charactestic/testCharactesticPage.dart';
+import 'package:gservice5/pages/create/charactestic/testChildCharactesticPage.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
 //selects
@@ -66,7 +66,7 @@ class _StructureCreateAdPageState extends State<StructureCreateAdPage> {
   void formattedPages() {
     closeKeyboard();
     int index = pageControllerIndexedStack.getIndex();
-    if (index == data.length - 1) {
+    if (index == data.length) {
       bool showTitle = widget.data['options']['has_title'];
       pages.add(TitleCreateAdPage(
           nextPage: addCharacteristicPage,
@@ -126,6 +126,7 @@ class _StructureCreateAdPageState extends State<StructureCreateAdPage> {
   void addPage() {
     int index = pageControllerIndexedStack.getIndex();
     closeKeyboard();
+    print(data);
     pages.add(GetSelectPage(
         value: data[index],
         nextPage: formattedPages,
@@ -173,7 +174,7 @@ class _StructureCreateAdPageState extends State<StructureCreateAdPage> {
         child: ValueListenableBuilder<int>(
             valueListenable: pageControllerIndexedStack.pageIndexNotifier,
             builder: (context, pageIndex, child) {
-              bool showTitle = data.length - 1 > pageIndex;
+              bool showTitle = data.length > pageIndex;
               return Scaffold(
                   appBar: AppBar(
                     leadingWidth: MediaQuery.of(context).size.width - 100,

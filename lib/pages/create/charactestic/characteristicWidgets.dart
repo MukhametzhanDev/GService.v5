@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:gservice5/pages/create/data/createData.dart';
-import 'package:gservice5/pages/testCharactestic/checkboxCharacteristic.dart';
-import 'package:gservice5/pages/testCharactestic/inputCharacteristicWidget.dart';
-import 'package:gservice5/pages/testCharactestic/multiSelectCharactersitic.dart';
-import 'package:gservice5/pages/testCharactestic/radioCharacteristicWidget.dart';
-import 'package:gservice5/pages/testCharactestic/selectCharactersitic.dart';
+import 'package:gservice5/pages/create/charactestic/checkboxCharacteristic.dart';
+import 'package:gservice5/pages/create/charactestic/inputCharacteristicWidget.dart';
+import 'package:gservice5/pages/create/charactestic/multiSelectCharactersitic.dart';
+import 'package:gservice5/pages/create/charactestic/radioCharacteristicWidget.dart';
+import 'package:gservice5/pages/create/charactestic/selectCharactersitic.dart';
 
 class CharacteristicWidget extends StatefulWidget {
   final List data;

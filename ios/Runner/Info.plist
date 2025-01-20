@@ -26,17 +26,21 @@
 	<string>3.3.4</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
-	<key>CFBundleVersion</key>
-	<string>$(FLUTTER_BUILD_NUMBER)</string>
 	<key>CFBundleURLTypes</key>
 	<array>
-	    <dict>
-	        <key>CFBundleURLSchemes</key>
-	        <array>
-	            <string>gservice.kz</string>
-	        </array>
-	    </dict>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Viewer</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>v4.gservice.kz</string>
+			</array>
+		</dict>
 	</array>
+	<key>CFBundleVersion</key>
+	<string>$(FLUTTER_BUILD_NUMBER)</string>
+	<key>FlutterDeepLinkingEnabled</key>
+	<true/>
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
 		<string>sms</string>
@@ -46,6 +50,8 @@
 	<true/>
 	<key>NSCameraUsageDescription</key>
 	<string>Доступ к камере требуется для добавление объявление</string>
+	<key>NSDocumentsFolderUsageDescription</key>
+	<string>Для выбора файлов нам необходим доступ к вашим документам</string>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
 	<string>Этому приложению требуется доступ к местоположению, когда оно открыто</string>
 	<key>NSLocationAlwaysUsageDescription</key>
@@ -56,14 +62,12 @@
 	<string>Этому приложению требуется доступ к местоположению, когда оно открыто</string>
 	<key>NSMicrophoneUsageDescription</key>
 	<string>Доступ к микрофона требуется для добавление заказа</string>
-	<key>NSPhotoLibraryUsageDescription</key>
-	<string>Доступ к фото требуется для добавление объявление</string>
-	<key>NSDocumentsFolderUsageDescription</key>
-	<string>Для выбора файлов нам необходим доступ к вашим документам</string>
-	<key>UIApplicationSupportsIndirectInputEvents</key>
-	<true/>
 	<key>NSMotionUsageDescription</key>
 	<string>Мы используем данные о движении для повышения точности определения местоположения и предоставления более качественных услуг</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Доступ к фото требуется для добавление объявление</string>
+	<key>UIApplicationSupportsIndirectInputEvents</key>
+	<true/>
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>fetch</string>

@@ -6,8 +6,8 @@
 	<string>development</string>
 	<key>com.apple.developer.associated-domains</key>
 	<array>
-		<string>webcredentials:v4.gservice.kz</string>
 		<string>applinks:v4.gservice.kz</string>
+		<string>webcredentials:v4.gservice.kz</string>
 	</array>
 </dict>
 </plist>

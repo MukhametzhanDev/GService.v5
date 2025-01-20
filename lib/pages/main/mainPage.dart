@@ -10,12 +10,14 @@ import 'package:gservice5/component/loader/paginationLoaderComponent.dart';
 import 'package:gservice5/component/request/getMainPageData.dart';
 import 'package:gservice5/component/snackBar/snackBarComponent.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
+import 'package:gservice5/deeplink/appLink.dart';
 import 'package:gservice5/pages/ad/item/adItem.dart';
 import 'package:gservice5/pages/ad/list/adListLoader.dart';
 import 'package:gservice5/pages/main/applicationListMain.dart';
 import 'package:gservice5/component/categories/categoriesListWidget.dart';
 import 'package:gservice5/pages/main/drawer/mainDrawer.dart';
 import 'package:gservice5/pages/main/search/mainSearchPage.dart';
+import 'package:share_plus/share_plus.dart';
 
 class MainPage extends StatefulWidget {
   final ScrollController scrollController;
@@ -39,8 +41,11 @@ class _MainPageState extends State<MainPage> {
     getData();
     getAdList();
     widget.scrollController.addListener(() => loadMoreAd());
+    AppLink().initDeepLinks(context);
     super.initState();
   }
+
+  
 
   Future getData() async {
     if (data.isEmpty) {

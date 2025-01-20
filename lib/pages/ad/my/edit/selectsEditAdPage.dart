@@ -5,7 +5,6 @@ import 'package:gservice5/component/select/edit/editSelectModal.dart';
 import 'package:gservice5/component/textField/closeKeyboard/closeKeyboard.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
 import 'package:gservice5/component/widgets/bottom/bottomNavigationBarComponent.dart';
-import 'package:gservice5/pages/ad/my/edit/editAdCharacteristics.dart';
 import 'package:gservice5/pages/create/data/createData.dart';
 import 'package:gservice5/pages/create/structure/controllerPage/pageControllerIndexedStack.dart';
 
@@ -93,18 +92,6 @@ class _SelectsEditAdPageState extends State<SelectsEditAdPage> {
                       hintText: "Что нужно сделать?",
                       helperStyle:
                           TextStyle(color: ColorComponent.gray['500']))),
-              EditAdCharacteristics(
-                  value: widget.data['characteristics'],
-                  param: {"category_id": widget.data['category']['id']}),
-              widget.data['category']['options']['characteristics']
-                      ['is_available']
-                  ? EditAdCharacteristics(
-                      value: widget.data['characteristics'],
-                      param: {
-                          filterKey:
-                              widget.data[filterKey.replaceAll("_id", "")]['id']
-                        })
-                  : Container()
             ],
           ),
         ),
