@@ -5,10 +5,11 @@ import 'package:gservice5/component/button/back/backIconButton.dart';
 import 'package:gservice5/component/button/back/backTitleButton.dart';
 import 'package:gservice5/component/functions/token/changedToken.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
+import 'package:gservice5/data/message/messageInviteApp.dart';
 import 'package:gservice5/navigation/customer/customerBottomTab.dart';
 import 'package:gservice5/pages/settings/aboutAppPage.dart';
 import 'package:gservice5/pages/settings/changeAppLanguage.dart';
-import 'package:gservice5/pages/settings/helpdeskModal.dart';
+import 'package:gservice5/pages/settings/supportSeviceModal.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
 class SettingsAppPage extends StatefulWidget {
@@ -32,6 +33,10 @@ class _SettingsAppPageState extends State<SettingsAppPage> {
   void showAboutApp() {
     Navigator.push(context,
         MaterialPageRoute(builder: (context) => AboutApplicationPage()));
+  }
+
+  void sendInvite() async {
+    await MessageInviteApp().sendUserInvite();
   }
 
   void exitAccount() async {
@@ -60,6 +65,11 @@ class _SettingsAppPageState extends State<SettingsAppPage> {
           ListTile(
               onTap: showHelpdescModal,
               title: Text("Служба поддержки"),
+              trailing: SvgPicture.asset("assets/icons/right.svg")),
+          Divider(height: 1, color: ColorComponent.gray['100']),
+          ListTile(
+              onTap: sendInvite,
+              title: Text("Пригласить друзей"),
               trailing: SvgPicture.asset("assets/icons/right.svg")),
           Divider(height: 1, color: ColorComponent.gray['100']),
           ListTile(

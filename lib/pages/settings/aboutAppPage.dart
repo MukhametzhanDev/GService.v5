@@ -8,7 +8,7 @@ import 'package:gservice5/component/loader/loaderComponent.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
 import 'package:gservice5/pages/create/charactestic/getChildCharacteristicPage.dart';
 import 'package:gservice5/pages/settings/deleteAccountModal.dart';
-import 'package:gservice5/pages/settings/helpdeskModal.dart';
+import 'package:gservice5/pages/settings/supportSeviceModal.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 
@@ -132,6 +132,7 @@ class _AboutApplicationPageState extends State<AboutApplicationPage> {
                         contentPadding: EdgeInsets.zero,
                         title: Text("Удалить аккаунт",
                             style: TextStyle(color: ColorComponent.red2))),
+                    Divider(height: 1, color: ColorComponent.gray['100']),
                   ],
                 ),
               );

@@ -136,6 +136,7 @@ class _CreateAdContactsPageState extends State<CreateAdContactsPage> {
         context: context,
         builder: (context) => AddContactModal(data: contacts)).then((value) {
       if (value != null) {
+        value['active'] = true;
         contacts.add(value);
         setState(() {});
       }

@@ -5,6 +5,7 @@ import 'package:gservice5/component/button/button.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
 import 'package:gservice5/component/widgets/bottom/bottomNavigationBarComponent.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:restart_app/restart_app.dart';
 
 class RestartAppPage extends StatefulWidget {
   const RestartAppPage({super.key});
@@ -27,6 +28,17 @@ class _RestartAppPageState extends State<RestartAppPage> {
   //   }
   // }
 
+  void restartApp() {
+    Restart.restartApp(
+      /// In Web Platform, Fill webOrigin only when your new origin is different than the app's origin
+      // webOrigin: 'http://example.com',
+
+      // Customizing the restart notification message (only needed on iOS)
+      notificationTitle: 'Restarting App',
+      notificationBody: 'Please tap here to open the app again.',
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -37,13 +49,13 @@ class _RestartAppPageState extends State<RestartAppPage> {
           SvgPicture.asset("assets/icons/restart.svg",
               width: 120, color: ColorComponent.gray['500']),
           const Divider(indent: 12),
-          const Text("Перезапустите приложение",
+          const Text("Правления ошибок и улучшения работы",
               style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600)),
           const Divider(indent: 12),
           const Padding(
               padding: EdgeInsets.symmetric(horizontal: 15),
               child: Text(
-                "",
+                "Закройте и откройте приложение заново, чтобы устранить сбои и повысить производительность.\nСпасибо! 😊",
                 textAlign: TextAlign.center,
                 style:
                     TextStyle(color: Colors.black, fontSize: 15, height: 1.5),
@@ -52,7 +64,7 @@ class _RestartAppPageState extends State<RestartAppPage> {
       ),
       bottomNavigationBar: BottomNavigationBarComponent(
           child: Button(
-              onPressed: () {},
+              onPressed: restartApp,
               padding: const EdgeInsets.symmetric(horizontal: 15),
               title: "Перезапустить")),
     );

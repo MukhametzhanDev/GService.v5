@@ -31,6 +31,8 @@
 		<dict>
 			<key>CFBundleTypeRole</key>
 			<string>Viewer</string>
+			<key>CFBundleURLName</key>
+    		<string>com.bg.gservice</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
 				<string>v4.gservice.kz</string>

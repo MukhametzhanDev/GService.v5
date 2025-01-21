@@ -143,42 +143,42 @@ class _PreviewItemWidgetState extends State<PreviewItemWidget> {
                                                 2.2,
                                         height: imageHeight,
                                         borderRadius: 8),
-                                    Positioned(
-                                      top: 8,
-                                      left: 8,
-                                      child: ClipRRect(
-                                        child: BackdropFilter(
-                                          filter: ImageFilter.blur(
-                                              sigmaX: 4.0, sigmaY: 4.0),
-                                          child: Container(
-                                            decoration: BoxDecoration(
-                                                color: Colors.white
-                                                    .withOpacity(.7),
-                                                borderRadius:
-                                                    BorderRadius.circular(4)),
-                                            padding: const EdgeInsets.symmetric(
-                                                vertical: 3, horizontal: 8),
-                                            child: Row(
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.center,
-                                              children: [
-                                                SvgPicture.asset(
-                                                    'assets/icons/badgeCheck.svg',
-                                                    width: 16),
-                                                const Divider(indent: 4),
-                                                Text("От диллера",
-                                                    style: TextStyle(
-                                                        fontSize: 12,
-                                                        fontWeight:
-                                                            FontWeight.w600,
-                                                        color: ColorComponent
-                                                            .blue['500']))
-                                              ],
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                    )
+                                    // Positioned(
+                                    //   top: 8,
+                                    //   left: 8,
+                                    //   child: ClipRRect(
+                                    //     child: BackdropFilter(
+                                    //       filter: ImageFilter.blur(
+                                    //           sigmaX: 4.0, sigmaY: 4.0),
+                                    //       child: Container(
+                                    //         decoration: BoxDecoration(
+                                    //             color: Colors.white
+                                    //                 .withOpacity(.7),
+                                    //             borderRadius:
+                                    //                 BorderRadius.circular(4)),
+                                    //         padding: const EdgeInsets.symmetric(
+                                    //             vertical: 3, horizontal: 8),
+                                    //         child: Row(
+                                    //           crossAxisAlignment:
+                                    //               CrossAxisAlignment.center,
+                                    //           children: [
+                                    //             SvgPicture.asset(
+                                    //                 'assets/icons/badgeCheck.svg',
+                                    //                 width: 16),
+                                    //             const Divider(indent: 4),
+                                    //             Text("От диллера",
+                                    //                 style: TextStyle(
+                                    //                     fontSize: 12,
+                                    //                     fontWeight:
+                                    //                         FontWeight.w600,
+                                    //                     color: ColorComponent
+                                    //                         .blue['500']))
+                                    //           ],
+                                    //         ),
+                                    //       ),
+                                    //     ),
+                                    //   ),
+                                    // )
                                   ],
                                 ),
                               ),
@@ -213,7 +213,7 @@ class _PreviewItemWidgetState extends State<PreviewItemWidget> {
                       ],
                     ),
                   ),
-                  const Divider(height: 8),
+                  const Divider(height: 6),
                   ShowStickersList(data: widget.stickers),
                   const Divider(height: 10),
                   Divider(height: 1, color: ColorComponent.gray['100']),
@@ -280,6 +280,7 @@ class _PreviewItemWidgetState extends State<PreviewItemWidget> {
                       ],
                     ),
                   ),
+                  Divider(height: 5)
                 ],
               ),
             ),

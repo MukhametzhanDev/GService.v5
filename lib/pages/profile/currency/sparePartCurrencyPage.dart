@@ -83,7 +83,7 @@ class _SparePartCurrencyPageState extends State<SparePartCurrencyPage> {
                   const ExplanatoryMessage(
                       title:
                           "Конвертер валют создан для удобного расчета цен при покупках за границей. Курсы произвольные и не являются официальными. Все цены в объявлениях отображаются в тенге.",
-                      padding: EdgeInsets.symmetric(horizontal: 16),
+                      padding: EdgeInsets.only(top: 16, right: 16, left: 16),
                       type: "my_currency"),
                   Expanded(
                     child: ListView.builder(
@@ -141,8 +141,9 @@ class _SparePartCurrencyPageState extends State<SparePartCurrencyPage> {
                                             style: TextStyle(
                                                 color: ColorComponent
                                                     .gray['500'])),
-                                        suffixIconConstraints: const BoxConstraints(
-                                            minWidth: 25, maxWidth: 25),
+                                        suffixIconConstraints:
+                                            const BoxConstraints(
+                                                minWidth: 25, maxWidth: 25),
                                       )))
                             ]),
                             const Divider(height: 12)
@@ -157,8 +158,8 @@ class _SparePartCurrencyPageState extends State<SparePartCurrencyPage> {
                 backgroundColor: ColorComponent.mainColor,
                 titleColor: Colors.black,
                 icon: null,
-                padding:
-                    const EdgeInsets.only(left: 16, right: 16, top: 8, bottom: 8),
+                padding: const EdgeInsets.only(
+                    left: 16, right: 16, top: 8, bottom: 8),
                 widthIcon: null,
                 title: "Сохранить")),
       ),

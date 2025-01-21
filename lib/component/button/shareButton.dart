@@ -28,7 +28,7 @@ class _ShareButtonState extends State<ShareButton> {
     final uri = Uri(
       scheme: 'https',
       host: 'v4.gservice.kz',
-      path: "raffle",
+      path: "ad",
       // queryParameters: {'ad': widget.id.toString()},
     );
     final deepLink = uri.toString(); 
