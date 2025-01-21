@@ -4,21 +4,21 @@ import 'package:gservice5/component/dio/dio.dart';
 import 'package:gservice5/component/loader/loaderComponent.dart';
 import 'package:gservice5/component/loader/paginationLoaderComponent.dart';
 import 'package:gservice5/component/snackBar/snackBarComponent.dart';
-import 'package:gservice5/component/theme/colorComponent.dart';
+import 'package:gservice5/pages/ad/item/adItem.dart';
 import 'package:gservice5/pages/application/item/applicationItem.dart';
 import 'package:gservice5/pages/favorite/ad/emptyFavoriteListPage.dart';
+import 'package:gservice5/provider/adFavoriteProvider.dart';
+import 'package:provider/provider.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
-class ListFavoriteApplicationPage extends StatefulWidget {
-  const ListFavoriteApplicationPage({super.key});
+class ListFavoriteAdPage extends StatefulWidget {
+  const ListFavoriteAdPage({super.key});
 
   @override
-  State<ListFavoriteApplicationPage> createState() =>
-      _ListFavoriteApplicationPageState();
+  State<ListFavoriteAdPage> createState() => _ListFavoriteAdPageState();
 }
 
-class _ListFavoriteApplicationPageState
-    extends State<ListFavoriteApplicationPage> {
+class _ListFavoriteAdPageState extends State<ListFavoriteAdPage> {
   List data = [];
   bool loader = true;
   ScrollController scrollController = ScrollController();
@@ -46,11 +46,12 @@ class _ListFavoriteApplicationPageState
     try {
       page = 1;
       setState(() {});
-      Response response = await dio.get("/my-favorites",
-          queryParameters: {"favoritable_type": "application"});
+      Response response = await dio
+          .get("/my-favorites", queryParameters: {"favoritable_type": "ad"});
       print(response.data);
       if (response.statusCode == 200) {
-        data = response.data['data'];
+        Provider.of<AdFavoriteProvider>(context, listen: false).updateAds =
+            response.data['data'];
         loader = false;
         hasNextPage = page != response.data['meta']['last_page'];
         setState(() {});
@@ -73,11 +74,12 @@ class _ListFavoriteApplicationPageState
         setState(() {});
         Response response = await dio.get("/my-favorites", queryParameters: {
           "page": page.toString(),
-          "favoritable_type": "application"
+          "favoritable_type": "ad"
         });
         print(response.data);
         if (response.statusCode == 200) {
-          data.addAll(response.data['data']);
+          Provider.of<AdFavoriteProvider>(context, listen: false).addAds =
+              response.data['data'];
           hasNextPage = page != response.data['meta']['last_page'];
           isLoadMore = false;
           setState(() {});
@@ -93,50 +95,50 @@ class _ListFavoriteApplicationPageState
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          toolbarHeight: 0,
-          // bottom: PreferredSize(
-          //     preferredSize: Size(double.infinity, 48), child: Row(children: [])),
-        ),
+        appBar: AppBar(toolbarHeight: 0),
         body: loader
             ? const LoaderComponent()
-            : data.isEmpty
-                ? const EmptyFavoriteListPage()
-                : Column(
-                    children: [
-                      Expanded(
-                          child: SmartRefresher(
-                        onRefresh: () async {
-                          await getData();
-                        },
-                        enablePullDown: true,
-                        enablePullUp: false,
-                        controller: refreshController,
-                        header: MaterialClassicHeader(
-                            color: ColorComponent.mainColor,
-                            backgroundColor: Colors.white),
-                        child: ListView.builder(
-                            itemCount: data.length,
-                            controller: scrollController,
-                            itemBuilder: (context, int index) {
-                              Map value = data[index];
-                              if (data.length - 1 == index) {
-                                return Column(children: [
-                                  ApplicationItem(
-                                      data: value['favoritable'],
-                                      showCategory: false),
-                                  hasNextPage
-                                      ? const PaginationLoaderComponent()
-                                      : Container()
-                                ]);
-                              } else {
-                                return ApplicationItem(
-                                    data: value['favoritable'],
-                                    showCategory: false);
-                              }
-                            }),
-                      ))
-                    ],
-                  ));
+            : Consumer<AdFavoriteProvider>(builder: (context, data, child) {
+                List ads = data.data.values.toList();
+                return Column(
+                  children: [
+                    Expanded(
+                      child:
+                          //   SmartRefresher(
+                          // onRefresh: () async {
+                          //   await getData();
+                          // },
+                          // enablePullDown: true,
+                          // enablePullUp: false,
+                          // controller: refreshController,
+                          // header: MaterialClassicHeader(
+                          //     color: ColorComponent.mainColor,
+                          //     backgroundColor: Colors.white),
+                          // child:
+                          ads.isEmpty
+                              ? const EmptyFavoriteListPage()
+                              : ListView.builder(
+                                  itemCount: ads.length,
+                                  controller: scrollController,
+                                  itemBuilder: (context, int index) {
+                                    Map value = ads[index];
+                                    if (ads.length - 1 == index) {
+                                      return Column(children: [
+                                        ApplicationItem(
+                                            data: value, showCategory: false),
+                                        hasNextPage
+                                            ? const PaginationLoaderComponent()
+                                            : Container()
+                                      ]);
+                                    } else {
+                                      return ApplicationItem(
+                                          data: value, showCategory: false);
+                                    }
+                                  }),
+                    )
+                    // )
+                  ],
+                );
+              }));
   }
 }

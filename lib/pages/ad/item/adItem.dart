@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:gservice5/component/button/favoriteButton.dart';
+import 'package:gservice5/component/button/favoriteAdButton.dart';
 import 'package:gservice5/component/formatted/number/numberFormatted.dart';
 import 'package:gservice5/component/image/cacheImage.dart';
 import 'package:gservice5/component/modal/contact/shortContactModal.dart';
@@ -88,7 +88,7 @@ class _AdItemState extends State<AdItem> {
                                         height: 1,
                                         fontSize: 12,
                                         fontWeight: FontWeight.w500)))
-                            : FavoriteButton(data: widget.data, type: "ad"),
+                            : FavoriteAdButton(data: widget.data),
                       ],
                     ),
                     PriceTextWidget(

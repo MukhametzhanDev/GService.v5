@@ -115,7 +115,7 @@ class _ViewMyAdPageState extends State<ViewMyAdPage> {
                   leading: const BackIconButton(),
                   centerTitle: false,
                   actions: [
-                    // FavoriteButton(iconColor: ColorTheme['black_white']),
+                    // FavoriteAdButton(iconColor: ColorTheme['black_white']),
                     ShareButton(id: widget.id, hasAd: true),
                     const Divider(indent: 15)
                   ],

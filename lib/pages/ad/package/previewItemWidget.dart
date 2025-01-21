@@ -119,7 +119,7 @@ class _PreviewItemWidgetState extends State<PreviewItemWidget> {
                             // Row(
                             // children: [
                             // Divider(indent: 8),
-                            // FavoriteButton()
+                            // FavoriteAdButton()
                             //  ],
                             //  )
                           ],

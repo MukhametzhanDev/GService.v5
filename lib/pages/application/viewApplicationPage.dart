@@ -5,7 +5,8 @@ import 'package:gservice5/component/appBar/fadeOnScroll.dart';
 import 'package:gservice5/component/bar/bottomBar/contactBottomBarWidget.dart';
 import 'package:gservice5/component/button/back/backIconButton.dart';
 import 'package:gservice5/component/button/button.dart';
-import 'package:gservice5/component/button/favoriteButton.dart';
+import 'package:gservice5/component/button/favoriteAdButton.dart';
+import 'package:gservice5/component/button/favoriteApplicationButton.dart';
 import 'package:gservice5/component/button/shareButton.dart';
 import 'package:gservice5/component/date/formattedDate.dart';
 import 'package:gservice5/component/dio/dio.dart';
@@ -74,11 +75,9 @@ class _ViewApplicationPageState extends State<ViewApplicationPage> {
                     leading: const BackIconButton(),
                     centerTitle: false,
                     actions: [
-                      // FavoriteButtonComponent(iconColor: ColorTheme['black_white']),
+                      // FavoriteAdButtonComponent(iconColor: ColorTheme['black_white']),
                       ShareButton(id: widget.id, hasAd: true),
-                      const Divider(indent: 10),
-                      FavoriteButton(data: data, type: "application"),
-                      const Divider(indent: 15)
+                      FavoriteApplicationButton(data: data),
                     ],
                     title: FadeOnScroll(
                       scrollController: scrollController,

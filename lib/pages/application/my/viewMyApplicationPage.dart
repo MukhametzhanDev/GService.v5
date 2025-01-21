@@ -84,7 +84,7 @@ class _ViewMyApplicationPageState extends State<ViewMyApplicationPage> {
                   leading: const BackIconButton(),
                   centerTitle: false,
                   actions: [
-                    // FavoriteButtonComponent(iconColor: ColorTheme['black_white']),
+                    // FavoriteAdButtonComponent(iconColor: ColorTheme['black_white']),
                     ShareButton(id: widget.id, hasAd: true),
                     const Divider(indent: 15)
                   ],

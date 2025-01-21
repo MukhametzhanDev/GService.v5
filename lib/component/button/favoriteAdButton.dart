@@ -8,16 +8,15 @@ import 'package:gservice5/component/theme/colorComponent.dart';
 import 'package:gservice5/provider/adFavoriteProvider.dart';
 import 'package:provider/provider.dart';
 
-class FavoriteButton extends StatefulWidget {
+class FavoriteAdButton extends StatefulWidget {
   final Map data;
-  final String type;
-  FavoriteButton({super.key, required this.data, required this.type});
+  FavoriteAdButton({super.key, required this.data});
 
   @override
-  State<FavoriteButton> createState() => _FavoriteButtonState();
+  State<FavoriteAdButton> createState() => _FavoriteAdButtonState();
 }
 
-class _FavoriteButtonState extends State<FavoriteButton> {
+class _FavoriteAdButtonState extends State<FavoriteAdButton> {
   bool activeFavourite = false;
 
   void verifyToken(bool active) async {
@@ -37,7 +36,7 @@ class _FavoriteButtonState extends State<FavoriteButton> {
       String API = active ? "/remove-favorite" : "/favorite";
       await dio.post(API, queryParameters: {
         "favoritable_id": widget.data['id'],
-        "favoritable_type": widget.type
+        "favoritable_type": "ad"
       });
     } catch (e) {
       print(e);
@@ -45,33 +44,18 @@ class _FavoriteButtonState extends State<FavoriteButton> {
   }
 
   void changedData(active) {
-    setState(() {
-      if (widget.type == "ad") {
-        if (active) {
-          Provider.of<AdFavoriteProvider>(context, listen: false).removeAd =
-              widget.data;
-          // FavoriteAdData.adFavorite.remove(widget.id);
-        } else {
-          Provider.of<AdFavoriteProvider>(context, listen: false).addAd =
-              widget.data;
-
-          // FavoriteAdData.adFavorite.addAll({widget.id: ""});
-        }
-      } else {
-        if (active) {
-          // FavoriteApplicationData.applicationFavorite.remove(widget.id);
-        } else {
-          // FavoriteApplicationData.applicationFavorite.addAll({widget.id: ""});
-        }
-      }
-    });
+    if (active) {
+      Provider.of<AdFavoriteProvider>(context, listen: false).removeAd =
+          widget.data;
+    } else {
+      Provider.of<AdFavoriteProvider>(context, listen: false).addAd =
+          widget.data;
+    }
   }
 
   @override
   Widget build(BuildContext context) {
-    print("DATA FAVORITE ${widget.data}");
     return Consumer<AdFavoriteProvider>(builder: (context, data, child) {
-      print("CHECK ${data.checkAd(widget.data)}");
       return Container(
         height: 40,
         child: IconButton(
