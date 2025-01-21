@@ -9,6 +9,7 @@ import 'package:gservice5/component/theme/colorComponent.dart';
 import 'package:gservice5/pages/create/charactestic/getChildCharacteristicPage.dart';
 import 'package:gservice5/pages/settings/deleteAccountModal.dart';
 import 'package:gservice5/pages/settings/supportSeviceModal.dart';
+import 'package:gservice5/pages/webView/webViewPage.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 
@@ -95,13 +96,27 @@ class _AboutApplicationPageState extends State<AboutApplicationPage> {
                     SizedBox(height: 20),
                     Divider(height: 1, color: ColorComponent.gray['100']),
                     ListTile(
-                        onTap: () {},
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => WebViewPage(
+                                      url:
+                                          "https://business.gservice.kz/termsofuse")));
+                        },
                         contentPadding: EdgeInsets.zero,
                         title: Text("Пользовательское соглашение"),
                         trailing: SvgPicture.asset('assets/icons/right.svg')),
                     Divider(height: 1, color: ColorComponent.gray['100']),
                     ListTile(
-                        onTap: () {},
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => WebViewPage(
+                                      url:
+                                          "https://business.gservice.kz/termsofuse")));
+                        },
                         contentPadding: EdgeInsets.zero,
                         title: Text("Политика конфедициальности"),
                         trailing: SvgPicture.asset('assets/icons/right.svg')),

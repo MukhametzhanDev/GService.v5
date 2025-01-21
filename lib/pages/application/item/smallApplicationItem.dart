@@ -64,8 +64,7 @@ class _SmallApplicationItemState extends State<SmallApplicationItem> {
                 widget.position == "main"
                     ? Container()
                     : FavoriteButton(
-                        id: widget.data['id'],
-                        active: widget.data['is_favorite'],
+                        data: widget.data,
                         type: "application")
               ],
             ),

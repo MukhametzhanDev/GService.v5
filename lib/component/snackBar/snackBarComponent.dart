@@ -11,7 +11,7 @@ class SnackBarComponent {
         content: Row(
           children: [
             SvgPicture.asset('assets/icons/info.svg',
-                color: ColorComponent.mainColor),
+                color: ColorComponent.blue['500']),
             const SizedBox(width: 10),
             Expanded(
               child: Text(title,
@@ -27,7 +27,7 @@ class SnackBarComponent {
         elevation: 0,
         behavior: SnackBarBehavior.floating,
         shape: RoundedRectangleBorder(
-          side: BorderSide(color: ColorComponent.mainColor, width: 1),
+          side: BorderSide(color: ColorComponent.blue['500']!, width: 1),
           borderRadius: BorderRadius.circular(12.0),
         ),
       ),

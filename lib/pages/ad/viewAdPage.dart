@@ -20,7 +20,6 @@ import 'package:gservice5/component/widgets/characteristic/showCharacteristicWid
 import 'package:gservice5/component/widgets/price/priceTextWidget.dart';
 import 'package:gservice5/pages/ad/list/recommendationAdList.dart';
 import 'package:gservice5/pages/ad/widget/viewCharacteristicWidget.dart';
-import 'package:gservice5/pages/favorite/ad/data/favoriteAdData.dart';
 import 'package:intl/intl.dart';
 
 class ViewAdPage extends StatefulWidget {
@@ -50,19 +49,12 @@ class _ViewAdPageState extends State<ViewAdPage> {
       if (response.data['success']) {
         data = response.data['data'];
         loader = false;
-        addAdFavorite();
         setState(() {});
       } else {
         SnackBarComponent().showResponseErrorMessage(response, context);
       }
     } catch (e) {
       SnackBarComponent().showNotGoBackServerErrorMessage(context);
-    }
-  }
-
-  void addAdFavorite() {
-    if (data['is_favorite']) {
-      FavoriteAdData.adFavorite.addAll({data['id']: ""});
     }
   }
 
@@ -87,12 +79,7 @@ class _ViewAdPageState extends State<ViewAdPage> {
                     actions: [
                       // FavoriteButtonComponent(iconColor: ColorTheme['black_white']),
                       ShareButton(id: widget.id, hasAd: true),
-                      const Divider(indent: 10),
-                      FavoriteButton(
-                          id: data['id'],
-                          type: "ad",
-                          active: data['is_favorite']),
-                      const Divider(indent: 15)
+                      FavoriteButton(data: data, type: "ad"),
                     ],
                     title: FadeOnScroll(
                       scrollController: scrollController,
@@ -118,7 +105,7 @@ class _ViewAdPageState extends State<ViewAdPage> {
                       children: [
                         Padding(
                           padding: const EdgeInsets.symmetric(
-                              horizontal: 16, vertical: 8),
+                              horizontal: 16, vertical: 4),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
@@ -262,7 +249,6 @@ class _ViewAdPageState extends State<ViewAdPage> {
                     ),
                   ),
                   RecommendationAdList(id: data['id']),
-                 
                 ]),
           bottomNavigationBar: loader
               ? null

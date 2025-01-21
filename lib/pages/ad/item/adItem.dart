@@ -10,7 +10,6 @@ import 'package:gservice5/component/widgets/price/priceTextWidget.dart';
 import 'package:gservice5/pages/ad/item/adItemCharacteristic.dart';
 import 'package:gservice5/pages/ad/package/showPackageIcons.dart';
 import 'package:gservice5/pages/ad/viewAdPage.dart';
-import 'package:gservice5/pages/favorite/ad/data/favoriteAdData.dart';
 import 'package:intl/intl.dart';
 
 class AdItem extends StatefulWidget {
@@ -24,15 +23,8 @@ class AdItem extends StatefulWidget {
 
 class _AdItemState extends State<AdItem> {
   void showAdPage(int id) {
-    Navigator.push(context,
-            MaterialPageRoute(builder: (context) => ViewAdPage(id: id)))
-        .then(verifyFavoriteAd);
-  }
-
-  void verifyFavoriteAd(value) {
-    bool active = FavoriteAdData.adFavorite.containsKey(widget.data['id']);
-    widget.data['is_favorite'] = active;
-    setState(() {});
+    Navigator.push(
+        context, MaterialPageRoute(builder: (context) => ViewAdPage(id: id)));
   }
 
   Color getColor() {
@@ -61,16 +53,15 @@ class _AdItemState extends State<AdItem> {
               color: getColor(),
               border: const Border(
                   bottom: BorderSide(width: 6, color: Color(0xfff4f5f7)))),
-          padding: const EdgeInsets.symmetric(vertical: 12),
+          padding: const EdgeInsets.only(bottom: 12, top: 8),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 15),
+                padding: const EdgeInsets.only(left: 15),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const SizedBox(height: 4),
                     Row(
                       children: [
                         Expanded(
@@ -97,13 +88,9 @@ class _AdItemState extends State<AdItem> {
                                         height: 1,
                                         fontSize: 12,
                                         fontWeight: FontWeight.w500)))
-                            : FavoriteButton(
-                                id: widget.data['id'],
-                                type: "ad",
-                                active: widget.data['is_favorite']),
+                            : FavoriteButton(data: widget.data, type: "ad"),
                       ],
                     ),
-                    const Divider(height: 8),
                     PriceTextWidget(
                         prices: widget.data['prices'], fontSize: 15),
                     const Divider(height: 12),
@@ -161,7 +148,7 @@ class _AdItemState extends State<AdItem> {
               ),
               ShowStickersList(data: widget.data['stickers']),
               const Divider(height: 10),
-              Divider(height: 1, color: ColorComponent.gray['200']),
+              Divider(height: 1, color: ColorComponent.gray['100']),
               const Divider(height: 10),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 15),

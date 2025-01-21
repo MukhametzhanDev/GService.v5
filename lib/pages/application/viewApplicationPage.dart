@@ -77,10 +77,7 @@ class _ViewApplicationPageState extends State<ViewApplicationPage> {
                       // FavoriteButtonComponent(iconColor: ColorTheme['black_white']),
                       ShareButton(id: widget.id, hasAd: true),
                       const Divider(indent: 10),
-                      FavoriteButton(
-                          id: widget.id,
-                          active: data['is_favorite'],
-                          type: "application"),
+                      FavoriteButton(data: data, type: "application"),
                       const Divider(indent: 15)
                     ],
                     title: FadeOnScroll(

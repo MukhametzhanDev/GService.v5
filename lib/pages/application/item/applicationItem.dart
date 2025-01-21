@@ -59,15 +59,13 @@ class _ApplicationItemState extends State<ApplicationItem> {
                         color: ColorComponent.blue['700'])),
               ),
               const Divider(indent: 12),
-              FavoriteButton(
-                  id: widget.data['id'],
-                  active: widget.data['is_favorite'],
-                  type: "application")
+              FavoriteButton(data: widget.data, type: "application")
             ],
           ),
           const Divider(height: 8),
           Text(priceFormatted(widget.data['price']?['price']),
-              style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w600)),
+              style:
+                  const TextStyle(fontSize: 16, fontWeight: FontWeight.w600)),
           // Row(
           //   children: [
           //     Expanded(

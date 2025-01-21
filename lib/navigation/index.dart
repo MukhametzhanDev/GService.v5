@@ -18,6 +18,7 @@ import 'package:gservice5/pages/profile/customer/customerProfilePage.dart';
 import 'package:gservice5/pages/profile/news/allNewsPage.dart';
 import 'package:gservice5/pages/profile/wallet/replenishment/replenishmentWalletPage.dart';
 import 'package:gservice5/pages/splash/splashScreen.dart';
+import 'package:gservice5/provider/adFavoriteProvider.dart';
 import 'package:gservice5/provider/adFilterProvider.dart';
 import 'package:gservice5/provider/myAdFilterProvider.dart';
 import 'package:gservice5/provider/nameCompanyProvider.dart';
@@ -45,6 +46,7 @@ class _IndexState extends State<Index> {
           ChangeNotifierProvider(create: (_) => MyAdFilterProvider()),
           ChangeNotifierProvider(create: (_) => AdFilterProvider()),
           ChangeNotifierProvider(create: (_) => NameCompanyProvider()),
+          ChangeNotifierProvider(create: (_) => AdFavoriteProvider()),
         ],
         child: Consumer<DarkThemeProvider>(
             builder: (BuildContext context, value, child) {

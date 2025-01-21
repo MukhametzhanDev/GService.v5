@@ -20,6 +20,8 @@ class SettingsAppPage extends StatefulWidget {
 }
 
 class _SettingsAppPageState extends State<SettingsAppPage> {
+
+
   void showChangedLanguage() {
     showModalBottomSheet(
         context: context, builder: (context) => ChangeAppLanguage());
