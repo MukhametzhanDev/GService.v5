@@ -154,12 +154,12 @@ class _AdListPageState extends State<AdListPage> {
                     Map value = data[index];
                     if (index % 20 == 0 && index > 19) {
                       return Column(children: [
-                        AdItem(data: value, showCategory: false),
+                        AdItem(data: value),
                         const CreateApplicationWidgetAdList()
                       ]);
                     } else if (data.length - 1 == index) {
                       return Column(children: [
-                        AdItem(data: value, showCategory: false),
+                        AdItem(data: value),
                         hasNextPage
                             ? const PaginationLoaderComponent()
                             : Container()
@@ -167,7 +167,7 @@ class _AdListPageState extends State<AdListPage> {
                     } else {
                       return Column(
                         children: [
-                          AdItem(data: value, showCategory: false),
+                          AdItem(data: value),
                         ],
                       );
                     }

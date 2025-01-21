@@ -7,18 +7,20 @@ import 'package:gservice5/component/snackBar/snackBarComponent.dart';
 import 'package:gservice5/pages/ad/item/adItem.dart';
 import 'package:gservice5/pages/application/item/applicationItem.dart';
 import 'package:gservice5/pages/favorite/ad/emptyFavoriteListPage.dart';
-import 'package:gservice5/provider/adFavoriteProvider.dart';
+import 'package:gservice5/provider/applicationFavoriteProvider.dart';
 import 'package:provider/provider.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
-class ListFavoriteAdPage extends StatefulWidget {
-  const ListFavoriteAdPage({super.key});
+class ListFavoriteApplicationPage extends StatefulWidget {
+  const ListFavoriteApplicationPage({super.key});
 
   @override
-  State<ListFavoriteAdPage> createState() => _ListFavoriteAdPageState();
+  State<ListFavoriteApplicationPage> createState() =>
+      _ListFavoriteApplicationPageState();
 }
 
-class _ListFavoriteAdPageState extends State<ListFavoriteAdPage> {
+class _ListFavoriteApplicationPageState
+    extends State<ListFavoriteApplicationPage> {
   List data = [];
   bool loader = true;
   ScrollController scrollController = ScrollController();
@@ -50,8 +52,8 @@ class _ListFavoriteAdPageState extends State<ListFavoriteAdPage> {
           .get("/my-favorites", queryParameters: {"favoritable_type": "ad"});
       print(response.data);
       if (response.statusCode == 200) {
-        Provider.of<AdFavoriteProvider>(context, listen: false).updateAds =
-            response.data['data'];
+        Provider.of<ApplicationFavoriteProvider>(context, listen: false)
+            .updateApplications = response.data['data'];
         loader = false;
         hasNextPage = page != response.data['meta']['last_page'];
         setState(() {});
@@ -78,8 +80,8 @@ class _ListFavoriteAdPageState extends State<ListFavoriteAdPage> {
         });
         print(response.data);
         if (response.statusCode == 200) {
-          Provider.of<AdFavoriteProvider>(context, listen: false).addAds =
-              response.data['data'];
+          Provider.of<ApplicationFavoriteProvider>(context, listen: false)
+              .addApplications = response.data['data'];
           hasNextPage = page != response.data['meta']['last_page'];
           isLoadMore = false;
           setState(() {});
@@ -98,8 +100,9 @@ class _ListFavoriteAdPageState extends State<ListFavoriteAdPage> {
         appBar: AppBar(toolbarHeight: 0),
         body: loader
             ? const LoaderComponent()
-            : Consumer<AdFavoriteProvider>(builder: (context, data, child) {
-                List ads = data.data.values.toList();
+            : Consumer<ApplicationFavoriteProvider>(
+                builder: (context, data, child) {
+                List applications = data.data.values.toList();
                 return Column(
                   children: [
                     Expanded(
@@ -115,24 +118,22 @@ class _ListFavoriteAdPageState extends State<ListFavoriteAdPage> {
                           //     color: ColorComponent.mainColor,
                           //     backgroundColor: Colors.white),
                           // child:
-                          ads.isEmpty
+                          applications.isEmpty
                               ? const EmptyFavoriteListPage()
                               : ListView.builder(
-                                  itemCount: ads.length,
+                                  itemCount: applications.length,
                                   controller: scrollController,
                                   itemBuilder: (context, int index) {
-                                    Map value = ads[index];
-                                    if (ads.length - 1 == index) {
+                                    Map value = applications[index];
+                                    if (applications.length - 1 == index) {
                                       return Column(children: [
-                                        ApplicationItem(
-                                            data: value, showCategory: false),
+                                        ApplicationItem(data: value),
                                         hasNextPage
                                             ? const PaginationLoaderComponent()
                                             : Container()
                                       ]);
                                     } else {
-                                      return ApplicationItem(
-                                          data: value, showCategory: false);
+                                      return ApplicationItem(data: value);
                                     }
                                   }),
                     )

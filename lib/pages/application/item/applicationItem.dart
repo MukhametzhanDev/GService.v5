@@ -10,9 +10,7 @@ import 'package:gservice5/pages/favorite/application/data/favoriteApplicationDat
 
 class ApplicationItem extends StatefulWidget {
   final Map data;
-  final bool showCategory;
-  const ApplicationItem(
-      {super.key, required this.data, required this.showCategory});
+  const ApplicationItem({super.key, required this.data});
 
   @override
   State<ApplicationItem> createState() => _ApplicationItemState();

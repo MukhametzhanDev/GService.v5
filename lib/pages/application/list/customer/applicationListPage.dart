@@ -105,9 +105,10 @@ class _ApplicationListPageState extends State<ApplicationListPage> {
 
   void showFilterPage() {
     showMaterialModalBottomSheet(
-        context: context,
-        enableDrag: false,
-        builder: (context) => const FilterApplicationListPage()).then(filteredAds);
+            context: context,
+            enableDrag: false,
+            builder: (context) => const FilterApplicationListPage())
+        .then(filteredAds);
   }
 
   void filteredAds(value) {
@@ -133,14 +134,13 @@ class _ApplicationListPageState extends State<ApplicationListPage> {
                       Map value = data[index];
                       if (data.length - 1 == index) {
                         return Column(children: [
-                          ApplicationItem(data: value, showCategory: false),
+                          ApplicationItem(data: value),
                           hasNextPage
                               ? const PaginationLoaderComponent()
                               : Container()
                         ]);
                       } else {
-                        return ApplicationItem(
-                            data: value, showCategory: false);
+                        return ApplicationItem(data: value);
                       }
                     }));
   }

@@ -14,8 +14,7 @@ import 'package:intl/intl.dart';
 
 class AdItem extends StatefulWidget {
   final Map data;
-  final bool showCategory;
-  const AdItem({super.key, required this.data, required this.showCategory});
+  const AdItem({super.key, required this.data});
 
   @override
   State<AdItem> createState() => _AdItemState();
@@ -74,21 +73,7 @@ class _AdItemState extends State<AdItem> {
                               overflow: TextOverflow.ellipsis),
                         ),
                         const SizedBox(width: 16),
-                        widget.showCategory
-                            ? Container(
-                                height: 24,
-                                padding:
-                                    const EdgeInsets.symmetric(horizontal: 8),
-                                alignment: Alignment.center,
-                                decoration: BoxDecoration(
-                                    color: ColorComponent.mainColor,
-                                    borderRadius: BorderRadius.circular(4)),
-                                child: Text(widget.data['category']['title'],
-                                    style: const TextStyle(
-                                        height: 1,
-                                        fontSize: 12,
-                                        fontWeight: FontWeight.w500)))
-                            : FavoriteAdButton(data: widget.data),
+                        FavoriteAdButton(data: widget.data),
                       ],
                     ),
                     PriceTextWidget(

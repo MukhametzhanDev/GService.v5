@@ -160,13 +160,13 @@ class _AdListWidgetState extends State<AdListWidget>
                               Map value = data[index];
                               if (data.length - 1 == index) {
                                 return Column(children: [
-                                  AdItem(data: value, showCategory: true),
+                                  AdItem(data: value),
                                   hasNextPage
                                       ? const PaginationLoaderComponent()
                                       : Container()
                                 ]);
                               } else {
-                                return AdItem(data: value, showCategory: true);
+                                return AdItem(data: value);
                               }
                             }),
                       ),

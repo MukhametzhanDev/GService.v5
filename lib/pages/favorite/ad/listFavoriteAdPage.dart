@@ -11,16 +11,14 @@ import 'package:gservice5/provider/applicationFavoriteProvider.dart';
 import 'package:provider/provider.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
-class ListFavoriteApplicationPage extends StatefulWidget {
-  const ListFavoriteApplicationPage({super.key});
+class ListFavoriteAdPage extends StatefulWidget {
+  const ListFavoriteAdPage({super.key});
 
   @override
-  State<ListFavoriteApplicationPage> createState() =>
-      _ListFavoriteApplicationPageState();
+  State<ListFavoriteAdPage> createState() => _ListFavoriteAdPageState();
 }
 
-class _ListFavoriteApplicationPageState
-    extends State<ListFavoriteApplicationPage> {
+class _ListFavoriteAdPageState extends State<ListFavoriteAdPage> {
   List data = [];
   bool loader = true;
   ScrollController scrollController = ScrollController();
@@ -48,8 +46,8 @@ class _ListFavoriteApplicationPageState
     try {
       page = 1;
       setState(() {});
-      Response response = await dio.get("/my-favorites",
-          queryParameters: {"favoritable_type": "application"});
+      Response response = await dio
+          .get("/my-favorites", queryParameters: {"favoritable_type": "ad"});
       print(response.data);
       if (response.statusCode == 200) {
         Provider.of<AdFavoriteProvider>(context, listen: false).updateAds =
@@ -76,7 +74,7 @@ class _ListFavoriteApplicationPageState
         setState(() {});
         Response response = await dio.get("/my-favorites", queryParameters: {
           "page": page.toString(),
-          "favoritable_type": "application"
+          "favoritable_type": "ad"
         });
         print(response.data);
         if (response.statusCode == 200) {
@@ -100,9 +98,8 @@ class _ListFavoriteApplicationPageState
         appBar: AppBar(toolbarHeight: 0),
         body: loader
             ? const LoaderComponent()
-            : Consumer<ApplicationFavoriteProvider>(
-                builder: (context, data, child) {
-                List applications = data.data.values.toList();
+            : Consumer<AdFavoriteProvider>(builder: (context, data, child) {
+                List ads = data.data.values.toList();
                 return Column(
                   children: [
                     Expanded(
@@ -118,24 +115,22 @@ class _ListFavoriteApplicationPageState
                           //     color: ColorComponent.mainColor,
                           //     backgroundColor: Colors.white),
                           // child:
-                          applications.isEmpty
+                          ads.isEmpty
                               ? const EmptyFavoriteListPage()
                               : ListView.builder(
-                                  itemCount: applications.length,
+                                  itemCount: ads.length,
                                   controller: scrollController,
                                   itemBuilder: (context, int index) {
-                                    Map value = applications[index];
-                                    if (applications.length - 1 == index) {
+                                    Map value = ads[index];
+                                    if (ads.length - 1 == index) {
                                       return Column(children: [
-                                        AdItem(
-                                            data: value, showCategory: false),
+                                        AdItem(data: value),
                                         hasNextPage
                                             ? const PaginationLoaderComponent()
                                             : Container()
                                       ]);
                                     } else {
-                                      return AdItem(
-                                          data: value, showCategory: false);
+                                      return AdItem(data: value);
                                     }
                                   }),
                     )

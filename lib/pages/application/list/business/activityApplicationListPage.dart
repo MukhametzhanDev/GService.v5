@@ -110,9 +110,10 @@ class _ActivityApplicationListPageState
 
   void showPage() {
     Navigator.push(
-        context,
-        MaterialPageRoute(
-            builder: (context) => const ChangedActivityBusinessPage())).then((value) {
+            context,
+            MaterialPageRoute(
+                builder: (context) => const ChangedActivityBusinessPage()))
+        .then((value) {
       if (value == "update") getData();
     });
   }
@@ -144,14 +145,13 @@ class _ActivityApplicationListPageState
                           Map value = data[index];
                           if (data.length - 1 == index) {
                             return Column(children: [
-                              ApplicationItem(data: value, showCategory: true),
+                              ApplicationItem(data: value),
                               hasNextPage
                                   ? const PaginationLoaderComponent()
                                   : Container()
                             ]);
                           } else {
-                            return ApplicationItem(
-                                data: value, showCategory: true);
+                            return ApplicationItem(data: value);
                           }
                         }));
   }

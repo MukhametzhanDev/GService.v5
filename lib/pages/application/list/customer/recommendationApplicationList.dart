@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:gservice5/component/dio/dio.dart';
 import 'package:gservice5/component/snackBar/snackBarComponent.dart';
+import 'package:gservice5/pages/application/item/applicationItem.dart';
 import 'package:gservice5/pages/application/item/smallApplicationItem.dart';
 import 'package:gservice5/pages/application/viewApplicationPage.dart';
 import 'package:shimmer/shimmer.dart';
@@ -86,10 +87,7 @@ class _RecommendationApplicationListState
                         Map item = data[index];
                         return Padding(
                           padding: const EdgeInsets.only(bottom: 12),
-                          child: SmallApplicationItem(
-                              onPressed: showPage,
-                              data: item,
-                              position: "more"),
+                          child: ApplicationItem(data: item),
                         );
                       },
                     )

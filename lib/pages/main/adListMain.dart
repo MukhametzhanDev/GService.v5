@@ -90,11 +90,11 @@ class _AdListMainState extends State<AdListMain> {
             Map value = data[index];
             if (data.length - 1 == index) {
               return Column(children: [
-                AdItem(data: value, showCategory: false),
+                AdItem(data: value),
                 hasNextPage ? const PaginationLoaderComponent() : Container()
               ]);
             } else {
-              return AdItem(data: value, showCategory: false);
+              return AdItem(data: value);
             }
           }, childCount: data.length));
   }
