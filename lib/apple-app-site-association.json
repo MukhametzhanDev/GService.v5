@@ -1,0 +1,19 @@
+{
+    "applinks": {
+        "details": [
+             {
+               "appIDs": [ "MLTQ7N2L8F.com.bg.gservice" ],
+               "paths": [
+               "/ad/*",
+               "/application/*",
+               "/company/*",
+               "/raffle/*",
+               "/news/*"
+               ]
+             }
+         ]
+     },
+     "webcredentials": {
+        "apps": [ "MLTQ7N2L8F.com.bg.gservice" ]
+     }
+  }

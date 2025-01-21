@@ -1,0 +1,9 @@
+[{
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "GService.kz",
+      "package_name": "com.gservice",
+      "sha256_cert_fingerprints":
+      ["D8:16:3A:70:37:F3:D5:42:36:2C:D8:18:16:63:0A:D6:02:13:21:3F:38:45:B2:12:BF:EA:D4:FD:29:34:C5:22"]
+    }
+  }]
