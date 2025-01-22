@@ -39,7 +39,7 @@ class _EmptyMyNewsPageState extends State<EmptyMyNewsPage> {
             )),
         Button(
             onPressed: showSite,
-            padding: EdgeInsets.all(15),
+            padding: const EdgeInsets.all(15),
             title: "Перейти на сайт")
       ],
     ));

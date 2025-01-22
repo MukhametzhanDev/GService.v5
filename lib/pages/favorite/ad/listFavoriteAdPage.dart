@@ -7,7 +7,6 @@ import 'package:gservice5/component/snackBar/snackBarComponent.dart';
 import 'package:gservice5/pages/ad/item/adItem.dart';
 import 'package:gservice5/pages/favorite/ad/emptyFavoriteListPage.dart';
 import 'package:gservice5/provider/adFavoriteProvider.dart';
-import 'package:gservice5/provider/applicationFavoriteProvider.dart';
 import 'package:provider/provider.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 

@@ -115,7 +115,7 @@ class _ProfileListTilesWidgetState extends State<ProfileListTilesWidget> {
           child: ListTile(
               onTap: () {
                 Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => RestartAppPage()));
+                    MaterialPageRoute(builder: (context) => const RestartAppPage()));
               },
               leading: SvgPicture.asset('assets/icons/file.svg'),
               title: const Text("Перезапуск приложение"),

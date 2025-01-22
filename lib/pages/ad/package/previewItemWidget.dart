@@ -280,7 +280,7 @@ class _PreviewItemWidgetState extends State<PreviewItemWidget> {
                       ],
                     ),
                   ),
-                  Divider(height: 5)
+                  const Divider(height: 5)
                 ],
               ),
             ),

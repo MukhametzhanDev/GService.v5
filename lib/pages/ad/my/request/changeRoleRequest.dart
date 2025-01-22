@@ -11,7 +11,6 @@ class ChangeRoleRequest {
       if (response.data['success'] && response.statusCode == 200) {
         roles = response.data['data'];
       }
-    } catch (e) {
     } finally {
       return roles;
     }

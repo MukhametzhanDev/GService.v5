@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:gservice5/component/dio/dio.dart';
 import 'package:gservice5/component/snackBar/snackBarComponent.dart';
 import 'package:gservice5/pages/application/item/applicationItem.dart';
-import 'package:gservice5/pages/application/item/smallApplicationItem.dart';
 import 'package:gservice5/pages/application/viewApplicationPage.dart';
 import 'package:shimmer/shimmer.dart';
 

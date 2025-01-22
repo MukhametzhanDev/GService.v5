@@ -16,7 +16,7 @@ class _WebViewPageState extends State<WebViewPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(leading: BackIconButton()),
+      appBar: AppBar(leading: const BackIconButton()),
       body: webLoader
           ? const LoaderComponent()
           : Stack(

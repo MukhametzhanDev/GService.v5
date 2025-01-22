@@ -9,7 +9,7 @@ import 'package:provider/provider.dart';
 
 class FavoriteApplicationButton extends StatefulWidget {
   final Map data;
-  FavoriteApplicationButton({super.key, required this.data});
+  const FavoriteApplicationButton({super.key, required this.data});
 
   @override
   State<FavoriteApplicationButton> createState() =>
@@ -57,7 +57,7 @@ class _FavoriteApplicationButtonState extends State<FavoriteApplicationButton> {
   Widget build(BuildContext context) {
     return Consumer<ApplicationFavoriteProvider>(
         builder: (context, data, child) {
-      return Container(
+      return SizedBox(
         height: 40,
         child: IconButton(
           onPressed: () => verifyToken(data.checkApplication(widget.data)),

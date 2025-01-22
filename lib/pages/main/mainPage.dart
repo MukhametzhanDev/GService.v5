@@ -17,7 +17,6 @@ import 'package:gservice5/pages/main/applicationListMain.dart';
 import 'package:gservice5/component/categories/categoriesListWidget.dart';
 import 'package:gservice5/pages/main/drawer/mainDrawer.dart';
 import 'package:gservice5/pages/main/search/mainSearchPage.dart';
-import 'package:share_plus/share_plus.dart';
 
 class MainPage extends StatefulWidget {
   final ScrollController scrollController;

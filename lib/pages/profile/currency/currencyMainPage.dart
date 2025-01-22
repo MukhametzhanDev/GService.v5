@@ -21,7 +21,7 @@ class _CurrencyMainPageState extends State<CurrencyMainPage> {
           appBar: AppBar(
             centerTitle: false,
             leadingWidth: 200,
-            leading: BackTitleButton(title: "Конвертор валют"),
+            leading: const BackTitleButton(title: "Конвертор валют"),
             bottom: PreferredSize(
                 preferredSize: Size(MediaQuery.of(context).size.width, 50),
                 child: Container(

@@ -10,7 +10,7 @@ class PriceTextWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print("prices ${prices}");
+    print("prices $prices");
     if (prices == null || prices!.isEmpty) {
       return Text("Договорная",
           maxLines: 1,

@@ -1,10 +1,8 @@
-import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:gservice5/component/button/button.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
 import 'package:gservice5/component/widgets/bottom/bottomNavigationBarComponent.dart';
-import 'package:url_launcher/url_launcher.dart';
 import 'package:restart_app/restart_app.dart';
 
 class RestartAppPage extends StatefulWidget {

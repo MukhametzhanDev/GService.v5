@@ -71,15 +71,15 @@ class _AddEmployeePageState extends State<AddEmployeePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-          leading: BackTitleButton(title: "Добавить сотрудника"),
+          leading: const BackTitleButton(title: "Добавить сотрудника"),
           leadingWidth: 300),
       body: SingleChildScrollView(
-        padding: EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+        padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text("Телефон номер сотудника", style: TextStyle(fontSize: 13)),
-            Divider(height: 6),
+            const Text("Телефон номер сотудника", style: TextStyle(fontSize: 13)),
+            const Divider(height: 6),
             SizedBox(
               height: 48,
               child: TextField(
@@ -98,7 +98,7 @@ class _AddEmployeePageState extends State<AddEmployeePage> {
                 decoration: const InputDecoration(hintText: "+7"),
               ),
             ),
-            Divider(height: 12),
+            const Divider(height: 12),
             loader
                 ? Shimmer.fromColors(
                     baseColor: const Color(0xffD1D5DB),
@@ -110,11 +110,11 @@ class _AddEmployeePageState extends State<AddEmployeePage> {
                             color: Colors.white,
                             borderRadius: BorderRadius.circular(10))))
                 : Container(
-                    padding: EdgeInsets.symmetric(horizontal: 15, vertical: 12),
+                    padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 12),
                     decoration: BoxDecoration(
                         color: Colors.grey[200],
                         borderRadius: BorderRadius.circular(10)),
-                    child: Row(
+                    child: const Row(
                       children: [
                         CacheImage(
                             url:
@@ -137,30 +137,30 @@ class _AddEmployeePageState extends State<AddEmployeePage> {
                       ],
                     ),
                   ),
-            Divider(height: 12),
+            const Divider(height: 12),
             GestureDetector(
               onTap: sendMessage,
               child: Container(
-                  padding: EdgeInsets.symmetric(horizontal: 15, vertical: 20),
+                  padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 20),
                   decoration: BoxDecoration(
                       color: Colors.grey[200],
                       borderRadius: BorderRadius.circular(10)),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      Text("Пользователь не найден",
+                      const Text("Пользователь не найден",
                           style: TextStyle(
                               fontSize: 15, fontWeight: FontWeight.w500)),
-                      Divider(height: 10),
-                      Text("Пригласите сотрудника в GService.kz"),
-                      Divider(height: 12),
+                      const Divider(height: 10),
+                      const Text("Пригласите сотрудника в GService.kz"),
+                      const Divider(height: 12),
                       Container(
                         padding:
-                            EdgeInsets.symmetric(horizontal: 15, vertical: 6),
+                            const EdgeInsets.symmetric(horizontal: 15, vertical: 6),
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(8),
                             color: ColorComponent.blue['500']),
-                        child: Text("Пригласить сотрудника через WhatsApp",
+                        child: const Text("Пригласить сотрудника",
                             style: TextStyle(
                                 color: Colors.white,
                                 fontWeight: FontWeight.w500)),
@@ -175,7 +175,7 @@ class _AddEmployeePageState extends State<AddEmployeePage> {
           child: Button(
               onPressed: verifyPhone,
               title: "Добавить",
-              padding: EdgeInsets.symmetric(horizontal: 15))),
+              padding: const EdgeInsets.symmetric(horizontal: 15))),
     );
   }
 }

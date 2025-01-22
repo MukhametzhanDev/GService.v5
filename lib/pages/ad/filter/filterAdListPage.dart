@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:gservice5/component/button/back/closeTitleButton.dart';
 import 'package:gservice5/component/functions/number/getIntNumber.dart';
 import 'package:gservice5/component/textField/closeKeyboard/closeKeyboard.dart';
-import 'package:gservice5/component/textField/priceTextField.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
 import 'package:gservice5/component/widgets/bottom/bottomNavigationBarComponent.dart';
 import 'package:gservice5/pages/ad/filter/additionallFilterWidget.dart';

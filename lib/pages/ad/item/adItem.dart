@@ -80,6 +80,7 @@ class _AdItemState extends State<AdItem> {
                         prices: widget.data['prices'], fontSize: 15),
                     const Divider(height: 12),
                     Container(
+                      padding: const EdgeInsets.only(right: 15),
                       constraints: BoxConstraints(maxHeight: imageHeight),
                       child: Row(
                         children: [

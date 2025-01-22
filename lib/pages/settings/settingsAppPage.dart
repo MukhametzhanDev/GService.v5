@@ -24,17 +24,17 @@ class _SettingsAppPageState extends State<SettingsAppPage> {
 
   void showChangedLanguage() {
     showModalBottomSheet(
-        context: context, builder: (context) => ChangeAppLanguage());
+        context: context, builder: (context) => const ChangeAppLanguage());
   }
 
   void showHelpdescModal() {
     Navigator.push(
-        context, MaterialPageRoute(builder: (context) => HelpdeskModal()));
+        context, MaterialPageRoute(builder: (context) => const HelpdeskModal()));
   }
 
   void showAboutApp() {
     Navigator.push(context,
-        MaterialPageRoute(builder: (context) => AboutApplicationPage()));
+        MaterialPageRoute(builder: (context) => const AboutApplicationPage()));
   }
 
   void sendInvite() async {
@@ -55,28 +55,28 @@ class _SettingsAppPageState extends State<SettingsAppPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-          leading: BackTitleButton(title: "Настройки"), leadingWidth: 200),
+          leading: const BackTitleButton(title: "Настройки"), leadingWidth: 200),
       body: SingleChildScrollView(
           child: Column(
         children: [
           ListTile(
               onTap: showChangedLanguage,
-              title: Text("Язык приложения"),
+              title: const Text("Язык приложения"),
               trailing: SvgPicture.asset("assets/icons/right.svg")),
           Divider(height: 1, color: ColorComponent.gray['100']),
           ListTile(
               onTap: showHelpdescModal,
-              title: Text("Служба поддержки"),
+              title: const Text("Служба поддержки"),
               trailing: SvgPicture.asset("assets/icons/right.svg")),
           Divider(height: 1, color: ColorComponent.gray['100']),
           ListTile(
               onTap: sendInvite,
-              title: Text("Пригласить друзей"),
+              title: const Text("Пригласить друзей"),
               trailing: SvgPicture.asset("assets/icons/right.svg")),
           Divider(height: 1, color: ColorComponent.gray['100']),
           ListTile(
               onTap: showAboutApp,
-              title: Text("О приложении"),
+              title: const Text("О приложении"),
               trailing: SvgPicture.asset("assets/icons/right.svg")),
           Divider(height: 1, color: ColorComponent.gray['100']),
           ListTile(

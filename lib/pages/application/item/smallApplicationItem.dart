@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:gservice5/component/button/favoriteAdButton.dart';
 import 'package:gservice5/component/button/favoriteApplicationButton.dart';
 import 'package:gservice5/component/date/formattedDate.dart';
 import 'package:gservice5/component/formatted/price/priceFormat.dart';

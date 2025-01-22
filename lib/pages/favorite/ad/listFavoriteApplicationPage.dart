@@ -4,7 +4,6 @@ import 'package:gservice5/component/dio/dio.dart';
 import 'package:gservice5/component/loader/loaderComponent.dart';
 import 'package:gservice5/component/loader/paginationLoaderComponent.dart';
 import 'package:gservice5/component/snackBar/snackBarComponent.dart';
-import 'package:gservice5/pages/ad/item/adItem.dart';
 import 'package:gservice5/pages/application/item/applicationItem.dart';
 import 'package:gservice5/pages/favorite/ad/emptyFavoriteListPage.dart';
 import 'package:gservice5/provider/applicationFavoriteProvider.dart';

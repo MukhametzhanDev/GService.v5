@@ -88,7 +88,7 @@ class _TransportSaleCurrencyPageState extends State<TransportSaleCurrencyPage> {
                       type: "my_currency"),
                   Expanded(
                     child: ListView.builder(
-                        padding: EdgeInsets.all(16),
+                        padding: const EdgeInsets.all(16),
                         itemCount: data.length,
                         itemBuilder: (BuildContext context, int index) {
                           Map value = data[index];
