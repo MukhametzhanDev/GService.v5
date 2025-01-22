@@ -1,88 +1,97 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
-	<dict>
-		<key>BGTaskSchedulerPermittedIdentifiers</key>
-		<array>
-			<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
-		</array>
-		<key>CADisableMinimumFrameDurationOnPhone</key>
-		<true />
-		<key>CFBundleDevelopmentRegion</key>
-		<string>$(DEVELOPMENT_LANGUAGE)</string>
-		<key>CFBundleDisplayName</key>
-		<string>Gservice5</string>
-		<key>CFBundleExecutable</key>
-		<string>$(EXECUTABLE_NAME)</string>
-		<key>CFBundleIdentifier</key>
+<dict>
+	<key>BGTaskSchedulerPermittedIdentifiers</key>
+	<array>
 		<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
-		<key>CFBundleInfoDictionaryVersion</key>
-		<string>6.0</string>
-		<key>CFBundleName</key>
-		<string>gservice5</string>
-		<key>CFBundlePackageType</key>
-		<string>APPL</string>
-		<key>CFBundleShortVersionString</key>
-		<string>3.3.4</string>
-		<key>CFBundleSignature</key>
-		<string>????</string>
-		<key>CFBundleVersion</key>
-		<string>$(FLUTTER_BUILD_NUMBER)</string>
-		<key>LSApplicationQueriesSchemes</key>
-		<array>
-			<string>sms</string>
-			<string>tel</string>
-		</array>
-		<key>LSRequiresIPhoneOS</key>
-		<true />
-		<key>NSCameraUsageDescription</key>
-		<string>Доступ к камере требуется для добавление объявление</string>
-		<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-		<string>Этому приложению требуется доступ к местоположению, когда оно открыто</string>
-		<key>NSLocationAlwaysUsageDescription</key>
-		<string>Этому приложению требуется доступ к местоположению в фоновом режиме</string>
-		<key>NSLocationUsageDescription</key>
-		<string>Этому приложению требуется доступ к местоположению, когда оно открыто</string>
-		<key>NSLocationWhenInUseUsageDescription</key>
-		<string>Этому приложению требуется доступ к местоположению, когда оно открыто</string>
-		<key>NSMicrophoneUsageDescription</key>
-		<string>Доступ к микрофона требуется для добавление заказа</string>
-		<key>NSPhotoLibraryUsageDescription</key>
-		<string>Доступ к фото требуется для добавление объявление</string>
-		<key>NSDocumentsFolderUsageDescription</key>
-		<string>Для выбора файлов нам необходим доступ к вашим документам</string>
-		<key>UIApplicationSupportsIndirectInputEvents</key>
-		<true />
-		<key>NSMotionUsageDescription</key>
-		<string>Мы используем данные о движении для повышения точности определения местоположения и
-			предоставления более качественных услуг</string>
-		<key>NSAppTransportSecurity</key>
+	</array>
+	<key>CADisableMinimumFrameDurationOnPhone</key>
+	<true/>
+	<key>CFBundleDevelopmentRegion</key>
+	<string>$(DEVELOPMENT_LANGUAGE)</string>
+	<key>CFBundleDisplayName</key>
+	<string>Gservice5</string>
+	<key>CFBundleExecutable</key>
+	<string>$(EXECUTABLE_NAME)</string>
+	<key>CFBundleIdentifier</key>
+	<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
+	<key>CFBundleInfoDictionaryVersion</key>
+	<string>6.0</string>
+	<key>CFBundleName</key>
+	<string>gservice5</string>
+	<key>CFBundlePackageType</key>
+	<string>APPL</string>
+	<key>CFBundleShortVersionString</key>
+	<string>3.3.4</string>
+	<key>CFBundleSignature</key>
+	<string>????</string>
+	<key>CFBundleURLTypes</key>
+	<array>
 		<dict>
-			<key>NSAllowsLocalNetworking</key>
-			<true />
+			<key>CFBundleTypeRole</key>
+			<string>Viewer</string>
+			<key>CFBundleURLName</key>
+    		<string>com.bg.gservice</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>v4.gservice.kz</string>
+			</array>
 		</dict>
-		<key>UIBackgroundModes</key>
-		<array>
-			<string>fetch</string>
-			<string>processing</string>
-			<string>remote-notification</string>
-		</array>
-		<key>UILaunchStoryboardName</key>
-		<string>LaunchScreen</string>
-		<key>UIMainStoryboardFile</key>
-		<string>Main</string>
-		<key>UISupportedInterfaceOrientations</key>
-		<array>
-			<string>UIInterfaceOrientationPortrait</string>
-			<string>UIInterfaceOrientationLandscapeLeft</string>
-			<string>UIInterfaceOrientationLandscapeRight</string>
-		</array>
-		<key>UISupportedInterfaceOrientations~ipad</key>
-		<array>
-			<string>UIInterfaceOrientationPortrait</string>
-			<string>UIInterfaceOrientationPortraitUpsideDown</string>
-			<string>UIInterfaceOrientationLandscapeLeft</string>
-			<string>UIInterfaceOrientationLandscapeRight</string>
-		</array>
-	</dict>
+	</array>
+	<key>CFBundleVersion</key>
+	<string>$(FLUTTER_BUILD_NUMBER)</string>
+	<key>FlutterDeepLinkingEnabled</key>
+	<true/>
+	<key>LSApplicationQueriesSchemes</key>
+	<array>
+		<string>sms</string>
+		<string>tel</string>
+	</array>
+	<key>LSRequiresIPhoneOS</key>
+	<true/>
+	<key>NSCameraUsageDescription</key>
+	<string>Доступ к камере требуется для добавление объявление</string>
+	<key>NSDocumentsFolderUsageDescription</key>
+	<string>Для выбора файлов нам необходим доступ к вашим документам</string>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>Этому приложению требуется доступ к местоположению, когда оно открыто</string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>Этому приложению требуется доступ к местоположению в фоновом режиме</string>
+	<key>NSLocationUsageDescription</key>
+	<string>Этому приложению требуется доступ к местоположению, когда оно открыто</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>Этому приложению требуется доступ к местоположению, когда оно открыто</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>Доступ к микрофона требуется для добавление заказа</string>
+	<key>NSMotionUsageDescription</key>
+	<string>Мы используем данные о движении для повышения точности определения местоположения и предоставления более качественных услуг</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Доступ к фото требуется для добавление объявление</string>
+	<key>UIApplicationSupportsIndirectInputEvents</key>
+	<true/>
+	<key>UIBackgroundModes</key>
+	<array>
+		<string>fetch</string>
+		<string>processing</string>
+		<string>remote-notification</string>
+	</array>
+	<key>UILaunchStoryboardName</key>
+	<string>LaunchScreen</string>
+	<key>UIMainStoryboardFile</key>
+	<string>Main</string>
+	<key>UISupportedInterfaceOrientations</key>
+	<array>
+		<string>UIInterfaceOrientationPortrait</string>
+		<string>UIInterfaceOrientationLandscapeLeft</string>
+		<string>UIInterfaceOrientationLandscapeRight</string>
+	</array>
+	<key>UISupportedInterfaceOrientations~ipad</key>
+	<array>
+		<string>UIInterfaceOrientationPortrait</string>
+		<string>UIInterfaceOrientationPortraitUpsideDown</string>
+		<string>UIInterfaceOrientationLandscapeLeft</string>
+		<string>UIInterfaceOrientationLandscapeRight</string>
+	</array>
+</dict>
 </plist>

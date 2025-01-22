@@ -10,7 +10,6 @@ import 'package:gservice5/pages/ad/item/adItem.dart';
 import 'package:gservice5/pages/ad/list/adListLoader.dart';
 import 'package:gservice5/pages/ad/list/emptyAdListPage.dart';
 import 'package:gservice5/pages/create/application/createApplicationWidgetAdList.dart';
-import 'package:gservice5/pages/create/data/createData.dart';
 import 'package:gservice5/provider/adFilterProvider.dart';
 import 'package:provider/provider.dart';
 
@@ -187,19 +186,12 @@ class _AdListPageState extends State<AdListPage> {
                     Map value = data[index];
                     if (index % 20 == 0 && index > 19) {
                       return Column(children: [
-                        AdItem(
-                          data: value,
-                          showCategory: false,
-                          fromPage: GAParams.adListPage,
-                        ),
+                        AdItem(data: value),
                         const CreateApplicationWidgetAdList()
                       ]);
                     } else if (data.length - 1 == index) {
                       return Column(children: [
-                        AdItem(
-                            data: value,
-                            showCategory: false,
-                            fromPage: GAParams.adListPage),
+                        AdItem(data: value),
                         hasNextPage
                             ? const PaginationLoaderComponent()
                             : Container()
@@ -207,10 +199,7 @@ class _AdListPageState extends State<AdListPage> {
                     } else {
                       return Column(
                         children: [
-                          AdItem(
-                              data: value,
-                              showCategory: false,
-                              fromPage: GAParams.adListPage),
+                          AdItem(data: value),
                         ],
                       );
                     }

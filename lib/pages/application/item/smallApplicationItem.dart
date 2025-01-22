@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:gservice5/component/button/favoriteButton.dart';
+import 'package:gservice5/component/button/favoriteApplicationButton.dart';
 import 'package:gservice5/component/date/formattedDate.dart';
 import 'package:gservice5/component/formatted/price/priceFormat.dart';
-import 'package:gservice5/component/modal/contact/shortContactModal.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
 
 class SmallApplicationItem extends StatefulWidget {
@@ -64,10 +63,7 @@ class _SmallApplicationItemState extends State<SmallApplicationItem> {
                 const Divider(indent: 15),
                 widget.position == "main"
                     ? Container()
-                    : FavoriteButton(
-                        id: widget.data['id'],
-                        active: widget.data['is_favorite'],
-                        type: "application")
+                    : FavoriteApplicationButton(data: widget.data)
               ],
             ),
             Row(

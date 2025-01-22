@@ -169,14 +169,13 @@ class _ApplicationListPageState extends State<ApplicationListPage> {
                       Map value = data[index];
                       if (data.length - 1 == index) {
                         return Column(children: [
-                          ApplicationItem(data: value, showCategory: false),
+                          ApplicationItem(data: value),
                           hasNextPage
                               ? const PaginationLoaderComponent()
                               : Container()
                         ]);
                       } else {
-                        return ApplicationItem(
-                            data: value, showCategory: false);
+                        return ApplicationItem(data: value);
                       }
                     }));
   }

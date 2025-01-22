@@ -108,7 +108,9 @@ class MyAdRequest {
       "archived": 0,
       "deleted": 0
     };
-    Map<String, dynamic> param = {"category_id": categoryId};
+    Map<String, dynamic> param = {};
+    if (categoryId != 0) param = {"category_id": categoryId};
+    print(param);
     try {
       Response response =
           await dio.get("/my-ads-status-count", queryParameters: param);

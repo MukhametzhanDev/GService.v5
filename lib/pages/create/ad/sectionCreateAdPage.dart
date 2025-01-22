@@ -89,11 +89,6 @@ class _SectionCreateAdPageState extends State<SectionCreateAdPage> {
     CreateData.data['category'] = data[currentIndex];
     CreateData.characteristic['characteristics'] =
         data[currentIndex]['options']['characteristics'];
-    data[currentIndex]['options']['necessary_inputs'].add({
-      "url": "https://dev.gservice-co.kz/api/cities",
-      "name": "city_id",
-      "multiple": false
-    });
     showOptionsPage();
 
     analytics.logSelectItem(

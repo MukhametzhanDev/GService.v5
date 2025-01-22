@@ -81,13 +81,9 @@ class _ResultListPageState extends State<ResultListPage> {
 
   Widget getItem(Map value) {
     if (widget.param['category_id'] == 3) {
-      return ApplicationItem(data: value, showCategory: true);
+      return ApplicationItem(data: value);
     } else {
-      return AdItem(
-        data: value,
-        showCategory: false,
-        fromPage: GAParams.resultListPage,
-      );
+      return AdItem(data: value);
     }
   }
 

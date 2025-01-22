@@ -1,4 +1,3 @@
-import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
 import 'package:intl/intl.dart';
@@ -24,9 +23,9 @@ class _ChartWidgetState extends State<ChartWidget> {
   }
 
   void formattedData() {
-    widget.data.forEach((value) {
+    for (var value in widget.data) {
       data.add(value[widget.type]);
-    });
+    }
     print(data);
     max = data.reduce((a, b) => a > b ? a : b);
   }
@@ -61,11 +60,11 @@ class _ChartWidgetState extends State<ChartWidget> {
           thumbVisibility: true,
           thickness: 6,
           controller: scrollController,
-          radius: Radius.circular(12),
+          radius: const Radius.circular(12),
           child: SizedBox(
             height: chartWidgetHeight,
             child: Container(
-              margin: EdgeInsets.only(bottom: 25),
+              margin: const EdgeInsets.only(bottom: 25),
               height: MediaQuery.of(context).size.height / 2.5,
               width: MediaQuery.of(context).size.width - 30,
               decoration: BoxDecoration(

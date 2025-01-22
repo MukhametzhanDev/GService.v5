@@ -54,10 +54,10 @@ class _HelpdeskModalState extends State<HelpdeskModal> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-          leading: BackTitleButton(title: "Служба поддержки"),
+          leading: const BackTitleButton(title: "Служба поддержки"),
           leadingWidth: 240),
       body: SingleChildScrollView(
-        padding: EdgeInsets.symmetric(horizontal: 15, vertical: 7.5),
+        padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 7.5),
         child: Column(
           children: [
             TextField(
@@ -77,7 +77,7 @@ class _HelpdeskModalState extends State<HelpdeskModal> {
       bottomNavigationBar: BottomNavigationBarComponent(
           child: Button(
               onPressed: verifyMessage,
-              padding: EdgeInsets.symmetric(horizontal: 15),
+              padding: const EdgeInsets.symmetric(horizontal: 15),
               title: "Отправить")),
     );
     // ClipRRect(

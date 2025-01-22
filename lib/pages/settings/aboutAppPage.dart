@@ -46,17 +46,17 @@ class _AboutApplicationPageState extends State<AboutApplicationPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: BackTitleButton(title: "О приложении"),
+        leading: const BackTitleButton(title: "О приложении"),
         leadingWidth: 200,
       ),
       body: FutureBuilder(
           future: getDataAppVersion(),
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
-              return LoaderComponent();
+              return const LoaderComponent();
             } else {
               return SingleChildScrollView(
-                padding: EdgeInsets.symmetric(horizontal: 15, vertical: 20),
+                padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 20),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
@@ -64,10 +64,10 @@ class _AboutApplicationPageState extends State<AboutApplicationPage> {
                         borderRadius: BorderRadius.circular(12),
                         child: SvgPicture.asset('assets/icons/iconApp.svg',
                             width: 70)),
-                    SizedBox(height: 20),
+                    const SizedBox(height: 20),
                     Text(
                         "Версия ${snapshot.data.version} (${snapshot.data.buildNumber})"),
-                    SizedBox(height: 10),
+                    const SizedBox(height: 10),
                     FutureBuilder(
                         future: getDataPhone(),
                         builder: (context, phoneData) {
@@ -78,34 +78,34 @@ class _AboutApplicationPageState extends State<AboutApplicationPage> {
                             return Text(phoneData.data);
                           }
                         }),
-                    SizedBox(height: 20),
+                    const SizedBox(height: 20),
                     Divider(height: 1, color: ColorComponent.gray['100']),
-                    SizedBox(height: 20),
+                    const SizedBox(height: 20),
                     Button(
                         onPressed: () {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => HelpdeskModal()));
+                                  builder: (context) => const HelpdeskModal()));
                         },
                         title: "Написать службу поддержки"),
-                    SizedBox(height: 20),
-                    Text(
+                    const SizedBox(height: 20),
+                    const Text(
                         "Мы работаем в будние дни с 9:00 до 20:00 и в праздничные/выходные дни с 9:00 до 17:00",
                         textAlign: TextAlign.center),
-                    SizedBox(height: 20),
+                    const SizedBox(height: 20),
                     Divider(height: 1, color: ColorComponent.gray['100']),
                     ListTile(
                         onTap: () {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => WebViewPage(
+                                  builder: (context) => const WebViewPage(
                                       url:
                                           "https://business.gservice.kz/termsofuse")));
                         },
                         contentPadding: EdgeInsets.zero,
-                        title: Text("Пользовательское соглашение"),
+                        title: const Text("Пользовательское соглашение"),
                         trailing: SvgPicture.asset('assets/icons/right.svg')),
                     Divider(height: 1, color: ColorComponent.gray['100']),
                     ListTile(
@@ -113,12 +113,12 @@ class _AboutApplicationPageState extends State<AboutApplicationPage> {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => WebViewPage(
+                                  builder: (context) => const WebViewPage(
                                       url:
                                           "https://business.gservice.kz/termsofuse")));
                         },
                         contentPadding: EdgeInsets.zero,
-                        title: Text("Политика конфедициальности"),
+                        title: const Text("Политика конфедициальности"),
                         trailing: SvgPicture.asset('assets/icons/right.svg')),
                     Divider(height: 1, color: ColorComponent.gray['100']),
                     // ListTile(
@@ -142,7 +142,7 @@ class _AboutApplicationPageState extends State<AboutApplicationPage> {
                         onTap: () {
                           showCupertinoModalBottomSheet(
                               context: context,
-                              builder: (context) => DeleteAccountModal());
+                              builder: (context) => const DeleteAccountModal());
                         },
                         contentPadding: EdgeInsets.zero,
                         title: Text("Удалить аккаунт",

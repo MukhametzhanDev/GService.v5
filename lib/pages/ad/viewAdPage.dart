@@ -10,7 +10,7 @@ import 'package:gservice5/component/appBar/fadeOnScroll.dart';
 import 'package:gservice5/component/bar/bottomBar/contactBottomBarWidget.dart';
 import 'package:gservice5/component/button/back/backIconButton.dart';
 import 'package:gservice5/component/button/button.dart';
-import 'package:gservice5/component/button/favoriteButton.dart';
+import 'package:gservice5/component/button/favoriteAdButton.dart';
 import 'package:gservice5/component/button/shareButton.dart';
 import 'package:gservice5/component/description/showDescriptionWidget.dart';
 import 'package:gservice5/component/dio/dio.dart';
@@ -25,7 +25,6 @@ import 'package:gservice5/component/widgets/characteristic/showCharacteristicWid
 import 'package:gservice5/component/widgets/price/priceTextWidget.dart';
 import 'package:gservice5/pages/ad/list/recommendationAdList.dart';
 import 'package:gservice5/pages/ad/widget/viewCharacteristicWidget.dart';
-import 'package:gservice5/pages/favorite/ad/data/favoriteAdData.dart';
 import 'package:intl/intl.dart';
 
 class ViewAdPage extends StatefulWidget {
@@ -57,7 +56,6 @@ class _ViewAdPageState extends State<ViewAdPage> {
       if (response.data['success']) {
         data = response.data['data'];
         loader = false;
-        addAdFavorite();
         setState(() {});
 
         await analytics.logViewItem(parameters: {
@@ -75,12 +73,6 @@ class _ViewAdPageState extends State<ViewAdPage> {
       }
     } catch (e) {
       SnackBarComponent().showNotGoBackServerErrorMessage(context);
-    }
-  }
-
-  void addAdFavorite() {
-    if (data['is_favorite']) {
-      FavoriteAdData.adFavorite.addAll({data['id']: ""});
     }
   }
 
@@ -103,20 +95,9 @@ class _ViewAdPageState extends State<ViewAdPage> {
                     leading: const BackIconButton(),
                     centerTitle: false,
                     actions: [
-                      // FavoriteButtonComponent(iconColor: ColorTheme['black_white']),
-                      ShareButton(
-                        id: widget.id,
-                        hasAd: true,
-                        frompage: GAParams.viewAdPage,
-                      ),
-                      const Divider(indent: 10),
-                      FavoriteButton(
-                        id: data['id'],
-                        type: "ad",
-                        active: data['is_favorite'],
-                        fromPage: GAParams.viewAdPage,
-                      ),
-                      const Divider(indent: 15)
+                      // FavoriteAdButtonComponent(iconColor: ColorTheme['black_white']),
+                      ShareButton(id: widget.id, hasAd: true),
+                      FavoriteAdButton(data: data),
                     ],
                     title: FadeOnScroll(
                       scrollController: scrollController,
@@ -142,7 +123,7 @@ class _ViewAdPageState extends State<ViewAdPage> {
                       children: [
                         Padding(
                           padding: const EdgeInsets.symmetric(
-                              horizontal: 16, vertical: 8),
+                              horizontal: 16, vertical: 4),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [

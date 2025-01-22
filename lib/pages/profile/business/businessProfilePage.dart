@@ -178,7 +178,7 @@ class _BusinessProfilePageState extends State<BusinessProfilePage> {
                                   onTap: () => showChangeCustomerProfilePage(),
                                   child: Container(
                                       height: 32,
-                                      margin: EdgeInsets.only(bottom: 8),
+                                      margin: const EdgeInsets.only(bottom: 8),
                                       alignment: Alignment.centerLeft,
                                       child: Text("Написать описание компании",
                                           style: TextStyle(

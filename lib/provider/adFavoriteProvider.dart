@@ -12,19 +12,19 @@ class AdFavoriteProvider extends ChangeNotifier {
   }
 
   set addAds(List value) {
-    value.forEach((element) {
+    for (var element in value) {
       element = element['favoritable'];
       data.addAll({element['id']: element});
-    });
+    }
     notifyListeners();
   }
 
   set updateAds(List value) {
     Map<int, Map> ads = {};
-    value.forEach((element) {
+    for (var element in value) {
       element = element['favoritable'];
       ads.addAll({element['id']: element});
-    });
+    }
     data = ads;
     notifyListeners();
   }

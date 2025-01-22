@@ -96,13 +96,14 @@ class _ListPackagePageState extends State<ListPackagePage> {
       Navigator.pop(context);
       if (response.data['success']) {
         showModalBottomSheet(
-                context: context,
-                builder: (context) => PaymentMethodModal(
+            context: context,
+            builder: (context) => PaymentMethodModal(
                     totalPrice: totalPrice,
-                    orderId: response.data['data'],
-                    data: getProduct(),
-                    typePurchase: "package"))
-            .then((value) => Navigator.pop(context, value));
+                orderId: response.data['data'],
+                data: getProduct(),
+                typePurchase: "package")).then((value) {
+          if (value != null) Navigator.pop(context, value);
+        });
 
         analytics.logEvent(
             name: GAEventName.selectedPackageAd,

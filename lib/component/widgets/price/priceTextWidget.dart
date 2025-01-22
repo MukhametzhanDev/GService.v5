@@ -10,8 +10,11 @@ class PriceTextWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print("prices $prices");
     if (prices == null || prices!.isEmpty) {
       return Text("Договорная",
+          maxLines: 1,
+          overflow: TextOverflow.ellipsis,
           style: TextStyle(
               fontWeight: FontWeight.w600,
               color: Colors.black,
@@ -19,44 +22,41 @@ class PriceTextWidget extends StatelessWidget {
     } else if (prices != null && prices!.length == 1) {
       Map price = prices![0];
       return Text("${priceFormat(price['price'])} ₸",
+          maxLines: 1,
+          overflow: TextOverflow.ellipsis,
           style: TextStyle(
               fontWeight: FontWeight.w600,
               color: Colors.black,
               fontSize: fontSize ?? 15));
     } else if (prices!.length == 2) {
-      return Row(crossAxisAlignment: CrossAxisAlignment.end, children: [
-        RichText(
-            text: TextSpan(
-                style: const TextStyle(
-                    fontWeight: FontWeight.w600, color: Colors.black),
-                children: [
-              TextSpan(
-                  text: "${priceFormat(prices![1]['price'])} ₸",
-                  style: TextStyle(fontSize: fontSize ?? 15)),
-              TextSpan(
-                  text: " /час",
-                  style: TextStyle(
-                      fontWeight: FontWeight.w400,
-                      color: ColorComponent.gray['600'],
-                      fontSize: (fontSize ?? 15) - 1)),
-            ])),
-        const Text("  |  "),
-        RichText(
-            text: TextSpan(
-                style: const TextStyle(
-                    fontWeight: FontWeight.w500, color: Colors.black),
-                children: [
-              TextSpan(
-                  text: "${priceFormat(prices![0]['price'])} ₸",
-                  style: TextStyle(fontSize: fontSize ?? 15)),
-              TextSpan(
-                  text: " /смена",
-                  style: TextStyle(
-                      color: ColorComponent.gray['600'],
-                      fontWeight: FontWeight.w400,
-                      fontSize: (fontSize ?? 15) - 1)),
-            ])),
-      ]);
+      return RichText(
+          maxLines: 1,
+          overflow: TextOverflow.ellipsis,
+          text: TextSpan(
+              style: const TextStyle(
+                  fontWeight: FontWeight.w600, color: Colors.black),
+              children: [
+                TextSpan(
+                    text: "${priceFormat(prices![1]['price'])} ₸",
+                    style: TextStyle(fontSize: fontSize ?? 15)),
+                TextSpan(
+                    text: " /час",
+                    style: TextStyle(
+                        fontWeight: FontWeight.w400,
+                        color: ColorComponent.gray['600'],
+                        fontSize: (fontSize ?? 15) - 1)),
+                const TextSpan(
+                    text: "  |  ", style: TextStyle(color: Colors.black)),
+                TextSpan(
+                    text: "${priceFormat(prices![0]['price'])} ₸",
+                    style: TextStyle(fontSize: fontSize ?? 15)),
+                TextSpan(
+                    text: " /смена",
+                    style: TextStyle(
+                        color: ColorComponent.gray['600'],
+                        fontWeight: FontWeight.w400,
+                        fontSize: (fontSize ?? 15) - 1)),
+              ]));
     } else {
       return const Text("");
     }

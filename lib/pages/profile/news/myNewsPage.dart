@@ -4,6 +4,7 @@ import 'package:gservice5/component/dio/dio.dart';
 import 'package:gservice5/component/loader/loaderComponent.dart';
 import 'package:gservice5/component/snackBar/snackBarComponent.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
+import 'package:gservice5/component/widgets/bottom/bottomNavigationBarComponent.dart';
 import 'package:gservice5/pages/profile/news/empty/emptyMyNewsPage.dart';
 import 'package:gservice5/pages/profile/news/newsItem.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
@@ -86,26 +87,30 @@ class _MyNewsPageState extends State<MyNewsPage> {
 
   @override
   Widget build(BuildContext context) {
-    return loader
-        ? const LoaderComponent()
-        : SmartRefresher(
-            onRefresh: () async {
-              await getData();
-            },
-            enablePullDown: true,
-            enablePullUp: false,
-            controller: refreshController,
-            header: MaterialClassicHeader(
-                color: ColorComponent.mainColor, backgroundColor: Colors.white),
-            child: data.isEmpty
-                ? const EmptyMyNewsPage()
-                : ListView.builder(
-                    padding: const EdgeInsets.all(16),
-                    controller: scrollController,
-                    itemCount: data.length,
-                    itemBuilder: (context, index) {
-                      return NewsItem(data: data[index]);
-                    }),
-          );
+    return Scaffold(
+        body: loader
+            ? const LoaderComponent()
+            : SmartRefresher(
+                onRefresh: () async {
+                  await getData();
+                },
+                enablePullDown: true,
+                enablePullUp: false,
+                controller: refreshController,
+                header: MaterialClassicHeader(
+                    color: ColorComponent.mainColor,
+                    backgroundColor: Colors.white),
+                child: data.isEmpty
+                    ? const EmptyMyNewsPage()
+                    : ListView.builder(
+                        padding: const EdgeInsets.all(16),
+                        controller: scrollController,
+                        itemCount: data.length,
+                        itemBuilder: (context, index) {
+                          return NewsItem(data: data[index]);
+                        }),
+              ),
+        bottomNavigationBar:
+            BottomNavigationBarComponent(child: Container(height: 50)));
   }
 }

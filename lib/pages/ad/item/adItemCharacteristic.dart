@@ -6,14 +6,15 @@ class AdItemCharacteristic extends StatelessWidget {
   const AdItemCharacteristic({super.key, required this.data});
 
   String getTitle(value) {
+    String measurementUnit = value['values']['measurement_unit'] ?? "";
     if (value['values']['title'].runtimeType == String) {
       if (value['values']['title'].length > 3) {
-        return value['values']['title'];
+        return "${value['values']['title']} $measurementUnit";
       } else {
         return "${value['characteristic']['title']}: ${value['values']['title'].toString().toLowerCase()}";
       }
     } else if (value['values']['title'].runtimeType == int) {
-      return "${value['values']['title']} ${value['values']['measurement_unit'] ?? ""}";
+      return "${value['values']['title']} $measurementUnit";
     } else {
       return "";
     }
@@ -21,56 +22,82 @@ class AdItemCharacteristic extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    List characteristics = [
-      {
-        "characteristic": {"title": ""},
-        "values": {
-          "value": "",
-          "title": data['category']['title'],
-          "measurement_unit": null
-        }
-      },
-      ...data['characteristics']
-    ];
+    List characteristics = data['characteristics'];
+    // [
+    //   {
+    //     "characteristic": {"title": ""},
+    //     "values": {
+    //       "value": "",
+    //       "title": data['category']['title'],
+    //       "measurement_unit": null
+    //     }
+    //   },
+    //   ...data['characteristics']
+    // ];
     double lineHeight = 15.0;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        // Text(data['category']['title'] ?? "",
-        //     style: TextStyle(
-        //       fontSize: 13,
-        //       color: ColorComponent.gray['700'],
-        //       height: lineHeight / 12,
-        //     ),
-        //     overflow: TextOverflow.ellipsis),
-        Wrap(
-            runSpacing: 1.5,
-            children: characteristics.map((value) {
-              int index = characteristics.indexOf(value);
-              bool last = index == characteristics.length - 1;
-              String title = getTitle(value);
-              if (title.length > 3) {
-                // if(index==0){}
-                return richTextItem(title, last);
-              } else {
-                return Container();
-              }
-            }).toList()),
-        Expanded(
-          child: LayoutBuilder(builder: (context, constraints) {
-            int calculateMaxLines(BoxConstraints constraints) {
-              return (constraints.maxHeight / (lineHeight)).floor();
-            }
+        Text(data['category']['title'] ?? "",
+            style: TextStyle(
+                fontSize: 13,
+                color: ColorComponent.gray['700'],
+                fontWeight: FontWeight.w500),
+            overflow: TextOverflow.ellipsis),
+        const Divider(height: 4),
+        Expanded(child: LayoutBuilder(builder: (context, constraints) {
+          int calculateMaxLines(BoxConstraints constraints) {
+            return (constraints.maxHeight / (lineHeight)).floor();
+          }
 
-            return Text(data['description'] ?? "",
-                style: TextStyle(
-                  fontSize: 13,
-                  color: ColorComponent.gray['700'],
-                ),
-                maxLines: calculateMaxLines(constraints),
-                overflow: TextOverflow.ellipsis);
-          }),
-        )
+          return RichText(
+              maxLines: calculateMaxLines(constraints),
+              overflow: TextOverflow.ellipsis,
+              text: TextSpan(
+                  style: TextStyle(
+                      color: ColorComponent.gray['600'], fontSize: 13),
+                  children: characteristics.map((value) {
+                    int index = characteristics.indexOf(value);
+                    bool last = index == characteristics.length - 1;
+                    String title = getTitle(value);
+                    String symbol = title.isEmpty ? "" : " | ";
+                    if (last) {
+                      return TextSpan(
+                          text: "$title | " + data['description'],
+                          style: const TextStyle(height: 1.4));
+                    } else {
+                      return TextSpan(
+                          text: "$title$symbol", style: const TextStyle(height: 1.4));
+                    }
+                  }).toList()));
+        })),
+        // Wrap(
+        //     runSpacing: 1.5,
+        //     children: characteristics.map((value) {
+        //       int index = characteristics.indexOf(value);
+        //       bool last = index == characteristics.length - 1;
+        //       String title = getTitle(value);
+        //       if (title.length > 3) {
+        //         return richTextItem(title, last);
+        //       } else {
+        //         return Container();
+        //       }
+        //     }).toList()),
+        // Expanded(
+        //   child: LayoutBuilder(builder: (context, constraints) {
+        //     int calculateMaxLines(BoxConstraints constraints) {
+        //       return (constraints.maxHeight / (lineHeight)).floor();
+        //     }
+
+        //     return Text(data['description'] ?? "",
+        //         style: TextStyle(
+        //           fontSize: 13,
+        //           color: ColorComponent.gray['600'],
+        //         ),
+        //         maxLines: calculateMaxLines(constraints),
+        //         overflow: TextOverflow.ellipsis);
+        //   }),
+        // )
       ],
     );
   }
@@ -79,15 +106,9 @@ class AdItemCharacteristic extends StatelessWidget {
     return RichText(
       text: TextSpan(style: const TextStyle(fontSize: 13), children: [
         TextSpan(
-            text: title,
-            style: TextStyle(
-                color: data['category']['title'] == title
-                    ? Colors.black
-                    : ColorComponent.gray['700'])),
+            text: title, style: TextStyle(color: ColorComponent.gray['600'])),
         TextSpan(
-            text: last ? "." : " | ",
-            style: TextStyle(
-                color: last ? Colors.black : ColorComponent.gray['300']))
+            text: " | ", style: TextStyle(color: ColorComponent.gray['300']))
       ]),
     );
   }

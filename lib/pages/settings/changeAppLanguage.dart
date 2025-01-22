@@ -20,23 +20,23 @@ class _ChangeAppLanguageState extends State<ChangeAppLanguage> {
         children: [
           AppBar(
             automaticallyImplyLeading: false,
-            title: Text("Язык приложения"),
+            title: const Text("Язык приложения"),
             centerTitle: false,
-            actions: [CloseIconButton(iconColor: null, padding: true)],
+            actions: const [CloseIconButton(iconColor: null, padding: true)],
           ),
           ListTile(
               onTap: () {},
-              title: Text("Қазақша"),
+              title: const Text("Қазақша"),
               trailing: SvgPicture.asset("assets/icons/right.svg")),
           Divider(height: 1, color: ColorComponent.gray['100']),
           ListTile(
               onTap: () {},
-              title: Text("Русский"),
+              title: const Text("Русский"),
               trailing: SvgPicture.asset("assets/icons/right.svg")),
           Divider(height: 1, color: ColorComponent.gray['100']),
           ListTile(
               onTap: () {},
-              title: Text("English"),
+              title: const Text("English"),
               trailing: SvgPicture.asset("assets/icons/right.svg")),
           Divider(height: 1, color: ColorComponent.gray['100']),
           SizedBox(height: MediaQuery.of(context).padding.bottom)

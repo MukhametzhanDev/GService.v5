@@ -12,19 +12,19 @@ class ApplicationFavoriteProvider extends ChangeNotifier {
   }
 
   set addApplications(List value) {
-    value.forEach((element) {
+    for (var element in value) {
       element = element['favoritable'];
       data.addAll({element['id']: element});
-    });
+    }
     notifyListeners();
   }
 
   set updateApplications(List value) {
     Map<int, Map> applications = {};
-    value.forEach((element) {
+    for (var element in value) {
       element = element['favoritable'];
       applications.addAll({element['id']: element});
-    });
+    }
     data = applications;
     notifyListeners();
   }

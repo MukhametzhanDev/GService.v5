@@ -4,7 +4,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:gservice5/analytics/event_name.constan.dart';
-import 'package:gservice5/component/button/favoriteButton.dart';
+import 'package:gservice5/component/button/favoriteAdButton.dart';
 import 'package:gservice5/component/formatted/number/numberFormatted.dart';
 import 'package:gservice5/component/image/cacheImage.dart';
 import 'package:gservice5/component/modal/contact/shortContactModal.dart';
@@ -14,18 +14,12 @@ import 'package:gservice5/component/widgets/price/priceTextWidget.dart';
 import 'package:gservice5/pages/ad/item/adItemCharacteristic.dart';
 import 'package:gservice5/pages/ad/package/showPackageIcons.dart';
 import 'package:gservice5/pages/ad/viewAdPage.dart';
-import 'package:gservice5/pages/favorite/ad/data/favoriteAdData.dart';
 import 'package:intl/intl.dart';
 
 class AdItem extends StatefulWidget {
   final Map data;
-  final bool showCategory;
   final String? fromPage;
-  const AdItem(
-      {super.key,
-      required this.data,
-      required this.showCategory,
-      this.fromPage});
+  const AdItem({super.key, required this.data, this.fromPage});
 
   @override
   State<AdItem> createState() => _AdItemState();
@@ -35,10 +29,8 @@ class _AdItemState extends State<AdItem> {
   final analytics = FirebaseAnalytics.instance;
 
   void showAdPage(int id) {
-    Navigator.push(context,
-            MaterialPageRoute(builder: (context) => ViewAdPage(id: id)))
-        .then(verifyFavoriteAd);
-
+    Navigator.push(
+        context, MaterialPageRoute(builder: (context) => ViewAdPage(id: id)));
     analytics.logSelectContent(
         contentType: GAContentType.ad,
         itemId: id.toString(),
@@ -50,12 +42,6 @@ class _AdItemState extends State<AdItem> {
         debugPrint(e);
       }
     });
-  }
-
-  void verifyFavoriteAd(value) {
-    bool active = FavoriteAdData.adFavorite.containsKey(widget.data['id']);
-    widget.data['is_favorite'] = active;
-    setState(() {});
   }
 
   Color getColor() {
@@ -84,16 +70,15 @@ class _AdItemState extends State<AdItem> {
               color: getColor(),
               border: const Border(
                   bottom: BorderSide(width: 6, color: Color(0xfff4f5f7)))),
-          padding: const EdgeInsets.symmetric(vertical: 12),
+          padding: const EdgeInsets.only(bottom: 12, top: 8),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 15),
+                padding: const EdgeInsets.only(left: 15),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const SizedBox(height: 4),
                     Row(
                       children: [
                         Expanded(
@@ -106,33 +91,14 @@ class _AdItemState extends State<AdItem> {
                               overflow: TextOverflow.ellipsis),
                         ),
                         const SizedBox(width: 16),
-                        widget.showCategory
-                            ? Container(
-                                height: 24,
-                                padding:
-                                    const EdgeInsets.symmetric(horizontal: 8),
-                                alignment: Alignment.center,
-                                decoration: BoxDecoration(
-                                    color: ColorComponent.mainColor,
-                                    borderRadius: BorderRadius.circular(4)),
-                                child: Text(widget.data['category']['title'],
-                                    style: const TextStyle(
-                                        height: 1,
-                                        fontSize: 12,
-                                        fontWeight: FontWeight.w500)))
-                            : FavoriteButton(
-                                id: widget.data['id'],
-                                type: "ad",
-                                active: widget.data['is_favorite'],
-                                fromPage: GAParams.favoriteMainPage,
-                              ),
+                        FavoriteAdButton(data: widget.data),
                       ],
                     ),
-                    const Divider(height: 8),
                     PriceTextWidget(
                         prices: widget.data['prices'], fontSize: 15),
                     const Divider(height: 12),
                     Container(
+                      padding: const EdgeInsets.only(right: 15),
                       constraints: BoxConstraints(maxHeight: imageHeight),
                       child: Row(
                         children: [
@@ -171,7 +137,7 @@ class _AdItemState extends State<AdItem> {
                                       height: 1.3),
                                   maxLines: 2,
                                   overflow: TextOverflow.ellipsis),
-                              const Divider(height: 8),
+                              const Divider(height: 4),
                               Expanded(
                                   child:
                                       AdItemCharacteristic(data: widget.data)),
@@ -186,7 +152,7 @@ class _AdItemState extends State<AdItem> {
               ),
               ShowStickersList(data: widget.data['stickers']),
               const Divider(height: 10),
-              Divider(height: 1, color: ColorComponent.gray['200']),
+              Divider(height: 1, color: ColorComponent.gray['100']),
               const Divider(height: 10),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 15),

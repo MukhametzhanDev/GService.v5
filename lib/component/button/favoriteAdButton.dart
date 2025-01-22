@@ -10,7 +10,7 @@ import 'package:provider/provider.dart';
 
 class FavoriteAdButton extends StatefulWidget {
   final Map data;
-  FavoriteAdButton({super.key, required this.data});
+  const FavoriteAdButton({super.key, required this.data});
 
   @override
   State<FavoriteAdButton> createState() => _FavoriteAdButtonState();
@@ -56,7 +56,7 @@ class _FavoriteAdButtonState extends State<FavoriteAdButton> {
   @override
   Widget build(BuildContext context) {
     return Consumer<AdFavoriteProvider>(builder: (context, data, child) {
-      return Container(
+      return SizedBox(
         height: 40,
         child: IconButton(
           onPressed: () => verifyToken(data.checkAd(widget.data)),

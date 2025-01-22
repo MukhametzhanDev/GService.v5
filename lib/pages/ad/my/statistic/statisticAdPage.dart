@@ -7,13 +7,11 @@ import 'package:gservice5/component/dio/dio.dart';
 import 'package:gservice5/component/formatted/number/numberFormatted.dart';
 import 'package:gservice5/component/image/cacheImage.dart';
 import 'package:gservice5/component/loader/loaderComponent.dart';
-import 'package:gservice5/component/select/selectButton.dart';
 import 'package:gservice5/component/snackBar/snackBarComponent.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
 import 'package:gservice5/component/widgets/price/priceTextWidget.dart';
 import 'package:gservice5/pages/ad/my/statistic/chartWidget.dart';
 import 'package:gservice5/pages/payment/transaction/transactionHistoryPage.dart';
-import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
 class StatisticAdPage extends StatefulWidget {
   final Map data;
@@ -59,6 +57,7 @@ class _StatisticAdPageState extends State<StatisticAdPage> {
   void getData() async {
     try {
       Response response = await dio.get("/ad-statistic/${widget.data['id']}");
+      print(response.data);
       if (response.data['success']) {
         data = response.data['data'];
         loader = false;
@@ -66,17 +65,18 @@ class _StatisticAdPageState extends State<StatisticAdPage> {
       } else {
         SnackBarComponent().showResponseErrorMessage(response, context);
       }
-    } catch (e) {
+    }on DioException catch (e) {
+      print(e);
       SnackBarComponent().showNotGoBackServerErrorMessage(context);
     }
   }
 
   String getAllCountStatistic(List value, String type) {
     int count = 0;
-    value.forEach((element) {
+    for (var element in value) {
       int typeCount = element[type];
       count += typeCount;
-    });
+    }
     return numberFormat(count);
   }
 
@@ -84,7 +84,7 @@ class _StatisticAdPageState extends State<StatisticAdPage> {
   Widget build(BuildContext context) {
     return loader
         ? Scaffold(
-            appBar: AppBar(leading: BackIconButton()), body: LoaderComponent())
+            appBar: AppBar(leading: const BackIconButton()), body: const LoaderComponent())
         : DefaultTabController(
             length: _tabs.length,
             child: Scaffold(
@@ -181,10 +181,10 @@ class _StatisticAdPageState extends State<StatisticAdPage> {
                               //     active: currentPeriod.isNotEmpty,
                               //     onPressed: showModalPeriod),
                               Text(tabValue['sub_title'],
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                       fontSize: 15,
                                       fontWeight: FontWeight.w500)),
-                              Divider(height: 12),
+                              const Divider(height: 12),
                               Column(
                                   children: data.reversed.map((value) {
                                 return Container(

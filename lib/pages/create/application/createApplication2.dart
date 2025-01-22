@@ -7,7 +7,6 @@ import 'package:gservice5/component/alert/closeCreateAdAlert.dart';
 import 'package:gservice5/component/button/back/backTitleButton.dart';
 import 'package:gservice5/component/textField/closeKeyboard/closeKeyboard.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
-import 'package:gservice5/pages/create/ad/characteristic/getChildCharacteristicPage.dart';
 import 'package:gservice5/pages/create/application/createApplicationContactsPage.dart';
 import 'package:gservice5/pages/create/application/descriptionCreateApplicationPage.dart';
 import 'package:gservice5/pages/create/application/getImageCreateApplicaitonPage.dart';
@@ -16,6 +15,7 @@ import 'package:gservice5/pages/create/application/stepCreateApplicationWidget.d
 import 'package:gservice5/pages/create/data/createData.dart';
 import 'package:gservice5/pages/create/options/getSelectPage.dart';
 import 'package:gservice5/pages/create/structure/controllerPage/pageControllerIndexedStack.dart';
+import 'package:gservice5/pages/create/charactestic/getChildCharacteristicPage.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
 //selects

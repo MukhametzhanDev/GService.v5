@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:gservice5/analytics/event_name.constan.dart';
 import 'package:gservice5/component/button/back/backTitleButton.dart';
 import 'package:gservice5/component/button/button.dart';
@@ -14,6 +15,7 @@ import 'package:gservice5/component/snackBar/snackBarComponent.dart';
 import 'package:gservice5/component/textField/closeKeyboard/closeKeyboard.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
 import 'package:gservice5/component/widgets/bottom/bottomNavigationBarComponent.dart';
+import 'package:gservice5/pages/ad/my/request/changeRoleRequest.dart';
 import 'package:gservice5/pages/auth/registration/business/getActivityBusinessPage.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
@@ -76,22 +78,29 @@ class _RegistrationBusinessPageState extends State<RegistrationBusinessPage> {
       };
       Response response = await dio.post("/company", data: param);
       print(response.data);
-      Navigator.pop(context);
-      if (response.statusCode == 200) {
-        Navigator.pushAndRemoveUntil(
-            context,
-            MaterialPageRoute(builder: (_) => const GetActivityBusinessPage()),
-            (route) => false);
+      if (response.statusCode == 200 && response.data['success']) {
+        List roles = await ChangeRoleRequest().getRoles();
+        await ChangeRoleRequest().postData(roles[0]['id'], () {});
+        await switchRole();
 
         analytics.logEvent(
             name: GAEventName.registerBussiness,
             parameters: {GAKey.screenName: GAParams.registrationBusinessPage});
       } else {
+        Navigator.pop(context);
         SnackBarComponent().showResponseErrorMessage(response, context);
       }
     } catch (e) {
       SnackBarComponent().showServerErrorMessage(context);
     }
+  }
+
+  Future switchRole() async {
+    await const FlutterSecureStorage().write(key: "role", value: "business");
+    Navigator.pushAndRemoveUntil(
+        context,
+        MaterialPageRoute(builder: (_) => const GetActivityBusinessPage()),
+        (route) => false);
   }
 
   void verifyData() {

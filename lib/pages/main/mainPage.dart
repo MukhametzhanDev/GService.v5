@@ -13,6 +13,7 @@ import 'package:gservice5/component/loader/paginationLoaderComponent.dart';
 import 'package:gservice5/component/request/getMainPageData.dart';
 import 'package:gservice5/component/snackBar/snackBarComponent.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
+import 'package:gservice5/deeplink/appLink.dart';
 import 'package:gservice5/pages/ad/item/adItem.dart';
 import 'package:gservice5/pages/ad/list/adListLoader.dart';
 import 'package:gservice5/pages/main/applicationListMain.dart';
@@ -44,6 +45,7 @@ class _MainPageState extends State<MainPage> {
     getData();
     getAdList();
     widget.scrollController.addListener(() => loadMoreAd());
+    AppLink().initDeepLinks(context);
     super.initState();
   }
 
@@ -250,13 +252,13 @@ class _MainPageState extends State<MainPage> {
                             Map value = adList[index];
                             if (adList.length - 1 == index) {
                               return Column(children: [
-                                AdItem(data: value, showCategory: false),
+                                AdItem(data: value),
                                 hasNextPage
                                     ? const PaginationLoaderComponent()
                                     : Container()
                               ]);
                             } else {
-                              return AdItem(data: value, showCategory: false);
+                              return AdItem(data: value);
                             }
                           }, childCount: adList.length))
                   ]),

@@ -50,7 +50,7 @@ class _GetActivityBusinessPageState extends State<GetActivityBusinessPage> {
         SnackBarComponent().showResponseErrorMessage(response, context);
       }
     } on DioException catch (e) {
-      print(e);
+      print(e.response);
       SnackBarComponent().showServerErrorMessage(context);
     }
   }

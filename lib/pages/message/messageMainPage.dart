@@ -48,42 +48,48 @@ class _MessageMainPageState extends State<MessageMainPage>
       length: _tabs.length,
       child: Scaffold(
         appBar: AppBar(
-            toolbarHeight: 4,
+            toolbarHeight: 6,
             bottom: PreferredSize(
                 preferredSize: Size(MediaQuery.of(context).size.width, 44),
-                child: TabBar(
-                    isScrollable: true,
-                    tabAlignment: TabAlignment.start,
-                    indicatorWeight: 2,
-                    indicatorSize: TabBarIndicatorSize.label,
-                    labelColor: Colors.black,
-                    unselectedLabelColor: ColorComponent.gray['500'],
-                    tabs: _tabs.map((value) {
-                      return Tab(
-                        child: Row(
-                          children: [
-                            Text(value),
-                            Container(
-                              width: 20,
-                              height: 20,
-                              margin: const EdgeInsets.only(left: 10),
-                              alignment: Alignment.center,
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(20),
-                                  color:
-                                      ColorComponent.mainColor.withOpacity(.1)),
-                              child: const Text(
-                                "99",
-                                style: TextStyle(
-                                    fontSize: 12,
-                                    fontWeight: FontWeight.w500,
-                                    color: Colors.black),
-                              ),
-                            )
-                          ],
-                        ),
-                      );
-                    }).toList()))),
+                child: Container(
+                  decoration: BoxDecoration(
+                      border: Border(
+                          bottom: BorderSide(
+                              width: 2, color: ColorComponent.gray['100']!))),
+                  child: TabBar(
+                      isScrollable: true,
+                      tabAlignment: TabAlignment.start,
+                      indicatorWeight: 2,
+                      indicatorSize: TabBarIndicatorSize.label,
+                      labelColor: Colors.black,
+                      unselectedLabelColor: ColorComponent.gray['500'],
+                      tabs: _tabs.map((value) {
+                        return Tab(
+                          child: Row(
+                            children: [
+                              Text(value),
+                              Container(
+                                width: 20,
+                                height: 20,
+                                margin: const EdgeInsets.only(left: 10),
+                                alignment: Alignment.center,
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(20),
+                                    color: ColorComponent.mainColor
+                                        .withOpacity(.1)),
+                                child: const Text(
+                                  "99",
+                                  style: TextStyle(
+                                      fontSize: 12,
+                                      fontWeight: FontWeight.w500,
+                                      color: Colors.black),
+                                ),
+                              )
+                            ],
+                          ),
+                        );
+                      }).toList()),
+                ))),
         body: TabBarView(
             children: _tabs.map((value) {
           return ListView.builder(
@@ -99,7 +105,7 @@ class _MessageMainPageState extends State<MessageMainPage>
                       const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
                   leading: const CacheImage(
                       url:
-                          "https://dev.agrokz.com/storage/ad-images/53/lEi2N7yGIRtyP3nl1m9sBrOKerl31UHFAfk7Yr92.jpg",
+                          "https://plus.unsplash.com/premium_photo-1664301163726-78773dc77bfd?q=80&w=3174&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
                       width: 48,
                       height: 48,
                       borderRadius: 24),

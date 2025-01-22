@@ -199,7 +199,7 @@ class _DashboardPageState extends State<DashboardPage> {
                             width: 1, color: const Color(0xffeeeeee))),
                     child: Column(
                         children: app.map((value) {
-                      return ApplicationItem(data: value, showCategory: true);
+                      return ApplicationItem(data: value);
                     }).toList())),
               ),
               const Divider(height: 16),
