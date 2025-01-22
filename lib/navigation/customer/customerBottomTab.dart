@@ -1,3 +1,4 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:badges/badges.dart' as badges;
@@ -10,6 +11,7 @@ import 'package:gservice5/pages/message/messageMainPage.dart';
 import 'package:gservice5/pages/profile/verifyProfilePage.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
+@RoutePage()
 class CustomerBottomTab extends StatefulWidget {
   const CustomerBottomTab({super.key});
 

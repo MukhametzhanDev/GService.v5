@@ -40,7 +40,7 @@ class _MainPageState extends State<MainPage> {
     getData();
     getAdList();
     widget.scrollController.addListener(() => loadMoreAd());
-    AppLink().initDeepLinks(context);
+    // AppLink().initDeepLinks(context);
     super.initState();
   }
 

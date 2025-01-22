@@ -1,3 +1,4 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -19,9 +20,10 @@ import 'package:gservice5/pages/author/filesListPage.dart';
 import 'package:gservice5/pages/author/filesListWidget.dart';
 import 'package:gservice5/pages/profile/news/newsListWidget.dart';
 
+@RoutePage()
 class ViewBusinessPage extends StatefulWidget {
   final int id;
-  const ViewBusinessPage({super.key, required this.id});
+  const ViewBusinessPage({super.key, @PathParam('id') required this.id});
 
   @override
   State<ViewBusinessPage> createState() => _ViewBusinessPageState();

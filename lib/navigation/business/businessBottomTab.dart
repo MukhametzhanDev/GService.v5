@@ -1,3 +1,4 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
@@ -8,6 +9,7 @@ import 'package:gservice5/pages/create/ad/sectionCreateAdPage.dart';
 import 'package:gservice5/pages/profile/business/businessProfilePage.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
+@RoutePage()
 class BusinessBottomTab extends StatefulWidget {
   const BusinessBottomTab({super.key});
 

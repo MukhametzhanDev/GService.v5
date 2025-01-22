@@ -1,3 +1,4 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -22,9 +23,10 @@ import 'package:gservice5/pages/ad/list/recommendationAdList.dart';
 import 'package:gservice5/pages/ad/widget/viewCharacteristicWidget.dart';
 import 'package:intl/intl.dart';
 
+@RoutePage()
 class ViewAdPage extends StatefulWidget {
+  const ViewAdPage({super.key, @PathParam('id') required this.id});
   final int id;
-  const ViewAdPage({super.key, required this.id});
 
   @override
   State<ViewAdPage> createState() => _ViewAdPageState();

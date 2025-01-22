@@ -33,10 +33,25 @@
                     android:scheme="http"
                     android:host="com.bg.gservice" />
                 <data
-                    android:scheme="https"/>
+                    android:scheme="https"
+                    android:host="v4.gservice.kz" 
+                    android:pathPrefix="/ad/.*"/>
                 <data
                     android:scheme="https"
-                    android:host="v4.gservice.kz" />
+                    android:host="v4.gservice.kz" 
+                    android:pathPrefix="/application/.*"/>
+                <data
+                    android:scheme="https"
+                    android:host="v4.gservice.kz" 
+                    android:pathPrefix="/news/.*"/>
+                <data
+                    android:scheme="https"
+                    android:host="v4.gservice.kz" 
+                    android:pathPrefix="/business/.*"/>
+                <data
+                    android:scheme="https"
+                    android:host="v4.gservice.kz" 
+                    android:pathPrefix="/raffle"/>
             </intent-filter>
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>

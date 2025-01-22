@@ -22,18 +22,20 @@ class _RecommendationAdListState extends State<RecommendationAdList> {
     super.initState();
   }
 
-  Future getData() async {
-    try {
-      Response response = await dio.get("/similar-ad/${widget.id}");
-      if (response.data['success']) {
-        data = splitIntoChunks(response.data['data']);
-        loading = false;
-        setState(() {});
-      } else {
-        SnackBarComponent().showResponseErrorMessage(response, context);
+  void getData() async {
+    if (mounted) {
+      try {
+        Response response = await dio.get("/similar-ad/${widget.id}");
+        if (response.data['success']) {
+          data = splitIntoChunks(response.data['data']);
+          loading = false;
+          setState(() {});
+        } else {
+          SnackBarComponent().showResponseErrorMessage(response, context);
+        }
+      } catch (e) {
+        SnackBarComponent().showNotGoBackServerErrorMessage(context);
       }
-    } catch (e) {
-      SnackBarComponent().showNotGoBackServerErrorMessage(context);
     }
   }
 

@@ -1,5 +1,5 @@
 import 'dart:async';
-
+import 'package:auto_route/auto_route.dart';
 import 'package:app_links/app_links.dart';
 import 'package:flutter/material.dart';
 
@@ -24,12 +24,7 @@ class AppLink {
   void _onReceivedDeepLink(Uri uri, BuildContext context) {
     debugPrint('deep link: $uri');
     final path = uri.path; // "/invite/123"
-    if (uri.host == "ad") {
-      // Navigator.push(
-      //     context,
-      //     MaterialPageRoute(
-      //       builder: (context) => ViewAdPage(id: getIntComponent(uri.path)),
-      //     ));
-    }
+    print(path);
+    context.router.pushNamed(path);
   }
 }

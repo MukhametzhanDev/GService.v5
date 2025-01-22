@@ -1,3 +1,4 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -11,9 +12,10 @@ import 'package:gservice5/component/snackBar/snackBarComponent.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
 import 'package:gservice5/pages/author/authorAdWidget.dart';
 
+@RoutePage()
 class ViewNewsPage extends StatefulWidget {
   final int id;
-  const ViewNewsPage({super.key, required this.id});
+  const ViewNewsPage({super.key, @PathParam('id') required this.id});
 
   @override
   State<ViewNewsPage> createState() => _ViewNewsPageState();
