@@ -103,8 +103,8 @@ class _LoginPageState extends State<LoginPage>
           await analytics.setUserId(id: user?['id'].toString());
         }
 
-        await analytics
-            .setDefaultEventParameters({GAKey.role: user?['role'] ?? ''});
+        await analytics.setDefaultEventParameters(
+            {GAKey.role: user?['role']?['code_type'] ?? ''});
       } else {
         SnackBarComponent().showResponseErrorMessage(response, context);
       }
