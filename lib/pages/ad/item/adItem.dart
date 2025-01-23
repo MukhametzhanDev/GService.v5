@@ -7,7 +7,6 @@ import 'package:gservice5/component/modal/contact/shortContactModal.dart';
 import 'package:gservice5/component/stickers/showStickersList.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
 import 'package:gservice5/component/widgets/price/priceTextWidget.dart';
-import 'package:gservice5/navigation/routes/app_router.gr.dart';
 import 'package:gservice5/pages/ad/item/adItemCharacteristic.dart';
 import 'package:gservice5/pages/ad/package/showPackageIcons.dart';
 import 'package:intl/intl.dart';

@@ -1,9 +1,19 @@
 [{
     "relation": ["delegate_permission/common.handle_all_urls"],
     "target": {
-      "namespace": "GService.kz",
+      "namespace": "android_app",
       "package_name": "com.gservice",
       "sha256_cert_fingerprints":
       ["D8:16:3A:70:37:F3:D5:42:36:2C:D8:18:16:63:0A:D6:02:13:21:3F:38:45:B2:12:BF:EA:D4:FD:29:34:C5:22"]
     }
-  }]
+  },
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.gservice",
+      "sha256_cert_fingerprints":
+      ["67:E4:FC:5F:95:A8:A1:1F:3D:C5:BF:CE:7A:15:0E:B8:9E:23:B3:DE:89:A6:2E:24:10:74:EF:A2:51:22:CB:88"]
+    }
+  }
+]

@@ -1,8 +1,5 @@
 import 'package:auto_route/auto_route.dart'; // аннотации и классы auto_route
-import 'package:gservice5/navigation/customer/customerBottomTab.dart';
 import 'package:gservice5/navigation/routes/app_router.gr.dart';
-import 'package:gservice5/pages/author/business/viewBusinessPage.dart';
-import 'package:gservice5/pages/raffle/viewRafflePage.dart';
 
 @AutoRouterConfig(
   replaceInRouteName: 'Tab|Page|Screen,Route',

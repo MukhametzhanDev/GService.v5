@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:gservice5/component/alert/logOutAlert.dart';
 import 'package:gservice5/component/functions/token/changedToken.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
 import 'package:gservice5/navigation/customer/customerBottomTab.dart';
@@ -14,7 +13,6 @@ import 'package:gservice5/pages/profile/news/newsMainPage.dart';
 import 'package:gservice5/pages/settings/settingsAppPage.dart';
 import 'package:gservice5/updateApp/restartAppPage.dart';
 import 'package:gservice5/updateApp/updateAppPage.dart';
-import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
 class ProfileListTilesWidget extends StatefulWidget {
   const ProfileListTilesWidget({super.key});

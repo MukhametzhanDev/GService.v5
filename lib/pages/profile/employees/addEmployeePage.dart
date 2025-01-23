@@ -1,22 +1,16 @@
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:gservice5/component/button/back/backTitleButton.dart';
 import 'package:gservice5/component/button/button.dart';
-import 'package:gservice5/component/dio/dio.dart';
-import 'package:gservice5/component/functions/number/getIntNumber.dart';
 import 'package:gservice5/component/image/cacheImage.dart';
 import 'package:gservice5/component/snackBar/snackBarComponent.dart';
 import 'package:gservice5/component/textField/closeKeyboard/closeKeyboard.dart';
-import 'package:gservice5/component/textField/phoneTextField.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
 import 'package:gservice5/component/widgets/bottom/bottomNavigationBarComponent.dart';
 import 'package:gservice5/data/message/messageInviteApp.dart';
 import 'package:gservice5/provider/nameCompanyProvider.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 import 'package:provider/provider.dart';
-import 'package:share_plus/share_plus.dart';
 import 'package:shimmer/shimmer.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 class AddEmployeePage extends StatefulWidget {
   const AddEmployeePage({super.key});

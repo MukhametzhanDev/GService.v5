@@ -13,7 +13,7 @@ class _ViewRafflePageState extends State<ViewRafflePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Raffle"),
+        title: const Text("Raffle"),
       ),
     );
   }

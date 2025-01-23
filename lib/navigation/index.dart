@@ -79,7 +79,7 @@ class _IndexState extends State<Index> {
                     int id = int.parse(pathSegments.last);
                     return DeepLink([ViewBusinessRoute(id: id)]);
                   } else if (link.path.contains('raffle')) {
-                    return DeepLink([ViewRaffleRoute()]);
+                    return const DeepLink([ViewRaffleRoute()]);
                   } else {
                     return DeepLink.defaultPath;
                   }
