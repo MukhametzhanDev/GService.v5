@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:gservice5/component/button/back/closeIconButton.dart';
 import 'package:gservice5/component/button/button.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
+import 'package:gservice5/pages/ad/my/edit/editMyAdModal.dart';
 import 'package:gservice5/pages/ad/my/edit/structureEditAdPage.dart';
 import 'package:gservice5/pages/ad/my/request/myAdRequest.dart';
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
 class OptionsMyAdModal extends StatefulWidget {
   final Map<String, dynamic> data;
@@ -19,13 +21,10 @@ class _OptionsMyAdModalState extends State<OptionsMyAdModal> {
 
   void showUpdateAd() {
     //show update ad page
-    Navigator.push(
-            context,
-            MaterialPageRoute(
-                builder: (context) => StructureEditAdPage(data: widget.data)))
-        .then((value) {
-      Navigator.pop(context, value);
-    });
+    Navigator.pop(context);
+    showCupertinoModalBottomSheet(
+        context: context,
+        builder: (context) => EditMyAdModal(data: widget.data));
   }
 
   void verifyPackage(String type) {

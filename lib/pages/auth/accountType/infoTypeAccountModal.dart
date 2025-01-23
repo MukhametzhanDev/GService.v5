@@ -70,7 +70,7 @@ class _InfoTypeAccountModalState extends State<InfoTypeAccountModal> {
             children: [
               SvgPicture.asset("assets/icons/headsetOutline.svg"),
               const Divider(indent: 8),
-              const Text("Обратиться в поддержку GService",
+              const Text("Обратиться в поддержку GService.kz",
                   style: TextStyle(fontWeight: FontWeight.w500))
             ],
           ),

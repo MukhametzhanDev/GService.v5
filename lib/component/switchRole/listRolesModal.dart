@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:gservice5/component/loader/loaderComponent.dart';
 import 'package:gservice5/component/loader/modalLoaderComponent.dart';
-import 'package:gservice5/navigation/business/businessBottomTab.dart';
-import 'package:gservice5/navigation/customer/customerBottomTab.dart';
+import 'package:gservice5/navigation/routes/app_router.gr.dart';
 import 'package:gservice5/pages/ad/my/request/changeRoleRequest.dart';
+import 'package:auto_route/auto_route.dart';
 
 class ListRolesModal extends StatefulWidget {
   final String role;
@@ -40,16 +40,12 @@ class _ListRolesModalState extends State<ListRolesModal> {
   void switchRole() async {
     if (widget.role == "customer") {
       await const FlutterSecureStorage().write(key: "role", value: "business");
-      Navigator.pushAndRemoveUntil(
-          context,
-          MaterialPageRoute(builder: (_) => const BusinessBottomTab()),
-          (route) => false);
+      context.router.pushAndPopUntil(const BusinessBottomRoute(),
+          predicate: (route) => false);
     } else if (widget.role == "business") {
       await const FlutterSecureStorage().write(key: "role", value: "customer");
-      Navigator.pushAndRemoveUntil(
-          context,
-          MaterialPageRoute(builder: (_) => const CustomerBottomTab()),
-          (route) => false);
+      context.router.pushAndPopUntil(const CustomerBottomRoute(),
+          predicate: (route) => false);
     }
   }
 

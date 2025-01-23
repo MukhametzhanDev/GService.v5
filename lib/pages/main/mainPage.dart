@@ -162,7 +162,7 @@ class _MainPageState extends State<MainPage> {
                         ],
                       ),
                       title: SearchButton(
-                          title: "Поиск по GService",
+                          title: "Поиск по GService.kz",
                           onPressed: showMainSearchPage),
                       bottom: PreferredSize(
                           preferredSize:

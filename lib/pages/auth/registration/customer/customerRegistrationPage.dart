@@ -13,7 +13,9 @@ import 'package:gservice5/component/textField/closeKeyboard/closeKeyboard.dart';
 import 'package:gservice5/component/textField/passwordTextField.dart';
 import 'package:gservice5/component/textField/repeatPasswordTextField.dart';
 import 'package:gservice5/component/widgets/bottom/bottomNavigationBarComponent.dart';
+import 'package:gservice5/navigation/routes/app_router.gr.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
+import 'package:auto_route/auto_route.dart';
 
 class CusomterRegistrationPage extends StatefulWidget {
   final Map data;
@@ -41,6 +43,8 @@ class _CusomterRegistrationPageState extends State<CusomterRegistrationPage> {
       Navigator.pop(context);
       if (response.statusCode == 200) {
         ChangedToken().savedToken(response.data['data'], context);
+        context.router.pushAndPopUntil(const CustomerBottomRoute(),
+            predicate: (route) => false);
       } else {
         SnackBarComponent().showResponseErrorMessage(response, context);
       }
