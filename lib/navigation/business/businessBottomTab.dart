@@ -66,6 +66,20 @@ class _BusinessBottomTabState extends State<BusinessBottomTab> {
       });
     } else {
       _selectedIndex = index;
+
+      analytics.logEvent(name: GAEventName.screenView, parameters: {
+        GAKey.screenName: index == 1
+            ? GAParams.mainApplicationsBusinessPage
+            : index == 3
+                ? GAParams.marketingPage
+                : index == 4
+                    ? GAParams.businessProfilePage
+                    : GAParams.businessMainPage,
+      }).catchError((e) {
+        if (kDebugMode) {
+          debugPrint(e);
+        }
+      });
       setState(() {});
     }
   }

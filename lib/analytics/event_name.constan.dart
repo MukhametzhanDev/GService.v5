@@ -72,6 +72,9 @@ class GAParams {
   static const String mainSearchPage = 'MainSearchPage';
   static const String resultListPage = 'ResultListPage';
   static const String customerProfilePage = 'CustomerProfilePage';
+  static const String mainApplicationsBusinessPage =
+      'MainApplicationsBusinessPage';
+  static const String marketingPage = 'MarketingPage';
 
   //SCREEN
 
@@ -143,6 +146,7 @@ class GAParams {
   static const String btnShareBusinessProfile = 'btn_share_business_profile';
   static const String btnTabPlusBusiness = 'btn_tab_plus_business';
   static const String btnItemDrawer = 'btn_item_drawer';
+  static const String btnPlusAdBusiness = 'btn_plus_ad_business';
   //BUTTON
 
   //SWITCH_BUTTON
@@ -250,7 +254,11 @@ class GAParams {
       'list_seach_main_recomendation_id';
   static const String listViewAdPageId = 'list_view_ad_page_id';
   static const String listViewAdPageName = 'Детали объявление';
-
+  static const String listBussinessMyActiveId = 'list_bussiness_my_active_id';
+  static const String listBussinessMyActiveName = 'Бизнес Активные';
+  static const String bussinessAllApplicationListId =
+      'bussiness_all_application_list_id';
+  static const String bussinessAllApplicationListName = 'Бизнес Все заказы';
   //LIST
 }
 

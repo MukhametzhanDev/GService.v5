@@ -1,6 +1,9 @@
 import 'package:dio/dio.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:gservice5/analytics/event_name.constan.dart';
 import 'package:gservice5/component/dio/dio.dart';
 import 'package:gservice5/component/snackBar/snackBarComponent.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
@@ -26,6 +29,8 @@ class _MainApplicationsBusinessPageState
   Map data = {};
   bool loader = true;
 
+  final analytics = FirebaseAnalytics.instance;
+
   @override
   void initState() {
     getData();
@@ -49,7 +54,14 @@ class _MainApplicationsBusinessPageState
 
   void showCreateApplicationPage() {
     showMaterialModalBottomSheet(
-        context: context, builder: (context) => const SectionCreateApplicationPage());
+        context: context,
+        builder: (context) => const SectionCreateApplicationPage());
+    analytics.logEvent(
+        name: GAEventName.buttonClick, parameters: {}).catchError((onError) {
+      if (kDebugMode) {
+        debugPrint(onError);
+      }
+    });
   }
 
   @override

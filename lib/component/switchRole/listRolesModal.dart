@@ -1,5 +1,7 @@
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:gservice5/analytics/event_name.constan.dart';
 import 'package:gservice5/component/loader/loaderComponent.dart';
 import 'package:gservice5/component/loader/modalLoaderComponent.dart';
 import 'package:gservice5/navigation/routes/app_router.gr.dart';
@@ -17,6 +19,8 @@ class ListRolesModal extends StatefulWidget {
 class _ListRolesModalState extends State<ListRolesModal> {
   bool loader = true;
   List roles = [];
+
+  final analytics = FirebaseAnalytics.instance;
 
   @override
   void initState() {
@@ -42,10 +46,13 @@ class _ListRolesModalState extends State<ListRolesModal> {
       await const FlutterSecureStorage().write(key: "role", value: "business");
       context.router.pushAndPopUntil(const BusinessBottomRoute(),
           predicate: (route) => false);
+
+      analytics.setDefaultEventParameters({GAKey.role: 'business'});
     } else if (widget.role == "business") {
       await const FlutterSecureStorage().write(key: "role", value: "customer");
       context.router.pushAndPopUntil(const CustomerBottomRoute(),
           predicate: (route) => false);
+      analytics.setDefaultEventParameters({GAKey.role: 'customer'});
     }
   }
 
