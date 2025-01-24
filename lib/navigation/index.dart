@@ -46,6 +46,8 @@ class _IndexState extends State<Index> {
   DarkThemeProvider themeChangeProvider = DarkThemeProvider();
   final pushManager = PushNotificationManager();
 
+  final analytics = FirebaseAnalytics.instance;
+
   @override
   void initState() {
     super.initState();
@@ -77,7 +79,10 @@ class _IndexState extends State<Index> {
             debugShowCheckedModeBanner: false,
             routerConfig: widget.appRouter.config(
                 // navigatorObservers: () => [AutoRouteObserver()],
-                navigatorObservers: () => [AutoRouteObserver()],
+                navigatorObservers: () => [
+                      AutoRouteObserver(),
+                      FirebaseAnalyticsObserver(analytics: analytics)
+                    ],
                 deepLinkBuilder: (link) {
                   List pathSegments = link.uri.pathSegments;
                   if (link.path.contains('ad')) {

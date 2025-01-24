@@ -1,5 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:dio/dio.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:gservice5/analytics/event_name.constan.dart';
@@ -36,6 +38,8 @@ class _ViewApplicationPageState extends State<ViewApplicationPage> {
   List images = [];
   int? statusCode;
 
+  final analytics = FirebaseAnalytics.instance;
+
   @override
   void initState() {
     getData();
@@ -50,6 +54,17 @@ class _ViewApplicationPageState extends State<ViewApplicationPage> {
         images = response.data['data']['images'];
         data = response.data['data'];
         setState(() {});
+
+        analytics.logViewItem(
+          items: [
+            AnalyticsEventItem(
+                itemId: widget.id.toString(), itemName: data['title'])
+          ],
+        ).catchError((onError) {
+          if (kDebugMode) {
+            debugPrint(onError);
+          }
+        });
       } else {
         SnackBarComponent().showResponseErrorMessage(response, context);
       }
