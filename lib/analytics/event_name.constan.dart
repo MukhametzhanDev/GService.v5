@@ -147,6 +147,8 @@ class GAParams {
   static const String btnTabPlusBusiness = 'btn_tab_plus_business';
   static const String btnItemDrawer = 'btn_item_drawer';
   static const String btnPlusAdBusiness = 'btn_plus_ad_business';
+  static const String btnChangeBusinessProfile = 'btn_change_business_profile';
+
   //BUTTON
 
   //SWITCH_BUTTON

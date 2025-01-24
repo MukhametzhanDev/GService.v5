@@ -1,5 +1,8 @@
 import 'package:dio/dio.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:gservice5/analytics/event_name.constan.dart';
 import 'package:gservice5/component/button/back/backIconButton.dart';
 import 'package:gservice5/component/button/button.dart';
 import 'package:gservice5/component/dio/dio.dart';
@@ -30,6 +33,8 @@ class _ChangeBusinessProfilePageState extends State<ChangeBusinessProfilePage> {
   String imagePath = "";
   String imageUrl = "";
   Map<String, dynamic> param = {};
+
+  final analytics = FirebaseAnalytics.instance;
 
   @override
   void initState() {
@@ -112,6 +117,14 @@ class _ChangeBusinessProfilePageState extends State<ChangeBusinessProfilePage> {
         SnackBarComponent().showErrorMessage("Неправильный БИН", context);
       }
     }
+
+    analytics.logEvent(name: GAEventName.buttonClick, parameters: {
+      GAKey.buttonName: GAParams.btnChangeBusinessProfile
+    }).catchError((onError) {
+      if (kDebugMode) {
+        debugPrint(onError);
+      }
+    });
   }
 
   void showCityModal() {
