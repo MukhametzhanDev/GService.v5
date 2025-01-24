@@ -8,7 +8,8 @@ import 'package:gservice5/navigation/routes/app_router.gr.dart';
 
 @RoutePage()
 class SplashScreen extends StatefulWidget {
-  const SplashScreen({super.key});
+  final String? path;
+  const SplashScreen({super.key, @PathParam() this.path});
 
   @override
   State<SplashScreen> createState() => _SplashScreenState();
@@ -34,7 +35,6 @@ class _SplashScreenState extends State<SplashScreen> {
 
   Future getMainData(String? role) async {
     await GetMainPageData().getData(context);
-    setState(() {});
     showPage(role);
   }
 
@@ -42,16 +42,30 @@ class _SplashScreenState extends State<SplashScreen> {
     if (role == "business") {
       context.router.pushAndPopUntil(const BusinessBottomRoute(),
           predicate: (route) => false);
-      // Navigator.of(context).pushAndRemoveUntil(
-      //     MaterialPageRoute(builder: (context) => const BusinessBottomTab()),
-      //     (route) => false);
     } else {
-       context.router.pushAndPopUntil(const CustomerBottomRoute(),
+      context.router.pushAndPopUntil(const CustomerBottomRoute(),
           predicate: (route) => false);
-      // Navigator.of(context).pushAndRemoveUntil(
-      //     MaterialPageRoute(builder: (context) => const CustomerBottomTab()),
-      //     (route) => false);
     }
+    // showDeepLink();
+  }
+
+  void showDeepLink() {
+    context.router.pushNamed(widget.path!);
+    // switch (pathSegments.first) {
+    //   case 'ad':
+    //     return DeepLink([ViewAdRoute(id: int.parse(pathSegments.last))]);
+    //   case 'application':
+    //     return DeepLink(
+    //         [ViewApplicationRoute(id: int.parse(pathSegments.last))]);
+    //   case 'news':
+    //     return DeepLink([ViewNewsRoute(id: int.parse(pathSegments.last))]);
+    //   case 'business':
+    //     return DeepLink([ViewBusinessRoute(id: int.parse(pathSegments.last))]);
+    //   case 'raffle':
+    //     return const DeepLink([ViewRaffleRoute()]);
+    //   default:
+    //     return DeepLink.defaultPath;
+    // }
   }
 
   @override

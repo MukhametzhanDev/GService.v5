@@ -1,5 +1,6 @@
-import 'package:auto_route/auto_route.dart'; // аннотации и классы auto_route
+import 'package:auto_route/auto_route.dart';
 import 'package:gservice5/navigation/routes/app_router.gr.dart';
+
 
 @AutoRouterConfig(
   replaceInRouteName: 'Tab|Page|Screen,Route',
@@ -18,6 +19,7 @@ class AppRouter extends RootStackRouter {
         AutoRoute(page: ViewNewsRoute.page, path: '/news/:url'),
         AutoRoute(page: ViewRaffleRoute.page, path: '/raffle'),
         AutoRoute(page: ViewBusinessRoute.page, path: '/companies/:id'),
+        RedirectRoute(path: '*', redirectTo: '/'),
       ];
 }
 
