@@ -4,6 +4,7 @@ import 'package:gservice5/component/button/button.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
 import 'package:gservice5/pages/payment/transaction/transactionHistoryPage.dart';
 import 'package:gservice5/pages/payment/wallet/request/walletService.dart';
+import 'package:gservice5/pages/profile/wallet/replenishment/replenishmentWalletPage.dart';
 import 'package:gservice5/provider/walletAmountProvider.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
@@ -27,11 +28,15 @@ class _ShowWalletWidgetState extends State<ShowWalletWidget> {
   }
 
   void showPage() {
-    Navigator.pushNamed(context, "ReplenishmentWalletPage");
+    Navigator.push(context,
+        MaterialPageRoute(builder: (context) => ReplenishmentWalletPage()));
   }
 
   void showTransactionHistoryPage() {
-    Navigator.push(context, MaterialPageRoute(builder:(context) => TransactionHistoryPage()));
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => const TransactionHistoryPage()));
   }
 
   String formattedPrice(int cost) {

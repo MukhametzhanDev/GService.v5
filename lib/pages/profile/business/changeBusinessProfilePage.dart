@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:gservice5/component/button/back/backIconButton.dart';
+import 'package:gservice5/component/button/back/backTitleButton.dart';
 import 'package:gservice5/component/button/button.dart';
 import 'package:gservice5/component/dio/dio.dart';
 import 'package:gservice5/component/image/getImage/getLogoWidget.dart';
@@ -134,11 +134,12 @@ class _ChangeBusinessProfilePageState extends State<ChangeBusinessProfilePage> {
       child: Scaffold(
         appBar: AppBar(
             centerTitle: false,
-            leading: const BackIconButton(),
-            title: const Text("Изменить данные компании")),
+            leading: const BackTitleButton(title: "Изменить данные компании"),
+            leadingWidth: 300),
         body: SingleChildScrollView(
           padding: const EdgeInsets.all(15),
-          child: Column(children: [
+          child:
+              Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
             GetLogoWidget(
                 imageUrl: widget.data['avatar'],
                 onChanged: (path) {
@@ -146,20 +147,29 @@ class _ChangeBusinessProfilePageState extends State<ChangeBusinessProfilePage> {
                   setState(() {});
                 }),
             const Divider(height: 24),
+            Text("Город",
+                style: TextStyle(fontSize: 13, fontWeight: FontWeight.w500)),
+            const Divider(height: 8),
             SelectButton(
                 title: currentCity.isNotEmpty
                     ? currentCity['title']
                     : "Выберите город",
                 active: currentCity.isNotEmpty,
                 onPressed: showCityModal),
-            const Divider(indent: 8),
+            const Divider(height: 20),
+            Text("Название компании",
+                style: TextStyle(fontSize: 13, fontWeight: FontWeight.w500)),
+            const Divider(height: 8),
             TextField(
                 controller: nameEditingController,
                 style: const TextStyle(fontSize: 14),
                 keyboardType: TextInputType.text,
                 decoration:
                     const InputDecoration(hintText: "Название компании")),
-            const Divider(indent: 8),
+            const Divider(height: 20),
+            Text("БИН/ИИН",
+                style: TextStyle(fontSize: 13, fontWeight: FontWeight.w500)),
+            const Divider(height: 8),
             TextField(
                 controller: identifierEditingController,
                 style: const TextStyle(fontSize: 14),
@@ -168,7 +178,10 @@ class _ChangeBusinessProfilePageState extends State<ChangeBusinessProfilePage> {
                 decoration: InputDecoration(
                     hintText: "БИН",
                     helperStyle: TextStyle(color: ColorComponent.gray['500']))),
-            const Divider(),
+            const Divider(height: 10),
+            Text("Описание вашей компании",
+                style: TextStyle(fontSize: 13, fontWeight: FontWeight.w500)),
+            const Divider(height: 8),
             TextField(
                 controller: descEditingController,
                 decoration: InputDecoration(

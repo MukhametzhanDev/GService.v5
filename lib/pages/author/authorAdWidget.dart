@@ -6,9 +6,10 @@ import 'package:gservice5/component/dio/dio.dart';
 import 'package:gservice5/component/image/cacheImage.dart';
 import 'package:gservice5/component/snackBar/snackBarComponent.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
+import 'package:gservice5/navigation/routes/app_router.gr.dart';
 import 'package:gservice5/pages/author/authorAdsListWidget.dart';
 import 'package:gservice5/pages/author/authorApplicationListWidget.dart';
-import 'package:gservice5/pages/author/business/viewBusinessPage.dart';
+import 'package:auto_route/auto_route.dart';
 import 'package:gservice5/pages/author/customer/viewCustomerPage.dart';
 
 class AuthorAdWidget extends StatefulWidget {
@@ -66,10 +67,11 @@ class _AuthorAdWidgetState extends State<AuthorAdWidget> {
   }
 
   void showViewCompanyPage() {
-    Navigator.push(
-        context,
-        MaterialPageRoute(
-            builder: (context) => ViewBusinessPage(id: widget.data['id'])));
+    context.router.push(ViewBusinessRoute(id: widget.data['id']));
+    // Navigator.push(
+    //     context,
+    //     MaterialPageRoute(
+    //         builder: (context) => ViewBusinessPage(id: widget.data['id'])));
   }
 
   void showViewCustomerPage() {
@@ -125,7 +127,7 @@ class _AuthorAdWidgetState extends State<AuthorAdWidget> {
                               url: widget.data['avatar'],
                               width: 48,
                               height: 48,
-                              borderRadius: 6),
+                              borderRadius: 24),
                           const Divider(indent: 16),
                           Expanded(
                               child: Column(
@@ -156,23 +158,23 @@ class _AuthorAdWidgetState extends State<AuthorAdWidget> {
                                   Text("ID: ${widget.data['id']}",
                                       style: TextStyle(
                                           color: ColorComponent.gray['500'])),
-                                  Container(
-                                    padding: const EdgeInsets.all(4),
-                                    decoration: BoxDecoration(
-                                        color: ColorComponent.mainColor,
-                                        borderRadius: BorderRadius.circular(4)),
-                                    child: Row(
-                                      children: [
-                                        SvgPicture.asset(
-                                            'assets/icons/star.svg'),
-                                        const Divider(indent: 2),
-                                        const Text("4.92",
-                                            style: TextStyle(
-                                                fontSize: 12,
-                                                fontWeight: FontWeight.w600))
-                                      ],
-                                    ),
-                                  ),
+                                  // Container(
+                                  //   padding: const EdgeInsets.all(4),
+                                  //   decoration: BoxDecoration(
+                                  //       color: ColorComponent.mainColor,
+                                  //       borderRadius: BorderRadius.circular(4)),
+                                  //   child: Row(
+                                  //     children: [
+                                  //       SvgPicture.asset(
+                                  //           'assets/icons/star.svg'),
+                                  //       const Divider(indent: 2),
+                                  //       const Text("4.92",
+                                  //           style: TextStyle(
+                                  //               fontSize: 12,
+                                  //               fontWeight: FontWeight.w600))
+                                  //     ],
+                                  //   ),
+                                  // ),
                                 ],
                               )
                             ],
@@ -233,7 +235,7 @@ class _AuthorAdWidgetState extends State<AuthorAdWidget> {
                           child: Button(
                               onPressed: showViewCompanyPage,
                               backgroundColor: ColorComponent.mainColor,
-                              title: "Страница продавца"))
+                              title: "Страница компании"))
                     ],
                   )
                 : Row(children: [

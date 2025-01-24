@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:gservice5/component/image/cacheImage.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
-import 'package:gservice5/pages/author/business/viewBusinessPage.dart';
+import 'package:auto_route/auto_route.dart';
+import 'package:gservice5/navigation/routes/app_router.gr.dart';
 
 class CompanyItem extends StatelessWidget {
   final Map data;
@@ -13,10 +14,11 @@ class CompanyItem extends StatelessWidget {
     List categories = data['categories'];
     return GestureDetector(
       onTap: () {
-        Navigator.push(
-            context,
-            MaterialPageRoute(
-                builder: (context) => ViewBusinessPage(id: data['id'])));
+        context.router.push(ViewBusinessRoute(id: data['id']));
+        // Navigator.push(
+        //     context,
+        //     MaterialPageRoute(
+        //         builder: (context) => ViewBusinessPage(id: data['id'])));
       },
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 12),

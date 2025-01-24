@@ -48,7 +48,7 @@ class _CreateApplicationLeasingWidgetState
                         mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                          Text("Оставить заявку на лизинг",
+                          Text("Заявка на лизинг и рассрочку",
                               style: TextStyle(
                                   fontWeight: FontWeight.w700,
                                   color: Colors.white))

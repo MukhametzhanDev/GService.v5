@@ -62,16 +62,14 @@ class _FavoriteApplicationButtonState extends State<FavoriteApplicationButton> {
         child: IconButton(
           onPressed: () => verifyToken(data.checkApplication(widget.data)),
           icon: Container(
-            width: 24,
-            height: 24,
-            alignment: Alignment.center,
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(4),
-                color: data.checkApplication(widget.data)
-                    ? ColorComponent.red['500']
-                    : const Color(0xffD1D5DB)),
-            child: SvgPicture.asset('assets/icons/heart.svg'),
-          ),
+              width: 24,
+              height: 24,
+              alignment: Alignment.center,
+              child: data.checkApplication(widget.data)
+                  ? SvgPicture.asset('assets/icons/heart.svg',
+                      color: ColorComponent.red['500'])
+                  : SvgPicture.asset('assets/icons/heartOutline.svg',
+                      color: ColorComponent.gray['500'])),
         ),
       );
     });

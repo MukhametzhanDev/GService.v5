@@ -22,7 +22,7 @@ class AdItem extends StatefulWidget {
 
 class _AdItemState extends State<AdItem> {
   void showAdPage(int id) {
-    context.router.pushNamed("/ad/$id");
+    context.router.pushNamed("/product/$id");
     // Navigator.push(
     //     context, MaterialPageRoute(builder: (context) => ViewAdPage(id: id)));
   }

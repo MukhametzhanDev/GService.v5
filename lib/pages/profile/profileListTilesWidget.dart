@@ -8,6 +8,7 @@ import 'package:gservice5/pages/ad/my/myAdListPage.dart';
 import 'package:gservice5/pages/application/my/myApplicationListPage.dart';
 import 'package:gservice5/pages/auth/registration/business/changedActivityBusinessPage.dart';
 import 'package:gservice5/pages/profile/aboutCompany/aboutCompanyPage.dart';
+import 'package:gservice5/pages/profile/contacts/addContactsPage.dart';
 import 'package:gservice5/pages/profile/currency/currencyMainPage.dart';
 import 'package:gservice5/pages/profile/employees/employeeListPage.dart';
 import 'package:gservice5/pages/profile/news/newsMainPage.dart';
@@ -52,7 +53,8 @@ class _ProfileListTilesWidgetState extends State<ProfileListTilesWidget> {
   }
 
   void showContactsPage() {
-    Navigator.pushNamed(context, "AddContactsPage");
+    Navigator.push(
+        context, MaterialPageRoute(builder: (context) => AddContactsPage()));
   }
 
   void showNewsPage() {

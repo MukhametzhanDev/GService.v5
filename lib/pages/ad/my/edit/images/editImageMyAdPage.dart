@@ -35,16 +35,16 @@ class _EditImageMyAdPageState extends State<EditImageMyAdPage> {
 
   void formattedImages() {
     List imagesUrl = widget.data['images'];
-    imagesUrl.forEach((value) {
+    for (var value in imagesUrl) {
       data.add({"url": value['url'], "type": "url"});
-    });
+    }
   }
 
   void getImagePath(List<XFile> value) {
-    value.forEach((element) {
+    for (var element in value) {
       data.add({"path": element.path, "type": "path"});
       imagesPath.add(element);
-    });
+    }
     setState(() {});
   }
 
@@ -71,10 +71,10 @@ class _EditImageMyAdPageState extends State<EditImageMyAdPage> {
 
   @override
   Widget build(BuildContext context) {
-    double IMAGE_WIDTH = MediaQuery.of(context).size.width / 3 - 17;
+    double imageWidth = MediaQuery.of(context).size.width / 3 - 17;
     return Scaffold(
       appBar: AppBar(
-          leading: BackTitleButton(title: "Редактировать фото"),
+          leading: const BackTitleButton(title: "Редактировать фото"),
           leadingWidth: 250),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
@@ -94,15 +94,15 @@ class _EditImageMyAdPageState extends State<EditImageMyAdPage> {
                     child: value['type'] == "url"
                         ? CacheImage(
                             url: value['url'],
-                            width: IMAGE_WIDTH,
-                            height: IMAGE_WIDTH,
+                            width: imageWidth,
+                            height: imageWidth,
                             borderRadius: 10)
                         : ClipRRect(
                             borderRadius: BorderRadius.circular(10),
                             child: Image.asset(value['path'],
                                 fit: BoxFit.cover,
-                                width: IMAGE_WIDTH,
-                                height: IMAGE_WIDTH),
+                                width: imageWidth,
+                                height: imageWidth),
                           ),
                   ),
                   Positioned(
@@ -110,10 +110,10 @@ class _EditImageMyAdPageState extends State<EditImageMyAdPage> {
                       right: 0,
                       child: Container(
                           decoration: BoxDecoration(
-                              borderRadius: BorderRadius.only(
+                              borderRadius: const BorderRadius.only(
                                   topLeft: Radius.circular(6)),
                               color: ColorComponent.red['100']),
-                          padding: EdgeInsets.only(top: 3, left: 3, bottom: 3),
+                          padding: const EdgeInsets.only(top: 3, left: 3, bottom: 3),
                           child: SvgPicture.asset("assets/icons/trash.svg",
                               width: 18))),
                 ],
@@ -132,11 +132,11 @@ class _EditImageMyAdPageState extends State<EditImageMyAdPage> {
               },
               title: "Загрузить фото",
               backgroundColor: ColorComponent.mainColor.withOpacity(.2),
-              padding: EdgeInsets.symmetric(horizontal: 15)),
-          Divider(height: 10),
+              padding: const EdgeInsets.symmetric(horizontal: 15)),
+          const Divider(height: 10),
           Button(
               onPressed: postImage,
-              padding: EdgeInsets.symmetric(horizontal: 15),
+              padding: const EdgeInsets.symmetric(horizontal: 15),
               title: "Редактировать")
         ],
       )),

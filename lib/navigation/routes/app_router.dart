@@ -13,12 +13,13 @@ class AppRouter extends RootStackRouter {
         AutoRoute(page: SplashRoute.page, path: '/', initial: true),
         AutoRoute(page: CustomerBottomRoute.page),
         AutoRoute(page: BusinessBottomRoute.page),
-        AutoRoute(page: ViewAdRoute.page, path: '/ad/:id'),
+        AutoRoute(page: ViewAdRoute.page, path: '/product/:id'),
         AutoRoute(page: ViewApplicationRoute.page, path: '/application/:id'),
-        AutoRoute(page: ViewNewsRoute.page, path: '/news/:id'),
+        AutoRoute(page: ViewNewsRoute.page, path: '/news/:url'),
         AutoRoute(page: ViewRaffleRoute.page, path: '/raffle'),
-        AutoRoute(page: ViewBusinessRoute.page, path: '/business'),
+        AutoRoute(page: ViewBusinessRoute.page, path: '/companies/:id'),
       ];
-
-  
 }
+
+// command
+//  flutter pub run build_runner build --delete-conflicting-outputs      
