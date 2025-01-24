@@ -7,7 +7,8 @@ import 'package:gservice5/component/loader/modalLoaderComponent.dart';
 import 'package:gservice5/component/select/multi/multiSelect.dart';
 import 'package:gservice5/component/snackBar/snackBarComponent.dart';
 import 'package:gservice5/component/widgets/bottom/bottomNavigationBarComponent.dart';
-import 'package:gservice5/navigation/business/businessBottomTab.dart';
+import 'package:auto_route/auto_route.dart';
+import 'package:gservice5/navigation/routes/app_router.gr.dart';
 
 class FilterActivityCompanyModal extends StatefulWidget {
   const FilterActivityCompanyModal({super.key});
@@ -34,10 +35,8 @@ class _FilterActivityCompanyModalState
       print(response.data);
       Navigator.pop(context);
       if (response.statusCode == 200) {
-        Navigator.pushAndRemoveUntil(
-            context,
-            MaterialPageRoute(builder: (_) => const BusinessBottomTab()),
-            (route) => false);
+        context.router.pushAndPopUntil(const BusinessBottomRoute(),
+            predicate: (route) => false);
       } else {
         SnackBarComponent().showResponseErrorMessage(response, context);
       }

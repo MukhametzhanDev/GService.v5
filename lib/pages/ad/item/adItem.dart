@@ -13,8 +13,8 @@ import 'package:gservice5/component/theme/colorComponent.dart';
 import 'package:gservice5/component/widgets/price/priceTextWidget.dart';
 import 'package:gservice5/pages/ad/item/adItemCharacteristic.dart';
 import 'package:gservice5/pages/ad/package/showPackageIcons.dart';
-import 'package:gservice5/pages/ad/viewAdPage.dart';
 import 'package:intl/intl.dart';
+import 'package:auto_route/auto_route.dart';
 
 class AdItem extends StatefulWidget {
   final Map data;
@@ -29,8 +29,9 @@ class _AdItemState extends State<AdItem> {
   final analytics = FirebaseAnalytics.instance;
 
   void showAdPage(int id) {
-    Navigator.push(
-        context, MaterialPageRoute(builder: (context) => ViewAdPage(id: id)));
+    context.router.pushNamed("/ad/$id");
+    // Navigator.push(
+    //     context, MaterialPageRoute(builder: (context) => ViewAdPage(id: id)));
     analytics.logSelectContent(
         contentType: GAContentType.ad,
         itemId: id.toString(),

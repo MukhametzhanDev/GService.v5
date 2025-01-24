@@ -11,9 +11,11 @@ import 'package:gservice5/component/loader/modalLoaderComponent.dart';
 import 'package:gservice5/component/snackBar/snackBarComponent.dart';
 import 'package:gservice5/component/textField/passwordTextField.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
+import 'package:gservice5/navigation/routes/app_router.gr.dart';
 import 'package:gservice5/pages/auth/password/customer/forgotPasswordCustomerPage.dart';
 import 'package:gservice5/pages/auth/privacyPolicyWidget.dart';
 import 'package:gservice5/pages/auth/registration/customer/customerExistsPage.dart';
+import 'package:auto_route/auto_route.dart';
 
 class LoginPage extends StatefulWidget {
   final bool showBackButton;
@@ -90,7 +92,9 @@ class _LoginPageState extends State<LoginPage>
       Navigator.pop(context);
       if (response.statusCode == 200 && response.data['success']) {
         print(response.data);
-        ChangedToken().savedToken(response.data['data'], context);
+        await ChangedToken().savedToken(response.data['data'], context);
+        context.router.pushAndPopUntil(const CustomerBottomRoute(),
+            predicate: (route) => false);
 
         await analytics.logLogin(
             loginMethod: param.containsKey('email') ? 'email' : 'phone');

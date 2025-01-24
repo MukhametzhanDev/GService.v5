@@ -8,10 +8,11 @@ import 'package:gservice5/component/loader/loaderComponent.dart';
 import 'package:gservice5/component/loader/modalLoaderComponent.dart';
 import 'package:gservice5/component/snackBar/snackBarComponent.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
-import 'package:gservice5/navigation/customer/customerBottomTab.dart';
+import 'package:gservice5/navigation/routes/app_router.gr.dart';
 import 'package:gservice5/pages/ad/my/request/changeRoleRequest.dart';
 import 'package:gservice5/provider/nameCompanyProvider.dart';
 import 'package:provider/provider.dart';
+import 'package:auto_route/auto_route.dart';
 
 class ChangeRoleBusinessModal extends StatefulWidget {
   const ChangeRoleBusinessModal({super.key});
@@ -57,10 +58,8 @@ class _ChangeRoleBusinessModalState extends State<ChangeRoleBusinessModal> {
   void switchRole() async {
     Navigator.pop(context);
     await const FlutterSecureStorage().write(key: "role", value: "customer");
-    Navigator.pushAndRemoveUntil(
-        context,
-        MaterialPageRoute(builder: (_) => const CustomerBottomTab()),
-        (route) => false);
+    context.router.pushAndPopUntil(const CustomerBottomRoute(),
+        predicate: (route) => false);
   }
 
   @override

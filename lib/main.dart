@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:gservice5/analytics/event_name.constan.dart';
 import 'package:gservice5/firebase_options.dart';
 import 'package:gservice5/navigation/index.dart';
+import 'package:gservice5/navigation/routes/app_router.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 
@@ -15,6 +16,9 @@ void main() async {
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
 
   await initializeDateFormatting('ru_RU', null);
+  final initialUri = Uri.base;
+  print('Initial URI: $initialUri');
+  final AppRouter appRouter = AppRouter();
 
   PackageInfo packageInfo = await PackageInfo.fromPlatform();
 
@@ -28,5 +32,5 @@ void main() async {
     GAKey.installerStore: packageInfo.installerStore
   });
 
-  runApp(const Index());
+  runApp(Index(appRouter: appRouter));
 }

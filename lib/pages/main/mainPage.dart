@@ -13,7 +13,6 @@ import 'package:gservice5/component/loader/paginationLoaderComponent.dart';
 import 'package:gservice5/component/request/getMainPageData.dart';
 import 'package:gservice5/component/snackBar/snackBarComponent.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
-import 'package:gservice5/deeplink/appLink.dart';
 import 'package:gservice5/pages/ad/item/adItem.dart';
 import 'package:gservice5/pages/ad/list/adListLoader.dart';
 import 'package:gservice5/pages/main/applicationListMain.dart';
@@ -45,7 +44,7 @@ class _MainPageState extends State<MainPage> {
     getData();
     getAdList();
     widget.scrollController.addListener(() => loadMoreAd());
-    AppLink().initDeepLinks(context);
+    // AppLink().initDeepLinks(context);
     super.initState();
   }
 
@@ -219,7 +218,7 @@ class _MainPageState extends State<MainPage> {
                         ],
                       ),
                       title: SearchButton(
-                          title: "Поиск по GService",
+                          title: "Поиск по GService.kz",
                           onPressed: showMainSearchPage),
                       bottom: PreferredSize(
                           preferredSize:

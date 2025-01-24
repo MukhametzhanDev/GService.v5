@@ -4,10 +4,10 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:gservice5/analytics/event_name.constan.dart';
-import 'package:gservice5/component/alert/logOutAlert.dart';
 import 'package:gservice5/component/functions/token/changedToken.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
-import 'package:gservice5/navigation/customer/customerBottomTab.dart';
+import 'package:auto_route/auto_route.dart';
+import 'package:gservice5/navigation/routes/app_router.gr.dart';
 import 'package:gservice5/pages/ad/my/myAdListPage.dart';
 import 'package:gservice5/pages/application/my/myApplicationListPage.dart';
 import 'package:gservice5/pages/auth/registration/business/changedActivityBusinessPage.dart';
@@ -18,7 +18,6 @@ import 'package:gservice5/pages/profile/news/newsMainPage.dart';
 import 'package:gservice5/pages/settings/settingsAppPage.dart';
 import 'package:gservice5/updateApp/restartAppPage.dart';
 import 'package:gservice5/updateApp/updateAppPage.dart';
-import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
 class ProfileListTilesWidget extends StatefulWidget {
   const ProfileListTilesWidget({super.key});
@@ -151,10 +150,8 @@ class _ProfileListTilesWidgetState extends State<ProfileListTilesWidget> {
   void exitAccount() async {
     await ChangedToken().removeToken(context);
     if (mounted) {
-      Navigator.pushAndRemoveUntil(
-          context,
-          MaterialPageRoute(builder: (_) => const CustomerBottomTab()),
-          (route) => false);
+      context.router.pushAndPopUntil(const CustomerBottomRoute(),
+          predicate: (route) => false);
     }
   }
 
@@ -169,8 +166,10 @@ class _ProfileListTilesWidgetState extends State<ProfileListTilesWidget> {
                       width: 1, color: ColorComponent.gray['100']!))),
           child: ListTile(
               onTap: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => const RestartAppPage()));
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const RestartAppPage()));
               },
               leading: SvgPicture.asset('assets/icons/file.svg'),
               title: const Text("Перезапуск приложение"),

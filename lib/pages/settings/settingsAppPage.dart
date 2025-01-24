@@ -1,12 +1,12 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:gservice5/component/alert/logOutAlert.dart';
-import 'package:gservice5/component/button/back/backIconButton.dart';
 import 'package:gservice5/component/button/back/backTitleButton.dart';
 import 'package:gservice5/component/functions/token/changedToken.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
 import 'package:gservice5/data/message/messageInviteApp.dart';
-import 'package:gservice5/navigation/customer/customerBottomTab.dart';
+import 'package:gservice5/navigation/routes/app_router.gr.dart';
 import 'package:gservice5/pages/settings/aboutAppPage.dart';
 import 'package:gservice5/pages/settings/changeAppLanguage.dart';
 import 'package:gservice5/pages/settings/supportSeviceModal.dart';
@@ -20,16 +20,14 @@ class SettingsAppPage extends StatefulWidget {
 }
 
 class _SettingsAppPageState extends State<SettingsAppPage> {
-
-
   void showChangedLanguage() {
     showModalBottomSheet(
         context: context, builder: (context) => const ChangeAppLanguage());
   }
 
   void showHelpdescModal() {
-    Navigator.push(
-        context, MaterialPageRoute(builder: (context) => const HelpdeskModal()));
+    Navigator.push(context,
+        MaterialPageRoute(builder: (context) => const HelpdeskModal()));
   }
 
   void showAboutApp() {
@@ -44,10 +42,8 @@ class _SettingsAppPageState extends State<SettingsAppPage> {
   void exitAccount() async {
     await ChangedToken().removeToken(context);
     if (mounted) {
-      Navigator.pushAndRemoveUntil(
-          context,
-          MaterialPageRoute(builder: (_) => const CustomerBottomTab()),
-          (route) => false);
+      context.router.pushAndPopUntil(const CustomerBottomRoute(),
+          predicate: (route) => false);
     }
   }
 
@@ -55,7 +51,8 @@ class _SettingsAppPageState extends State<SettingsAppPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-          leading: const BackTitleButton(title: "Настройки"), leadingWidth: 200),
+          leading: const BackTitleButton(title: "Настройки"),
+          leadingWidth: 200),
       body: SingleChildScrollView(
           child: Column(
         children: [

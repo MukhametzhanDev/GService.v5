@@ -10,12 +10,13 @@ import 'package:gservice5/component/image/cacheImage.dart';
 import 'package:gservice5/component/loader/loaderComponent.dart';
 import 'package:gservice5/component/snackBar/snackBarComponent.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
-import 'package:gservice5/navigation/customer/customerBottomTab.dart';
+import 'package:gservice5/navigation/routes/app_router.gr.dart';
 import 'package:gservice5/pages/payment/wallet/showWalletWidget.dart';
 import 'package:gservice5/pages/profile/editProfilePage.dart';
 import 'package:gservice5/pages/profile/profileListTilesWidget.dart';
 import 'package:gservice5/provider/walletAmountProvider.dart';
 import 'package:provider/provider.dart';
+import 'package:auto_route/auto_route.dart';
 
 class CustomerProfilePage extends StatefulWidget {
   const CustomerProfilePage({super.key});
@@ -47,10 +48,8 @@ class _CustomerProfilePageState extends State<CustomerProfilePage> {
       } else if (response.statusCode == 401) {
         await ChangedToken().removeToken(context);
         if (mounted) {
-          Navigator.pushAndRemoveUntil(
-              context,
-              MaterialPageRoute(builder: (_) => const CustomerBottomTab()),
-              (route) => false);
+          context.router.pushAndPopUntil(const CustomerBottomRoute(),
+              predicate: (route) => false);
         }
       } else {
         SnackBarComponent().showResponseErrorMessage(response, context);

@@ -6,6 +6,7 @@ import 'package:gservice5/component/loader/modalLoaderComponent.dart';
 import 'package:gservice5/component/snackBar/snackBarComponent.dart';
 import 'package:gservice5/navigation/customer/customerBottomTab.dart';
 import 'package:gservice5/component/dio/dio.dart';
+import 'package:gservice5/navigation/routes/app_router.gr.dart';
 
 class ChangedToken {
   FlutterSecureStorage flutterSecureStorage = const FlutterSecureStorage();
@@ -23,10 +24,6 @@ class ChangedToken {
     await flutterSecureStorage.write(key: "role", value: "customer");
     await flutterSecureStorage.write(key: "token", value: value['user_token']);
     dio.options.headers['authorization'] = "Bearer ${value['user_token']}";
-    Navigator.pushAndRemoveUntil(
-        context,
-        MaterialPageRoute(builder: (_) => const CustomerBottomTab()),
-        (route) => false);
   }
 
   Future removeToken(context) async {

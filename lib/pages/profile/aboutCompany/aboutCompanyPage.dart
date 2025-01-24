@@ -17,7 +17,7 @@ class _AboutCompanyPageState extends State<AboutCompanyPage> {
       appBar: AppBar(
         leadingWidth: 200,
         leading: BackTitleButton(
-          title: "О GService",
+          title: "О GService.kz",
           onPressed: () => Navigator.pop(context),
         ),
       ),
@@ -29,7 +29,7 @@ class _AboutCompanyPageState extends State<AboutCompanyPage> {
               child: Column(children: [
             SvgPicture.asset("assets/icons/logo.svg", width: 60),
             const Divider(height: 12),
-            const Text("GService",
+            const Text("GService.kz",
                 style: TextStyle(fontSize: 17, fontWeight: FontWeight.w700)),
             const Text("мир спецтехники", style: TextStyle(fontSize: 12)),
             const Divider(height: 24),

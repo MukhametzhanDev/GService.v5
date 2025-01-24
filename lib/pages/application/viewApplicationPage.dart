@@ -1,3 +1,4 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -20,9 +21,10 @@ import 'package:gservice5/component/widgets/characteristic/showCharacteristicWid
 import 'package:gservice5/pages/application/document/sliderApplicationSmallImageWidget.dart';
 import 'package:gservice5/pages/application/list/customer/recommendationApplicationList.dart';
 
+@RoutePage()
 class ViewApplicationPage extends StatefulWidget {
   final int id;
-  const ViewApplicationPage({super.key, required this.id});
+  const ViewApplicationPage({super.key, @PathParam('id') required this.id});
 
   @override
   State<ViewApplicationPage> createState() => _ViewApplicationPageState();
