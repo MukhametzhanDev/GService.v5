@@ -97,7 +97,7 @@ class _BusinessProfilePageState extends State<BusinessProfilePage> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      Text("Профиль"),
+                      const Text("Профиль"),
                       const Divider(indent: 4),
                       SvgPicture.asset('assets/icons/down.svg',
                           color: Colors.black, width: 18)
@@ -116,7 +116,7 @@ class _BusinessProfilePageState extends State<BusinessProfilePage> {
                             color: ColorComponent.mainColor.withOpacity(.2)),
                         child: SvgPicture.asset('assets/icons/share.svg'),
                       )),
-                  Divider(indent: 15)
+                  const Divider(indent: 15)
                 ],
               ),
         body: loader
@@ -154,7 +154,7 @@ class _BusinessProfilePageState extends State<BusinessProfilePage> {
                                     Row(
                                       children: [
                                         Text(data['name'],
-                                            style: TextStyle(
+                                            style: const TextStyle(
                                                 fontSize: 17,
                                                 fontWeight: FontWeight.w600)),
                                         const Divider(indent: 4),
@@ -162,7 +162,7 @@ class _BusinessProfilePageState extends State<BusinessProfilePage> {
                                             'assets/icons/badgeСheck.svg')
                                       ],
                                     ),
-                                    Divider(height: 6),
+                                    const Divider(height: 6),
                                     Text(
                                       "ИИН/БИН: ${data['identifier']}",
                                       style: TextStyle(
@@ -296,7 +296,7 @@ class _BusinessProfilePageState extends State<BusinessProfilePage> {
                           Container(
                               width: 32,
                               height: 32,
-                              margin: EdgeInsets.only(right: 15),
+                              margin: const EdgeInsets.only(right: 15),
                               alignment: Alignment.center,
                               decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(8),
@@ -309,11 +309,11 @@ class _BusinessProfilePageState extends State<BusinessProfilePage> {
                               child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text("Стартовый пакет",
+                              const Text("Стартовый пакет",
                                   style: TextStyle(
                                       fontSize: 15,
                                       fontWeight: FontWeight.w500)),
-                              Divider(height: 2),
+                              const Divider(height: 2),
                               Text(
                                 "Ваш тариф",
                                 style: TextStyle(
@@ -323,7 +323,7 @@ class _BusinessProfilePageState extends State<BusinessProfilePage> {
                             ],
                           )),
                           SvgPicture.asset("assets/icons/right.svg"),
-                          Divider(indent: 8)
+                          const Divider(indent: 8)
                         ],
                       ),
                     ),

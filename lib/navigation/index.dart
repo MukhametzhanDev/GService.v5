@@ -4,7 +4,6 @@ import 'package:gservice5/component/theme/darkThemeProvider.dart';
 import 'package:gservice5/component/theme/styles.dart';
 import 'package:gservice5/navigation/routes/app_router.dart';
 import 'package:gservice5/navigation/routes/app_router.gr.dart';
-import 'package:gservice5/pages/splash/splashScreen.dart';
 import 'package:gservice5/provider/adFavoriteProvider.dart';
 import 'package:gservice5/provider/adFilterProvider.dart';
 import 'package:gservice5/provider/applicationFavoriteProvider.dart';

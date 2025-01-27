@@ -8,6 +8,7 @@ class GetMainPageData {
   Future<Map> getData(context) async {
     try {
       Response response = await dio.get("/mobile-index");
+      print("DaTa ${response.data}");
       if (response.data['success']) {
         MainPageData.data.addAll(response.data['data']);
         CategoriesData.categories.addAll(response.data['data']['categories']);

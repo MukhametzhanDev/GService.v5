@@ -34,15 +34,17 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   Future getMainData(String? role) async {
-    await GetMainPageData().getData(context);
     showPage(role);
+    await GetMainPageData().getData(context);
   }
 
   Future showPage(String? role) async {
     if (role == "business") {
+      print('object');
       context.router.pushAndPopUntil(const BusinessBottomRoute(),
           predicate: (route) => false);
     } else {
+      print('123');
       context.router.pushAndPopUntil(const CustomerBottomRoute(),
           predicate: (route) => false);
     }

@@ -140,7 +140,7 @@ class _MainPageState extends State<MainPage> {
                   physics: const ClampingScrollPhysics(),
                   slivers: [
                     loaderHeader
-                        ? SliverToBoxAdapter()
+                        ? const SliverToBoxAdapter()
                         : SliverAppBar(
                             pinned: !true,
                             snap: true,
@@ -175,14 +175,9 @@ class _MainPageState extends State<MainPage> {
                                 child: const CategoriesListWidget()),
                           ),
                     loaderHeader
-                        ? SliverToBoxAdapter()
+                        ? const SliverToBoxAdapter()
                         : SliverToBoxAdapter(
                             child: Column(children: [
-                            IconButton(
-                                onPressed: () {
-                                  context.router.pushNamed("/application/20");
-                                },
-                                icon: Icon(Icons.abc_outlined)),
                             const Divider(height: 10),
                             const BannersList(),
                             const Divider(height: 20),

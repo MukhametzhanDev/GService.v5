@@ -29,7 +29,7 @@ class _ShowWalletWidgetState extends State<ShowWalletWidget> {
 
   void showPage() {
     Navigator.push(context,
-        MaterialPageRoute(builder: (context) => ReplenishmentWalletPage()));
+        MaterialPageRoute(builder: (context) => const ReplenishmentWalletPage()));
   }
 
   void showTransactionHistoryPage() {

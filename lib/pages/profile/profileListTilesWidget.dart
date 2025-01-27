@@ -54,7 +54,7 @@ class _ProfileListTilesWidgetState extends State<ProfileListTilesWidget> {
 
   void showContactsPage() {
     Navigator.push(
-        context, MaterialPageRoute(builder: (context) => AddContactsPage()));
+        context, MaterialPageRoute(builder: (context) => const AddContactsPage()));
   }
 
   void showNewsPage() {

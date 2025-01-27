@@ -147,7 +147,7 @@ class _ChangeBusinessProfilePageState extends State<ChangeBusinessProfilePage> {
                   setState(() {});
                 }),
             const Divider(height: 24),
-            Text("Город",
+            const Text("Город",
                 style: TextStyle(fontSize: 13, fontWeight: FontWeight.w500)),
             const Divider(height: 8),
             SelectButton(
@@ -157,7 +157,7 @@ class _ChangeBusinessProfilePageState extends State<ChangeBusinessProfilePage> {
                 active: currentCity.isNotEmpty,
                 onPressed: showCityModal),
             const Divider(height: 20),
-            Text("Название компании",
+            const Text("Название компании",
                 style: TextStyle(fontSize: 13, fontWeight: FontWeight.w500)),
             const Divider(height: 8),
             TextField(
@@ -167,7 +167,7 @@ class _ChangeBusinessProfilePageState extends State<ChangeBusinessProfilePage> {
                 decoration:
                     const InputDecoration(hintText: "Название компании")),
             const Divider(height: 20),
-            Text("БИН/ИИН",
+            const Text("БИН/ИИН",
                 style: TextStyle(fontSize: 13, fontWeight: FontWeight.w500)),
             const Divider(height: 8),
             TextField(
@@ -179,7 +179,7 @@ class _ChangeBusinessProfilePageState extends State<ChangeBusinessProfilePage> {
                     hintText: "БИН",
                     helperStyle: TextStyle(color: ColorComponent.gray['500']))),
             const Divider(height: 10),
-            Text("Описание вашей компании",
+            const Text("Описание вашей компании",
                 style: TextStyle(fontSize: 13, fontWeight: FontWeight.w500)),
             const Divider(height: 8),
             TextField(

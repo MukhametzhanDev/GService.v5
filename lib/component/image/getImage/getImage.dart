@@ -12,7 +12,8 @@ final ImagePicker _picker = ImagePicker();
 XFile? image;
 
 class GetImage {
-  Future<List<XFile>> pickImage(ImageSource source, BuildContext context) async {
+  Future<List<XFile>> pickImage(
+      ImageSource source, BuildContext context) async {
     List<XFile> images = [];
     try {
       showModalLoader(context);
@@ -36,6 +37,8 @@ class GetImage {
   }
 
   Future postImage(List<XFile> imagesPath, BuildContext context) async {
+    if (imagesPath.isEmpty) return [];
+    print('object');
     showModalImageLoader(context);
     List values = [];
     try {
@@ -60,6 +63,21 @@ class GetImage {
       SnackBarComponent().showServerErrorMessage(context);
     } finally {
       return values;
+    }
+  }
+
+  Future removedImage(List images, BuildContext context) async {
+    if (images.isEmpty) return;
+    showModalLoader(context);
+    try {
+      Response response = await dio.delete("/images", data: {"images": images});
+      Navigator.pop(context);
+      if (response.data['success']) {
+      } else {
+        SnackBarComponent().showResponseErrorMessage(response, context);
+      }
+    } catch (e) {
+      SnackBarComponent().showServerErrorMessage(context);
     }
   }
 }

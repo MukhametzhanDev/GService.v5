@@ -111,7 +111,7 @@ class _ViewBusinessPageState extends State<ViewBusinessPage>
     return Scaffold(
         appBar: AppBar(
           leadingWidth: MediaQuery.of(context).size.width - 100,
-          leading: BackTitleButton(title: "Компания"),
+          leading: const BackTitleButton(title: "Компания"),
           actions: const [
             ShareButton(id: 0, hasAd: false),
             Divider(indent: 15)
@@ -160,7 +160,7 @@ class _ViewBusinessPageState extends State<ViewBusinessPage>
                                                   "assets/icons/badgeCheck.svg")
                                             ],
                                           ),
-                                          Divider(height: 3),
+                                          const Divider(height: 3),
                                           Text("ID: ${data['id']}",
                                               style: TextStyle(
                                                   color: ColorComponent

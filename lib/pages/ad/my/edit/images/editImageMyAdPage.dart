@@ -25,6 +25,7 @@ class EditImageMyAdPage extends StatefulWidget {
 class _EditImageMyAdPageState extends State<EditImageMyAdPage> {
   List data = [];
   List imagesUrl = [];
+  List removedImageIds = [];
   List<XFile> imagesPath = [];
 
   @override
@@ -36,7 +37,7 @@ class _EditImageMyAdPageState extends State<EditImageMyAdPage> {
   void formattedImages() {
     List imagesUrl = widget.data['images'];
     for (var value in imagesUrl) {
-      data.add({"url": value['url'], "type": "url"});
+      data.add({"type": "url", ...value});
     }
   }
 
@@ -49,20 +50,25 @@ class _EditImageMyAdPageState extends State<EditImageMyAdPage> {
   }
 
   void removeImage(Map value) {
+    print(value);
     data.remove(value);
+    imagesUrl.remove(value);
+    removedImageIds.add(value['id']);
     if (value['type'] == "path") imagesPath.remove(value);
     setState(() {});
   }
 
   void postImage() async {
+    print(removedImageIds);
     List values = await GetImage().postImage(imagesPath, context);
-    updateAd(values);
+    await GetImage().removedImage(removedImageIds, context);
+    updateAd(values + imagesUrl);
   }
 
   void updateAd(List values) async {
     try {
-      Response response =
-          await dio.put("/ad/${widget.data['id']}", data: {"images": values});
+      Response response = await dio.put("/store-ad-image/${widget.data['id']}",
+          data: {"images": values});
       print(response.data);
     } catch (e) {
       SnackBarComponent().showServerErrorMessage(context);
@@ -113,7 +119,8 @@ class _EditImageMyAdPageState extends State<EditImageMyAdPage> {
                               borderRadius: const BorderRadius.only(
                                   topLeft: Radius.circular(6)),
                               color: ColorComponent.red['100']),
-                          padding: const EdgeInsets.only(top: 3, left: 3, bottom: 3),
+                          padding:
+                              const EdgeInsets.only(top: 3, left: 3, bottom: 3),
                           child: SvgPicture.asset("assets/icons/trash.svg",
                               width: 18))),
                 ],
