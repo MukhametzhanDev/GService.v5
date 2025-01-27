@@ -34,8 +34,9 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   Future getMainData(String? role) async {
-    showPage(role);
     await GetMainPageData().getData(context);
+    await showPage(role);
+    // showDeepLink();
   }
 
   Future showPage(String? role) async {
@@ -48,27 +49,8 @@ class _SplashScreenState extends State<SplashScreen> {
       context.router.pushAndPopUntil(const CustomerBottomRoute(),
           predicate: (route) => false);
     }
-    // showDeepLink();
   }
 
-  void showDeepLink() {
-    context.router.pushNamed(widget.path!);
-    // switch (pathSegments.first) {
-    //   case 'ad':
-    //     return DeepLink([ViewAdRoute(id: int.parse(pathSegments.last))]);
-    //   case 'application':
-    //     return DeepLink(
-    //         [ViewApplicationRoute(id: int.parse(pathSegments.last))]);
-    //   case 'news':
-    //     return DeepLink([ViewNewsRoute(id: int.parse(pathSegments.last))]);
-    //   case 'business':
-    //     return DeepLink([ViewBusinessRoute(id: int.parse(pathSegments.last))]);
-    //   case 'raffle':
-    //     return const DeepLink([ViewRaffleRoute()]);
-    //   default:
-    //     return DeepLink.defaultPath;
-    // }
-  }
 
   @override
   Widget build(BuildContext context) {

@@ -1,9 +1,11 @@
+import 'package:app_links/app_links.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:badges/badges.dart' as badges;
 import 'package:gservice5/component/theme/colorComponent.dart';
 import 'package:gservice5/component/widgets/badge/badgeWidget.dart';
+import 'package:gservice5/deeplink/appLink.dart';
 import 'package:gservice5/pages/create/ad/sectionCreateAdPage.dart';
 import 'package:gservice5/pages/favorite/favoriteMainPage.dart';
 import 'package:gservice5/pages/main/mainPage.dart';
@@ -31,6 +33,12 @@ class _CustomerBottomTabState extends State<CustomerBottomTab>
   ];
   ScrollController scrollController = ScrollController();
 
+  @override
+  void initState() {
+    AppLink().initDeepLinks(context);
+    super.initState();
+  }
+
   void _onItemTapped(int index) {
     if (_selectedIndex == 0 && index == 0) {
       scrollController.animateTo(0,
@@ -55,6 +63,7 @@ class _CustomerBottomTabState extends State<CustomerBottomTab>
   @override
   void dispose() {
     scrollController.dispose();
+    AppLink().dispose();
     super.dispose();
   }
 
