@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
+import 'package:gservice5/localization/extensions/context_extension.dart';
 
 class ShowDocumentWidget extends StatefulWidget {
   const ShowDocumentWidget({super.key});
@@ -15,7 +16,7 @@ class _ShowDocumentWidgetState extends State<ShowDocumentWidget> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text("Закрепленные документы",
+        Text(context.localizations.attached_documents_optional,
             style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600)),
         const Divider(height: 8),
         Column(
@@ -43,8 +44,8 @@ class _ShowDocumentWidgetState extends State<ShowDocumentWidget> {
                 Expanded(
                   child: GestureDetector(
                     child: Container(
-                      padding:
-                          const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 8, horizontal: 12),
                       decoration: BoxDecoration(
                           color: Colors.white,
                           borderRadius: BorderRadius.circular(8)),

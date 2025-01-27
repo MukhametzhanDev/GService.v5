@@ -6,6 +6,7 @@ import 'package:gservice5/component/modal/modalBottomSheetWrapper.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
 import 'package:gservice5/component/widgets/bottom/bottomNavigationBarComponent.dart';
 import 'package:gservice5/pages/profile/currency/currencyMainPage.dart';
+import 'package:gservice5/localization/extensions/context_extension.dart';
 
 class GetCurrencyModal extends StatefulWidget {
   final List data;
@@ -111,7 +112,7 @@ class _GetCurrencyModalState extends State<GetCurrencyModal> {
                     Navigator.pop(context, current);
                   },
                   padding: const EdgeInsets.symmetric(horizontal: 15),
-                  title: "Сохранить"),
+                  title: context.localizations.save),
             ],
           )),
         );

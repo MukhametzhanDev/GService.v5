@@ -22,6 +22,7 @@ import 'package:gservice5/pages/ad/my/statistic/statisticAdPage.dart';
 import 'package:gservice5/pages/ad/package/listPackagePage.dart';
 import 'package:gservice5/pages/ad/widget/viewCharacteristicWidget.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
+import 'package:gservice5/localization/extensions/context_extension.dart';
 
 class ViewMyAdPage extends StatefulWidget {
   final int id;
@@ -245,7 +246,7 @@ class _ViewMyAdPageState extends State<ViewMyAdPage> {
                                 title: "Марка",
                                 subTitle: data['transport_brand']),
                             ShowCharacteristicWidget(
-                                title: "Модель",
+                                title: context.localizations.model,
                                 subTitle: data['transport_model']),
                             ShowCharacteristicWidget(
                                 title: "Профессия",
@@ -257,7 +258,7 @@ class _ViewMyAdPageState extends State<ViewMyAdPage> {
                                 title: "Рубрика товара",
                                 subTitle: data['spare_part_rubric']),
                             ShowCharacteristicWidget(
-                                title: "Производитель",
+                                title: context.localizations.manufacturer,
                                 subTitle: data['spare_part_brand']),
                             ViewCharacteristicWidget(
                                 characteristics: data['characteristics']),

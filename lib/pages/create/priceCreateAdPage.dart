@@ -7,6 +7,7 @@ import 'package:gservice5/component/message/explanatoryMessage.dart';
 import 'package:gservice5/component/textField/closeKeyboard/closeKeyboard.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
 import 'package:gservice5/component/widgets/bottom/bottomNavigationBarComponent.dart';
+import 'package:gservice5/localization/extensions/context_extension.dart';
 import 'package:gservice5/pages/create/data/createData.dart';
 import 'package:gservice5/pages/create/structure/controllerPage/pageControllerIndexedStack.dart';
 import 'package:gservice5/pages/profile/currency/currencyButton.dart';
@@ -76,9 +77,9 @@ class _PriceCreateAdPageState extends State<PriceCreateAdPage> {
       body: SingleChildScrollView(
         padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
         child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-          const Padding(
+          Padding(
               padding: EdgeInsets.only(bottom: 15),
-              child: Text("Цена",
+              child: Text(context.localizations.price,
                   style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600))),
           const ExplanatoryMessage(
               title:
@@ -107,7 +108,7 @@ class _PriceCreateAdPageState extends State<PriceCreateAdPage> {
                               controller: priceEditingController,
                               decoration: InputDecoration(
                                   hintText: negotiablePrice
-                                      ? 'Договорная'
+                                      ? context.localizations.negotiable
                                       : 'Введите цену'),
                             ),
                           ),
@@ -129,8 +130,8 @@ class _PriceCreateAdPageState extends State<PriceCreateAdPage> {
                         controller: perShiftEditingController,
                         decoration: InputDecoration(
                             hintText: negotiablePrice
-                                ? 'Договорная'
-                                : 'Цена за смену'),
+                                ? context.localizations.negotiable
+                                : context.localizations.shift_price),
                       ),
                     )
                   : Container(),
@@ -145,8 +146,9 @@ class _PriceCreateAdPageState extends State<PriceCreateAdPage> {
                         style: const TextStyle(fontSize: 14, height: 1.1),
                         controller: perHourEditingController,
                         decoration: InputDecoration(
-                            hintText:
-                                negotiablePrice ? 'Договорная' : 'Цена за час'),
+                            hintText: negotiablePrice
+                                ? context.localizations.negotiable
+                                : context.localizations.hourly_price),
                       ),
                     )
                   : Container(),
@@ -163,7 +165,9 @@ class _PriceCreateAdPageState extends State<PriceCreateAdPage> {
                         height: 20,
                         alignment: Alignment.center,
                         decoration: BoxDecoration(
-                            color: negotiablePrice ? const Color(0xff1A56DB) : null,
+                            color: negotiablePrice
+                                ? const Color(0xff1A56DB)
+                                : null,
                             borderRadius: BorderRadius.circular(4),
                             border: Border.all(
                                 width: 1,
@@ -175,7 +179,7 @@ class _PriceCreateAdPageState extends State<PriceCreateAdPage> {
                                 color: Colors.white)
                             : Container(),
                       ),
-                      title: const Text("Договорная"),
+                      title: Text(context.localizations.negotiable),
                     )
                   : Container(),
             ]);

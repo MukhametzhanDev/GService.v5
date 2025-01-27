@@ -4,6 +4,7 @@ import 'package:gservice5/component/button/back/backTitleButton.dart';
 import 'package:gservice5/component/formatted/price/priceFormat.dart';
 import 'package:gservice5/component/modal/cities.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
+import 'package:gservice5/localization/extensions/context_extension.dart';
 import 'package:gservice5/pages/ad/filter/filterButton.dart';
 import 'package:gservice5/pages/ad/filter/priceFilterModal.dart';
 import 'package:gservice5/pages/application/filter/filterApplicationListPage.dart';
@@ -112,14 +113,14 @@ class _FilterApplicationWidgetState extends State<FilterApplicationWidget> {
     if (price.containsKey("price_from") && price.containsKey("price_to")) {
       return Row(children: [
         Text(
-            "${priceFormat(price['price_from'])} ₸ - ${priceFormat(price['price_to'])} ₸"),
+            "${priceFormat(price['price_from'], context)} ₸ - ${priceFormat(price['price_to'], context)} ₸"),
       ]);
     } else if (price.containsKey("price_from")) {
-      return Text("от ${priceFormat(price['price_from'])} ₸");
+      return Text("от ${priceFormat(price['price_from'], context)} ₸");
     } else if (price.containsKey("price_to")) {
-      return Text("до ${priceFormat(price['price_to'])} ₸");
+      return Text("до ${priceFormat(price['price_to'], context)} ₸");
     } else {
-      return const Text("Цена");
+      return  Text(context.localizations.price);
     }
   }
 
@@ -160,7 +161,7 @@ class _FilterApplicationWidgetState extends State<FilterApplicationWidget> {
         FilterButton(showFilterPage: showFilterPage)
       ],
       leading: BackTitleButton(
-          title: "Заказы", onPressed: () => Navigator.pop(context)),
+          title: context.localizations.orders, onPressed: () => Navigator.pop(context)),
       bottom: PreferredSize(
           preferredSize: const Size(double.infinity, 46),
           child: Container(
@@ -243,7 +244,7 @@ class _FilterApplicationWidgetState extends State<FilterApplicationWidget> {
                               ])
                             : Row(
                                 children: [
-                                  Text("Цена",
+                                  Text(context.localizations.price,
                                       style: TextStyle(
                                           color: ColorComponent.gray['500'])),
                                   const Divider(indent: 6),

@@ -15,6 +15,7 @@ import 'package:gservice5/component/theme/colorComponent.dart';
 import 'package:gservice5/component/widgets/bottom/bottomNavigationBarComponent.dart';
 import 'package:gservice5/component/widgets/characteristic/showCharacteristicWidget.dart';
 import 'package:gservice5/pages/application/document/sliderApplicationSmallImageWidget.dart';
+import 'package:gservice5/localization/extensions/context_extension.dart';
 
 class ViewMyApplicationPage extends StatefulWidget {
   final int id;
@@ -100,7 +101,7 @@ class _ViewMyApplicationPageState extends State<ViewMyApplicationPage> {
                                 fontWeight: FontWeight.w400,
                                 color: ColorComponent.blue['700']),
                             maxLines: 1),
-                        Text(priceFormat(0),
+                        Text(priceFormat(0, context),
                             style: const TextStyle(
                                 fontSize: 14, fontWeight: FontWeight.w600),
                             maxLines: 1),
@@ -123,7 +124,7 @@ class _ViewMyApplicationPageState extends State<ViewMyApplicationPage> {
                                     fontWeight: FontWeight.w600,
                                     color: ColorComponent.blue['700'])),
                             const SizedBox(height: 8),
-                            Text(priceFormat(data['cost']),
+                            Text(priceFormat(data['cost'], context),
                                 style: const TextStyle(
                                     fontSize: 20, fontWeight: FontWeight.w600)),
                             const SizedBox(height: 8),
@@ -147,7 +148,7 @@ class _ViewMyApplicationPageState extends State<ViewMyApplicationPage> {
                                 title: "Марка",
                                 subTitle: data['transport_brand']),
                             ShowCharacteristicWidget(
-                                title: "Модель",
+                                title: context.localizations.model,
                                 subTitle: data['transport_model']),
                             ShowCharacteristicWidget(
                                 title: "Профессия",
@@ -159,7 +160,7 @@ class _ViewMyApplicationPageState extends State<ViewMyApplicationPage> {
                                 title: "Рубрика товара",
                                 subTitle: data['spare_part_rubric']),
                             ShowCharacteristicWidget(
-                                title: "Производитель",
+                                title: context.localizations.manufacturer,
                                 subTitle: data['spare_part_brand']),
                             ShowCharacteristicWidget(
                                 title: "Опубликовано",

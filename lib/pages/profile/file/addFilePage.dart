@@ -9,6 +9,7 @@ import 'package:gservice5/component/loader/modalLoaderComponent.dart';
 import 'package:gservice5/component/snackBar/snackBarComponent.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
 import 'package:gservice5/component/widgets/bottom/bottomNavigationBarComponent.dart';
+import 'package:gservice5/localization/extensions/context_extension.dart';
 
 class AddFilePage extends StatefulWidget {
   const AddFilePage({super.key});
@@ -110,7 +111,8 @@ class _AddFilePageState extends State<AddFilePage> {
                   onChanged: (value) {
                     setState(() {});
                   },
-                  decoration: const InputDecoration(hintText: "Введите заголовок"),
+                  decoration:
+                      const InputDecoration(hintText: "Введите заголовок"),
                 ),
               ),
               const Divider(height: 16),
@@ -118,7 +120,8 @@ class _AddFilePageState extends State<AddFilePage> {
                 GestureDetector(
                   onTap: pickFile,
                   child: Container(
-                    padding: const EdgeInsets.symmetric(vertical: 9, horizontal: 12),
+                    padding:
+                        const EdgeInsets.symmetric(vertical: 9, horizontal: 12),
                     width: 148,
                     height: 34,
                     decoration: BoxDecoration(
@@ -127,7 +130,7 @@ class _AddFilePageState extends State<AddFilePage> {
                     child: Row(children: [
                       SvgPicture.asset("assets/icons/downloadFile.svg"),
                       const SizedBox(width: 8),
-                      const Text("Загрузить файл",
+                      Text(context.localizations.upload_file,
                           style: TextStyle(
                               fontSize: 12,
                               fontWeight: FontWeight.w500,
@@ -173,7 +176,7 @@ class _AddFilePageState extends State<AddFilePage> {
             icon: null,
             padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
             widthIcon: null,
-            title: "Сохранить"),
+            title: context.localizations.save),
       ),
     );
   }

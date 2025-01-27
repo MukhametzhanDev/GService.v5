@@ -6,6 +6,7 @@ import 'package:gservice5/component/select/selectVerifyData.dart';
 import 'package:gservice5/component/snackBar/snackBarComponent.dart';
 import 'package:gservice5/component/widgets/bottom/bottomNavigationBarComponent.dart';
 import 'package:gservice5/pages/create/data/createData.dart';
+import 'package:gservice5/localization/extensions/context_extension.dart';
 
 class AddressCreateApplicationPage extends StatefulWidget {
   final void Function() nextPage;
@@ -85,7 +86,9 @@ class _AddressCreateApplicationPageState
                   country.isEmpty ? "Заполните строку 'Страна'" : ""),
           const Divider(),
           SelectButton(
-              title: address.isEmpty ? "Введите адрес" : address['address'],
+              title: address.isEmpty
+                  ? context.localizations.enter_address
+                  : address['address'],
               active: address.isNotEmpty,
               onPressed: showGetAddressPage)
         ]),

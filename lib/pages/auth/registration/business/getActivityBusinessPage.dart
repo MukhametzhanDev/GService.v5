@@ -10,6 +10,7 @@ import 'package:gservice5/component/theme/colorComponent.dart';
 import 'package:gservice5/component/widgets/bottom/bottomNavigationBarComponent.dart';
 import 'package:gservice5/navigation/routes/app_router.gr.dart';
 import 'package:auto_route/auto_route.dart';
+import 'package:gservice5/localization/extensions/context_extension.dart';
 
 class GetActivityBusinessPage extends StatefulWidget {
   const GetActivityBusinessPage({super.key});
@@ -114,7 +115,7 @@ class _GetActivityBusinessPageState extends State<GetActivityBusinessPage> {
           child: Button(
               onPressed: verifyData,
               padding: const EdgeInsets.symmetric(horizontal: 15),
-              title: "Сохранить")),
+              title: context.localizations.save)),
     );
   }
 }

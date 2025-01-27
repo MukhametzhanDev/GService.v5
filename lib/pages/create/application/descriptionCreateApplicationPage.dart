@@ -5,6 +5,7 @@ import 'package:gservice5/component/theme/colorComponent.dart';
 import 'package:gservice5/component/widgets/bottom/bottomNavigationBarComponent.dart';
 import 'package:gservice5/pages/create/data/createData.dart';
 import 'package:gservice5/pages/create/structure/controllerPage/pageControllerIndexedStack.dart';
+import 'package:gservice5/localization/extensions/context_extension.dart';
 
 class DescriptionCreateApplicationPage extends StatefulWidget {
   final void Function() previousPage;
@@ -28,7 +29,7 @@ class _DescriptionCreateApplicationPageState
   TextEditingController descEditingController = TextEditingController();
   PageControllerIndexedStack pageControllerIndexedStack =
       PageControllerIndexedStack();
-      
+
   @override
   void dispose() {
     descEditingController.dispose();
@@ -56,7 +57,7 @@ class _DescriptionCreateApplicationPageState
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(15),
         child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-          const Text("Напишите подробности",
+          Text(context.localizations.description,
               style: TextStyle(fontWeight: FontWeight.w600, fontSize: 20)),
           const Divider(height: 8),
           TextField(

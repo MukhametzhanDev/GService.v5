@@ -8,6 +8,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
+import 'package:gservice5/localization/extensions/context_extension.dart';
 
 class SelectModal extends StatefulWidget {
   final String title;
@@ -82,7 +83,7 @@ class _SelectModalState extends State<SelectModal> {
               preferredSize: Size(MediaQuery.of(context).size.width, 50),
               child: Container(
                   padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 2),
-                  child: SearchTextField(title: "Поиск", onChanged: addTitle))),
+                  child: SearchTextField(title: context.localizations.search, onChanged: addTitle))),
         ),
         body: loader
             ? const LoaderComponent()

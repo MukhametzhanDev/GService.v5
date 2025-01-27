@@ -5,6 +5,7 @@ import 'package:gservice5/component/switchRole/switchRoleWidget.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
 import 'package:gservice5/pages/application/item/applicationItem.dart';
 import 'package:gservice5/pages/contractor/dashboard/newsWidget.dart';
+import 'package:gservice5/localization/extensions/context_extension.dart';
 
 class DashboardPage extends StatefulWidget {
   final ScrollController scrollController;
@@ -284,7 +285,7 @@ class _DashboardPageState extends State<DashboardPage> {
                                     fontSize: 16, fontWeight: FontWeight.w600),
                               ),
                               const Divider(height: 4),
-                              const Text("Заказы")
+                               Text(context.localizations.orders)
                             ],
                           ),
                         )

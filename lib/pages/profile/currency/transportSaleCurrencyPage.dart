@@ -9,6 +9,7 @@ import 'package:gservice5/component/snackBar/snackBarComponent.dart';
 import 'package:gservice5/component/textField/closeKeyboard/closeKeyboard.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
 import 'package:gservice5/component/widgets/bottom/bottomNavigationBarComponent.dart';
+import 'package:gservice5/localization/extensions/context_extension.dart';
 
 class TransportSaleCurrencyPage extends StatefulWidget {
   const TransportSaleCurrencyPage({super.key});
@@ -162,7 +163,7 @@ class _TransportSaleCurrencyPageState extends State<TransportSaleCurrencyPage> {
                 padding: const EdgeInsets.only(
                     left: 16, right: 16, top: 8, bottom: 8),
                 widthIcon: null,
-                title: "Сохранить")),
+                title: context.localizations.save)),
       ),
     );
   }

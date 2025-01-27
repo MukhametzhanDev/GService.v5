@@ -9,6 +9,7 @@ import 'package:gservice5/component/snackBar/snackBarComponent.dart';
 import 'package:gservice5/component/textField/closeKeyboard/closeKeyboard.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
 import 'package:gservice5/component/widgets/bottom/bottomNavigationBarComponent.dart';
+import 'package:gservice5/localization/extensions/context_extension.dart';
 
 class SparePartCurrencyPage extends StatefulWidget {
   const SparePartCurrencyPage({super.key});
@@ -161,7 +162,7 @@ class _SparePartCurrencyPageState extends State<SparePartCurrencyPage> {
                 padding: const EdgeInsets.only(
                     left: 16, right: 16, top: 8, bottom: 8),
                 widthIcon: null,
-                title: "Сохранить")),
+                title: context.localizations.save)),
       ),
     );
   }

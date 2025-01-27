@@ -169,7 +169,7 @@ class _CreateApplicationLeasingModalState
                 // ShowCharacteristicWidget(
                 //     title: "Марка", subTitle: widget.data['transport_brand']),
                 // ShowCharacteristicWidget(
-                //     title: "Модель", subTitle: widget.data['transport_model']),
+                //     title: context.localizations.model, subTitle: widget.data['transport_model']),
                 // const ShowCharacteristicWidget(
                 //     title: "Состояние", subTitle: {"title": "Новая"}),
                 // const Divider(height: 12),

@@ -9,6 +9,8 @@ import 'package:gservice5/component/widgets/bottom/bottomNavigationBarComponent.
 import 'package:gservice5/pages/create/data/createData.dart';
 import 'package:gservice5/pages/create/structure/controllerPage/pageControllerIndexedStack.dart';
 import 'package:intl/intl.dart';
+import 'package:gservice5/localization/extensions/context_extension.dart';
+import 'package:gservice5/localization/extensions/context_extension.dart';
 
 class PriceCreateApplicationPage extends StatefulWidget {
   final void Function() nextPage;
@@ -94,7 +96,7 @@ class _PriceCreateApplicationPageState
               style: const TextStyle(fontSize: 14, height: 1.1),
               controller: priceEditingController,
               decoration: InputDecoration(
-                  hintText: negotiablePrice ? 'Договорная' : 'Введите цену'),
+                  hintText: negotiablePrice ? context.localizations.negotiable : 'Введите цену'),
             ),
           ),
           ListTile(
@@ -120,7 +122,7 @@ class _PriceCreateApplicationPageState
                       color: Colors.white)
                   : Container(),
             ),
-            title: const Text("Договорная"),
+            title: Text(context.localizations.negotiable),
           ),
           widget.canLease
               ? ListTile(

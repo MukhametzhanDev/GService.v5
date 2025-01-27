@@ -3,6 +3,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:gservice5/component/formatted/price/priceFormat.dart';
 import 'package:gservice5/component/modal/cities.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
+import 'package:gservice5/localization/extensions/context_extension.dart';
 import 'package:gservice5/pages/ad/filter/priceFilterModal.dart';
 import 'package:gservice5/pages/create/data/createData.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
@@ -103,14 +104,14 @@ class _FilterAdWidgetState extends State<FilterAdWidget> {
     if (price.containsKey("price_from") && price.containsKey("price_to")) {
       return Row(children: [
         Text(
-            "${priceFormat(price['price_from'])} ₸ - ${priceFormat(price['price_to'])} ₸"),
+            "${priceFormat(price['price_from'], context)} ₸ - ${priceFormat(price['price_to'], context)} ₸"),
       ]);
     } else if (price.containsKey("price_from")) {
-      return Text("от ${priceFormat(price['price_from'])} ₸");
+      return Text("от ${priceFormat(price['price_from'], context)} ₸");
     } else if (price.containsKey("price_to")) {
-      return Text("до ${priceFormat(price['price_to'])} ₸");
+      return Text("до ${priceFormat(price['price_to'], context)} ₸");
     } else {
-      return const Text("Цена");
+      return Text(context.localizations.price);
     }
   }
 
@@ -209,7 +210,7 @@ class _FilterAdWidgetState extends State<FilterAdWidget> {
                       ])
                     : Row(
                         children: [
-                          Text("Цена",
+                          Text(context.localizations.price,
                               style:
                                   TextStyle(color: ColorComponent.gray['500'])),
                           const Divider(indent: 6),

@@ -8,6 +8,8 @@ import 'package:gservice5/component/theme/colorComponent.dart';
 import 'package:gservice5/component/widgets/bottom/bottomNavigationBarComponent.dart';
 import 'package:gservice5/pages/create/data/createData.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
+import 'package:gservice5/localization/extensions/context_extension.dart';
+import 'package:gservice5/localization/extensions/context_extension.dart';
 
 class MultipleDataModal extends StatefulWidget {
   final Map data;
@@ -235,7 +237,7 @@ class _ModalState extends State<Modal> {
           Navigator.pop(context);
         },
         padding: const EdgeInsets.symmetric(horizontal: 15),
-        title: "Сохранить",
+        title: context.localizations.save
       )),
     );
   }

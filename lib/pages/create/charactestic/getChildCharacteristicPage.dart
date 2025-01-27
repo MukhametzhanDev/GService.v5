@@ -8,6 +8,7 @@ import 'package:gservice5/pages/create/data/createData.dart';
 import 'package:gservice5/pages/create/structure/controllerPage/pageControllerIndexedStack.dart';
 import 'package:gservice5/pages/create/charactestic/dataModal.dart';
 import 'package:gservice5/pages/create/charactestic/multipleDataModal.dart';
+import 'package:gservice5/localization/extensions/context_extension.dart';
 
 class GetChildCharacteristicPage extends StatefulWidget {
   final List data;
@@ -128,7 +129,7 @@ class _GetChildCharacteristicPageState
             child: Button(
                 onPressed: verifyData,
                 padding: const EdgeInsets.symmetric(horizontal: 15),
-                title: "Сохранить")),
+                title: context.localizations.save)),
       ),
     );
   }

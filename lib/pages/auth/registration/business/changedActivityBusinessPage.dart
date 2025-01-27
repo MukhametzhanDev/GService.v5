@@ -11,6 +11,7 @@ import 'package:gservice5/component/select/multi/multiSelect.dart';
 import 'package:gservice5/component/snackBar/snackBarComponent.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
 import 'package:gservice5/component/widgets/bottom/bottomNavigationBarComponent.dart';
+import 'package:gservice5/localization/extensions/context_extension.dart';
 
 class ChangedActivityBusinessPage extends StatefulWidget {
   const ChangedActivityBusinessPage({super.key});
@@ -148,7 +149,7 @@ class _ChangedActivityBusinessPageState
           child: Button(
               onPressed: verifyData,
               padding: const EdgeInsets.symmetric(horizontal: 15),
-              title: "Сохранить")),
+              title: context.localizations.save)),
     );
   }
 }

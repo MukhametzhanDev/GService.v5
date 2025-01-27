@@ -8,6 +8,7 @@ import 'package:gservice5/pages/ad/filter/filterSelectModal.dart';
 import 'package:gservice5/pages/create/data/createData.dart';
 import 'package:gservice5/provider/adFilterProvider.dart';
 import 'package:provider/provider.dart';
+import 'package:gservice5/localization/extensions/context_extension.dart';
 
 class FilterCompanyPage extends StatefulWidget {
   const FilterCompanyPage({super.key});

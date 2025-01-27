@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
+import 'package:gservice5/localization/extensions/context_extension.dart';
 
 class InfoTypeAccountModal extends StatefulWidget {
   final String data;
@@ -70,7 +71,7 @@ class _InfoTypeAccountModalState extends State<InfoTypeAccountModal> {
             children: [
               SvgPicture.asset("assets/icons/headsetOutline.svg"),
               const Divider(indent: 8),
-              const Text("Обратиться в поддержку GService.kz",
+               Text(context.localizations.contact_gservice_support,
                   style: TextStyle(fontWeight: FontWeight.w500))
             ],
           ),

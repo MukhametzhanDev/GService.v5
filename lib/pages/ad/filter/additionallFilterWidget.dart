@@ -3,6 +3,7 @@ import 'package:gservice5/component/button/radio/radioButton.dart';
 import 'package:gservice5/component/widgets/checkBox/checkBoxWidget.dart';
 import 'package:gservice5/provider/adFilterProvider.dart';
 import 'package:provider/provider.dart';
+import 'package:gservice5/localization/extensions/context_extension.dart';
 
 class AdditionallFilterWidget extends StatefulWidget {
   final int categoryId;
@@ -37,17 +38,17 @@ class _AdditionallFilterWidgetState extends State<AdditionallFilterWidget> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           const Divider(height: 24),
-          const Text("Состояние"),
+          Text(context.localizations.condition),
           const Divider(height: 8),
           Row(children: [
             RadioButtonWidget(
                 active: data['state'] == 278,
-                title: "Новый",
+                title: context.localizations.new_title,
                 onChanged: (value) => onChangedState(278)),
             const Divider(indent: 24),
             RadioButtonWidget(
                 active: data['state'] == 279,
-                title: "Б/У",
+                title: context.localizations.used,
                 onChanged: (value) => onChangedState(279))
           ]),
         ],
@@ -72,7 +73,8 @@ class _AdditionallFilterWidgetState extends State<AdditionallFilterWidget> {
               children: [
                 CheckBoxWidget(active: active),
                 const Divider(indent: 12),
-                const Expanded(child: Text("С фото", style: TextStyle(fontSize: 15)))
+                const Expanded(
+                    child: Text("С фото", style: TextStyle(fontSize: 15)))
               ],
             ),
           ),
@@ -93,8 +95,9 @@ class _AdditionallFilterWidgetState extends State<AdditionallFilterWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [StateWidget(widget.data), AdditionalFilterWidget(widget.data)]);
+    return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+      StateWidget(widget.data),
+      AdditionalFilterWidget(widget.data)
+    ]);
   }
 }

@@ -4,6 +4,7 @@ import 'package:gservice5/component/button/button.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
 import 'package:gservice5/component/widgets/bottom/bottomNavigationBarComponent.dart';
 import 'package:gservice5/pages/create/data/createData.dart';
+import 'package:gservice5/localization/extensions/context_extension.dart';
 
 class CloseCreateAdAlert extends StatelessWidget {
   const CloseCreateAdAlert({super.key});
@@ -43,7 +44,7 @@ class CloseCreateAdAlert extends StatelessWidget {
               const Divider(indent: 8),
               Expanded(
                   child: Button(
-                      onPressed: () => Navigator.pop(context), title: "Отмена"))
+                      onPressed: () => Navigator.pop(context), title: context.localizations.cancel))
             ],
           ),
         )),

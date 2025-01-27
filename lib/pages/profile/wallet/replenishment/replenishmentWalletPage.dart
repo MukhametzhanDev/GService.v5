@@ -125,7 +125,7 @@ class _ReplenishmentWalletPageState extends State<ReplenishmentWalletPage> {
                 children: prices.map((value) {
               return GestureDetector(
                 onTap: () {
-                  priceController.text = priceFormat(value);
+                  priceController.text = priceFormat(value, context);
                   percentagePrice();
                 },
                 child: Container(
@@ -136,7 +136,7 @@ class _ReplenishmentWalletPageState extends State<ReplenishmentWalletPage> {
                             width: 1, color: ColorComponent.mainColor),
                         borderRadius: BorderRadius.circular(8)),
                     margin: const EdgeInsets.only(right: 8),
-                    child: Text("${priceFormat(value)} ₸",
+                    child: Text("${priceFormat(value, context)} ₸",
                         style: const TextStyle(
                             fontSize: 12, fontWeight: FontWeight.w600))),
               );

@@ -17,6 +17,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:reorderables/reorderables.dart';
+import 'package:gservice5/localization/extensions/context_extension.dart';
 
 class GetImageWidget extends StatefulWidget {
   final Function(List<XFile>) onImagesSelected;
@@ -147,7 +148,7 @@ class _GetImageWidgetState extends State<GetImageWidget> {
                     child: Container(
                       height: 43,
                       alignment: Alignment.center,
-                      child: const Text("Отмена",
+                      child:  Text(context.localizations.cancel,
                           style: TextStyle(
                               fontSize: 16, fontWeight: FontWeight.w500)),
                     ))
@@ -194,7 +195,7 @@ class _GetImageWidgetState extends State<GetImageWidget> {
                     child: Container(
                       height: 43,
                       alignment: Alignment.center,
-                      child: const Text("Отмена",
+                      child:  Text(context.localizations.cancel,
                           style: TextStyle(
                               fontSize: 16, fontWeight: FontWeight.w500)),
                     ))
@@ -233,7 +234,7 @@ class _GetImageWidgetState extends State<GetImageWidget> {
                   child: Container(
                     height: 43,
                     alignment: Alignment.center,
-                    child: const Text("Отмена",
+                    child:  Text(context.localizations.cancel,
                         style: TextStyle(
                             fontSize: 16, fontWeight: FontWeight.w500)),
                   ))
@@ -300,14 +301,14 @@ class _GetImageWidgetState extends State<GetImageWidget> {
                       const SizedBox(height: 32),
                       SvgPicture.asset("assets/icons/getImage.svg"),
                       const SizedBox(height: 7),
-                      Text("Нажмите чтобы загрузить \nизображения",
+                      Text(context.localizations.click_to_upload_images,
                           textAlign: TextAlign.center,
                           style: TextStyle(
                               fontWeight: FontWeight.w600,
                               fontSize: 14,
                               color: ColorComponent.gray['500'])),
                       const SizedBox(height: 7),
-                      Text("SVG, PNG, JPG или JPEG (MAX. 800x400px)",
+                      Text("SVG, PNG, JPG, JPEG (MAX. 800x400px)",
                           textAlign: TextAlign.center,
                           style: TextStyle(
                               fontWeight: FontWeight.w400,

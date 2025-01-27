@@ -25,7 +25,8 @@ class SuccessfulPaymentPage extends StatelessWidget {
                 padding: const EdgeInsets.all(15),
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(8),
-                    border: Border.all(width: 1, color: const Color(0xffeeeeee))),
+                    border:
+                        Border.all(width: 1, color: const Color(0xffeeeeee))),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -36,7 +37,7 @@ class SuccessfulPaymentPage extends StatelessWidget {
                       children: [
                         const Text("Пополнения",
                             style: TextStyle(fontWeight: FontWeight.w600)),
-                        Text("+ ${priceFormat(1000000)} ₸",
+                        Text("+ ${priceFormat(1000000, context)} ₸",
                             style: const TextStyle(fontWeight: FontWeight.w600))
                       ],
                     ),
@@ -53,7 +54,7 @@ class SuccessfulPaymentPage extends StatelessWidget {
                           decoration: BoxDecoration(
                               color: ColorComponent.mainColor.withOpacity(.2),
                               borderRadius: BorderRadius.circular(10)),
-                          child: Text("${priceFormat(100000)} бонус",
+                          child: Text("${priceFormat(100000, context)} бонус",
                               style: const TextStyle(
                                   fontWeight: FontWeight.w600, fontSize: 12)),
                         )

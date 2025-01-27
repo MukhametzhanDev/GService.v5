@@ -7,6 +7,7 @@ import 'package:gservice5/component/theme/colorComponent.dart';
 import 'package:gservice5/component/widgets/bottom/bottomNavigationBarComponent.dart';
 import 'package:gservice5/pages/create/data/createData.dart';
 import 'package:gservice5/pages/create/structure/controllerPage/pageControllerIndexedStack.dart';
+import 'package:gservice5/localization/extensions/context_extension.dart';
 
 class TitleCreateAdPage extends StatefulWidget {
   final void Function() nextPage;
@@ -100,9 +101,9 @@ class _TitleCreateAdPageState extends State<TitleCreateAdPage> {
       body: SingleChildScrollView(
         padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
         child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-          const Padding(
+          Padding(
               padding: EdgeInsets.only(bottom: 12),
-              child: Text("Напишите подробности",
+              child: Text(context.localizations.description,
                   style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600))),
           widget.showTitle
               ? Padding(

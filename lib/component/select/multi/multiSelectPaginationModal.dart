@@ -9,6 +9,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:gservice5/component/widgets/bottom/bottomNavigationBarComponent.dart';
+import 'package:gservice5/localization/extensions/context_extension.dart';
 
 class MultiSelectPaginationModal extends StatefulWidget {
   final String title;
@@ -57,8 +58,7 @@ class _MultiSelectPaginationModalState
       Response response =
           await dio.get(widget.api, queryParameters: {"title": title});
       print(response.data);
-             if (response.statusCode==200) {
-
+      if (response.statusCode == 200) {
         data = response.data['data'];
         loader = false;
         hasNextPage = page != response.data['meta']['last_page'];
@@ -83,8 +83,7 @@ class _MultiSelectPaginationModalState
         Response response = await dio.get(widget.api,
             queryParameters: {"page": page.toString(), "title": title});
         print(response.data);
-               if (response.statusCode==200) {
-
+        if (response.statusCode == 200) {
           data.addAll(response.data['data']);
           hasNextPage = page != response.data['meta']['last_page'];
           isLoadMore = false;
@@ -136,7 +135,8 @@ class _MultiSelectPaginationModalState
           bottom: PreferredSize(
               preferredSize: Size(MediaQuery.of(context).size.width, 50),
               child: Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 2),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 15, vertical: 2),
                   child: SearchTextField(
                       title: "Поиск",
                       onChanged: (value) {
@@ -157,7 +157,9 @@ class _MultiSelectPaginationModalState
                   if (data.length - 1 == index) {
                     return Column(children: [
                       Item(value),
-                      isLoadMore ? const LoaderPaginationComponent() : Container()
+                      isLoadMore
+                          ? const LoaderPaginationComponent()
+                          : Container()
                     ]);
                   } else {
                     return Item(value);
@@ -167,7 +169,7 @@ class _MultiSelectPaginationModalState
             child: Button(
                 onPressed: savedData,
                 padding: const EdgeInsets.symmetric(horizontal: 16),
-                title: "Сохранить")),
+                title: context.localizations.save)),
       );
     });
   }
@@ -188,7 +190,9 @@ class _MultiSelectPaginationModalState
               borderRadius: BorderRadius.circular(4),
               border: Border.all(
                   width: 1,
-                  color: active ? const Color(0xff1A56DB) : const Color(0xffD1D5DB))),
+                  color: active
+                      ? const Color(0xff1A56DB)
+                      : const Color(0xffD1D5DB))),
           child: active
               ? SvgPicture.asset('assets/icons/checkMini.svg',
                   color: Colors.white)

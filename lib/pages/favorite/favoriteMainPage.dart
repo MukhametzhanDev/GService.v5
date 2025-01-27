@@ -3,6 +3,7 @@ import 'package:gservice5/component/functions/token/changedToken.dart';
 import 'package:gservice5/pages/auth/emptyTokenPage.dart';
 import 'package:gservice5/pages/favorite/ad/listFavoriteAdPage.dart';
 import 'package:gservice5/pages/favorite/ad/listFavoriteApplicationPage.dart';
+import 'package:gservice5/localization/extensions/context_extension.dart';
 
 class FavoriteMainPage extends StatefulWidget {
   const FavoriteMainPage({super.key});
@@ -12,10 +13,6 @@ class FavoriteMainPage extends StatefulWidget {
 }
 
 class _FavoriteMainPageState extends State<FavoriteMainPage> {
-  final List _tabs = [
-    "Объявлении", "Заказы",
-    // "Поиски"
-  ];
   bool token = false;
 
   @override
@@ -32,6 +29,7 @@ class _FavoriteMainPageState extends State<FavoriteMainPage> {
 
   @override
   Widget build(BuildContext context) {
+    final List _tabs = [context.localizations.ads, context.localizations.orders];
     return !token
         ? const EmptyTokenPage()
         : DefaultTabController(

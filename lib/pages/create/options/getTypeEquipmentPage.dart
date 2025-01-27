@@ -6,6 +6,7 @@ import 'package:gservice5/component/loader/loaderComponent.dart';
 import 'package:gservice5/component/snackBar/snackBarComponent.dart';
 import 'package:gservice5/component/textField/searchTextField.dart';
 import 'package:gservice5/pages/create/data/createData.dart';
+import 'package:gservice5/localization/extensions/context_extension.dart';
 
 class GetTypeEquipmentPage extends StatefulWidget {
   final void Function() nextPage;
@@ -95,7 +96,7 @@ class _GetTypeEquipmentPageState
     return Column(children: [
       Padding(
           padding: const EdgeInsets.only(right: 15, left: 15, top: 15),
-          child: SearchTextField(title: "Поиск", onChanged: searchList)),
+          child: SearchTextField(title: context.localizations.search, onChanged: searchList)),
       Expanded(
         child: loader
             ? const LoaderComponent()

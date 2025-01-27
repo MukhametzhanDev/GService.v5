@@ -22,6 +22,7 @@ import 'package:gservice5/component/widgets/price/priceTextWidget.dart';
 import 'package:gservice5/pages/ad/list/recommendationAdList.dart';
 import 'package:gservice5/pages/ad/widget/viewCharacteristicWidget.dart';
 import 'package:intl/intl.dart';
+import 'package:gservice5/localization/extensions/context_extension.dart';
 
 @RoutePage()
 class ViewAdPage extends StatefulWidget {
@@ -162,7 +163,7 @@ class _ViewAdPageState extends State<ViewAdPage> {
                                   title: "Марка",
                                   subTitle: data['transport_brand']),
                               ShowCharacteristicWidget(
-                                  title: "Модель",
+                                  title: context.localizations.model,
                                   subTitle: data['transport_model']),
                               ShowCharacteristicWidget(
                                   title: "Профессия",
@@ -174,7 +175,7 @@ class _ViewAdPageState extends State<ViewAdPage> {
                                   title: "Рубрика товара",
                                   subTitle: data['spare_part_rubric']),
                               ShowCharacteristicWidget(
-                                  title: "Производитель",
+                                  title: context.localizations.manufacturer,
                                   subTitle: data['spare_part_brand']),
                               ViewCharacteristicWidget(
                                   characteristics: data['characteristics']),

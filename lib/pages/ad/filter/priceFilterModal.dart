@@ -5,9 +5,11 @@ import 'package:gservice5/component/button/button.dart';
 import 'package:gservice5/component/functions/number/getIntNumber.dart';
 import 'package:gservice5/component/snackBar/snackBarComponent.dart';
 import 'package:gservice5/component/textField/priceTextField.dart';
+import 'package:gservice5/localization/extensions/context_extension.dart';
 import 'package:gservice5/provider/adFilterProvider.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
+import 'package:gservice5/localization/extensions/context_extension.dart';
 
 class PriceFilterModal extends StatefulWidget {
   final void Function(Map<String, dynamic> data) onChangedPrice;
@@ -55,7 +57,7 @@ class _PriceFilterModalState extends State<PriceFilterModal> {
     if (from != 0 && to != 0) {
       if (from > to) {
         SnackBarComponent()
-            .showErrorMessage("Цена от не должна превышать цена до", context);
+            .showErrorMessage("context.localizations.price от не должна превышать цена до", context);
       } else {
         updateAdList();
       }
@@ -87,7 +89,7 @@ class _PriceFilterModalState extends State<PriceFilterModal> {
       child: Scaffold(
         appBar: AppBar(
           automaticallyImplyLeading: false,
-          title: const Text("Цена"),
+          title:  Text(context.localizations.price),
           actions: const [CloseIconButton(iconColor: null, padding: true)],
         ),
         body: Container(

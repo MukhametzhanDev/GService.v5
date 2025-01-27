@@ -3,6 +3,7 @@ import 'package:gservice5/component/button/back/closeIconButton.dart';
 import 'package:gservice5/component/button/button.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
 import 'package:gservice5/component/widgets/bottom/bottomNavigationBarComponent.dart';
+import 'package:gservice5/localization/extensions/context_extension.dart';
 
 class LogOutAlert extends StatelessWidget {
   final void Function() onPressed;
@@ -38,7 +39,8 @@ class LogOutAlert extends StatelessWidget {
               const Divider(indent: 8),
               Expanded(
                   child: Button(
-                      onPressed: () => Navigator.pop(context), title: "Отмена"))
+                      onPressed: () => Navigator.pop(context),
+                      title: context.localizations.cancel))
             ],
           ),
         )),

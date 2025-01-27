@@ -59,13 +59,11 @@ class _SectionCreateApplicationPageState
 
   void showPage() {
     CreateData.data['category_id'] = data[currentIndex]['id'];
-    // CreateData.data['category'] = data[currentIndex];
-    // Navigator.pushNamed(context, "CreateApplication");
     Navigator.push(
         context,
         MaterialPageRoute(
             builder: (context) =>
-                CreateApplication2(data: data[currentIndex])));
+                CreateApplication(data: data[currentIndex])));
   }
 
   @override

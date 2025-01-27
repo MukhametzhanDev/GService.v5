@@ -10,13 +10,13 @@ import 'package:gservice5/component/loader/paginationLoaderComponent.dart';
 import 'package:gservice5/component/request/getMainPageData.dart';
 import 'package:gservice5/component/snackBar/snackBarComponent.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
+import 'package:gservice5/localization/extensions/context_extension.dart';
 import 'package:gservice5/pages/ad/item/adItem.dart';
 import 'package:gservice5/pages/ad/list/adListLoader.dart';
 import 'package:gservice5/pages/main/applicationListMain.dart';
 import 'package:gservice5/component/categories/categoriesListWidget.dart';
 import 'package:gservice5/pages/main/drawer/mainDrawer.dart';
 import 'package:gservice5/pages/main/search/mainSearchPage.dart';
-import 'package:auto_route/auto_route.dart';
 
 class MainPage extends StatefulWidget {
   final ScrollController scrollController;
@@ -140,7 +140,7 @@ class _MainPageState extends State<MainPage> {
                   physics: const ClampingScrollPhysics(),
                   slivers: [
                     loaderHeader
-                        ? const SliverToBoxAdapter()
+                        ? SliverToBoxAdapter()
                         : SliverAppBar(
                             pinned: !true,
                             snap: true,
@@ -167,7 +167,7 @@ class _MainPageState extends State<MainPage> {
                               ],
                             ),
                             title: SearchButton(
-                                title: "Поиск по GService.kz",
+                                title: context.localizations.searchByGservice,
                                 onPressed: showMainSearchPage),
                             bottom: PreferredSize(
                                 preferredSize:
@@ -175,7 +175,7 @@ class _MainPageState extends State<MainPage> {
                                 child: const CategoriesListWidget()),
                           ),
                     loaderHeader
-                        ? const SliverToBoxAdapter()
+                        ? SliverToBoxAdapter()
                         : SliverToBoxAdapter(
                             child: Column(children: [
                             const Divider(height: 10),
@@ -184,7 +184,7 @@ class _MainPageState extends State<MainPage> {
                             ApplicationListMain(data: data['applications']),
                             const Divider(height: 24),
                           ])),
-                    const SliverToBoxAdapter(
+                    SliverToBoxAdapter(
                       child: Padding(
                           padding:
                               EdgeInsets.only(left: 15, right: 15, bottom: 15),

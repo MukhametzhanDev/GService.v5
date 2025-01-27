@@ -12,6 +12,7 @@ import 'package:gservice5/component/widgets/bottom/bottomNavigationBarComponent.
 import 'package:gservice5/pages/auth/emptyTokenPage.dart';
 import 'package:gservice5/pages/create/data/createData.dart';
 import 'package:gservice5/pages/create/structure/structureCreateAdPage.dart';
+import 'package:gservice5/localization/extensions/context_extension.dart';
 
 class SectionCreateAdPage extends StatefulWidget {
   const SectionCreateAdPage({super.key});
@@ -105,7 +106,7 @@ class _SectionCreateAdPageState extends State<SectionCreateAdPage> {
           leadingWidth: MediaQuery.of(context).size.width - 100,
           leading: CloseTitleButton(
               onPressed: () => Navigator.pop(context),
-              title: "Тип объявлении")),
+              title: context.localizations.select_the_type_of_advertisement)),
       body: loader
           ? const LoaderComponent()
           : !verifyToken

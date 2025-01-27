@@ -9,6 +9,7 @@ import 'package:gservice5/component/widgets/checkBox/checkBoxWidget.dart';
 import 'package:gservice5/pages/create/data/createData.dart';
 import 'package:gservice5/pages/create/charactestic/modalButtonComponent.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
+import 'package:gservice5/localization/extensions/context_extension.dart';
 
 class MultiSelectCharactersitic extends StatefulWidget {
   final Map value;
@@ -203,7 +204,7 @@ class _SelectModalState extends State<SelectModal> {
             child: Button(
                 onPressed: onSaved,
                 padding: const EdgeInsets.symmetric(horizontal: 15),
-                title: "Сохранить")),
+                title: context.localizations.save)),
       );
     });
   }

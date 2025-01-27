@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gservice5/component/formatted/price/priceFormat.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
+import 'package:gservice5/localization/extensions/context_extension.dart';
 
 class PriceTextWidget extends StatelessWidget {
   final List? prices;
@@ -11,7 +12,7 @@ class PriceTextWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (prices == null || prices!.isEmpty) {
-      return Text("Договорная",
+      return Text(context.localizations.negotiable,
           maxLines: 1,
           overflow: TextOverflow.ellipsis,
           style: TextStyle(
@@ -20,7 +21,7 @@ class PriceTextWidget extends StatelessWidget {
               fontSize: fontSize ?? 15));
     } else if (prices != null && prices!.length == 1) {
       Map price = prices![0];
-      return Text("${priceFormat(price['price'])} ₸",
+      return Text("${priceFormat(price['price'], context)} ₸",
           maxLines: 1,
           overflow: TextOverflow.ellipsis,
           style: TextStyle(
@@ -36,7 +37,7 @@ class PriceTextWidget extends StatelessWidget {
                   fontWeight: FontWeight.w600, color: Colors.black),
               children: [
                 TextSpan(
-                    text: "${priceFormat(prices![1]['price'])} ₸",
+                    text: "${priceFormat(prices![1]['price'], context)} ₸",
                     style: TextStyle(fontSize: fontSize ?? 15)),
                 TextSpan(
                     text: " /час",
@@ -47,7 +48,7 @@ class PriceTextWidget extends StatelessWidget {
                 const TextSpan(
                     text: "  |  ", style: TextStyle(color: Colors.black)),
                 TextSpan(
-                    text: "${priceFormat(prices![0]['price'])} ₸",
+                    text: "${priceFormat(prices![0]['price'], context)} ₸",
                     style: TextStyle(fontSize: fontSize ?? 15)),
                 TextSpan(
                     text: " /смена",

@@ -21,15 +21,15 @@ import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 //price
 //image
 
-class CreateApplication2 extends StatefulWidget {
+class CreateApplication extends StatefulWidget {
   final Map data;
-  const CreateApplication2({super.key, required this.data});
+  const CreateApplication({super.key, required this.data});
 
   @override
-  State<CreateApplication2> createState() => _CreateApplication2State();
+  State<CreateApplication> createState() => _CreateApplicationState();
 }
 
-class _CreateApplication2State extends State<CreateApplication2> {
+class _CreateApplicationState extends State<CreateApplication> {
   PageController pageController = PageController();
   List<Map> data = [];
   List<Widget> pages = [];

@@ -5,6 +5,7 @@ import 'package:gservice5/component/textField/searchTextField.dart';
 import 'package:gservice5/pages/create/charactestic/getChildCharacteristicPage.dart';
 import 'package:gservice5/pages/create/charactestic/modalButtonComponent.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
+import 'package:gservice5/localization/extensions/context_extension.dart';
 
 class DataModal extends StatefulWidget {
   String title;

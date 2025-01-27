@@ -10,6 +10,7 @@ import 'package:gservice5/component/snackBar/snackBarComponent.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
 import 'package:gservice5/component/widgets/bottom/bottomNavigationBarComponent.dart';
 import 'package:gservice5/pages/profile/employees/addEmployeePage.dart';
+import 'package:gservice5/localization/extensions/context_extension.dart';
 
 class EmployeeListPage extends StatefulWidget {
   const EmployeeListPage({super.key});
@@ -72,14 +73,15 @@ class _EmployeeListPageState extends State<EmployeeListPage> {
                       SvgPicture.asset("assets/icons/searchOutline.svg",
                           color: ColorComponent.gray['500']),
                       const Divider(indent: 8),
-                      Text("Поиск сотрудников",
+                      Text(context.localizations.search,
                           style: TextStyle(color: ColorComponent.gray['500']))
                     ])))),
         body: loader
             ? const LoaderComponent()
             : Column(children: [
                 Padding(
-                  padding: const EdgeInsets.only(left: 16, right: 16, bottom: 12),
+                  padding:
+                      const EdgeInsets.only(left: 16, right: 16, bottom: 12),
                   child: Row(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -156,7 +158,8 @@ class _EmployeeListPageState extends State<EmployeeListPage> {
           backgroundColor: ColorComponent.mainColor,
           titleColor: Colors.black,
           icon: null,
-          padding: const EdgeInsets.only(left: 16, right: 16, bottom: 8, top: 8),
+          padding:
+              const EdgeInsets.only(left: 16, right: 16, bottom: 8, top: 8),
           widthIcon: null,
           title: "Добавить сотрудника",
         )));

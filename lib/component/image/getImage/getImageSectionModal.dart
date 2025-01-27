@@ -4,6 +4,7 @@ import 'package:gservice5/component/button/button.dart';
 import 'package:gservice5/component/image/getImage/getImage.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:gservice5/localization/extensions/context_extension.dart';
 
 class GetImageSectionModal extends StatefulWidget {
   final void Function(List<XFile> images) pickImage;
@@ -60,7 +61,7 @@ class _GetImageSectionModalState extends State<GetImageSectionModal> {
                     child: Container(
                       height: 43,
                       alignment: Alignment.center,
-                      child: const Text("Отмена",
+                      child:  Text(context.localizations.cancel,
                           style: TextStyle(
                               fontSize: 16, fontWeight: FontWeight.w500)),
                     ))

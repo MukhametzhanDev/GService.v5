@@ -56,7 +56,7 @@ class _ApplicationItemState extends State<ApplicationItem> {
                 Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
               const Divider(height: 8),
 
-              Text(priceFormatted(widget.data['price']?['price']),
+              Text(priceFormatted(widget.data['price']?['price'], context),
                   style: const TextStyle(
                       fontSize: 16, fontWeight: FontWeight.w600)),
               // Row(

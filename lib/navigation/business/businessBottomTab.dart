@@ -8,6 +8,7 @@ import 'package:gservice5/pages/contractor/marketing/marketingPage.dart';
 import 'package:gservice5/pages/create/ad/sectionCreateAdPage.dart';
 import 'package:gservice5/pages/profile/business/businessProfilePage.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
+import 'package:gservice5/localization/extensions/context_extension.dart';
 
 @RoutePage()
 class BusinessBottomTab extends StatefulWidget {
@@ -19,13 +20,6 @@ class BusinessBottomTab extends StatefulWidget {
 
 class _BusinessBottomTabState extends State<BusinessBottomTab> {
   int _selectedIndex = 0;
-  static final List<Map> _tabs = <Map>[
-    {"icon": "assets/icons/clipboardOutline.svg", "label": "Мои"},
-    {"icon": "assets/icons/file.svg", "label": "Заказы"},
-    {"icon": "assets/icons/plus.svg", "label": "Объявление"},
-    {"icon": "assets/icons/chartOutline.svg", "label": "Маркетинг"},
-    {"icon": "assets/icons/user.svg", "label": "Профиль"}
-  ];
   ScrollController scrollController = ScrollController();
 
   //changed tab and scroll up
@@ -57,6 +51,13 @@ class _BusinessBottomTabState extends State<BusinessBottomTab> {
   @override
   Widget build(BuildContext context) {
     final ColorTheme = ThemeColorComponent.ColorsTheme(context);
+    final List<Map> _tabs = <Map>[
+      {"icon": "assets/icons/clipboardOutline.svg", "label": "Мои"},
+      {"icon": "assets/icons/file.svg", "label": context.localizations.order},
+      {"icon": "assets/icons/plus.svg", "label": context.localizations.ad},
+      {"icon": "assets/icons/chartOutline.svg", "label": "Маркетинг"},
+      {"icon": "assets/icons/user.svg", "label": "Профиль"}
+    ];
     return Scaffold(
       body: IndexedStack(index: _selectedIndex, children: [
         BusinessMainPage(scrollController: scrollController),

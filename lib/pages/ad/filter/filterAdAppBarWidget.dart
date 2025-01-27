@@ -4,6 +4,7 @@ import 'package:gservice5/component/button/back/backTitleButton.dart';
 import 'package:gservice5/component/formatted/price/priceFormat.dart';
 import 'package:gservice5/component/modal/cities.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
+import 'package:gservice5/localization/extensions/context_extension.dart';
 import 'package:gservice5/pages/ad/filter/filterAdListPage.dart';
 import 'package:gservice5/pages/ad/filter/filterButton.dart';
 import 'package:gservice5/pages/ad/filter/priceFilterModal.dart';
@@ -62,14 +63,14 @@ class _FilterAdAppBarWidgetState extends State<FilterAdAppBarWidget> {
     if (data.containsKey("price_from") && data.containsKey("price_to")) {
       return Row(children: [
         Text(
-            "${priceFormat(data['price_from'])} ₸ - ${priceFormat(data['price_to'])} ₸"),
+            "${priceFormat(data['price_from'], context)} ₸ - ${priceFormat(data['price_to'], context)} ₸"),
       ]);
     } else if (data.containsKey("price_from")) {
-      return Text("от ${priceFormat(data['price_from'])} ₸");
+      return Text("от ${priceFormat(data['price_from'], context)} ₸");
     } else if (data.containsKey("price_to")) {
-      return Text("до ${priceFormat(data['price_to'])} ₸");
+      return Text("до ${priceFormat(data['price_to'], context)} ₸");
     } else {
-      return const Text("Цена");
+      return Text(context.localizations.price);
     }
   }
 
@@ -207,7 +208,7 @@ class _FilterAdAppBarWidgetState extends State<FilterAdAppBarWidget> {
                                 ])
                               : Row(
                                   children: [
-                                    Text("Цена",
+                                    Text(context.localizations.price,
                                         style: TextStyle(
                                             color: ColorComponent.gray['500'])),
                                     const Divider(indent: 6),

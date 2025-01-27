@@ -5,6 +5,7 @@ import 'package:gservice5/component/snackBar/snackBarComponent.dart';
 import 'package:gservice5/component/textField/passwordTextField.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
 import 'package:gservice5/component/widgets/bottom/bottomNavigationBarComponent.dart';
+import 'package:gservice5/localization/extensions/context_extension.dart';
 
 class ChangePasswordPage extends StatefulWidget {
   const ChangePasswordPage({super.key});
@@ -74,7 +75,7 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
               icon: null,
               padding: const EdgeInsets.only(bottom: 8, top: 8, right: 16, left: 16),
               widthIcon: null,
-              title: "Сохранить")),
+              title: context.localizations.save)),
     );
   }
 }

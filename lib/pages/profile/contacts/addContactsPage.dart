@@ -13,6 +13,7 @@ import 'package:gservice5/component/widgets/bottom/bottomNavigationBarComponent.
 import 'package:gservice5/pages/profile/contacts/countryCodeListModal.dart';
 import 'package:gservice5/pages/profile/contacts/requestContact.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
+import 'package:gservice5/localization/extensions/context_extension.dart';
 
 class AddContactsPage extends StatefulWidget {
   const AddContactsPage({super.key});
@@ -317,7 +318,7 @@ class _AddContactsPageState extends State<AddContactsPage> {
         bottomNavigationBar: BottomNavigationBarComponent(
             child: Button(
           onPressed: verifyData,
-          title: "Сохранить",
+          title: context.localizations.save,
           padding: const EdgeInsets.symmetric(horizontal: 16),
         )),
       ),

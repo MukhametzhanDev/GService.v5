@@ -9,6 +9,7 @@ import 'package:gservice5/component/snackBar/snackBarComponent.dart';
 import 'package:gservice5/component/widgets/bottom/bottomNavigationBarComponent.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:gservice5/navigation/routes/app_router.gr.dart';
+import 'package:gservice5/localization/extensions/context_extension.dart';
 
 class FilterActivityCompanyModal extends StatefulWidget {
   const FilterActivityCompanyModal({super.key});
@@ -108,7 +109,7 @@ class _FilterActivityCompanyModalState
           child: Button(
               onPressed: verifyData,
               padding: const EdgeInsets.symmetric(horizontal: 15),
-              title: "Сохранить")),
+              title: context.localizations.save)),
     );
   }
 }

@@ -9,6 +9,7 @@ import 'package:gservice5/component/theme/colorComponent.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
+import 'package:gservice5/localization/extensions/context_extension.dart';
 
 class GetLogoWidget extends StatefulWidget {
   final void Function(String path) onChanged;
@@ -66,7 +67,7 @@ class _GetLogoWidgetState extends State<GetLogoWidget> {
             cropStyle: CropStyle.circle,
             resetButtonHidden: true,
             doneButtonTitle: "Готово",
-            cancelButtonTitle: "Отмена")
+            cancelButtonTitle: context.localizations.cancel)
       ],
     );
     if (croppedFile != null) {
@@ -126,8 +127,8 @@ class _GetLogoWidgetState extends State<GetLogoWidget> {
                           fontSize: 12, color: ColorComponent.gray['500'])),
                   const Divider(height: 8),
                   Container(
-                      padding:
-                          const EdgeInsets.symmetric(vertical: 6, horizontal: 12),
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 6, horizontal: 12),
                       decoration: BoxDecoration(
                           color: ColorComponent.mainColor,
                           borderRadius: BorderRadius.circular(8)),
@@ -183,7 +184,7 @@ class _GetLogoWidgetState extends State<GetLogoWidget> {
                 const Divider(indent: 8),
                 Button(
                     onPressed: () => Navigator.pop(context),
-                    title: "Отмена",
+                    title: context.localizations.cancel,
                     backgroundColor: Colors.white,
                     titleColor: Colors.black),
               ],

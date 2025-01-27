@@ -9,6 +9,8 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:gservice5/component/widgets/bottom/bottomNavigationBarComponent.dart';
+import 'package:gservice5/localization/extensions/context_extension.dart';
+import 'package:gservice5/localization/extensions/context_extension.dart';
 
 class MultiSelectModal extends StatefulWidget {
   final String title;
@@ -90,7 +92,8 @@ class _MultiSelectModalState extends State<MultiSelectModal> {
           bottom: PreferredSize(
               preferredSize: Size(MediaQuery.of(context).size.width, 50),
               child: Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 2),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 15, vertical: 2),
                   child:
                       SearchTextField(title: "Поиск", onChanged: (value) {}))),
         ),
@@ -135,7 +138,7 @@ class _MultiSelectModalState extends State<MultiSelectModal> {
             child: Button(
                 onPressed: savedData,
                 padding: const EdgeInsets.symmetric(horizontal: 16),
-                title: "Сохранить")),
+                title: context.localizations.save)),
       );
     });
   }

@@ -4,6 +4,7 @@ import 'package:gservice5/component/button/back/closeIconButton.dart';
 import 'package:gservice5/component/modal/modalBottomSheetWrapper.dart';
 import 'package:gservice5/component/textField/closeKeyboard/closeKeyboard.dart';
 import 'package:gservice5/component/textField/searchTextField.dart';
+import 'package:gservice5/localization/extensions/context_extension.dart';
 
 class CountryCodeListModal extends StatefulWidget {
   final List data;
@@ -52,7 +53,7 @@ class _CountryCodeListModalState extends State<CountryCodeListModal> {
                 padding:
                     const EdgeInsets.symmetric(horizontal: 15, vertical: 8),
                 child: SearchTextField(
-                    title: "Поиск по страну", onChanged: addTitle),
+                    title: context.localizations.search, onChanged: addTitle),
               )),
         ),
         body: ListView.builder(

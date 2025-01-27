@@ -7,6 +7,7 @@ import 'package:gservice5/component/functions/token/changedToken.dart';
 import 'package:gservice5/component/loader/modalLoaderComponent.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
 import 'package:gservice5/component/widgets/bottom/bottomNavigationBarComponent.dart';
+import 'package:gservice5/localization/extensions/context_extension.dart';
 
 class DeleteAccountModal extends StatefulWidget {
   const DeleteAccountModal({super.key});
@@ -57,7 +58,8 @@ class _DeleteAccountModalState extends State<DeleteAccountModal> {
               const Divider(indent: 8),
               Expanded(
                   child: Button(
-                      onPressed: () => Navigator.pop(context), title: "Отмена"))
+                      onPressed: () => Navigator.pop(context),
+                      title: context.localizations.cancel))
             ],
           ),
         )),

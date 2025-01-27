@@ -5,6 +5,7 @@ import 'package:gservice5/component/theme/colorComponent.dart';
 import 'package:gservice5/pages/ad/my/edit/editMyAdModal.dart';
 import 'package:gservice5/pages/ad/my/request/myAdRequest.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
+import 'package:gservice5/localization/extensions/context_extension.dart';
 
 class OptionsMyAdModal extends StatefulWidget {
   final Map<String, dynamic> data;
@@ -86,7 +87,7 @@ class _OptionsMyAdModalState extends State<OptionsMyAdModal> {
                   const SizedBox(height: 12),
                   TextButton(
                       onPressed: () => Navigator.pop(context),
-                      child: const Text("Отмена",
+                      child: Text(context.localizations.cancel,
                           style: TextStyle(
                               fontWeight: FontWeight.w500, fontSize: 16))),
                 ],
@@ -113,7 +114,7 @@ class _OptionsMyAdModalState extends State<OptionsMyAdModal> {
                       const SizedBox(height: 12),
                       TextButton(
                           onPressed: () => Navigator.pop(context),
-                          child: const Text("Отмена",
+                          child: Text(context.localizations.cancel,
                               style: TextStyle(
                                   fontWeight: FontWeight.w500, fontSize: 14))),
                       const SizedBox(height: 12),
@@ -158,7 +159,7 @@ class _OptionsMyAdModalState extends State<OptionsMyAdModal> {
                 warningPackageType = "";
                 setState(() {});
               },
-              child: const Text("Отмена",
+              child:  Text(context.localizations.cancel,
                   style: TextStyle(fontWeight: FontWeight.w500, fontSize: 14))),
         ],
       ),

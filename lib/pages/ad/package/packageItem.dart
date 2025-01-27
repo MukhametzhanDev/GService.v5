@@ -99,13 +99,13 @@ class PackageItem extends StatelessWidget {
                         }).toList()),
                     const SizedBox(height: 16),
                     Row(children: [
-                      Text("${priceFormat(data['price'])} ₸",
+                      Text("${priceFormat(data['price'], context)} ₸",
                           style: const TextStyle(
                               fontSize: 20, fontWeight: FontWeight.w600)),
                       const SizedBox(width: 12),
                       showPrice
                           ? Container()
-                          : Text("${priceFormat(data['old_price'])} ₸",
+                          : Text("${priceFormat(data['old_price'], context)} ₸",
                               style: TextStyle(
                                   fontSize: 17,
                                   color: ColorComponent.gray['500'],
@@ -117,7 +117,7 @@ class PackageItem extends StatelessWidget {
                           : Padding(
                               padding: const EdgeInsets.only(left: 12.0),
                               child: Text(
-                                  "Экономия ${priceFormat(data['old_price'] - data['price'])} ₸",
+                                  "Экономия ${priceFormat(data['old_price'] - data['price'], context)} ₸",
                                   style: TextStyle(
                                       fontSize: 14,
                                       fontWeight: FontWeight.w500,
