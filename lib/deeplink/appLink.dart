@@ -21,11 +21,29 @@ class AppLink {
     });
   }
 
+  final validPaths = [
+    '/product',
+    '/application',
+    '/news',
+    '/companies',
+    '/raffle'
+  ];
+
   void _onReceivedDeepLink(Uri uri, BuildContext context) {
-    debugPrint('deep link: $uri');
-    final path = uri.path; // "/invite/123"
-    print(path);
-    context.router.pushNamed(path);
+    final path = uri.path;
+    if (validPaths.any((validPath) => path.startsWith(validPath))) {
+      context.router.pushNamed(path);
+    } else {
+      // Обработка неверного пути
+      debugPrint('Invalid path: $path');
+      // Например, перенаправить на страницу ошибки
+      // context.router.pushNamed('/not-found');
+    }
+
+    // debugPrint('deep link: $uri');
+    // final path = uri.path; // "/invite/123"
+    // print(path);
+    // context.router.pushNamed(path);
   }
 
   void dispose() {

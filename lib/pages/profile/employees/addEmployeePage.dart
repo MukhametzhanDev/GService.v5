@@ -4,7 +4,6 @@ import 'package:gservice5/component/button/button.dart';
 import 'package:gservice5/component/image/cacheImage.dart';
 import 'package:gservice5/component/snackBar/snackBarComponent.dart';
 import 'package:gservice5/component/textField/closeKeyboard/closeKeyboard.dart';
-import 'package:gservice5/component/theme/colorComponent.dart';
 import 'package:gservice5/component/widgets/bottom/bottomNavigationBarComponent.dart';
 import 'package:gservice5/data/message/messageInviteApp.dart';
 import 'package:gservice5/provider/nameCompanyProvider.dart';
@@ -72,7 +71,7 @@ class _AddEmployeePageState extends State<AddEmployeePage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Text("Телефон номер сотудника", style: TextStyle(fontSize: 13)),
+            const Text("Телефон номер сотрудника", style: TextStyle(fontSize: 13)),
             const Divider(height: 6),
             SizedBox(
               height: 48,
@@ -132,36 +131,36 @@ class _AddEmployeePageState extends State<AddEmployeePage> {
                     ),
                   ),
             const Divider(height: 12),
-            GestureDetector(
-              onTap: sendMessage,
-              child: Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 20),
-                  decoration: BoxDecoration(
-                      color: Colors.grey[200],
-                      borderRadius: BorderRadius.circular(10)),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      const Text("Пользователь не найден",
-                          style: TextStyle(
-                              fontSize: 15, fontWeight: FontWeight.w500)),
-                      const Divider(height: 10),
-                      const Text("Пригласите сотрудника в GService.kz"),
-                      const Divider(height: 12),
-                      Container(
-                        padding:
-                            const EdgeInsets.symmetric(horizontal: 15, vertical: 6),
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(8),
-                            color: ColorComponent.blue['500']),
-                        child: const Text("Пригласить сотрудника",
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.w500)),
-                      )
-                    ],
-                  )),
-            )
+            // GestureDetector(
+            //   onTap: sendMessage,
+            //   child: Container(
+            //       padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 20),
+            //       decoration: BoxDecoration(
+            //           color: Colors.grey[200],
+            //           borderRadius: BorderRadius.circular(10)),
+            //       child: Column(
+            //         crossAxisAlignment: CrossAxisAlignment.center,
+            //         children: [
+            //           const Text("Пользователь не найден",
+            //               style: TextStyle(
+            //                   fontSize: 15, fontWeight: FontWeight.w500)),
+            //           const Divider(height: 10),
+            //           const Text("Пригласите сотрудника в GService.kz"),
+            //           const Divider(height: 12),
+            //           Container(
+            //             padding:
+            //                 const EdgeInsets.symmetric(horizontal: 15, vertical: 6),
+            //             decoration: BoxDecoration(
+            //                 borderRadius: BorderRadius.circular(8),
+            //                 color: ColorComponent.blue['500']),
+            //             child: const Text("Пригласить сотрудника",
+            //                 style: TextStyle(
+            //                     color: Colors.white,
+            //                     fontWeight: FontWeight.w500)),
+            //           )
+            //         ],
+            //       )),
+            // )
           ],
         ),
       ),

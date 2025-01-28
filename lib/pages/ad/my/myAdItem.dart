@@ -215,16 +215,9 @@ class MyAdItem extends StatelessWidget {
                           ]),
               ),
               const Divider(height: 18),
-              const Padding(
-                padding: EdgeInsets.only(left: 15, right: 15, bottom: 12),
-                child: AnalyticAdItemWidget(data: {
-                  "viewed": 1380,
-                  "called": 0,
-                  "favorites": 15,
-                  "shared": 0,
-                  "wrote": 0
-                }),
-              ),
+              Padding(
+                  padding: EdgeInsets.only(left: 15, right: 15, bottom: 12),
+                  child: AnalyticAdItemWidget(data: data['statistics'])),
             ],
           )),
     );

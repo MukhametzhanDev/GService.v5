@@ -14,13 +14,13 @@ class AnalyticAdItemWidget extends StatelessWidget {
       children: [
         StatisticWidget("eye.svg", data['viewed']),
         // Divider(indent: 10),
-        StatisticWidget("message.svg", data['wrote']),
+        StatisticWidget("message.svg", data['write']),
         // Divider(indent: 10),
         StatisticWidget("phoneOutline.svg", data['called']),
         // Divider(indent: 10),
-        StatisticWidget("heartOutline.svg", data['favorites']),
+        StatisticWidget("heartOutline.svg", data['favorite']),
         // Divider(indent: 10),
-        StatisticWidget("share.svg", data['shared']),
+        StatisticWidget("share.svg", data['share']),
       ],
     );
   }

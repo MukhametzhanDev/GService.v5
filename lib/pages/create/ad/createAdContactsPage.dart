@@ -169,7 +169,8 @@ class _CreateAdContactsPageState extends State<CreateAdContactsPage> {
                         TextStyle(fontSize: 20, fontWeight: FontWeight.w600))),
             const Divider(height: 12),
             Text(context.localizations.city,
-                style: const TextStyle(fontSize: 15, fontWeight: FontWeight.w500)),
+                style:
+                    const TextStyle(fontSize: 15, fontWeight: FontWeight.w500)),
             const Divider(height: 12),
             loaderUser
                 ? Container()
@@ -188,7 +189,14 @@ class _CreateAdContactsPageState extends State<CreateAdContactsPage> {
                 style: TextStyle(fontSize: 15, fontWeight: FontWeight.w500)),
             const Divider(height: 12),
             contacts.isEmpty
-                ? Container()
+                ? Container(
+                    alignment: Alignment.center,
+                    padding: EdgeInsets.symmetric(vertical: 12, horizontal: 15),
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        border: Border.all(
+                            width: 1, color: ColorComponent.gray['200']!)),
+                    child: Text("У все нет сохраненные контакты"))
                 : Column(
                     children: contacts.map((value) {
                     bool active = value['active'] ?? false;

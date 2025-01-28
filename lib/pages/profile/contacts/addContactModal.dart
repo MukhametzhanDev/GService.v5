@@ -88,9 +88,8 @@ class _AddContactModalState extends State<AddContactModal> {
 
   void showCountryCodes() {
     showCupertinoModalBottomSheet(
-            context: context,
-            builder: (context) => CountryCodeListModal(data: countriesData))
-        .then((currencyValue) {
+        context: context,
+        builder: (context) => CountryCodeListModal()).then((currencyValue) {
       if (currencyValue != null) {
         currentCountry = currencyValue;
         setState(() {});

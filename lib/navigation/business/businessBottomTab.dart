@@ -2,10 +2,12 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
+import 'package:gservice5/gen/assets.gen.dart';
 import 'package:gservice5/pages/ad/my/business/businessMainPage.dart';
 import 'package:gservice5/pages/application/list/business/mainApplicationsBusinessPage.dart';
 import 'package:gservice5/pages/contractor/marketing/marketingPage.dart';
 import 'package:gservice5/pages/create/ad/sectionCreateAdPage.dart';
+import 'package:gservice5/pages/leads/leadListPage.dart';
 import 'package:gservice5/pages/profile/business/businessProfilePage.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:gservice5/localization/extensions/context_extension.dart';
@@ -52,11 +54,11 @@ class _BusinessBottomTabState extends State<BusinessBottomTab> {
   Widget build(BuildContext context) {
     final ColorTheme = ThemeColorComponent.ColorsTheme(context);
     final List<Map> tabs = <Map>[
-      {"icon": "assets/icons/clipboardOutline.svg", "label": "Мои"},
-      {"icon": "assets/icons/file.svg", "label": context.localizations.order},
-      {"icon": "assets/icons/plus.svg", "label": context.localizations.ad},
-      {"icon": "assets/icons/chartOutline.svg", "label": "Маркетинг"},
-      {"icon": "assets/icons/user.svg", "label": "Профиль"}
+      {"icon": Assets.icons.clipboardOutline, "label": "Мои"},
+      {"icon": Assets.icons.file, "label": context.localizations.order},
+      {"icon": Assets.icons.plus, "label": context.localizations.ad},
+      {"icon": Assets.icons.phoneOutline, "label": "Лиды"},
+      {"icon": Assets.icons.user, "label": "Профиль"}
     ];
     return Scaffold(
       body: IndexedStack(index: _selectedIndex, children: [
@@ -64,7 +66,7 @@ class _BusinessBottomTabState extends State<BusinessBottomTab> {
         MainApplicationsBusinessPage(scrollController: scrollController),
         Container(),
         // CreateMainPage(),
-        const MarketingPage(),
+        const LeadListPage(),
         const BusinessProfilePage(),
       ]),
       bottomNavigationBar: BottomNavigationBar(

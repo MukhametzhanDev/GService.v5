@@ -38,7 +38,7 @@ class _GetImageCreateAdPageState extends State<GetImageCreateAdPage> {
             }.toList()
         ]
       });
-      Response response = await dio.post("/image/store", data: formData);
+      Response response = await dio.post("/image/ad", data: formData);
       print(response.data);
       Navigator.pop(context);
       if (response.data['success']) {

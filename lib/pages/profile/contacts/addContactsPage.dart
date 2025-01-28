@@ -96,9 +96,8 @@ class _AddContactsPageState extends State<AddContactsPage> {
 
   void showCountryCodes(Map value) {
     showCupertinoModalBottomSheet(
-            context: context,
-            builder: (context) => CountryCodeListModal(data: countriesData))
-        .then((currencyValue) {
+        context: context,
+        builder: (context) => CountryCodeListModal()).then((currencyValue) {
       if (currencyValue != null) {
         value['country'] = currencyValue;
         setState(() {});
@@ -154,11 +153,13 @@ class _AddContactsPageState extends State<AddContactsPage> {
       onTap: () => closeKeyboard(),
       child: Scaffold(
         appBar: AppBar(
-            title:  Text(context.localizations.contacts), leading: const BackIconButton()),
+            title: Text(context.localizations.contacts),
+            leading: const BackIconButton()),
         body: loader
             ? const LoaderComponent()
             : SingleChildScrollView(
-                padding: const EdgeInsets.symmetric(horizontal: 15,vertical: 7),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 15, vertical: 7),
                 child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [

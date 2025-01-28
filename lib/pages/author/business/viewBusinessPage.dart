@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:gservice5/component/bar/bottomBar/callBackBottomBarWidget.dart';
 import 'package:gservice5/component/bar/bottomBar/contactBottomBarWidget.dart';
 import 'package:gservice5/component/button/back/backTitleButton.dart';
 import 'package:gservice5/component/button/shareButton.dart';
@@ -255,7 +256,8 @@ class _ViewBusinessPageState extends State<ViewBusinessPage>
               ),
         bottomNavigationBar: loader
             ? const SizedBox.shrink()
-            : const ContactBottomBarWidget(hasAd: false, id: 1, phones: []));
+            : CallBackBottomBarWidget(
+                companyId: widget.id, phones: data['contacts']));
   }
 
   Widget ButtonInfo(

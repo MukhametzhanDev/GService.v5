@@ -141,5 +141,8 @@
     "contacts": "Contacts",
     "republic_of_kazakhstan": "Republic of Kazakhstan",
     "shymkent": "Shymkent,",
-    "argynbekova_street_98": "Argynbekova Street, 98"    
+    "argynbekova_street_98": "Argynbekova Street, 98",
+    "no_requests_yet":"No requests yet",
+    "noCallbackRequestsText": "You currently have no callback requests. Once clients leave their contact details, they will appear here."
+    
 }

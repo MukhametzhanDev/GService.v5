@@ -3,6 +3,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:gservice5/component/button/back/closeIconButton.dart';
 import 'package:gservice5/component/button/button.dart';
 import 'package:gservice5/component/modal/modalBottomSheetWrapper.dart';
+import 'package:gservice5/component/textField/closeKeyboard/closeKeyboard.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
 import 'package:gservice5/component/widgets/bottom/bottomNavigationBarComponent.dart';
 import 'package:gservice5/component/widgets/checkBox/checkBoxWidget.dart';
@@ -49,6 +50,7 @@ class _MultiSelectCharactersiticState extends State<MultiSelectCharactersitic> {
   }
 
   void showModal() {
+    closeKeyboard();
     showCupertinoModalBottomSheet(
         context: context,
         builder: (context) => SelectModal(

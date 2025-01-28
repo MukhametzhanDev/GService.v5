@@ -10,6 +10,7 @@ import 'package:gservice5/pages/application/list/business/activityApplicationLis
 import 'package:gservice5/pages/application/list/customer/applicationListWidget.dart';
 import 'package:gservice5/pages/create/application/sectionCreateApplicationPage.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
+import 'package:gservice5/localization/extensions/context_extension.dart';
 
 class MainApplicationsBusinessPage extends StatefulWidget {
   final ScrollController scrollController;
@@ -49,7 +50,8 @@ class _MainApplicationsBusinessPageState
 
   void showCreateApplicationPage() {
     showMaterialModalBottomSheet(
-        context: context, builder: (context) => const SectionCreateApplicationPage());
+        context: context,
+        builder: (context) => const SectionCreateApplicationPage());
   }
 
   @override
@@ -59,7 +61,7 @@ class _MainApplicationsBusinessPageState
       child: Scaffold(
         appBar: AppBar(
             centerTitle: false,
-            title: const Text("GService Business"),
+            title: Text(context.localizations.orders),
             actions: [
               BadgeWidget(
                   position: badges.BadgePosition.topEnd(top: -4, end: -8),

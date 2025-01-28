@@ -179,8 +179,7 @@ class _MainPageState extends State<MainPage> {
                         : SliverToBoxAdapter(
                             child: Column(children: [
                             const Divider(height: 10),
-                            const BannersList(),
-                            const Divider(height: 20),
+                            BannersList(data: data['banners']),
                             ApplicationListMain(data: data['applications']),
                             const Divider(height: 24),
                           ])),

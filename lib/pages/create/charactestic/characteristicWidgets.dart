@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gservice5/component/textField/closeKeyboard/closeKeyboard.dart';
 import 'package:gservice5/pages/create/data/createData.dart';
 import 'package:gservice5/pages/create/charactestic/checkboxCharacteristic.dart';
 import 'package:gservice5/pages/create/charactestic/inputCharacteristicWidget.dart';
@@ -26,6 +27,7 @@ class _CharacteristicWidgetState extends State<CharacteristicWidget> {
   }
 
   void onChangedRadio(int id) {
+    closeKeyboard();
     CreateData.characteristic["${widget.parentId}"] = id;
     setState(() {});
   }

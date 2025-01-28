@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:gservice5/component/button/back/backTitleButton.dart';
 import 'package:gservice5/component/button/button.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
 import 'package:gservice5/component/widgets/bottom/bottomNavigationBarComponent.dart';
@@ -23,6 +24,8 @@ class _MarketingPageState extends State<MarketingPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+          leading: BackTitleButton(title: "Маркетинг"), leadingWidth: 200),
       backgroundColor: ColorComponent.gray['100'],
       body: SafeArea(
         child: SingleChildScrollView(
@@ -111,8 +114,8 @@ class _MarketingPageState extends State<MarketingPage> {
                     color: Colors.white),
                 child: Column(children: [
                   Text(context.localizations.well_help_you_choose,
-                      style:
-                          const TextStyle(fontSize: 17, fontWeight: FontWeight.w700)),
+                      style: const TextStyle(
+                          fontSize: 17, fontWeight: FontWeight.w700)),
                   const Divider(),
                   Text(context.localizations
                       .if_you_have_any_questions_or_dont_know_what_to_choose_contact_our_sales_department_or_leave_an_application),

@@ -3,10 +3,12 @@ import 'package:flutter_svg/svg.dart';
 import 'package:gservice5/component/functions/token/changedToken.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
 import 'package:auto_route/auto_route.dart';
+import 'package:gservice5/gen/assets.gen.dart';
 import 'package:gservice5/navigation/routes/app_router.gr.dart';
 import 'package:gservice5/pages/ad/my/myAdListPage.dart';
 import 'package:gservice5/pages/application/my/myApplicationListPage.dart';
 import 'package:gservice5/pages/auth/registration/business/changedActivityBusinessPage.dart';
+import 'package:gservice5/pages/contractor/marketing/marketingPage.dart';
 import 'package:gservice5/pages/profile/aboutCompany/aboutCompanyPage.dart';
 import 'package:gservice5/pages/profile/contacts/addContactsPage.dart';
 import 'package:gservice5/pages/profile/currency/currencyMainPage.dart';
@@ -58,6 +60,11 @@ class _ProfileListTilesWidgetState extends State<ProfileListTilesWidget> {
         MaterialPageRoute(builder: (context) => const AddContactsPage()));
   }
 
+  void showMarketingPage() {
+    Navigator.push(context,
+        MaterialPageRoute(builder: (context) => const MarketingPage()));
+  }
+
   void showNewsPage() {
     Navigator.push(
         context, MaterialPageRoute(builder: (context) => const NewsMainPage()));
@@ -107,6 +114,37 @@ class _ProfileListTilesWidgetState extends State<ProfileListTilesWidget> {
   Widget build(BuildContext context) {
     return Column(
       children: [
+        role == "customer"
+            ? Container()
+            : Container(
+                decoration: BoxDecoration(
+                    border: Border(
+                        bottom: BorderSide(
+                            width: 1, color: ColorComponent.gray['100']!))),
+                child: ListTile(
+                    onTap: showMarketingPage,
+                    leading: SvgPicture.asset(Assets.icons.chartOutline,
+                        color: ColorComponent.mainColor),
+                    title: const Text("Маркетинг"),
+                    trailing: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Container(
+                            margin: EdgeInsets.only(right: 10),
+                            padding: EdgeInsets.symmetric(
+                                horizontal: 5, vertical: 2),
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(20),
+                                color: ColorComponent.red2),
+                            child: Text("NEW",
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 10))),
+                        SvgPicture.asset('assets/icons/right.svg'),
+                      ],
+                    )),
+              ),
         Container(
           decoration: BoxDecoration(
               border: Border(
@@ -212,7 +250,7 @@ class _ProfileListTilesWidgetState extends State<ProfileListTilesWidget> {
                 child: ListTile(
                     onTap: () {},
                     leading: SvgPicture.asset('assets/icons/fileOutline.svg'),
-                    title:  Text(context.localizations.documents),
+                    title: Text(context.localizations.documents),
                     trailing: SvgPicture.asset('assets/icons/right.svg')),
               ),
         role == "customer"

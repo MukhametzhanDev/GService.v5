@@ -8,6 +8,7 @@ import 'package:gservice5/component/snackBar/snackBarComponent.dart';
 import 'package:gservice5/component/switchRole/listRolesModal.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
 import 'package:gservice5/pages/auth/login/loginPage.dart';
+import 'package:gservice5/pages/auth/registration/business/registrationBusinessPage.dart';
 import 'package:shimmer/shimmer.dart';
 
 class SwitchRoleWidget extends StatefulWidget {
@@ -63,7 +64,8 @@ class _SwitchRoleWidgetState extends State<SwitchRoleWidget> {
   void showCreateCompany() {
     Navigator.pop(context);
     if (hasToken) {
-      Navigator.pushNamed(context, "RegistrationBusinessPage");
+      Navigator.push(context,
+          MaterialPageRoute(builder: (context) => RegistrationBusinessPage()));
     } else {
       Navigator.push(
           context,

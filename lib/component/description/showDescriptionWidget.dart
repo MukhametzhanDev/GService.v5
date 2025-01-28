@@ -24,6 +24,17 @@ class ShowDescriptionWidget extends StatelessWidget {
             color: ColorComponent.blue['600'],
             fontWeight: FontWeight.w500),
       ),
+      // GestureDetector(
+      //     child: Padding(
+      //   padding: const EdgeInsets.only(top: 4),
+      //   child: Text(
+      //     "Перевести",
+      //     style: TextStyle(
+      //         color: ColorComponent.blue['500'],
+      //         fontWeight: FontWeight.w500,
+      //         fontSize: 13),
+      //   ),
+      // ))
     ]);
   }
 }

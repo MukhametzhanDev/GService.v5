@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:gservice5/component/textField/closeKeyboard/closeKeyboard.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
 import 'package:gservice5/pages/create/data/createData.dart';
 
@@ -29,6 +30,7 @@ class _CheckboxCharacteristicState extends State<CheckboxCharacteristic> {
   }
 
   void onChanged() {
+    closeKeyboard();
     active = !active;
     CreateData.characteristic["${widget.value['id']}"] = active;
     setState(() {});
