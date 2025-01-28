@@ -45,19 +45,19 @@ class _MessageMainPageState extends State<MessageMainPage>
 
   void showSettingsMessagePage() {
     showCupertinoModalBottomSheet(
-        context: context, builder: (context) => SettingsMessagePage());
+        context: context, builder: (context) => const SettingsMessagePage());
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(centerTitle: false, title: Text("Сообщения"), actions: [
+      appBar: AppBar(centerTitle: false, title: const Text("Сообщения"), actions: [
         GestureDetector(
           onTap: showSettingsMessagePage,
           child: Container(
             width: 40,
             height: 40,
-            margin: EdgeInsets.only(right: 15),
+            margin: const EdgeInsets.only(right: 15),
             alignment: Alignment.center,
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(8),
@@ -71,24 +71,28 @@ class _MessageMainPageState extends State<MessageMainPage>
         itemCount: 10,
         itemBuilder: (context, index) {
           return Container(
-              padding: EdgeInsets.symmetric(horizontal: 15, vertical: 15),
+              padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
               decoration: const BoxDecoration(
                   border: Border(
                       bottom: BorderSide(
                           width: 1, color: Color.fromRGBO(238, 238, 238, 1)))),
               child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  SvgPicture.asset("assets/icons/logoOutline.svg",
-                      color: ColorComponent.mainColor),
-                  Divider(indent: 20),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 6),
+                    child: SvgPicture.asset("assets/icons/logoOutline.svg",
+                        color: ColorComponent.mainColor),
+                  ),
+                  const Divider(indent: 20),
                   Expanded(
                       child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text("GService.kz",
+                      const Text("GService.kz",
                           style: TextStyle(
                               fontSize: 16, fontWeight: FontWeight.w600)),
-                      Divider(height: 6),
+                      const Divider(height: 6),
                       Text("Добро пожаловать!",
                           style: TextStyle(
                               fontSize: 14,

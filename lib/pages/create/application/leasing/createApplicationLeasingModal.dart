@@ -114,8 +114,8 @@ class _CreateApplicationLeasingModalState
         onTap: () => closeKeyboard(),
         child: Scaffold(
           appBar: AppBar(
-            leadingWidth: 200,
-            leading: const BackTitleButton(title: "Заявка на лизинг"),
+            leadingWidth: 300,
+            leading: const BackTitleButton(title: "Заявка на лизинг и рассрочку"),
           ),
           body: SingleChildScrollView(
             physics: physics,

@@ -8,7 +8,6 @@ import 'package:gservice5/component/date/formattedDate.dart';
 import 'package:gservice5/component/formatted/price/priceFormat.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
 import 'package:gservice5/pages/application/viewApplicationPage.dart';
-import 'package:gservice5/pages/favorite/application/data/favoriteApplicationData.dart';
 
 class ApplicationItem extends StatefulWidget {
   final Map data;
@@ -23,13 +22,11 @@ class _ApplicationItemState extends State<ApplicationItem> {
 
   void showPage() {
     Navigator.push(
-            context,
-            MaterialPageRoute(
-                builder: (context) =>
-                    ViewApplicationPage(id: widget.data['id'])))
-        .then(verifyFavoriteApplication);
+        context,
+        MaterialPageRoute(
+            builder: (context) => ViewApplicationPage(id: widget.data['id'])));
 
-    analytics.logSelectContent(
+            analytics.logSelectContent(
         parameters: {GAKey.title: widget.data['title'].toString()},
         contentType: GAContentType.application,
         itemId: widget.data['id'].toString()).catchError((e) {
@@ -37,13 +34,6 @@ class _ApplicationItemState extends State<ApplicationItem> {
         debugPrint(e.toString());
       }
     });
-  }
-
-  void verifyFavoriteApplication(value) {
-    bool active = FavoriteApplicationData.applicationFavorite
-        .containsKey(widget.data['id']);
-    widget.data['is_favorite'] = active;
-    setState(() {});
   }
 
   @override

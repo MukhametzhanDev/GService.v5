@@ -19,4 +19,7 @@ import flutter_local_notifications
     }
     return super.application(application, didFinishLaunchingWithOptions: launchOptions)
   }
+  override func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
+    return super.application(app, open: url, options: options)
+  }
 }

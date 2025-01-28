@@ -16,6 +16,7 @@ void main() async {
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
 
   await initializeDateFormatting('ru_RU', null);
+  
   final initialUri = Uri.base;
   print('Initial URI: $initialUri');
   final AppRouter appRouter = AppRouter();
@@ -31,6 +32,5 @@ void main() async {
     GAKey.build: packageInfo.buildNumber,
     GAKey.installerStore: packageInfo.installerStore
   });
-
   runApp(Index(appRouter: appRouter));
 }

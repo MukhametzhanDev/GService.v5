@@ -59,10 +59,18 @@ class CustomerBottomRoute extends _i9.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i3.SplashScreen]
-class SplashRoute extends _i9.PageRouteInfo<void> {
-  const SplashRoute({List<_i9.PageRouteInfo>? children})
-      : super(
+class SplashRoute extends _i9.PageRouteInfo<SplashRouteArgs> {
+  SplashRoute({
+    _i10.Key? key,
+    String? path,
+    List<_i9.PageRouteInfo>? children,
+  }) : super(
           SplashRoute.name,
+          args: SplashRouteArgs(
+            key: key,
+            path: path,
+          ),
+          rawPathParams: {'path': path},
           initialChildren: children,
         );
 
@@ -71,9 +79,31 @@ class SplashRoute extends _i9.PageRouteInfo<void> {
   static _i9.PageInfo page = _i9.PageInfo(
     name,
     builder: (data) {
-      return const _i3.SplashScreen();
+      final pathParams = data.inheritedPathParams;
+      final args = data.argsAs<SplashRouteArgs>(
+          orElse: () => SplashRouteArgs(path: pathParams.optString('path')));
+      return _i3.SplashScreen(
+        key: args.key,
+        path: args.path,
+      );
     },
   );
+}
+
+class SplashRouteArgs {
+  const SplashRouteArgs({
+    this.key,
+    this.path,
+  });
+
+  final _i10.Key? key;
+
+  final String? path;
+
+  @override
+  String toString() {
+    return 'SplashRouteArgs{key: $key, path: $path}';
+  }
 }
 
 /// generated route for

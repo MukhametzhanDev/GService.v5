@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:gservice5/analytics/event_name.constan.dart';
 import 'package:gservice5/component/bar/bottomBar/contactBottomBarWidget.dart';
+import 'package:gservice5/component/button/back/backTitleButton.dart';
 import 'package:gservice5/component/button/button.dart';
 import 'package:gservice5/component/button/shareButton.dart';
 import 'package:gservice5/component/categories/data/categoriesData.dart';
@@ -111,38 +112,7 @@ class _ViewBusinessPageState extends State<ViewBusinessPage>
     return Scaffold(
         appBar: AppBar(
           leadingWidth: MediaQuery.of(context).size.width - 100,
-          leading: IconButton(
-            padding: EdgeInsets.zero,
-            constraints: const BoxConstraints(),
-            style:
-                const ButtonStyle(tapTargetSize: MaterialTapTargetSize.padded),
-            onPressed: () {
-              Navigator.pop(context);
-            },
-            icon: loader
-                ? Container()
-                : Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      const Divider(indent: 15),
-                      SvgPicture.asset('assets/icons/left.svg', width: 28),
-                      const Divider(indent: 10),
-                      Container(
-                          constraints: BoxConstraints(
-                              maxWidth:
-                                  MediaQuery.of(context).size.width / 1.7),
-                          child: Text(
-                            data['name'],
-                            style: const TextStyle(
-                                fontSize: 18, fontWeight: FontWeight.w600),
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
-                          )),
-                      const Divider(indent: 6),
-                      SvgPicture.asset("assets/icons/badgeCheck.svg"),
-                    ],
-                  ),
-          ),
+          leading: BackTitleButton(title: "Компания"),
           actions: const [
             ShareButton(
                 id: 0, hasAd: false, frompage: GAParams.viewBusinessPage),
@@ -175,15 +145,39 @@ class _ViewBusinessPageState extends State<ViewBusinessPage>
                                           height: 70,
                                           borderRadius: 40),
                                       const Divider(indent: 16),
-                                      ButtonInfo("users.svg", "Подписчиков",
-                                          numberFormat(1200), () {}),
-                                      ButtonInfo("file.svg", "Объявлении",
-                                          numberFormat(1200), changedAdTab),
-                                      ButtonInfo(
-                                          "starOutline.svg",
-                                          "143 отзывов",
-                                          data['rating'].toString(),
-                                          () {}),
+                                      Expanded(
+                                          child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Row(
+                                            children: [
+                                              Text(data['name'],
+                                                  style: const TextStyle(
+                                                      fontSize: 16,
+                                                      fontWeight:
+                                                          FontWeight.w600)),
+                                              const Divider(indent: 6),
+                                              SvgPicture.asset(
+                                                  "assets/icons/badgeCheck.svg")
+                                            ],
+                                          ),
+                                          Divider(height: 3),
+                                          Text("ID: ${data['id']}",
+                                              style: TextStyle(
+                                                  color: ColorComponent
+                                                      .gray['500']))
+                                        ],
+                                      ))
+                                      // ButtonInfo("users.svg", "Подписчиков",
+                                      //     numberFormat(1200), () {}),
+                                      // ButtonInfo("file.svg", "Объявлении",
+                                      //     numberFormat(1200), changedAdTab),
+                                      // ButtonInfo(
+                                      //     "starOutline.svg",
+                                      //     "143 отзывов",
+                                      //     data['rating'].toString(),
+                                      //     () {}),
                                     ],
                                   ),
                                 ),
@@ -193,31 +187,31 @@ class _ViewBusinessPageState extends State<ViewBusinessPage>
                                       horizontal: 15),
                                   child: Text(daysBetween()),
                                 ),
-                                const Divider(height: 15),
-                                Container(
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 15),
-                                  height: 40,
-                                  child: Row(
-                                    children: [
-                                      Expanded(
-                                        child: Button(
-                                            onPressed: () {},
-                                            backgroundColor: ColorComponent
-                                                .mainColor
-                                                .withOpacity(.2),
-                                            title: "Поделится"),
-                                      ),
-                                      const Divider(indent: 10),
-                                      Expanded(
-                                        child: Button(
-                                            onPressed: () {},
-                                            title: "Подписаться"),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                                const Divider(height: 10),
+                                const Divider(height: 05),
+                                // Container(
+                                //   padding: const EdgeInsets.symmetric(
+                                //       horizontal: 15),
+                                //   height: 40,
+                                //   child: Row(
+                                //     children: [
+                                //       Expanded(
+                                //         child: Button(
+                                //             onPressed: () {},
+                                //             backgroundColor: ColorComponent
+                                //                 .mainColor
+                                //                 .withOpacity(.2),
+                                //             title: "Поделится"),
+                                //       ),
+                                //       const Divider(indent: 10),
+                                //       Expanded(
+                                //         child: Button(
+                                //             onPressed: () {},
+                                //             title: "Подписаться"),
+                                //       ),
+                                //     ],
+                                //   ),
+                                // ),
+                                // const Divider(height: 10),
                               ]),
                         ),
                         SliverAppBar(

@@ -29,9 +29,10 @@ class _AdItemState extends State<AdItem> {
   final analytics = FirebaseAnalytics.instance;
 
   void showAdPage(int id) {
-    context.router.pushNamed("/ad/$id");
+    context.router.pushNamed("/product/$id");
+    // context.router.pushNamed("/ad/$id");
     // Navigator.push(
-    //     context, MaterialPageRoute(builder: (context) => ViewAdPage(id: id)));
+    // //     context, MaterialPageRoute(builder: (context) => ViewAdPage(id: id)));
     analytics.logSelectContent(
         contentType: GAContentType.ad,
         itemId: id.toString(),

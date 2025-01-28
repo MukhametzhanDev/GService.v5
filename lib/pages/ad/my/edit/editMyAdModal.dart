@@ -45,24 +45,24 @@ class _EditMyAdModalState extends State<EditMyAdModal> {
         appBar: AppBar(
           centerTitle: false,
           automaticallyImplyLeading: false,
-          title: Text("Выберите"),
-          actions: [CloseIconButton(iconColor: null, padding: true)],
+          title: const Text("Выберите"),
+          actions: const [CloseIconButton(iconColor: null, padding: true)],
         ),
         body: Column(
           children: [
             ListTile(
                 onTap: showEditData,
-                title: Text("Редактировать данные"),
+                title: const Text("Редактировать данные"),
                 trailing: SvgPicture.asset("assets/icons/right.svg")),
             Divider(height: 1, color: ColorComponent.gray['100']),
             ListTile(
                 onTap: showEditImage,
-                title: Text("Редактировать фото"),
+                title: const Text("Редактировать фото"),
                 trailing: SvgPicture.asset("assets/icons/right.svg")),
             Divider(height: 1, color: ColorComponent.gray['100']),
             ListTile(
                 onTap: showEditContact,
-                title: Text("Редактировать контакты"),
+                title: const Text("Редактировать контакты"),
                 trailing: SvgPicture.asset("assets/icons/right.svg"))
           ],
         ),

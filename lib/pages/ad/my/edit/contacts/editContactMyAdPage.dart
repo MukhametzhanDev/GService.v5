@@ -103,7 +103,7 @@ class _EditContactMyAdPageState extends State<EditContactMyAdPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-          leading: BackTitleButton(title: "Редактировать контакты"),
+          leading: const BackTitleButton(title: "Редактировать контакты"),
           leadingWidth: 250),
       body: SafeArea(
         child: SingleChildScrollView(

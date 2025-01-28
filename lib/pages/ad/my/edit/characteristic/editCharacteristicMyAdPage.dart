@@ -16,7 +16,7 @@ class _EditCharacteristicMyAdPageState
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-          leading: BackTitleButton(title: "Редактировать данные"),
+          leading: const BackTitleButton(title: "Редактировать данные"),
           leadingWidth: 250),
     );
   }

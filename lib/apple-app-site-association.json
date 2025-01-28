@@ -4,9 +4,9 @@
              {
                "appIDs": [ "MLTQ7N2L8F.com.bg.gservice" ],
                "paths": [
-               "/ad/*",
+               "/product/*",
                "/application/*",
-               "/company/*",
+               "/companies/*",
                "/raffle/*",
                "/news/*"
                ]

@@ -78,14 +78,11 @@ class _IndexState extends State<Index> {
             theme: Styles.themeData(themeChangeProvider.darkTheme, context),
             debugShowCheckedModeBanner: false,
             routerConfig: widget.appRouter.config(
-                // navigatorObservers: () => [AutoRouteObserver()],
-                navigatorObservers: () => [
-                      AutoRouteObserver(),
-                      FirebaseAnalyticsObserver(analytics: analytics)
-                    ],
+                navigatorObservers: () => [AutoRouteObserver()],
                 deepLinkBuilder: (link) {
+                  String path = link.uri.path;
                   List pathSegments = link.uri.pathSegments;
-                  if (link.path.contains('ad')) {
+                  if (link.path.contains('product')) {
                     int id = int.parse(pathSegments.last);
                     return DeepLink([ViewAdRoute(id: id)]);
                   } else if (link.path.contains('application')) {
@@ -102,6 +99,31 @@ class _IndexState extends State<Index> {
                   } else {
                     return DeepLink.defaultPath;
                   }
+                  // List<String> pathSegments = link.uri.pathSegments;
+                  // // if (context.router.stack.length <= 1) {
+                  // switch (pathSegments.first) {
+                  //   case 'ad':
+                  //     return DeepLink(
+                  //         [ViewAdRoute(id: int.parse(pathSegments.last))]);
+                  //   case 'application':
+                  //     return DeepLink([
+                  //       ViewApplicationRoute(id: int.parse(pathSegments.last))
+                  //     ]);
+                  //   case 'news':
+                  //     return DeepLink(
+                  //         [ViewNewsRoute(id: int.parse(pathSegments.last))]);
+                  //   case 'business':
+                  //     return DeepLink([
+                  //       ViewBusinessRoute(id: int.parse(pathSegments.last))
+                  //     ]);
+                  //   case 'raffle':
+                  //     return const DeepLink([ViewRaffleRoute()]);
+                  //   default:
+                  //     return DeepLink.defaultPath;
+                  // }
+                  // } else {
+                  //   return DeepLink([SplashRoute(path: path)]);
+                  // }
                 }),
             // home: const CustomerBottomTab(),
             // initialRoute: "SplashScreen",
