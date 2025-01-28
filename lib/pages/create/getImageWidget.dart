@@ -149,7 +149,7 @@ class _GetImageWidgetState extends State<GetImageWidget> {
                       height: 43,
                       alignment: Alignment.center,
                       child:  Text(context.localizations.cancel,
-                          style: TextStyle(
+                          style: const TextStyle(
                               fontSize: 16, fontWeight: FontWeight.w500)),
                     ))
               ]),
@@ -196,7 +196,7 @@ class _GetImageWidgetState extends State<GetImageWidget> {
                       height: 43,
                       alignment: Alignment.center,
                       child:  Text(context.localizations.cancel,
-                          style: TextStyle(
+                          style: const TextStyle(
                               fontSize: 16, fontWeight: FontWeight.w500)),
                     ))
               ]),
@@ -235,7 +235,7 @@ class _GetImageWidgetState extends State<GetImageWidget> {
                     height: 43,
                     alignment: Alignment.center,
                     child:  Text(context.localizations.cancel,
-                        style: TextStyle(
+                        style: const TextStyle(
                             fontSize: 16, fontWeight: FontWeight.w500)),
                   ))
             ])));

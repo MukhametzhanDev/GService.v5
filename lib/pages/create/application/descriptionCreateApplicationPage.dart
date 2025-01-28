@@ -58,7 +58,7 @@ class _DescriptionCreateApplicationPageState
         padding: const EdgeInsets.all(15),
         child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
           Text(context.localizations.description,
-              style: TextStyle(fontWeight: FontWeight.w600, fontSize: 20)),
+              style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 20)),
           const Divider(height: 8),
           TextField(
               controller: descEditingController,

@@ -5,6 +5,7 @@ import 'package:gservice5/component/button/button.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
 import 'package:gservice5/component/widgets/bottom/bottomNavigationBarComponent.dart';
 import 'package:gservice5/pages/profile/file/addFilePage.dart';
+import 'package:gservice5/localization/extensions/context_extension.dart';
 
 class FilesPage extends StatefulWidget {
   const FilesPage({super.key});
@@ -29,7 +30,7 @@ class _FilesPageState extends State<FilesPage> {
         automaticallyImplyLeading: false,
         leading: const BackIconButton(),
         centerTitle: false,
-        title: const Text("Документы"),
+        title:  Text(context.localizations.documents),
       ),
       body: files.isEmpty
           ? const Center(child: Text("Пока у вас нет документов"))

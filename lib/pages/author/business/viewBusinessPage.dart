@@ -4,11 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:gservice5/component/bar/bottomBar/contactBottomBarWidget.dart';
 import 'package:gservice5/component/button/back/backTitleButton.dart';
-import 'package:gservice5/component/button/button.dart';
 import 'package:gservice5/component/button/shareButton.dart';
 import 'package:gservice5/component/categories/data/categoriesData.dart';
 import 'package:gservice5/component/dio/dio.dart';
-import 'package:gservice5/component/formatted/number/numberFormatted.dart';
 import 'package:gservice5/component/image/cacheImage.dart';
 import 'package:gservice5/component/loader/loaderComponent.dart';
 import 'package:gservice5/component/request/getCategories.dart';
@@ -20,6 +18,7 @@ import 'package:gservice5/pages/author/business/viewAboutBusinessPage.dart';
 import 'package:gservice5/pages/author/filesListPage.dart';
 import 'package:gservice5/pages/author/filesListWidget.dart';
 import 'package:gservice5/pages/profile/news/newsListWidget.dart';
+import 'package:gservice5/localization/extensions/context_extension.dart';
 
 @RoutePage()
 class ViewBusinessPage extends StatefulWidget {
@@ -39,13 +38,7 @@ class _ViewBusinessPageState extends State<ViewBusinessPage>
     {"page": const FilesListPage(), "title": "Отзывы"},
     {"page": const FilesListPage(), "title": "Файлы"},
   ];
-  List pages = [
-    {"title": "Объявления"},
-    {"title": "Заказы"},
-    {"title": "Новости"},
-    {"title": "О компании"},
-    {"title": "Сертфикаты"},
-  ];
+
   List categories = CategoriesData.categories;
   ScrollController scrollController = ScrollController();
   TabController? tabController;
@@ -54,7 +47,7 @@ class _ViewBusinessPageState extends State<ViewBusinessPage>
   void initState() {
     getData();
     getCategories();
-    tabController = TabController(length: pages.length, vsync: this);
+    tabController = TabController(length: 5, vsync: this);
     super.initState();
   }
 
@@ -108,6 +101,13 @@ class _ViewBusinessPageState extends State<ViewBusinessPage>
 
   @override
   Widget build(BuildContext context) {
+    List pages = [
+      {"title": context.localizations.ad},
+      {"title": context.localizations.orders},
+      {"title": context.localizations.news},
+      {"title": "О компании"},
+      {"title": "Сертфикаты"},
+    ];
     return Scaffold(
         appBar: AppBar(
           leadingWidth: MediaQuery.of(context).size.width - 100,

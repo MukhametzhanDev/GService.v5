@@ -37,7 +37,7 @@ class _ApplicationListMainState extends State<ApplicationListMain> {
                         MaterialPageRoute(
                             builder: (context) => const ApplicationListPage()));
                   },
-                  child: const Text("Заказы на спецтехнику",
+                  child:  const Text("Заказы на спецтехнику",
                       style: TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.w600,

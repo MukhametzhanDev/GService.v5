@@ -239,7 +239,7 @@ class _ViewMyAdPageState extends State<ViewMyAdPage> {
                                     fontSize: 18, fontWeight: FontWeight.w600)),
                             const Divider(height: 4),
                             ShowCharacteristicWidget(
-                                title: "Город", subTitle: data['city']),
+                                title: context.localizations.city, subTitle: data['city']),
                             ShowCharacteristicWidget(
                                 title: "Тип", subTitle: data['transport_type']),
                             ShowCharacteristicWidget(

@@ -7,7 +7,9 @@ import 'package:gservice5/component/switchRole/switchRoleWidget.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
 import 'package:gservice5/component/widgets/bottom/bottomNavigationBarComponent.dart';
 import 'package:gservice5/pages/ad/list/adListPage.dart';
-import 'package:gservice5/pages/main/drawer/drawerOptions.dart';
+import 'package:gservice5/pages/companies/companiesMainPage.dart';
+import 'package:gservice5/pages/profile/news/allNewsPage.dart';
+import 'package:gservice5/localization/extensions/context_extension.dart';
 
 class MainDrawer extends StatefulWidget {
   const MainDrawer({super.key});
@@ -18,7 +20,6 @@ class MainDrawer extends StatefulWidget {
 
 class _MainDrawerState extends State<MainDrawer> {
   List categories = CategoriesData.categories;
-  List options = DrawerOptions.options;
 
   @override
   void initState() {
@@ -52,6 +53,26 @@ class _MainDrawerState extends State<MainDrawer> {
 
   @override
   Widget build(BuildContext context) {
+    List options = [
+      {
+        "full_title": context.localizations.companies,
+        "title": context.localizations.companies,
+        "icon": "usersGroup.svg",
+        "page": const CompaniesMainPage()
+      },
+      {
+        "full_title": context.localizations.news,
+        "title": context.localizations.news,
+        "icon": "bullhorn.svg",
+        "page": const AllNewsPage(showBackButton: true)
+      },
+      {
+        "full_title": context.localizations.guide,
+        "title": context.localizations.guide,
+        "icon": "userHeadset.svg",
+        "page": "AllNewsPage"
+      },
+    ];
     return SizedBox(
         width: MediaQuery.of(context).size.width - 75,
         child: Scaffold(

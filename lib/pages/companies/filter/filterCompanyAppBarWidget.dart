@@ -9,6 +9,7 @@ import 'package:gservice5/pages/companies/filter/filterCompanyPage.dart';
 import 'package:gservice5/provider/adFilterProvider.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:provider/provider.dart';
+import 'package:gservice5/localization/extensions/context_extension.dart';
 
 class FilterCompanyAppBarWidget extends StatefulWidget
     implements PreferredSizeWidget {
@@ -88,7 +89,7 @@ class _FilterCompanyAppBarWidgetState extends State<FilterCompanyAppBarWidget> {
         // )
       ],
       leading: BackTitleButton(
-          title: "Компании", onPressed: () => Navigator.pop(context)),
+          title: context.localizations.companies, onPressed: () => Navigator.pop(context)),
       bottom: PreferredSize(
           preferredSize: const Size(double.infinity, 46),
           child: Container(

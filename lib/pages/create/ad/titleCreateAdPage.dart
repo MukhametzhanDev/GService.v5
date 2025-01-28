@@ -102,9 +102,9 @@ class _TitleCreateAdPageState extends State<TitleCreateAdPage> {
         padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
         child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
           Padding(
-              padding: EdgeInsets.only(bottom: 12),
+              padding: const EdgeInsets.only(bottom: 12),
               child: Text(context.localizations.description,
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600))),
+                  style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w600))),
           widget.showTitle
               ? Padding(
                   padding: const EdgeInsets.only(bottom: 16),

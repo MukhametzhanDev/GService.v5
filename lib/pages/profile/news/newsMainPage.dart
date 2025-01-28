@@ -3,6 +3,7 @@ import 'package:gservice5/component/button/back/backTitleButton.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
 import 'package:gservice5/pages/profile/news/allNewsPage.dart';
 import 'package:gservice5/pages/profile/news/myNewsPage.dart';
+import 'package:gservice5/localization/extensions/context_extension.dart';
 
 class NewsMainPage extends StatefulWidget {
   const NewsMainPage({super.key});
@@ -20,7 +21,7 @@ class _NewsMainPageState extends State<NewsMainPage> {
           appBar: AppBar(
               automaticallyImplyLeading: false,
               centerTitle: false,
-              leading: const BackTitleButton(title: "Новости"),
+              leading: BackTitleButton(title: context.localizations.news),
               leadingWidth: 150,
               bottom: PreferredSize(
                   preferredSize: Size(MediaQuery.of(context).size.width, 44),

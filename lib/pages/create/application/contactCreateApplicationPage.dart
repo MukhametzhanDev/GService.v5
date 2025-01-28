@@ -8,6 +8,7 @@ import 'package:gservice5/component/snackBar/snackBarComponent.dart';
 import 'package:gservice5/component/widgets/bottom/bottomNavigationBarComponent.dart';
 import 'package:gservice5/pages/create/data/createData.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
+import 'package:gservice5/localization/extensions/context_extension.dart';
 
 class ContactCreateApplicationPage extends StatefulWidget {
   final void Function() nextPage;
@@ -88,7 +89,8 @@ class _ContactCreateApplicationPageState
                   keyboardType: TextInputType.name,
                   textCapitalization: TextCapitalization.sentences,
                   style: const TextStyle(fontSize: 14),
-                  decoration: const InputDecoration(hintText: "Имя"))),
+                  decoration:
+                      InputDecoration(hintText: context.localizations.name))),
           const Divider(height: 24),
           AutofillGroup(
             child: TextField(
@@ -96,7 +98,8 @@ class _ContactCreateApplicationPageState
                 autofillHints: const [AutofillHints.telephoneNumber],
                 keyboardType: TextInputType.number,
                 style: const TextStyle(fontSize: 14),
-                decoration: const InputDecoration(hintText: "Номер телефона")),
+                decoration: InputDecoration(
+                    hintText: context.localizations.phone_number)),
           )
         ]),
       ),

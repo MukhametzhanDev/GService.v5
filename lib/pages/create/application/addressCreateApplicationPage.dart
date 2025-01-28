@@ -75,7 +75,7 @@ class _AddressCreateApplicationPageState
               api: "/countries"),
           const Divider(),
           SelectVerifyData(
-              title: "Город",
+              title: context.localizations.city,
               onChanged: (value) {
                 city = value;
                 setState(() {});

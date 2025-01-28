@@ -6,7 +6,6 @@ import 'package:gservice5/gen/assets.gen.dart';
 import 'package:gservice5/l10n/l10n.dart';
 import 'package:gservice5/localization/extensions/context_extension.dart';
 import 'package:gservice5/localization/streams/general_stream.dart';
-import 'package:gservice5/pages/main/mainPage.dart';
 
 class ChangeAppLanguage extends StatefulWidget {
   const ChangeAppLanguage({super.key});

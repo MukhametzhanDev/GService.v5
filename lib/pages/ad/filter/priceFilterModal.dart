@@ -9,7 +9,6 @@ import 'package:gservice5/localization/extensions/context_extension.dart';
 import 'package:gservice5/provider/adFilterProvider.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
-import 'package:gservice5/localization/extensions/context_extension.dart';
 
 class PriceFilterModal extends StatefulWidget {
   final void Function(Map<String, dynamic> data) onChangedPrice;

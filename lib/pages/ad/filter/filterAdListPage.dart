@@ -125,7 +125,7 @@ class _FilterAdListPageState extends State<FilterAdListPage> {
                     }).toList(),
                   ),
                   FilterSelectModal(
-                      title: "Город",
+                      title: context.localizations.city,
                       option: const {"name": "city_id"},
                       api: "/cities",
                       param: getParam,

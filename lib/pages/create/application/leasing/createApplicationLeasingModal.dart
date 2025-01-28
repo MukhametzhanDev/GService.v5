@@ -15,6 +15,7 @@ import 'package:gservice5/component/widgets/bottom/bottomNavigationBarComponent.
 import 'package:gservice5/pages/create/data/createData.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 import 'package:shimmer/shimmer.dart';
+import 'package:gservice5/localization/extensions/context_extension.dart';
 
 class CreateApplicationLeasingModal extends StatefulWidget {
   final Map data;
@@ -77,8 +78,7 @@ class _CreateApplicationLeasingModalState
         ...EditData.data,
       };
       print(param);
-      Response response =
-          await dio.post("/application", data: param);
+      Response response = await dio.post("/application", data: param);
       print(response.data);
       Navigator.pop(context);
       if (response.data['success'] && response.statusCode == 200) {
@@ -115,7 +115,8 @@ class _CreateApplicationLeasingModalState
         child: Scaffold(
           appBar: AppBar(
             leadingWidth: 300,
-            leading: const BackTitleButton(title: "Заявка на лизинг и рассрочку"),
+            leading:
+                const BackTitleButton(title: "Заявка на лизинг и рассрочку"),
           ),
           body: SingleChildScrollView(
             physics: physics,
@@ -227,8 +228,8 @@ class _CreateApplicationLeasingModalState
                                   textCapitalization:
                                       TextCapitalization.sentences,
                                   style: const TextStyle(fontSize: 14),
-                                  decoration:
-                                      const InputDecoration(hintText: "Имя"))),
+                                  decoration: InputDecoration(
+                                      hintText: context.localizations.name))),
 
                           const Divider(height: 16),
                           // const Text("Номер телефона",
@@ -242,15 +243,16 @@ class _CreateApplicationLeasingModalState
                                 ],
                                 keyboardType: TextInputType.number,
                                 style: const TextStyle(fontSize: 14),
-                                decoration: const InputDecoration(
-                                    hintText: "Номер телефона")),
+                                decoration: InputDecoration(
+                                    hintText:
+                                        context.localizations.phone_number)),
                           ),
                           const Divider(height: 16),
                           // const Text("Город",
                           //     style: TextStyle(fontSize: 15, fontWeight: FontWeight.w500)),
                           // const Divider(height: 8),
                           SelectVerifyData(
-                              title: "Город",
+                              title: context.localizations.city,
                               value: city,
                               onChanged: (value) {
                                 city = value;

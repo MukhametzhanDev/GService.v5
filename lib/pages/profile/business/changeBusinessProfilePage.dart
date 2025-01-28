@@ -12,6 +12,7 @@ import 'package:gservice5/component/textField/closeKeyboard/closeKeyboard.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
 import 'package:gservice5/component/widgets/bottom/bottomNavigationBarComponent.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
+import 'package:gservice5/localization/extensions/context_extension.dart';
 
 class ChangeBusinessProfilePage extends StatefulWidget {
   final Map data;
@@ -147,8 +148,8 @@ class _ChangeBusinessProfilePageState extends State<ChangeBusinessProfilePage> {
                   setState(() {});
                 }),
             const Divider(height: 24),
-            const Text("Город",
-                style: TextStyle(fontSize: 13, fontWeight: FontWeight.w500)),
+            Text(context.localizations.city,
+                style: const TextStyle(fontSize: 13, fontWeight: FontWeight.w500)),
             const Divider(height: 8),
             SelectButton(
                 title: currentCity.isNotEmpty

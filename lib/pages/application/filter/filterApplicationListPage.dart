@@ -8,7 +8,6 @@ import 'package:gservice5/component/widgets/bottom/bottomNavigationBarComponent.
 import 'package:gservice5/localization/extensions/context_extension.dart';
 import 'package:gservice5/pages/ad/filter/filterSelectModal.dart';
 import 'package:gservice5/pages/create/data/createData.dart';
-import 'package:gservice5/localization/extensions/context_extension.dart';
 
 class FilterApplicationListPage extends StatefulWidget {
   const FilterApplicationListPage({super.key});
@@ -78,7 +77,7 @@ class _FilterApplicationListPageState extends State<FilterApplicationListPage> {
                 value: categoryValue(),
                 param: (value) => {}),
             FilterSelectModal(
-                title: "Город",
+                title: context.localizations.city,
                 option: const {"name": "city_id"},
                 api: "/cities",
                 param: getParam,

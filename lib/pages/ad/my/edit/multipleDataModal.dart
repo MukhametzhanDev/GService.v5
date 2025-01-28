@@ -9,7 +9,6 @@ import 'package:gservice5/component/widgets/bottom/bottomNavigationBarComponent.
 import 'package:gservice5/pages/create/data/createData.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:gservice5/localization/extensions/context_extension.dart';
-import 'package:gservice5/localization/extensions/context_extension.dart';
 
 class MultipleDataModal extends StatefulWidget {
   final Map data;

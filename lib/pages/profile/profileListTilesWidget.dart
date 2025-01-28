@@ -15,6 +15,7 @@ import 'package:gservice5/pages/profile/news/newsMainPage.dart';
 import 'package:gservice5/pages/settings/settingsAppPage.dart';
 import 'package:gservice5/updateApp/restartAppPage.dart';
 import 'package:gservice5/updateApp/updateAppPage.dart';
+import 'package:gservice5/localization/extensions/context_extension.dart';
 
 class ProfileListTilesWidget extends StatefulWidget {
   const ProfileListTilesWidget({super.key});
@@ -53,8 +54,8 @@ class _ProfileListTilesWidgetState extends State<ProfileListTilesWidget> {
   }
 
   void showContactsPage() {
-    Navigator.push(
-        context, MaterialPageRoute(builder: (context) => const AddContactsPage()));
+    Navigator.push(context,
+        MaterialPageRoute(builder: (context) => const AddContactsPage()));
   }
 
   void showNewsPage() {
@@ -164,7 +165,7 @@ class _ProfileListTilesWidgetState extends State<ProfileListTilesWidget> {
               onTap: () => showContactsPage(),
               leading: SvgPicture.asset('assets/icons/phoneOutline.svg',
                   color: ColorComponent.mainColor),
-              title: const Text("Контакты"),
+              title: Text(context.localizations.contacts),
               trailing: SvgPicture.asset('assets/icons/right.svg')),
         ),
         // Container(
@@ -198,7 +199,7 @@ class _ProfileListTilesWidgetState extends State<ProfileListTilesWidget> {
                 child: ListTile(
                     onTap: showNewsPage,
                     leading: SvgPicture.asset('assets/icons/bullhorn.svg'),
-                    title: const Text("Новости"),
+                    title: Text(context.localizations.news),
                     trailing: SvgPicture.asset('assets/icons/right.svg')),
               ),
         role == "customer"
@@ -211,7 +212,7 @@ class _ProfileListTilesWidgetState extends State<ProfileListTilesWidget> {
                 child: ListTile(
                     onTap: () {},
                     leading: SvgPicture.asset('assets/icons/fileOutline.svg'),
-                    title: const Text("Документы"),
+                    title:  Text(context.localizations.documents),
                     trailing: SvgPicture.asset('assets/icons/right.svg')),
               ),
         role == "customer"

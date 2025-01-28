@@ -8,6 +8,7 @@ import 'package:gservice5/component/theme/colorComponent.dart';
 import 'package:gservice5/pages/profile/news/empty/emptyNewsPage.dart';
 import 'package:gservice5/pages/profile/news/newsItem.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
+import 'package:gservice5/localization/extensions/context_extension.dart';
 
 class AllNewsPage extends StatefulWidget {
   final bool? showBackButton;
@@ -91,7 +92,7 @@ class _AllNewsPageState extends State<AllNewsPage> {
     return Scaffold(
       appBar: widget.showBackButton ?? false
           ? AppBar(
-              leading: const BackTitleButton(title: "Новости"),
+              leading:  BackTitleButton(title: context.localizations.news),
               leadingWidth: 200)
           : null,
       body: loader

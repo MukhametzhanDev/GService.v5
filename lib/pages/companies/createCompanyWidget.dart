@@ -3,6 +3,7 @@ import 'package:gservice5/component/button/button.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
 import 'package:gservice5/pages/create/application/sectionCreateApplicationPage.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
+import 'package:gservice5/localization/extensions/context_extension.dart';
 
 class CreateCompanyWidget extends StatelessWidget {
   const CreateCompanyWidget({super.key});
@@ -51,7 +52,7 @@ class CreateCompanyWidget extends StatelessWidget {
                       builder: (context) =>
                           const SectionCreateApplicationPage());
                 },
-                title: "Разместить компанию"),
+                title: context.localizations.top_companies),
           )
         ],
       ),

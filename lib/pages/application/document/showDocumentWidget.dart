@@ -17,7 +17,7 @@ class _ShowDocumentWidgetState extends State<ShowDocumentWidget> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(context.localizations.attached_documents_optional,
-            style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600)),
+            style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w600)),
         const Divider(height: 8),
         Column(
             children: [1, 2].map((value) {

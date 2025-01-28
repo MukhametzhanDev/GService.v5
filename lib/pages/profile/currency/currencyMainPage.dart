@@ -3,6 +3,7 @@ import 'package:gservice5/component/button/back/backTitleButton.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
 import 'package:gservice5/pages/profile/currency/sparePartCurrencyPage.dart';
 import 'package:gservice5/pages/profile/currency/transportSaleCurrencyPage.dart';
+import 'package:gservice5/localization/extensions/context_extension.dart';
 
 class CurrencyMainPage extends StatefulWidget {
   const CurrencyMainPage({super.key});
@@ -31,9 +32,9 @@ class _CurrencyMainPageState extends State<CurrencyMainPage> {
                   child: TabBar(
                       indicatorSize: TabBarIndicatorSize.tab,
                       indicatorWeight: 3,
-                      tabs: const [
-                        Tab(text: "Продажа спецтехники"),
-                        Tab(text: "Запчасти")
+                      tabs:  [
+                        Tab(text: context.localizations.sale_of_equipment),
+                        Tab(text: context.localizations.spare_parts)
                       ],
                       indicator: BoxDecoration(
                           border: Border(

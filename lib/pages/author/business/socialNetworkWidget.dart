@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gservice5/localization/extensions/context_extension.dart';
 
 class SocialNetworkWidget extends StatelessWidget {
   final List data;
@@ -9,8 +10,8 @@ class SocialNetworkWidget extends StatelessWidget {
     return data.isEmpty
         ? Container()
         : Column(children: [
-            const Text("Контакты",
-                style: TextStyle(fontSize: 17, fontWeight: FontWeight.w500)),
+             Text(context.localizations.contacts,
+                style: const TextStyle(fontSize: 17, fontWeight: FontWeight.w500)),
             const Divider(height: 10),
             GestureDetector(
               child: const Row(children: [

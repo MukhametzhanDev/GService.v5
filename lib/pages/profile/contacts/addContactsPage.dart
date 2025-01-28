@@ -154,7 +154,7 @@ class _AddContactsPageState extends State<AddContactsPage> {
       onTap: () => closeKeyboard(),
       child: Scaffold(
         appBar: AppBar(
-            title: const Text("Контакты"), leading: const BackIconButton()),
+            title:  Text(context.localizations.contacts), leading: const BackIconButton()),
         body: loader
             ? const LoaderComponent()
             : SingleChildScrollView(

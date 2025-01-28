@@ -12,7 +12,6 @@ import 'package:gservice5/component/theme/colorComponent.dart';
 import 'package:gservice5/provider/adFilterProvider.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:provider/provider.dart';
-import 'package:gservice5/localization/extensions/context_extension.dart';
 
 class FilterSelectModal extends StatefulWidget {
   final String title;

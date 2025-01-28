@@ -78,9 +78,9 @@ class _PriceCreateAdPageState extends State<PriceCreateAdPage> {
         padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
         child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
           Padding(
-              padding: EdgeInsets.only(bottom: 15),
+              padding: const EdgeInsets.only(bottom: 15),
               child: Text(context.localizations.price,
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600))),
+                  style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w600))),
           const ExplanatoryMessage(
               title:
                   "Цену лучше указать — так удобнее для покупателей. Если цена не указана, то при расширенном поиске покупатели могут не найти ваше объявление, а в объявлении будет автоматически указана стоимость «По запросу».",

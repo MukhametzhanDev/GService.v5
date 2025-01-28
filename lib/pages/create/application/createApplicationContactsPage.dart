@@ -9,6 +9,8 @@ import 'package:gservice5/component/snackBar/snackBarComponent.dart';
 import 'package:gservice5/component/widgets/bottom/bottomNavigationBarComponent.dart';
 import 'package:gservice5/pages/create/data/createData.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
+import 'package:gservice5/localization/extensions/context_extension.dart';
+import 'package:gservice5/localization/extensions/context_extension.dart';
 
 class CreateApplicationContactsPage extends StatefulWidget {
   const CreateApplicationContactsPage({super.key});
@@ -74,7 +76,8 @@ class _CreateApplicationContactsPageState
 
   void verifyData() {
     if (nameEditingController.text.trim().isEmpty) {
-      SnackBarComponent().showErrorMessage("Введите имя", context);
+      SnackBarComponent()
+          .showErrorMessage(context.localizations.enter_your_name, context);
     } else if (phoneEditingController.text.trim().isEmpty) {
       SnackBarComponent().showErrorMessage("Введите номер телефона", context);
     } else if (city.isEmpty) {
@@ -104,8 +107,8 @@ class _CreateApplicationContactsPageState
                     style:
                         TextStyle(fontSize: 20, fontWeight: FontWeight.w600))),
             const Divider(height: 12),
-            const Text("Имя",
-                style: TextStyle(fontSize: 15, fontWeight: FontWeight.w500)),
+            Text(context.localizations.name,
+                style: const TextStyle(fontSize: 15, fontWeight: FontWeight.w500)),
             const Divider(height: 8),
             AutofillGroup(
                 child: TextField(
@@ -114,10 +117,11 @@ class _CreateApplicationContactsPageState
                     keyboardType: TextInputType.name,
                     textCapitalization: TextCapitalization.sentences,
                     style: const TextStyle(fontSize: 14),
-                    decoration: const InputDecoration(hintText: "Имя"))),
+                    decoration:
+                        InputDecoration(hintText: context.localizations.name))),
             const Divider(height: 16),
-            const Text("Номер телефона",
-                style: TextStyle(fontSize: 15, fontWeight: FontWeight.w500)),
+            Text(context.localizations.phone_number,
+                style: const TextStyle(fontSize: 15, fontWeight: FontWeight.w500)),
             const Divider(height: 8),
             AutofillGroup(
               child: TextField(
@@ -125,17 +129,17 @@ class _CreateApplicationContactsPageState
                   autofillHints: const [AutofillHints.telephoneNumber],
                   keyboardType: TextInputType.number,
                   style: const TextStyle(fontSize: 14),
-                  decoration:
-                      const InputDecoration(hintText: "Номер телефона")),
+                  decoration: InputDecoration(
+                      hintText: context.localizations.phone_number)),
             ),
             const Divider(height: 16),
-            const Text("Город",
-                style: TextStyle(fontSize: 15, fontWeight: FontWeight.w500)),
+             Text(context.localizations.city,
+                style: const TextStyle(fontSize: 15, fontWeight: FontWeight.w500)),
             const Divider(height: 8),
             loaderUser
                 ? Container()
                 : SelectVerifyData(
-                    title: "Город",
+                    title: context.localizations.city,
                     value: city,
                     onChanged: (value) {
                       city = value;

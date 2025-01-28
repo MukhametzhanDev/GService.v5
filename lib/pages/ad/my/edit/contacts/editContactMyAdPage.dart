@@ -11,6 +11,7 @@ import 'package:gservice5/component/widgets/bottom/bottomNavigationBarComponent.
 import 'package:gservice5/component/widgets/checkBox/checkBoxWidget.dart';
 import 'package:gservice5/pages/profile/contacts/addContactModal.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
+import 'package:gservice5/localization/extensions/context_extension.dart';
 
 class EditContactMyAdPage extends StatefulWidget {
   final Map data;
@@ -107,11 +108,11 @@ class _EditContactMyAdPageState extends State<EditContactMyAdPage> {
           padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
           child:
               Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-            const Text("Город",
-                style: TextStyle(fontSize: 15, fontWeight: FontWeight.w500)),
+             Text(context.localizations.city,
+                style: const TextStyle(fontSize: 15, fontWeight: FontWeight.w500)),
             const Divider(height: 12),
             SelectVerifyData(
-                title: "Город",
+                title: context.localizations.city,
                 value: city,
                 onChanged: (value) {
                   city = value;

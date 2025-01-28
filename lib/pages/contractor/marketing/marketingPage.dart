@@ -4,6 +4,7 @@ import 'package:gservice5/component/button/button.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
 import 'package:gservice5/component/widgets/bottom/bottomNavigationBarComponent.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
+import 'package:gservice5/localization/extensions/context_extension.dart';
 
 class MarketingPage extends StatefulWidget {
   const MarketingPage({super.key});
@@ -109,11 +110,12 @@ class _MarketingPageState extends State<MarketingPage> {
                     borderRadius: BorderRadius.circular(12),
                     color: Colors.white),
                 child: Column(children: [
-                  const Text("Остались вопросы?",
+                  Text(context.localizations.well_help_you_choose,
                       style:
-                          TextStyle(fontSize: 17, fontWeight: FontWeight.w700)),
+                          const TextStyle(fontSize: 17, fontWeight: FontWeight.w700)),
                   const Divider(),
-                  const Text("Позвоним и ответим"),
+                  Text(context.localizations
+                      .if_you_have_any_questions_or_dont_know_what_to_choose_contact_our_sales_department_or_leave_an_application),
                   const Divider(),
                   SizedBox(
                     height: 40,

@@ -10,7 +10,6 @@ import 'package:gservice5/pages/create/data/createData.dart';
 import 'package:gservice5/pages/create/structure/controllerPage/pageControllerIndexedStack.dart';
 import 'package:intl/intl.dart';
 import 'package:gservice5/localization/extensions/context_extension.dart';
-import 'package:gservice5/localization/extensions/context_extension.dart';
 
 class PriceCreateApplicationPage extends StatefulWidget {
   final void Function() nextPage;

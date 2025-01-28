@@ -51,7 +51,7 @@ class _BusinessBottomTabState extends State<BusinessBottomTab> {
   @override
   Widget build(BuildContext context) {
     final ColorTheme = ThemeColorComponent.ColorsTheme(context);
-    final List<Map> _tabs = <Map>[
+    final List<Map> tabs = <Map>[
       {"icon": "assets/icons/clipboardOutline.svg", "label": "Мои"},
       {"icon": "assets/icons/file.svg", "label": context.localizations.order},
       {"icon": "assets/icons/plus.svg", "label": context.localizations.ad},
@@ -70,8 +70,8 @@ class _BusinessBottomTabState extends State<BusinessBottomTab> {
       bottomNavigationBar: BottomNavigationBar(
           backgroundColor: ColorTheme['white_black'],
           elevation: 0,
-          items: _tabs.map((value) {
-            int index = _tabs.indexOf(value);
+          items: tabs.map((value) {
+            int index = tabs.indexOf(value);
             return BottomNavigationBarItem(
                 icon: Wrap(
                     alignment: WrapAlignment.center,

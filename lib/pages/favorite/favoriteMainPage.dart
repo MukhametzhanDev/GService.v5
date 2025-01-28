@@ -29,7 +29,7 @@ class _FavoriteMainPageState extends State<FavoriteMainPage> {
 
   @override
   Widget build(BuildContext context) {
-    final List _tabs = [context.localizations.ads, context.localizations.orders];
+    final List tabs = [context.localizations.ads, context.localizations.orders];
     return !token
         ? const EmptyTokenPage()
         : DefaultTabController(
@@ -49,7 +49,7 @@ class _FavoriteMainPageState extends State<FavoriteMainPage> {
                           isScrollable: false,
                           // tabAlignment: TabAlignment.start,
                           indicatorSize: TabBarIndicatorSize.tab,
-                          tabs: _tabs.map((value) {
+                          tabs: tabs.map((value) {
                             return Tab(text: value);
                             // Padding(
                             //   padding: const EdgeInsets.only(bottom: 10),

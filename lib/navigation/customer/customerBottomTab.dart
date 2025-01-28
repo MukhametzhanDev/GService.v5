@@ -1,4 +1,3 @@
-import 'package:app_links/app_links.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -12,6 +11,7 @@ import 'package:gservice5/pages/main/mainPage.dart';
 import 'package:gservice5/pages/message/messageMainPage.dart';
 import 'package:gservice5/pages/profile/verifyProfilePage.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
+import 'package:gservice5/localization/extensions/context_extension.dart';
 
 @RoutePage()
 class CustomerBottomTab extends StatefulWidget {
@@ -24,13 +24,6 @@ class CustomerBottomTab extends StatefulWidget {
 class _CustomerBottomTabState extends State<CustomerBottomTab>
     with SingleTickerProviderStateMixin {
   int _selectedIndex = 0;
-  static final List<Map> _tabs = <Map>[
-    {"icon": "assets/icons/home.svg", "label": "Главная"},
-    {"icon": "assets/icons/heartOutline.svg", "label": "Избранное"},
-    {"icon": "assets/icons/plus.svg", "label": "Объявление"},
-    {"icon": "assets/icons/messages.svg", "label": "Сообщения"},
-    {"icon": "assets/icons/user.svg", "label": "Профиль"},
-  ];
   ScrollController scrollController = ScrollController();
 
   @override
@@ -70,6 +63,13 @@ class _CustomerBottomTabState extends State<CustomerBottomTab>
   @override
   Widget build(BuildContext context) {
     final ColorTheme = ThemeColorComponent.ColorsTheme(context);
+    final List<Map> tabs = <Map>[
+      {"icon": "assets/icons/home.svg", "label": context.localizations.home},
+      {"icon": "assets/icons/heartOutline.svg", "label": "Избранное"},
+      {"icon": "assets/icons/plus.svg", "label": context.localizations.ad},
+      {"icon": "assets/icons/messages.svg", "label": "Сообщения"},
+      {"icon": "assets/icons/user.svg", "label": "Профиль"},
+    ];
     return Scaffold(
       body: IndexedStack(index: _selectedIndex, children: [
         MainPage(
@@ -84,8 +84,8 @@ class _CustomerBottomTabState extends State<CustomerBottomTab>
       bottomNavigationBar: BottomNavigationBar(
           backgroundColor: ColorTheme['white_black'],
           elevation: 0,
-          items: _tabs.map((value) {
-            int index = _tabs.indexOf(value);
+          items: tabs.map((value) {
+            int index = tabs.indexOf(value);
             return BottomNavigationBarItem(
                 icon: BadgeWidget(
                     position: badges.BadgePosition.topEnd(top: -8, end: -6),

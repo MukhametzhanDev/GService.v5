@@ -139,7 +139,7 @@ class _ViewMyApplicationPageState extends State<ViewMyApplicationPage> {
                           children: [
                             // Divider(indent: 12),
                             ShowCharacteristicWidget(
-                                title: "Город", subTitle: data['city']),
+                                title: context.localizations.city, subTitle: data['city']),
                             ShowCharacteristicWidget(
                                 title: "Раздел", subTitle: data['category']),
                             ShowCharacteristicWidget(

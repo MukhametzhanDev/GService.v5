@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:gservice5/component/button/back/backTitleButton.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
+import 'package:gservice5/localization/extensions/context_extension.dart';
 
 class AboutCompanyPage extends StatefulWidget {
   const AboutCompanyPage({super.key});
@@ -49,7 +50,7 @@ class _AboutCompanyPageState extends State<AboutCompanyPage> {
         Divider(height: 1, color: ColorComponent.gray['200']),
         ListTile(
             leading: SvgPicture.asset('assets/icons/fileOutline.svg'),
-            title: const Text("Правила пользования"),
+            title: Text(context.localizations.terms_of_use),
             trailing: SvgPicture.asset('assets/icons/right.svg')),
         Divider(height: 1, color: ColorComponent.gray['200']),
         ListTile(
@@ -60,7 +61,7 @@ class _AboutCompanyPageState extends State<AboutCompanyPage> {
         ListTile(
             leading: SvgPicture.asset('assets/icons/phoneOutline.svg',
                 color: ColorComponent.mainColor),
-            title: const Text("Контакты"),
+            title:  Text(context.localizations.contacts),
             trailing: SvgPicture.asset('assets/icons/right.svg')),
         Divider(height: 1, color: ColorComponent.gray['200']),
       ])),

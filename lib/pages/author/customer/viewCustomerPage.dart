@@ -12,6 +12,7 @@ import 'package:gservice5/component/snackBar/snackBarComponent.dart';
 import 'package:gservice5/component/theme/colorComponent.dart';
 import 'package:gservice5/pages/ad/list/adListWidget.dart';
 import 'package:gservice5/pages/application/list/customer/applicationListWidget.dart';
+import 'package:gservice5/localization/extensions/context_extension.dart';
 
 class ViewCustomerPage extends StatefulWidget {
   final int id;
@@ -25,17 +26,14 @@ class _ViewCustomerPageState extends State<ViewCustomerPage>
     with SingleTickerProviderStateMixin {
   Map data = {};
   bool loader = true;
-  List pages = [
-    {"title": "Объявления"},
-    {"title": "Заказы"},
-  ];
+
   ScrollController scrollController = ScrollController();
   TabController? tabController;
 
   @override
   void initState() {
     getData();
-    tabController = TabController(length: pages.length, vsync: this);
+    tabController = TabController(length: 2, vsync: this);
     super.initState();
   }
 
@@ -80,6 +78,10 @@ class _ViewCustomerPageState extends State<ViewCustomerPage>
 
   @override
   Widget build(BuildContext context) {
+    List pages = [
+      {"title": context.localizations.ad},
+      {"title": context.localizations.order},
+    ];
     return Scaffold(
         appBar: AppBar(
           leading: const BackIconButton(),
@@ -182,7 +184,7 @@ class _ViewCustomerPageState extends State<ViewCustomerPage>
                         "author_type": "user"
                       }, scrollController: scrollController)
                     ])),
-            ),
+              ),
         bottomNavigationBar: ContactBottomBarWidget(
             hasAd: false, id: 1, phones: [data['phone']]));
   }

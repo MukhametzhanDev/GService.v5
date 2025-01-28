@@ -9,6 +9,7 @@ import 'package:gservice5/component/theme/colorComponent.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:gservice5/localization/extensions/context_extension.dart';
 
 class ContactBottomBarWidget extends StatefulWidget {
   final bool hasAd;
@@ -93,7 +94,7 @@ class _ContactstListModalState extends State<ContactstListModal> {
           AppBar(
               centerTitle: false,
               automaticallyImplyLeading: false,
-              title: const Text("Контакты"),
+              title:  Text(context.localizations.contacts),
               actions: const [CloseIconButton(iconColor: null, padding: true)]),
           const ExplanatoryMessage(
               title:

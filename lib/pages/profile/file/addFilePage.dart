@@ -131,7 +131,7 @@ class _AddFilePageState extends State<AddFilePage> {
                       SvgPicture.asset("assets/icons/downloadFile.svg"),
                       const SizedBox(width: 8),
                       Text(context.localizations.upload_file,
-                          style: TextStyle(
+                          style: const TextStyle(
                               fontSize: 12,
                               fontWeight: FontWeight.w500,
                               color: Colors.white))

@@ -13,6 +13,7 @@ import 'package:gservice5/pages/ad/package/listPackagePage.dart';
 import 'package:gservice5/pages/create/data/createData.dart';
 import 'package:gservice5/pages/profile/contacts/addContactModal.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
+import 'package:gservice5/localization/extensions/context_extension.dart';
 
 class CreateAdContactsPage extends StatefulWidget {
   final void Function() previousPage;
@@ -167,13 +168,13 @@ class _CreateAdContactsPageState extends State<CreateAdContactsPage> {
                     style:
                         TextStyle(fontSize: 20, fontWeight: FontWeight.w600))),
             const Divider(height: 12),
-            const Text("Город",
-                style: TextStyle(fontSize: 15, fontWeight: FontWeight.w500)),
+            Text(context.localizations.city,
+                style: const TextStyle(fontSize: 15, fontWeight: FontWeight.w500)),
             const Divider(height: 12),
             loaderUser
                 ? Container()
                 : SelectVerifyData(
-                    title: "Город",
+                    title: context.localizations.city,
                     value: city,
                     onChanged: (value) {
                       city = value;

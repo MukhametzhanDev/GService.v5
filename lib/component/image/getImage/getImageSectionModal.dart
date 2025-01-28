@@ -62,7 +62,7 @@ class _GetImageSectionModalState extends State<GetImageSectionModal> {
                       height: 43,
                       alignment: Alignment.center,
                       child:  Text(context.localizations.cancel,
-                          style: TextStyle(
+                          style: const TextStyle(
                               fontSize: 16, fontWeight: FontWeight.w500)),
                     ))
               ]),

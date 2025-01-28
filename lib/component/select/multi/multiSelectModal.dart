@@ -10,7 +10,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:gservice5/component/widgets/bottom/bottomNavigationBarComponent.dart';
 import 'package:gservice5/localization/extensions/context_extension.dart';
-import 'package:gservice5/localization/extensions/context_extension.dart';
 
 class MultiSelectModal extends StatefulWidget {
   final String title;

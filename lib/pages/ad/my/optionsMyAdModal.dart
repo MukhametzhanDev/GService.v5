@@ -88,7 +88,7 @@ class _OptionsMyAdModalState extends State<OptionsMyAdModal> {
                   TextButton(
                       onPressed: () => Navigator.pop(context),
                       child: Text(context.localizations.cancel,
-                          style: TextStyle(
+                          style: const TextStyle(
                               fontWeight: FontWeight.w500, fontSize: 16))),
                 ],
               )
@@ -115,7 +115,7 @@ class _OptionsMyAdModalState extends State<OptionsMyAdModal> {
                       TextButton(
                           onPressed: () => Navigator.pop(context),
                           child: Text(context.localizations.cancel,
-                              style: TextStyle(
+                              style: const TextStyle(
                                   fontWeight: FontWeight.w500, fontSize: 14))),
                       const SizedBox(height: 12),
                     ],
@@ -160,7 +160,7 @@ class _OptionsMyAdModalState extends State<OptionsMyAdModal> {
                 setState(() {});
               },
               child:  Text(context.localizations.cancel,
-                  style: TextStyle(fontWeight: FontWeight.w500, fontSize: 14))),
+                  style: const TextStyle(fontWeight: FontWeight.w500, fontSize: 14))),
         ],
       ),
       const SizedBox(height: 24),
